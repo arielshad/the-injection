@@ -1,14 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/hubot-sans/wdth.css";
+@import "@fontsource-variable/hanken-grotesk";
 @import "@fontsource-variable/martian-mono/wdth.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: 'Hubot Sans Variable', ui-sans-serif, system-ui, sans-serif;
-    --font-sans: 'Hubot Sans Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'Martian Mono Variable', ui-monospace, monospace;
     --color-sev-critical: var(--sev-critical);
     --color-sev-high: var(--sev-high);
@@ -165,9 +165,8 @@
     }
   /* Bricolage is the display face: heavy, a little condensed, tight. */
   .font-heading {
-    font-weight: 750;
-    font-stretch: 78%;
-    letter-spacing: -0.005em;
+    font-weight: 600;
+    letter-spacing: -0.02em;
     }
   html { color-scheme: dark; }
   ::selection {

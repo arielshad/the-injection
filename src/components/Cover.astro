@@ -22,7 +22,7 @@ const label = CATEGORY_META[item.categories[0]].label;
   <Fragment set:html={art.svg} />
   {!hideText && (
     <div class="absolute inset-0 flex items-end p-[6%]" style={`color:${art.ink}`}>
-      <span class="font-heading font-bold leading-[0.95] tracking-[-0.02em]" style={`font-size:clamp(14px, ${fontPx / 14}vw, ${fontPx}px)`}>{art.text}</span>
+      <span class="font-heading font-semibold leading-[0.95] tracking-[-0.02em]" style={`font-size:clamp(14px, ${fontPx / 14}vw, ${fontPx}px)`}>{art.text}</span>
     </div>
   )}
   {/* The source image covers the generated art; if it fails to load (hotlink blocks), the art shows through. */}

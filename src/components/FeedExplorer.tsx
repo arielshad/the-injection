@@ -51,7 +51,7 @@ function Thumb({ it }: { it: SlimItem }) {
   return (
     <span className="absolute inset-0" style={{ background: art.bg }}>
       <span dangerouslySetInnerHTML={{ __html: art.svg }} />
-      <span className="absolute inset-0 flex items-end p-2 font-heading text-[11px] font-bold leading-[1.05] sm:text-[13px]" style={{ color: art.ink }}>
+      <span className="absolute inset-0 flex items-end p-2 font-heading text-[11px] font-semibold leading-[1.05] sm:text-[13px]" style={{ color: art.ink }}>
         {art.text}
       </span>
     </span>
@@ -167,7 +167,7 @@ export default function FeedExplorer({ items, categories, severities }: Props) {
                     <span className="text-ink/70">{it.org}</span>
                     {it.cve && <span className="hidden sm:inline">{it.cve}</span>}
                   </span>
-                  <span className="mt-1.5 block font-heading text-[17px] font-bold leading-snug text-white [font-stretch:88%] group-hover:underline group-hover:decoration-acid sm:text-[19px]">{it.title}</span>
+                  <span className="mt-1.5 block font-heading text-[17px] font-semibold leading-snug text-white group-hover:underline group-hover:decoration-acid sm:text-[19px]">{it.title}</span>
                   <span className="mt-1 hidden text-[13.5px] leading-relaxed text-muted-foreground sm:line-clamp-1">{it.summary}</span>
                 </span>
                 <time dateTime={it.date} className="hidden self-start pt-0.5 font-mono text-[10.5px] text-muted-foreground sm:block">{it.date}</time>
