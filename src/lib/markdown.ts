@@ -57,7 +57,7 @@ export function indexMarkdown(items: Item[]): string {
     "",
     `> ${SITE.description}`,
     "",
-    `Updated every six hours. Machine-readable: [llms.txt](${abs("/llms.txt")}), [JSON feed](${abs("/feed.json")}), [RSS](${abs("/rss.xml")}). Every story below also has a Markdown version at its URL with \`.md\` (for example ${abs(`/items/${items[0]?.id ?? "example"}.md`)}).`,
+    `Updated every hour. Machine-readable: [llms.txt](${abs("/llms.txt")}), [JSON feed](${abs("/feed.json")}), [RSS](${abs("/rss.xml")}). Every story below also has a Markdown version at its URL with \`.md\` (for example ${abs(`/items/${items[0]?.id ?? "example"}.md`)}).`,
     "",
     "## Latest stories",
     "",

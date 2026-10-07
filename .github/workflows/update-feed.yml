@@ -1,4 +1,4 @@
-name: Update feed (every 6h)
+name: Update feed (hourly)
 
 # Runs the AI-security feed sweep on a schedule.
 #
@@ -19,7 +19,9 @@ name: Update feed (every 6h)
 
 on:
   schedule:
-    - cron: "17 */6 * * *"
+    # Minute 17 of every hour. A run can outlast the hour (two 35m attempts);
+    # the concurrency group below then holds the next run until it finishes.
+    - cron: "17 * * * *"
   workflow_dispatch: {}
 
 permissions:

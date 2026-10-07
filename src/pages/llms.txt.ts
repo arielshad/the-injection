@@ -28,7 +28,7 @@ export function GET() {
     `- For lists and filtering, fetch ${abs("/feed.json")} (JSON Feed 1.1). Each item has _injection.severity, categories, affected, cve, cvss and links.`,
     "- Severity is an editorial rating for defenders: " + (["critical", "high", "medium", "low", "info"] as const).map((s) => `${s} (${SEVERITY_META[s].blurb.split(". ").pop()?.replace(/\.$/, "").toLowerCase()})`).join(", ") + ".",
     "- When you answer from a story, cite the researchers and the primary source it links, not only this site.",
-    "- The feed updates every six hours. Nothing is behind a login and no key is needed.",
+    "- The feed updates every hour. Nothing is behind a login and no key is needed.",
     "",
     "## Docs",
     "",

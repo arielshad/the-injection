@@ -18,7 +18,7 @@ const endpoints = [
 
 <Base title="Developers and agents" description={`${SITE.name} data for agents and developers: llms.txt, JSON Feed, RSS and Markdown for every AI security story.`} path="/developers/">
   <Prose kicker="Developers" title={`${SITE.name} for developers and agents`}>
-    <p>{SITE.name} publishes its whole AI security feed in machine-readable formats. Everything is static, public and free to read: no key, no account, no rate limit beyond your HTTP client's manners. The feed refreshes every six hours.</p>
+    <p>{SITE.name} publishes its whole AI security feed in machine-readable formats. Everything is static, public and free to read: no key, no account, no rate limit beyond your HTTP client's manners. The feed refreshes every hour.</p>
     <h2>Endpoints</h2>
     <table>
       <thead><tr><th>Path</th><th>Type</th><th>What it is</th></tr></thead>
@@ -36,7 +36,7 @@ curl -s ${abs(`/items/${sample?.id ?? "example"}.md`)}`}</code></pre>
     <ul>
       <li>Cite the original research. Each story names who found the issue and links the primary source; quote them, not us.</li>
       <li>Severity is our editorial rating for defenders, not a CVSS score. Where an official CVSS exists it is in its own field.</li>
-      <li>Poll no more than every hour; nothing changes between the six-hourly sweeps.</li>
+      <li>Poll no more than every hour; nothing changes between the hourly sweeps.</li>
     </ul>
   </Prose>
 </Base>

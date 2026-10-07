@@ -9,7 +9,7 @@ invoke-as: subagent
 # The Injection: feed sweep
 
 Single source of truth for refreshing `src/data/items.json`. Runs on cron
-(every 6 hours, `.github/workflows/update-feed.yml`) and by hand. You write a
+(every hour, `.github/workflows/update-feed.yml`) and by hand. You write a
 draft file. Deterministic scripts check it and merge it. Read `SOUL.md` for
 the voice and `SWEEP_MEMORY.md` for what broke before. Read both before you
 start.
