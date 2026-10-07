@@ -22,6 +22,16 @@ real incidents, useful tools, measured results and specific lab claims. Real,
 verified, credited. If nothing in the window meets the bar, ship zero items.
 That is a successful sweep. Padding is the bug.
 
+Two beats, both first-class:
+
+- **AI security:** attacks on and flaws in models, agents and AI products.
+- **AI dev security:** the security of building software WITH AI. Coding
+  agents and AI IDEs (Claude Code, Codex, Copilot, Cursor, Gemini CLI,
+  Windsurf), their plugins, skills, MCP servers, extensions and package
+  installs, agent permission and sandbox models, secrets leaking through
+  agents, and AI-generated code shipping vulnerabilities. Search this beat on
+  every sweep, not only when the first beat is quiet.
+
 ## The pipeline (one path, no alternative)
 
 You do NOT edit `src/data/items.json` or `src/data/sweeps.json`. Ever. Not to
