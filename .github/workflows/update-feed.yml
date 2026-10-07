@@ -14,8 +14,7 @@ name: Update feed (every 6h)
 #      trigger other workflows, so the deploy is called directly here.
 #   7. Ping IndexNow with the homepage and the item pages this sweep touched.
 #
-# Secrets:  CLAUDE_CODE_OAUTH_TOKEN (claude setup-token), CLOUDFLARE_API_TOKEN,
-#           CLOUDFLARE_ACCOUNT_ID
+# Secrets:  CLAUDE_CODE_OAUTH_TOKEN (claude setup-token)
 # Variables: SITE_URL (e.g. https://theinjection.dev)
 
 on:
@@ -29,7 +28,7 @@ permissions:
   id-token: write
   # Passed through to the reusable deploy.yml (a called workflow cannot
   # hold more permissions than its caller).
-  deployments: write
+  pages: write
 
 concurrency:
   group: update-feed

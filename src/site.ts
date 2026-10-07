@@ -11,3 +11,8 @@ export const SITE = {
 };
 
 export const abs = (path: string) => SITE.url + (path.startsWith("/") ? path : `/${path}`);
+
+/** Base path for GitHub Pages project sites (e.g. "/the-injection"), "" on a custom domain. */
+const BASE = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+/** Site-relative link that respects the base path. Use for every internal href. */
+export const u = (path: string) => BASE + (path.startsWith("/") ? path : `/${path}`);

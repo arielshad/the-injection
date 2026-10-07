@@ -1,4 +1,5 @@
 ---
+import { u } from "@/site";
 import type { Item } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
 import SeverityBadge from "@/components/SeverityBadge.astro";
@@ -17,7 +18,7 @@ const { lead, seconds } = Astro.props;
       </span>
     </div>
     <h2 class="mt-4 font-heading text-4xl leading-[1.05] tracking-tight sm:text-[3.4rem]">
-      <a href={`/items/${lead.id}/`} class="decoration-sev-critical decoration-2 underline-offset-[6px] hover:underline">{lead.title}</a>
+      <a href={u(`/items/${lead.id}/`)} class="decoration-sev-critical decoration-2 underline-offset-[6px] hover:underline">{lead.title}</a>
     </h2>
     <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink/80">{lead.explainer.tagline}</p>
     <p class="mt-3 max-w-2xl leading-relaxed text-muted-foreground">{lead.summary}</p>
@@ -34,7 +35,7 @@ const { lead, seconds } = Astro.props;
           <span class="font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground">{it.org}</span>
         </div>
         <h3 class="mt-2 font-heading text-2xl leading-tight">
-          <a href={`/items/${it.id}/`} class="decoration-sev-critical decoration-1 underline-offset-4 hover:underline">{it.title}</a>
+          <a href={u(`/items/${it.id}/`)} class="decoration-sev-critical decoration-1 underline-offset-4 hover:underline">{it.title}</a>
         </h3>
         <p class="mt-1.5 text-sm leading-relaxed text-muted-foreground">{it.explainer.tagline}</p>
       </article>

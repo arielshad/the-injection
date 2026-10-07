@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Category, Severity } from "@/data/schema";
+import { u } from "@/site";
 import { SEV_BORDER, SEV_GLYPH, SEV_TEXT } from "@/lib/severity";
+
 
 export interface SlimItem {
   id: string;
@@ -142,7 +144,7 @@ export default function FeedExplorer({ items, categories, severities }: Props) {
               <ol className="divide-y divide-border">
                 {list.map((it) => (
                   <li key={it.id} className={`border-l-[3px] ${SEV_BORDER[it.severity]}`}>
-                    <a href={`/items/${it.id}/`} className="group grid grid-cols-1 gap-x-5 py-4 pl-4 sm:grid-cols-[5.5rem_1fr] sm:pl-5">
+                    <a href={u(`/items/${it.id}/`)} className="group grid grid-cols-1 gap-x-5 py-4 pl-4 sm:grid-cols-[5.5rem_1fr] sm:pl-5">
                       <span className={`hidden pt-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider sm:block ${SEV_TEXT[it.severity]}`}>
                         {SEV_GLYPH[it.severity]} {it.severity}
                       </span>

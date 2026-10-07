@@ -1,14 +1,17 @@
 ---
+import { u } from "@/site";
 import { SITE } from "@/site";
 import { CATEGORY_ORDER } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
 import { allItems } from "@/data/feed";
 
-const isHome = Astro.url.pathname === "/";
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
+const path = Astro.url.pathname.slice(BASE.length) || "/";
+const isHome = path === "/";
 const edition = new Date().toLocaleDateString("en-US", {
   weekday: "long", year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
 });
-const current = Astro.url.pathname;
+const current = path;
 const items = allItems();
 const crit = items.filter((i) => i.severity === "critical").length;
 const high = items.filter((i) => i.severity === "high").length;
@@ -18,11 +21,11 @@ const high = items.filter((i) => i.severity === "high").length;
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground sm:px-6">
     <span>{edition}</span>
     <span class="hidden sm:inline">{items.length} stories · {crit > 0 && <><span class="text-sev-critical">● {crit} critical</span> · </>}<span class="text-sev-high">◆ {high} high</span></span>
-    <a href="/rss.xml" class="hover:text-ink">RSS</a>
+    <a href={u("/rss.xml")} class="hover:text-ink">RSS</a>
   </div>
   <div class="mx-auto max-w-6xl border-t border-border px-4 sm:px-6">
     <div class="flex items-end justify-between gap-6 py-5 sm:py-7">
-      <a href="/" class="group block leading-none" aria-label={`${SITE.name} home`}>
+      <a href={u("/")} class="group block leading-none" aria-label={`${SITE.name} home`}>
         {isHome ? (
           <h1 class="font-heading text-5xl tracking-tight sm:text-7xl">
             The <em class="italic">Injection</em><span class="text-sev-critical">.</span>
@@ -42,16 +45,16 @@ const high = items.filter((i) => i.severity === "high").length;
   <div class="mt-[2px] h-px bg-ink"></div>
   <nav aria-label="Sections">
     <ul class="mx-auto flex max-w-6xl gap-5 overflow-x-auto px-4 py-2.5 font-mono text-[11px] uppercase tracking-wider sm:px-6 [scrollbar-width:none]">
-      <li><a href="/" class:list={["whitespace-nowrap hover:text-sev-critical", current === "/" && "text-sev-critical"]}>Latest</a></li>
+      <li><a href={u("/")} class:list={["whitespace-nowrap hover:text-sev-critical", current === "/" && "text-sev-critical"]}>Latest</a></li>
       {CATEGORY_ORDER.map((c) => (
         <li>
           <a
-            href={`/category/${c}/`}
+            href={u(`/category/${c}/`)}
             class:list={["whitespace-nowrap hover:text-sev-critical", current.startsWith(`/category/${c}/`) && "text-sev-critical"]}
           >{CATEGORY_META[c].label}</a>
         </li>
       ))}
-      <li class="ml-auto"><a href="/about/" class="whitespace-nowrap hover:text-sev-critical">About</a></li>
+      <li class="ml-auto"><a href={u("/about/")} class="whitespace-nowrap hover:text-sev-critical">About</a></li>
     </ul>
   </nav>
 </header>

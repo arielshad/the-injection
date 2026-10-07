@@ -1,4 +1,5 @@
 ---
+import { u } from "@/site";
 import Base from "@/layouts/Base.astro";
 import SeverityBadge from "@/components/SeverityBadge.astro";
 import { allItems, relatedItems } from "@/data/feed";
@@ -86,9 +87,9 @@ const faqLd = item.faq?.length
   jsonLd={[article, breadcrumb, ...(faqLd ? [faqLd] : [])]}
 >
   <nav aria-label="Breadcrumb" class="pt-6 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-    <a href="/" class="hover:text-ink">Latest</a>
+    <a href={u("/")} class="hover:text-ink">Latest</a>
     <span class="mx-1.5">/</span>
-    <a href={`/category/${item.categories[0]}/`} class="hover:text-ink">{primary.label}</a>
+    <a href={u(`/category/${item.categories[0]}/`)} class="hover:text-ink">{primary.label}</a>
   </nav>
 
   <article class="grid gap-10 pb-6 pt-6 lg:grid-cols-[1fr_18rem] lg:gap-14">
@@ -97,7 +98,7 @@ const faqLd = item.faq?.length
         <div class="flex flex-wrap items-center gap-2">
           <SeverityBadge severity={item.severity} size="md" />
           {item.categories.map((c) => (
-            <a href={`/category/${c}/`} class="rounded-[3px] border border-ink/30 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider hover:border-ink">{CATEGORY_META[c].label}</a>
+            <a href={u(`/category/${c}/`)} class="rounded-[3px] border border-ink/30 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider hover:border-ink">{CATEGORY_META[c].label}</a>
           ))}
         </div>
         <h1 class="mt-5 font-heading text-4xl leading-[1.05] tracking-tight sm:text-6xl">{item.title}</h1>
@@ -205,7 +206,7 @@ const faqLd = item.faq?.length
         {related.map((r) => (
           <li>
             <SeverityBadge severity={r.severity} />
-            <a href={`/items/${r.id}/`} class="mt-2 block font-heading text-xl leading-tight hover:underline">{r.title}</a>
+            <a href={u(`/items/${r.id}/`)} class="mt-2 block font-heading text-xl leading-tight hover:underline">{r.title}</a>
             <p class="mt-1 font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground">{r.org}</p>
           </li>
         ))}

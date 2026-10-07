@@ -1,4 +1,5 @@
 ---
+import { u } from "@/site";
 import "@/styles/global.css";
 import { SITE, abs } from "@/site";
 import Masthead from "@/components/Masthead.astro";
@@ -63,9 +64,9 @@ const siteGraph = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/svg+xml" href={u("/favicon.svg")} />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href={u("/rss.xml")} />
+    <link rel="sitemap" href={u("/sitemap-index.xml")} />
     <meta name="theme-color" content="#f6f3ec" />
 
     <meta property="og:site_name" content={SITE.name} />
