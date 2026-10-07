@@ -1,0 +1,192 @@
+---
+import Base from "@/layouts/Base.astro";
+import SeverityBadge from "@/components/SeverityBadge.astro";
+import { allItems, relatedItems } from "@/data/feed";
+import { CATEGORY_META, SEVERITY_META } from "@/data/categories";
+import type { Item } from "@/data/schema";
+import { SITE, abs } from "@/site";
+import { fmtDate } from "@/lib/slim";
+
+export function getStaticPaths() {
+  return allItems().map((item) => ({ params: { id: item.id }, props: { item } }));
+}
+
+interface Props { item: Item }
+const { item } = Astro.props;
+const path = `/items/${item.id}/`;
+const primary = CATEGORY_META[item.categories[0]];
+const related = relatedItems(item, 4);
+
+const sections = [
+  { id: "what-happened", label: "What happened", body: item.explainer.whatHappened },
+  { id: "how-it-works", label: "How it works", body: item.explainer.howItWorks },
+  { id: "who-is-affected", label: "Who is affected", body: item.explainer.whoIsAffected },
+  ...(item.explainer.whatToDo ? [{ id: "what-to-do", label: "What to do", body: item.explainer.whatToDo }] : []),
+];
+
+const facts = [
+  { label: "Severity", value: SEVERITY_META[item.severity].label },
+  { label: "Published by", value: item.org },
+  { label: "Disclosed", value: fmtDate(item.date) },
+  ...(item.cve ? [{ label: "CVE", value: item.cve }] : []),
+  ...(item.cvss !== undefined ? [{ label: "CVSS", value: String(item.cvss) }] : []),
+  ...(item.affected?.length ? [{ label: "Affects", value: item.affected.join(", ") }] : []),
+  ...(item.quickFacts ?? []),
+];
+
+const article = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "@id": abs(`${path}#article`),
+  headline: item.title,
+  description: item.summary,
+  datePublished: `${item.date}T12:00:00Z`,
+  dateModified: item.publishDate,
+  url: abs(path),
+  mainEntityOfPage: abs(path),
+  articleSection: primary.label,
+  keywords: [...item.tags, ...(item.affected ?? [])].join(", "),
+  about: (item.affected ?? []).map((name) => ({ "@type": "Thing", name })),
+  author: item.credits.map((c) => ({
+    "@type": "Person",
+    name: c.name,
+    ...(c.org ? { affiliation: { "@type": "Organization", name: c.org } } : {}),
+    ...(c.url ? { url: c.url } : {}),
+  })),
+  publisher: { "@id": abs("/#org") },
+  isBasedOn: item.url,
+  citation: item.links.map((l) => l.url),
+  speakable: { "@type": "SpeakableSpecification", cssSelector: ["#tagline", "#what-happened"] },
+};
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: SITE.name, item: abs("/") },
+    { "@type": "ListItem", position: 2, name: primary.label, item: abs(`/category/${item.categories[0]}/`) },
+    { "@type": "ListItem", position: 3, name: item.title, item: abs(path) },
+  ],
+};
+const faqLd = item.faq?.length
+  ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: item.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    }
+  : null;
+---
+
+<Base
+  title={item.title.length > 55 ? item.title.slice(0, 55).replace(/\s+\S*$/, "") : item.title}
+  description={item.summary}
+  path={path}
+  ogType="article"
+  publishedTime={`${item.date}T12:00:00Z`}
+  jsonLd={[article, breadcrumb, ...(faqLd ? [faqLd] : [])]}
+>
+  <nav aria-label="Breadcrumb" class="pt-6 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+    <a href="/" class="hover:text-ink">Latest</a>
+    <span class="mx-1.5">/</span>
+    <a href={`/category/${item.categories[0]}/`} class="hover:text-ink">{primary.label}</a>
+  </nav>
+
+  <article class="grid gap-10 pb-6 pt-6 lg:grid-cols-[1fr_18rem] lg:gap-14">
+    <div>
+      <header class="border-b border-ink pb-8">
+        <div class="flex flex-wrap items-center gap-2">
+          <SeverityBadge severity={item.severity} size="md" />
+          {item.categories.map((c) => (
+            <a href={`/category/${c}/`} class="rounded-[3px] border border-ink/30 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider hover:border-ink">{CATEGORY_META[c].label}</a>
+          ))}
+        </div>
+        <h1 class="mt-5 font-heading text-4xl leading-[1.05] tracking-tight sm:text-6xl">{item.title}</h1>
+        <p id="tagline" class="mt-5 text-xl leading-relaxed text-ink/80">{item.explainer.tagline}</p>
+        <p class="mt-6 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <time datetime={item.date}>{fmtDate(item.date)}</time> · {item.org} · Research by{" "}
+          {item.credits.map((c, i) => (
+            <>
+              {i > 0 && ", "}
+              {c.url ? <a href={c.url} rel="noopener" class="text-ink underline decoration-ink/30 underline-offset-2 hover:decoration-ink">{c.name}</a> : <span class="text-ink">{c.name}</span>}
+              {c.org && c.org !== item.org && <span> ({c.org})</span>}
+            </>
+          ))}
+        </p>
+      </header>
+
+      <p class="mt-8 border-l-2 border-sev-critical pl-4 text-lg leading-relaxed">{item.summary}</p>
+
+      {sections.map((s, i) => (
+        <section id={s.id} class="mt-10" aria-labelledby={`${s.id}-h`}>
+          <h2 id={`${s.id}-h`} class="flex items-baseline gap-3 font-heading text-3xl">
+            <span class="font-mono text-xs text-sev-critical">0{i + 1}</span>{s.label}
+          </h2>
+          <p class="mt-3 max-w-prose text-[1.05rem] leading-[1.75] text-ink/85">{s.body}</p>
+        </section>
+      ))}
+
+      {item.faq && item.faq.length > 0 && (
+        <section class="mt-14" aria-labelledby="faq-h">
+          <h2 id="faq-h" class="border-b border-ink pb-2 font-heading text-3xl">Questions people ask</h2>
+          <dl class="divide-y divide-border">
+            {item.faq.map((f) => (
+              <div class="py-5">
+                <dt class="font-medium">{f.q}</dt>
+                <dd class="mt-2 max-w-prose leading-relaxed text-muted-foreground">{f.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
+
+      <section class="mt-14" aria-labelledby="sources-h">
+        <h2 id="sources-h" class="border-b border-ink pb-2 font-heading text-3xl">Sources</h2>
+        <ol class="mt-3 space-y-2">
+          {item.links.map((l, i) => (
+            <li class="flex gap-3 text-sm">
+              <span class="font-mono text-xs text-muted-foreground">[{i + 1}]</span>
+              <a href={l.url} rel="noopener" class="underline decoration-ink/30 underline-offset-2 hover:decoration-sev-critical">{l.label}</a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <aside class="space-y-8 lg:sticky lg:top-6 lg:self-start">
+      <div class="rounded-md border border-ink bg-card">
+        <p class="border-b border-ink px-4 py-2 font-mono text-[11px] uppercase tracking-wider">Case file</p>
+        <dl class="divide-y divide-border text-sm">
+          {facts.map((f) => (
+            <div class="grid grid-cols-[6.5rem_1fr] gap-2 px-4 py-2.5">
+              <dt class="text-muted-foreground">{f.label}</dt>
+              <dd class="font-medium">{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <a href={item.url} rel="noopener" class="block border-t border-ink bg-ink px-4 py-2.5 text-center font-mono text-[11px] uppercase tracking-wider text-paper hover:bg-sev-critical">Read the original ↗</a>
+      </div>
+      {item.tags.length > 0 && (
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">Tags</p>
+          <ul class="mt-2 flex flex-wrap gap-1.5">
+            {item.tags.map((t) => <li class="rounded-full bg-muted px-2.5 py-1 text-xs">{t}</li>)}
+          </ul>
+        </div>
+      )}
+    </aside>
+  </article>
+
+  {related.length > 0 && (
+    <section class="mt-10 border-t border-ink pt-6" aria-labelledby="related-h">
+      <h2 id="related-h" class="font-heading text-3xl">Related</h2>
+      <ul class="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {related.map((r) => (
+          <li>
+            <SeverityBadge severity={r.severity} />
+            <a href={`/items/${r.id}/`} class="mt-2 block font-heading text-xl leading-tight hover:underline">{r.title}</a>
+            <p class="mt-1 font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground">{r.org}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Base>

@@ -1,0 +1,24 @@
+---
+import { SITE } from "@/site";
+const year = new Date().getUTCFullYear();
+---
+
+<footer class="mt-24 border-t border-ink/90">
+  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3 sm:px-6">
+    <div>
+      <p class="font-heading text-3xl">The <em>Injection</em><span class="text-sev-critical">.</span></p>
+      <p class="mt-2 text-sm text-muted-foreground">{SITE.tagline}</p>
+    </div>
+    <div class="text-sm text-muted-foreground">
+      <p class="font-mono text-[11px] uppercase tracking-wider text-ink">How it works</p>
+      <p class="mt-2">An agent checks vendor advisories, research groups and papers every six hours. Nothing goes in unless every link was fetched and the researchers are credited.</p>
+    </div>
+    <ul class="space-y-1.5 font-mono text-[11px] uppercase tracking-wider sm:text-right">
+      <li><a class="hover:text-sev-critical" href="/about/">About and method</a></li>
+      <li><a class="hover:text-sev-critical" href="/rss.xml">RSS feed</a></li>
+      <li><a class="hover:text-sev-critical" href="/feed.json">JSON feed</a></li>
+      <li><a class="hover:text-sev-critical" href="/llms.txt">llms.txt</a></li>
+    </ul>
+  </div>
+  <p class="mx-auto max-w-6xl px-4 pb-8 font-mono text-[11px] uppercase tracking-wider text-muted-foreground sm:px-6">© {year} {SITE.name}</p>
+</footer>

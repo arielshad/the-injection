@@ -1,0 +1,33 @@
+---
+import Base from "@/layouts/Base.astro";
+import { SEVERITY_ORDER } from "@/data/schema";
+import { SEVERITY_META } from "@/data/categories";
+import SeverityBadge from "@/components/SeverityBadge.astro";
+import { SITE } from "@/site";
+---
+
+<Base title="About and method" description={`How ${SITE.name} finds, verifies, credits and rates AI security news.`} path="/about/">
+  <article class="mx-auto max-w-2xl py-12">
+    <p class="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">About</p>
+    <h1 class="mt-2 font-heading text-5xl tracking-tight sm:text-6xl">What this is</h1>
+    <p class="mt-6 text-lg leading-relaxed">{SITE.name} tracks AI security: prompt injection, jailbreaks, agent permissions and sandboxes, the supply chain of skills, MCP servers and plugins, and what labs claim about the safety of their models. Each item says what happened, how it works, who is exposed and what to do.</p>
+    <h2 class="mt-12 font-heading text-3xl">The rules</h2>
+    <ul class="mt-4 space-y-3 leading-relaxed">
+      <li><strong>Every link is fetched.</strong> If a source cannot be opened and read, the item does not go in.</li>
+      <li><strong>Researchers are credited by name.</strong> The people who did the work come first, not whoever reposted it.</li>
+      <li><strong>No padding.</strong> A quiet day is a short feed.</li>
+      <li><strong>Plain English.</strong> Written for defenders who are busy, not for a review panel.</li>
+    </ul>
+    <h2 class="mt-12 font-heading text-3xl">Severity</h2>
+    <dl class="mt-4 divide-y divide-border border-y border-border">
+      {SEVERITY_ORDER.map((s) => (
+        <div class="grid grid-cols-[6rem_1fr] items-start gap-4 py-3">
+          <dt><SeverityBadge severity={s} /></dt>
+          <dd class="text-sm leading-relaxed text-muted-foreground">{SEVERITY_META[s].blurb}</dd>
+        </div>
+      ))}
+    </dl>
+    <h2 class="mt-12 font-heading text-3xl">How it updates</h2>
+    <p class="mt-4 leading-relaxed">An agent runs every six hours. It reads vendor advisories, research groups, papers and community sources, writes a draft, and a script fetches every link in it before anything is published. The site is static: each update is a commit, and each commit redeploys.</p>
+  </article>
+</Base>

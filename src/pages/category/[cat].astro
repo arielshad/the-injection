@@ -1,0 +1,41 @@
+---
+import Base from "@/layouts/Base.astro";
+import FeedExplorer from "@/components/FeedExplorer";
+import { CATEGORY_ORDER, SEVERITY_ORDER, type Category } from "@/data/schema";
+import { CATEGORY_META } from "@/data/categories";
+import { itemsByCategory } from "@/data/feed";
+import { SITE, abs } from "@/site";
+import { slim } from "@/lib/slim";
+
+export function getStaticPaths() {
+  return CATEGORY_ORDER.map((cat) => ({ params: { cat }, props: { cat } }));
+}
+interface Props { cat: Category }
+const { cat } = Astro.props;
+const meta = CATEGORY_META[cat];
+const items = itemsByCategory(cat);
+const path = `/category/${cat}/`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `${meta.label}: AI security`,
+  description: meta.blurb,
+  url: abs(path),
+  isPartOf: { "@id": abs("/#website") },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: items.slice(0, 50).map((it, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/items/${it.id}/`), name: it.title })),
+  },
+};
+---
+
+<Base title={`${meta.label}: AI security news`} description={`${meta.blurb}. Every item on ${SITE.name} is sourced, credited and explained.`} path={path} jsonLd={[jsonLd]}>
+  <header class="border-b border-ink py-10">
+    <p class="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">Category</p>
+    <h1 class="mt-2 font-heading text-5xl tracking-tight sm:text-6xl">{meta.label}</h1>
+    <p class="mt-3 max-w-xl text-lg text-muted-foreground">{meta.blurb}.</p>
+  </header>
+  <div class="pt-8">
+    <FeedExplorer client:idle items={items.map(slim)} categories={[{ id: cat, label: meta.label, count: items.length }]} severities={SEVERITY_ORDER} />
+  </div>
+</Base>

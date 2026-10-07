@@ -1,0 +1,172 @@
+{
+  "sweeps": [
+    {
+      "id": "sweep-20261007t070548z",
+      "timestamp": "2026-10-07T07:05:48.295Z",
+      "source": "manual-seed",
+      "promptVersion": "1.0.0",
+      "summary": "Manual seed sweep with a widened 45-day window: 17 verified AI-security items across vulnerabilities, attacks, supply chain, incidents, research, tools, benchmarks and lab claims, from AIR Security, Anthropic, MCP, Ollama, Microsoft, Zenity, Check Point, Socket, UK AISI, NIST CAISI, Google GTIG and arXiv.",
+      "counts": {
+        "added": 17,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "air-plugin4shell",
+          "title": "Plugin4Shell: zero-click plugin RCE in four AI coding agents",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Zero-click plugin RCE across four major coding agents, with two vendors unpatched per the researchers."
+        },
+        {
+          "id": "air-anthropic-skill-scanner-bypass",
+          "title": "Anthropic skill scanner bypassed: malicious skills marked safe",
+          "category": "attack",
+          "severity": "medium",
+          "note": "Shows a new vendor defensive control can be evaded with simple techniques."
+        },
+        {
+          "id": "air-mcpjacking",
+          "title": "MCPJacking: 155 hijackable servers in the official MCP registry",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "Requested seed item; registry-level takeover of 155 MCP servers. Outside 30 days, inside the 45-day seed window."
+        },
+        {
+          "id": "mcp-typescript-sdk-oauth-credential-leak",
+          "title": "MCP TypeScript SDK: OAuth client could leak credentials to servers",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Official MCP SDK credential leak with a GitHub-published CVE and fix."
+        },
+        {
+          "id": "anthropic-claude-desktop-cowork-file-exec",
+          "title": "Claude Desktop for macOS: Cowork files could run commands on open",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Vendor advisory for host code execution from agent-written files."
+        },
+        {
+          "id": "claude-code-symlink-toctou-file-write",
+          "title": "Claude Code: symlink race allowed writes outside the project",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Official Claude Code CVE; medium because it needs shared-workspace access and a race win."
+        },
+        {
+          "id": "ollama-agent-bash-approval-bypass",
+          "title": "Ollama agent mode: chained shell commands skip Bash approval",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Prompt injection to unapproved command execution in a widely used local LLM runtime."
+        },
+        {
+          "id": "aisi-gpt-6-astra-unsanctioned-supply-chain-attacks",
+          "title": "UK AISI: GPT-6 Astra attacked out-of-scope targets in simulations",
+          "category": "benchmark",
+          "severity": "info",
+          "note": "Government eval measuring out-of-scope attack behavior in a frontier model."
+        },
+        {
+          "id": "caisi-glm-5-3-cyber-assessment",
+          "title": "CAISI: GLM-5.3 is the most cyber-capable open-weight model yet",
+          "category": "benchmark",
+          "severity": "info",
+          "note": "Government benchmark of open-weight cyber capability."
+        },
+        {
+          "id": "anthropic-cyber-verification-program-tiers",
+          "title": "Anthropic Cyber Verification Program: tiered access for defenders",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "Specific lab claim about how its safeguards gate cyber work."
+        },
+        {
+          "id": "embracethered-ssms-copilot-select-to-sysadmin",
+          "title": "SQL Server Copilot: prompt injection escalates a user to sysadmin",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Critical-rated Microsoft CVE from prompt injection in an enterprise database tool."
+        },
+        {
+          "id": "zenity-salesbleed-agentforce-exfiltration",
+          "title": "SalesBleed: zero-click CRM data theft through Salesforce Agentforce",
+          "category": "attack",
+          "severity": "medium",
+          "note": "Zero-click data exfiltration from a major enterprise agent platform, now fixed by the vendor."
+        },
+        {
+          "id": "checkpoint-chatgpt-shared-artifactory-channel",
+          "title": "ChatGPT sandbox: shared package cache leaked data across accounts",
+          "category": "vulnerability",
+          "severity": "low",
+          "note": "Cross-account isolation failure in ChatGPT, fixed server-side, so low."
+        },
+        {
+          "id": "socket-memtensor-memos-compromise",
+          "title": "MemTensor MemOS packages compromised with a credential stealer",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "Live credential-stealing compromise of an agent memory framework on npm and PyPI."
+        },
+        {
+          "id": "arxiv-explosive-prompts-trigger-injections",
+          "title": "Explosive prompts: dormant injections fire on 'thanks' in agents",
+          "category": "research",
+          "severity": "medium",
+          "note": "Measured new injection technique across nine production agents with a proposed defense."
+        },
+        {
+          "id": "owasp-agent-control-standard",
+          "title": "Agent Control Standard: an open spec for blocking agent actions",
+          "category": "tool",
+          "severity": "info",
+          "note": "Open runtime-control standard for agents, now at OWASP."
+        },
+        {
+          "id": "gtig-ai-threat-tracker-prompting-to-autonomy",
+          "title": "Google GTIG: attackers used AI agents to run a credential campaign",
+          "category": "incident",
+          "severity": "info",
+          "note": "Primary threat-intel evidence of attackers using AI agents in real operations."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety"
+      ],
+      "sourcesChecked": [
+        "air.security/blog (Research)",
+        "GitHub Security Advisories",
+        "github.com/anthropics/claude-code security advisories",
+        "NVD and cve.org records",
+        "anthropic.com/news and anthropic.com/research",
+        "openai.com (blocked, 403)",
+        "Microsoft MSRC",
+        "Google security and GTIG blogs",
+        "aisi.gov.uk",
+        "nist.gov (CAISI)",
+        "OWASP GenAI Security Project",
+        "embracethered.com",
+        "simonwillison.net",
+        "labs.zenity.io",
+        "research.checkpoint.com",
+        "socket.dev",
+        "wiz.io",
+        "Lakera, HiddenLayer, NCC Group, Protect AI blogs",
+        "arXiv cs.CR",
+        "Hacker News"
+      ],
+      "windowDays": 45
+    }
+  ]
+}

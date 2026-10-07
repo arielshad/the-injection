@@ -1,0 +1,38 @@
+---
+import Base from "@/layouts/Base.astro";
+import LeadStory from "@/components/LeadStory.astro";
+import FeedExplorer from "@/components/FeedExplorer";
+import { allItems, categoryCounts } from "@/data/feed";
+import { CATEGORY_ORDER, SEVERITY_ORDER } from "@/data/schema";
+import { CATEGORY_META } from "@/data/categories";
+import { SITE, abs } from "@/site";
+import { slim } from "@/lib/slim";
+
+const items = allItems();
+const rank = (s: string) => SEVERITY_ORDER.indexOf(s as never);
+// The lead is the most severe of the newest week, newest first among equals.
+const recent = items.slice(0, 12);
+const lead = [...recent].sort((a, b) => rank(a.severity) - rank(b.severity) || (a.publishDate < b.publishDate ? 1 : -1))[0];
+const seconds = recent.filter((i) => i.id !== lead?.id).sort((a, b) => rank(a.severity) - rank(b.severity)).slice(0, 3);
+const counts = categoryCounts();
+const categories = CATEGORY_ORDER.map((id) => ({ id, label: CATEGORY_META[id].label, count: counts[id] ?? 0 })).filter((c) => c.count > 0);
+
+const itemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `${SITE.name}: latest AI security news`,
+  itemListElement: items.slice(0, 30).map((it, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: abs(`/items/${it.id}/`),
+    name: it.title,
+  })),
+};
+---
+
+<Base jsonLd={[itemList]}>
+  {lead && <LeadStory lead={lead} seconds={seconds} />}
+  <div class="pt-10">
+    <FeedExplorer client:idle items={items.map(slim)} categories={categories} severities={SEVERITY_ORDER} />
+  </div>
+</Base>

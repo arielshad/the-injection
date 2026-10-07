@@ -1,0 +1,67 @@
+name: Deploy to Cloudflare Pages
+
+# Builds the static site and uploads ./dist to Cloudflare Pages.
+#
+# Triggers: push to main, manual dispatch, and workflow_call from
+# update-feed.yml (a bot push made with GITHUB_TOKEN does not fire `push`
+# workflows, so the sweep calls this directly).
+#
+# Secrets:   CLOUDFLARE_API_TOKEN (Pages: Edit), CLOUDFLARE_ACCOUNT_ID
+# Variables: SITE_URL (canonical origin used by the build, e.g. https://theinjection.dev)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+  workflow_call:
+    inputs:
+      ref:
+        description: Git ref to build (defaults to the triggering ref)
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: deploy-pages
+      cancel-in-progress: false
+    env:
+      SITE_URL: ${{ vars.SITE_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          fetch-depth: 1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=the-injection --branch=main
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

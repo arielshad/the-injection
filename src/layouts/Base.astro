@@ -1,0 +1,93 @@
+---
+import "@/styles/global.css";
+import { SITE, abs } from "@/site";
+import Masthead from "@/components/Masthead.astro";
+import Footer from "@/components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Path for the canonical URL, e.g. "/items/foo/". Defaults to the current path. */
+  path?: string;
+  /** JSON-LD objects for this page; the site graph is always added. */
+  jsonLd?: Record<string, unknown>[];
+  ogType?: "website" | "article";
+  publishedTime?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = SITE.description,
+  path = Astro.url.pathname,
+  jsonLd = [],
+  ogType = "website",
+  publishedTime,
+  noindex = false,
+} = Astro.props;
+
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}: ${SITE.tagline}`;
+const canonical = abs(path);
+const ogImage = abs("/og.png");
+
+const siteGraph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": abs("/#org"),
+      name: SITE.name,
+      url: abs("/"),
+      logo: abs("/favicon.svg"),
+    },
+    {
+      "@type": "WebSite",
+      "@id": abs("/#website"),
+      name: SITE.name,
+      url: abs("/"),
+      description: SITE.description,
+      publisher: { "@id": abs("/#org") },
+      inLanguage: SITE.locale,
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#f6f3ec" />
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(siteGraph)} />
+    {jsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+  </head>
+  <body class="min-h-dvh bg-paper text-ink">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-3 focus:py-2 focus:text-paper">Skip to content</a>
+    <Masthead />
+    <main id="main" class="mx-auto w-full max-w-6xl px-4 sm:px-6">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
