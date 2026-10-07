@@ -22,7 +22,7 @@ const sections = [
 <header class="mx-auto max-w-7xl px-4 sm:px-8">
   <div class="flex items-center justify-between gap-4 border-b border-line py-4">
     <a href={u("/")} aria-label={`${SITE.name} home`}>
-      {isHome ? <h1 class={wordmark}>The Injection<span class="text-acid">_</span></h1> : <span class={wordmark}>The Injection<span class="text-acid">_</span></span>}
+      {isHome ? <h1 class={wordmark}>The Injection<span class="text-acid">_</span><span class="sr-only">: AI security news</span></h1> : <span class={wordmark}>The Injection<span class="text-acid">_</span></span>}
     </a>
     <p class="hidden md:block"><SweepClock client:load lastSweep={feed.generatedAt} /></p>
     <p class={`hidden text-muted-foreground md:block ${mono}`}>

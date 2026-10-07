@@ -27,10 +27,12 @@ const {
   noindex = false,
 } = Astro.props;
 
-const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}: ${SITE.tagline}`;
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}: AI security news, verified and explained`;
 // Search results cut descriptions near 155 characters; end on a word.
 const metaDescription = description.length > 155 ? description.slice(0, 154).replace(/\s+\S*$/, "") + "…" : description;
 const canonical = abs(path);
+// The Markdown twin of this page, for agents (see src/lib/markdown.ts).
+const markdownPath = path === "/" ? "/index.md" : /^\/items\/[^/]+\/$/.test(path) ? path.replace(/\/$/, ".md") : null;
 const ogImage = abs("/og.png");
 
 const siteGraph = {
@@ -42,6 +44,12 @@ const siteGraph = {
       name: SITE.name,
       url: abs("/"),
       logo: abs("/favicon.svg"),
+      description: SITE.description,
+      foundingDate: "2026",
+      knowsAbout: ["AI security", "prompt injection", "AI agent security", "MCP security", "software supply chain security", "LLM jailbreaks"],
+      ...(SITE.contactEmail
+        ? { email: SITE.contactEmail, contactPoint: { "@type": "ContactPoint", contactType: "editorial", email: SITE.contactEmail, url: abs("/contact/"), availableLanguage: ["en"] } }
+        : { contactPoint: { "@type": "ContactPoint", contactType: "editorial", url: abs("/contact/"), availableLanguage: ["en"] } }),
     },
     {
       "@type": "WebSite",
@@ -68,6 +76,8 @@ const siteGraph = {
     <link rel="icon" type="image/svg+xml" href={u("/favicon.svg")} />
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href={u("/rss.xml")} />
     <link rel="sitemap" href={u("/sitemap-index.xml")} />
+    {markdownPath && <link rel="alternate" type="text/markdown" href={u(markdownPath)} />}
+    <link rel="alternate" type="application/feed+json" title={SITE.name} href={u("/feed.json")} />
     <meta name="theme-color" content="#0E1012" />
     <link rel="preconnect" href="https://cdn.prod.website-files.com" crossorigin />
 

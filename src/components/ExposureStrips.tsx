@@ -13,6 +13,28 @@ export interface Strip {
   days: StripDay[];
 }
 
+/** The serialised form: one letter per day (s/i/d/e) plus the stories on days that have any. */
+export interface CompactStrip {
+  name: string;
+  worst: string;
+  stories: Record<number, [string, string][]>;
+}
+
+const LETTER: Record<string, StripDay["worst"]> = { s: "success", i: "info", d: "degraded", e: "error" };
+
+function expand(end: string, c: CompactStrip): Strip {
+  const endMs = Date.parse(`${end}T12:00:00Z`);
+  const n = c.worst.length;
+  return {
+    name: c.name,
+    days: [...c.worst].map((ch, k) => ({
+      day: new Date(endMs - (n - 1 - k) * 86_400_000).toISOString().slice(0, 10),
+      worst: LETTER[ch],
+      stories: (c.stories[k] ?? []).map(([id, title]) => ({ id, title, severity: "" })),
+    })),
+  };
+}
+
 const LABEL: Record<StripDay["worst"], string> = {
   error: "High or critical",
   degraded: "Medium",
@@ -25,7 +47,8 @@ const LABEL: Record<StripDay["worst"], string> = {
  * (21st.dev @openstatusHQ/status-bar): one cell per day, coloured by the worst
  * story that day, with the stories in the hover card.
  */
-export default function ExposureStrips({ strips }: { strips: Strip[] }) {
+export default function ExposureStrips({ end, strips: compact }: { end: string; strips: CompactStrip[] }) {
+  const strips = compact.map((c) => expand(end, c));
   return (
     <div className="divide-y divide-line">
       {strips.map((s) => {

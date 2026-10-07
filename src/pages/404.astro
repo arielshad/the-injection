@@ -1,0 +1,17 @@
+---
+import Base from "@/layouts/Base.astro";
+import Prose from "@/components/Prose.astro";
+import { allItems } from "@/data/feed";
+import { u, SITE } from "@/site";
+const latest = allItems().slice(0, 5);
+---
+
+<Base title="Page not found" description={`This page does not exist on ${SITE.name}.`} path="/404/" noindex>
+  <Prose kicker="404" title="Page not found">
+    <p>There is no page at this address. It may have been mistyped, or a story's URL may have changed. Every story on {SITE.name} lives at <code>/items/&lt;id&gt;/</code>.</p>
+    <p>Agents and scripts: the full index is in <a href={u("/llms.txt")}>llms.txt</a>, every page is listed in the <a href={u("/sitemap-index.xml")}>sitemap</a>, and the data is in the <a href={u("/feed.json")}>JSON feed</a>.</p>
+    <h2>Latest stories</h2>
+    <ul>{latest.map((it) => <li><a href={u(`/items/${it.id}/`)}>{it.title}</a></li>)}</ul>
+    <p><a href={u("/")}>Go to the homepage</a></p>
+  </Prose>
+</Base>

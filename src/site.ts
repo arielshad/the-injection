@@ -8,6 +8,10 @@ export const SITE = {
   url: (import.meta.env.SITE_URL || process.env.SITE_URL || "https://theinjection.dev").replace(/\/$/, ""),
   locale: "en",
   twitter: "",
+  /** Public contact address. Empty until the owner sets one; pages and JSON-LD only show it when set. */
+  contactEmail: (import.meta.env.CONTACT_EMAIL || process.env.CONTACT_EMAIL || "") as string,
+  /** Where corrections and reports go when there is no email yet. */
+  repoUrl: "https://github.com/arielshad/the-injection",
 };
 
 export const abs = (path: string) => SITE.url + (path.startsWith("/") ? path : `/${path}`);

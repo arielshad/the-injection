@@ -1,0 +1,22 @@
+---
+import Base from "@/layouts/Base.astro";
+import Prose from "@/components/Prose.astro";
+import { SITE, u } from "@/site";
+---
+
+<Base title="Privacy" description={`What ${SITE.name} collects about readers: no cookies, no analytics, no accounts.`} path="/privacy/">
+  <Prose kicker="Privacy" title="Privacy">
+    <p>{SITE.name} is a static website. It has no accounts, no sign-up forms, no comments, no newsletter and no advertising. It does not set cookies and does not run analytics or tracking scripts. This page explains the few ways information about a visit can still reach someone, and what we do about each.</p>
+    <h2>Hosting</h2>
+    <p>The site is served by GitHub Pages. Like any web host, GitHub receives standard request information such as your IP address, browser and the page requested, and may keep it for security and operations. That processing is covered by the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub General Privacy Statement</a>. {SITE.name} does not receive or store these logs.</p>
+    <h2>Images from sources</h2>
+    <p>Some story covers are the original publisher's own preview image, loaded directly from that publisher's server. When your browser loads one, that server sees your IP address. We ask browsers not to send the page you came from (no referrer). Stories without a source image use a cover generated on this site, which loads nothing from third parties.</p>
+    <h2>Fonts and scripts</h2>
+    <p>Fonts are hosted on this site, not on a font service. The small scripts on the page (filters, the countdown, the exposure strips) run only in your browser and send nothing anywhere.</p>
+    <h2>Links out</h2>
+    <p>Every story links to its sources. Those sites have their own privacy policies, which apply once you leave {SITE.name}.</p>
+    <h2>Changes and questions</h2>
+    <p>If this changes, for example if analytics are ever added, this page will say so before it happens. Questions about privacy can go through the <a href={u("/contact/")}>contact page</a>.</p>
+    <p class="text-sm text-muted-foreground">Last updated October 7, 2026.</p>
+  </Prose>
+</Base>

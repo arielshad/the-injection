@@ -1,0 +1,81 @@
+---
+/**
+ * The incident feed, rendered once as plain HTML (every story is in the page
+ * for crawlers, agents and no-JS readers). Filtering is done by the small
+ * FeedFilters island, which only hides rows: no story data is duplicated into
+ * JavaScript props.
+ */
+import type { Category, Item, Severity } from "@/data/schema";
+import { CATEGORY_META } from "@/data/categories";
+import { SeverityMeter } from "@/components/SeverityMeter";
+import FeedFilters from "@/components/FeedFilters";
+import { coverArt } from "@/lib/cover";
+import { u } from "@/site";
+
+interface Props {
+  items: Item[];
+  categories: { id: Category; label: string; count: number }[];
+  severities: Severity[];
+}
+const { items, categories, severities } = Astro.props;
+const sevCounts = severities.map((s) => ({ id: s, count: items.filter((i) => i.severity === s).length })).filter((s) => s.count > 0);
+---
+
+<section aria-labelledby="feed-heading" class="grid gap-6 lg:grid-cols-[1fr_14rem] lg:gap-8">
+  <div class="min-w-0">
+    <div class="flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground">
+      <h2 id="feed-heading">Incident feed</h2>
+      <span><span data-feed-count>{items.length}</span> of {items.length} · newest first</span>
+    </div>
+    <div class="mt-3 lg:hidden"><FeedFilters client:idle layout="top" categories={categories} severities={sevCounts} /></div>
+    <ol class="mt-3 space-y-[2px]" data-feed-list>
+      {items.map((it) => {
+        const art = coverArt(it);
+        return (
+          <li data-sev={it.severity} data-cats={it.categories.join(" ")}>
+            <a href={u(`/items/${it.id}/`)} class="feed-row group" style={`border-left-color:var(--sev-${it.severity})`}>
+              <span class="feed-thumb" style={`background:${art.bg};color:${art.ink}`}>
+                <img src={u(`/covers/${it.id}.svg`)} alt="" loading="lazy" decoding="async" />
+                <span class="feed-thumb-text">{art.text}</span>
+                {it.image && <img src={it.image.url} alt={it.title} loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()" />}
+              </span>
+              <span class="min-w-0">
+                <span class="feed-meta">
+                  <SeverityMeter severity={it.severity} />
+                  <span>{CATEGORY_META[it.categories[0]].label}</span>
+                  <span class="text-ink/70">{it.org}</span>
+                  {it.cve && <span class="hidden sm:inline">{it.cve}</span>}
+                </span>
+                <span class="feed-title">{it.title}</span>
+                <span class="feed-summary">{it.summary}</span>
+              </span>
+              <time datetime={it.date} class="feed-date">{it.date}</time>
+            </a>
+          </li>
+        );
+      })}
+    </ol>
+    <p class="hidden py-16 text-center font-mono text-[12px] text-muted-foreground" data-feed-empty>0 matches. Clear a filter or try another term.</p>
+  </div>
+  <aside class="hidden lg:block" aria-label="Filters">
+    <div class="sticky top-6"><FeedFilters client:idle layout="side" categories={categories} severities={sevCounts} /></div>
+  </aside>
+</section>
+
+<style>
+  .feed-row { display: grid; grid-template-columns: 88px 1fr; align-items: center; gap: 1rem; border-left-width: 2px; background: var(--panel); padding: .75rem 1rem .75rem .75rem; transition: background-color .15s; }
+  .feed-row:hover { background: var(--panel-2); }
+  @media (min-width: 640px) { .feed-row { grid-template-columns: 132px 1fr auto; gap: 1.25rem; } }
+  .feed-thumb { position: relative; display: block; aspect-ratio: 16/9; overflow: hidden; border-radius: 2px; }
+  .feed-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .feed-thumb-text { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: .5rem; font-family: var(--font-heading); font-weight: 600; font-size: 11px; line-height: 1.05; }
+  @media (min-width: 640px) { .feed-thumb-text { font-size: 13px; } }
+  .feed-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem; font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted-foreground); }
+  .feed-title { display: block; margin-top: .375rem; font-family: var(--font-heading); font-weight: 600; font-size: 17px; line-height: 1.375; color: #fff; }
+  @media (min-width: 640px) { .feed-title { font-size: 19px; } }
+  .group:hover .feed-title { text-decoration: underline; text-decoration-color: var(--acid); }
+  .feed-summary { display: none; margin-top: .25rem; font-size: 13.5px; line-height: 1.6; color: var(--muted-foreground); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+  @media (max-width: 639px) { .feed-summary { display: none; } }
+  .feed-date { display: none; align-self: start; padding-top: 2px; font-family: var(--font-mono); font-size: 10.5px; color: var(--muted-foreground); }
+  @media (min-width: 640px) { .feed-date { display: block; } }
+</style>

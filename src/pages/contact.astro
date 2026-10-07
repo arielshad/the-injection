@@ -1,0 +1,23 @@
+---
+import Base from "@/layouts/Base.astro";
+import Prose from "@/components/Prose.astro";
+import { SITE, u } from "@/site";
+const email = SITE.contactEmail;
+---
+
+<Base title="Contact" description={`How to reach ${SITE.name}: corrections, tips about AI security research, and questions.`} path="/contact/">
+  <Prose kicker="Contact" title="Contact">
+    <p>{SITE.name} is an independent feed of AI security news. Stories are found and verified by an automated process, then published with credit to the researchers who did the work. Messages are read by the editor, and getting the facts right comes first.</p>
+    {email ? (
+      <p>Write to <a href={`mailto:${email}`}>{email}</a>.</p>
+    ) : (
+      <p>A direct email address is being set up and will be listed here.</p>
+    )}
+    <h2>Corrections</h2>
+    <p>If a story gets something wrong, such as a severity, an affected version, a CVE, or who deserves credit, tell us which story (its URL) and what the source says. Corrections are made in the next update.</p>
+    <h2>Tips and research</h2>
+    <p>Researchers and vendors: if you have published AI security research, an advisory, or a fix, send the link. We only cover what we can verify from a public primary source, and we credit the people who did the work by name.</p>
+    <h2>Everything else</h2>
+    <p>For how stories are chosen and rated, see <a href={u("/about/")}>about and method</a>. For the data formats, see <a href={u("/developers/")}>developers and agents</a>. For what we collect about readers, see <a href={u("/privacy/")}>privacy</a>.</p>
+  </Prose>
+</Base>

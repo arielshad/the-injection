@@ -8,6 +8,7 @@ import type { Item } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
 import { SeverityMeter } from "@/components/SeverityMeter";
 import { coverArt } from "@/lib/cover";
+import { u } from "@/site";
 
 interface Props { item: Item; ratio?: string; size?: "xl" | "lg" | "md" | "sm" | "xs"; class?: string; forceGenerated?: boolean; hideText?: boolean; eager?: boolean; chip?: boolean }
 const { item, ratio = "16/9", size = "md", class: cls = "", forceGenerated = false, hideText = false, eager = false, chip = true } = Astro.props;
@@ -19,7 +20,7 @@ const label = CATEGORY_META[item.categories[0]].label;
 ---
 
 <div class:list={["relative overflow-hidden", cls]} style={`${ratio === "fill" ? "height:100%" : `aspect-ratio:${ratio}`};background:${art.bg}`}>
-  <Fragment set:html={art.svg} />
+  <img src={u(`/covers/${item.id}.svg`)} alt="" aria-hidden="true" loading={eager ? "eager" : "lazy"} decoding="async" class="absolute inset-0 size-full object-cover" />
   {!hideText && (
     <div class="absolute inset-0 flex items-end p-[6%]" style={`color:${art.ink}`}>
       <span class="font-heading font-semibold leading-[0.95] tracking-[-0.02em]" style={`font-size:clamp(14px, ${fontPx / 14}vw, ${fontPx}px)`}>{art.text}</span>

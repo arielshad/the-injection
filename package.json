@@ -7,14 +7,15 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "tsx scripts/check-feed.ts && astro build",
+    "build": "tsx scripts/check-feed.ts && astro build && tsx scripts/check-site.ts",
     "check": "tsx scripts/check-feed.ts",
     "sweep:context": "tsx scripts/sweep-context.ts",
     "sweep:verify": "tsx scripts/verify-draft.ts",
     "sweep:finalize": "tsx scripts/finalize-sweep.ts",
     "indexnow": "tsx scripts/ping-indexnow.ts",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "tsx scripts/check-feed.ts && tsx scripts/check-site.ts"
   },
   "dependencies": {
     "@astrojs/react": "^7.0.1",
