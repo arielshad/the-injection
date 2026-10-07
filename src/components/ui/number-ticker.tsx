@@ -50,10 +50,13 @@ export function NumberTicker({
   return (
     <span
       className={cn(
-        "inline-block tabular-nums text-black dark:text-white tracking-wider",
+        "inline-block tabular-nums",
         className,
       )}
       ref={ref}
-    />
+    >
+      {/* The final value, so the server-rendered page and no-JS readers see the real number. */}
+      {Intl.NumberFormat("en-US", { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces }).format(value)}
+    </span>
   )
 }

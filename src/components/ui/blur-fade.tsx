@@ -49,6 +49,7 @@ export function BlurFade({
   return (
     <AnimatePresence>
       <motion.div
+        data-blur-fade=""
         ref={ref}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
