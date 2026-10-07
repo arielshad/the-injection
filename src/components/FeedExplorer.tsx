@@ -34,7 +34,7 @@ const EDGE: Record<Severity, string> = {
 };
 
 /** The source's image over the generated cover. Hides itself if it failed, including failures before hydration. */
-function SourceImage({ src }: { src: string }) {
+function SourceImage({ src, alt }: { src: string; alt: string }) {
   const ref = useRef<HTMLImageElement>(null);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
@@ -42,7 +42,7 @@ function SourceImage({ src }: { src: string }) {
     if (img && img.complete && img.naturalWidth === 0) setFailed(true);
   }, []);
   if (failed) return null;
-  return <img ref={ref} src={src} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover" onError={() => setFailed(true)} />;
+  return <img ref={ref} src={src} alt={alt} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover" onError={() => setFailed(true)} />;
 }
 
 /** A generated cover in miniature: same art as the big covers, seeded by the id. */
@@ -157,7 +157,7 @@ export default function FeedExplorer({ items, categories, severities }: Props) {
                   {/* The generated cover always sits underneath, so a hotlink-blocked image falls back to it. */}
                   <Thumb it={it} />
                   {it.image && (
-                    <SourceImage src={it.image} />
+                    <SourceImage src={it.image} alt={it.title} />
                   )}
                 </span>
                 <span className="min-w-0">
