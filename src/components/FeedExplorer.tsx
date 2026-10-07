@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Category, Severity } from "@/data/schema";
 import { u } from "@/site";
 import { SeverityMeter } from "@/components/SeverityMeter";
+import { coverArt } from "@/lib/cover";
 
 export interface SlimItem {
   id: string;
@@ -15,7 +16,7 @@ export interface SlimItem {
   tags: string[];
   cve?: string;
   image?: string;
-  coverText: string;
+  affected?: string[];
 }
 
 interface Props {
@@ -31,6 +32,19 @@ const EDGE: Record<Severity, string> = {
   low: "var(--sev-low)",
   info: "var(--sev-info)",
 };
+
+/** A generated cover in miniature: same art as the big covers, seeded by the id. */
+function Thumb({ it }: { it: SlimItem }) {
+  const art = coverArt(it);
+  return (
+    <span className="absolute inset-0" style={{ background: art.bg }}>
+      <span dangerouslySetInnerHTML={{ __html: art.svg }} />
+      <span className="absolute inset-0 flex items-end p-2 font-heading text-[11px] font-bold leading-[1.05] sm:text-[13px]" style={{ color: art.ink }}>
+        {art.text}
+      </span>
+    </span>
+  );
+}
 
 /**
  * The incident feed. Rendered to HTML at build time with every item in it, so
@@ -128,12 +142,10 @@ export default function FeedExplorer({ items, categories, severities }: Props) {
                 style={{ borderLeftColor: EDGE[it.severity] }}
               >
                 <span className="relative block aspect-video overflow-hidden rounded-[2px] bg-panel-2">
-                  {it.image ? (
-                    <img src={it.image} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" />
-                  ) : (
-                    <span className="absolute inset-0 flex items-end p-2 font-mono text-[9.5px] font-medium leading-tight text-acid [background:radial-gradient(#2E343A_0.8px,transparent_0.9px)_0_0/7px_7px] sm:text-[10.5px]">
-                      {it.coverText}
-                    </span>
+                  {/* The generated cover always sits underneath, so a hotlink-blocked image falls back to it. */}
+                  <Thumb it={it} />
+                  {it.image && (
+                    <img src={it.image} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" onError={(e) => e.currentTarget.remove()} />
                   )}
                 </span>
                 <span className="min-w-0">

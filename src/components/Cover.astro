@@ -1,55 +1,36 @@
 ---
 /**
  * An item's cover: the source's own image, or, when there is none, a cover
- * generated from the item itself: the CVE id or affected product in acid
- * mono on a graphite panel, over a faint pattern seeded by the id. Same
- * item, same cover, every build.
+ * generated from the item (src/lib/cover.ts): a colour field and pattern
+ * drawn from the id's hash, with the CVE or product set large on top.
  */
 import type { Item } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
 import { SeverityMeter } from "@/components/SeverityMeter";
+import { coverArt } from "@/lib/cover";
 
 interface Props { item: Item; ratio?: string; size?: "xl" | "lg" | "md" | "sm" | "xs"; class?: string; forceGenerated?: boolean; hideText?: boolean; eager?: boolean; chip?: boolean }
 const { item, ratio = "16/9", size = "md", class: cls = "", forceGenerated = false, hideText = false, eager = false, chip = true } = Astro.props;
 
 const img = forceGenerated ? undefined : item.image?.url;
-
-let h = 2166136261;
-for (const ch of item.id) h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0;
-const rand = () => ((h = Math.imul(h ^ (h >>> 15), 2246822507) >>> 0) / 4294967296);
-const pattern = Math.floor(rand() * 3); // 0 dot matrix, 1 scanlines, 2 grid with lit cells
-const pick = item.cve ?? item.affected?.[0] ?? item.org;
-const big = pick.length > 18 ? (item.affected?.find((a) => a.length <= 18) ?? item.org) : pick;
-const fontPx = { xl: 44, lg: 32, md: 24, sm: 16, xs: 11 }[size];
+const art = coverArt(item);
+const fontPx = { xl: 64, lg: 48, md: 36, sm: 22, xs: 13 }[size];
 const label = CATEGORY_META[item.categories[0]].label;
-const lit = Array.from({ length: 9 }, () => ({ x: Math.floor(rand() * 16), y: Math.floor(rand() * 9) }));
 ---
 
-<div class:list={["relative overflow-hidden bg-panel-2", cls]} style={ratio === "fill" ? "height:100%" : `aspect-ratio:${ratio}`}>
-  {img ? (
-    <img src={img} alt={item.image?.alt ?? ""} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} decoding="async" class="absolute inset-0 size-full object-cover saturate-[.9]" />
-  ) : (
-    <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 size-full" aria-hidden="true">
-      {pattern === 0 && Array.from({ length: 40 * 23 }, (_, i) => <circle cx={(i % 40) * 10 + 5} cy={Math.floor(i / 40) * 10 + 5} r="0.9" fill="#3A4148" />)}
-      {pattern === 1 && Array.from({ length: 56 }, (_, i) => <rect x="0" y={i * 4} width={400 * (0.25 + rand() * 0.75)} height="1" fill="#2E343A" />)}
-      {pattern === 2 && (
-        <>
-          {Array.from({ length: 17 }, (_, i) => <line x1={i * 25} y1="0" x2={i * 25} y2="225" stroke="#2A3035" stroke-width="1" />)}
-          {Array.from({ length: 10 }, (_, i) => <line x1="0" y1={i * 25} x2="400" y2={i * 25} stroke="#2A3035" stroke-width="1" />)}
-          {lit.map((c) => <rect x={c.x * 25 + 1} y={c.y * 25 + 1} width="23" height="23" fill="#2A3035" />)}
-        </>
-      )}
-    </svg>
-  )}
-  {!img && !hideText && (
-    <div class="absolute inset-0 flex items-end p-[7%]">
-      <span class="break-all font-mono font-medium leading-[1.05] text-acid" style={`font-size:clamp(10px, ${fontPx / 12}vw, ${fontPx}px)`}>{big}</span>
+<div class:list={["relative overflow-hidden", cls]} style={`${ratio === "fill" ? "height:100%" : `aspect-ratio:${ratio}`};background:${art.bg}`}>
+  <Fragment set:html={art.svg} />
+  {!hideText && (
+    <div class="absolute inset-0 flex items-end p-[6%]" style={`color:${art.ink}`}>
+      <span class="font-heading font-bold leading-[0.95] tracking-[-0.02em]" style={`font-size:clamp(14px, ${fontPx / 14}vw, ${fontPx}px)`}>{art.text}</span>
     </div>
   )}
+  {/* The source image covers the generated art; if it fails to load (hotlink blocks), the art shows through. */}
+  {img && <img src={img} alt={item.image?.alt ?? ""} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} decoding="async" class="absolute inset-0 size-full object-cover saturate-[.9]" onerror="this.remove()" />}
   {chip && (
     <div class="absolute left-0 top-0 flex items-center gap-2 p-2.5">
-      <span class="rounded-sm bg-black/70 px-1.5 py-1 backdrop-blur"><SeverityMeter severity={item.severity} /></span>
-      {size !== "xs" && size !== "sm" && <span class="rounded-sm bg-black/50 px-1.5 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-white/80 backdrop-blur">{label}</span>}
+      <span class="rounded-sm bg-black/60 px-1.5 py-1 backdrop-blur"><SeverityMeter severity={item.severity} /></span>
+      {size !== "xs" && size !== "sm" && <span class="rounded-sm bg-black/45 px-1.5 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-white/85 backdrop-blur">{label}</span>}
     </div>
   )}
 </div>
