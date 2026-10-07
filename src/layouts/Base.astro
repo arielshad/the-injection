@@ -3,6 +3,7 @@ import "@/styles/global.css";
 import { SITE, abs } from "@/site";
 import Masthead from "@/components/Masthead.astro";
 import Footer from "@/components/Footer.astro";
+import Ticker from "@/components/Ticker.astro";
 
 interface Props {
   title?: string;
@@ -85,6 +86,7 @@ const siteGraph = {
   <body class="min-h-dvh bg-paper text-ink">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-3 focus:py-2 focus:text-paper">Skip to content</a>
     <Masthead />
+    <Ticker />
     <main id="main" class="mx-auto w-full max-w-6xl px-4 sm:px-6">
       <slot />
     </main>
