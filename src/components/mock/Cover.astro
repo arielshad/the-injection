@@ -1,0 +1,65 @@
+---
+/**
+ * MOCK. An item's cover: the source's own image, run through one duotone so
+ * mixed sources read as one publication, or, when there is no usable image,
+ * a cover generated from the item itself (CVE or product set huge on the
+ * topic colour, with a pattern seeded by the id).
+ */
+import type { Item } from "@/data/schema";
+import images from "@/data/mock-images.json";
+import { CATEGORY_META } from "@/data/categories";
+import { SEV_GLYPH } from "@/lib/severity";
+import { TOPIC } from "@/lib/topic";
+
+interface Props { item: Item; ratio?: string; size?: "xl" | "lg" | "md" | "sm"; class?: string; forceGenerated?: boolean; hideText?: boolean }
+const { item, ratio = "16/9", size = "md", class: cls = "", forceGenerated = false, hideText = false } = Astro.props;
+
+const topic = TOPIC[item.categories[0]] ?? TOPIC.research;
+const img = forceGenerated ? undefined : (images as Record<string, string>)[item.id];
+
+// Deterministic seed from the id: same item, same cover, every build.
+let h = 2166136261;
+for (const ch of item.id) h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0;
+const rand = () => ((h = Math.imul(h ^ (h >>> 15), 2246822507) >>> 0) / 4294967296);
+const pattern = Math.floor(rand() * 3); // 0 halftone, 1 scanlines, 2 grid
+const dots = Array.from({ length: 22 * 12 }, (_, i) => {
+  const x = i % 22, y = Math.floor(i / 22);
+  const r = Math.max(0, (Math.sin((x + rand() * 2) / 3) + Math.cos((y + rand() * 2) / 2.2)) * 1.6 + rand() * 0.8);
+  return { x: x * 18 + 9, y: y * 18 + 9, r };
+});
+const pick = item.cve ?? item.affected?.[0] ?? item.org;
+const big = pick.length > 16 ? (item.affected?.find((a) => a.length <= 16) ?? item.org) : pick;
+const fontPx = { xl: 76, lg: 54, md: 40, sm: 30 }[size];
+const label = CATEGORY_META[item.categories[0]].label;
+---
+
+<div class:list={["relative overflow-hidden", cls]} style={`${ratio === "fill" ? "height:100%" : `aspect-ratio:${ratio}`};background:${topic.bg}`}>
+  {img ? (
+    <>
+      <img src={img} alt="" loading="lazy" class="absolute inset-0 size-full object-cover saturate-[.85] contrast-110" />
+      <div class="absolute inset-0 opacity-25 mix-blend-multiply" style={`background:${topic.bg}`}></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/15"></div>
+    </>
+  ) : (
+    <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 size-full" aria-hidden="true">
+      {pattern === 0 && dots.map((d) => <circle cx={d.x} cy={d.y} r={d.r} fill={topic.ink} opacity="0.22" />)}
+      {pattern === 1 && Array.from({ length: 45 }, (_, i) => <rect x="0" y={i * 5} width={400 * (0.35 + rand() * 0.65)} height="1.6" fill={topic.ink} opacity="0.2" />)}
+      {pattern === 2 && Array.from({ length: 12 }, (_, i) => (
+        <>
+          <line x1={i * 36} y1="0" x2={i * 36} y2="225" stroke={topic.ink} stroke-width="0.6" opacity="0.25" />
+          <line x1="0" y1={i * 22} x2="400" y2={i * 22} stroke={topic.ink} stroke-width="0.6" opacity="0.25" />
+          <rect x={Math.floor(rand() * 11) * 36} y={Math.floor(rand() * 10) * 22} width="36" height="22" fill={topic.ink} opacity="0.18" />
+        </>
+      ))}
+    </svg>
+  )}
+  {!img && !hideText && (
+    <div class="absolute inset-0 flex flex-col justify-end p-[6%]" style={`color:${topic.ink}`}>
+      <span class="font-display font-extrabold leading-[0.88] tracking-[-0.03em] [font-stretch:75%]" style={`font-size:clamp(18px, ${fontPx / 10}vw, ${fontPx}px)`}>{big}</span>
+    </div>
+  )}
+  <div class="absolute left-0 top-0 flex items-center gap-2 p-3 font-plex text-[10px] font-semibold uppercase tracking-[0.12em]" style={`color:${img ? "#fff" : topic.ink}`}>
+    <span class:list={["rounded-sm px-1.5 py-0.5", item.severity === "critical" ? "bg-sev-critical text-white" : "bg-black/35 text-white"]}>{SEV_GLYPH[item.severity]} {item.severity}</span>
+    <span class="opacity-90">{label}</span>
+  </div>
+</div>
