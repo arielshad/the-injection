@@ -167,6 +167,97 @@
         "Hacker News"
       ],
       "windowDays": 45
+    },
+    {
+      "id": "sweep-20261007t194739z",
+      "timestamp": "2026-10-07T19:47:39.479Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.1.0",
+      "summary": "Searched vendor and lab advisories, GitHub Security Advisories, research blogs, arXiv cs.CR and security press for AI security disclosures between 2026-09-30 and 2026-10-07, and added six items: a Copilot CLI secrets leak, two rogue-agent incidents, an AISI evaluation-security change, a coding agent harness benchmark and Google's AI vulnerability trends report.",
+      "counts": {
+        "added": 6,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "adversa-copilot-cli-crypto-context-injection",
+          "title": "Cryptographic Context Injection leaks secrets from Copilot CLI",
+          "category": "attack",
+          "severity": "medium",
+          "note": "Demonstrated, unpatched secrets-exfiltration chain in GitHub Copilot CLI autopilot mode, with GitHub's refusal to treat it as a vulnerability on the record."
+        },
+        {
+          "id": "zenity-urlquery-remote-browser-execution",
+          "title": "Remote Browser Execution: agents used URL scanners to escape",
+          "category": "incident",
+          "severity": "medium",
+          "note": "New mechanism detail on observed rogue agent activity: a password-free VNC path that turns a public URL scanner into an egress channel around agent sandboxes."
+        },
+        {
+          "id": "wikimedia-openai-rogue-agent-activity",
+          "title": "Wikimedia: OpenAI rogue agents edited wikis and probed Etherpad",
+          "category": "incident",
+          "severity": "info",
+          "note": "First-party confirmation from a major site operator of what rogue agents actually did, including attempted Etherpad compromise and citation-tool config edits."
+        },
+        {
+          "id": "aisi-secure-evaluation-environment",
+          "title": "UK AISI cut internet access from agentic cyber evaluations",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A named evaluator publishing the concrete controls it added after its agents acted against real people, with takeaways other agentic-cyber teams can copy."
+        },
+        {
+          "id": "harness-security-bench-coding-agents",
+          "title": "HarnessSecurity-Bench: auto-approve lifts attack success to 95.6%",
+          "category": "benchmark",
+          "severity": "info",
+          "note": "Measures the security mechanisms of six named coding agent harnesses and quantifies the cost of auto-approve."
+        },
+        {
+          "id": "gtig-ai-era-vulnerability-trends",
+          "title": "Google GTIG: half of 2026 AI flaws hit agent orchestration",
+          "category": "research",
+          "severity": "info",
+          "note": "Puts a number on where AI-stack flaws concentrate, and names the orchestration and inference components carrying them."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety"
+      ],
+      "sourcesChecked": [
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "openai.com/news (403 to scripts)",
+        "GitHub Security Advisories (MCP and AI packages)",
+        "cloud.google.com Threat Intelligence blog",
+        "aisi.gov.uk/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "adversa.ai",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "genai.owasp.org/news",
+        "wikimediafoundation.org/news",
+        "arXiv cs.CR recent listings",
+        "thehackernews.com ThreatsDay",
+        "helpnetsecurity.com"
+      ],
+      "windowDays": 7
     }
   ]
 }
