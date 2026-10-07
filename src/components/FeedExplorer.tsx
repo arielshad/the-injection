@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Category, Severity } from "@/data/schema";
 import { u } from "@/site";
 import { SeverityMeter } from "@/components/SeverityMeter";
@@ -32,6 +32,18 @@ const EDGE: Record<Severity, string> = {
   low: "var(--sev-low)",
   info: "var(--sev-info)",
 };
+
+/** The source's image over the generated cover. Hides itself if it failed, including failures before hydration. */
+function SourceImage({ src }: { src: string }) {
+  const ref = useRef<HTMLImageElement>(null);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    const img = ref.current;
+    if (img && img.complete && img.naturalWidth === 0) setFailed(true);
+  }, []);
+  if (failed) return null;
+  return <img ref={ref} src={src} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover" onError={() => setFailed(true)} />;
+}
 
 /** A generated cover in miniature: same art as the big covers, seeded by the id. */
 function Thumb({ it }: { it: SlimItem }) {
@@ -145,7 +157,7 @@ export default function FeedExplorer({ items, categories, severities }: Props) {
                   {/* The generated cover always sits underneath, so a hotlink-blocked image falls back to it. */}
                   <Thumb it={it} />
                   {it.image && (
-                    <img src={it.image} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" onError={(e) => e.currentTarget.remove()} />
+                    <SourceImage src={it.image} />
                   )}
                 </span>
                 <span className="min-w-0">

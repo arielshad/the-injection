@@ -26,7 +26,7 @@ const label = CATEGORY_META[item.categories[0]].label;
     </div>
   )}
   {/* The source image covers the generated art; if it fails to load (hotlink blocks), the art shows through. */}
-  {img && <img src={img} alt={item.image?.alt ?? ""} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} decoding="async" class="absolute inset-0 size-full object-cover saturate-[.9]" onerror="this.remove()" />}
+  {img && <img src={img} alt={item.image?.alt ?? ""} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} decoding="async" referrerpolicy="no-referrer" class="absolute inset-0 size-full object-cover saturate-[.9]" onerror="this.remove()" />}
   {chip && (
     <div class="absolute left-0 top-0 flex items-center gap-2 p-2.5">
       <span class="rounded-sm bg-black/60 px-1.5 py-1 backdrop-blur"><SeverityMeter severity={item.severity} /></span>
