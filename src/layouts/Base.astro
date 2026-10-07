@@ -49,7 +49,8 @@ const siteGraph = {
       knowsAbout: ["AI security", "prompt injection", "AI agent security", "MCP security", "software supply chain security", "LLM jailbreaks"],
       ...(SITE.contactEmail
         ? { email: SITE.contactEmail, contactPoint: { "@type": "ContactPoint", contactType: "editorial", email: SITE.contactEmail, url: abs("/contact/"), availableLanguage: ["en"] } }
-        : { contactPoint: { "@type": "ContactPoint", contactType: "editorial", url: abs("/contact/"), availableLanguage: ["en"] } }),
+        : { contactPoint: { "@type": "ContactPoint", contactType: "editorial", url: `${SITE.feedbackUrl}/issues`, availableLanguage: ["en"] } }),
+      sameAs: [SITE.feedbackUrl],
     },
     {
       "@type": "WebSite",

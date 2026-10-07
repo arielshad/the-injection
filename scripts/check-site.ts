@@ -45,6 +45,11 @@ check(llms.includes("## When to use"), "llms.txt: has a When to use section");
 check(llms.includes("## How to use"), "llms.txt: has a How to use section");
 check(existsSync(join(DIST, "llms-full.txt")) && read("llms-full.txt").length > 2000, "llms-full.txt: exists with content");
 
+// Contact routes to the public feedback repo.
+check(read("contact/index.html").includes("github.com/arielshad/the-injection-feedback/issues/new?template=correction.yml"), "contact: links the correction form");
+check(llms.includes("the-injection-feedback"), "llms.txt: links the feedback repo");
+check(org?.sameAs?.some((s: string) => s.includes("the-injection-feedback")), "Organization JSON-LD: sameAs the feedback repo");
+
 // Trust pages with real content.
 for (const page of ["about", "contact", "privacy", "developers"]) {
   const p = `${page}/index.html`;

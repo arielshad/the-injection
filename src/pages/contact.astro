@@ -2,21 +2,21 @@
 import Base from "@/layouts/Base.astro";
 import Prose from "@/components/Prose.astro";
 import { SITE, u } from "@/site";
-const email = SITE.contactEmail;
 ---
 
 <Base title="Contact" description={`How to reach ${SITE.name}: corrections, tips about AI security research, and questions.`} path="/contact/">
   <Prose kicker="Contact" title="Contact">
     <p>{SITE.name} is an independent feed of AI security news. Stories are found and verified by an automated process, then published with credit to the researchers who did the work. Getting the facts right comes first.</p>
-    {email ? (
-      <p>Write to <a href={`mailto:${email}`}>{email}</a>.</p>
-    ) : (
-      <p>{SITE.name} does not publish a contact address at the moment. Everything below still applies, and this page will list a channel if one is added.</p>
-    )}
+    <p>Feedback happens in public, on GitHub: <a href={SITE.feedbackUrl}>{SITE.feedbackUrl.replace("https://", "")}</a>. Anyone can read it, and you need a free GitHub account to post.</p>
+    <ul>
+      <li><a href={`${SITE.feedbackUrl}/issues/new?template=correction.yml`}>Report a correction</a> to a story.</li>
+      <li><a href={`${SITE.feedbackUrl}/issues/new?template=story-tip.yml`}>Suggest a story</a>: public research, an advisory or a fix.</li>
+      <li><a href={`${SITE.feedbackUrl}/discussions`}>Start a discussion</a> for questions and ideas.</li>
+    </ul>
     <h2>Corrections</h2>
-    <p>Every six hours the update agent re-reads its sources, and it can revise a story when a vendor ships a fix, a CVE is assigned, or a detail changes. Corrections land in the next update, on the same URL.</p>
+    <p>Open a correction with the story URL, what is wrong (severity, affected versions, CVE, credit, a fact or a link) and the source that shows it. Corrections are reviewed and applied in a later update, on the same URL. Separately, every six hours the update agent re-reads its sources and can revise a story when a vendor ships a fix or a CVE is assigned.</p>
     <h2>Research and advisories</h2>
-    <p>Researchers and vendors: published AI security research, advisories and fixes are picked up from public primary sources. Stories credit the people who did the work by name and link the original.</p>
+    <p>Researchers and vendors: suggest your published research, advisory or fix as a story tip. It must already be public, from a primary source. Please do not report undisclosed vulnerabilities in other products here; report them to the vendor first. Stories credit the people who did the work by name and link the original.</p>
     <h2>Everything else</h2>
     <p>For how stories are chosen and rated, see <a href={u("/about/")}>about and method</a>. For the data formats, see <a href={u("/developers/")}>developers and agents</a>. For what we collect about readers, see <a href={u("/privacy/")}>privacy</a>.</p>
   </Prose>
