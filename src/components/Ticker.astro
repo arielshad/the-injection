@@ -1,13 +1,10 @@
 ---
 import { Marquee } from "@/components/ui/marquee";
 import { allItems } from "@/data/feed";
-import type { Severity } from "@/data/schema";
+import { SEV_GLYPH } from "@/lib/severity";
 
 // The ticker carries only what a defender would act on: high and above.
 const hot = allItems().filter((i) => i.severity === "critical" || i.severity === "high").slice(0, 8);
-const dot: Record<Severity, string> = {
-  critical: "bg-sev-critical", high: "bg-sev-high", medium: "bg-sev-medium", low: "bg-sev-low", info: "bg-sev-info",
-};
 ---
 
 {hot.length > 0 && (
@@ -17,7 +14,7 @@ const dot: Record<Severity, string> = {
       <Marquee pauseOnHover repeat={2} className="py-0 [--duration:60s] [--gap:2.5rem] [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
         {hot.map((it) => (
           <a href={`/items/${it.id}/`} class="flex items-center gap-2 whitespace-nowrap py-2 text-[13px] hover:underline">
-            <span class={`size-1.5 rounded-full ${dot[it.severity]}`} />
+            <span class={it.severity === "critical" ? "text-sev-critical" : "text-sev-high"} aria-hidden="true">{SEV_GLYPH[it.severity]}</span>
             <span class="font-mono text-[10.5px] uppercase tracking-wider text-paper/60">{it.org}</span>
             {it.title}
           </a>
