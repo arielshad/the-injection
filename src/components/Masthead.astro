@@ -4,16 +4,11 @@ import { SITE } from "@/site";
 import { CATEGORY_ORDER } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
 import { feed } from "@/data/feed";
+import SweepClock from "@/components/SweepClock";
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 const path = Astro.url.pathname.slice(BASE.length) || "/";
 const isHome = path === "/";
-
-// The sweep runs at :17 past 00, 06, 12 and 18 UTC (update-feed.yml).
-const last = new Date(feed.generatedAt);
-const hhmm = (d: Date) => d.toISOString().slice(11, 16);
-const next = new Date(last);
-next.setUTCHours(Math.floor(last.getUTCHours() / 6) * 6 + 6, 17, 0, 0);
 
 const mono = "font-mono text-[11px] tracking-[0.02em]";
 const wordmark = "font-heading text-[26px] font-extrabold uppercase leading-none tracking-[0.01em] text-white sm:text-[30px]";
@@ -24,9 +19,7 @@ const wordmark = "font-heading text-[26px] font-extrabold uppercase leading-none
     <a href={u("/")} aria-label={`${SITE.name} home`}>
       {isHome ? <h1 class={wordmark}>The Injection<span class="text-acid">_</span></h1> : <span class={wordmark}>The Injection<span class="text-acid">_</span></span>}
     </a>
-    <p class={`hidden text-muted-foreground md:block ${mono}`}>
-      <span class="text-acid">● LIVE</span>&nbsp;&nbsp; last sweep <time datetime={feed.generatedAt}>{hhmm(last)}</time> UTC · next {hhmm(next)}
-    </p>
+    <p class="hidden md:block"><SweepClock client:load lastSweep={feed.generatedAt} /></p>
     <p class={`text-muted-foreground ${mono}`}>
       <a class="hover:text-acid" href={u("/rss.xml")}>[ RSS ]</a> <a class="hover:text-acid" href={u("/feed.json")}>[ JSON ]</a> <a class="hidden hover:text-acid sm:inline" href={u("/llms.txt")}>[ llms.txt ]</a>
     </p>
