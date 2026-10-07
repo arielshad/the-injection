@@ -105,6 +105,30 @@ function strings(v: unknown, path: string, out: [string, string][] = []): [strin
 const wordCount = (s: string): number => s.trim().split(/\s+/).filter(Boolean).length;
 
 /**
+ * Image URLs that are almost always a site-wide logo or a default social card,
+ * not an editorial image for one story. A match is a warning, not an error:
+ * og-image.ts flags it and the prompt tells the agent to omit `image` instead.
+ * (opengraph.githubassets.com repo cards are acceptable only if nothing better.)
+ */
+export const GENERIC_IMAGE_PATTERNS: [RegExp, string][] = [
+  [/arxiv\.org\/.*(logo|arxiv-logo|social)/i, "arXiv logo/default card"],
+  [/static\.arxiv\.org\//i, "arXiv static asset"],
+  [/github\.com\/fluidicon|github\.githubassets\.com\/(images|assets)\//i, "GitHub generic brand image"],
+  [/githubassets\.com\/.*advisor/i, "GitHub advisory-database default card"],
+  [/opengraph\.githubassets\.com\//i, "GitHub auto-generated repo card (OK only if nothing better)"],
+  [/avatars\.githubusercontent\.com\//i, "GitHub avatar"],
+  [/nist\.gov\/.*(logo|nist-logo|social|default)/i, "NIST mark/default card"],
+  [/nvd\.nist\.gov\//i, "NVD site asset"],
+  [/(^|[\/_.-])(logo|favicon|apple-touch-icon|site-icon|default[-_]?(og|share|social)|og[-_]?default|share[-_]?default)([\/_.-]|$)/i, "looks like a logo/favicon/default card"],
+  [/\.(ico|svg)(\?|$)/i, "icon or SVG, not a raster cover"],
+];
+
+export function genericImageHint(url: string): string | undefined {
+  for (const [re, why] of GENERIC_IMAGE_PATTERNS) if (re.test(url)) return why;
+  return undefined;
+}
+
+/**
  * Schema and house-style validation for one item.
  * mode "draft": publishDate must be absent (finalize stamps it).
  * mode "feed":  publishDate must be a valid ISO timestamp.
@@ -216,6 +240,23 @@ export function validateItem(raw: unknown, mode: "draft" | "feed"): Issues {
     });
     const urls = it.links.map((l) => canonUrl(l?.url ?? ""));
     if (new Set(urls).size !== urls.length) e("links has duplicate URLs");
+  }
+
+  // image (optional; without one the site generates a cover)
+  if (it.image !== undefined) {
+    const img = it.image as Partial<NonNullable<Item["image"]>> | null;
+    if (!img || typeof img !== "object" || Array.isArray(img)) e("image must be an object { url, alt, credit? } when present");
+    else {
+      if (!isHttps(img.url)) e(`image.url must be an https URL (got ${JSON.stringify(img.url)})`);
+      else {
+        const hint = genericImageHint(img.url!);
+        if (hint) w(`image.url may not be an editorial image (${hint}): omit image if nothing better`);
+      }
+      if (!isStr(img.alt)) e("image.alt is required and must be non-empty");
+      else if (img.alt.length > 200) w(`image.alt is ${img.alt.length} chars (keep it short)`);
+      if (img.credit !== undefined && !isStr(img.credit)) e("image.credit must be non-empty when present");
+      for (const k of Object.keys(img)) if (!["url", "alt", "credit"].includes(k)) e(`image has unknown field "${k}"`);
+    }
   }
 
   // house style

@@ -70,6 +70,14 @@ export interface Link {
   url: string;
 }
 
+/** The source's own preview image. Must be fetched and return image/* in the run that adds it. */
+export interface ItemImage {
+  url: string;
+  alt: string;
+  /** Where it came from, e.g. "AIR Security". */
+  credit?: string;
+}
+
 export interface Item {
   /** kebab-case, stable, unique. Becomes the URL: /items/<id>/ */
   id: string;
@@ -99,6 +107,8 @@ export interface Item {
   faq?: Faq[];
   /** At least 2. The first is usually `url`. */
   links: Link[];
+  /** Optional. Without one, the site generates a cover from the item. */
+  image?: ItemImage;
 }
 
 export interface Feed {

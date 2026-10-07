@@ -5,11 +5,13 @@
  *   - duplicate ids, normalized ids, canonical urls or CVEs
  *   - any item failing schema/house-style validation in "feed" mode:
  *     required fields, category/severity enums, title <= 80, summary <= 240,
- *     credits non-empty, >= 2 links, https urls, kebab ids/tags, no em dashes
+ *     credits non-empty, >= 2 links, https urls, kebab ids/tags, no em dashes,
+ *     image (when present) = { https url, non-empty alt, optional credit }
  *   - a malformed items.json or sweeps.json envelope
  *
  * Warns (exit 0) on: banned hype words, exclamation marks, emoji, faq length,
- * critical/high items without quickFacts/faq.
+ * critical/high items without quickFacts/faq, image urls that look like a
+ * logo or default social card.
  *
  * Usage: npx tsx scripts/check-feed.ts [--strict]   (--strict turns warnings into errors)
  */

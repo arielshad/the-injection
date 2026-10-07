@@ -11,6 +11,9 @@
  *    2xx after redirects. Hard fail on anything else.
  * 3. Updates: every updates[].id must exist in the feed; every URL inside a
  *    patch is probed too.
+ * 4. Images: every image.url (new items and patches) must answer 2xx with a
+ *    Content-Type of image/*. An HTML page, a 404 or a redirect to a login
+ *    page fails. Find the image with `npx tsx scripts/og-image.ts <page-url>`.
  *
  * A URL that answers 403/429 with a bot challenge (Cloudflare and friends)
  * is retried once with a browser user agent. If it still refuses, it FAILS.
@@ -68,26 +71,30 @@ interface Probe {
   itemId: string;
   field: string;
   url: string;
+  /** Require Content-Type image/* (image.url probes). */
+  image?: boolean;
 }
 const probes: Probe[] = [];
 const seen = new Set<string>();
-const add = (itemId: string, field: string, url: unknown) => {
+const add = (itemId: string, field: string, url: unknown, image = false) => {
   if (typeof url !== "string" || !url) return;
-  const key = `${itemId}|${url}`;
+  const key = `${itemId}|${url}|${image}`;
   if (seen.has(key)) return;
   seen.add(key);
-  probes.push({ itemId, field, url });
+  probes.push({ itemId, field, url, ...(image ? { image } : {}) });
 };
 for (const it of items) {
   add(it.id, "url", it.url);
   (it.links ?? []).forEach((l, i) => add(it.id, `links[${i}](${l.label})`, l.url));
   (it.credits ?? []).forEach((c, i) => add(it.id, `credits[${i}](${c.name})`, c.url));
+  add(it.id, "image.url", it.image?.url, true);
 }
 for (const u of updates) {
   const p = u.patch ?? {};
   add(u.id, "patch.url", p.url);
   (p.links ?? []).forEach((l, i) => add(u.id, `patch.links[${i}]`, l.url));
   (p.credits ?? []).forEach((c, i) => add(u.id, `patch.credits[${i}]`, c.url));
+  add(u.id, "patch.image.url", p.image?.url, true);
 }
 
 const BOT_UA = "Mozilla/5.0 (compatible; TheInjectionSweep/1.0; +https://github.com/)";
@@ -98,32 +105,40 @@ interface Result extends Probe {
   ok: boolean;
   status?: number;
   finalUrl?: string;
+  contentType?: string;
   error?: string;
 }
 
-async function get(url: string, ua: string): Promise<{ status: number; finalUrl: string }> {
+const PAGE_ACCEPT = "text/html,application/xhtml+xml,application/json,application/pdf,*/*;q=0.8";
+const IMAGE_ACCEPT = "image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8";
+
+async function get(url: string, ua: string, accept: string): Promise<{ status: number; finalUrl: string; contentType: string }> {
   const res = await fetch(url, {
     method: "GET",
     redirect: "follow",
     headers: {
       "User-Agent": ua,
-      Accept: "text/html,application/xhtml+xml,application/json,application/pdf,*/*;q=0.8",
+      Accept: accept,
       "Accept-Language": "en-US,en;q=0.9",
     },
     signal: AbortSignal.timeout(20_000),
   });
   await res.body?.cancel().catch(() => {});
-  return { status: res.status, finalUrl: res.url };
+  return { status: res.status, finalUrl: res.url, contentType: (res.headers.get("content-type") ?? "").split(";")[0].trim().toLowerCase() };
 }
 
 async function check(p: Probe): Promise<Result> {
   try {
-    let r = await get(p.url, BOT_UA);
+    const accept = p.image ? IMAGE_ACCEPT : PAGE_ACCEPT;
+    let r = await get(p.url, BOT_UA, accept);
     if (r.status === 403 || r.status === 429 || r.status === 503 || r.status === 405) {
-      r = await get(p.url, BROWSER_UA);
+      r = await get(p.url, BROWSER_UA, accept);
     }
-    if (r.status >= 200 && r.status < 300) return { ...p, ok: true, status: r.status, finalUrl: r.finalUrl };
-    return { ...p, ok: false, status: r.status, finalUrl: r.finalUrl };
+    const base = { ...p, status: r.status, finalUrl: r.finalUrl, ...(p.image ? { contentType: r.contentType } : {}) };
+    if (r.status < 200 || r.status >= 300) return { ...base, ok: false };
+    if (p.image && !r.contentType.startsWith("image/"))
+      return { ...base, ok: false, error: `not an image (content-type "${r.contentType || "none"}")` };
+    return { ...base, ok: true };
   } catch (err) {
     return { ...p, ok: false, error: (err as Error).message };
   }
@@ -179,6 +194,7 @@ const summary = {
   probesTotal: probes.length,
   probesOk: results.length - failures.length,
   probesFailed: failures.length,
+  imagesChecked: probes.filter((p) => p.image).length,
   schemaErrors: schemaErrors.length,
   schemaWarnings: schemaWarnings.length,
   elapsedSeconds: Number(((Date.now() - t0) / 1000).toFixed(1)),

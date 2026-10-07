@@ -49,6 +49,19 @@ Entry format:
 
 ## Change log
 
+### 2026-10-07-B: items gained an optional cover image
+- Trigger: the site now renders `item.image` as the cover (and generates
+  one when it is missing). Images need the same no-invention rules as links.
+- Cause: new optional `image: { url, alt, credit? }` field in the schema.
+- Change: prompt 1.1.0 adds an "Images" section, draft-format note and
+  self-check item 10 (use the source's own og:image only if it is editorial
+  for this story; skip logos, default cards, icons; omit when unsure).
+  New `scripts/og-image.ts <url>` finds og/twitter images, checks `image/*`
+  and flags generic ones. `verify-draft.ts` now fetches every `image.url`
+  and fails on non-2xx or non-`image/*`. `validateItem` checks the shape
+  (https url, non-empty alt) and warns on logo/default-card URLs.
+- Status: watching (generic social cards slipping through as "covers")
+
 ### 2026-10-07-A: seed sweep used a widened window
 - Trigger: initial content for launch. The feed was empty.
 - Cause: a normal 7-day window would give a near-empty site on day one.

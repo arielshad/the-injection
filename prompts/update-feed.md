@@ -1,6 +1,6 @@
 ---
 prompt-id: injection.update-feed
-prompt-version: 1.0.0
+prompt-version: 1.1.0
 output-target: src/data/items.json + src/data/sweeps.json (via scripts/finalize-sweep.ts)
 schema: src/data/schema.ts
 invoke-as: subagent
@@ -44,11 +44,14 @@ fix a typo, not to "just add one". Every change goes through a draft.
 2. **Discovery.** Search the sources below. For each candidate apply the
    inclusion bar, the severity rubric and the dedup check.
 3. **Fetch and read** every page you will cite. Write facts down from the
-   page, not from memory.
+   page, not from memory. For each item's primary source, also run
+   `npx tsx scripts/og-image.ts <url>` to find its preview image (see
+   "Images" below).
 4. **Draft.** Write `sweep-draft.json` at the repo root:
    ```json
    {
-     "newItems": [ /* Item[] WITHOUT publishDate: finalize stamps it */ ],
+     "newItems": [ /* Item[] WITHOUT publishDate: finalize stamps it.
+                     Optional per item: "image": { "url": "https://...", "alt": "...", "credit": "Publisher" } */ ],
      "updates": [ { "id": "existing-id", "patch": { }, "note": "why" } ],
      "removals": [ { "id": "existing-id", "reason": "why" } ],
      "summary": "1-2 sentences: what you searched and what you found",
@@ -64,7 +67,8 @@ fix a typo, not to "just add one". Every change goes through a draft.
    quota. Listing a category you searched does not mean you must add to it.
 5. **Verify.** `npx tsx scripts/verify-draft.ts sweep-draft.json`. It
    validates the schema and house style, then GETs every `url`, `links[].url`
-   and `credits[].url`. Any non-2xx fails. Fix the draft (swap the link for
+   and `credits[].url`, plus every `image.url`, which must also return an
+   `image/*` Content-Type. Any non-2xx fails. Fix the draft (swap the link for
    one that loads, or drop the item) and run it again until it passes. Never
    remove a link just to pass if the claim depended on it: drop the claim too.
 6. **Finalize.** `npx tsx scripts/finalize-sweep.ts sweep-draft.json`. It
@@ -266,6 +270,40 @@ Every item conforms to `Item` in `src/data/schema.ts`. Do not invent fields.
   the paper, the repo, the vendor fix notes, the researcher's write-up.
   Specific pages only, never a homepage or a search page. Labels Title Case,
   24 chars max.
+- `image`: optional `{ "url", "alt", "credit" }`, the primary source's own
+  preview image. Rules in "Images" below. Omit it when there is no good one:
+  the site generates a cover.
+
+## Images
+
+The site shows `image` as the item's cover. A wrong image is worse than no
+image, because the site generates a clean cover when `image` is missing.
+
+1. **Find it.** Run `npx tsx scripts/og-image.ts <primary-url>`. It prints
+   the page's og:image / twitter:image as an absolute URL, whether it
+   returned `image/*`, and a `genericHint` when the URL looks like a logo or
+   a default card. If the primary source has no usable image, you may try
+   the researcher's own write-up from `links[]`. Never a news site's image.
+2. **Judge it.** Use it only if it is a real editorial image for THIS story:
+   a cover, a diagram, a screenshot, a custom header made for this post.
+   Skip and omit `image` for:
+   - site-wide logos, generic brand marks, favicons and tiny icons;
+   - default social cards that every page on the site shares (the arXiv
+     logo, the NIST mark, GitHub's generic advisory-database image, a
+     vendor's one-size-fits-all "blog" card);
+   - `opengraph.githubassets.com` repo cards: acceptable only when the repo
+     IS the story and nothing better exists;
+   - anything that does not return 2xx with an `image/*` Content-Type
+     (og-image.ts reports `isImage`).
+   When `genericHint` is set, the answer is almost always "omit".
+3. **Fill it.** `url`: the exact absolute URL og-image.ts printed. `alt`: a
+   short literal description of the image, or the item title when the image
+   is a title card. Plain text, no em dashes. `credit`: the publisher of the
+   image (usually the same as `org`, e.g. "AIR Security", "Zenity Labs").
+4. **Never invent one.** Never guess, build or edit an image URL, never
+   reuse one from memory or from an earlier sweep, and never use a stock or
+   generated image. The image must come from a page you fetched in THIS run.
+   verify-draft fetches it again and fails anything that is not `image/*`.
 
 finalize-sweep soft-warns when a critical or high item lacks quickFacts or
 faq. That warning means you skipped required structure. It is soft only so
@@ -319,7 +357,7 @@ thing.
 
 ## Self-check before verify
 
-For every item, answer YES to all nine, or fix or drop it:
+For every item, answer YES to all ten, or fix or drop it:
 
 1. Did I fetch `url` in this run, and is it the specific primary source for
    THIS finding (not a homepage, not an aggregator)?
@@ -338,6 +376,10 @@ For every item, answer YES to all nine, or fix or drop it:
 9. Is the writing plain, answer-first, free of banned words, emoji,
    exclamation marks and em dashes, and would a defender want to know this
    week?
+10. If `image` is set: did og-image.ts find it on a page I fetched in this
+    run, does it return `image/*`, is it an editorial image for THIS story
+    (not a logo, icon or default site card), and are `alt` and `credit`
+    filled? If not sure, did I omit `image`?
 
 ## Output
 

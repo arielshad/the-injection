@@ -9,12 +9,12 @@ const hot = allItems().filter((i) => i.severity === "critical" || i.severity ===
 ---
 
 {hot.length > 0 && (
-  <div class="border-b border-ink/90 bg-ink text-paper" aria-label="High severity">
-    <div class="mx-auto flex max-w-6xl items-center">
-      <span class="z-10 shrink-0 bg-sev-critical px-3 py-2 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-white">High severity</span>
-      <Marquee pauseOnHover repeat={2} className="py-0 [--duration:60s] [--gap:2.5rem] [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+  <div class="bg-ink text-paper" aria-label="High severity">
+    <div class="mx-auto flex max-w-7xl items-center px-4 sm:px-8">
+      <span class="z-10 shrink-0 bg-sev-critical px-3 py-2.5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white">● Live</span>
+      <Marquee pauseOnHover repeat={2} className="py-0 [--duration:70s] [--gap:3rem] [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
         {hot.map((it) => (
-          <a href={u(`/items/${it.id}/`)} class="flex items-center gap-2 whitespace-nowrap py-2 text-[13px] hover:underline">
+          <a href={u(`/items/${it.id}/`)} class="flex items-center gap-2 whitespace-nowrap py-2.5 font-heading text-[15px] !font-semibold [font-stretch:92%] hover:underline">
             <span class={it.severity === "critical" ? "text-sev-critical" : "text-sev-high"} aria-hidden="true">{SEV_GLYPH[it.severity]}</span>
             <span class="font-mono text-[10.5px] uppercase tracking-wider text-paper/60">{it.org}</span>
             {it.title}

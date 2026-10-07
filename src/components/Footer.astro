@@ -10,46 +10,44 @@ const year = new Date().getUTCFullYear();
 const updated = new Date(feed.generatedAt).toUTCString().replace(/:\d\d GMT$/, " UTC");
 // The last sentence of each blurb is the action: "Act today", "Plan a fix".
 const action = (blurb: string) => blurb.trim().replace(/\.$/, "").split(". ").pop();
-const head = "border-b-[3px] border-ink pb-2 font-mono text-[11px] uppercase tracking-wider";
+const head = "border-b border-paper/30 pb-2 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-paper/60";
 ---
 
-<footer class="mt-24">
-  <div class="h-[3px] bg-ink"></div>
-  <div class="mt-[2px] h-px bg-ink"></div>
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
-    <div>
-      <p class="font-heading text-4xl leading-none">The <em>Injection</em><span class="text-sev-critical">.</span></p>
-      <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{SITE.tagline} An agent checks advisories, research groups and papers every six hours. Nothing goes in unless every link was fetched and the researchers are credited.</p>
-    </div>
+<footer class="mt-24 bg-ink text-paper">
+  <div class="mx-auto max-w-7xl px-4 pt-14 sm:px-8">
+    <p class="font-heading text-[clamp(48px,9vw,128px)] font-extrabold uppercase leading-[0.8] tracking-[-0.02em] [font-stretch:78%]">The Injection<span class="text-sev-critical">.</span></p>
+    <p class="mt-4 max-w-xl text-[15px] leading-relaxed text-paper/70">{SITE.tagline} An agent checks advisories, research groups and papers every six hours. Nothing goes in unless every link was fetched and the researchers are credited.</p>
+  </div>
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:grid-cols-3 sm:px-8">
     <nav aria-label="Sections">
       <p class={head}>Sections</p>
-      <ul class="mt-3 space-y-1.5 text-sm">
-        {CATEGORY_ORDER.map((c) => <li><a class="hover:text-sev-critical" href={u(`/category/${c}/`)}>{CATEGORY_META[c].label}</a></li>)}
+      <ul class="mt-3 grid grid-cols-2 gap-x-6 gap-y-1.5 text-[15px]">
+        {CATEGORY_ORDER.map((c) => <li><a class="hover:text-sev-high" href={u(`/category/${c}/`)}>{CATEGORY_META[c].label}</a></li>)}
       </ul>
     </nav>
     <div>
       <p class={head}>Severity index</p>
-      <ul class="mt-3 space-y-1.5 text-sm">
+      <ul class="mt-3 space-y-1.5 text-[15px]">
         {SEVERITY_ORDER.map((s) => (
           <li class="flex gap-2">
             <span class={SEV_TEXT[s]} aria-hidden="true">{SEV_GLYPH[s]}</span>
             <span>{SEVERITY_META[s].label}</span>
-            <span class="text-muted-foreground">{action(SEVERITY_META[s].blurb)}</span>
+            <span class="text-paper/55">{action(SEVERITY_META[s].blurb)}</span>
           </li>
         ))}
       </ul>
     </div>
     <nav aria-label="Read it your way">
       <p class={head}>Read it your way</p>
-      <ul class="mt-3 space-y-1.5 text-sm">
-        <li><a class="hover:text-sev-critical" href={u("/about/")}>About and method</a></li>
-        <li><a class="hover:text-sev-critical" href={u("/rss.xml")}>RSS feed</a></li>
-        <li><a class="hover:text-sev-critical" href={u("/feed.json")}>JSON feed</a></li>
-        <li><a class="hover:text-sev-critical" href={u("/llms.txt")}>llms.txt</a></li>
+      <ul class="mt-3 space-y-1.5 text-[15px]">
+        <li><a class="hover:text-sev-high" href={u("/about/")}>About and method</a></li>
+        <li><a class="hover:text-sev-high" href={u("/rss.xml")}>RSS feed</a></li>
+        <li><a class="hover:text-sev-high" href={u("/feed.json")}>JSON feed</a></li>
+        <li><a class="hover:text-sev-high" href={u("/llms.txt")}>llms.txt</a></li>
       </ul>
     </nav>
   </div>
-  <p class="mx-auto max-w-6xl border-t border-border px-4 py-5 font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground sm:px-6">
-    © {year} {SITE.name} · Set in Instrument Serif, Inter and JetBrains Mono · Feed updated {updated}
+  <p class="mx-auto max-w-7xl border-t border-paper/15 px-4 py-5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-paper/45 sm:px-8">
+    © {year} {SITE.name} · Set in Bricolage Grotesque, Source Serif 4 and IBM Plex Mono · Feed updated {updated}
   </p>
 </footer>

@@ -1,38 +1,167 @@
 ---
 import Base from "@/layouts/Base.astro";
-import LeadStory from "@/components/LeadStory.astro";
+import Cover from "@/components/Cover.astro";
 import FeedExplorer from "@/components/FeedExplorer";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { TextHighlight } from "@/components/ui/text-highlight";
 import { allItems, categoryCounts } from "@/data/feed";
-import { CATEGORY_ORDER, SEVERITY_ORDER } from "@/data/schema";
+import { CATEGORY_ORDER, SEVERITY_ORDER, type Item } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
-import { SITE, abs } from "@/site";
-import { slim } from "@/lib/slim";
+import { SEV_GLYPH, SEV_TEXT } from "@/lib/severity";
+import { TOPIC } from "@/lib/topic";
+import { SITE, abs, u } from "@/site";
+import { slim, fmtDate } from "@/lib/slim";
 
 const items = allItems();
 const rank = (s: string) => SEVERITY_ORDER.indexOf(s as never);
-// The lead is the most severe of the newest week, newest first among equals.
+const bySev = [...items].sort((a, b) => rank(a.severity) - rank(b.severity) || (a.publishDate < b.publishDate ? 1 : -1));
+
+// Lead: the most severe of the newest dozen, preferring one with a real image.
 const recent = items.slice(0, 12);
-const lead = [...recent].sort((a, b) => rank(a.severity) - rank(b.severity) || (a.publishDate < b.publishDate ? 1 : -1))[0];
-const seconds = recent.filter((i) => i.id !== lead?.id).sort((a, b) => rank(a.severity) - rank(b.severity)).slice(0, 3);
+const leadPool = [...recent].sort((a, b) => rank(a.severity) - rank(b.severity) || Number(!!b.image) - Number(!!a.image));
+const lead = leadPool[0];
+const used = new Set<string>(lead ? [lead.id] : []);
+const take = (pool: Item[], n: number, pred: (i: Item) => boolean = () => true) => {
+  const out = pool.filter((i) => !used.has(i.id) && pred(i)).slice(0, n);
+  out.forEach((i) => used.add(i.id));
+  return out;
+};
+const seconds = take(items, 2, (i) => !!i.image);
+const justIn = take(items, 3);
+// "Patch this week": actionable, high and above, with a CVE or a named product to put on the cover.
+const patch = bySev.filter((i) => (i.severity === "critical" || i.severity === "high") && (i.cve || i.affected?.length)).slice(0, 4);
+const quick = take(items, 4);
+const top5 = bySev.slice(0, 5);
+
+const label = (c: string) => CATEGORY_META[c as keyof typeof CATEGORY_META].label;
 const counts = categoryCounts();
 const categories = CATEGORY_ORDER.map((id) => ({ id, label: CATEGORY_META[id].label, count: counts[id] ?? 0 })).filter((c) => c.count > 0);
+const kicker = "font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em]";
+const section = "font-heading text-3xl font-extrabold uppercase [font-stretch:75%]";
 
 const itemList = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `${SITE.name}: latest AI security news`,
-  itemListElement: items.slice(0, 30).map((it, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    url: abs(`/items/${it.id}/`),
-    name: it.title,
-  })),
+  itemListElement: items.slice(0, 30).map((it, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/items/${it.id}/`), name: it.title })),
 };
 ---
 
 <Base jsonLd={[itemList]}>
-  {lead && <LeadStory lead={lead} seconds={seconds} />}
-  <div class="pt-10">
+  {lead && (
+    <section aria-label="Top stories" class="grid gap-8 border-b-2 border-ink py-8 lg:grid-cols-12">
+      <article class="lg:col-span-8">
+        <a href={u(`/items/${lead.id}/`)} class="group block">
+          <Cover item={lead} ratio="16/9" size="xl" eager />
+          <p class={`mt-5 ${kicker} ${SEV_TEXT[lead.severity]}`}>{SEV_GLYPH[lead.severity]} {lead.severity} · {label(lead.categories[0])} · <time datetime={lead.date}>{fmtDate(lead.date)}</time></p>
+          <h2 class="mt-2 font-heading text-[clamp(38px,5.4vw,76px)] font-extrabold leading-[0.92] tracking-[-0.018em] [font-stretch:80%] decoration-sev-critical decoration-4 underline-offset-8 group-hover:underline">{lead.title}</h2>
+        </a>
+        <p class="mt-4 max-w-3xl text-xl leading-relaxed text-ink/85">{lead.explainer.tagline}</p>
+        {lead.affected && lead.affected.length > 0 && (
+          <p class="mt-4 text-[15px]">Affects <TextHighlight client:visible color="oklch(0.88 0.16 95)" delay={0.3}><span class="font-semibold">{lead.affected.slice(0, 4).join(", ")}</span></TextHighlight></p>
+        )}
+        <p class={`mt-4 ${kicker} text-muted-foreground`}>By <span class="text-ink">{lead.credits.map((c) => c.name).join(", ")}</span> · {lead.org}</p>
+      </article>
+      <div class="grid content-start gap-8 lg:col-span-4 lg:border-l lg:border-ink/20 lg:pl-8">
+        {seconds.map((it) => (
+          <article>
+            <a href={u(`/items/${it.id}/`)} class="group block">
+              <Cover item={it} ratio="16/10" size="md" />
+              <p class={`mt-3 ${kicker} ${SEV_TEXT[it.severity]}`}>{SEV_GLYPH[it.severity]} {it.severity} · <span class="text-muted-foreground">{it.org}</span></p>
+              <h3 class="mt-1.5 font-heading text-[26px] font-bold leading-[1.02] tracking-[-0.02em] [font-stretch:85%] group-hover:underline">{it.title}</h3>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {justIn.length > 0 && (
+    <section class="py-10" aria-labelledby="just-in">
+      <div class="mb-5 flex items-baseline justify-between border-b border-ink pb-2">
+        <h2 id="just-in" class={section}>Just in</h2>
+        <a href="#feed-heading" class={`${kicker} text-muted-foreground hover:text-ink`}>All stories ↓</a>
+      </div>
+      <div class="grid gap-8 md:grid-cols-3">
+        {justIn.map((it, i) => (
+          <BlurFade client:visible inView delay={i * 0.08}>
+            <article>
+              <a href={u(`/items/${it.id}/`)} class="group block">
+                <Cover item={it} ratio="3/2" size="md" />
+                <p class={`mt-3 ${kicker} ${SEV_TEXT[it.severity]}`}>{SEV_GLYPH[it.severity]} {it.severity} · <span class="text-muted-foreground">{label(it.categories[0])}</span></p>
+                <h3 class="mt-1.5 font-heading text-[24px] font-bold leading-[1.04] tracking-[-0.02em] [font-stretch:85%] group-hover:underline">{it.title}</h3>
+              </a>
+              <p class="mt-2 text-[15.5px] leading-relaxed text-ink/75">{it.explainer.tagline}</p>
+            </article>
+          </BlurFade>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {patch.length > 0 && (
+    <section class="relative left-1/2 w-screen -translate-x-1/2 bg-ink py-12 text-paper" aria-labelledby="patch">
+      <div class="mx-auto max-w-7xl px-4 sm:px-8">
+        <div class="mb-6 flex items-end justify-between gap-4">
+          <h2 id="patch" class="font-heading text-[clamp(34px,5vw,64px)] font-extrabold uppercase leading-[0.85] tracking-[-0.03em] [font-stretch:75%]">Patch this week<span class="text-sev-critical">.</span></h2>
+          <p class={`${kicker} hidden text-paper/60 sm:block`}>High severity, with a fix or a named product</p>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {patch.map((it, i) => (
+            <BlurFade client:visible inView delay={i * 0.08}>
+              <a href={u(`/items/${it.id}/`)} class="group block">
+                <Cover item={it} ratio="4/5" size="lg" forceGenerated />
+                <h3 class="mt-3 font-heading text-[19px] !font-semibold leading-tight group-hover:underline">{it.title}</h3>
+                <p class={`mt-1 ${kicker} text-paper/55`}>{it.org}</p>
+              </a>
+            </BlurFade>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="grid gap-10 py-12 lg:grid-cols-12">
+    {quick.length > 0 && (
+      <div class="lg:col-span-8" aria-labelledby="quick">
+        <div class="mb-5 border-b border-ink pb-2"><h2 id="quick" class={section}>Quick hits</h2></div>
+        <div class="grid auto-rows-[150px] grid-cols-2 gap-3 md:grid-cols-4">
+          {quick.map((it, i) => {
+            const t = TOPIC[it.categories[0]];
+            return i === 0 ? (
+              <a href={u(`/items/${it.id}/`)} class="group relative col-span-2 row-span-2 overflow-hidden">
+                <Cover item={it} ratio="fill" size="lg" class="absolute inset-0" hideText />
+                <h3 class="absolute bottom-0 p-4 font-heading text-[26px] font-bold leading-[1.02] text-white [text-shadow:0_1px_14px_rgba(0,0,0,.55)] group-hover:underline">{it.title}</h3>
+              </a>
+            ) : (
+              <a href={u(`/items/${it.id}/`)} class:list={["group flex flex-col justify-between p-4 transition-transform hover:-translate-y-0.5", i === 3 && "col-span-2"]} style={`background:${t.bg};color:${t.ink}`}>
+                <p class={kicker}>{SEV_GLYPH[it.severity]} {label(it.categories[0])}</p>
+                <h3 class="font-heading text-[19px] font-bold leading-[1.05] [font-stretch:85%] group-hover:underline">{it.title}</h3>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    )}
+    <aside class="lg:col-span-4" aria-labelledby="most-severe">
+      <div class="mb-2 border-b border-ink pb-2"><h2 id="most-severe" class={section}>Most severe</h2></div>
+      <ol>
+        {top5.map((it, i) => (
+          <li class="border-b border-ink/15">
+            <a href={u(`/items/${it.id}/`)} class="group grid grid-cols-[3.2rem_1fr] items-start gap-3 py-3.5">
+              <span class="font-heading text-[52px] font-extrabold leading-[0.8] text-ink/15 [font-stretch:75%]">{i + 1}</span>
+              <span>
+                <span class={`block ${kicker} ${SEV_TEXT[it.severity]}`}>{SEV_GLYPH[it.severity]} {it.severity}</span>
+                <span class="mt-1 block font-heading text-[18px] !font-semibold leading-tight group-hover:underline">{it.title}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </aside>
+  </section>
+
+  <div class="border-t-2 border-ink pt-10">
     <FeedExplorer client:idle items={items.map(slim)} categories={categories} severities={SEVERITY_ORDER} />
   </div>
 </Base>

@@ -3,58 +3,61 @@ import { u } from "@/site";
 import { SITE } from "@/site";
 import { CATEGORY_ORDER } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
-import { allItems } from "@/data/feed";
+import { allItems, feed } from "@/data/feed";
+import { NumberTicker } from "@/components/ui/number-ticker";
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 const path = Astro.url.pathname.slice(BASE.length) || "/";
 const isHome = path === "/";
-const edition = new Date().toLocaleDateString("en-US", {
-  weekday: "long", year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
-});
-const current = path;
+const edition = new Date().toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 const items = allItems();
 const crit = items.filter((i) => i.severity === "critical").length;
 const high = items.filter((i) => i.severity === "high").length;
+const vendors = new Set(items.map((i) => i.org)).size;
+const kicker = "font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em]";
+const wordmark = "font-heading font-extrabold uppercase leading-[0.8] [font-stretch:78%] tracking-[-0.02em]";
 ---
 
-<header class="border-b border-ink/90">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground sm:px-6">
-    <span>{edition}</span>
-    <span class="hidden sm:inline">{items.length} stories · {crit > 0 && <><span class="text-sev-critical">● {crit} critical</span> · </>}<span class="text-sev-high">◆ {high} high</span></span>
+<header class="mx-auto max-w-7xl px-4 sm:px-8">
+  <div class={`flex items-center justify-between gap-4 border-b border-ink/15 py-2 text-muted-foreground ${kicker}`}>
+    <span>{edition} · Updated <time datetime={feed.generatedAt} data-ago>{new Date(feed.generatedAt).toUTCString().slice(5, 22)} UTC</time></span>
+    <span class="hidden gap-5 md:flex">
+      <span><b class="text-ink"><NumberTicker client:visible value={items.length} /></b> stories</span>
+      {crit > 0 && <span class="text-sev-critical">● <b><NumberTicker client:visible value={crit} /></b> critical</span>}
+      <span class="text-sev-high">◆ <b><NumberTicker client:visible value={high} /></b> high</span>
+      <span><b class="text-ink"><NumberTicker client:visible value={vendors} /></b> sources</span>
+    </span>
     <a href={u("/rss.xml")} class="hover:text-ink">RSS</a>
   </div>
-  <div class="mx-auto max-w-6xl border-t border-border px-4 sm:px-6">
-    <div class="flex items-end justify-between gap-6 py-5 sm:py-7">
-      <a href={u("/")} class="group block leading-none" aria-label={`${SITE.name} home`}>
-        {isHome ? (
-          <h1 class="font-heading text-5xl tracking-tight sm:text-7xl">
-            The <em class="italic">Injection</em><span class="text-sev-critical">.</span>
-          </h1>
-        ) : (
-          <span class="font-heading text-4xl tracking-tight sm:text-5xl">
-            The <em class="italic">Injection</em><span class="text-sev-critical">.</span>
-          </span>
-        )}
-      </a>
-      <p class="hidden max-w-xs pb-1 text-right text-sm leading-snug text-muted-foreground md:block">
-        {SITE.tagline} Prompt injection, agent supply chain, jailbreaks and the research behind them.
-      </p>
-    </div>
+  <div class="flex items-end justify-between gap-6 pb-4 pt-6">
+    <a href={u("/")} class="block" aria-label={`${SITE.name} home`}>
+      {isHome ? (
+        <h1 class={`${wordmark} text-[clamp(52px,11vw,150px)]`}>The Injection<span class="text-sev-critical">.</span></h1>
+      ) : (
+        <span class={`${wordmark} block text-[clamp(40px,7vw,84px)]`}>The Injection<span class="text-sev-critical">.</span></span>
+      )}
+    </a>
+    <p class="hidden max-w-[17rem] pb-2 text-right text-[15px] italic leading-snug text-ink/70 lg:block">
+      {SITE.tagline} The attacks, the flaws, the supply chain and the people who found them.
+    </p>
   </div>
-  <div class="h-[3px] bg-ink"></div>
-  <div class="mt-[2px] h-px bg-ink"></div>
+  <div class="h-[5px] bg-ink"></div>
+  <div class="mt-[3px] h-px bg-ink"></div>
   <nav aria-label="Sections">
-    <ul class="mx-auto flex max-w-6xl gap-5 overflow-x-auto px-4 py-2.5 font-mono text-[11px] uppercase tracking-wider sm:px-6 [scrollbar-width:none]">
-      <li><a href={u("/")} class:list={["whitespace-nowrap hover:text-sev-critical", current === "/" && "text-sev-critical"]}>Latest</a></li>
+    <ul class={`flex gap-6 overflow-x-auto py-3 ${kicker} [scrollbar-width:none]`}>
+      <li><a href={u("/")} class:list={["whitespace-nowrap hover:text-sev-critical", path === "/" && "text-sev-critical"]}>Latest</a></li>
       {CATEGORY_ORDER.map((c) => (
-        <li>
-          <a
-            href={u(`/category/${c}/`)}
-            class:list={["whitespace-nowrap hover:text-sev-critical", current.startsWith(`/category/${c}/`) && "text-sev-critical"]}
-          >{CATEGORY_META[c].label}</a>
-        </li>
+        <li><a href={u(`/category/${c}/`)} class:list={["whitespace-nowrap hover:text-sev-critical", path.startsWith(`/category/${c}/`) && "text-sev-critical"]}>{CATEGORY_META[c].label}</a></li>
       ))}
-      <li class="ml-auto"><a href={u("/about/")} class="whitespace-nowrap hover:text-sev-critical">About</a></li>
+      <li class="ml-auto"><a href={u("/about/")} class:list={["whitespace-nowrap hover:text-sev-critical", path === "/about/" && "text-sev-critical"]}>About</a></li>
     </ul>
   </nav>
 </header>
+
+<script>
+  // "Updated 3h ago", computed in the reader's browser; the static text is the fallback.
+  for (const el of document.querySelectorAll<HTMLTimeElement>("time[data-ago]")) {
+    const mins = Math.max(0, Math.round((Date.now() - Date.parse(el.dateTime)) / 60000));
+    el.textContent = mins < 60 ? `${mins}m ago` : mins < 2880 ? `${Math.round(mins / 60)}h ago` : `${Math.round(mins / 1440)}d ago`;
+  }
+</script>

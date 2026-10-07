@@ -47,7 +47,12 @@
           "url": "https://support.claude.com/en/articles/14604842-cyber-verification-program"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://www.anthropic.com/api/opengraph-illustration?name=Hand%20Lock&backgroundColor=heather",
+        "alt": "Anthropic Cyber Verification Program: tiered access for defenders",
+        "credit": "Anthropic"
+      }
     },
     {
       "id": "claude-code-symlink-toctou-file-write",
@@ -367,7 +372,12 @@
           "url": "https://arxiv.org/abs/2609.38415"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://cdn.prod.website-files.com/663bd486c5e4c81588db7a48/6aba84e46db07d709b7c886a_Copy%20of%20Metacard%20(18).png",
+        "alt": "UK AISI: GPT-6 Astra attacked out-of-scope targets in simulations",
+        "credit": "UK AI Security Institute"
+      }
     },
     {
       "id": "anthropic-claude-desktop-cowork-file-exec",
@@ -521,7 +531,12 @@
           "url": "https://owasp.github.io/www-project-agentic-skills-top-10/"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a282d66e4248a84e0259ed9/6ab52c87c1942e2abd02882d_IMG_2025.png",
+        "alt": "Anthropic skill scanner bypassed: malicious skills marked safe",
+        "credit": "AIR Security"
+      }
     },
     {
       "id": "zenity-salesbleed-agentforce-exfiltration",
@@ -583,7 +598,12 @@
           "url": "https://labs.zenity.io/post/salesbleed-hijacking-agentforce-in-slack-for-anonymous-phishing"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://cdn.sanity.io/images/13k3ywos/production/91e7077ead5d29eacd6c987920b4202ef7f1912f-1550x1014.png?rect=0,100,1550,814&w=1200&h=630",
+        "alt": "SalesBleed: zero-click CRM data theft through Salesforce Agentforce",
+        "credit": "Zenity Labs"
+      }
     },
     {
       "id": "socket-memtensor-memos-compromise",
@@ -674,7 +694,12 @@
           "url": "https://labs.cloudsecurityalliance.org/research/csa-research-note-memtensor-supply-chain-sckit-20260925-csa/"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://cdn.sanity.io/images/cgdhsj6q/production/db7109434740f66ed50c409d521329da9e9aa65e-2626x1066.png?w=1000&q=95&fit=max&auto=format",
+        "alt": "MemTensor MemOS packages compromised with a credential stealer",
+        "credit": "Socket"
+      }
     },
     {
       "id": "arxiv-explosive-prompts-trigger-injections",
@@ -855,7 +880,12 @@
           "url": "https://www.air.security/blog-posts/agent-supply-chain-framework"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a282d66e4248a84e0259ed9/6aaa5395937ce8592114fb89_image%20(11).png",
+        "alt": "Plugin4Shell: zero-click plugin RCE in four AI coding agents",
+        "credit": "AIR Security"
+      }
     },
     {
       "id": "caisi-glm-5-3-cyber-assessment",
@@ -973,7 +1003,12 @@
           "url": "https://github.com/genai-security-project/agent-control-standard/"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://cdn.sanity.io/images/13k3ywos/production/75b42c1be2564b98fb3c3ec2c75822c7972dcff8-2752x1536.jpg?rect=0,46,2752,1445&w=1200&h=630",
+        "alt": "Agent Control Standard: an open spec for blocking agent actions",
+        "credit": "OWASP GenAI Security Project"
+      }
     },
     {
       "id": "gtig-ai-threat-tracker-prompting-to-autonomy",
@@ -1018,7 +1053,12 @@
           "url": "https://cyberinsider.com/google-warns-hackers-are-deploying-ai-agents-in-autonomous-attacks/"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://storage.googleapis.com/gweb-cloudblog-publish/images/03_ThreatIntelligenceWebsiteBannerIdeas_BA.max-2600x2600.png",
+        "alt": "Google GTIG: attackers used AI agents to run a credential campaign",
+        "credit": "Google Threat Intelligence Group"
+      }
     },
     {
       "id": "embracethered-ssms-copilot-select-to-sysadmin",
@@ -1115,7 +1155,12 @@
           "url": "https://learn.microsoft.com/en-us/ssms/github-copilot/admin-controls"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://embracethered.com/blog/images/2026/sqlcopilot/sqlcopilot-tn.png",
+        "alt": "SQL Server Copilot: prompt injection escalates a user to sysadmin",
+        "credit": "Embrace The Red"
+      }
     },
     {
       "id": "checkpoint-chatgpt-shared-artifactory-channel",
@@ -1165,7 +1210,12 @@
           "url": "https://www.csoonline.com/article/4220203/chatgpt-flaw-lets-attackers-pull-gmail-data-across-accounts-via-a-hidden-channel.html"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://research.checkpoint.com/wp-content/uploads/2026/08/cover-1-1024x576.png",
+        "alt": "ChatGPT sandbox: shared package cache leaked data across accounts",
+        "credit": "Check Point Research"
+      }
     },
     {
       "id": "air-mcpjacking",
@@ -1262,7 +1312,12 @@
           "url": "https://www.air.security/blog-posts/repojacking"
         }
       ],
-      "publishDate": "2026-10-07T07:05:48.295Z"
+      "publishDate": "2026-10-07T07:05:48.295Z",
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a282d66e4248a84e0259ed9/6a96baf3d700b3570de5f412_mcp%20(2).png",
+        "alt": "MCPJacking: 155 hijackable servers in the official MCP registry",
+        "credit": "AIR Security"
+      }
     }
   ]
 }
