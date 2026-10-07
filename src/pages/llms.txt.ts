@@ -34,6 +34,7 @@ export function GET() {
     "",
     `- [Developers and agents](${abs("/developers/")}): endpoints, fields and examples`,
     `- [About and method](${abs("/about/")}): how stories are found, verified, credited and rated`,
+    `- [Exposure by ecosystem](${abs("/exposure/")}): the last 30 days of stories, grouped by ecosystem`,
     `- [Full text](${abs("/llms-full.txt")}): every story in Markdown, one file`,
     `- [JSON feed](${abs("/feed.json")}): the latest 100 stories, structured`,
     "",

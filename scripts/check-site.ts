@@ -58,6 +58,9 @@ for (const page of ["about", "contact", "privacy", "developers"]) {
   if (existsSync(join(DIST, p))) check(textOf(read(p)).length >= 900, `${page}: >= 500 chars of its own content`);
 }
 
+// Exposure page: the strips' stories are in the HTML, not only in the island.
+check(existsSync(join(DIST, "exposure/index.html")) && read("exposure/index.html").includes("/items/"), "exposure: page exists and links its stories");
+
 // 404 page: exists, not indexed, points agents at the index.
 check(existsSync(join(DIST, "404.html")), "404.html: exists");
 if (existsSync(join(DIST, "404.html"))) {

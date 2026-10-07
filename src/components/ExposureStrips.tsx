@@ -60,9 +60,9 @@ export default function ExposureStrips({ end, strips: compact }: { end: string; 
         }));
         const count = s.days.reduce((n, d) => n + d.stories.length, 0);
         return (
-          <div key={s.name} className="grid grid-cols-[8.5rem_1fr_4.5rem] items-center gap-4 py-2.5 sm:grid-cols-[11rem_1fr_5.5rem]">
+          <div key={s.name} className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2 py-3 sm:grid-cols-[11rem_1fr_5.5rem] sm:py-2.5">
             <span className="font-mono text-[11px] text-ink">{s.name}</span>
-            <div className="[&_[data-slot=status-bar]]:h-[26px]">
+            <div className="col-span-2 row-start-2 min-w-0 sm:col-span-1 sm:col-start-2 sm:row-start-1 [&_[data-slot=status-bar]]:h-[26px]">
               <StatusBar data={data} />
             </div>
             <span className="text-right font-mono text-[11px] text-muted-foreground">{count} {count === 1 ? "event" : "events"}</span>

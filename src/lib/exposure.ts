@@ -13,14 +13,29 @@ const ECOSYSTEMS: { name: string; match: RegExp }[] = [
 const WORST: Record<Severity, StripDay["worst"]> = { critical: "error", high: "error", medium: "degraded", low: "info", info: "info" };
 const RANK: StripDay["worst"][] = ["success", "info", "degraded", "error"];
 
-export function exposureStrips(items: Item[], days = 30): { end: string; strips: CompactStrip[] } {
+function dayWindow(items: Item[], days: number) {
   const end = items.reduce((m, i) => (i.date > m ? i.date : m), "0000-00-00");
   const endMs = Date.parse(`${end}T12:00:00Z`);
   const dayList = Array.from({ length: days }, (_, k) => new Date(endMs - (days - 1 - k) * 86_400_000).toISOString().slice(0, 10));
+  return { end, dayList };
+}
+
+const touches = (match: RegExp, i: Item) => match.test([i.title, ...i.tags, ...(i.affected ?? []), ...i.categories].join(" "));
+
+/** The same window and ecosystems as the strips, as plain story lists (newest first) for the exposure page. */
+export function exposureGroups(items: Item[], days = 30): { start: string; end: string; groups: { name: string; items: Item[] }[] } {
+  const { end, dayList } = dayWindow(items, days);
+  const start = dayList[0];
+  const inWindow = items.filter((i) => i.date >= start && i.date <= end).sort((a, b) => b.date.localeCompare(a.date));
+  return { start, end, groups: ECOSYSTEMS.map(({ name, match }) => ({ name, items: inWindow.filter((i) => touches(match, i)) })) };
+}
+
+export function exposureStrips(items: Item[], days = 30): { end: string; strips: CompactStrip[] } {
+  const { end, dayList } = dayWindow(items, days);
   // Compact on purpose: this is island props, serialised into the page. One
   // character per day (s/i/d/e), stories only for the days that have any.
   const strips = ECOSYSTEMS.map(({ name, match }) => {
-    const hits = items.filter((i) => match.test([i.title, ...i.tags, ...(i.affected ?? []), ...i.categories].join(" ")));
+    const hits = items.filter((i) => touches(match, i));
     let worst = "";
     const stories: Record<number, [string, string][]> = {};
     dayList.forEach((day, k) => {
