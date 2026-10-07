@@ -1,17 +1,8 @@
 ---
 import type { Severity } from "@/data/schema";
-import { SEV_GLYPH, SEV_TEXT } from "@/lib/severity";
+import { SeverityMeter } from "@/components/SeverityMeter";
 
 interface Props { severity: Severity; size?: "sm" | "md" }
 const { severity, size = "sm" } = Astro.props;
-const text = size === "sm" ? "text-[10px]" : "text-xs";
 ---
-{severity === "critical" ? (
-  <span class:list={["inline-flex items-center gap-1 rounded-[3px] bg-sev-critical font-mono font-semibold uppercase tracking-wider text-white", size === "sm" ? "px-1.5 py-0.5" : "px-2 py-1", text]}>
-    <span aria-hidden="true">{SEV_GLYPH.critical}</span>critical
-  </span>
-) : (
-  <span class:list={["inline-flex items-center gap-1 font-mono font-semibold uppercase tracking-wider", SEV_TEXT[severity], text]}>
-    <span aria-hidden="true">{SEV_GLYPH[severity]}</span>{severity}
-  </span>
-)}
+<SeverityMeter severity={severity} size={size} />

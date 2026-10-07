@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Category, Severity } from "@/data/schema";
 import { u } from "@/site";
-import { SEV_BORDER, SEV_GLYPH, SEV_TEXT } from "@/lib/severity";
-
+import { SeverityMeter } from "@/components/SeverityMeter";
 
 export interface SlimItem {
   id: string;
@@ -15,6 +14,8 @@ export interface SlimItem {
   credits: string[];
   tags: string[];
   cve?: string;
+  image?: string;
+  coverText: string;
 }
 
 interface Props {
@@ -23,20 +24,19 @@ interface Props {
   severities: Severity[];
 }
 
-/** "Yesterday, Mon 6 Oct" style labels, relative to the build's newest day. */
-function dayLabel(iso: string, newest: string) {
-  const d = new Date(`${iso}T12:00:00Z`);
-  const base = d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
-  const diff = Math.round((Date.parse(`${newest}T12:00:00Z`) - d.getTime()) / 86_400_000);
-  if (diff === 0) return `Latest, ${base}`;
-  if (diff === 1) return `Day before, ${base}`;
-  return base;
-}
+const EDGE: Record<Severity, string> = {
+  critical: "var(--sev-critical)",
+  high: "var(--sev-high)",
+  medium: "var(--sev-medium)",
+  low: "var(--sev-low)",
+  info: "var(--sev-info)",
+};
 
 /**
- * The feed. Rendered to HTML at build time with every item in it, so crawlers
- * and readers without JS get the full list; the filters only hide rows. The
- * active filters live in the URL query, so a filtered view can be shared.
+ * The incident feed. Rendered to HTML at build time with every item in it, so
+ * crawlers and readers without JS get the full list; the filters only hide
+ * rows. The active filters live in the URL query, so a filtered view can be
+ * shared.
  */
 export default function FeedExplorer({ items, categories, severities }: Props) {
   const [query, setQuery] = useState("");
@@ -72,122 +72,96 @@ export default function FeedExplorer({ items, categories, severities }: Props) {
     });
   }, [items, query, cat, sev]);
 
-  const byDay = useMemo(() => {
-    const groups = new Map<string, SlimItem[]>();
-    for (const it of visible) groups.set(it.date, [...(groups.get(it.date) ?? []), it]);
-    return [...groups.entries()].sort((a, b) => (a[0] < b[0] ? 1 : -1));
-  }, [visible]);
-
-  const newest = items.reduce((m, i) => (i.date > m ? i.date : m), "0000-00-00");
   const label = (c: Category) => categories.find((x) => x.id === c)?.label ?? c;
   const presentSev = severities.filter((s) => items.some((i) => i.severity === s));
-  const pill = (active: boolean) =>
-    `whitespace-nowrap rounded-full border px-3 py-1 text-[13px] transition-colors ${active ? "border-ink bg-ink text-paper" : "border-border hover:border-ink"}`;
+  const chip = (active: boolean) =>
+    `flex w-full items-center justify-between rounded-sm px-2.5 py-2 text-left font-mono text-[11px] uppercase tracking-[0.04em] transition-colors ${active ? "bg-acid text-black" : "text-muted-foreground hover:bg-panel-2 hover:text-ink"}`;
 
   return (
-    <section aria-labelledby="feed-heading" className="grid gap-10 lg:grid-cols-[1fr_15rem]">
+    <section aria-labelledby="feed-heading" className="grid gap-8 lg:grid-cols-[1fr_14rem]">
       <div className="min-w-0">
-        <div className="flex items-baseline justify-between border-b-[3px] border-ink pb-2">
-          <h2 id="feed-heading" className="font-heading text-3xl">The feed</h2>
-          <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            {visible.length} of {items.length} stories
-          </p>
+        <div className="flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground">
+          <h2 id="feed-heading">Incident feed</h2>
+          <span>{visible.length} of {items.length} · newest first</span>
         </div>
 
-        <label className="mt-4 flex items-center gap-2 border-b border-border px-1 py-2 focus-within:border-ink">
-          <svg aria-hidden viewBox="0 0 24 24" className="size-4 text-muted-foreground" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+        <label className="mt-3 flex items-center gap-2 rounded-sm border border-line bg-panel px-3 py-2.5 focus-within:border-acid">
+          <span aria-hidden className="font-mono text-[12px] text-acid">&gt;</span>
           <span className="sr-only">Search the feed</span>
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search a CVE, product, researcher or technique"
-            className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+            placeholder="grep: CVE, product, researcher, technique"
+            className="w-full bg-transparent font-mono text-[12px] text-ink outline-none placeholder:text-muted-foreground"
           />
         </label>
 
-        {/* Below lg the sidebar collapses into pill rows. */}
+        {/* Below lg the sidebar becomes two scrollable chip rows. */}
         <div className="mt-3 space-y-2 lg:hidden">
-          <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
+          <div className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]">
             {presentSev.map((s) => (
-              <button key={s} type="button" aria-pressed={sev === s} onClick={() => setSev(sev === s ? null : s)} className={pill(sev === s)}>
-                <span className={sev === s ? "" : SEV_TEXT[s]}>{SEV_GLYPH[s]}</span> <span className="capitalize">{s}</span>
+              <button key={s} type="button" aria-pressed={sev === s} onClick={() => setSev(sev === s ? null : s)} className={`shrink-0 rounded-sm border px-2.5 py-1.5 ${sev === s ? "border-acid" : "border-line"}`}>
+                <SeverityMeter severity={s} />
               </button>
             ))}
           </div>
-          {categories.length > 1 && (
-            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
-              {categories.map((c) => (
-                <button key={c.id} type="button" aria-pressed={cat === c.id} onClick={() => setCat(cat === c.id ? null : c.id)} className={pill(cat === c.id)}>
-                  {c.label} <span className="font-mono text-[11px] opacity-60">{c.count}</span>
-                </button>
-              ))}
-            </div>
-          )}
+          <div className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]">
+            {categories.length > 1 && categories.map((c) => (
+              <button key={c.id} type="button" aria-pressed={cat === c.id} onClick={() => setCat(cat === c.id ? null : c.id)} className={`shrink-0 whitespace-nowrap rounded-sm border px-2.5 py-1.5 font-mono text-[10.5px] uppercase ${cat === c.id ? "border-acid text-acid" : "border-line text-muted-foreground"}`}>
+                {c.label} {c.count}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {byDay.length === 0 && (
-          <p className="py-16 text-center text-muted-foreground">Nothing matches. Clear a filter or try another word.</p>
+        {visible.length === 0 && (
+          <p className="py-16 text-center font-mono text-[12px] text-muted-foreground">0 matches. Clear a filter or try another term.</p>
         )}
 
-        {byDay.map(([day, list]) => {
-          const worst = severities.find((s) => list.some((i) => i.severity === s));
-          return (
-            <div key={day} className="mt-8">
-              <h3 className="sticky top-0 z-10 flex items-center justify-between border-y border-ink bg-paper px-0 py-1.5 font-mono text-[11px] uppercase tracking-wider">
-                <time dateTime={day} className="font-semibold">{dayLabel(day, newest)}</time>
-                <span className="text-muted-foreground">
-                  {list.length} {list.length === 1 ? "story" : "stories"}
-                  {worst && worst !== "info" && <> · <span className={SEV_TEXT[worst]}>{SEV_GLYPH[worst]} {list.filter((i) => i.severity === worst).length} {worst}</span></>}
+        <ol className="mt-3 space-y-[2px]">
+          {visible.map((it) => (
+            <li key={it.id}>
+              <a
+                href={u(`/items/${it.id}/`)}
+                className="group grid grid-cols-[88px_1fr] items-center gap-4 border-l-2 bg-panel py-3 pl-3 pr-4 transition-colors hover:bg-panel-2 sm:grid-cols-[132px_1fr_auto] sm:gap-5"
+                style={{ borderLeftColor: EDGE[it.severity] }}
+              >
+                <span className="relative block aspect-video overflow-hidden rounded-[2px] bg-panel-2">
+                  {it.image ? (
+                    <img src={it.image} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" />
+                  ) : (
+                    <span className="absolute inset-0 flex items-end p-2 font-mono text-[9.5px] font-medium leading-tight text-acid [background:radial-gradient(#2E343A_0.8px,transparent_0.9px)_0_0/7px_7px] sm:text-[10.5px]">
+                      {it.coverText}
+                    </span>
+                  )}
                 </span>
-              </h3>
-              <ol className="divide-y divide-border">
-                {list.map((it) => (
-                  <li key={it.id} className={`border-l-[3px] ${SEV_BORDER[it.severity]}`}>
-                    <a href={u(`/items/${it.id}/`)} className="group grid grid-cols-1 gap-x-5 py-4 pl-4 sm:grid-cols-[5.5rem_1fr] sm:pl-5">
-                      <span className={`hidden pt-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider sm:block ${SEV_TEXT[it.severity]}`}>
-                        {SEV_GLYPH[it.severity]} {it.severity}
-                      </span>
-                      <div className="min-w-0">
-                        <p className="font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground">
-                          <span className={`sm:hidden ${SEV_TEXT[it.severity]}`}>{SEV_GLYPH[it.severity]} {it.severity} · </span>
-                          {label(it.categories[0])} · <span className="text-ink">{it.org}</span>
-                          {it.cve && <> · {it.cve}</>}
-                        </p>
-                        <p className="mt-1 font-heading text-[1.4rem] leading-[1.15] decoration-sev-critical decoration-1 underline-offset-4 group-hover:underline">
-                          {it.title}
-                        </p>
-                        <p className="mt-1.5 text-[0.94rem] leading-relaxed text-muted-foreground">{it.summary}</p>
-                        {it.credits.length > 0 && (
-                          <p className="mt-2 text-[12.5px] text-muted-foreground">
-                            Research by <span className="text-ink">{it.credits.slice(0, 3).join(", ")}</span>
-                            {it.credits.length > 3 && ` and ${it.credits.length - 3} more`}
-                          </p>
-                        )}
-                      </div>
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          );
-        })}
+                <span className="min-w-0">
+                  <span className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10.5px] uppercase tracking-[0.04em] text-muted-foreground">
+                    <SeverityMeter severity={it.severity} />
+                    <span>{label(it.categories[0])}</span>
+                    <span className="text-ink/70">{it.org}</span>
+                    {it.cve && <span className="hidden sm:inline">{it.cve}</span>}
+                  </span>
+                  <span className="mt-1.5 block font-heading text-[17px] font-bold leading-snug text-white [font-stretch:88%] group-hover:underline group-hover:decoration-acid sm:text-[19px]">{it.title}</span>
+                  <span className="mt-1 hidden text-[13.5px] leading-relaxed text-muted-foreground sm:line-clamp-1">{it.summary}</span>
+                </span>
+                <time dateTime={it.date} className="hidden self-start pt-0.5 font-mono text-[10.5px] text-muted-foreground sm:block">{it.date}</time>
+              </a>
+            </li>
+          ))}
+        </ol>
       </div>
 
-      <aside className="hidden space-y-8 lg:sticky lg:top-6 lg:block lg:self-start" aria-label="Filters">
+      <aside className="hidden space-y-6 lg:sticky lg:top-6 lg:block lg:self-start" aria-label="Filters">
         <div>
-          <p className="border-b-[3px] border-ink pb-2 font-mono text-[11px] uppercase tracking-wider">Severity</p>
+          <p className="border-b border-line pb-2 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">Severity</p>
           <ul className="mt-2 space-y-0.5">
             {presentSev.map((s) => (
               <li key={s}>
-                <button
-                  type="button"
-                  onClick={() => setSev(sev === s ? null : s)}
-                  aria-pressed={sev === s}
-                  className={`flex w-full items-center justify-between rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-muted ${sev === s ? "bg-ink text-paper hover:bg-ink" : ""}`}
-                >
-                  <span className="flex items-center gap-2"><span className={sev === s ? "" : SEV_TEXT[s]} aria-hidden>{SEV_GLYPH[s]}</span>{s}</span>
-                  <span className="font-mono text-[11px] opacity-70">{items.filter((i) => i.severity === s).length}</span>
+                <button type="button" onClick={() => setSev(sev === s ? null : s)} aria-pressed={sev === s} className={chip(sev === s)}>
+                  <SeverityMeter severity={s} className={sev === s ? "!text-black" : ""} />
+                  <span>{items.filter((i) => i.severity === s).length}</span>
                 </button>
               </li>
             ))}
@@ -195,18 +169,13 @@ export default function FeedExplorer({ items, categories, severities }: Props) {
         </div>
         {categories.length > 1 && (
           <div>
-            <p className="border-b-[3px] border-ink pb-2 font-mono text-[11px] uppercase tracking-wider">Category</p>
+            <p className="border-b border-line pb-2 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">Category</p>
             <ul className="mt-2 space-y-0.5">
               {categories.map((c) => (
                 <li key={c.id}>
-                  <button
-                    type="button"
-                    onClick={() => setCat(cat === c.id ? null : c.id)}
-                    aria-pressed={cat === c.id}
-                    className={`flex w-full items-center justify-between rounded-sm px-2 py-1.5 text-left text-sm hover:bg-muted ${cat === c.id ? "bg-ink text-paper hover:bg-ink" : ""}`}
-                  >
+                  <button type="button" onClick={() => setCat(cat === c.id ? null : c.id)} aria-pressed={cat === c.id} className={chip(cat === c.id)}>
                     <span>{c.label}</span>
-                    <span className="font-mono text-[11px] opacity-70">{c.count}</span>
+                    <span>{c.count}</span>
                   </button>
                 </li>
               ))}
@@ -214,12 +183,8 @@ export default function FeedExplorer({ items, categories, severities }: Props) {
           </div>
         )}
         {(cat || sev || query) && (
-          <button
-            type="button"
-            onClick={() => { setCat(null); setSev(null); setQuery(""); }}
-            className="font-mono text-[11px] uppercase tracking-wider text-sev-critical hover:underline"
-          >
-            Clear filters
+          <button type="button" onClick={() => { setCat(null); setSev(null); setQuery(""); }} className="font-mono text-[11px] uppercase text-acid hover:underline">
+            [ clear filters ]
           </button>
         )}
       </aside>

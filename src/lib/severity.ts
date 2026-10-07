@@ -16,7 +16,7 @@ export const SEV_GLYPH: Record<Severity, string> = {
 export const SEV_TEXT: Record<Severity, string> = {
   critical: "text-sev-critical",
   high: "text-sev-high",
-  medium: "text-[oklch(0.58_0.13_75)]",
+  medium: "text-sev-medium",
   low: "text-sev-low",
   info: "text-sev-info",
 };

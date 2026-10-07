@@ -4,7 +4,6 @@ import "@/styles/global.css";
 import { SITE, abs } from "@/site";
 import Masthead from "@/components/Masthead.astro";
 import Footer from "@/components/Footer.astro";
-import Ticker from "@/components/Ticker.astro";
 
 interface Props {
   title?: string;
@@ -67,7 +66,7 @@ const siteGraph = {
     <link rel="icon" type="image/svg+xml" href={u("/favicon.svg")} />
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href={u("/rss.xml")} />
     <link rel="sitemap" href={u("/sitemap-index.xml")} />
-    <meta name="theme-color" content="#f6f3ec" />
+    <meta name="theme-color" content="#0E1012" />
     <link rel="preconnect" href="https://cdn.prod.website-files.com" crossorigin />
 
     <meta property="og:site_name" content={SITE.name} />
@@ -89,7 +88,6 @@ const siteGraph = {
   <body class="min-h-dvh bg-paper text-ink">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-3 focus:py-2 focus:text-paper">Skip to content</a>
     <Masthead />
-    <Ticker />
     <main id="main" class="mx-auto w-full max-w-7xl px-4 sm:px-8">
       <slot />
     </main>

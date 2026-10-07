@@ -13,6 +13,8 @@ export const slim = (it: Item): SlimItem => ({
   credits: it.credits.map((c) => c.name),
   tags: it.tags,
   cve: it.cve,
+  image: it.image?.url,
+  coverText: (() => { const p = it.cve ?? it.affected?.[0] ?? it.org; return p.length > 18 ? (it.affected?.find((a) => a.length <= 18) ?? it.org) : p; })(),
 });
 
 export const fmtDate = (iso: string) =>
