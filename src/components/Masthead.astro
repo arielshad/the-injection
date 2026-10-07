@@ -3,15 +3,20 @@ import { u } from "@/site";
 import { SITE } from "@/site";
 import { CATEGORY_ORDER } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
-import { feed } from "@/data/feed";
+import { feed, categoryCounts } from "@/data/feed";
 import SweepClock from "@/components/SweepClock";
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 const path = Astro.url.pathname.slice(BASE.length) || "/";
 const isHome = path === "/";
+const counts = categoryCounts();
 
 const mono = "font-mono text-[11px] tracking-[0.02em]";
-const wordmark = "font-heading text-[26px] font-extrabold uppercase leading-none tracking-[0.01em] text-white sm:text-[30px]";
+const wordmark = "font-heading text-[24px] font-extrabold uppercase leading-none tracking-[0.01em] text-white sm:text-[30px]";
+const sections = [
+  { href: "/", label: "Latest", active: isHome, count: undefined as number | undefined },
+  ...CATEGORY_ORDER.map((c) => ({ href: `/category/${c}/`, label: CATEGORY_META[c].label, active: path.startsWith(`/category/${c}/`), count: counts[c] ?? 0 })),
+];
 ---
 
 <header class="mx-auto max-w-7xl px-4 sm:px-8">
@@ -20,17 +25,57 @@ const wordmark = "font-heading text-[26px] font-extrabold uppercase leading-none
       {isHome ? <h1 class={wordmark}>The Injection<span class="text-acid">_</span></h1> : <span class={wordmark}>The Injection<span class="text-acid">_</span></span>}
     </a>
     <p class="hidden md:block"><SweepClock client:load lastSweep={feed.generatedAt} /></p>
-    <p class={`text-muted-foreground ${mono}`}>
-      <a class="hover:text-acid" href={u("/rss.xml")}>[ RSS ]</a> <a class="hover:text-acid" href={u("/feed.json")}>[ JSON ]</a> <a class="hidden hover:text-acid sm:inline" href={u("/llms.txt")}>[ llms.txt ]</a>
+    <p class={`hidden text-muted-foreground md:block ${mono}`}>
+      <a class="hover:text-acid" href={u("/rss.xml")}>[ RSS ]</a> <a class="hover:text-acid" href={u("/feed.json")}>[ JSON ]</a> <a class="hover:text-acid" href={u("/llms.txt")}>[ llms.txt ]</a>
     </p>
+
+    <!-- Mobile: a live marker and a menu button. <details> opens without JavaScript. -->
+    <div class="flex items-center gap-4 md:hidden">
+      <span class={`inline-flex items-center gap-1.5 text-acid ${mono}`}>
+        <span class="relative inline-flex size-2"><span class="absolute inline-flex size-full animate-ping rounded-full bg-acid opacity-60 motion-reduce:hidden"></span><span class="relative inline-flex size-2 rounded-full bg-acid"></span></span>
+        LIVE
+      </span>
+      <details class="group" data-mobile-menu>
+        <summary class="flex size-10 cursor-pointer list-none items-center justify-center rounded-sm border border-line [&::-webkit-details-marker]:hidden" aria-label="Menu">
+          <svg viewBox="0 0 24 24" class="size-5 group-open:hidden" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" /></svg>
+          <svg viewBox="0 0 24 24" class="hidden size-5 group-open:block" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </summary>
+        <div class="fixed inset-x-0 bottom-0 top-[73px] z-50 overflow-y-auto border-t border-line bg-paper/98 px-4 pb-10 pt-4 backdrop-blur">
+          <nav aria-label="Sections">
+            <ul class="divide-y divide-line border-y border-line">
+              {sections.map((s) => (
+                <li>
+                  <a href={u(s.href)} class:list={["flex items-center justify-between py-4 text-[17px] font-medium", s.active ? "text-acid" : "text-ink"]}>
+                    <span>{s.label}</span>
+                    {s.count !== undefined && <span class="font-mono text-[11px] text-muted-foreground">{s.count}</span>}
+                  </a>
+                </li>
+              ))}
+              <li><a href={u("/about/")} class:list={["block py-4 text-[17px] font-medium", path === "/about/" ? "text-acid" : "text-ink"]}>About and method</a></li>
+            </ul>
+          </nav>
+          <div class="mt-6"><SweepClock client:visible stacked lastSweep={feed.generatedAt} /></div>
+          <p class={`mt-6 flex gap-4 text-muted-foreground ${mono}`}>
+            <a href={u("/rss.xml")}>[ RSS ]</a><a href={u("/feed.json")}>[ JSON ]</a><a href={u("/llms.txt")}>[ llms.txt ]</a>
+          </p>
+        </div>
+      </details>
+    </div>
   </div>
-  <nav aria-label="Sections" class="border-b border-line">
+
+  <nav aria-label="Sections" class="hidden border-b border-line md:block">
     <ul class={`flex gap-6 overflow-x-auto py-3 uppercase text-muted-foreground ${mono} [scrollbar-width:none]`}>
-      <li><a href={u("/")} class:list={["whitespace-nowrap hover:text-ink", isHome && "text-acid"]}>Latest</a></li>
-      {CATEGORY_ORDER.map((c) => (
-        <li><a href={u(`/category/${c}/`)} class:list={["whitespace-nowrap hover:text-ink", path.startsWith(`/category/${c}/`) && "text-acid"]}>{CATEGORY_META[c].label}</a></li>
+      {sections.map((s) => (
+        <li><a href={u(s.href)} class:list={["whitespace-nowrap hover:text-ink", s.active && "text-acid"]}>{s.label}</a></li>
       ))}
       <li class="ml-auto"><a href={u("/about/")} class:list={["whitespace-nowrap hover:text-ink", path === "/about/" && "text-acid"]}>About</a></li>
     </ul>
   </nav>
 </header>
+
+<script>
+  // Keep the page from scrolling behind the open mobile menu, and close it on Escape.
+  const menu = document.querySelector<HTMLDetailsElement>("[data-mobile-menu]");
+  menu?.addEventListener("toggle", () => document.documentElement.classList.toggle("overflow-hidden", menu.open));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && menu?.open) menu.open = false; });
+</script>

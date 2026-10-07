@@ -50,7 +50,7 @@ const itemList = {
 ---
 
 <Base jsonLd={[itemList]}>
-  <section aria-label="This week in numbers" class="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-line bg-line lg:grid-cols-4">
+  <section aria-label="This week in numbers" class="mt-6 hidden grid-cols-2 gap-px md:grid overflow-hidden rounded-sm border border-line bg-line lg:grid-cols-4">
     {board.map((b, i) => (
       <div class="bg-panel p-4 sm:p-5">
         <SplitFlapDisplay client:visible text={b.value} columns={2} size="md" showIndicators={false} staggerDelay={80} flipSpeed={45} className="!rounded-sm !bg-none !p-0 !shadow-none !border-0" />
