@@ -1,7 +1,401 @@
 {
-  "generatedAt": "2026-10-07T19:47:39.479Z",
-  "promptVersion": "1.1.0",
+  "generatedAt": "2026-10-08T11:40:51.966Z",
+  "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "socket-tensorlake-npm-credential-stealer",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "TensorLake npm SDK published a credential stealer in 0.5.144",
+      "org": "Socket",
+      "date": "2026-10-08",
+      "url": "https://socket.dev/blog/tensorlake-compromise",
+      "summary": "tensorlake 0.5.144 on npm carried a credential-stealing worm that runs from a preinstall hook, Socket reports. The package is the SDK for a sandbox runtime used to run AI agents, with about 12,000 weekly downloads.",
+      "severity": "high",
+      "tags": [
+        "malicious-package",
+        "credential-theft",
+        "npm",
+        "tensorlake",
+        "shai-hulud"
+      ],
+      "affected": [
+        "tensorlake (npm)"
+      ],
+      "credits": [
+        {
+          "name": "Socket Research Team",
+          "org": "Socket"
+        }
+      ],
+      "explainer": {
+        "tagline": "Installing one version of the TensorLake npm SDK was enough to hand over npm, GitHub, AWS, Vault and Kubernetes credentials.",
+        "whatHappened": "Socket reported on October 8, 2026 that tensorlake 0.5.144 was published to npm at 01:12:07 UTC that day with malicious code, and that Socket flagged it about eleven minutes later. Socket links the payload to the ChainDrop and Shai-Hulud compromises of keyv, cacheable and related packages in August 2026.",
+        "howItWorks": "A preinstall hook runs an obfuscated loader that launches the payload with Bun, so no import or agent start is needed. The payload is both a credential stealer and a self-propagating worm: it republishes compromised versions of packages tied to the victim's publishing identity with Sigstore provenance, and plants fake Copilot and Dependabot GitHub Actions workflows. Socket reports it has no hardcoded command-and-control domain and instead resolves its endpoint through an Ethereum contract, with a GitHub fallback.",
+        "whoIsAffected": "Anyone whose install of tensorlake resolved to 0.5.144, in a developer environment or a CI job. Socket gives the package about 12,000 weekly downloads overall and notes that figure is not a count of infections. The underlying project is a serverless runtime that provides Firecracker sandboxes for running agents and untrusted code.",
+        "whatToDo": "Block tensorlake 0.5.144 and search manifests, lockfiles, build logs and deployed artifacts for it, then treat any host where its install scripts ran as compromised. Socket warns that you must stop and delete the gh-token-monitor persistence before revoking any credentials, because revoking the stolen GitHub token first can trigger a destructive handler."
+      },
+      "quickFacts": [
+        {
+          "label": "Package",
+          "value": "tensorlake (npm)"
+        },
+        {
+          "label": "Malicious version",
+          "value": "0.5.144, published 01:12:07 UTC on October 8, 2026"
+        },
+        {
+          "label": "Detected",
+          "value": "About 11 minutes after publication, by Socket"
+        },
+        {
+          "label": "Campaign",
+          "value": "ChainDrop / Shai-Hulud"
+        },
+        {
+          "label": "Targets",
+          "value": "npm, GitHub, AWS, HashiCorp Vault and Kubernetes credentials, SSH keys, .env files, AI tool configurations"
+        },
+        {
+          "label": "Persistence",
+          "value": "gh-token-monitor, with a dead-man handler if the stolen token is revoked"
+        },
+        {
+          "label": "Found by",
+          "value": "Socket Research Team"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which tensorlake version is malicious?",
+          "a": "tensorlake 0.5.144 on npm is the malicious version, published at 01:12:07 UTC on October 8, 2026. Socket flagged it about eleven minutes later. Socket advises blocking that exact version and checking manifests, lockfiles, build logs, and deployed artifacts for it. Other tensorlake releases are not named as compromised in Socket's write-up."
+        },
+        {
+          "q": "Should I revoke my GitHub token right away after a tensorlake infection?",
+          "a": "Socket warns against revoking tokens first. The payload installs a persistent monitor that polls GitHub with the stolen token and runs an attacker-supplied handler if the token is revoked. Socket advises stopping and deleting the gh-token-monitor persistence before revoking anything: a systemd user service on Linux, a LaunchAgent on macOS, or an ONLOGON scheduled task on Windows."
+        },
+        {
+          "q": "What credentials does the tensorlake payload steal?",
+          "a": "Socket reports that the payload targets npm, GitHub, AWS, HashiCorp Vault, and Kubernetes credentials, along with SSH keys, .env files, crypto wallets, messaging app data, and AI tool configurations. Socket also says the payload republishes compromised versions of packages tied to the victim's publishing identity with Sigstore provenance, and plants fake Copilot and Dependabot workflows in GitHub repositories."
+        }
+      ],
+      "links": [
+        {
+          "label": "Socket Write-Up",
+          "url": "https://socket.dev/blog/tensorlake-compromise"
+        },
+        {
+          "label": "TensorLake Repo",
+          "url": "https://github.com/tensorlakeai/tensorlake"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/cgdhsj6q/production/b81fa8a040f58fc9dd7df21403785df389eec9d7-2124x1296.png?w=1000&q=95&fit=max&auto=format",
+        "alt": "TensorLake npm SDK compromised in ChainDrop Shai-Hulud credential-stealing attack",
+        "credit": "Socket"
+      },
+      "publishDate": "2026-10-08T11:40:51.966Z"
+    },
+    {
+      "id": "sldr-malicious-finetuning-recovery",
+      "categories": [
+        "research"
+      ],
+      "title": "SLDR: restoring refusals after a model is fine-tuned for harm",
+      "org": "arXiv",
+      "date": "2026-10-07",
+      "url": "https://arxiv.org/abs/2610.10345",
+      "summary": "SLDR is a defense against malicious fine-tuning that trains a LoRA recovery adapter on the safety-sensitive layers only and switches it on for harmful queries. The authors report large cuts in harmful output across four model families.",
+      "severity": "info",
+      "tags": [
+        "guardrails",
+        "open-weights",
+        "jailbreak"
+      ],
+      "affected": [
+        "Llama 3.1",
+        "Llama 3",
+        "Qwen 2.5",
+        "Mistral"
+      ],
+      "credits": [
+        {
+          "name": "Hui Zhang"
+        },
+        {
+          "name": "Yachao Yuan"
+        },
+        {
+          "name": "Jiayun Wang"
+        },
+        {
+          "name": "Yuanzhuo Li"
+        },
+        {
+          "name": "Hongtao Wang"
+        },
+        {
+          "name": "Yali Yuan"
+        }
+      ],
+      "explainer": {
+        "tagline": "Fine-tuning an open-weight model on a harmless task can strip its refusals; SLDR tries to put them back without hurting the task.",
+        "whatHappened": "Hui Zhang and five co-authors posted SLDR to arXiv on October 7, 2026, accepted at NeurIPS 2026, with code on GitHub. The paper addresses malicious fine-tuning, where training an aligned model on downstream data removes its refusal behaviour.",
+        "howItWorks": "The authors score each layer for safety sensitivity and find that scaling different layers can strengthen refusal, weaken it, or do little. SLDR then trains a LoRA recovery adapter only on the layers with the most extreme sensitivity scores, instead of the whole model. Representation-based dynamic routing activates that adapter only when a query looks malicious, which is how the authors aim to keep downstream accuracy.",
+        "whoIsAffected": "Teams that fine-tune open-weight models and rely on the base model's safety behaviour surviving that training. The released code targets Llama 3.1, Llama 3, Qwen 2.5 and Mistral, and scores harmfulness with Llama Guard across the Alpaca, DirectHarm4, HarmBench, HEx-PHI and Zulu/IJP evaluations.",
+        "whatToDo": "Treat refusal behaviour as something to re-test after every fine-tuning run rather than assume it carries over. The authors released the training and evaluation scripts under an MIT license, so the harmfulness scoring setup can be reused to measure a model before and after fine-tuning."
+      },
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.10345"
+        },
+        {
+          "label": "SLDR Code",
+          "url": "https://github.com/Stardust457/SLDR"
+        }
+      ],
+      "publishDate": "2026-10-08T11:40:51.966Z"
+    },
+    {
+      "id": "cisa-zammad-kev-agentic-ai-breach",
+      "categories": [
+        "incident",
+        "vulnerability"
+      ],
+      "title": "CISA: Zammad flaws exploited after agentic AI breached DIVD",
+      "org": "CISA",
+      "date": "2026-10-02",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/10/02/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+      "summary": "CISA added two Zammad helpdesk flaws, CVE-2026-102489 and CVE-2026-102490, to its Known Exploited Vulnerabilities catalog on October 2, 2026, after DIVD said an agentic AI attack chained them to breach its network.",
+      "severity": "critical",
+      "tags": [
+        "ai-enabled-offense",
+        "rogue-agents",
+        "rce",
+        "privilege-escalation",
+        "zammad",
+        "divd"
+      ],
+      "affected": [
+        "Zammad"
+      ],
+      "cve": "CVE-2026-102489",
+      "credits": [
+        {
+          "name": "Victor Pasman",
+          "org": "DIVD"
+        },
+        {
+          "name": "Mischa Rick van Geelen",
+          "org": "DIVD"
+        },
+        {
+          "name": "Ralph Horn",
+          "org": "DIVD"
+        },
+        {
+          "name": "Max van der Horst",
+          "org": "DIVD"
+        },
+        {
+          "name": "Frank Breedijk",
+          "org": "DIVD"
+        },
+        {
+          "name": "Davy Aarts",
+          "org": "DIVD"
+        },
+        {
+          "name": "Earth Grob",
+          "org": "Merlon Security"
+        },
+        {
+          "name": "Luke Paris",
+          "org": "Merlon Security"
+        },
+        {
+          "name": "Tijmen van der Spijk",
+          "org": "Merlon Security"
+        },
+        {
+          "name": "Zohar Cochavi",
+          "org": "Merlon Security"
+        },
+        {
+          "name": "Alje Woltjer",
+          "org": "Merlon Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "Two Zammad zero-days found during a breach of DIVD are now on the US catalog of flaws being exploited in the wild.",
+        "whatHappened": "CISA added CVE-2026-102489 and CVE-2026-102490 to its Known Exploited Vulnerabilities catalog on October 2, 2026, citing evidence of active exploitation. The two Zammad flaws were found by DIVD and Merlon Security researchers while investigating a breach of DIVD itself on September 21, 2026, which DIVD says bears the marks of an agentic AI attack. Zammad published its own advisory on October 5, 2026.",
+        "howItWorks": "CVE-2026-102489 is a session fixation flaw in the Zammad helpdesk: an attacker with no valid credentials can hijack a session and reach code execution as the zammad service account. CVE-2026-102490 then lifts that low-privileged zammad user to root. Chained, the pair turn an unauthenticated web request into full control of the host, which is how DIVD says the intruder reached other services and data on its network.",
+        "whoIsAffected": "DIVD lists Zammad 6.3.0 through 6.5.4 as exploitable for the session flaw, and says the same code in 7.0.0 through 7.1.3 is not exploitable because of the runtime those versions use. Zammad agrees that 7.0 and later are not affected in practice. The privilege escalation covers a far wider range, which DIVD summarizes as all versions including the latest alpha.",
+        "whatToDo": "Upgrade to Zammad 7, or take the instance offline, as DIVD advises. Run DIVD's log check script from the DIVD-2026-00015 case page to look for indicators of compromise, and restrict shell access on the Zammad host to trusted administrators, per Zammad's advisory."
+      },
+      "quickFacts": [
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-102489, CVE-2026-102490"
+        },
+        {
+          "label": "Affected",
+          "value": "Zammad 6.3.0 to 6.5.4 (session flaw); all versions (privilege escalation)"
+        },
+        {
+          "label": "Added to CISA KEV",
+          "value": "October 2, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Exploited in the wild; hardening in Zammad 7.2.0, no full fix for the privilege escalation"
+        },
+        {
+          "label": "Found by",
+          "value": "DIVD and Merlon Security, during DIVD incident response"
+        },
+        {
+          "label": "Breach date",
+          "value": "September 21, 2026, disclosed September 24, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Session fixation to code execution, chained with local privilege escalation"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Zammad versions are affected by CVE-2026-102489?",
+          "a": "Zammad 6.3.0 through 6.5.4 are exploitable, according to DIVD's case file, which also says the same code is present in 7.0.0 through 7.1.3 but cannot be exploited there because of the runtime those versions use. Zammad agrees that 7.0 and later are not affected in practice, and notes 6.5 and earlier no longer receive security updates."
+        },
+        {
+          "q": "Is there a fix for CVE-2026-102490 in Zammad?",
+          "a": "No full fix for CVE-2026-102490 had been released when Zammad published its advisory on October 5, 2026. Zammad describes the flaw as local privilege escalation that cannot be exploited remotely on its own, says it is related to a confirmed packager.io vulnerability, and states that its team is working on a solution. DIVD lists the flaw as affecting all versions."
+        },
+        {
+          "q": "How do I check whether my Zammad server was compromised?",
+          "a": "DIVD published an indicator-of-compromise log check script for CVE-2026-102489, available from its DIVD-2026-00015 case page. DIVD advises running it against your Zammad logs, then upgrading to Zammad 7 or taking the instance offline. Zammad separately recommends restricting access to the underlying server to trusted administrators only, because the privilege escalation flaw needs server access first."
+        },
+        {
+          "q": "What evidence says an AI agent carried out the DIVD breach?",
+          "a": "DIVD states that the modus operandi indicates an agentic AI powered attack, and says its investigation is ongoing and it cannot rule anything out. DIVD has not published the technical evidence behind that assessment. The attribution is DIVD's own reading of how the attack behaved, not a vendor or government finding, so treat the agentic element as a claim under investigation."
+        }
+      ],
+      "links": [
+        {
+          "label": "CISA KEV Alert",
+          "url": "https://www.cisa.gov/news-events/alerts/2026/10/02/cisa-adds-two-known-exploited-vulnerabilities-catalog"
+        },
+        {
+          "label": "DIVD Case File",
+          "url": "https://csirt.divd.nl/cases/DIVD-2026-00015/"
+        },
+        {
+          "label": "Zammad Advisory",
+          "url": "https://zammad.com/en/advisories/cve-2026-102489-cve-2026-102490"
+        },
+        {
+          "label": "DIVD Breach Post",
+          "url": "https://csirt.divd.nl/2026/09/24/when-not-if/"
+        }
+      ],
+      "publishDate": "2026-10-08T11:40:51.966Z"
+    },
+    {
+      "id": "gitlab-ai-gateway-prompt-template-escape",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "GitLab AI Gateway: a flow config escapes the prompt template sandbox",
+      "org": "GitLab",
+      "date": "2026-10-02",
+      "url": "https://docs.gitlab.com/releases/patches/other-patches/patch-release-gitlab-ai-gateway-19-4-1-released/",
+      "summary": "CVE-2026-90970 lets an authenticated GitLab user with Duo Agent Platform access break out of the AI Gateway prompt template sandbox and run commands on the gateway. GitLab rates it 9.9 and fixed it in 19.2.4, 19.3.2 and 19.4.1.",
+      "severity": "high",
+      "tags": [
+        "sandbox-escape",
+        "rce",
+        "agent-security",
+        "gitlab",
+        "gitlab-duo"
+      ],
+      "affected": [
+        "GitLab AI Gateway",
+        "GitLab Duo Agent Platform"
+      ],
+      "cve": "CVE-2026-90970",
+      "cvss": 9.9,
+      "credits": [
+        {
+          "name": "invisiblemeerkat"
+        }
+      ],
+      "explainer": {
+        "tagline": "A crafted Duo flow configuration turns GitLab's self-hosted AI Gateway into a place to run arbitrary commands.",
+        "whatHappened": "GitLab published a critical AI Gateway patch release covering versions 19.2.4, 19.3.2 and 19.4.1, and the CVE record for CVE-2026-90970 reached NVD on October 2, 2026. GitLab credits invisiblemeerkat with responsibly disclosing the flaw, and says it contacted Self-Hosted AI Gateway customers directly before publishing.",
+        "howItWorks": "The AI Gateway renders Duo custom flows through a prompt template engine. GitLab describes the weakness as improper neutralization in that template, so a specially crafted flow configuration escapes the template sandbox instead of being treated as data. The escape ends in arbitrary command execution on the AI Gateway itself. The CVE record classes it as CWE-1336, a template engine injection.",
+        "whoIsAffected": "Self-hosted AI Gateway operators running any version from 18.1.6 before 19.2.4, 19.3 before 19.3.2, or 19.4 before 19.4.1. GitLab states that GitLab.com, GitLab Dedicated and Self-Managed instances using a GitLab-hosted AI Gateway are already protected. Exploitation needs an account that holds Duo Agent Platform access.",
+        "whatToDo": "Upgrade the self-hosted AI Gateway to 19.2.4, 19.3.2 or 19.4.1. GitLab lists no workaround, so until the upgrade lands, review which accounts hold Duo Agent Platform access, since that access is the precondition for the attack."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-90970"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "9.9 (GitLab)"
+        },
+        {
+          "label": "Affected",
+          "value": "AI Gateway 18.1.6 to before 19.2.4, 19.3 to before 19.3.2, 19.4 to before 19.4.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "19.2.4, 19.3.2, 19.4.1"
+        },
+        {
+          "label": "Not affected",
+          "value": "GitLab.com, GitLab Dedicated, Self-Managed on a GitLab-hosted gateway"
+        },
+        {
+          "label": "Found by",
+          "value": "invisiblemeerkat"
+        },
+        {
+          "label": "Attack type",
+          "value": "Prompt template sandbox escape to command execution"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is GitLab.com affected by CVE-2026-90970?",
+          "a": "GitLab.com is not affected by CVE-2026-90970. GitLab states that GitLab.com, GitLab Dedicated, and Self-Managed instances that use a GitLab-hosted AI Gateway are already protected and need no action. Only organizations running their own Self-Hosted AI Gateway must upgrade, which GitLab recommends doing immediately. GitLab says it contacted Self-Hosted AI Gateway customers directly before publishing the release."
+        },
+        {
+          "q": "Which AI Gateway versions fix CVE-2026-90970?",
+          "a": "AI Gateway 19.2.4, 19.3.2, and 19.4.1 fix CVE-2026-90970. GitLab lists all versions from 18.1.6 before 19.2.4, 19.3 before 19.3.2, and 19.4 before 19.4.1 as affected. The advisory offers no workaround, so self-hosted operators should upgrade to one of the three patched releases rather than attempt mitigation."
+        },
+        {
+          "q": "Who can exploit the GitLab AI Gateway sandbox escape?",
+          "a": "An authenticated user with Duo Agent Platform access can exploit CVE-2026-90970, according to GitLab. That user supplies a crafted flow configuration, escapes the prompt template sandbox, and can run commands on the AI Gateway host. Anonymous internet users cannot reach the flaw, so reviewing who holds Duo Agent Platform access reduces exposure while you schedule the upgrade."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitLab Patch Release",
+          "url": "https://docs.gitlab.com/releases/patches/other-patches/patch-release-gitlab-ai-gateway-19-4-1-released/"
+        },
+        {
+          "label": "NVD Record",
+          "url": "https://nvd.nist.gov/vuln/detail/cve-2026-90970"
+        }
+      ],
+      "publishDate": "2026-10-08T11:40:51.966Z"
+    },
     {
       "id": "adversa-copilot-cli-crypto-context-injection",
       "categories": [
@@ -1730,6 +2124,10 @@
         {
           "label": "SSMS Copilot Controls",
           "url": "https://learn.microsoft.com/en-us/ssms/github-copilot/admin-controls"
+        },
+        {
+          "label": "Talk Video",
+          "url": "https://www.youtube.com/watch?v=g347jsz2kEU"
         }
       ],
       "publishDate": "2026-10-07T07:05:48.295Z",

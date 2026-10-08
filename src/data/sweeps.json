@@ -258,6 +258,113 @@
         "helpnetsecurity.com"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261008t114051z",
+      "timestamp": "2026-10-08T11:40:51.966Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Searched vendor and lab advisories (GitHub Security Advisories, GitLab, Zammad, Anthropic, Anthropic Frontier Red Team, MSRC, Google Cloud security, AISI, NVD, CISA KEV), research teams (AIR, Zenity Labs, Embrace The Red, Wiz, Check Point, Trail of Bits, Lakera, HiddenLayer, Snyk, Socket, JFrog, ReversingLabs, Pillar, Pluto, Knostic, Manifold, Datadog, OX, Accomplish, Adversa), paper-scan (90 arXiv papers in window, 1 with two scanned signals), repo-scan (13 queries, 0 candidates), github.com/trending, Show HN, Hugging Face models and blog, OWASP GenAI and talk-scan (33 videos). Four items met the bar: the CISA KEV listing of the two Zammad flaws used in the agentic AI breach of DIVD, the GitLab AI Gateway prompt template escape, the live tensorlake npm compromise, and one NeurIPS-accepted malicious fine-tuning defense. Most of this week's coding-agent research (GitSpawn, OpenCode RCE, DeepSeek Harness, Codex sandbox escapes, Grafana MCP, MCP Python SDK OAuth, malicious MCP scanners) was dated September and stayed out, as did the four Langflow and PraisonAI advisories, which were only imported into the GitHub Advisory Database on October 7.",
+      "counts": {
+        "added": 4,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "cisa-zammad-kev-agentic-ai-breach",
+          "title": "CISA: Zammad flaws exploited after agentic AI breached DIVD",
+          "category": "incident",
+          "severity": "critical",
+          "note": "The breach itself predates the window, but two things new inside it carry the item: CISA confirmed active exploitation on October 2 and Zammad published its advisory on October 5. First agentic-AI-attributed intrusion whose flaws reached CISA KEV."
+        },
+        {
+          "id": "gitlab-ai-gateway-prompt-template-escape",
+          "title": "GitLab AI Gateway: a flow config escapes the prompt template sandbox",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "New critical disclosure inside the window: a prompt template sandbox escape to command execution in GitLab's AI Gateway, with a fix self-hosted operators must install."
+        },
+        {
+          "id": "socket-tensorlake-npm-credential-stealer",
+          "title": "TensorLake npm SDK published a credential stealer in 0.5.144",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "A malicious version of an AI agent sandbox SDK was live on npm today, with a worm payload and a persistence trap that punishes the obvious remediation order."
+        },
+        {
+          "id": "sldr-malicious-finetuning-recovery",
+          "title": "SLDR: restoring refusals after a model is fine-tuned for harm",
+          "category": "research",
+          "severity": "info",
+          "note": "Clears the paper bar on two checked signals: NeurIPS 2026 acceptance stated in the arXiv comments, and working code with an MIT license at a repo read in this run."
+        }
+      ],
+      "updated": [
+        {
+          "id": "embracethered-ssms-copilot-select-to-sysadmin",
+          "title": "SQL Server Copilot: prompt injection escalates a user to sysadmin",
+          "note": "Johann Rehberger published the BlueHat Asia talk recording for CVE-2026-65669 on the Embrace The Red channel on 2026-10-04 (found via talk-scan). Same flaw as the existing item, so it is a link, not a new talk item."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "langflow-ai/langflow security advisories",
+        "NVD",
+        "CISA Known Exploited Vulnerabilities catalog",
+        "docs.gitlab.com patch releases",
+        "about.gitlab.com security releases",
+        "zammad.com advisories",
+        "csirt.divd.nl",
+        "anthropic.com/news",
+        "anthropic.com Frontier Red Team",
+        "microsoft.com/msrc/blog",
+        "cloud.google.com security blog",
+        "aisi.gov.uk/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "wiz.io/blog",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "lakera.ai/blog",
+        "hiddenlayer.com/innovation-hub",
+        "snyk.io/blog",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "pillar.security/blog",
+        "pluto.security/blog",
+        "knostic.ai/blog",
+        "manifold.security/blog",
+        "securitylabs.datadoghq.com",
+        "ox.security/blog",
+        "accomplish.ai/blog",
+        "adversa.ai/blog",
+        "arXiv (paper-scan)",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, guard)",
+        "genai.owasp.org",
+        "talk-scan (YouTube channels)",
+        "npmjs.com"
+      ],
+      "windowDays": 7
     }
   ]
 }
