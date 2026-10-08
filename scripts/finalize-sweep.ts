@@ -20,7 +20,8 @@
  *   - any item in the merged feed fails validation
  *
  * Soft warnings (stderr, exit 0): missing quickFacts/faq on critical/high,
- * more than 2 critical in one sweep, banned words, faq answer length.
+ * more than 2 critical or more than 2 research-primary items in one sweep,
+ * banned words, faq answer length.
  */
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
@@ -175,6 +176,9 @@ if (post.length > 0) {
 // ---- 5. soft warnings -------------------------------------------------------------
 const crit = stamped.filter((i) => i.severity === "critical").length;
 if (crit > 2) warnings.push(`severity inflation: ${crit} critical items in one sweep. Re-read the rubric.`);
+const papers = stamped.filter((i) => i.categories[0] === "research").length;
+if (papers > 2)
+  warnings.push(`paper cap: ${papers} research-primary items in one sweep (soft cap 2). Keep the strongest two.`);
 
 // ---- 6. write -----------------------------------------------------------------------
 const version = promptVersion();

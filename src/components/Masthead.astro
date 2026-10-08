@@ -1,9 +1,8 @@
 ---
 import { u } from "@/site";
 import { SITE } from "@/site";
-import { CATEGORY_ORDER } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
-import { feed, categoryCounts } from "@/data/feed";
+import { feed, categoryCounts, activeCategories } from "@/data/feed";
 import SweepClock from "@/components/SweepClock";
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -15,7 +14,7 @@ const mono = "font-mono text-[11px] tracking-[0.02em]";
 const wordmark = "font-heading text-[24px] font-extrabold uppercase leading-none tracking-[0.01em] text-white sm:text-[30px]";
 const sections = [
   { href: "/", label: "Latest", active: isHome, count: undefined as number | undefined },
-  ...CATEGORY_ORDER.map((c) => ({ href: `/category/${c}/`, label: CATEGORY_META[c].label, active: path.startsWith(`/category/${c}/`), count: counts[c] ?? 0 })),
+  ...activeCategories().map((c) => ({ href: `/category/${c}/`, label: CATEGORY_META[c].label, active: path.startsWith(`/category/${c}/`), count: counts[c] ?? 0 })),
 ];
 ---
 
@@ -51,6 +50,7 @@ const sections = [
                   </a>
                 </li>
               ))}
+              <li><a href={u("/tools/")} class:list={["block py-4 text-[17px] font-medium", path === "/tools/" ? "text-acid" : "text-ink"]}>Open-source tools directory</a></li>
               <li><a href={u("/exposure/")} class:list={["block py-4 text-[17px] font-medium", path === "/exposure/" ? "text-acid" : "text-ink"]}>Exposure by ecosystem</a></li>
               <li><a href={u("/about/")} class:list={["block py-4 text-[17px] font-medium", path === "/about/" ? "text-acid" : "text-ink"]}>About and method</a></li>
             </ul>
@@ -69,7 +69,8 @@ const sections = [
       {sections.map((s) => (
         <li><a href={u(s.href)} class:list={["whitespace-nowrap hover:text-ink", s.active && "text-acid"]}>{s.label}</a></li>
       ))}
-      <li class="ml-auto"><a href={u("/about/")} class:list={["whitespace-nowrap hover:text-ink", path === "/about/" && "text-acid"]}>About</a></li>
+      <li class="ml-auto"><a href={u("/tools/")} class:list={["whitespace-nowrap hover:text-ink", path === "/tools/" && "text-acid"]}>Tools directory</a></li>
+      <li><a href={u("/about/")} class:list={["whitespace-nowrap hover:text-ink", path === "/about/" && "text-acid"]}>About</a></li>
     </ul>
   </nav>
 </header>

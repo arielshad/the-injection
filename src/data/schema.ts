@@ -13,7 +13,8 @@ export type Category =
   | "incident" //       something that happened in the wild
   | "tool" //           a defensive or offensive tool, scanner, framework
   | "benchmark" //      an eval, leaderboard or measured result
-  | "lab-safety"; //    a lab or vendor making a specific security claim
+  | "lab-safety" //     a lab or vendor making a specific security claim
+  | "talk"; //          a conference talk or video by a strong security voice
 
 export const CATEGORY_ORDER: Category[] = [
   "vulnerability",
@@ -24,6 +25,7 @@ export const CATEGORY_ORDER: Category[] = [
   "tool",
   "benchmark",
   "lab-safety",
+  "talk",
 ];
 
 /** How much a security reader should care. Not hype, impact. */
@@ -78,6 +80,46 @@ export interface ItemImage {
   credit?: string;
 }
 
+/** One row in a benchmark chart: a model, agent, product or defense. */
+export interface BenchmarkResult {
+  name: string;
+  score: number;
+  /** The row this story is about. At most one per benchmark. */
+  highlight?: boolean;
+}
+
+/**
+ * A measured result the source itself publishes: attack success rates,
+ * eval scores, detection rates. Renders as comparison bars. Optional and
+ * source-gated: `source` must be the item `url` or one of its `links`.
+ * Never estimated, never computed from other numbers.
+ */
+export interface Benchmark {
+  /** What was measured, e.g. "Attack success rate, AgentDojo". */
+  name: string;
+  /** Suffix for scores, default "%". */
+  unit?: string;
+  /** Top of the scale, default 100. Every score must be <= max. */
+  max?: number;
+  /** One short line on how to read it, e.g. "Higher is worse for defenders". */
+  note?: string;
+  /** 2 to 12 rows, in the source's order. */
+  results: BenchmarkResult[];
+  source: string;
+}
+
+/** A talk or video. Required on `talk` items, optional elsewhere. */
+export interface Video {
+  /** The 11-character YouTube id. */
+  youtubeId: string;
+  /** Channel name as YouTube shows it, e.g. "DEFCONConference". */
+  channel: string;
+  /** https://www.youtube.com/@handle or /channel/UC... */
+  channelUrl: string;
+  /** Conference or series, e.g. "DEF CON 34", when the source names it. */
+  event?: string;
+}
+
 export interface Item {
   /** kebab-case, stable, unique. Becomes the URL: /items/<id>/ */
   id: string;
@@ -109,10 +151,55 @@ export interface Item {
   links: Link[];
   /** Optional. Without one, the site generates a cover from the item. */
   image?: ItemImage;
+  /** Optional. Only numbers the source prints, with the source linked. */
+  benchmarks?: Benchmark[];
+  /** Optional. Required when `categories` includes "talk". */
+  video?: Video;
 }
 
 export interface Feed {
   generatedAt: string;
   promptVersion: string;
   items: Item[];
+}
+
+/** What a tool in the directory is for. Pick by its main job. */
+export type ToolKind = "scanner" | "guardrail" | "red-team" | "eval" | "sandbox";
+
+export const TOOL_KIND_ORDER: ToolKind[] = ["scanner", "guardrail", "red-team", "eval", "sandbox"];
+
+/**
+ * One open-source AI security tool in the evergreen directory (/tools/).
+ * Kept by prompts/maintain-tools.md. Every field comes from the repo's own
+ * README, LICENSE or the GitHub API, fetched in the run that wrote it.
+ * Stars are not stored: they go stale within days.
+ */
+export interface ToolEntry {
+  /** kebab-case, unique. */
+  slug: string;
+  name: string;
+  /** "owner/repo" on GitHub. Unique. */
+  repo: string;
+  kind: ToolKind;
+  /** <= 200 chars, plain, from the README. What it does, not how good it is. */
+  description: string;
+  /** SPDX id(s) from the LICENSE file, e.g. "Apache-2.0". */
+  license: string;
+  /** Who maintains it, as the README or the owner's profile names them. */
+  maintainer: string;
+  /** Products, protocols or artifacts it covers, e.g. ["MCP servers", "Claude Code"]. */
+  covers: string[];
+  /** Docs or homepage, when the README links one. */
+  homepage?: string;
+  /** Feed items about this tool, by id. */
+  relatedItems?: string[];
+  /** YYYY-MM-DD the entry was added. */
+  added: string;
+  /** YYYY-MM-DD the entry was last checked against the repo. */
+  checked: string;
+}
+
+export interface ToolRegistry {
+  generatedAt: string;
+  tools: ToolEntry[];
 }

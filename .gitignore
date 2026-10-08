@@ -24,3 +24,6 @@ pnpm-debug.log*
 .idea/
 
 sweep-draft.json
+repo-scan.json
+talk-scan.json
+tool-gaps.json

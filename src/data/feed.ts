@@ -1,6 +1,7 @@
 import raw from "./items.json";
 import sweepsRaw from "./sweeps.json";
 import {
+  CATEGORY_ORDER,
   SEVERITY_ORDER,
   type Category,
   type Feed,
@@ -92,6 +93,12 @@ export const categoryCounts = (): Record<Category, number> => {
     for (const c of i.categories) out[c] = (out[c] ?? 0) + 1;
   }
   return out;
+};
+
+/** Categories with at least one item, in display order. Empty ones get no nav entry or page. */
+export const activeCategories = (): Category[] => {
+  const counts = categoryCounts();
+  return CATEGORY_ORDER.filter((c) => (counts[c] ?? 0) > 0);
 };
 
 export const severityCounts = (): Record<Severity, number> => {

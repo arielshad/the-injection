@@ -48,6 +48,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          # Do not leave the job token in .git/config. The agent can read
+          # files and reads untrusted web pages; it must never hold a token
+          # with contents:write. The push step embeds its own token.
+          persist-credentials: false
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -66,6 +70,16 @@ jobs:
       - name: Capture current date
         id: now
         run: echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Scan GitHub for new AI security repos
+        # The only step that sees GITHUB_TOKEN before the push. It gives
+        # GitHub search the authenticated rate limit (30/min, not 10/min).
+        # Output goes to repo-scan.json, which the agent reads. Best-effort:
+        # on failure the agent runs the scan itself, unauthenticated.
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx tsx scripts/repo-scan.ts > repo-scan.json
 
       - name: Run feed sweep with Claude Code (attempt 1)
         id: sweep1
@@ -149,6 +163,13 @@ jobs:
         env:
           SITE_URL: ${{ vars.SITE_URL }}
         run: pnpm build
+
+      - name: Category drought check (humans only)
+        # Runs after the agent, so the agent never sees it: a gap signal it
+        # can see becomes a quota (SWEEP_MEMORY "Gap signals become quotas").
+        # Writes ::warning:: lines and a table to the run summary.
+        continue-on-error: true
+        run: npx tsx scripts/drought-check.ts
 
       - name: Commit and push data files
         id: commit

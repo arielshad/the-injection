@@ -1,14 +1,14 @@
 ---
 import Base from "@/layouts/Base.astro";
 import FeedList from "@/components/FeedList.astro";
-import { CATEGORY_ORDER, SEVERITY_ORDER, type Category } from "@/data/schema";
+import { SEVERITY_ORDER, type Category } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
-import { itemsByCategory } from "@/data/feed";
+import { activeCategories, itemsByCategory } from "@/data/feed";
 import { SITE, abs } from "@/site";
 import { OG_HEIGHT, OG_WIDTH } from "@/lib/og";
 
 export function getStaticPaths() {
-  return CATEGORY_ORDER.map((cat) => ({ params: { cat }, props: { cat } }));
+  return activeCategories().map((cat) => ({ params: { cat }, props: { cat } }));
 }
 interface Props { cat: Category }
 const { cat } = Astro.props;

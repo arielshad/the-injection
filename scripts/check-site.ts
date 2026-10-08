@@ -74,6 +74,12 @@ for (const page of ["about", "contact", "privacy", "developers"]) {
   if (existsSync(join(DIST, p))) check(textOf(read(p)).length >= 900, `${page}: >= 500 chars of its own content`);
 }
 
+// Tools directory: every tool from tools.json is in the HTML, and the JSON twin exists.
+const toolReg = JSON.parse(readFileSync(new URL("../src/data/tools.json", import.meta.url), "utf8")) as { tools: { repo: string }[] };
+check(existsSync(join(DIST, "tools/index.html")), "tools: page exists");
+if (existsSync(join(DIST, "tools/index.html"))) for (const t of toolReg.tools) check(read("tools/index.html").includes(`github.com/${t.repo}"`), `tools: lists ${t.repo}`);
+check(existsSync(join(DIST, "tools.json")), "tools.json: exists");
+
 // Exposure page: the strips' stories are in the HTML, not only in the island.
 check(existsSync(join(DIST, "exposure/index.html")) && read("exposure/index.html").includes("/items/"), "exposure: page exists and links its stories");
 

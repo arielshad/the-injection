@@ -1,10 +1,10 @@
 ---
 import { u } from "@/site";
 import { SITE } from "@/site";
-import { CATEGORY_ORDER, SEVERITY_ORDER } from "@/data/schema";
+import { SEVERITY_ORDER } from "@/data/schema";
 import { CATEGORY_META, SEVERITY_META } from "@/data/categories";
 import { SeverityMeter } from "@/components/SeverityMeter";
-import { feed } from "@/data/feed";
+import { feed, activeCategories } from "@/data/feed";
 
 const year = new Date().getUTCFullYear();
 const updated = new Date(feed.generatedAt).toUTCString().replace(/:\d\d GMT$/, " UTC");
@@ -22,7 +22,7 @@ const head = "border-b border-line pb-2 font-mono text-[10.5px] font-semibold up
     <nav aria-label="Sections">
       <p class={head}>Sections</p>
       <ul class="mt-3 grid grid-cols-2 gap-x-6 gap-y-1.5 text-[15px]">
-        {CATEGORY_ORDER.map((c) => <li><a class="hover:text-acid" href={u(`/category/${c}/`)}>{CATEGORY_META[c].label}</a></li>)}
+        {activeCategories().map((c) => <li><a class="hover:text-acid" href={u(`/category/${c}/`)}>{CATEGORY_META[c].label}</a></li>)}
       </ul>
     </nav>
     <div>
@@ -40,6 +40,7 @@ const head = "border-b border-line pb-2 font-mono text-[10.5px] font-semibold up
       <p class={head}>Read it your way</p>
       <ul class="mt-3 space-y-1.5 text-[15px]">
         <li><a class="hover:text-acid" href={u("/about/")}>About and method</a></li>
+        <li><a class="hover:text-acid" href={u("/tools/")}>Open-source tools directory</a></li>
         <li><a class="hover:text-acid" href={u("/exposure/")}>Exposure by ecosystem</a></li>
         <li><a class="hover:text-acid" href={u("/rss.xml")}>RSS feed</a></li>
         <li><a class="hover:text-acid" href={u("/feed.json")}>JSON feed</a></li>
