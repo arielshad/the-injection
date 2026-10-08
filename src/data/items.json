@@ -1,7 +1,287 @@
 {
-  "generatedAt": "2026-10-08T11:40:51.966Z",
+  "generatedAt": "2026-10-08T19:05:27.689Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "zenity-agentcorruption-bedrock-agentcore",
+      "categories": [
+        "vulnerability",
+        "attack"
+      ],
+      "title": "AgentCorruption: one prompt takes over Bedrock AgentCore agents",
+      "org": "Zenity Labs",
+      "date": "2026-10-08",
+      "url": "https://labs.zenity.io/post/agentcorruption-how-a-single-prompt-collapsed-the-entire-cloud-security-model",
+      "summary": "AgentCorruption is a chain Zenity Labs demonstrated against Amazon Bedrock AgentCore, where one prompt to an exposed agent yields IAM credentials and then control of every AgentCore agent in the same AWS account and region.",
+      "severity": "high",
+      "tags": [
+        "prompt-injection",
+        "credential-theft",
+        "agent-memory",
+        "privilege-escalation",
+        "aws",
+        "bedrock-agentcore"
+      ],
+      "affected": [
+        "Amazon Bedrock AgentCore"
+      ],
+      "credits": [
+        {
+          "name": "Lana Salameh",
+          "org": "Zenity Labs"
+        },
+        {
+          "name": "Dmitry Lozovoy",
+          "org": "Zenity Labs"
+        },
+        {
+          "name": "João Donato",
+          "org": "Zenity Labs"
+        },
+        {
+          "name": "Tamir Ishay Sharbat",
+          "org": "Zenity Labs"
+        }
+      ],
+      "explainer": {
+        "tagline": "A single prompt to one exposed Bedrock AgentCore agent gave Zenity Labs the credentials to read, invoke and poison every agent in the region.",
+        "whatHappened": "Zenity Labs published AgentCorruption on October 8, 2026, a five-part study of Amazon Bedrock AgentCore, AWS's managed platform for running AI agents. The researchers reported the first flaw to AWS on December 25, 2025 and a second on January 12, 2026. AWS changed the platform over the months that followed, and the timeline sits in the table below.",
+        "howItWorks": "Bedrock AgentCore ran each agent in a Firecracker microVM that did not block traffic to the instance metadata service at 169.254.169.254. Any agent tool able to make outbound HTTP requests became an SSRF primitive, so a plain-language prompt could make the agent fetch its execution role's temporary STS credentials and hand them back. The default execution role carried wildcard permissions across AgentCore resources in the whole region, which turned one agent's credentials into reach over every agent in the account. Writing short-term memory events then let the researchers plant long-term memories that told an agent to fetch an attacker-controlled page before answering, giving a command and control channel that survived new sessions.",
+        "whoIsAffected": "Amazon Bedrock AgentCore deployments are the target, specifically agents reachable by an untrusted user that also hold a tool capable of outbound HTTP or shell access. Zenity Labs ran the chain in its own AWS account in us-west-2, and the blast radius it describes stops at the account and region boundary rather than crossing into other customers' accounts.",
+        "whatToDo": "Scope agent execution roles to specific resource ARNs instead of the region-wide wildcards AgentCore granted by default, and restrict memory actions such as CreateEvent and DeleteEvent to the agents that need them. Allowlist the destinations agent HTTP tools may reach, and confirm metadata access requires IMDSv2. Rotate any outbound provider secret an overprivileged role could have read."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Amazon Bedrock AgentCore agents in the same AWS account and region"
+        },
+        {
+          "label": "Attack type",
+          "value": "Prompt injection to IMDS credential theft, then IAM abuse and memory poisoning"
+        },
+        {
+          "label": "Found by",
+          "value": "Lana Salameh, Dmitry Lozovoy, João Donato and Tamir Ishay Sharbat, Zenity Labs"
+        },
+        {
+          "label": "Reported",
+          "value": "December 25, 2025 and January 12, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "AWS moved AgentCore to IMDSv2 only on February 14, 2026, and Zenity Labs found the default role hardened by September 29, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Amazon Bedrock AgentCore still vulnerable to AgentCorruption?",
+          "a": "Amazon Bedrock AgentCore has changed substantially since Zenity Labs reported the chain. AWS moved the platform to IMDSv2 only on February 14, 2026, and Zenity Labs observed on September 29, 2026 that AWS had removed cross-region agent execution, private conversation reads and Secrets Manager access from the default execution role. Agents still running older custom roles need a manual review."
+        },
+        {
+          "q": "How do I check whether my AgentCore execution role is overprivileged?",
+          "a": "Review the IAM policy attached to each AgentCore execution role and look for wildcard resources, which Zenity Labs found on the default role. The researchers abused logs:DescribeLogGroups to enumerate agents, bedrock-agentcore:InvokeAgentRuntime to call private agents, ECR read permissions to pull agent images, and CreateEvent plus DeleteEvent on memory/* to write other agents' memory. Replace each wildcard with specific resource ARNs."
+        },
+        {
+          "q": "Which secrets could an attacker reach through AgentCorruption?",
+          "a": "Outbound provider credentials were exposed, because the default role held secretsmanager:GetSecretValue on wildcard paths covering every OAuth and API key secret in the region. Zenity Labs names GitHub, Slack and Salesforce as example connected services, and recovered an OpenAI API key from an agent's environment variables through the metadata service. Rotate any provider secret an affected role could read."
+        },
+        {
+          "q": "Did AWS assign a CVE to the AgentCorruption findings?",
+          "a": "No CVE appears in Zenity Labs' write-ups of AgentCorruption. AWS closed the first report, covering metadata service access, as informative on April 12, 2026, and told the researchers in February 2026 that it was working on the overprivileged default role. Zenity Labs rechecked the role on June 22, 2026 and found the permissions unchanged before AWS altered them later in the year."
+        }
+      ],
+      "links": [
+        {
+          "label": "Zenity Labs Overview",
+          "url": "https://labs.zenity.io/post/agentcorruption-how-a-single-prompt-collapsed-the-entire-cloud-security-model"
+        },
+        {
+          "label": "Initial IMDS Access",
+          "url": "https://labs.zenity.io/post/agentcorruption-initial-imds-access"
+        },
+        {
+          "label": "Overprivileged Role",
+          "url": "https://labs.zenity.io/post/agentcorruption-one-role-to-rule-them-all"
+        },
+        {
+          "label": "Agent Memory Hijacking",
+          "url": "https://labs.zenity.io/post/agentcorruption-weaponizing-agent-memory-for-persistent-hijacking"
+        },
+        {
+          "label": "Secrets Manager Theft",
+          "url": "https://labs.zenity.io/post/agentcorruption-credential-theft-from-aws-secrets-manager-and-more"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/13k3ywos/production/d3056932b5ebaf7ff2f78c57cd3218c413a56cc7-1672x941.png?rect=0,32,1672,878&w=1200&h=630",
+        "alt": "AgentCorruption: How A Single Prompt Collapsed The Entire Cloud Security Model",
+        "credit": "Zenity Labs"
+      },
+      "publishDate": "2026-10-08T19:05:27.689Z"
+    },
+    {
+      "id": "langchain-mongodb-chat-history-query-injection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "LangChain MongoDB chat history: query injection crosses sessions",
+      "org": "LangChain",
+      "date": "2026-10-05",
+      "url": "https://github.com/advisories/GHSA-m6rx-h84q-8r95",
+      "summary": "CVE-2026-106119 lets an attacker who controls a session identifier read, change or delete another user's chat history in @langchain/mongodb. The library passed the identifier into a MongoDB query without enforcing a string type.",
+      "severity": "medium",
+      "tags": [
+        "agent-memory",
+        "langchain",
+        "mongodb"
+      ],
+      "affected": [
+        "@langchain/mongodb"
+      ],
+      "cve": "CVE-2026-106119",
+      "cvss": 6,
+      "credits": [
+        {
+          "name": "iaohkut-from-NightWolf-Team"
+        }
+      ],
+      "explainer": {
+        "tagline": "A structured session identifier became a MongoDB query condition in @langchain/mongodb, reaching other users' stored conversations.",
+        "whatHappened": "LangChain published advisory GHSA-m6rx-h84q-8r95 for the @langchain/mongodb package on October 5, 2026. Credit for the report goes to iaohkut-from-NightWolf-Team. The affected versions, the fixed release and the assigned identifiers are listed below.",
+        "howItWorks": "MongoDBChatMessageHistory did not enforce the string type for session identifiers at runtime, so a structured value was interpreted as a MongoDB query condition rather than a literal. An attacker who supplies such an identifier can match documents beyond the intended session and then read, modify or delete those messages. The patch rejects session identifiers that are not strings and wraps query filters in the $eq operator so values compare literally.",
+        "whoIsAffected": "Applications built on @langchain/mongodb 1.3.0 and earlier are exposed when they pass untrusted session identifiers to MongoDBChatMessageHistory and keep several users' histories in one collection. Deployments that derive identifiers server-side from authenticated values are not reachable through this flaw.",
+        "whatToDo": "Upgrade @langchain/mongodb to 1.3.1. Where an upgrade has to wait, reject any session identifier that is not a non-empty string, and derive identifiers from authenticated, server-controlled values instead of untrusted request fields. Note that 1.3.1 turns an empty-string session identifier into an error."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "@langchain/mongodb 1.3.0 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.3.1"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-106119"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.0 base, CVSS v4, moderate"
+        },
+        {
+          "label": "Found by",
+          "value": "iaohkut-from-NightWolf-Team"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-943, improper neutralization of special elements in data query logic"
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-m6rx-h84q-8r95"
+        },
+        {
+          "label": "Release 1.3.1",
+          "url": "https://github.com/langchain-ai/langchainjs/releases/tag/%40langchain%2Fmongodb%401.3.1"
+        }
+      ],
+      "publishDate": "2026-10-08T19:05:27.689Z"
+    },
+    {
+      "id": "persistbd-backdoor-persistency-post-training",
+      "categories": [
+        "research",
+        "supply-chain"
+      ],
+      "title": "PersistBD: backdoors survive the fine-tuning meant to remove them",
+      "org": "UIUC Kang Lab",
+      "date": "2026-10-05",
+      "url": "https://arxiv.org/abs/2610.07510",
+      "summary": "PersistBD is a method showing that a backdoor planted in a third-party model can survive a developer's benign fine-tuning, with the reinforcement learning stage afterwards often preserving or strengthening the hidden behavior.",
+      "severity": "info",
+      "tags": [
+        "model-backdoor",
+        "model-supply-chain",
+        "coding-agents",
+        "qwen"
+      ],
+      "affected": [
+        "Qwen2.5-Coder-7B"
+      ],
+      "credits": [
+        {
+          "name": "Qiusi Zhan"
+        },
+        {
+          "name": "Nian Lyu"
+        },
+        {
+          "name": "Stephanie Ding"
+        },
+        {
+          "name": "Arnav Mehta"
+        },
+        {
+          "name": "Xander Davies"
+        },
+        {
+          "name": "Daniel Kang"
+        }
+      ],
+      "explainer": {
+        "tagline": "Benign fine-tuning weakens a planted backdoor, but the reinforcement learning stage that follows can bring the hidden behavior back.",
+        "whatHappened": "Six researchers posted PersistBD to arXiv on October 5, 2026, accepted to Findings of EMNLP 2026. The paper studies software-engineering agents built by adapting third-party models, and the authors released training and evaluation code alongside it.",
+        "howItWorks": "Backdoor persistence is treated as a property an attacker can optimize before release. Supervised fine-tuning on benign data sharply reduces attack success, but the task-level reinforcement learning that follows often preserves the residual behavior and sometimes increases it. The authors identify initial backdoor strength and gradient compatibility with benign training as the factors that decide survival, then train a small adapter that refines an already-backdoored model so the trigger endures.",
+        "whoIsAffected": "Developers who fine-tune third-party model weights for coding agents are the audience, because the threat model starts with a model an attacker supplied. The authors report results on Qwen2.5-Coder-7B and measure task performance with SWE-bench Lite.",
+        "whatToDo": "Treat downloaded model weights as untrusted input, and do not assume that a round of benign fine-tuning removes a planted backdoor. The authors argue their results call for backdoor detection and mitigation applied after post-training, not only at the point of download."
+      },
+      "benchmarks": [
+        {
+          "name": "Backdoor attack success rate on Qwen2.5-Coder-7B after developer post-training",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders",
+          "results": [
+            {
+              "name": "Baseline backdoor, after SFT",
+              "score": 20
+            },
+            {
+              "name": "PersistBD, after SFT",
+              "score": 74
+            },
+            {
+              "name": "Baseline backdoor, after SFT and RL",
+              "score": 20
+            },
+            {
+              "name": "PersistBD, after SFT and RL",
+              "score": 76,
+              "highlight": true
+            }
+          ],
+          "source": "https://arxiv.org/abs/2610.07510"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.07510"
+        },
+        {
+          "label": "PersistBD Code",
+          "url": "https://github.com/uiuc-kang-lab/PersistBD"
+        }
+      ],
+      "publishDate": "2026-10-08T19:05:27.689Z"
+    },
     {
       "id": "socket-tensorlake-npm-credential-stealer",
       "categories": [
