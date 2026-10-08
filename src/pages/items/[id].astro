@@ -10,6 +10,7 @@ import { fmtDate } from "@/lib/slim";
 import { domainOf } from "@/lib/severity";
 import Cover from "@/components/Cover.astro";
 import { ReadingProgress } from "@/components/ui/reading-progress";
+import { OG_HEIGHT, OG_WIDTH, itemCardAlt } from "@/lib/og";
 
 export function getStaticPaths() {
   return allItems().map((item) => ({ params: { id: item.id }, props: { item } }));
@@ -39,6 +40,8 @@ const facts = [
   ...(item.quickFacts ?? []),
 ];
 
+const card = { path: `/og/${item.id}.png`, alt: itemCardAlt(item), width: OG_WIDTH, height: OG_HEIGHT };
+
 const article = {
   "@context": "https://schema.org",
   "@type": "NewsArticle",
@@ -49,6 +52,9 @@ const article = {
   dateModified: item.publishDate,
   url: abs(path),
   mainEntityOfPage: abs(path),
+  image: { "@type": "ImageObject", url: abs(card.path), width: card.width, height: card.height, caption: card.alt },
+  thumbnailUrl: abs(card.path),
+  inLanguage: SITE.locale,
   articleSection: primary.label,
   keywords: [...item.tags, ...(item.affected ?? [])].join(", "),
   about: (item.affected ?? []).map((name) => ({ "@type": "Thing", name })),
@@ -82,11 +88,21 @@ const faqLd = item.faq?.length
 ---
 
 <Base
-  title={item.title.length > 46 ? item.title.slice(0, 46).replace(/\s+\S*$/, "") : item.title}
+  title={item.title}
   description={item.summary}
+  socialTitle={item.title}
+  socialDescription={item.summary}
   path={path}
+  image={card}
   ogType="article"
   publishedTime={`${item.date}T12:00:00Z`}
+  modifiedTime={item.publishDate}
+  section={primary.label}
+  tags={item.tags}
+  labels={[
+    { label: "Severity", data: `${SEVERITY_META[item.severity].label}${item.cve ? ` · ${item.cve}` : ""}` },
+    { label: "Source", data: item.org },
+  ]}
   jsonLd={[article, breadcrumb, ...(faqLd ? [faqLd] : [])]}
 >
   <div class="sticky top-0 z-30 -mx-4 bg-paper/90 px-4 py-2 backdrop-blur sm:-mx-8 sm:px-8">
