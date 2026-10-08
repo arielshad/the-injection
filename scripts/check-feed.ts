@@ -21,6 +21,7 @@ import type { SweepLog } from "../src/data/feed.ts";
 import { readFileSync } from "node:fs";
 import { CATEGORY_ORDER } from "../src/data/schema.ts";
 import { TOPIC_TAGS } from "../src/data/tags.ts";
+import { GLOSSARY } from "../src/data/glossary.ts";
 import { ITEMS_PATH, PROMPT_PATH, SWEEPS_PATH, canonUrl, normId, readJson, validateItem } from "./lib/common.ts";
 
 const strict = process.argv.includes("--strict");
@@ -74,6 +75,8 @@ for (const s of Array.isArray(log.sweeps) ? log.sweeps : []) {
 const prompt = readFileSync(PROMPT_PATH, "utf8");
 for (const t of TOPIC_TAGS) if (!prompt.includes(`\`${t}\``)) errors.push(`prompts/update-feed.md: topic tag "${t}" from src/data/tags.ts is missing`);
 for (const c of CATEGORY_ORDER) if (!prompt.includes(`\`${c}\``)) errors.push(`prompts/update-feed.md: category "${c}" is missing`);
+// Every topic tag is a glossary page (/learn/<tag>/); its text must exist.
+for (const t of TOPIC_TAGS) if (!GLOSSARY[t]?.short) errors.push(`src/data/glossary.ts: topic tag "${t}" has no glossary entry`);
 
 if (warnings.length > 0) {
   console.error(`check-feed: ${warnings.length} warning(s):`);

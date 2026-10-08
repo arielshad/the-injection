@@ -97,7 +97,7 @@ const siteGraph = {
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="robots" content={noindex ? "noindex" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
     <link rel="icon" type="image/svg+xml" href={u("/favicon.svg")} />
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href={u("/rss.xml")} />
     <link rel="sitemap" href={u("/sitemap-index.xml")} />

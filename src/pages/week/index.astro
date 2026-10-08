@@ -1,0 +1,41 @@
+---
+import Base from "@/layouts/Base.astro";
+import { SeverityMeter } from "@/components/SeverityMeter";
+import { weeks } from "@/lib/hubs";
+import { hubImage } from "@/lib/hub-cards";
+import { SITE, abs, u } from "@/site";
+
+const all = weeks();
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `${SITE.name} weekly digests`,
+  url: abs("/week/"),
+  isPartOf: { "@id": abs("/#website") },
+  mainEntity: { "@type": "ItemList", itemListElement: all.map((w, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/week/${w.key}/`), name: `Week ${w.week}, ${w.year}` })) },
+};
+const fmt = (d: string) => new Date(`${d}T12:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+const mono = "font-mono text-[10.5px] uppercase tracking-[0.06em]";
+---
+
+<Base title="Weekly AI security digests" description={`AI security news week by week: every story ${SITE.name} tracked, most severe first, with a one-paragraph summary of each week.`} path="/week/" image={hubImage("week")} jsonLd={[jsonLd]}>
+  <header class="border-b border-line py-10">
+    <p class={`${mono} text-muted-foreground`}>Weekly</p>
+    <h1 class="mt-2 font-heading text-5xl font-semibold text-white sm:text-6xl">Week by week</h1>
+    <p class="mt-3 max-w-2xl text-lg text-muted-foreground">Every week of AI security news in one page, most severe first. Weeks follow the date a story was disclosed. Follow it with the <a href={u("/week/rss.xml")} class="text-ink underline decoration-ink/30 underline-offset-2 hover:decoration-acid">weekly RSS feed</a>.</p>
+  </header>
+  <ol class="mt-6 divide-y divide-line border-b border-line">
+    {all.map((w) => (
+      <li>
+        <a href={u(`/week/${w.key}/`)} class="group grid gap-2 py-5 sm:grid-cols-[10rem_minmax(0,1fr)_auto] sm:items-baseline sm:gap-6">
+          <span class={`${mono} text-ink`}>Week {w.week}, {w.year}<span class="block text-muted-foreground">{fmt(w.start)} – {fmt(w.end)}</span></span>
+          <span class="min-w-0">
+            <span class="block font-heading text-xl font-semibold text-white group-hover:underline decoration-acid underline-offset-4">{w.items[0].title}</span>
+            {w.items.length > 1 && <span class="mt-1 block text-sm text-muted-foreground">and {w.items.slice(1, 4).map((i) => i.title.split(":")[0]).join(", ")}{w.items.length > 4 ? ` and ${w.items.length - 4} more` : ""}</span>}
+          </span>
+          <span class={`flex items-center gap-3 ${mono} text-muted-foreground`}><SeverityMeter severity={w.items[0].severity} />{w.items.length}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</Base>

@@ -122,6 +122,16 @@ export function categoryCard(cat: keyof typeof CATEGORY_META, count: number): Pr
   });
 }
 
+/** Cards for hub pages (products, glossary terms, weekly digests, stats, log). */
+export function hubCard(opts: { seed: string; kicker: string; detail?: string; title: string; byline?: string }): Promise<Buffer> {
+  return render({
+    art: coverArt({ id: opts.seed, org: opts.title }),
+    kicker: [{ color: ACID, label: opts.kicker }, ...(opts.detail ? [{ color: "", label: opts.detail }] : [])],
+    title: opts.title,
+    byline: opts.byline,
+  });
+}
+
 /** Alt text that says what the card shows, for og:image:alt and twitter:image:alt. */
 export const itemCardAlt = (item: Item) =>
   `${item.title}. ${SEVERITY_META[item.severity].label} severity ${CATEGORY_META[item.categories[0]].label.toLowerCase()} story from ${item.org}, on ${SITE.name}.`;

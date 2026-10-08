@@ -484,8 +484,15 @@ Every item conforms to `Item` in `src/data/schema.ts`. Do not invent fields.
   Never invent a synonym of a listed tag (`jailbreaks`, `red-teaming`): use
   the listed one (verify warns on known synonyms). Then add product, vendor
   and model names as free tags (`claude-code`, `github-copilot`, `openai`).
-  Do not repeat a category as a tag.
+  Do not repeat a category as a tag. Each topic tag is also a glossary page
+  (`/learn/<tag>/`, text in `src/data/glossary.ts`): a new topic tag needs a
+  glossary entry in the same change, or the build fails.
 - `affected`: named products, models or ecosystems, as the source names them.
+  Product hub pages (`/products/<slug>/`) match these names through
+  `src/data/products.ts`. Use the product's usual name ("Claude Code",
+  "GitHub Copilot CLI") so it matches; when a story is the second one about a
+  product that has no entry there, add one (slug, name, vendor, one-line
+  blurb, match regex).
 - `cve`, `cvss`: Hard Rule 4.
 - `credits`: Hard Rule 2.
 - `explainer`:

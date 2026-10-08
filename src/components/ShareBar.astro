@@ -1,0 +1,64 @@
+---
+/**
+ * Share this page, or hand it to an assistant. Every target is a plain link;
+ * the copy and native-share buttons are the only script.
+ */
+import { shareLinks, askAiLinks, askPrompt } from "@/lib/share";
+
+interface Props {
+  url: string;
+  title: string;
+  /** One or two lines the assistant gets with the link (what the page is). */
+  context?: string;
+  question?: string;
+  /** Hide the Ask AI row (pages that are lists, not one story). */
+  ask?: boolean;
+  class?: string;
+}
+const { url, title, context, question, ask = true, class: cls } = Astro.props;
+const chip = "inline-flex items-center rounded-sm border border-line px-2 py-1 font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground hover:border-acid hover:text-ink";
+const label = "w-16 shrink-0 font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground";
+---
+
+<div class:list={["space-y-3", cls]} data-share-bar>
+  <div class="flex items-start gap-3">
+    <p class={label}>Share</p>
+    <ul class="flex flex-wrap gap-1.5">
+      <li><button type="button" class={chip} data-copy-url={url} aria-live="polite">Copy link</button></li>
+      <li hidden data-native-share-wrap><button type="button" class={chip} data-native-share data-url={url} data-title={title}>Share…</button></li>
+      {shareLinks(url, title).map((s) => (
+        <li><a class={chip} href={s.href} rel="noopener nofollow" target="_blank" aria-label={`Share on ${s.label}`}>{s.label}</a></li>
+      ))}
+    </ul>
+  </div>
+  {ask && (
+    <div class="flex items-start gap-3">
+      <p class={label}>Ask AI</p>
+      <ul class="flex flex-wrap gap-1.5">
+        {askAiLinks(askPrompt({ url, title, context, question })).map((s) => (
+          <li><a class={chip} href={s.href} rel="noopener nofollow" target="_blank" aria-label={`Ask ${s.label} about this`}>{s.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  )}
+</div>
+
+<script>
+  document.addEventListener("click", async (e) => {
+    const el = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-copy-url],[data-native-share]");
+    if (!el) return;
+    if (el.dataset.copyUrl) {
+      const prev = el.textContent;
+      try {
+        await navigator.clipboard.writeText(el.dataset.copyUrl);
+        el.textContent = "Copied";
+      } catch {
+        el.textContent = "Copy failed";
+      }
+      setTimeout(() => (el.textContent = prev), 1600);
+    } else {
+      navigator.share?.({ url: el.dataset.url, title: el.dataset.title }).catch(() => {});
+    }
+  });
+  if ("share" in navigator) document.querySelectorAll<HTMLElement>("[data-native-share-wrap]").forEach((li) => (li.hidden = false));
+</script>

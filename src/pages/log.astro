@@ -1,0 +1,98 @@
+---
+/**
+ * The public sweep log: every run of the update agent, what it searched and
+ * what it added, changed or removed. It shows the hourly process instead of
+ * only claiming it. Data: src/data/sweeps.json, written by finalize-sweep.
+ */
+import Base from "@/layouts/Base.astro";
+import { SeverityMeter } from "@/components/SeverityMeter";
+import { allSweeps, itemById } from "@/data/feed";
+import { CATEGORY_META } from "@/data/categories";
+import { SITE, abs, u } from "@/site";
+import { hubImage } from "@/lib/hub-cards";
+
+// Hourly runs add up; the page keeps the latest 300 and says so.
+const LIMIT = 300;
+const sweeps = allSweeps();
+const shown = sweeps.slice(0, LIMIT);
+const totals = sweeps.reduce((t, s) => ({ added: t.added + s.counts.added, updated: t.updated + s.counts.updated, removed: t.removed + s.counts.removed }), { added: 0, updated: 0, removed: 0 });
+const when = (iso: string) => iso.slice(0, 16).replace("T", " ") + " UTC";
+const kind = (src: string) => (src.startsWith("manual") ? "Manual" : src.includes("retry") ? "Retry" : "Scheduled");
+const mono = "font-mono text-[10.5px] uppercase tracking-[0.06em]";
+const first = sweeps[sweeps.length - 1];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `${SITE.name} sweep log`,
+  description: `Every run of the ${SITE.name} update agent: sources searched, stories added, updated and removed.`,
+  url: abs("/log/"),
+  isPartOf: { "@id": abs("/#website") },
+  dateModified: sweeps[0]?.timestamp,
+};
+---
+
+<Base title="Sweep log: every update, what changed" description={`The ${SITE.name} changelog: each hourly sweep, the sources it checked, and every story it added, updated or removed, with the reason.`} path="/log/" image={hubImage("log")} jsonLd={[jsonLd]}>
+  <header class="border-b border-line py-10">
+    <p class={`${mono} text-muted-foreground`}>Changelog</p>
+    <h1 class="mt-2 font-heading text-5xl font-semibold text-white sm:text-6xl">Sweep log</h1>
+    <p class="mt-3 max-w-2xl text-lg text-muted-foreground">An agent sweeps advisories, research and community sources every hour. Each run is recorded here: what it searched, what it added and why, what it changed and what it took down.</p>
+    <p class={`mt-5 flex flex-wrap gap-x-6 gap-y-1 ${mono} text-ink`}>
+      <span>{sweeps.length} sweeps</span><span class="text-sev-low">+{totals.added} added</span><span>~{totals.updated} updated</span><span class="text-sev-critical">−{totals.removed} removed</span>
+      {first && <span class="text-muted-foreground">since {first.timestamp.slice(0, 10)}</span>}
+    </p>
+  </header>
+
+  <ol class="mt-6 space-y-3">
+    {shown.map((s, i) => (
+      <li class="rounded-sm border border-line bg-panel">
+        <details open={i < 5 && s.counts.added + s.counts.updated + s.counts.removed > 0}>
+          <summary class="grid cursor-pointer list-none gap-2 px-4 py-3 sm:grid-cols-[11rem_7rem_minmax(0,1fr)] sm:gap-5 [&::-webkit-details-marker]:hidden">
+            <span class={`${mono} text-ink`}><time datetime={s.timestamp}>{when(s.timestamp)}</time></span>
+            <span class={`${mono} text-muted-foreground`}>{kind(s.source)} · <span class="text-sev-low">+{s.counts.added}</span> ~{s.counts.updated} <span class="text-sev-critical">−{s.counts.removed}</span></span>
+            <span class="text-[14.5px] leading-relaxed text-ink/85">{s.summary}</span>
+          </summary>
+          <div class="space-y-4 border-t border-line px-4 py-4 text-sm">
+            {s.added.length > 0 && (
+              <div>
+                <p class={`${mono} text-muted-foreground`}>Added</p>
+                <ul class="mt-2 space-y-2">
+                  {s.added.map((a) => (
+                    <li class="grid gap-1 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-4">
+                      <span class="flex items-center gap-2"><SeverityMeter severity={a.severity} /></span>
+                      <span>
+                        {itemById(a.id) ? <a href={u(`/items/${a.id}/`)} class="font-medium text-white underline decoration-ink/30 underline-offset-2 hover:decoration-acid">{a.title}</a> : <span class="font-medium text-white">{a.title}</span>}
+                        <span class={`ml-2 ${mono} text-muted-foreground`}>{CATEGORY_META[a.category]?.label ?? a.category}</span>
+                        <span class="block text-muted-foreground">{a.note}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {s.updated.length > 0 && (
+              <div>
+                <p class={`${mono} text-muted-foreground`}>Updated</p>
+                <ul class="mt-2 space-y-1">
+                  {s.updated.map((x) => <li>{itemById(x.id) ? <a href={u(`/items/${x.id}/`)} class="text-white underline decoration-ink/30 underline-offset-2 hover:decoration-acid">{x.title}</a> : x.title}: <span class="text-muted-foreground">{x.note}</span></li>)}
+                </ul>
+              </div>
+            )}
+            {s.removed.length > 0 && (
+              <div>
+                <p class={`${mono} text-muted-foreground`}>Removed</p>
+                <ul class="mt-2 space-y-1">{s.removed.map((x) => <li>{x.title}: <span class="text-muted-foreground">{x.reason}</span></li>)}</ul>
+              </div>
+            )}
+            <div>
+              <p class={`${mono} text-muted-foreground`}>Searched · {s.windowDays}-day window · prompt {s.promptVersion}</p>
+              <p class="mt-2 leading-relaxed text-muted-foreground">{s.sourcesChecked.join(" · ")}</p>
+              {s.coverage.length > 0 && <p class="mt-1 text-muted-foreground">Categories covered: {s.coverage.map((c) => CATEGORY_META[c]?.label ?? c).join(", ")}</p>}
+            </div>
+          </div>
+        </details>
+      </li>
+    ))}
+  </ol>
+  {sweeps.length > LIMIT && <p class={`mt-6 ${mono} text-muted-foreground`}>Showing the latest {LIMIT} of {sweeps.length} sweeps.</p>}
+</Base>

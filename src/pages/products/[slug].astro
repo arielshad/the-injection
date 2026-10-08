@@ -1,0 +1,140 @@
+---
+/**
+ * One product's security history: every story that affects it, its CVEs, the
+ * attack techniques seen against it, and data-driven answers to the questions
+ * people search ("does Claude Code have vulnerabilities?").
+ */
+import Base from "@/layouts/Base.astro";
+import StoryList from "@/components/StoryList.astro";
+import ShareBar from "@/components/ShareBar.astro";
+import { productHubs, type ProductHub } from "@/lib/hubs";
+import { hubImage } from "@/lib/hub-cards";
+import { CATEGORY_META, SEVERITY_META } from "@/data/categories";
+import { GLOSSARY } from "@/data/glossary";
+import { isTopicTag } from "@/data/tags";
+import { SITE, abs, u } from "@/site";
+import { fmtDate } from "@/lib/slim";
+
+export function getStaticPaths() {
+  return productHubs().map((hub) => ({ params: { slug: hub.product.slug }, props: { hub } }));
+}
+
+interface Props { hub: ProductHub }
+const { product, items } = Astro.props.hub;
+const path = `/products/${product.slug}/`;
+const serious = items.filter((i) => i.severity === "critical" || i.severity === "high");
+const cves = items.filter((i) => i.cve);
+const latest = items[0];
+const first = items[items.length - 1];
+const byCat = Object.entries(items.reduce<Record<string, number>>((m, i) => ((m[i.categories[0]] = (m[i.categories[0]] ?? 0) + 1), m), {})).sort((a, b) => b[1] - a[1]);
+const topics = Object.entries(items.flatMap((i) => i.tags.filter(isTopicTag)).reduce<Record<string, number>>((m, t) => ((m[t] = (m[t] ?? 0) + 1), m), {})).sort((a, b) => b[1] - a[1]).slice(0, 10) as [keyof typeof GLOSSARY, number][];
+const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
+const catList = byCat.map(([c, n]) => `${CATEGORY_META[c as keyof typeof CATEGORY_META].label.toLowerCase()} ${n}`).join(", ");
+
+const answer = `${SITE.name} has tracked ${plural(items.length, "security story", "security stories")} affecting ${product.name} since ${fmtDate(first.date)} (${catList})${serious.length ? `, ${serious.length} rated high or critical` : ""}. The most recent, disclosed ${fmtDate(latest.date)}, is "${latest.title}".`;
+
+const faq = [
+  {
+    q: `Does ${product.name} have known security vulnerabilities?`,
+    a: cves.length
+      ? `Yes. ${SITE.name} has tracked ${plural(cves.length, "story", "stories")} about ${product.name} with a published CVE: ${cves.slice(0, 5).map((i) => `${i.cve}${i.cvss !== undefined ? ` (CVSS ${i.cvss})` : ""}, ${i.title.split(":").slice(1).join(":").trim() || i.title}`).join("; ")}. Check each story for fixed versions.`
+      : `${SITE.name} has tracked ${plural(items.length, "story", "stories")} about ${product.name}, none of them with a published CVE yet. Several cover attacks or research that apply to it; each story lists what to do.`,
+  },
+  {
+    q: `What is the latest ${product.name} security issue?`,
+    a: `The most recent story is "${latest.title}" (${SEVERITY_META[latest.severity].label.toLowerCase()} severity), disclosed ${fmtDate(latest.date)} by ${latest.org}. ${latest.summary}`,
+  },
+  ...(topics.length
+    ? [{ q: `Which attack techniques have been used against ${product.name}?`, a: `Stories about ${product.name} on ${SITE.name} most often involve ${topics.slice(0, 4).map(([t]) => GLOSSARY[t].term.toLowerCase()).join(", ")}. Each technique has a glossary entry with a definition and every related story.` }]
+    : []),
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${product.name} security history`,
+    description: answer,
+    url: abs(path),
+    isPartOf: { "@id": abs("/#website") },
+    about: { "@type": "SoftwareApplication", name: product.name, applicationCategory: "AI software", publisher: { "@type": "Organization", name: product.vendor } },
+    dateModified: items.map((i) => i.publishDate).sort().pop(),
+    mainEntity: { "@type": "ItemList", itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/items/${it.id}/`), name: it.title })) },
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: SITE.name, item: abs("/") },
+      { "@type": "ListItem", position: 2, name: "Products", item: abs("/products/") },
+      { "@type": "ListItem", position: 3, name: product.name, item: abs(path) },
+    ],
+  },
+];
+const mono = "font-mono text-[10.5px] uppercase tracking-[0.06em]";
+const tiles = [
+  { v: items.length, l: "Stories" },
+  { v: serious.length, l: "High or critical" },
+  { v: cves.length, l: "With a CVE" },
+  { v: latest.date, l: "Latest disclosure" },
+];
+---
+
+<Base title={`${product.name} security: vulnerabilities and attacks`} description={answer} path={path} image={hubImage(`products/${product.slug}`)} jsonLd={jsonLd}>
+  <nav aria-label="Breadcrumb" class={`pt-6 ${mono} text-muted-foreground`}><a href={u("/products/")} class="hover:text-ink">Products</a> <span class="mx-1.5">/</span> {product.vendor}</nav>
+  <header class="border-b border-line pb-8 pt-4">
+    <h1 class="font-heading text-[clamp(36px,5vw,64px)] font-semibold leading-none text-white">{product.name} security</h1>
+    <p class="mt-3 max-w-2xl text-lg text-muted-foreground">{product.blurb}</p>
+    <p class="mt-5 max-w-3xl border-l-2 border-acid pl-4 text-[16px] leading-relaxed">{answer}</p>
+  </header>
+
+  <div class="grid gap-10 pt-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-14">
+    <div class="min-w-0 space-y-12">
+      <section aria-label="In numbers" class="grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-line bg-line sm:grid-cols-4">
+        {tiles.map((t) => <div class="bg-panel p-4"><p class="font-heading text-3xl font-semibold text-white">{t.v}</p><p class={`mt-1 ${mono} text-muted-foreground`}>{t.l}</p></div>)}
+      </section>
+
+      {cves.length > 0 && (
+        <section aria-labelledby="cves-h">
+          <h2 id="cves-h" class="border-b border-line pb-2 font-heading text-3xl">CVEs</h2>
+          <div class="overflow-x-auto">
+            <table class="mt-3 w-full text-left text-sm">
+              <thead class={`${mono} text-muted-foreground`}><tr><th class="py-2 pr-4 font-normal">CVE</th><th class="py-2 pr-4 font-normal">CVSS</th><th class="py-2 pr-4 font-normal">Severity</th><th class="py-2 font-normal">Story</th></tr></thead>
+              <tbody class="divide-y divide-line">
+                {cves.map((i) => (
+                  <tr><td class="py-2 pr-4 font-mono text-[12px] whitespace-nowrap">{i.cve}</td><td class="py-2 pr-4 font-mono text-[12px]">{i.cvss ?? "–"}</td><td class="py-2 pr-4">{SEVERITY_META[i.severity].label}</td><td class="py-2"><a href={u(`/items/${i.id}/`)} class="underline decoration-ink/30 underline-offset-2 hover:decoration-acid">{i.title}</a></td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      <section aria-labelledby="stories-h">
+        <h2 id="stories-h" class="mb-3 font-heading text-3xl">Every {product.name} story</h2>
+        <StoryList items={items} />
+      </section>
+
+      <section aria-labelledby="faq-h">
+        <h2 id="faq-h" class="border-b border-line pb-2 font-heading text-3xl">Questions people ask</h2>
+        <dl class="divide-y divide-border">
+          {faq.map((f) => <div class="py-5"><dt class="font-medium">{f.q}</dt><dd class="mt-2 max-w-prose leading-relaxed text-muted-foreground">{f.a}</dd></div>)}
+        </dl>
+      </section>
+    </div>
+
+    <aside class="space-y-8 lg:sticky lg:top-6 lg:self-start">
+      {topics.length > 0 && (
+        <div>
+          <p class={`${mono} text-muted-foreground`}>Techniques seen</p>
+          <ul class="mt-2 space-y-1 text-sm">
+            {topics.map(([t, n]) => <li class="flex justify-between gap-3"><a href={u(`/learn/${t}/`)} class="underline decoration-ink/30 underline-offset-2 hover:decoration-acid">{GLOSSARY[t].term}</a><span class="font-mono text-[11px] text-muted-foreground">{n}</span></li>)}
+          </ul>
+        </div>
+      )}
+      <ShareBar url={abs(path)} title={`${product.name} security history`} context={`A list of every AI security story about ${product.name} on ${SITE.name}.`} question={`Summarise the ${product.name} security issues listed there and tell me which ones I still need to act on and how.`} />
+      <p class={mono}><a href={u("/products/")} class="text-muted-foreground hover:text-acid">All products →</a></p>
+    </aside>
+  </div>
+</Base>

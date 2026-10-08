@@ -1,0 +1,32 @@
+---
+/** A plain list of stories for hub pages (products, topics, weeks). Server-rendered, no script. */
+import type { Item } from "@/data/schema";
+import { CATEGORY_META } from "@/data/categories";
+import { SeverityMeter } from "@/components/SeverityMeter";
+import { u } from "@/site";
+
+interface Props {
+  items: Item[];
+  /** Show the one-line summary under each title. */
+  summaries?: boolean;
+}
+const { items, summaries = true } = Astro.props;
+---
+
+<ol class="divide-y divide-line border-y border-line">
+  {items.map((it) => (
+    <li class="grid gap-1 py-4 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-5" style={`--sev:var(--sev-${it.severity})`}>
+      <p class="font-mono text-[10.5px] uppercase tracking-[0.04em] text-muted-foreground">
+        <time datetime={it.date}>{it.date}</time>
+        <span class="mt-1 block"><SeverityMeter severity={it.severity} /></span>
+      </p>
+      <div class="min-w-0">
+        <p class="font-mono text-[10.5px] uppercase tracking-[0.04em] text-muted-foreground">
+          {CATEGORY_META[it.categories[0]].label} · {it.org}{it.cve && ` · ${it.cve}`}{it.cvss !== undefined && ` · CVSS ${it.cvss}`}
+        </p>
+        <a href={u(`/items/${it.id}/`)} class="mt-1 block font-heading text-[19px] font-semibold leading-snug text-white hover:underline decoration-acid underline-offset-4">{it.title}</a>
+        {summaries && <p class="mt-1 text-[14px] leading-relaxed text-muted-foreground">{it.summary}</p>}
+      </div>
+    </li>
+  ))}
+</ol>
