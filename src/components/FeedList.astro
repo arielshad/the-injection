@@ -10,7 +10,7 @@ import { CATEGORY_META } from "@/data/categories";
 import { SeverityMeter } from "@/components/SeverityMeter";
 import FeedFilters from "@/components/FeedFilters";
 import { coverArt } from "@/lib/cover";
-import { u } from "@/site";
+import { abs, u } from "@/site";
 
 interface Props {
   items: Item[];
@@ -32,7 +32,7 @@ const sevCounts = severities.map((s) => ({ id: s, count: items.filter((i) => i.s
       {items.map((it) => {
         const art = coverArt(it);
         return (
-          <li data-sev={it.severity} data-cats={it.categories.join(" ")}>
+          <li data-sev={it.severity} data-cats={it.categories.join(" ")} class="feed-item">
             <a href={u(`/items/${it.id}/`)} class="feed-row group" style={`border-left-color:var(--sev-${it.severity})`}>
               <span class="feed-thumb" style={`background:${art.bg};color:${art.ink}`}>
                 <img src={u(`/covers/${it.id}.svg`)} alt="" loading="lazy" decoding="async" />
@@ -51,6 +51,9 @@ const sevCounts = severities.map((s) => ({ id: s, count: items.filter((i) => i.s
               </span>
               <time datetime={it.date} class="feed-date">{it.date}</time>
             </a>
+            <button type="button" class="feed-share" data-share-url={abs(`/items/${it.id}/`)} data-share-title={it.title} aria-label={`Share: ${it.title}`} title="Copy link">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1" /></svg>
+            </button>
           </li>
         );
       })}
@@ -62,7 +65,31 @@ const sevCounts = severities.map((s) => ({ id: s, count: items.filter((i) => i.s
   </aside>
 </section>
 
+<script>
+  // Row share: the system share sheet on phones, copy the link elsewhere.
+  document.addEventListener("click", async (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-share-url]");
+    if (!b) return;
+    const url = b.dataset.shareUrl!;
+    if (navigator.share && matchMedia("(hover: none)").matches) return void navigator.share({ url, title: b.dataset.shareTitle }).catch(() => {});
+    try {
+      await navigator.clipboard.writeText(url);
+      b.dataset.done = "";
+      setTimeout(() => delete b.dataset.done, 1400);
+    } catch {}
+  });
+</script>
+
 <style>
+  .feed-item { position: relative; }
+  .feed-share { position: absolute; right: .5rem; bottom: .5rem; display: inline-flex; align-items: center; gap: .375rem; padding: .3rem; border-radius: 2px; color: var(--muted-foreground); background: var(--panel); opacity: 0; transition: opacity .15s, color .15s; }
+  .feed-share svg { width: 15px; height: 15px; }
+  .feed-item:hover .feed-share, .feed-share:focus-visible, .feed-share[data-done] { opacity: 1; }
+  .feed-item:hover .feed-share { background: var(--panel-2); }
+  .feed-share:hover { color: var(--acid); }
+  @media (hover: none) { .feed-share { opacity: .8; } }
+  /* Pseudo-content, so the word stays out of the row text the search filter reads. */
+  .feed-share[data-done]::after { content: "Copied"; font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; color: var(--acid); }
   .feed-row { display: grid; grid-template-columns: 88px 1fr; align-items: center; gap: 1rem; border-left-width: 2px; background: var(--panel); padding: .75rem 1rem .75rem .75rem; transition: background-color .15s; }
   .feed-row:hover { background: var(--panel-2); }
   @media (min-width: 640px) { .feed-row { grid-template-columns: 132px 1fr auto; gap: 1.25rem; } }

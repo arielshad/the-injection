@@ -1,0 +1,40 @@
+---
+import Base from "@/layouts/Base.astro";
+import { SeverityMeter } from "@/components/SeverityMeter";
+import { productHubs, MIN_PRODUCT_STORIES } from "@/lib/hubs";
+import { hubImage } from "@/lib/hub-cards";
+import { SEVERITY_ORDER } from "@/data/schema";
+import { SITE, abs, u } from "@/site";
+
+const hubs = productHubs();
+const worst = (h: (typeof hubs)[number]) => [...h.items].sort((a, b) => SEVERITY_ORDER.indexOf(a.severity) - SEVERITY_ORDER.indexOf(b.severity))[0].severity;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "AI product security history",
+  url: abs("/products/"),
+  isPartOf: { "@id": abs("/#website") },
+  mainEntity: { "@type": "ItemList", itemListElement: hubs.map((h, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/products/${h.product.slug}/`), name: `${h.product.name} security` })) },
+};
+const mono = "font-mono text-[10.5px] uppercase tracking-[0.06em]";
+---
+
+<Base title="AI product security history" description={`Vulnerabilities, attacks and fixes for ${hubs.slice(0, 5).map((h) => h.product.name).join(", ")} and other AI products, each with every story ${SITE.name} has tracked.`} path="/products/" image={hubImage("products")} jsonLd={[jsonLd]}>
+  <header class="border-b border-line py-10">
+    <p class={`${mono} text-muted-foreground`}>By product</p>
+    <h1 class="mt-2 font-heading text-5xl font-semibold text-white sm:text-6xl">AI product security</h1>
+    <p class="mt-3 max-w-2xl text-lg text-muted-foreground">Every tracked vulnerability, attack and fix, grouped by the AI product it affects. A product gets a page once {MIN_PRODUCT_STORIES} stories about it land.</p>
+  </header>
+  <ul class="mt-8 grid gap-px overflow-hidden rounded-sm border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+    {hubs.map((h) => (
+      <li class="bg-panel">
+        <a href={u(`/products/${h.product.slug}/`)} class="group block h-full p-5 hover:bg-panel-2">
+          <p class={`flex items-center justify-between ${mono} text-muted-foreground`}><span>{h.product.vendor}</span><SeverityMeter severity={worst(h)} /></p>
+          <p class="mt-2 font-heading text-2xl font-semibold text-white group-hover:underline decoration-acid underline-offset-4">{h.product.name}</p>
+          <p class="mt-1 text-sm text-muted-foreground">{h.product.blurb}</p>
+          <p class={`mt-4 ${mono} text-ink`}>{h.items.length} stories · {h.items.filter((i) => i.cve).length} CVEs · latest {h.items[0].date}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>

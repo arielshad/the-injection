@@ -51,6 +51,9 @@ const sections = [
                 </li>
               ))}
               <li><a href={u("/tools/")} class:list={["block py-4 text-[17px] font-medium", path === "/tools/" ? "text-acid" : "text-ink"]}>Open-source tools directory</a></li>
+              {[["/week/", "Weekly digests"], ["/products/", "Security by product"], ["/learn/", "AI security glossary"], ["/stats/", "AI Security Index"], ["/log/", "Sweep log"]].map(([href, label]) => (
+                <li><a href={u(href)} class:list={["block py-4 text-[17px] font-medium", path.startsWith(href) ? "text-acid" : "text-ink"]}>{label}</a></li>
+              ))}
               <li><a href={u("/exposure/")} class:list={["block py-4 text-[17px] font-medium", path === "/exposure/" ? "text-acid" : "text-ink"]}>Exposure by ecosystem</a></li>
               <li><a href={u("/about/")} class:list={["block py-4 text-[17px] font-medium", path === "/about/" ? "text-acid" : "text-ink"]}>About and method</a></li>
             </ul>
@@ -65,11 +68,15 @@ const sections = [
   </div>
 
   <nav aria-label="Sections" class="hidden border-b border-line md:block">
-    <ul class={`flex gap-6 overflow-x-auto py-3 uppercase text-muted-foreground ${mono} [scrollbar-width:none]`}>
+    <ul class={`flex gap-5 overflow-x-auto py-3 uppercase text-muted-foreground ${mono} [scrollbar-width:none]`}>
       {sections.map((s) => (
         <li><a href={u(s.href)} class:list={["whitespace-nowrap hover:text-ink", s.active && "text-acid"]}>{s.label}</a></li>
       ))}
-      <li class="ml-auto"><a href={u("/tools/")} class:list={["whitespace-nowrap hover:text-ink", path === "/tools/" && "text-acid"]}>Tools directory</a></li>
+      <li class="ml-auto"><a href={u("/week/")} class:list={["whitespace-nowrap hover:text-ink", path.startsWith("/week/") && "text-acid"]}>Weekly</a></li>
+      <li><a href={u("/products/")} class:list={["whitespace-nowrap hover:text-ink", path.startsWith("/products/") && "text-acid"]}>Products</a></li>
+      <li><a href={u("/learn/")} class:list={["whitespace-nowrap hover:text-ink", path.startsWith("/learn/") && "text-acid"]}>Glossary</a></li>
+      <li><a href={u("/stats/")} class:list={["whitespace-nowrap hover:text-ink", path === "/stats/" && "text-acid"]}>Index</a></li>
+      <li><a href={u("/tools/")} class:list={["whitespace-nowrap hover:text-ink", path === "/tools/" && "text-acid"]}>Tools</a></li>
       <li><a href={u("/about/")} class:list={["whitespace-nowrap hover:text-ink", path === "/about/" && "text-acid"]}>About</a></li>
     </ul>
   </nav>

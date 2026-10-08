@@ -56,7 +56,23 @@ export default function FeedFilters({ layout, categories, severities }: Props) {
     apply(init);
     const onSync = (e: Event) => setState((e as CustomEvent<State>).detail);
     window.addEventListener(EVENT, onSync);
-    return () => window.removeEventListener(EVENT, onSync);
+    // "/" jumps to search, as on GitHub and most feeds. Only the visible box takes focus.
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target as HTMLElement;
+      if (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+      const box = [...document.querySelectorAll<HTMLInputElement>("input[data-feed-search]")].find((i) => i.offsetParent !== null);
+      if (!box) return;
+      e.preventDefault();
+      box.focus();
+      box.select();
+    };
+    // Both instances hydrate on every screen size; one listener is enough.
+    if (layout === "side") window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener(EVENT, onSync);
+      window.removeEventListener("keydown", onKey);
+    };
   }, []);
 
   const update = (patch: Partial<State>) => {
@@ -72,11 +88,14 @@ export default function FeedFilters({ layout, categories, severities }: Props) {
       <span className="sr-only">Search the feed</span>
       <input
         type="search"
+        data-feed-search
+        aria-keyshortcuts="/"
         value={state.q}
         onChange={(e) => update({ q: e.target.value })}
         placeholder="grep: CVE, product, researcher"
         className="w-full bg-transparent font-mono text-[12px] text-ink outline-none placeholder:text-muted-foreground"
       />
+      <kbd aria-hidden className="hidden rounded-[3px] border border-line px-1.5 font-mono text-[10px] text-muted-foreground lg:inline">/</kbd>
     </label>
   );
   const active = state.q || state.cat || state.sev;

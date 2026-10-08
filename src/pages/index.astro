@@ -10,6 +10,8 @@ import { CATEGORY_ORDER, SEVERITY_ORDER } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
 import { SITE, abs, u } from "@/site";
 import { exposureStrips } from "@/lib/exposure";
+import { digestSentence, recentWindow, weekOf } from "@/lib/hubs";
+import { feed } from "@/data/feed";
 
 const items = allItems();
 const rank = (s: string) => SEVERITY_ORDER.indexOf(s as never);
@@ -40,6 +42,11 @@ const categories = CATEGORY_ORDER.map((id) => ({ id, label: CATEGORY_META[id].la
 const exposure = exposureStrips(items);
 const head = "flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground";
 
+// Answer-first summary: the paragraph a search engine or assistant can quote for "what happened in AI security this week?".
+const recent = recentWindow(feed.generatedAt);
+const digest = digestSentence(recent.items, recent.span);
+const thisWeek = items[0] ? weekOf(items[0]) : null;
+
 const itemList = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -56,6 +63,17 @@ const itemList = {
         <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">{b.label}</p>
       </div>
     ))}
+  </section>
+
+  <section aria-labelledby="digest-h" class="mt-6 rounded-sm border border-line bg-panel px-4 py-4 sm:px-6">
+    <h2 id="digest-h" class="font-mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground">What happened in AI security {recent.days === 7 ? "this week" : "this month"}?</h2>
+    <p class="mt-2 max-w-4xl text-[15.5px] leading-relaxed text-ink/90" data-speakable>{digest}</p>
+    <p class="mt-3 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[11px] uppercase tracking-[0.04em]">
+      {thisWeek && <a href={u(`/week/${thisWeek}/`)} class="text-acid hover:underline">Weekly digest →</a>}
+      <a href={u("/stats/")} class="text-muted-foreground hover:text-ink">AI Security Index →</a>
+      <a href={u("/products/")} class="text-muted-foreground hover:text-ink">By product →</a>
+      <a href={u("/learn/")} class="text-muted-foreground hover:text-ink">Glossary →</a>
+    </p>
   </section>
 
   {lead && (

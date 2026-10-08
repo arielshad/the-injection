@@ -1,0 +1,217 @@
+---
+/**
+ * The AI Security Index: live numbers derived from the feed at build time,
+ * each section with a ready-made citation. Numbers people (and assistants)
+ * quote need a stable URL, a date and a method; this page gives all three.
+ */
+import Base from "@/layouts/Base.astro";
+import ShareBar from "@/components/ShareBar.astro";
+import { SeverityMeter } from "@/components/SeverityMeter";
+import { allItems, feed } from "@/data/feed";
+import { CATEGORY_META, SEVERITY_META } from "@/data/categories";
+import { CATEGORY_ORDER, SEVERITY_ORDER } from "@/data/schema";
+import { GLOSSARY } from "@/data/glossary";
+import { isTopicTag, type TopicTag } from "@/data/tags";
+import { isoWeek, productHubs, weekKey } from "@/lib/hubs";
+import { hubImage } from "@/lib/hub-cards";
+import { fmtDate } from "@/lib/slim";
+import { SITE, abs, u } from "@/site";
+
+const items = allItems();
+const updated = feed.generatedAt.slice(0, 10);
+const pct = (n: number, d = items.length) => (d ? Math.round((n / d) * 100) : 0);
+const count = <T extends string>(xs: T[]) => [...xs.reduce((m, x) => m.set(x, (m.get(x) ?? 0) + 1), new Map<T, number>())].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
+const serious = items.filter((i) => i.severity === "critical" || i.severity === "high");
+const cves = items.filter((i) => i.cve).sort((a, b) => (b.cvss ?? -1) - (a.cvss ?? -1));
+const cvss = cves.map((i) => i.cvss).filter((x): x is number => x !== undefined).sort((a, b) => a - b);
+const medianCvss = cvss.length ? (cvss.length % 2 ? cvss[(cvss.length - 1) / 2] : (cvss[cvss.length / 2 - 1] + cvss[cvss.length / 2]) / 2) : null;
+const orgs = count(items.map((i) => i.org));
+const researchers = count(items.flatMap((i) => i.credits.map((c) => c.name)));
+const first = [...items].sort((a, b) => (a.date < b.date ? -1 : 1))[0];
+
+const sev = SEVERITY_ORDER.map((s) => ({ s, n: items.filter((i) => i.severity === s).length }));
+const cats = CATEGORY_ORDER.map((c) => ({ c, n: items.filter((i) => i.categories[0] === c).length })).filter((x) => x.n > 0).sort((a, b) => b.n - a.n);
+const products = productHubs().slice(0, 10);
+const topics = count(items.flatMap((i) => i.tags.filter(isTopicTag))).slice(0, 10) as [TopicTag, number][];
+
+// Disclosures per ISO week, last 12 weeks ending with the feed's current week.
+const nowWeek = isoWeek(updated);
+const weekRows = Array.from({ length: 12 }, (_, k) => {
+  const d = new Date(`${nowWeek.start}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - 7 * (11 - k));
+  const w = isoWeek(d.toISOString().slice(0, 10));
+  const key = weekKey(w.year, w.week);
+  return { key, label: w.start.slice(5), n: items.filter((i) => { const x = isoWeek(i.date); return weekKey(x.year, x.week) === key; }).length };
+});
+const last4 = weekRows.slice(-4).reduce((a, r) => a + r.n, 0);
+const prev4 = weekRows.slice(-8, -4).reduce((a, r) => a + r.n, 0);
+const maxWeek = Math.max(1, ...weekRows.map((r) => r.n));
+
+const headline = `${SITE.name} has tracked ${items.length} AI security stories from ${orgs.length} sources since ${fmtDate(first.date)}. ${pct(serious.length)}% were rated high or critical, ${cves.length} came with a CVE${medianCvss !== null ? ` (median CVSS ${medianCvss})` : ""}, and ${researchers.length} researchers are credited by name.`;
+const findings = {
+  severity: `${pct(serious.length)}% of the AI security stories ${SITE.name} tracked were rated high or critical (${serious.length} of ${items.length}).`,
+  category: cats.length ? `${CATEGORY_META[cats[0].c].label} is the largest category, with ${cats[0].n} of ${items.length} stories (${pct(cats[0].n)}%).` : "",
+  products: products.length ? `${products[0].product.name} appears in more AI security stories than any other product on ${SITE.name}: ${products[0].items.length}${products[1] ? `, ahead of ${products[1].product.name} (${products[1].items.length})` : ""}.` : "",
+  topics: topics.length ? `${GLOSSARY[topics[0][0]].term} is the most common technique, in ${topics[0][1]} of ${items.length} stories (${pct(topics[0][1])}%).` : "",
+  velocity: `${last4} AI security stories were disclosed in the last 4 weeks${prev4 ? `, ${last4 >= prev4 ? "up" : "down"} ${Math.abs(Math.round(((last4 - prev4) / prev4) * 100))}% from the 4 weeks before (${prev4})` : ""}.`,
+  cves: cves.length ? `${cves.length} AI security stories on ${SITE.name} came with a CVE${medianCvss !== null ? `; the median CVSS score is ${medianCvss}` : ""}.` : "",
+};
+const cite = (anchor: string, finding: string) => `${finding} Source: ${SITE.name}, "AI Security Index", ${abs(`/stats/#${anchor}`)}, updated ${updated}.`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  name: `${SITE.name} AI Security Index`,
+  description: headline,
+  url: abs("/stats/"),
+  creator: { "@id": abs("/#org") },
+  isAccessibleForFree: true,
+  dateModified: feed.generatedAt,
+  temporalCoverage: `${first.date}/..`,
+  keywords: ["AI security", "prompt injection", "AI vulnerabilities", "CVE", "AI agents", "statistics"],
+  variableMeasured: ["stories by severity", "stories by category", "stories by product", "stories by technique", "stories per week", "CVEs and CVSS"],
+  distribution: [{ "@type": "DataDownload", encodingFormat: "application/feed+json", contentUrl: abs("/feed.json") }],
+};
+const mono = "font-mono text-[10.5px] uppercase tracking-[0.06em]";
+const h2 = "font-heading text-3xl";
+const bar = "h-2 rounded-r-[4px] bg-ink/70";
+---
+
+<Base title="AI Security Index: live stats" description={headline} path="/stats/" image={hubImage("stats")} jsonLd={[jsonLd]}>
+  <header class="border-b border-line py-10">
+    <p class={`${mono} text-muted-foreground`}>Index · updated {updated}</p>
+    <h1 class="mt-2 font-heading text-5xl font-semibold text-white sm:text-6xl">AI Security Index</h1>
+    <p class="mt-4 max-w-3xl border-l-2 border-acid pl-4 text-[16px] leading-relaxed">{headline}</p>
+    <p class="mt-3 max-w-3xl text-sm text-muted-foreground">Every figure is computed from the verified feed on each build. Severity is {SITE.name}'s editorial rating (<a href={u("/about/")} class="underline decoration-ink/30 underline-offset-2">method</a>); weeks follow disclosure dates. Each section has a citation you can copy.</p>
+  </header>
+
+  <section aria-label="Totals" class="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-line bg-line sm:grid-cols-3 lg:grid-cols-6">
+    {[
+      [items.length, "Stories"],
+      [serious.length, "High or critical"],
+      [cves.length, "With a CVE"],
+      [orgs.length, "Sources"],
+      [researchers.length, "Researchers credited"],
+      [productHubs().length, "Products tracked"],
+    ].map(([v, l]) => <div class="bg-panel p-4"><p class="font-heading text-3xl font-semibold text-white">{v}</p><p class={`mt-1 ${mono} text-muted-foreground`}>{l}</p></div>)}
+  </section>
+
+  <div class="mt-12 grid gap-12 lg:grid-cols-2">
+    <section id="severity" aria-labelledby="severity-h">
+      <h2 id="severity-h" class={h2}>How severe?</h2>
+      <p class="mt-2 text-muted-foreground">{findings.severity}</p>
+      <ul class="mt-4 space-y-2.5">
+        {sev.map(({ s, n }) => (
+          <li class="grid grid-cols-[5.5rem_minmax(0,1fr)_3rem] items-center gap-3" title={`${SEVERITY_META[s].label}: ${n} stories (${pct(n)}%)`}>
+            <SeverityMeter severity={s} />
+            <span class="block h-2 rounded-r-[4px]" style={`width:${pct(n, Math.max(...sev.map((x) => x.n)))}%;background:var(--sev-${s})`}></span>
+            <span class="text-right font-mono text-[12px]">{n}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-4"><button type="button" class={`${mono} text-acid hover:underline`} data-copy-url={cite("severity", findings.severity)}>Copy citation</button></p>
+    </section>
+
+    <section id="category" aria-labelledby="category-h">
+      <h2 id="category-h" class={h2}>What kind?</h2>
+      <p class="mt-2 text-muted-foreground">{findings.category}</p>
+      <ul class="mt-4 space-y-2.5">
+        {cats.map(({ c, n }) => (
+          <li class="grid grid-cols-[7.5rem_minmax(0,1fr)_3rem] items-center gap-3" title={`${CATEGORY_META[c].label}: ${n} stories (${pct(n)}%)`}>
+            <a href={u(`/category/${c}/`)} class="truncate text-sm hover:text-acid">{CATEGORY_META[c].label}</a>
+            <span class={bar} style={`width:${pct(n, cats[0].n)}%`}></span>
+            <span class="text-right font-mono text-[12px]">{n}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-4"><button type="button" class={`${mono} text-acid hover:underline`} data-copy-url={cite("category", findings.category)}>Copy citation</button></p>
+    </section>
+
+    {products.length > 0 && (
+      <section id="products" aria-labelledby="products-h">
+        <h2 id="products-h" class={h2}>Which products?</h2>
+        <p class="mt-2 text-muted-foreground">{findings.products}</p>
+        <ul class="mt-4 space-y-2.5">
+          {products.map((h) => (
+            <li class="grid grid-cols-[9rem_minmax(0,1fr)_3rem] items-center gap-3" title={`${h.product.name}: ${h.items.length} stories`}>
+              <a href={u(`/products/${h.product.slug}/`)} class="truncate text-sm hover:text-acid">{h.product.name}</a>
+              <span class={bar} style={`width:${pct(h.items.length, products[0].items.length)}%`}></span>
+              <span class="text-right font-mono text-[12px]">{h.items.length}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-4"><button type="button" class={`${mono} text-acid hover:underline`} data-copy-url={cite("products", findings.products)}>Copy citation</button></p>
+      </section>
+    )}
+
+    {topics.length > 0 && (
+      <section id="techniques" aria-labelledby="techniques-h">
+        <h2 id="techniques-h" class={h2}>Which techniques?</h2>
+        <p class="mt-2 text-muted-foreground">{findings.topics}</p>
+        <ul class="mt-4 space-y-2.5">
+          {topics.map(([t, n]) => (
+            <li class="grid grid-cols-[11rem_minmax(0,1fr)_3rem] items-center gap-3" title={`${GLOSSARY[t].term}: ${n} stories (${pct(n)}%)`}>
+              <a href={u(`/learn/${t}/`)} class="truncate text-sm hover:text-acid">{GLOSSARY[t].term}</a>
+              <span class={bar} style={`width:${pct(n, topics[0][1])}%`}></span>
+              <span class="text-right font-mono text-[12px]">{n}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-4"><button type="button" class={`${mono} text-acid hover:underline`} data-copy-url={cite("techniques", findings.topics)}>Copy citation</button></p>
+      </section>
+    )}
+  </div>
+
+  <section id="velocity" aria-labelledby="velocity-h" class="mt-14">
+    <h2 id="velocity-h" class={h2}>How fast?</h2>
+    <p class="mt-2 text-muted-foreground">{findings.velocity}</p>
+    <figure class="mt-5">
+      <ol class="flex h-40 items-end gap-[2px] border-b border-line" aria-label="Stories disclosed per week, last 12 weeks">
+        {weekRows.map((r) => (
+          <li class="group relative flex h-full flex-1 flex-col justify-end" title={`Week of ${r.label}: ${r.n} ${r.n === 1 ? "story" : "stories"}`}>
+            {r.n > 0 && <span class="mb-1 text-center font-mono text-[10.5px] text-muted-foreground group-hover:text-ink">{r.n}</span>}
+            <a href={r.n ? u(`/week/${r.key}/`) : undefined} class="block rounded-t-[4px] bg-ink/70 group-hover:bg-acid" style={`height:${(r.n / maxWeek) * 82}%`} aria-label={`Week of ${r.label}: ${r.n} stories`}></a>
+          </li>
+        ))}
+      </ol>
+      <div class="mt-1 flex gap-[2px] font-mono text-[10px] text-muted-foreground">{weekRows.map((r, i) => <span class="flex-1 text-center">{i % 2 === 0 ? r.label : ""}</span>)}</div>
+      <figcaption class="mt-2 text-xs text-muted-foreground">Stories per ISO week by disclosure date, last 12 weeks. Click a bar for that week's digest.</figcaption>
+    </figure>
+    <p class="mt-4"><button type="button" class={`${mono} text-acid hover:underline`} data-copy-url={cite("velocity", findings.velocity)}>Copy citation</button></p>
+  </section>
+
+  {cves.length > 0 && (
+    <section id="cves" aria-labelledby="cves-h" class="mt-14">
+      <h2 id="cves-h" class={h2}>CVEs</h2>
+      <p class="mt-2 text-muted-foreground">{findings.cves}</p>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class={`${mono} text-muted-foreground`}><tr><th class="py-2 pr-4 font-normal">CVE</th><th class="py-2 pr-4 font-normal">CVSS</th><th class="py-2 pr-4 font-normal">Disclosed</th><th class="py-2 font-normal">Story</th></tr></thead>
+          <tbody class="divide-y divide-line">
+            {cves.map((i) => <tr><td class="whitespace-nowrap py-2 pr-4 font-mono text-[12px]">{i.cve}</td><td class="py-2 pr-4 font-mono text-[12px]">{i.cvss ?? "–"}</td><td class="whitespace-nowrap py-2 pr-4 font-mono text-[12px]">{i.date}</td><td class="py-2"><a href={u(`/items/${i.id}/`)} class="underline decoration-ink/30 underline-offset-2 hover:decoration-acid">{i.title}</a></td></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4"><button type="button" class={`${mono} text-acid hover:underline`} data-copy-url={cite("cves", findings.cves)}>Copy citation</button></p>
+    </section>
+  )}
+
+  <div class="mt-14 grid gap-12 lg:grid-cols-[1fr_1fr_18rem]">
+    <section id="sources" aria-labelledby="sources-h">
+      <h2 id="sources-h" class={h2}>Top sources</h2>
+      <ol class="mt-4 divide-y divide-line border-y border-line text-sm">
+        {orgs.slice(0, 10).map(([o, n], i) => <li class="flex justify-between gap-3 py-2"><span><span class="mr-3 font-mono text-[11px] text-muted-foreground">{i + 1}</span>{o}</span><span class="font-mono text-[12px]">{n}</span></li>)}
+      </ol>
+    </section>
+    <section id="researchers" aria-labelledby="researchers-h">
+      <h2 id="researchers-h" class={h2}>Most credited</h2>
+      <ol class="mt-4 divide-y divide-line border-y border-line text-sm">
+        {researchers.slice(0, 10).map(([r, n], i) => <li class="flex justify-between gap-3 py-2"><span><span class="mr-3 font-mono text-[11px] text-muted-foreground">{i + 1}</span>{r}</span><span class="font-mono text-[12px]">{n}</span></li>)}
+      </ol>
+    </section>
+    <aside>
+      <ShareBar url={abs("/stats/")} title={`${SITE.name} AI Security Index`} context="Live statistics on AI security stories: severity, products, techniques, CVEs." question="What are the main trends in AI security according to this index, and what should a security team prioritise?" />
+    </aside>
+  </div>
+</Base>

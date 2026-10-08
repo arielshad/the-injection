@@ -5,6 +5,7 @@
  */
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
+import { TOPIC_TAGS, isTopicTag } from "../src/data/tags.ts";
 
 const DIST = new URL("../dist/", import.meta.url).pathname;
 const feed = JSON.parse(readFileSync(new URL("../src/data/items.json", import.meta.url), "utf8")) as { items: { id: string }[] };
@@ -53,6 +54,33 @@ for (const item of feed.items as { id: string; title: string }[]) {
   check(size?.join("x") === "1200x630", `og/${item.id}.png: a 1200x630 PNG (got ${size?.join("x") ?? "missing"})`);
   check(jsonLd(html).some((o) => o["@type"] === "NewsArticle" && o.image?.url === img), `items/${item.id}/: NewsArticle JSON-LD image is the card`);
 }
+
+// Share and Ask AI on every story; topic tags link to their glossary page.
+for (const item of feed.items as { id: string; tags: string[] }[]) {
+  const html = read(`items/${item.id}/index.html`);
+  check(html.includes("data-copy-url=") && html.includes("linkedin.com/sharing") && html.includes("claude.ai/new?q="), `items/${item.id}/: share and Ask AI links`);
+  for (const t of item.tags.filter(isTopicTag)) check(html.includes(`/learn/${t}/"`), `items/${item.id}/: tag "${t}" links its glossary page`);
+}
+check(home.includes("max-image-preview:large"), "homepage: robots meta allows large image previews");
+check(home.includes('id="digest-h"'), "homepage: has the answer-first digest");
+
+// Hub pages: glossary (one per topic tag), products, weeks, stats, log. Each with its own share card.
+const hubPage = (p: string, card: string) => {
+  check(existsSync(join(DIST, p)), `${p}: exists`);
+  if (!existsSync(join(DIST, p))) return;
+  const html = read(p);
+  check((html.match(/<h1[\s>]/g) ?? []).length === 1, `${p}: exactly one <h1>`);
+  check(meta(html, "og:image")[0]?.endsWith(`/og/hub/${card}.png`), `${p}: og:image is /og/hub/${card}.png`);
+  check(existsSync(join(DIST, `og/hub/${card}.png`)) && pngSize(`og/hub/${card}.png`)?.join("x") === "1200x630", `og/hub/${card}.png: a 1200x630 PNG`);
+};
+for (const t of TOPIC_TAGS) hubPage(`learn/${t}/index.html`, `learn/${t}`);
+for (const p of ["learn", "products", "week", "stats", "log"]) hubPage(`${p}/index.html`, p);
+for (const d of readdirSync(join(DIST, "products")).filter((d) => !d.includes("."))) hubPage(`products/${d}/index.html`, `products/${d}`);
+for (const d of readdirSync(join(DIST, "week")).filter((d) => /^\d{4}-w\d\d$/.test(d))) hubPage(`week/${d}/index.html`, `week/${d}`);
+check(readdirSync(join(DIST, "products")).length > 1, "products: at least one product hub");
+check(jsonLd(read("learn/prompt-injection/index.html")).some((o) => o["@type"] === "DefinedTerm"), "learn: DefinedTerm JSON-LD");
+check(jsonLd(read("stats/index.html")).some((o) => o["@type"] === "Dataset"), "stats: Dataset JSON-LD");
+check(existsSync(join(DIST, "week/rss.xml")) && read("week/rss.xml").includes("<item>"), "week/rss.xml: has entries");
 
 // llms.txt in the llmstxt.org shape, with when-to-use guidance; and the full-text companion.
 const llms = read("llms.txt");
