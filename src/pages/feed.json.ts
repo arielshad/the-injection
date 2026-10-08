@@ -19,7 +19,7 @@ export function GET() {
       date_published: `${it.date}T12:00:00Z`,
       authors: it.credits.map((c) => ({ name: c.name, url: c.url })),
       tags: [it.severity, ...it.categories, ...it.tags],
-      _injection: { severity: it.severity, categories: it.categories, affected: it.affected ?? [], cve: it.cve ?? null, cvss: it.cvss ?? null, links: it.links },
+      _injection: { severity: it.severity, categories: it.categories, affected: it.affected ?? [], cve: it.cve ?? null, cvss: it.cvss ?? null, links: it.links, benchmarks: it.benchmarks ?? [], video: it.video ?? null },
     })),
   };
   return new Response(JSON.stringify(body, null, 2), { headers: { "Content-Type": "application/feed+json; charset=utf-8" } });

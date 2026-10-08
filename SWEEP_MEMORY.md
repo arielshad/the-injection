@@ -49,6 +49,51 @@ Entry format:
 
 ## Change log
 
+### 2026-10-08-B: ai-tldr parity pass (papers, talks, tags, tools, droughts)
+- Trigger: the human compared our prompt with ai-tldr's and asked for
+  everything worth having, plus strong or viral conference talks.
+- Cause: several ai-tldr lessons were never ported: a two-signal paper bar
+  (its 2026-04-28-B), a per-category drought alarm (its 2026-06-13-B), a
+  fixed tag vocabulary, source-gated benchmark bars (its 2026-06-17-C), an
+  evergreen directory kept from GitHub popularity (its 2026-06-15-A, 06-18-A).
+  Our checkout also left the job token in .git/config, readable by the agent.
+- Change:
+  - Workflow: `persist-credentials: false`; a pre-agent step runs
+    repo-scan.ts with GITHUB_TOKEN into repo-scan.json (the agent never holds
+    the token); drought-check.ts runs AFTER the agent (humans only).
+  - Papers: prompt 1.3.0 "Research papers" section, 2 of 6 signals, arXiv v1
+    date, soft cap 2 per sweep (finalize warns). `scripts/paper-scan.ts`
+    reads arXiv + HF Daily Papers and pre-reads code, venue and upvotes.
+    First live run: 94 papers in the window, 1 with two scanned signals.
+  - Talks: new `talk` category and `video` field, `scripts/talk-scan.ts`
+    (22 channels, ids read from each channel page on 2026-10-08), talk bar:
+    conference talk needs 20k+ views or a second signal; listed security
+    voices count as the signal; a video about an existing story is an
+    `updates[]` link, never a new item. Soft cap 1 per sweep. Click-to-play
+    youtube-nocookie embed; privacy page updated.
+  - Tags: `src/data/tags.ts` (34 topic tags), validation needs at least one,
+    drafts warn on synonyms, check-feed fails if the prompt list drifts.
+  - Benchmarks: optional `benchmarks` field, `source` must be a cited link,
+    validated scores, rendered as bars with a text label on the story's row.
+  - Sources: Hugging Face (supply chain, guard models, datasets), r/netsec
+    (discovery only), per-category dated searches, "each field adds
+    something new" writing rule.
+  - Tools directory: `/tools/` + `/tools.json` from `src/data/tools.json`
+    (16 seed tools, every fact from a README or LICENSE fetched 2026-10-08;
+    llm-guard left out as archived, PyRIT, NeMo Guardrails and mcp-scan
+    recorded at their new homes). Daily `maintain-tools.yml` +
+    `prompts/maintain-tools.md` + `scripts/tool-gaps.ts` (pre-agent, token)
+    + `scripts/check-tools.ts` (build gate, `--fetch` in the daily run).
+  - Empty categories get no nav entry or page (`activeCategories()`).
+- Not changed on purpose: no gap or drought signal reaches sweep-context,
+  finalize or the prompt. YouTube RSS returned 404 from the dev sandbox on
+  2026-10-08 (even for ai-tldr's channels); talk-scan falls back to the
+  channel page, whose dates are relative ("6 days ago"), so the prompt
+  treats edge-of-window talks as unconfirmed.
+- Status: watching. First week: paper count per sweep (expect 0 to 2), talk
+  items (expect rare), drought warnings in the run summary, maintain-tools
+  adds (at most 3 a day), any `video`/`benchmarks` validation failures.
+
 ### 2026-10-08-A: new open-source AI security repos were never surfaced
 - Trigger: the human asked whether the sweep brings trending and newly
   released open-source AI security repos. It did not. `tool` was in scope,
@@ -68,15 +113,15 @@ Entry format:
   stars), and repo dating in Hard Rule 3 (launch post, else first release,
   else createdAt; an old repo trending today is old). New sources:
   `scripts/repo-scan.ts` (GitHub search for repos created in the window,
-  12 AI security queries, filters non-tools), github.com/trending and Show
+  13 AI security queries, filters non-tools), github.com/trending and Show
   HN. New `scripts/gh-repo-meta.ts <owner/repo>` gives verified stars,
   license, owner name for credits, first and latest release and a window
   check. Self-check item 11 added.
 - Not changed on purpose: sweep-context.ts (no "no tools lately" hint;
   quotas become padding), verify-draft and finalize (repo items go through
-  the same checks). The workflow does not pass GITHUB_TOKEN to the agent,
-  so both scripts run unauthenticated (search: 10 requests a minute,
-  repo-scan paces itself; core API: 60 an hour per runner IP).
+  the same checks). The workflow did not pass GITHUB_TOKEN to the agent,
+  so both scripts ran unauthenticated (superseded by 2026-10-08-B: a
+  pre-agent step now runs repo-scan with the token).
 - Status: watching. Expect occasional `tool` items, not one per sweep.
   Watch for: star-count padding (repos shipped on stars alone), prompt
   dumps slipping past the filter, repo-scan rate-limit failures in CI logs.

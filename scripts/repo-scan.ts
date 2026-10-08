@@ -26,6 +26,7 @@
  * Exit 0 when at least one query ran, 1 when every query failed.
  */
 import { DEFAULT_WINDOW_DAYS } from "./lib/common.ts";
+import { AI_SECURITY_QUERIES as QUERIES, PACE_MS, type SearchRepo, notAToolReason, searchRepos, sleep } from "./lib/github.ts";
 
 const args = process.argv.slice(2);
 const flag = (name: string, dflt: number) => {
@@ -37,54 +38,6 @@ const windowDays = flag("--window-days", DEFAULT_WINDOW_DAYS);
 // prompt decides what ships, and small repos from known teams can qualify.
 const minStars = flag("--min-stars", 20);
 const createdSince = new Date(Date.now() - windowDays * 86_400_000).toISOString().slice(0, 10);
-
-/** Both beats: attacks on AI, and the security of building with AI. */
-const QUERIES = [
-  "topic:ai-security",
-  "topic:llm-security",
-  "topic:prompt-injection",
-  "topic:ai-red-teaming",
-  "topic:llm-guardrails",
-  "topic:mcp-security",
-  "topic:agent-security",
-  '"prompt injection" in:name,description',
-  '"LLM security" in:name,description',
-  '"AI red team" in:name,description',
-  '"MCP scanner" in:name,description',
-  '"MCP security" in:name,description',
-  '"agent sandbox" in:name,description',
-];
-
-/** Not tools and not news. Matched against name and description. */
-const NOT_A_TOOL: [RegExp, string][] = [
-  [/awesome/i, "curated list"],
-  [/\b(leaked[- ]?(system[- ]?)?prompts?|system[- ]?prompts? (of|from|for) )/i, "leaked prompts"],
-  [/\b(jailbreak[- ]?prompts?|prompt[- ]?collection|prompt[- ]?list)\b/i, "prompt dump"],
-  [/\b(course|tutorial|cookbook|handbook|cheat[- ]?sheet|roadmap|reading[- ]?list|papers?[- ]?list|interview)\b/i, "learning material"],
-  [/\b(homework|assignment|bootcamp|workshop|study[- ]?notes)\b/i, "coursework"],
-];
-
-const headers: Record<string, string> = {
-  "User-Agent": "TheInjectionSweep/1.0",
-  Accept: "application/vnd.github+json",
-  "X-GitHub-Api-Version": "2022-11-28",
-};
-if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-const PACE_MS = process.env.GITHUB_TOKEN ? 2_100 : 6_500;
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-interface SearchRepo {
-  full_name: string;
-  html_url: string;
-  stargazers_count: number;
-  created_at: string;
-  description: string | null;
-  topics?: string[];
-  fork: boolean;
-  archived: boolean;
-  is_template?: boolean;
-  owner: { type: string };
-}
 
 interface Candidate {
   fullName: string;
@@ -105,16 +58,12 @@ let queriesRun = 0;
 for (const [n, query] of QUERIES.entries()) {
   if (n > 0) await sleep(PACE_MS);
   const q = `${query} created:>=${createdSince} stars:>=${minStars} fork:false archived:false`;
-  const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(q)}&sort=stars&order=desc&per_page=30`;
   try {
-    const res = await fetch(url, { headers, signal: AbortSignal.timeout(20_000) });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = (await res.json()) as { items: SearchRepo[] };
+    const items: SearchRepo[] = await searchRepos(q);
     queriesRun++;
-    for (const r of data.items) {
+    for (const r of items) {
       if (r.fork || r.archived || r.is_template) continue;
-      const text = `${r.full_name} ${r.description ?? ""}`;
-      const reason = NOT_A_TOOL.find(([re]) => re.test(text))?.[1];
+      const reason = notAToolReason(`${r.full_name} ${r.description ?? ""}`);
       if (reason) {
         skipped.set(r.full_name, reason);
         continue;

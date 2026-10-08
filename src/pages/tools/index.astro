@@ -1,0 +1,79 @@
+---
+/**
+ * The evergreen directory of open-source AI security tools. Unlike the feed,
+ * this page is not news: it lists tools worth knowing, grouped by job, and is
+ * kept current by a daily job (prompts/maintain-tools.md). Every fact comes
+ * from the tool's own repo.
+ */
+import Base from "@/layouts/Base.astro";
+import { TOOL_KIND_META, toolRegistry, toolsByKind } from "@/data/tools";
+import { itemById } from "@/data/feed";
+import { fmtDate } from "@/lib/slim";
+import { SITE, abs, u } from "@/site";
+
+const groups = toolsByKind();
+const total = toolRegistry.tools.length;
+const checked = toolRegistry.tools.reduce((max, t) => (t.checked > max ? t.checked : max), "");
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `Open-source AI security tools on ${SITE.name}`,
+  description: "A directory of open-source tools for securing AI agents and LLM apps: scanners, guardrails, red-team kits, evals and sandboxes.",
+  url: abs("/tools/"),
+  isPartOf: { "@id": abs("/#website") },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: toolRegistry.tools.map((t, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: { "@type": "SoftwareApplication", name: t.name, description: t.description, url: `https://github.com/${t.repo}`, license: t.license, applicationCategory: "SecurityApplication" },
+    })),
+  },
+};
+---
+
+<Base title="Open-source AI security tools" description={`${total} open-source tools for securing AI agents and LLM apps, by job: scanners, guardrails, red teaming, evals and sandboxes. Facts from each tool's own repo.`} path="/tools/" jsonLd={[jsonLd]}>
+  <header class="border-b border-line py-10">
+    <p class="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">Directory</p>
+    <h1 class="mt-2 font-heading text-5xl font-semibold text-white sm:text-6xl">Open-source AI security tools</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">{total} tools for securing AI agents and LLM apps, grouped by the job they do. Each description, license and maintainer comes from the tool's own repository. A daily job adds new tools and drops archived ones.</p>
+    <p class="mt-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">Last checked {fmtDate(checked)} · <a class="hover:text-acid" href={u("/tools.json")}>[ JSON ]</a></p>
+  </header>
+
+  <nav aria-label="Tool groups" class="flex flex-wrap gap-2 pt-6">
+    {groups.map((g) => <a href={`#${g.kind}`} class="rounded-full border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-wider hover:border-acid">{TOOL_KIND_META[g.kind].label} <span class="text-muted-foreground">{g.tools.length}</span></a>)}
+  </nav>
+
+  {groups.map((g) => (
+    <section id={g.kind} class="mt-12 scroll-mt-16" aria-labelledby={`${g.kind}-h`}>
+      <h2 id={`${g.kind}-h`} class="border-b border-line pb-2 font-heading text-3xl text-white">{TOOL_KIND_META[g.kind].label}</h2>
+      <p class="mt-2 max-w-2xl text-muted-foreground">{TOOL_KIND_META[g.kind].blurb}.</p>
+      <ul class="mt-5 grid gap-4 md:grid-cols-2">
+        {g.tools.map((t) => (
+          <li id={`tool-${t.slug}`} class="flex min-w-0 flex-col rounded-md border border-line bg-card p-4">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+              <h3 class="font-heading text-xl text-white">{t.name}</h3>
+              <span class="min-w-0 font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground [overflow-wrap:anywhere]">{t.license}</span>
+            </div>
+            <p class="mt-1 font-mono text-[11px] text-muted-foreground [overflow-wrap:anywhere]">{t.repo} · {t.maintainer}</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-ink/85">{t.description}</p>
+            <p class="mt-3 flex flex-wrap gap-1.5">
+              {t.covers.map((c) => <span class="rounded-sm border border-line px-2 py-0.5 font-mono text-[10.5px] text-muted-foreground">{c}</span>)}
+            </p>
+            {t.relatedItems && t.relatedItems.length > 0 && (
+              <ul class="mt-3 space-y-1 text-sm">
+                {t.relatedItems.map((id) => itemById(id)).filter(Boolean).map((it) => <li><a href={u(`/items/${it!.id}/`)} class="underline decoration-ink/30 underline-offset-2 hover:decoration-acid">{it!.title}</a></li>)}
+              </ul>
+            )}
+            <p class="mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-4 font-mono text-[11px] uppercase tracking-wider">
+              <a href={`https://github.com/${t.repo}`} rel="noopener" class="text-acid hover:text-white">Repository ↗</a>
+              {t.homepage && <a href={t.homepage} rel="noopener" class="text-muted-foreground hover:text-ink">Docs ↗</a>}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  <p class="mt-14 max-w-2xl text-sm text-muted-foreground">Listing is not an endorsement and not a security review. A tool is added when it is open source, maintained, in scope for AI security and used in practice. Missing one, or is something wrong? Use the <a href={u("/contact/")} class="underline underline-offset-2 hover:text-ink">contact page</a>.</p>
+</Base>

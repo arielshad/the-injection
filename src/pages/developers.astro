@@ -10,6 +10,7 @@ const endpoints = [
   ["/feed.json", "application/feed+json", "JSON Feed 1.1 of the latest 100 stories, with severity, CVE, CVSS, affected products and sources under _injection."],
   ["/rss.xml", "application/rss+xml", "RSS 2.0 of the latest 50 stories."],
   ["/index.md", "text/markdown", "The homepage as Markdown."],
+  ["/tools.json", "application/json", "The open-source AI security tools directory: name, repo, kind (scanner, guardrail, red-team, eval, sandbox), license, maintainer and what it covers."],
   ["/items/<id>.md", "text/markdown", "One story as Markdown: severity, credits, explainer, FAQ and numbered sources."],
   ["/items/<id>/", "text/html", "One story as HTML, with NewsArticle, BreadcrumbList and FAQPage JSON-LD."],
   ["/sitemap-index.xml", "application/xml", "Every page, with lastmod."],
@@ -31,7 +32,7 @@ curl -s ${abs("/feed.json")} | jq '.items[] | select(._injection.severity == "cr
 # One story as Markdown
 curl -s ${abs(`/items/${sample?.id ?? "example"}.md`)}`}</code></pre>
     <h2>Fields</h2>
-    <p>Each item in <code>feed.json</code> carries <code>_injection.severity</code> (critical, high, medium, low, info), <code>_injection.categories</code>, <code>_injection.affected</code> (products and ecosystems), <code>_injection.cve</code> and <code>_injection.cvss</code> when an official source published them, and <code>_injection.links</code>, the sources the story was verified against. Researchers are in <code>authors</code>.</p>
+    <p>Each item in <code>feed.json</code> carries <code>_injection.severity</code> (critical, high, medium, low, info), <code>_injection.categories</code>, <code>_injection.affected</code> (products and ecosystems), <code>_injection.cve</code> and <code>_injection.cvss</code> when an official source published them, <code>_injection.links</code>, the sources the story was verified against, <code>_injection.benchmarks</code> (measured results exactly as the source published them, each with its source link) and <code>_injection.video</code> for talks. Researchers are in <code>authors</code>.</p>
     <h2>Using it well</h2>
     <ul>
       <li>Cite the original research. Each story names who found the issue and links the primary source; quote them, not us.</li>

@@ -1,0 +1,56 @@
+---
+/**
+ * A talk's video, privacy first: the page shows the item's cover with a play
+ * button and loads nothing from YouTube. A click swaps in the
+ * youtube-nocookie.com player. Without JavaScript the button is a plain link
+ * to the video. See the privacy page ("Videos").
+ */
+import type { Item, Video } from "@/data/schema";
+import Cover from "@/components/Cover.astro";
+
+interface Props { item: Item; video: Video; class?: string }
+const { item, video, class: cls = "" } = Astro.props;
+const watch = `https://www.youtube.com/watch?v=${video.youtubeId}`;
+const embed = `https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&rel=0`;
+const label = `Play the talk: ${item.title}`;
+---
+
+<figure class:list={["relative", cls]}>
+  <div class="relative" data-video-slot>
+    <Cover item={item} ratio="16/9" size="xl" eager />
+    <a
+      href={watch}
+      rel="noopener"
+      data-video-play={embed}
+      data-video-title={item.title}
+      aria-label={label}
+      class="group absolute inset-0 grid place-items-center bg-black/25 transition-colors hover:bg-black/10 focus-visible:outline-2 focus-visible:outline-acid"
+    >
+      <span class="flex items-center gap-3 rounded-full bg-black/75 py-3 pl-4 pr-5 font-mono text-[12px] uppercase tracking-wider text-white backdrop-blur group-hover:bg-acid group-hover:text-black">
+        <svg viewBox="0 0 24 24" class="size-5" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
+        Play talk
+      </span>
+    </a>
+  </div>
+  <figcaption class="mt-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+    {video.event ? `${video.event} · ` : ""}<a href={video.channelUrl} rel="noopener" class="hover:text-ink">{video.channel}</a> on YouTube. Nothing loads from YouTube until you press play.
+  </figcaption>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>("[data-video-play]").forEach((a) => {
+    a.addEventListener("click", (ev) => {
+      ev.preventDefault();
+      const slot = a.closest("[data-video-slot]");
+      if (!slot) return;
+      const frame = document.createElement("iframe");
+      frame.src = a.dataset.videoPlay!;
+      frame.title = a.dataset.videoTitle ?? "Video";
+      frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.className = "aspect-video w-full rounded-sm border-0 bg-black";
+      slot.replaceChildren(frame);
+      frame.focus();
+    });
+  });
+</script>

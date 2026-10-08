@@ -12,6 +12,7 @@ import {
   type Item,
   type Severity,
 } from "../../src/data/schema.ts";
+import { TAG_ALIASES, TOPIC_TAGS, isTopicTag } from "../../src/data/tags.ts";
 
 export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 export const ITEMS_PATH = resolve(ROOT, "src/data/items.json");
@@ -179,9 +180,15 @@ export function validateItem(raw: unknown, mode: "draft" | "feed"): Issues {
 
   // tags
   if (!Array.isArray(it.tags) || it.tags.length === 0) e("tags must be a non-empty array");
-  else
-    for (const t of it.tags)
+  else {
+    for (const t of it.tags) {
       if (typeof t !== "string" || !KEBAB.test(t)) e(`tag "${t}" must be lowercase kebab-case`);
+      else if (mode === "draft" && TAG_ALIASES[t]) w(`tag "${t}" is a synonym: use "${TAG_ALIASES[t]}"`);
+    }
+    if (new Set(it.tags).size !== it.tags.length) e("tags has duplicates");
+    if (!it.tags.some((t) => typeof t === "string" && isTopicTag(t)))
+      e(`tags need at least one topic tag from src/data/tags.ts (${TOPIC_TAGS.slice(0, 6).join(", ")}, ...)`);
+  }
 
   // affected
   if (it.affected !== undefined && (!Array.isArray(it.affected) || !it.affected.every(isStr)))
@@ -257,6 +264,52 @@ export function validateItem(raw: unknown, mode: "draft" | "feed"): Issues {
       if (img.credit !== undefined && !isStr(img.credit)) e("image.credit must be non-empty when present");
       for (const k of Object.keys(img)) if (!["url", "alt", "credit"].includes(k)) e(`image has unknown field "${k}"`);
     }
+  }
+
+  // video (required on talk items)
+  if (Array.isArray(it.categories) && it.categories.includes("talk") && it.video === undefined)
+    e('talk items need a video { youtubeId, channel, channelUrl }');
+  if (it.video !== undefined) {
+    const v = it.video as Partial<NonNullable<Item["video"]>> | null;
+    if (!v || typeof v !== "object") e("video must be an object { youtubeId, channel, channelUrl, event? }");
+    else {
+      if (!isStr(v.youtubeId) || !/^[A-Za-z0-9_-]{11}$/.test(v.youtubeId)) e(`video.youtubeId must be an 11-character YouTube id (got ${JSON.stringify(v.youtubeId)})`);
+      if (!isStr(v.channel)) e("video.channel is required");
+      if (!isHttps(v.channelUrl) || !/^https:\/\/(www\.)?youtube\.com\//.test(v.channelUrl!)) e("video.channelUrl must be an https youtube.com URL");
+      if (v.event !== undefined && !isStr(v.event)) e("video.event must be non-empty when present");
+      for (const k of Object.keys(v)) if (!["youtubeId", "channel", "channelUrl", "event"].includes(k)) e(`video has unknown field "${k}"`);
+      const watch = isStr(v.youtubeId) ? `https://www.youtube.com/watch?v=${v.youtubeId}` : "";
+      const cited = [it.url, ...(Array.isArray(it.links) ? it.links.map((l) => l?.url) : [])].filter(isStr);
+      if (watch && !cited.some((u) => u.includes(v.youtubeId!))) e(`video ${watch} must be the item url or one of its links`);
+    }
+  }
+
+  // benchmarks (optional; every chart must point at a cited source)
+  if (it.benchmarks !== undefined) {
+    const cited = new Set([it.url, ...(Array.isArray(it.links) ? it.links.map((l) => l?.url) : [])].filter(isStr).map(canonUrl));
+    if (!Array.isArray(it.benchmarks) || it.benchmarks.length === 0) e("benchmarks must be a non-empty array when present");
+    else
+      it.benchmarks.forEach((b, i) => {
+        const at = `benchmarks[${i}]`;
+        if (!isStr(b?.name)) e(`${at}.name is required`);
+        if (b?.unit !== undefined && (typeof b.unit !== "string" || b.unit.length > 12)) e(`${at}.unit must be a short string`);
+        const max = b?.max ?? 100;
+        if (typeof max !== "number" || !Number.isFinite(max) || max <= 0) e(`${at}.max must be a positive number`);
+        if (b?.note !== undefined && !isStr(b.note)) e(`${at}.note must be non-empty when present`);
+        if (!isStr(b?.source) || !cited.has(canonUrl(b.source)))
+          e(`${at}.source must be the item url or one of its links (every bar must be traceable)`);
+        if (!Array.isArray(b?.results) || b.results.length < 2 || b.results.length > 12)
+          e(`${at}.results needs 2 to 12 rows`);
+        else {
+          b.results.forEach((r, j) => {
+            if (!isStr(r?.name)) e(`${at}.results[${j}].name is required`);
+            if (typeof r?.score !== "number" || !Number.isFinite(r.score) || r.score < 0)
+              e(`${at}.results[${j}].score must be a number >= 0`);
+            else if (typeof max === "number" && r.score > max) e(`${at}.results[${j}].score ${r.score} is above max ${max}`);
+          });
+          if (b.results.filter((r) => r?.highlight).length > 1) e(`${at} has more than one highlighted row`);
+        }
+      });
   }
 
   // house style

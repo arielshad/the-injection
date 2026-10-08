@@ -1,0 +1,147 @@
+name: Maintain tools directory (daily)
+
+# Keeps src/data/tools.json (the /tools/ directory) current.
+#
+#   1. Checkout without persisted credentials, pnpm install.
+#   2. tool-gaps.ts, with GITHUB_TOKEN, writes tool-gaps.json: popular AI
+#      security repos we do not list, and the live state of every listed one.
+#      This is the only step before the push that sees the token.
+#   3. Claude Code follows prompts/maintain-tools.md and edits tools.json.
+#   4. check-tools --fetch and `pnpm build` must pass.
+#   5. Commit ONLY tools.json, push with rebase retries, deploy.
+#
+# Secrets:  CLAUDE_CODE_OAUTH_TOKEN
+# Variables: SITE_URL
+
+on:
+  schedule:
+    # 05:41 UTC daily. Off the feed sweep's minute 17 so the two rarely race.
+    - cron: "41 5 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  id-token: write
+  pages: write
+
+concurrency:
+  group: maintain-tools
+  cancel-in-progress: false
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      pushed: ${{ steps.commit.outputs.pushed }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          # The agent reads untrusted READMEs; it must not find a write token
+          # in .git/config. The push step embeds its own token.
+          persist-credentials: false
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Capture current date
+        id: now
+        run: echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Find tool gaps and stale entries
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx tsx scripts/tool-gaps.ts > tool-gaps.json
+
+      - name: Maintain the directory with Claude Code
+        uses: anthropics/claude-code-action@v1
+        timeout-minutes: 30
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          show_full_output: "true"
+          display_report: "true"
+          # Keep this shim minimal. The procedure is prompts/maintain-tools.md.
+          prompt: |
+            You maintain The Injection's open-source AI security tools
+            directory, running in GitHub Actions. Working dir is the repo root.
+
+            TODAY'S DATE IS ${{ steps.now.outputs.date }} (real UTC). Trust the
+            system clock and what WebFetch returns over your training data.
+
+            Read SOUL.md, SWEEP_MEMORY.md and prompts/maintain-tools.md, then
+            follow prompts/maintain-tools.md exactly. Edit only
+            src/data/tools.json. Do NOT commit or push.
+          claude_args: |
+            --model "claude-opus-5[1m]"
+            --verbose
+            --max-turns 1500
+            --permission-mode acceptEdits
+            --allowedTools "WebSearch,WebFetch,Read,Write,Edit,Bash(pnpm:*),Bash(npx tsx:*),Bash(ls:*),Bash(cat:*),Bash(grep:*)"
+
+      - name: Check every tool link loads
+        run: npx tsx scripts/check-tools.ts --fetch
+
+      - name: Build
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: pnpm build
+
+      - name: Commit and push tools.json
+        id: commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          FILE="src/data/tools.json"
+          if [[ -z "$(git status --porcelain $FILE)" ]]; then
+            echo "tools.json unchanged. Nothing to commit."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name  "the-injection-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add $FILE
+          git commit -m "content: daily tools directory upkeep $(date -u +%Y-%m-%d)" \
+            -m "Updated src/data/tools.json via prompts/maintain-tools.md." \
+            -m "Co-Authored-By: Claude Code Action <noreply@anthropic.com>"
+          git checkout -- . 2>/dev/null || true
+          git clean -fd -e node_modules 2>/dev/null || true
+          REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          for attempt in 1 2 3 4 5; do
+            git fetch "$REMOTE" "$GITHUB_REF_NAME"
+            if ! git rebase FETCH_HEAD; then
+              echo "Rebase conflict on attempt $attempt." >&2
+              git rebase --abort || true
+              exit 1
+            fi
+            if git push "$REMOTE" "HEAD:${GITHUB_REF_NAME}"; then
+              echo "pushed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "Push attempt $attempt rejected. Retrying after rebase."
+            sleep $((attempt * 5))
+          done
+          echo "Push failed after 5 attempts." >&2
+          exit 1
+
+  deploy:
+    needs: maintain
+    if: needs.maintain.outputs.pushed == 'true'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      ref: ${{ github.ref_name }}
+    secrets: inherit

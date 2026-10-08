@@ -8,6 +8,7 @@
  *     credits non-empty, >= 2 links, https urls, kebab ids/tags, no em dashes,
  *     image (when present) = { https url, non-empty alt, optional credit }
  *   - a malformed items.json or sweeps.json envelope
+ *   - prompts/update-feed.md missing a topic tag (src/data/tags.ts) or a category
  *
  * Warns (exit 0) on: banned hype words, exclamation marks, emoji, faq length,
  * critical/high items without quickFacts/faq, image urls that look like a
@@ -17,7 +18,10 @@
  */
 import type { Feed } from "../src/data/schema.ts";
 import type { SweepLog } from "../src/data/feed.ts";
-import { ITEMS_PATH, SWEEPS_PATH, canonUrl, normId, readJson, validateItem } from "./lib/common.ts";
+import { readFileSync } from "node:fs";
+import { CATEGORY_ORDER } from "../src/data/schema.ts";
+import { TOPIC_TAGS } from "../src/data/tags.ts";
+import { ITEMS_PATH, PROMPT_PATH, SWEEPS_PATH, canonUrl, normId, readJson, validateItem } from "./lib/common.ts";
 
 const strict = process.argv.includes("--strict");
 const errors: string[] = [];
@@ -64,6 +68,12 @@ for (const s of Array.isArray(log.sweeps) ? log.sweeps : []) {
   if (!s.id || !s.timestamp || !s.counts || !Array.isArray(s.added))
     errors.push(`sweeps.json: malformed report ${JSON.stringify(s.id)}`);
 }
+
+// The prompt prints the topic-tag list and the category enum. They must not
+// drift from the code, or the agent writes tags and categories that fail.
+const prompt = readFileSync(PROMPT_PATH, "utf8");
+for (const t of TOPIC_TAGS) if (!prompt.includes(`\`${t}\``)) errors.push(`prompts/update-feed.md: topic tag "${t}" from src/data/tags.ts is missing`);
+for (const c of CATEGORY_ORDER) if (!prompt.includes(`\`${c}\``)) errors.push(`prompts/update-feed.md: category "${c}" is missing`);
 
 if (warnings.length > 0) {
   console.error(`check-feed: ${warnings.length} warning(s):`);

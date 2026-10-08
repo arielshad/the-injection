@@ -1,0 +1,240 @@
+{
+  "generatedAt": "2026-10-08T07:00:00Z",
+  "tools": [
+    {
+      "slug": "snyk-agent-scan",
+      "name": "Snyk Agent Scan",
+      "repo": "snyk/agent-scan",
+      "kind": "scanner",
+      "description": "Discovers agent components on a machine (agents, MCP servers, skills) and scans them for prompt injections and vulnerabilities. Formerly Invariant Labs' mcp-scan.",
+      "license": "Apache-2.0",
+      "maintainer": "Snyk",
+      "covers": [
+        "MCP servers",
+        "Agent skills",
+        "Coding agents"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "cisco-mcp-scanner",
+      "name": "MCP Scanner",
+      "repo": "cisco-ai-defense/mcp-scanner",
+      "kind": "scanner",
+      "description": "Python tool that scans MCP servers and tools for security findings, combining YARA rules, LLM-based analysis and the Cisco AI Defense inspect API. Runs as a CLI or a REST API server.",
+      "license": "Apache-2.0",
+      "maintainer": "Cisco AI Defense",
+      "covers": [
+        "MCP servers"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "splx-agentic-radar",
+      "name": "Agentic Radar",
+      "repo": "splx-ai/agentic-radar",
+      "kind": "scanner",
+      "description": "Security scanner for agentic workflows: analyzes agentic systems to show how they work and to find potential vulnerabilities. Can run in CI on every push.",
+      "license": "Apache-2.0",
+      "maintainer": "splx-ai",
+      "covers": [
+        "Agentic workflows"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "protectai-modelscan",
+      "name": "ModelScan",
+      "repo": "protectai/modelscan",
+      "kind": "scanner",
+      "description": "Open-source scanner from Protect AI that checks machine learning model files for unsafe code before they are loaded.",
+      "license": "Apache-2.0",
+      "maintainer": "Protect AI",
+      "covers": [
+        "Model files"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "picklescan",
+      "name": "picklescan",
+      "repo": "mmaitre314/picklescan",
+      "kind": "scanner",
+      "description": "Security scanner that detects Python pickle files performing suspicious actions, including models hosted on Hugging Face.",
+      "license": "MIT",
+      "maintainer": "mmaitre314",
+      "covers": [
+        "Pickle files",
+        "Hugging Face models"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "fickling",
+      "name": "Fickling",
+      "repo": "trailofbits/fickling",
+      "kind": "scanner",
+      "description": "Decompiler, static analyzer and bytecode rewriter for Python pickle files. Detects and analyzes malicious pickle and pickle-based files, including PyTorch files.",
+      "license": "LGPL-3.0",
+      "maintainer": "Trail of Bits",
+      "covers": [
+        "Pickle files",
+        "PyTorch models"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "nemo-guardrails",
+      "name": "NeMo Guardrails",
+      "repo": "NVIDIA-NeMo/Guardrails",
+      "kind": "guardrail",
+      "description": "Open-source toolkit for adding programmable guardrails between application code and an LLM in LLM-based conversational applications.",
+      "license": "Apache-2.0",
+      "maintainer": "NVIDIA",
+      "covers": [
+        "LLM applications"
+      ],
+      "homepage": "https://docs.nvidia.com/nemo/guardrails",
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "guardrails-ai",
+      "name": "Guardrails",
+      "repo": "guardrails-ai/guardrails",
+      "kind": "guardrail",
+      "description": "Python framework that runs input and output guards in an AI application to detect, quantify and mitigate specific risks, with validators from Guardrails Hub.",
+      "license": "Apache-2.0",
+      "maintainer": "Guardrails AI",
+      "covers": [
+        "LLM applications"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "purple-llama",
+      "name": "Purple Llama",
+      "repo": "meta-llama/PurpleLlama",
+      "kind": "guardrail",
+      "description": "Meta's umbrella project of open tools and evals for building with open generative AI models, including the Llama Guard safeguard models and the CyberSecEval benchmarks.",
+      "license": "MIT (evals), Llama Community License (models)",
+      "maintainer": "Meta",
+      "covers": [
+        "LLM applications",
+        "Open-weight models"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "garak",
+      "name": "garak",
+      "repo": "NVIDIA/garak",
+      "kind": "red-team",
+      "description": "Generative AI red-teaming and assessment kit. Probes an LLM or dialog system for prompt injection, jailbreaks, data leakage, hallucination and other weaknesses.",
+      "license": "Apache-2.0",
+      "maintainer": "NVIDIA",
+      "covers": [
+        "LLMs",
+        "Chatbots"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "pyrit",
+      "name": "PyRIT",
+      "repo": "microsoft/PyRIT",
+      "kind": "red-team",
+      "description": "The Python Risk Identification Tool for generative AI: an open framework that helps security professionals and engineers find risks in generative AI systems.",
+      "license": "MIT",
+      "maintainer": "Microsoft",
+      "covers": [
+        "Generative AI systems"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "promptfoo",
+      "name": "promptfoo",
+      "repo": "promptfoo/promptfoo",
+      "kind": "red-team",
+      "description": "CLI and library for evaluating and red-teaming LLM-based apps and agents.",
+      "license": "MIT",
+      "maintainer": "Promptfoo",
+      "covers": [
+        "LLM applications",
+        "Agents"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "deepteam",
+      "name": "DeepTeam",
+      "repo": "confident-ai/deepteam",
+      "kind": "red-team",
+      "description": "Open-source red teaming framework for LLM systems that runs locally, built on the DeepEval evaluation framework.",
+      "license": "Apache-2.0",
+      "maintainer": "Confident AI",
+      "covers": [
+        "LLM systems"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "agentdojo",
+      "name": "AgentDojo",
+      "repo": "ethz-spylab/agentdojo",
+      "kind": "eval",
+      "description": "A dynamic environment to evaluate prompt injection attacks and defenses for LLM agents, from ETH Zurich and Invariant Labs.",
+      "license": "MIT",
+      "maintainer": "ETH Zurich SPY Lab and Invariant Labs",
+      "covers": [
+        "LLM agents"
+      ],
+      "homepage": "https://agentdojo.spylab.ai/results/",
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "sandbox-runtime",
+      "name": "sandbox-runtime (srt)",
+      "repo": "anthropic-experimental/sandbox-runtime",
+      "kind": "sandbox",
+      "description": "Lightweight OS-level sandbox that enforces filesystem and network limits on any process without a container. Can sandbox agents, local MCP servers and bash commands. Beta research preview.",
+      "license": "Apache-2.0",
+      "maintainer": "Anthropic",
+      "covers": [
+        "Coding agents",
+        "MCP servers"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    },
+    {
+      "slug": "e2b",
+      "name": "E2B",
+      "repo": "e2b-dev/E2B",
+      "kind": "sandbox",
+      "description": "Open-source infrastructure for running AI-generated code in secure, isolated cloud sandboxes, controlled from JavaScript and Python SDKs.",
+      "license": "Apache-2.0",
+      "maintainer": "E2B",
+      "covers": [
+        "AI-generated code",
+        "Agents"
+      ],
+      "added": "2026-10-08",
+      "checked": "2026-10-08"
+    }
+  ]
+}

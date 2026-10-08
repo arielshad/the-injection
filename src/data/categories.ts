@@ -69,6 +69,12 @@ export const CATEGORY_META: Record<Category, CategoryMeta> = {
     short: "LAB",
     blurb: "A lab or vendor making a specific, checkable security claim",
   },
+  talk: {
+    id: "talk",
+    label: "Talk",
+    short: "TLK",
+    blurb: "Conference talks and videos that spread, or come from a strong security voice",
+  },
 };
 
 export interface SeverityMeta {

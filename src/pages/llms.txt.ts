@@ -1,5 +1,4 @@
-import { allItems } from "@/data/feed";
-import { CATEGORY_ORDER } from "@/data/schema";
+import { activeCategories, allItems } from "@/data/feed";
 import { CATEGORY_META, SEVERITY_META } from "@/data/categories";
 import { SITE, abs } from "@/site";
 
@@ -34,13 +33,14 @@ export function GET() {
     "",
     `- [Developers and agents](${abs("/developers/")}): endpoints, fields and examples`,
     `- [About and method](${abs("/about/")}): how stories are found, verified, credited and rated`,
+    `- [Open-source AI security tools](${abs("/tools/")}): an evergreen directory of scanners, guardrails, red-team kits, evals and sandboxes ([JSON](${abs("/tools.json")}))`,
     `- [Exposure by ecosystem](${abs("/exposure/")}): the last 30 days of stories, grouped by ecosystem`,
     `- [Full text](${abs("/llms-full.txt")}): every story in Markdown, one file`,
     `- [JSON feed](${abs("/feed.json")}): the latest 100 stories, structured`,
     "",
     "## Sections",
     "",
-    ...CATEGORY_ORDER.map((c) => `- [${CATEGORY_META[c].label}](${abs(`/category/${c}/`)}): ${CATEGORY_META[c].blurb}`),
+    ...activeCategories().map((c) => `- [${CATEGORY_META[c].label}](${abs(`/category/${c}/`)}): ${CATEGORY_META[c].blurb}`),
     "",
     "## Latest stories",
     "",
