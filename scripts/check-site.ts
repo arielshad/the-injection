@@ -38,6 +38,22 @@ for (const { id } of feed.items) {
   check(existsSync(join(DIST, "covers", `${id}.svg`)), `covers/${id}.svg: exists`);
 }
 
+// Share cards: every story unfurls with its own 1200x630 PNG and its full headline, not the site card.
+const meta = (html: string, key: string) =>
+  [...html.matchAll(/<meta\s+(?:property|name)="([^"]+)"\s+content="([^"]*)"/g)].filter((m) => m[1] === key).map((m) => m[2].replace(/&amp;/g, "&").replace(/&#39;/g, "'").replace(/&quot;/g, '"'));
+const pngSize = (p: string) => { const b = readFileSync(join(DIST, p)); return b.toString("ascii", 1, 4) === "PNG" ? [b.readUInt32BE(16), b.readUInt32BE(20)] : null; };
+for (const item of feed.items as { id: string; title: string }[]) {
+  const html = read(`items/${item.id}/index.html`);
+  const [img] = meta(html, "og:image");
+  check(img?.endsWith(`/og/${item.id}.png`), `items/${item.id}/: og:image is its own card (got ${img})`);
+  check(meta(html, "twitter:image")[0] === img, `items/${item.id}/: twitter:image matches og:image`);
+  check(meta(html, "og:title")[0] === item.title, `items/${item.id}/: og:title is the full headline`);
+  check(meta(html, "og:image:alt")[0] && meta(html, "twitter:label1")[0], `items/${item.id}/: og:image:alt and twitter:label1`);
+  const size = existsSync(join(DIST, "og", `${item.id}.png`)) ? pngSize(`og/${item.id}.png`) : null;
+  check(size?.join("x") === "1200x630", `og/${item.id}.png: a 1200x630 PNG (got ${size?.join("x") ?? "missing"})`);
+  check(jsonLd(html).some((o) => o["@type"] === "NewsArticle" && o.image?.url === img), `items/${item.id}/: NewsArticle JSON-LD image is the card`);
+}
+
 // llms.txt in the llmstxt.org shape, with when-to-use guidance; and the full-text companion.
 const llms = read("llms.txt");
 check(/^# .+\n\n> .+/.test(llms), "llms.txt: H1 then a summary blockquote");

@@ -5,6 +5,7 @@ import { CATEGORY_ORDER, SEVERITY_ORDER, type Category } from "@/data/schema";
 import { CATEGORY_META } from "@/data/categories";
 import { itemsByCategory } from "@/data/feed";
 import { SITE, abs } from "@/site";
+import { OG_HEIGHT, OG_WIDTH } from "@/lib/og";
 
 export function getStaticPaths() {
   return CATEGORY_ORDER.map((cat) => ({ params: { cat }, props: { cat } }));
@@ -14,12 +15,14 @@ const { cat } = Astro.props;
 const meta = CATEGORY_META[cat];
 const items = itemsByCategory(cat);
 const path = `/category/${cat}/`;
+const card = { path: `/og/category/${cat}.png`, alt: `${meta.label}: AI security news on ${SITE.name}. ${meta.blurb}.`, width: OG_WIDTH, height: OG_HEIGHT };
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   name: `${meta.label}: AI security`,
   description: meta.blurb,
   url: abs(path),
+  image: abs(card.path),
   isPartOf: { "@id": abs("/#website") },
   mainEntity: {
     "@type": "ItemList",
@@ -28,7 +31,7 @@ const jsonLd = {
 };
 ---
 
-<Base title={`${meta.label}: AI security news`} description={`${meta.blurb}. Every item on ${SITE.name} is sourced, credited and explained.`} path={path} jsonLd={[jsonLd]}>
+<Base title={`${meta.label}: AI security news`} description={`${meta.blurb}. Every item on ${SITE.name} is sourced, credited and explained.`} path={path} image={card} jsonLd={[jsonLd]}>
   <header class="border-b border-line py-10">
     <p class="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">Category</p>
     <h1 class="mt-2 font-heading text-5xl font-semibold text-white sm:text-6xl">{meta.label}</h1>
