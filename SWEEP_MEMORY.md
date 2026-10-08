@@ -49,6 +49,38 @@ Entry format:
 
 ## Change log
 
+### 2026-10-08-A: new open-source AI security repos were never surfaced
+- Trigger: the human asked whether the sweep brings trending and newly
+  released open-source AI security repos. It did not. `tool` was in scope,
+  but no source pointed at GitHub. The feed had 1 `tool` item in 23 (an
+  OWASP standard, not a repo), and the model cannot recall a repo created
+  this week.
+- Cause: discovery was disclosure-shaped (advisories, blogs, papers, HN).
+  No repo search, no GitHub trending, no Show HN, no dating rule for repos,
+  no bar for what makes a repo news. ai-tldr had the same blind spot and
+  fixed it by asking GitHub directly (its 2026-06-15-A).
+- Change: prompt 1.2.0 adds an "Open-source repos" section modelled on
+  ai-tldr: must-haves (working code read in the README, license, not a
+  fork, in scope), at least 2 of 6 signals (100+ stars, GitHub trending,
+  HN front page or Show HN 50+, known team, write-up or paper, recognized
+  researcher pickup), a "never news" list (awesome-lists, prompt and
+  jailbreak dumps, leaked prompts, courses, wrappers, old repos with new
+  stars), and repo dating in Hard Rule 3 (launch post, else first release,
+  else createdAt; an old repo trending today is old). New sources:
+  `scripts/repo-scan.ts` (GitHub search for repos created in the window,
+  12 AI security queries, filters non-tools), github.com/trending and Show
+  HN. New `scripts/gh-repo-meta.ts <owner/repo>` gives verified stars,
+  license, owner name for credits, first and latest release and a window
+  check. Self-check item 11 added.
+- Not changed on purpose: sweep-context.ts (no "no tools lately" hint;
+  quotas become padding), verify-draft and finalize (repo items go through
+  the same checks). The workflow does not pass GITHUB_TOKEN to the agent,
+  so both scripts run unauthenticated (search: 10 requests a minute,
+  repo-scan paces itself; core API: 60 an hour per runner IP).
+- Status: watching. Expect occasional `tool` items, not one per sweep.
+  Watch for: star-count padding (repos shipped on stars alone), prompt
+  dumps slipping past the filter, repo-scan rate-limit failures in CI logs.
+
 ### 2026-10-07-B: items gained an optional cover image
 - Trigger: the site now renders `item.image` as the cover (and generates
   one when it is missing). Images need the same no-invention rules as links.

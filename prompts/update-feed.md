@@ -1,6 +1,6 @@
 ---
 prompt-id: injection.update-feed
-prompt-version: 1.1.0
+prompt-version: 1.2.0
 output-target: src/data/items.json + src/data/sweeps.json (via scripts/finalize-sweep.ts)
 schema: src/data/schema.ts
 invoke-as: subagent
@@ -32,6 +32,13 @@ Two beats, both first-class:
   agents, and AI-generated code shipping vulnerabilities. Search this beat on
   every sweep, not only when the first beat is quiet.
 
+On both beats, a new open-source security tool is news too: a scanner,
+guardrail, sandbox, red-team framework or eval harness that defenders can
+run this week. Look for these on GitHub itself on every sweep (see
+"Open-source repos" below). Do not wait for a blog to mention them. A blog
+cannot point you at a repo created three days ago that you have never heard
+of. Looking is not a quota: most weeks most candidates fail the bar.
+
 ## The pipeline (one path, no alternative)
 
 You do NOT edit `src/data/items.json` or `src/data/sweeps.json`. Ever. Not to
@@ -41,8 +48,11 @@ fix a typo, not to "just add one". Every change goes through a draft.
    output (no shell redirects needed). Shape: `{ now, windowDays, oldestAllowedDate, feedSize, existing[] }`,
    each `existing[i]` is `{ id, normId, url, title, date, cve, affected }`.
    This is the do-not-add-twice list.
-2. **Discovery.** Search the sources below. For each candidate apply the
-   inclusion bar, the severity rubric and the dedup check.
+2. **Discovery.** Search the sources below, including
+   `npx tsx scripts/repo-scan.ts` for new repos. For each candidate apply the
+   inclusion bar, the severity rubric and the dedup check. For each repo
+   candidate, also run `npx tsx scripts/gh-repo-meta.ts <owner/repo>` and
+   apply the repo bar.
 3. **Fetch and read** every page you will cite. Write facts down from the
    page, not from memory. For each item's primary source, also run
    `npx tsx scripts/og-image.ts <url>` to find its preview image (see
@@ -119,6 +129,13 @@ unless something NEW happened inside the window (a fix shipped, exploitation
 confirmed, a CVE assigned). Then the item is about the new event, dated to
 it, or it is an `updates[]` patch to the existing item.
 
+For a repo, `date` is the earliest public date: the announcement post, else
+the first release (`releases.first` in gh-repo-meta), else `createdAt`. A
+repo whose first release, launch post or HN thread predates the window is
+old, however many stars it gains today. The one exception is a new major
+version released inside the window with real changes: the item is about that
+release, `url` is its release notes, and `date` is its release date.
+
 ### 4. CVE and CVSS only from an official source
 
 Set `cve` only when a CNA, NVD, a GitHub Security Advisory or the vendor's
@@ -177,6 +194,8 @@ Ship a candidate only if ALL hold:
    this week. Funding rounds, product marketing, webinars, "AI is risky"
    opinion pieces and listicles do not pass.
 
+For a repo or tool, the repo bar below also applies.
+
 Topics in scope:
 - prompt injection (direct, indirect, via tools, docs, email, web, images)
 - jailbreaks and guardrail bypasses
@@ -188,6 +207,72 @@ Topics in scope:
 - specific security claims by labs and vendors (system cards, robustness
   numbers, new safeguards), stated as claims
 - defensive and offensive tooling for the above
+
+## Open-source repos
+
+A new repo is an item only if it clears the inclusion bar AND all of this.
+The bar is modelled on ai-tldr's, which learned each part the hard way (its
+SWEEP_MEMORY 2026-04-28-D/E and 2026-06-15-A).
+
+**Must have, all of:**
+1. **Real, working code.** You read the README in this run. It has install
+   and usage steps, and the code is in the repo, not "coming soon". It is not
+   a fork or a rebrand of another tool, and gh-repo-meta shows `archived:
+   false` and a `license`.
+2. **In scope and useful to a defender or red teamer** on either beat:
+   scanning MCP servers, skills, plugins or models; guardrails and
+   prompt-injection detection; agent sandboxes and permission controls;
+   red-team, fuzzing and eval harnesses; detection rules; honeypots for AI
+   agents. Offensive tools qualify when they are published for testing,
+   with docs. Malware, credential stealers and ready-to-use jailbreak
+   services do not.
+3. **New** under Hard Rule 3's repo dating.
+
+**Plus at least TWO of these signals,** each one checked in this run:
+- 100 or more GitHub stars (gh-repo-meta `stars`).
+- On `github.com/trending` (daily or weekly) when you looked.
+- On the Hacker News front page, or a Show HN with 50 or more points.
+- Built by a team or person from the Sources list below (a lab or vendor
+  security team, a research group, a security company), or by a researcher
+  whose earlier security work you can link.
+- Comes with a write-up, paper or talk that explains and measures it.
+- Discussed by a recognized researcher (Simon Willison, Embrace The Red,
+  Zenity Labs and similar) or picked up by the OWASP GenAI project.
+
+Stars alone never qualify. A small repo from a known team with a real
+write-up does. ai-tldr learned this from a ~90-star
+academic repo its star bar hid (its SWEEP_MEMORY 2026-07-07-A).
+
+**Never news:** awesome-lists and other curated lists, collections of
+prompts or jailbreaks, leaked system prompts, courses, tutorials, CTF
+solutions, homework, thin wrappers that call one API and add a new name,
+vendor repos that only hold a client for a closed product, and old repos
+with new stars. repo-scan.ts drops the obvious ones and lists them in
+`skipped[]` with a reason: glance at it, because a name filter can be
+wrong. You drop the rest.
+
+**Writing it up:**
+- `categories`: `tool` first. Add `benchmark` for an eval harness or
+  `research` when a paper comes with it, only when honest.
+- `severity`: `info`, per the rubric.
+- `org` and `credits`: the maintainers. Use the people or team named in the
+  README, paper or launch post. Otherwise use gh-repo-meta `owner` (its
+  `name`, or `login` when there is no name, with `htmlUrl` as the credit
+  URL). Never credit whoever tweeted or posted it.
+- `url`: the launch post if there is one, else the repo. `links`: the repo,
+  plus the launch post, paper, docs or release notes. Use specific pages,
+  at least 2 that load.
+- Describe only what the README, docs or paper say the tool does, and
+  attribute their results ("the authors report..."). Never put star counts
+  in prose: they go stale within days.
+- `affected`: what the tool covers or protects (for example "MCP servers",
+  "Claude Code").
+- `image`: the launch post's editorial image if there is one. Use
+  gh-repo-meta `ogImageUrl` only when the repo IS the story and nothing
+  better exists. Run it through og-image.ts rules as usual.
+- Dedup: a tool's launch post and its repo are one item. A tool already in
+  `existing[]` getting a new release goes in `updates[]`, unless it is a
+  new major version per Hard Rule 3.
 
 ## Sources, in order
 
@@ -211,11 +296,18 @@ a primary source.
    jailbreaks, agent security, poisoning. A paper needs one of: released code
    or data, a named affected product, a top venue, or discussion by a
    recognized researcher. arXiv alone is not enough.
-4. **Standards and government**: OWASP GenAI Security Project and the
+4. **New open-source repos**: run `npx tsx scripts/repo-scan.ts`. It
+   searches GitHub for AI security repos created inside the window and
+   prints candidates, most stars first. Then open `github.com/trending`
+   (`?since=daily` and `?since=weekly`) and pick out the AI security
+   repos. The scan cannot see a brand-new repo with no topics, but trending
+   can. If repo-scan exits 1 (GitHub rate limit), say so in `summary`, not
+   in `sourcesChecked`.
+5. **Standards and government**: OWASP GenAI Security Project and the
    Agentic / Agentic Skills Top 10, UK AI Security Institute (aisi.gov.uk),
    US CAISI (nist.gov).
-5. **Hacker News**: front page and new, for AI security posts. Follow the
-   link to the original.
+6. **Hacker News**: front page, new, and Show HN, for AI security posts and
+   tool launches. Follow the link to the original.
 
 **Last resort:** security press (The Register, BleepingComputer, Dark
 Reading, The Record, SecurityWeek, Wired). Use them to find the primary
@@ -223,7 +315,9 @@ source, then cite and credit the primary source.
 
 Discovery tip: run dated web searches with the current month and year, for
 example `prompt injection disclosure <Month YYYY>`, `MCP server vulnerability
-<Month YYYY>`, `GHSA claude code OR cursor OR copilot <YYYY>`.
+<Month YYYY>`, `GHSA claude code OR cursor OR copilot <YYYY>`,
+`open source MCP scanner <Month YYYY>`, `prompt injection detection tool
+github <Month YYYY>`.
 
 ## Item fields
 
@@ -357,7 +451,7 @@ thing.
 
 ## Self-check before verify
 
-For every item, answer YES to all ten, or fix or drop it:
+For every item, answer YES to all that apply, or fix or drop it:
 
 1. Did I fetch `url` in this run, and is it the specific primary source for
    THIS finding (not a homepage, not an aggregator)?
@@ -380,6 +474,10 @@ For every item, answer YES to all ten, or fix or drop it:
     run, does it return `image/*`, is it an editorial image for THIS story
     (not a logo, icon or default site card), and are `alt` and `credit`
     filled? If not sure, did I omit `image`?
+11. If the item is a repo or tool: did I read its README in this run, run
+    gh-repo-meta.ts, and check that it has working code and a license, is
+    new under the repo dating rule, shows at least two signals from the
+    repo bar, and is not on the "never news" list?
 
 ## Output
 
@@ -388,5 +486,6 @@ all. The prompt is idempotent: a run with nothing new produces
 `"newItems": []`, a full `coverage`, a full `sourcesChecked`, and a `summary`
 that says what you checked and why nothing qualified, for example: "Checked
 GitHub advisories, MSRC, Anthropic, OpenAI, Embrace The Red, Zenity, arXiv
-cs.CR and HN; no new AI-security disclosures inside the 7-day window met the
-bar." Empty sweep is success, as long as it is auditable.
+cs.CR, repo-scan (14 candidates) and HN; no new AI-security disclosures or
+tools inside the 7-day window met the bar." Empty sweep is success, as long
+as it is auditable.
