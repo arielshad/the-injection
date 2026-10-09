@@ -441,6 +441,82 @@
         "talk-scan (YouTube conference and security channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261009t000117z",
+      "timestamp": "2026-10-09T00:01:17.395Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Anthropic news and Frontier Red Team, AISI, CAISI, OWASP GenAI, Zenity, AIR, Embrace The Red, Socket, Wiz, Check Point, Trail of Bits, JFrog, ReversingLabs, HiddenLayer, Snyk, Lakera, Google GTIG, Hugging Face, Hacker News front page and Show HN, github.com/trending, Simon Willison, repo-scan (13 queries, 0 candidates), paper-scan (76 arXiv candidates in window, 1 with two signals and already in the feed) and talk-scan (46 videos). Added Anthropic's OSS Scanner launch and UK AISI's Transect release. The 410 GitHub advisories dated October 8 are a database ingestion batch, not new disclosures: the AI ones (8 PraisonAI, 2 banks) were originally published by their repositories in June and September, as was the rmcp OAuth advisory ingested on October 2, so all fall outside the window. GitSpawn was disclosed in early September and stays out. No talk item: YouTube watch pages did not load, so the substance of the David Bombal and LiveOverflow videos could not be verified, and the Embrace The Red SSMS talk is already linked on its existing item.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "anthropic-oss-scanner",
+          "title": "Anthropic OSS Scanner: model-generated bug reports, no human review",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "Anthropic launched a free opt-in vulnerability scanning service whose reports are model-generated and sent to maintainers unreviewed, with enrolment, report contents and validation numbers all stated on two Anthropic pages fetched this run."
+        },
+        {
+          "id": "aisi-transect",
+          "title": "Transect: UK AISI releases its agent transcript analysis tool",
+          "category": "tool",
+          "severity": "info",
+          "note": "New open-source tool from UK AISI, a Sources-list team, released with a paper and blog post that explain it: two repo-bar signals, MIT licence, working code and usage steps read in the README this run."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "aisi.gov.uk",
+        "nist.gov CAISI",
+        "genai.owasp.org",
+        "labs.zenity.io",
+        "air.security",
+        "embracethered.com",
+        "socket.dev",
+        "wiz.io",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "jfrog.com",
+        "reversinglabs.com",
+        "hiddenlayer.com",
+        "snyk.io",
+        "lakera.ai",
+        "Google Threat Intelligence",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "simonwillison.net",
+        "blog.cryptographyengineering.com",
+        "adversa.ai",
+        "arxiv.org",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts",
+        "gh-repo-meta.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
