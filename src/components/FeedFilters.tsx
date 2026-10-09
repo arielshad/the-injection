@@ -111,7 +111,7 @@ export default function FeedFilters({ layout, categories, severities }: Props) {
         {search}
         <div className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]">
           {severities.map((s) => (
-            <button key={s.id} type="button" aria-pressed={state.sev === s.id} onClick={() => update({ sev: state.sev === s.id ? null : s.id })} className={`shrink-0 rounded-sm border px-2.5 py-1.5 ${state.sev === s.id ? "border-acid" : "border-line"}`}>
+            <button key={s.id} type="button" aria-pressed={state.sev === s.id} data-track={state.sev === s.id ? undefined : "filter"} data-track-severity={s.id} onClick={() => update({ sev: state.sev === s.id ? null : s.id })} className={`shrink-0 rounded-sm border px-2.5 py-1.5 ${state.sev === s.id ? "border-acid" : "border-line"}`}>
               <SeverityMeter severity={s.id} />
             </button>
           ))}
@@ -119,7 +119,7 @@ export default function FeedFilters({ layout, categories, severities }: Props) {
         {categories.length > 1 && (
           <div className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]">
             {categories.map((c) => (
-              <button key={c.id} type="button" aria-pressed={state.cat === c.id} onClick={() => update({ cat: state.cat === c.id ? null : c.id })} className={`shrink-0 whitespace-nowrap rounded-sm border px-2.5 py-1.5 font-mono text-[10.5px] uppercase ${state.cat === c.id ? "border-acid text-acid" : "border-line text-muted-foreground"}`}>
+              <button key={c.id} type="button" aria-pressed={state.cat === c.id} data-track={state.cat === c.id ? undefined : "filter"} data-track-category={c.id} onClick={() => update({ cat: state.cat === c.id ? null : c.id })} className={`shrink-0 whitespace-nowrap rounded-sm border px-2.5 py-1.5 font-mono text-[10.5px] uppercase ${state.cat === c.id ? "border-acid text-acid" : "border-line text-muted-foreground"}`}>
                 {c.label} {c.count}
               </button>
             ))}
@@ -140,7 +140,7 @@ export default function FeedFilters({ layout, categories, severities }: Props) {
         <ul className="mt-2 space-y-0.5">
           {severities.map((s) => (
             <li key={s.id}>
-              <button type="button" aria-pressed={state.sev === s.id} onClick={() => update({ sev: state.sev === s.id ? null : s.id })} className={row(state.sev === s.id)}>
+              <button type="button" aria-pressed={state.sev === s.id} data-track={state.sev === s.id ? undefined : "filter"} data-track-severity={s.id} onClick={() => update({ sev: state.sev === s.id ? null : s.id })} className={row(state.sev === s.id)}>
                 <SeverityMeter severity={s.id} className={state.sev === s.id ? "!text-black" : ""} />
                 <span>{s.count}</span>
               </button>
@@ -154,7 +154,7 @@ export default function FeedFilters({ layout, categories, severities }: Props) {
           <ul className="mt-2 space-y-0.5">
             {categories.map((c) => (
               <li key={c.id}>
-                <button type="button" aria-pressed={state.cat === c.id} onClick={() => update({ cat: state.cat === c.id ? null : c.id })} className={row(state.cat === c.id)}>
+                <button type="button" aria-pressed={state.cat === c.id} data-track={state.cat === c.id ? undefined : "filter"} data-track-category={c.id} onClick={() => update({ cat: state.cat === c.id ? null : c.id })} className={row(state.cat === c.id)}>
                   <span>{c.label}</span>
                   <span>{c.count}</span>
                 </button>

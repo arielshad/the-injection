@@ -1,6 +1,6 @@
 /**
  * Share and "Ask AI" links. Plain intent URLs: nothing loads from these
- * services until a reader clicks, so the no-tracking promise holds.
+ * services until a reader clicks, so no third party sees the visit before then.
  */
 
 export interface ShareTarget {

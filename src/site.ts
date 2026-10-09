@@ -12,6 +12,14 @@ export const SITE = {
   contactEmail: (import.meta.env.CONTACT_EMAIL || process.env.CONTACT_EMAIL || "") as string,
   /** Public feedback: corrections, story tips (issues) and questions (discussions). */
   feedbackUrl: "https://github.com/arielshad/the-injection-feedback",
+  /**
+   * Cookieless, self-hosted Umami (see the privacy page). Off unless UMAMI_WEBSITE_ID
+   * is set at build; the host serves only the tracker script and its collect endpoint.
+   */
+  analytics: {
+    websiteId: (import.meta.env.UMAMI_WEBSITE_ID || process.env.UMAMI_WEBSITE_ID || "") as string,
+    host: ((import.meta.env.UMAMI_HOST || process.env.UMAMI_HOST || "https://stats.theinjection.dev") as string).replace(/\/$/, ""),
+  },
 };
 
 export const abs = (path: string) => SITE.url + (path.startsWith("/") ? path : `/${path}`);

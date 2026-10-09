@@ -1,0 +1,62 @@
+---
+/**
+ * Cookieless page and event counts through the self-hosted Umami at
+ * SITE.analytics.host (a first-party subdomain). Rendered by Base only on
+ * production builds with UMAMI_WEBSITE_ID set. The tracker honours Do Not
+ * Track and only counts this site's own hostname, so forks and local previews
+ * send nothing. Described on the privacy page; keep the two in step.
+ *
+ * Events, all from one click listener that never delays navigation:
+ *  - any element with data-track="name" (props from data-track-*)
+ *  - links to other sites: "outbound" { domain }
+ *  - links to feeds and machine-readable files: "file" { path }
+ * Page views: one per path (filter changes to the query string don't count).
+ */
+import { SITE } from "@/site";
+
+const { websiteId, host } = SITE.analytics;
+const domain = new URL(SITE.url).hostname;
+---
+
+<script is:inline>
+  // The feed filters keep their state in the URL query, and Umami counts every
+  // history change as a page view. Count one view per path instead; the first
+  // view keeps its query, so UTM tags still register.
+  (() => {
+    let last;
+    window.injectionBeforeSend = (type, payload) => {
+      if (type !== "event" || payload.name) return payload;
+      const path = new URL(payload.url).pathname;
+      if (path === last) return null;
+      last = path;
+      return payload;
+    };
+  })();
+</script>
+<script is:inline defer src={`${host}/script.js`} data-website-id={websiteId} data-domains={domain} data-do-not-track="true" data-before-send="injectionBeforeSend"></script>
+
+<script>
+  import { track, trackedEvent } from "@/lib/analytics";
+
+  const FILE = /\.(xml|json|txt|md)$/;
+
+  document.addEventListener(
+    "click",
+    (e) => {
+      const el = (e.target as Element | null)?.closest?.("[data-track], a[href]");
+      if (!el) return;
+      const link = el instanceof HTMLAnchorElement ? new URL(el.href, location.href) : null;
+      const external = link && link.origin !== location.origin && /^https?:$/.test(link.protocol) ? link : null;
+      const tagged = trackedEvent(el);
+      if (tagged) {
+        if (external && !tagged.data.domain) tagged.data.domain = external.hostname;
+        track(tagged.name, tagged.data);
+      } else if (external) {
+        track("outbound", { domain: external.hostname });
+      } else if (link && FILE.test(link.pathname)) {
+        track("file", { path: link.pathname });
+      }
+    },
+    { capture: true },
+  );
+</script>
