@@ -739,6 +739,75 @@
         "Adversa AI October roundups (discovery only)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261009t232737z",
+      "timestamp": "2026-10-09T23:27:37.007Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Anthropic, AISI, OWASP GenAI, Embrace The Red, Zenity, AIR, Socket, GTIG, Unit 42, Check Point, ReversingLabs, JFrog, Wiz, Trail of Bits, Lakera, HiddenLayer, Hugging Face models and blog, Simon Willison, repo-scan (13 queries, 0 candidates), paper-scan (75 papers in window, only SLDR with two scanned signals and it is already in the feed), talk-scan (43 videos) and Hacker News; added one item, MXC v1.0.0, Microsoft's first stable sandbox SDK for untrusted model output. Left out on purpose: Langflow's critical MCP command injection (CVE-2026-105697) and PraisonAI's MCP auth bypass (CVE-2026-61427), which only reached the GitHub advisory database this week but were originally disclosed on 2026-09-28 and 2026-06-25; GitSpawn, the DeepSeek Harness sandbox escape, the OpenCode RCE and the Codex sandbox escapes, all disclosed in September; new Hugging Face guard models, all personal uploads under the use bar except a mirror of a March Patronus model; and the Anthropic Cyber Mission post and the Embrace The Red SSMS talk video, both already linked from existing items. openai.com returned 403, reddit.com was unfetchable and koi.security now redirects to a Palo Alto product page, so none of those three are listed as checked.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "microsoft-mxc-sdk-v1",
+          "title": "MXC: Microsoft ships a stable sandbox SDK for untrusted model output",
+          "category": "tool",
+          "severity": "info",
+          "note": "A new major version inside the window under Hard Rule 3, with real changes, and it clears the repo bar on two signals checked in this run: 2,398 GitHub stars and the Hacker News front page at 176 points (thread 50016489, not cited because news.ycombinator.com returns 419 to scripts)."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "repo-scan.json (13 GitHub queries)",
+        "paper-scan.ts (arXiv + Hugging Face Daily Papers)",
+        "talk-scan.ts (YouTube conference and security channels)",
+        "GitHub Security Advisories",
+        "github.com/trending",
+        "Hacker News front page",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security/blog",
+        "socket.dev/blog",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "huggingface.co/blog",
+        "huggingface.co/api/models (prompt-injection and guard models)",
+        "genai.owasp.org",
+        "aisi.gov.uk/work",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "unit42.paloaltonetworks.com",
+        "wiz.io/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com/innovation-hub",
+        "blog.trailofbits.com",
+        "lakera.ai/blog",
+        "msrc.microsoft.com/blog",
+        "adversa.ai/blog",
+        "manifold.security/blog",
+        "ox.security/blog",
+        "securitylabs.datadoghq.com",
+        "accomplish.ai/blog",
+        "github.com/microsoft/mxc"
+      ],
+      "windowDays": 7
     }
   ]
 }

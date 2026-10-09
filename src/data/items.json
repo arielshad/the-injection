@@ -1,7 +1,93 @@
 {
-  "generatedAt": "2026-10-09T19:11:53.287Z",
+  "generatedAt": "2026-10-09T23:27:37.007Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "microsoft-mxc-sdk-v1",
+      "categories": [
+        "tool"
+      ],
+      "title": "MXC: Microsoft ships a stable sandbox SDK for untrusted model output",
+      "org": "Microsoft",
+      "date": "2026-10-07",
+      "url": "https://github.com/microsoft/mxc/releases/tag/v1.0.0",
+      "summary": "MXC is a Microsoft sandbox SDK for running untrusted code, which its README names as model output, plugins and tools. Version 1.0.0, released on October 7, 2026, is the first stable SDK for Rust, .NET and Node.js.",
+      "severity": "info",
+      "tags": [
+        "agent-security",
+        "microsoft",
+        "mxc"
+      ],
+      "affected": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "credits": [
+        {
+          "name": "Microsoft",
+          "url": "https://github.com/microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "MXC is Microsoft's open-source sandbox for running untrusted code, including model output, and v1.0.0 is its first stable SDK.",
+        "whatHappened": "Microsoft published MXC SDK v1.0.0 on October 7, 2026, the first stable release of its open-source isolation project, which is MIT licensed and written in Rust. The release notes state that MXC follows semver 2.0 from this version onward and add versioned entry points for Rust, .NET and Node.js. Version 1.0.0 also pins default-deny ingress controls and bumps dependencies to patch published CVEs in fast-uri and anyhow.",
+        "howItWorks": "An application embeds MXC as an SDK rather than calling a standalone service, and each execution is routed to an isolation backend chosen for the host platform. Policy covers filesystem read-only, read-write and denied path lists, outbound network controls with proxy support, and clipboard, display and GUI access. Callers can provision a container, start, stop and deprovision it, then run code to completion, spawn it with separate stdin, stdout and stderr pipes, or attach a PTY where the backend supports one. Host filtering and PTY support depend on the selected backend, so the same policy does not behave identically everywhere.",
+        "whoIsAffected": "Developers who execute untrusted code inside their own applications are the audience, with the README naming model output, plugins and tools as the cases MXC is built for. The SDK ships as mxc-sdk on crates.io, Microsoft.Mxc.Sdk on NuGet and @microsoft/mxc-sdk on npm, and building from source needs Rust 1.93 and Node.js 24 or later. Several backends, including MicroVM and Hyperlight, are marked experimental by the project.",
+        "whatToDo": "Import public APIs from the v1 entry point for your language, replace legacy sandbox request and lifecycle types with ContainerRequest, ProvisionRequest, ExecutionRequest and ContainerId, then rebuild against the v1.0 packages. Keep audit mode off outside debugging, because the README states it turns off all sandbox security. Treat the backends the project marks experimental as unproven for production isolation."
+      },
+      "quickFacts": [
+        {
+          "label": "Released",
+          "value": "v1.0.0 on 2026-10-07"
+        },
+        {
+          "label": "License",
+          "value": "MIT"
+        },
+        {
+          "label": "Platforms",
+          "value": "Windows, Linux, macOS"
+        },
+        {
+          "label": "Default backends",
+          "value": "ProcessContainer (Windows 11), Bubblewrap (Linux), Seatbelt (macOS)"
+        },
+        {
+          "label": "SDK languages",
+          "value": "Rust, .NET, Node.js"
+        },
+        {
+          "label": "Build requirements",
+          "value": "Rust 1.93, Node.js 24 or later"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does MXC sandbox AI agents?",
+          "a": "MXC describes itself as a sandboxed code execution system for untrusted code, naming model output, plugins and tools as its use cases. The README never uses the word agent, so MXC is a general untrusted-code sandbox rather than an agent framework. Developers who embed the SDK decide what runs inside, and that can include code a model produced."
+        },
+        {
+          "q": "Which isolation backend does MXC use by default?",
+          "a": "MXC selects a default backend per platform: ProcessContainer on Windows 11, Bubblewrap on Linux and Seatbelt on macOS. Windows Sandbox, WSLC, IsolationSession, LXC, MicroVM and Hyperlight can also be selected, and the project marks several of them experimental. Capabilities differ between backends, including PTY support and network host filtering, so a policy a caller sets may not apply identically on every platform."
+        },
+        {
+          "q": "What breaks when upgrading to MXC v1.0.0?",
+          "a": "Upgrading to MXC v1.0.0 means importing public APIs from the versioned v1 entry point, which is mxc_sdk::v1 in Rust, Microsoft.Mxc.Sdk.V1 in .NET and @microsoft/mxc-sdk/v1 in Node.js. Legacy sandbox request and lifecycle types give way to ContainerRequest, ProvisionRequest, ExecutionRequest and ContainerId, and callers must rebuild against the v1.0 packages. Microsoft states MXC follows semver 2.0 from this release onward."
+        }
+      ],
+      "links": [
+        {
+          "label": "MXC v1.0.0 Release",
+          "url": "https://github.com/microsoft/mxc/releases/tag/v1.0.0"
+        },
+        {
+          "label": "MXC Repo",
+          "url": "https://github.com/microsoft/mxc"
+        }
+      ],
+      "publishDate": "2026-10-09T23:27:37.007Z"
+    },
     {
       "id": "air-openai-sesame-render-skill",
       "categories": [
