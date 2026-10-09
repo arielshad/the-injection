@@ -1,7 +1,232 @@
 {
-  "generatedAt": "2026-10-09T13:32:23.654Z",
+  "generatedAt": "2026-10-09T19:11:53.287Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "air-openai-sesame-render-skill",
+      "categories": [
+        "supply-chain",
+        "vulnerability"
+      ],
+      "title": "OpenAI Sesame: an official skill sent app tokens to an unowned domain",
+      "org": "AIR Security",
+      "date": "2026-10-09",
+      "url": "https://air.security/blog-posts/render-openai",
+      "summary": "OpenAI Sesame is a flaw in render-deploy, an official OpenAI skill that told coding agents Render private services sit at render-internal.com, a domain Render did not own. AIR Security registered it and received live bearer tokens.",
+      "severity": "high",
+      "tags": [
+        "skills",
+        "credential-theft",
+        "coding-agents",
+        "openai",
+        "codex",
+        "render"
+      ],
+      "affected": [
+        "OpenAI Codex",
+        "openai/plugins",
+        "Render"
+      ],
+      "credits": [
+        {
+          "name": "Eliad Mualem",
+          "org": "AIR Security"
+        },
+        {
+          "name": "Dor Granat",
+          "org": "AIR Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "OpenAI Sesame is a dangling-domain flaw: an official OpenAI skill pointed coding agents at render-internal.com, which Render did not own.",
+        "whatHappened": "AIR Security published OpenAI Sesame on October 9, 2026. Eliad Mualem and Dor Granat found that render-deploy, an official skill in the openai/plugins repository, told agents that Render private services are reached at [service-name].render-internal.com. AIR says the domain appears in none of Render's documentation, and the guidance dates to the skill's first commit on January 27, 2026.",
+        "howItWorks": "The skill shipped instructions naming a domain that nobody had registered. In AIR's test, Codex carried render-internal.com into generated application code and deployment configuration as a default, so deployed apps resolved it at runtime. AIR then registered the domain and pointed it at a passive sinkhole that answered on every subdomain and port, where it recorded HEAD and GET requests carrying Authorization Bearer headers from real applications.",
+        "whoIsAffected": "Developers who deployed to Render using the render-deploy skill, and any application whose code or deployment configuration still names render-internal.com. AIR reports real victims in the wild but publishes no count of affected services or leaked tokens.",
+        "whatToDo": "Update to the patched version of the skill, as AIR advises, and search application code and deployment configuration for render-internal.com. Rotate any credential an app may have sent to that domain. AIR also recommends validating the external dependencies a skill names and watching those domains for ownership changes."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "render-deploy skill in openai/plugins"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unregistered domain named in official skill guidance"
+        },
+        {
+          "label": "Found by",
+          "value": "Eliad Mualem and Dor Granat, AIR Security"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 9, 2026"
+        },
+        {
+          "label": "Introduced",
+          "value": "January 27, 2026, the skill's first commit"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Render removed the references on August 14, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Plugin removed from openai/plugins on August 26, 2026, domain transferred to Render, no CVE"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected by the OpenAI Sesame skill flaw?",
+          "a": "Applications are affected if they were built or deployed with OpenAI's render-deploy skill and still reference render-internal.com in code or deployment configuration. AIR Security found that Codex inserted the domain as a default, so the string may sit in a config file nobody reviewed. Searching a repository for the domain is the fastest check, and AIR reports it saw requests from real production apps."
+        },
+        {
+          "q": "Is the render-deploy skill fixed?",
+          "a": "Render fixed the skill on August 14, 2026 by removing every render-internal.com reference, according to AIR Security, and OpenAI removed the Render plugin from openai/plugins on August 26, 2026. AIR also says the domain was transferred to Render, so an outside party can no longer receive the traffic. Applications already generated with the old guidance still need fixing by their owners."
+        },
+        {
+          "q": "Should I rotate tokens after the OpenAI Sesame disclosure?",
+          "a": "Rotating is the safe choice for any credential an affected app could have sent to render-internal.com, because AIR Security recorded live Authorization Bearer headers arriving at the domain it controlled. AIR does not say how many tokens it saw or name the services it observed, so an owner cannot tell from the write-up alone whether one specific token was exposed."
+        },
+        {
+          "q": "How does OpenAI Sesame differ from Plugin4Shell?",
+          "a": "Plugin4Shell, also from AIR Security, let repository owners swap pinned plugin code in four AI coding agents without any user click. OpenAI Sesame needs no code swap, because the official skill's own text named a domain that was free for anyone to register, and the agent then copied that domain into the applications it generated. One hijacks code, the other follows trusted guidance."
+        }
+      ],
+      "links": [
+        {
+          "label": "AIR Security Write-Up",
+          "url": "https://air.security/blog-posts/render-openai"
+        },
+        {
+          "label": "OpenAI Plugins Repo",
+          "url": "https://github.com/openai/plugins"
+        },
+        {
+          "label": "Plugin Removal Commit",
+          "url": "https://github.com/openai/plugins/commit/33bd9529"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a282d66e4248a84e0259ed9/6ac90ccff65f7262faf2173f_image%20(19).png",
+        "alt": "OpenAI Sesame: an official skill sent app tokens to an unowned domain",
+        "credit": "AIR Security"
+      },
+      "publishDate": "2026-10-09T19:11:53.287Z"
+    },
+    {
+      "id": "mindgard-branch-guardrail-bypass",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "BRANCH: a tree search bypassed six AI guardrail systems",
+      "org": "arXiv",
+      "date": "2026-10-07",
+      "url": "https://arxiv.org/abs/2610.10742",
+      "summary": "BRANCH is an attack from Mindgard that rewrites a blocked prompt step by step until every detector in a multi-scanner guardrail passes it. The authors report a 100% attack success rate against six guardrail systems across 120 scenarios.",
+      "severity": "medium",
+      "tags": [
+        "guardrail-bypass",
+        "prompt-injection",
+        "jailbreak",
+        "red-team",
+        "llamafirewall",
+        "mindgard"
+      ],
+      "affected": [
+        "LLM Guard",
+        "Vijil Dome",
+        "Guardrails AI",
+        "Samsung Guard",
+        "LlamaFirewall"
+      ],
+      "credits": [
+        {
+          "name": "William Hackett",
+          "org": "Mindgard"
+        },
+        {
+          "name": "Peter Garraghan",
+          "org": "Mindgard and Lancaster University"
+        }
+      ],
+      "explainer": {
+        "tagline": "BRANCH is a branching tree search that turns a blocked prompt into one every detector in a multi-scanner guardrail lets through.",
+        "whatHappened": "William Hackett and Peter Garraghan of Mindgard posted BRANCH to arXiv on October 7, 2026. The paper targets multi-scanner guardrails, where detectors share latent representations and established single-technique bypasses lose their effect. The authors test six guardrail systems and measure how well their bypasses transfer to 32 more they never optimized against.",
+        "howItWorks": "BRANCH searches a tree of adversarial perturbations and scores each candidate by how much it improves the prompt across all scanners at once, instead of defeating one detector at a time. Separating the bypass check from the attack signal it optimizes lets the search preserve the prompt's meaning while the whole stack clears it. The authors report the search needs about 72% fewer queries than combining all eleven baseline techniques, and runs about 4.5 times faster.",
+        "whoIsAffected": "Teams that place a stack of prompt-injection and jailbreak detectors in front of an LLM, starting with the five named products the paper tested. The authors also report that their bypasses raised attack success by an average of 32.9 percentage points on 29 of 32 guardrails they had never tuned against, including eight commercial black-box services.",
+        "whatToDo": "Treat a guardrail stack as a detection layer rather than the control that stops prompt injection, since the authors report a bypass for every system they tested. Check whether the detectors in your pipeline are still maintained: Protect AI's LLM Guard, one of the six tested, is archived and read-only on GitHub."
+      },
+      "quickFacts": [
+        {
+          "label": "Systems tested",
+          "value": "LLM Guard, Vijil Dome, Guardrails AI, Samsung Guard, LlamaFirewall, custom ensemble"
+        },
+        {
+          "label": "Attack type",
+          "value": "Branching tree search over adversarial perturbations"
+        },
+        {
+          "label": "Found by",
+          "value": "William Hackett and Peter Garraghan, Mindgard"
+        },
+        {
+          "label": "Posted",
+          "value": "October 7, 2026"
+        },
+        {
+          "label": "Transfer",
+          "value": "29 of 32 unseen guardrails, including 8 commercial services"
+        },
+        {
+          "label": "Code",
+          "value": "No code release linked from the paper"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Overall attack success rate, 6 guardrail systems",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders. Exhaustive combines all 11 baseline techniques.",
+          "results": [
+            {
+              "name": "BRANCH",
+              "score": 100,
+              "highlight": true
+            },
+            {
+              "name": "Exhaustive (all 11 techniques)",
+              "score": 80.8
+            },
+            {
+              "name": "CLARE",
+              "score": 75
+            }
+          ],
+          "source": "https://arxiv.org/abs/2610.10742"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.10742"
+        },
+        {
+          "label": "Paper Full Text",
+          "url": "https://arxiv.org/html/2610.10742v1"
+        },
+        {
+          "label": "LlamaFirewall Repo",
+          "url": "https://github.com/meta-llama/PurpleLlama/tree/main/LlamaFirewall"
+        },
+        {
+          "label": "LLM Guard Repo",
+          "url": "https://github.com/protectai/llm-guard"
+        }
+      ],
+      "publishDate": "2026-10-09T19:11:53.287Z"
+    },
     {
       "id": "socket-ghostaction-ai-credential-wave",
       "categories": [

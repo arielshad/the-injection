@@ -660,6 +660,85 @@
         "repo-scan.json"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261009t191153z",
+      "timestamp": "2026-10-09T19:11:53.287Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Anthropic, OpenAI (403 to fetchers), MSRC, Google Cloud security, AIR, Zenity, Embrace The Red, Simon Willison, Socket, Wiz, Unit 42, Check Point, Trail of Bits, JFrog, HiddenLayer, Lakera, ReversingLabs, OWASP GenAI, UK AISI, CISA KEV, Hugging Face papers, blog and models, repo-scan (13 queries, 0 candidates), GitHub trending, Hacker News and talk-scan (22 channels); added AIR Security's OpenAI Sesame skill flaw and Mindgard's BRANCH guardrail bypass paper. paper-scan hit arXiv rate limits (8 of 9 queries failed, 0 candidates), so arXiv cs.CR was read directly; the MCP write-ups surfaced through October roundups (Pluto Security, Hush, Pillar, Knostic) all predate the window, and the PyCache Trap skill-scanner paper was dropped because its code repository returns 404, leaving it one signal short of the paper bar.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "air-openai-sesame-render-skill",
+          "title": "OpenAI Sesame: an official skill sent app tokens to an unowned domain",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "An official OpenAI skill named a domain that nobody owned, and AIR Security registered it and received live bearer tokens from real production apps."
+        },
+        {
+          "id": "mindgard-branch-guardrail-bypass",
+          "title": "BRANCH: a tree search bypassed six AI guardrail systems",
+          "category": "research",
+          "severity": "medium",
+          "note": "Clears the paper bar on two signals: named commercial and open-source guardrails broken with printed numbers, and authors from Mindgard, an AI security company."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "air.security",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "socket.dev",
+        "anthropic.com/news",
+        "openai.com/index (403)",
+        "Microsoft MSRC blog",
+        "Google Cloud security blog",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "jfrog.com/blog",
+        "hiddenlayer.com",
+        "lakera.ai/blog",
+        "reversinglabs.com/blog",
+        "pluto.security",
+        "hush.security",
+        "pillar.security",
+        "knostic.ai",
+        "arXiv cs.CR recent listing",
+        "arXiv abs and HTML pages",
+        "Hugging Face Daily Papers",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection)",
+        "repo-scan.json (13 queries)",
+        "github.com/trending (daily and weekly)",
+        "Hacker News front page and Show HN",
+        "talk-scan.ts (22 channels)",
+        "OWASP GenAI Security Project",
+        "aisi.gov.uk/blog",
+        "CISA Known Exploited Vulnerabilities catalog",
+        "Adversa AI October roundups (discovery only)"
+      ],
+      "windowDays": 7
     }
   ]
 }
