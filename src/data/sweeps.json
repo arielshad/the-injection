@@ -576,6 +576,90 @@
         "talk-scan (22 YouTube channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261009t133223z",
+      "timestamp": "2026-10-09T13:32:23.654Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Embrace The Red, Zenity, AIR, Socket, Wiz, Unit 42, Check Point, JFrog, ReversingLabs, HiddenLayer, Lakera, Trail of Bits, Anthropic, Google, MSRC, AISI, OWASP GenAI, Hugging Face, GitHub trending, Hacker News front page and Show HN, plus paper-scan (82 arXiv candidates, one with two scanned signals and already in the feed), talk-scan and repo-scan (13 queries, 0 candidates). Added three items: a new GhostAction wave that scrapes AI provider keys from git history, ReversingLabs on detecting an AI-assisted espionage actor, and OWASP's Q3 exploit roundup. Dropped the Langflow and PraisonAI advisory batches plus the Pluto Security, Cycode, Pillar Security and Knostic write-ups because their original disclosure dates fall outside the 7-day window even though aggregators and the GitHub Advisory Database resurfaced them this week; r/netsec would not load from this runner.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "socket-ghostaction-ai-credential-wave",
+          "title": "GhostAction: new wave scrapes AI provider keys from 346 repos",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "An active campaign dated inside the window whose new capability harvests Anthropic, OpenAI and OpenRouter keys from git history, so readers running agents must rotate provider keys."
+        },
+        {
+          "id": "reversinglabs-gtg-20006-behavior-detection",
+          "title": "ReversingLabs: behavior beat hashes on an AI-assisted spy campaign",
+          "category": "incident",
+          "severity": "info",
+          "note": "Original telemetry analysis published October 8 showing that behavior-based hunting still works against an actor who used Claude to rebuild flagged implants."
+        },
+        {
+          "id": "owasp-genai-exploit-roundup-q3-2026",
+          "title": "OWASP GenAI: a Q3 exploit roundup mapped to its two Top 10 lists",
+          "category": "research",
+          "severity": "info",
+          "note": "A standards-body publication inside the window that maps Q3 AI incidents to the OWASP LLM and Agentic Top 10 lists and consolidates the controls defenders should apply."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security",
+        "simonwillison.net",
+        "socket.dev/blog",
+        "blog.gitguardian.com",
+        "reversinglabs.com/blog",
+        "anthropic.com/news",
+        "anthropic.com threat intelligence report",
+        "genai.owasp.org",
+        "unit42.paloaltonetworks.com",
+        "wiz.io/blog",
+        "research.checkpoint.com",
+        "jfrog.com/blog",
+        "hiddenlayer.com",
+        "lakera.ai/blog",
+        "blog.trailofbits.com",
+        "pluto.security",
+        "cycode.com",
+        "pillar.security",
+        "knostic.ai",
+        "adversa.ai",
+        "aisi.gov.uk/blog",
+        "blog.google safety and security",
+        "msrc.microsoft.com",
+        "huggingface.co/blog",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "cisa.gov KEV catalog",
+        "arXiv via paper-scan.ts",
+        "YouTube via talk-scan.ts",
+        "repo-scan.json"
+      ],
+      "windowDays": 7
     }
   ]
 }

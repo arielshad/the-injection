@@ -1,7 +1,310 @@
 {
-  "generatedAt": "2026-10-09T06:18:50.969Z",
+  "generatedAt": "2026-10-09T13:32:23.654Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "socket-ghostaction-ai-credential-wave",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "GhostAction: new wave scrapes AI provider keys from 346 repos",
+      "org": "Socket",
+      "date": "2026-10-09",
+      "url": "https://socket.dev/blog/ghostaction-cloud-credentials",
+      "summary": "A new GhostAction wave added a fake security-audit workflow to 346 GitHub repositories on October 8. Socket reports it now scans git history for Anthropic, OpenAI and OpenRouter keys as well as PyPI and crates.io publishing credentials.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "github-actions",
+        "pypi",
+        "crates-io",
+        "anthropic",
+        "openai",
+        "openrouter"
+      ],
+      "affected": [
+        "GitHub Actions",
+        "PyPI",
+        "crates.io",
+        "Anthropic API keys",
+        "OpenAI API keys",
+        "OpenRouter API keys"
+      ],
+      "credits": [
+        {
+          "name": "Socket Research Team",
+          "org": "Socket",
+          "url": "https://socket.dev/blog/ghostaction-cloud-credentials"
+        }
+      ],
+      "explainer": {
+        "tagline": "GhostAction's new wave takes AI provider keys out of git history, not just the CI secrets its earlier version stole.",
+        "whatHappened": "Socket's Research Team published the findings on October 9, 2026, a day after the commits landed. Two compromised GitHub maintainer accounts, henrywoo and kitao, added a file named .github/workflows/security-audit.yml to 346 repositories on October 8, 2026. GitGuardian researchers documented the original GhostAction campaign in September 2025.",
+        "howItWorks": "The workflow has no security function and sends what it collects to a hardcoded IP address. One half is inherited from the earlier campaign: it reads GitHub Actions secrets, mainly PyPI and crates.io publishing credentials and a GitHub personal access token. The new half scans the working tree and the full git history for cloud and AI credentials, which widens the blast radius to any key that was ever committed and later removed.",
+        "whoIsAffected": "Maintainers and downstream users of the 346 repositories Socket lists are exposed, along with anyone whose provider keys reached those repositories' history. Socket counted 318 under henrywoo, of which 39 are source repositories and 279 are forks, 27 under kitao, and uber/athenadriver, an Uber-owned repository that henrywoo can write to. The full credential list is below.",
+        "whatToDo": "Rotate any Anthropic, OpenAI, OpenRouter, AWS or registry credential that was present in an affected repository or its CI secrets, and check whether .github/workflows/security-audit.yml sits on your default branch. Socket reports the file was still there on October 9 in the repositories it checked."
+      },
+      "quickFacts": [
+        {
+          "label": "Repositories",
+          "value": "346 (318 henrywoo, 27 kitao, 1 Uber-owned)"
+        },
+        {
+          "label": "Workflow file",
+          "value": ".github/workflows/security-audit.yml"
+        },
+        {
+          "label": "Committed",
+          "value": "October 8, 2026"
+        },
+        {
+          "label": "New in this wave",
+          "value": "Scans working tree and full git history for AI and cloud keys"
+        },
+        {
+          "label": "Credentials targeted",
+          "value": "AWS, Anthropic, OpenAI, OpenRouter, GitHub, GitLab, Google, Slack, SendGrid, PyPI, crates.io"
+        },
+        {
+          "label": "Status",
+          "value": "Workflow still on default branches as of October 9 (Socket)"
+        },
+        {
+          "label": "Packages published",
+          "value": "None to PyPI or crates.io as of publication (Socket)"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which credentials does the new GhostAction wave steal?",
+          "a": "The new GhostAction workflow targets two sets. From GitHub Actions secrets it takes PyPI and crates.io publishing credentials and a GitHub personal access token. From the working tree and full git history it takes AWS keys, Anthropic, OpenAI and OpenRouter keys, and GitHub, GitLab, Google, Slack and SendGrid tokens. Socket reports all of it goes to a hardcoded IP address."
+        },
+        {
+          "q": "How do I check whether my repository was hit by GhostAction?",
+          "a": "Look for a file named .github/workflows/security-audit.yml on the default branch, a name Socket says carries no security function in this campaign. Socket found the file still present on October 9, 2026 in the repositories it checked. Repositories owned or forked by the GitHub accounts henrywoo and kitao are the ones Socket lists as affected."
+        },
+        {
+          "q": "Were malicious packages published to PyPI or crates.io?",
+          "a": "Socket reports no malicious package versions were published to PyPI or crates.io as of its October 9, 2026 write-up, even though the stolen credentials include publishing tokens for both registries. Socket treats those registry credentials as the main remaining risk, because a stolen publishing token lets an attacker ship a trojaned release under a legitimate name."
+        },
+        {
+          "q": "Is the new GhostAction wave the same campaign GitGuardian found?",
+          "a": "Socket describes the October 2026 activity as a new wave of GhostAction, the campaign GitGuardian researchers Gaetan Ferry and Guillaume Valadon documented in September 2025 after 3,325 secrets were stolen from 817 repositories. The workflow's secret-stealing half is inherited from that campaign, while the git-history scan for cloud and AI credentials is new."
+        }
+      ],
+      "links": [
+        {
+          "label": "Socket Research Post",
+          "url": "https://socket.dev/blog/ghostaction-cloud-credentials"
+        },
+        {
+          "label": "GitGuardian GhostAction",
+          "url": "https://blog.gitguardian.com/ghostaction-campaign-3-325-secrets-stolen/"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/cgdhsj6q/production/c5bff4a1443433b7177e43f4d8c6df90dee34dc6-2380x1066.png?w=1000&q=95&fit=max&auto=format",
+        "alt": "New GhostAction wave hits hundreds of GitHub repositories",
+        "credit": "Socket"
+      },
+      "publishDate": "2026-10-09T13:32:23.654Z"
+    },
+    {
+      "id": "reversinglabs-gtg-20006-behavior-detection",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "ReversingLabs: behavior beat hashes on an AI-assisted spy campaign",
+      "org": "ReversingLabs",
+      "date": "2026-10-08",
+      "url": "https://www.reversinglabs.com/blog/anthropic-midnight-blizzard-what-reversinglabs-found-first",
+      "summary": "ReversingLabs says it classified two GTG-20006 implants as malicious in August, two months before Anthropic's September report named the actor, and that behavior-based hunting held up while Claude was used to rebuild detected files.",
+      "severity": "info",
+      "tags": [
+        "threat-intel",
+        "ai-enabled-offense",
+        "detection",
+        "anthropic",
+        "claude"
+      ],
+      "affected": [
+        "Claude",
+        "Claude Code"
+      ],
+      "credits": [
+        {
+          "name": "Igor Lasic",
+          "org": "ReversingLabs",
+          "url": "https://www.reversinglabs.com/blog/anthropic-midnight-blizzard-what-reversinglabs-found-first"
+        }
+      ],
+      "explainer": {
+        "tagline": "Behavior-based hunting found implants that an actor rebuilt with Claude, while hashes and file names changed too fast to track.",
+        "whatHappened": "Igor Lasic, SVP of Technology at ReversingLabs, published the analysis on October 8, 2026. Anthropic's September 2026 threat intelligence report described GTG-20006, a Russian espionage actor whose attribution Anthropic says is consistent with public reporting linking it to Midnight Blizzard. ReversingLabs compared that report against its own historical telemetry.",
+        "howItWorks": "Anthropic states the actor built automated loops in which agents noticed when security products flagged their malware, then rewrote and redeployed it until it evaded detection. ReversingLabs reports that the loop changed hashes, build artifacts and file names but not the underlying behaviors. A hunt built on the operator's beacon behavior returned seven malicious files and no hits on clean software.",
+        "whoIsAffected": "Anthropic says the actor targeted more than 20 organizations, mainly Ukrainian and European government, military intelligence, diplomatic and defense bodies, along with Ukrainian drone technology suppliers. Anthropic reports the activity ran on its Claude Haiku, Sonnet and Opus models, with a human operator maintaining the Claude Code skills that drove the workflows.",
+        "whatToDo": "Hunt on behavior rather than on hashes wherever an actor can regenerate artifacts cheaply, and retain historical telemetry so a later report can be matched against files already seen. ReversingLabs notes that 13 of the 14 servers Anthropic listed looked low risk in third-party reputation sources, so reputation feeds alone would have missed that infrastructure."
+      },
+      "quickFacts": [
+        {
+          "label": "Actor",
+          "value": "GTG-20006, attribution consistent with Midnight Blizzard (Anthropic)"
+        },
+        {
+          "label": "Anthropic report",
+          "value": "Detecting and countering misuse of AI, September 2026"
+        },
+        {
+          "label": "First seen by RL",
+          "value": "Go backdoor July 6, PowerShell stager July 10, 2026"
+        },
+        {
+          "label": "RL verdict",
+          "value": "Both classified malicious August 1, 2026"
+        },
+        {
+          "label": "Behavior hunt",
+          "value": "7 malicious files, no clean-software hits"
+        },
+        {
+          "label": "Added indicators",
+          "value": "7 files, 8 URLs, 2 infrastructure links absent from Anthropic's appendix"
+        },
+        {
+          "label": "Reputation gap",
+          "value": "13 of 14 listed servers looked low risk in third-party sources"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did Anthropic's report include all of GTG-20006's infrastructure?",
+          "a": "ReversingLabs reports finding seven more files, eight more URLs and two links between the cluster's domains and servers that do not appear in Anthropic's appendix. ReversingLabs also says 13 of the 14 servers Anthropic did list looked low risk in third-party reputation sources. Defenders working only from the published appendix would therefore hold an incomplete indicator set."
+        },
+        {
+          "q": "Did using Claude make the GTG-20006 malware harder to detect?",
+          "a": "ReversingLabs concludes that Claude sped up how quickly the operator could rebuild flagged files but did not change what the malware did. Hashes, build artifacts and names shifted across five stager builds between July 9 and August 3, 2026, while beacon behavior stayed stable enough for a behavior-based hunt to recover seven malicious files."
+        },
+        {
+          "q": "How much earlier did ReversingLabs see the GTG-20006 implants?",
+          "a": "ReversingLabs says it first observed the Go backdoor on July 6, 2026 and the PowerShell stager on July 10, 2026, then classified both as malicious on August 1, 2026. Anthropic's threat intelligence report naming GTG-20006 followed in September 2026, roughly two months later. ReversingLabs presents the gap as evidence that historical telemetry carries detection value."
+        }
+      ],
+      "links": [
+        {
+          "label": "ReversingLabs Analysis",
+          "url": "https://www.reversinglabs.com/blog/anthropic-midnight-blizzard-what-reversinglabs-found-first"
+        },
+        {
+          "label": "Anthropic Threat Report",
+          "url": "https://www.anthropic.com/threat-intelligence-report-september-2026"
+        }
+      ],
+      "image": {
+        "url": "https://www.reversinglabs.com/api/media/file/What-ReversingLabs-Found-Before-Anthropic%E2%80%99s-Midnight-Blizzard-Report-Cover-1400x732.jpg",
+        "alt": "What ReversingLabs found before Anthropic's Midnight Blizzard report",
+        "credit": "ReversingLabs"
+      },
+      "publishDate": "2026-10-09T13:32:23.654Z"
+    },
+    {
+      "id": "owasp-genai-exploit-roundup-q3-2026",
+      "categories": [
+        "research",
+        "incident"
+      ],
+      "title": "OWASP GenAI: a Q3 exploit roundup mapped to its two Top 10 lists",
+      "org": "OWASP GenAI Security Project",
+      "date": "2026-10-08",
+      "url": "https://genai.owasp.org/2026/10/08/genai-and-agentic-ai-exploit-roundup-q3-2026/",
+      "summary": "The OWASP GenAI Security Project published a Q3 2026 roundup on October 8 that catalogues nine AI security incidents from July to September and maps each one to its LLM Top 10 2026 and Agentic Top 10 2026 risks.",
+      "severity": "info",
+      "tags": [
+        "threat-intel",
+        "agent-security",
+        "owasp"
+      ],
+      "affected": [
+        "Hugging Face",
+        "PyPI",
+        "npm",
+        "MCP servers"
+      ],
+      "credits": [
+        {
+          "name": "OWASP GenAI Security Project",
+          "url": "https://genai.owasp.org/2026/10/08/genai-and-agentic-ai-exploit-roundup-q3-2026/"
+        }
+      ],
+      "explainer": {
+        "tagline": "A quarterly catalogue of AI exploits, each mapped to an OWASP risk id and paired with controls the project says an agent cannot rewrite.",
+        "whatHappened": "The OWASP GenAI Security Project published the GenAI and Agentic AI Exploit Roundup for Q3 2026 on October 8, 2026, covering July 1 to September 30. The byline reads OWASPGenAIProject Editor, and no individual author is named. The project states the roundup is neither exhaustive nor an official OWASP publication.",
+        "howItWorks": "Each entry pairs a short incident account with a mapping to the OWASP Top 10 for LLM Applications 2026 and the Top 10 for Agentic Applications 2026, which the project labels analyst assessments rather than findings. Incident facts are drawn from primary accounts by OpenAI, Anthropic, Hugging Face, Microsoft, Varonis and security vendors, each linked from its entry. No independent technical investigation is included.",
+        "whoIsAffected": "The nine entries span Hugging Face production systems, PyPI and npm packages, MCP servers and AI coding agents, grouped as confirmed incidents, research demonstrations and one active campaign. Only one identifier appears in the roundup's Related Published CVEs section, so most entries describe incidents rather than patchable product flaws.",
+        "whatToDo": "Apply the controls the roundup recommends: enforce scope with limits an agent cannot rewrite, such as network egress restrictions and target allowlists, issue per-run short-lived credentials, treat AI coding-agent config files and MCP tool definitions as executable artifacts that need re-approval when they change, and require human approval before any publish to a public registry."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "October 8, 2026"
+        },
+        {
+          "label": "Period covered",
+          "value": "July 1 to September 30, 2026"
+        },
+        {
+          "label": "Entries",
+          "value": "Nine in the detailed list; the overview says seven"
+        },
+        {
+          "label": "Mapped to",
+          "value": "OWASP LLM Top 10 2026 and Agentic Top 10 2026"
+        },
+        {
+          "label": "Largest figure printed",
+          "value": "170+ compromised packages, 518M+ downloads (worm entry)"
+        },
+        {
+          "label": "CVEs listed",
+          "value": "One, CVE-2026-24301"
+        },
+        {
+          "label": "Standing",
+          "value": "Project says it is not exhaustive and not an official OWASP publication"
+        }
+      ],
+      "faq": [
+        {
+          "q": "What period does the OWASP GenAI Q3 2026 roundup cover?",
+          "a": "The roundup covers July 1 through September 30, 2026, and was published on October 8, 2026 by the OWASP GenAI Security Project. Nine entries appear in the detailed list, although the overview section says seven. Entries are grouped as confirmed incidents, research demonstrations and one active campaign, rather than by formal category."
+        },
+        {
+          "q": "Is the OWASP GenAI exploit roundup an official OWASP standard?",
+          "a": "The OWASP GenAI Security Project states the roundup is not exhaustive and not an official OWASP publication, which sets it apart from peer-reviewed deliverables such as the Top 10 for Agentic Applications 2026. The roundup's own contribution is its risk mappings, which it labels analyst assessments, together with per-entry defensive recommendations."
+        },
+        {
+          "q": "Does the roundup contain new vulnerability research?",
+          "a": "No independent technical investigation appears in the roundup. Incident facts come from primary accounts published by OpenAI, Anthropic, Hugging Face, Microsoft, Varonis and security vendors, each linked from its entry. The added value is the mapping of each incident to OWASP risk identifiers, plus a consolidated set of controls and the position that prompt-level instructions alone do not establish a secure boundary."
+        }
+      ],
+      "links": [
+        {
+          "label": "OWASP Q3 Roundup",
+          "url": "https://genai.owasp.org/2026/10/08/genai-and-agentic-ai-exploit-roundup-q3-2026/"
+        },
+        {
+          "label": "Agentic Top 10 2026",
+          "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
+        }
+      ],
+      "image": {
+        "url": "https://genai.owasp.org/wp-content/uploads/2026/10/Cyberpunk-Cowboy-and-Robotic-Horse-Q3-26-1024x585.png",
+        "alt": "OWASP GenAI and Agentic AI Exploit Roundup Q3 2026",
+        "credit": "OWASP GenAI Security Project"
+      },
+      "publishDate": "2026-10-09T13:32:23.654Z"
+    },
     {
       "id": "anthropic-oss-scanner",
       "categories": [
