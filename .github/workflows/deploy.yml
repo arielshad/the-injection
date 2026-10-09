@@ -7,7 +7,7 @@ name: Deploy to GitHub Pages
 # workflows, so the sweep calls this directly).
 #
 # Variables: SITE_URL (canonical origin used by the build, e.g. https://theinjection.dev)
-#            UMAMI_WEBSITE_ID (turns on cookieless Umami analytics; unset = none)
+#            UMAMI_WEBSITE_ID (optional; overrides the Umami website ID in src/site.ts, "off" disables analytics)
 #            UMAMI_HOST (optional tracker origin, default https://stats.theinjection.dev)
 
 on:
