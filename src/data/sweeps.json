@@ -517,6 +517,65 @@
         "gh-repo-meta.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261009t061850z",
+      "timestamp": "2026-10-09T06:18:50.969Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, NVD, OSV, Anthropic, MSRC, Google Cloud security, Embrace The Red, Zenity Labs, AIR, Socket, Wiz, Unit 42, Check Point, JFrog, ReversingLabs, HiddenLayer, Trail of Bits, Lakera, Snyk, OWASP GenAI, UK AISI, Hugging Face, Simon Willison, Hacker News front page and Show HN, github.com/trending, repo-scan (13 queries, 0 candidates), paper-scan (89 papers in window) and talk-scan (44 videos); nothing inside the 7-day window met the bar, and the two in-window links worth adding were already in the feed. Closest calls, all dropped: eight PraisonAI advisories that reached the GitHub Advisory Database on 2026-10-08 but were disclosed in July (NVD puts CVE-2026-61445 at 2026-07-11, fixed in 4.6.78), Anthropic's Cyber Mission post (the OSS Scanner and Cyber Verification Program it announces are already two items, and both already link it), the OWASP GenAI Q3 2026 exploit roundup (an aggregation of other teams' findings, no named authors, self-described as not an official OWASP publication), AIR's Agent Supply Chain Framework (guidance, no new measurements), Snyk's Evo COS post (a vendor benchmark of its own product on its own target app, no new flaw), and Google's Mantis harness (launch post 2026-09-02, outside the window). No paper cleared the two-signal bar: the only two-signal paper, SLDR, is already in the feed, and WebMirage (2610.09240) and the prompt-injection detector re-evaluation (2610.03448) released code but name no production product they attacked. No talk cleared the bar: the one AI security conference upload was at 6,100 views with no second signal, and Embrace The Red's SSMS video is a retelling of an item whose links already include it. openai.com returned 403 and r/netsec would not load, so both are left out of sourcesChecked; YouTube watch pages returned no body, so influencer uploads could not be verified and were left alone.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (github.com/advisories)",
+        "NVD (services.nvd.nist.gov)",
+        "OSV.dev",
+        "PraisonAI repo security advisories",
+        "anthropic.com/news",
+        "Microsoft MSRC blog",
+        "Google Cloud security blog",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security/blog",
+        "socket.dev/blog",
+        "wiz.io/blog",
+        "Unit 42",
+        "Check Point Research",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com research",
+        "blog.trailofbits.com",
+        "lakera.ai/blog",
+        "snyk.io/blog",
+        "OWASP GenAI Security Project news",
+        "UK AISI blog",
+        "huggingface.co/blog",
+        "simonwillison.net",
+        "Hacker News front page and Show HN",
+        "github.com/trending",
+        "repo-scan.json (13 queries)",
+        "paper-scan (arXiv + Hugging Face Daily Papers)",
+        "arXiv abstract pages (2610.09240, 2610.03448)",
+        "talk-scan (22 YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
