@@ -1,6 +1,43 @@
 {
-  "generatedAt": "2026-10-08T07:00:00Z",
+  "generatedAt": "2026-10-09T12:20:00Z",
   "tools": [
+    {
+      "slug": "skillspector",
+      "name": "SkillSpector",
+      "repo": "NVIDIA/SkillSpector",
+      "kind": "scanner",
+      "description": "Security scanner for AI agent skills. Checks a skill for vulnerabilities, malicious patterns and security risks before it is installed, using static analysis and an optional LLM review.",
+      "license": "Apache-2.0",
+      "maintainer": "NVIDIA",
+      "covers": [
+        "Agent skills",
+        "Claude Code",
+        "Codex CLI",
+        "Gemini CLI",
+        "MCP servers"
+      ],
+      "homepage": "https://docs.nvidia.com/skills/scanning-agent-skills",
+      "added": "2026-10-09",
+      "checked": "2026-10-09"
+    },
+    {
+      "slug": "tencent-ai-infra-guard",
+      "name": "AI-Infra-Guard",
+      "repo": "Tencent/AI-Infra-Guard",
+      "kind": "scanner",
+      "description": "Red teaming platform that fingerprints AI infrastructure components against known CVEs and scans MCP servers, agent skills and agent workflows for risks. Also runs LLM jailbreak evaluations.",
+      "license": "Apache-2.0",
+      "maintainer": "Tencent Zhuque Lab",
+      "covers": [
+        "AI infrastructure",
+        "MCP servers",
+        "Agent skills",
+        "LLM jailbreaks"
+      ],
+      "homepage": "https://tencent.github.io/AI-Infra-Guard/",
+      "added": "2026-10-09",
+      "checked": "2026-10-09"
+    },
     {
       "slug": "snyk-agent-scan",
       "name": "Snyk Agent Scan",
@@ -15,7 +52,7 @@
         "Coding agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "cisco-mcp-scanner",
@@ -29,7 +66,7 @@
         "MCP servers"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "splx-agentic-radar",
@@ -43,7 +80,7 @@
         "Agentic workflows"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "protectai-modelscan",
@@ -57,7 +94,7 @@
         "Model files"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "picklescan",
@@ -72,7 +109,7 @@
         "Hugging Face models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "fickling",
@@ -87,7 +124,7 @@
         "PyTorch models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "nemo-guardrails",
@@ -102,7 +139,7 @@
       ],
       "homepage": "https://docs.nvidia.com/nemo/guardrails",
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "guardrails-ai",
@@ -116,7 +153,7 @@
         "LLM applications"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "purple-llama",
@@ -131,7 +168,7 @@
         "Open-weight models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "garak",
@@ -146,7 +183,7 @@
         "Chatbots"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "pyrit",
@@ -160,7 +197,7 @@
         "Generative AI systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "promptfoo",
@@ -175,7 +212,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "deepteam",
@@ -189,7 +226,25 @@
         "LLM systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
+    },
+    {
+      "slug": "anamorpher",
+      "name": "Anamorpher",
+      "repo": "trailofbits/anamorpher",
+      "kind": "red-team",
+      "description": "Crafts and previews image scaling attacks against multi-modal AI systems: images that reveal a prompt injection only once they are downscaled. Covers bicubic, bilinear and nearest-neighbor.",
+      "license": "Apache-2.0",
+      "maintainer": "Trail of Bits",
+      "covers": [
+        "Multi-modal LLMs",
+        "OpenCV",
+        "PyTorch",
+        "TensorFlow",
+        "Pillow"
+      ],
+      "added": "2026-10-09",
+      "checked": "2026-10-09"
     },
     {
       "slug": "agentdojo",
@@ -204,22 +259,23 @@
       ],
       "homepage": "https://agentdojo.spylab.ai/results/",
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "sandbox-runtime",
-      "name": "sandbox-runtime (srt)",
-      "repo": "anthropic-experimental/sandbox-runtime",
+      "name": "Anthropic Sandbox Runtime (srt)",
+      "repo": "anthropics/sandbox-runtime",
       "kind": "sandbox",
       "description": "Lightweight OS-level sandbox that enforces filesystem and network limits on any process without a container. Can sandbox agents, local MCP servers and bash commands. Beta research preview.",
       "license": "Apache-2.0",
       "maintainer": "Anthropic",
       "covers": [
-        "Coding agents",
-        "MCP servers"
+        "Agents",
+        "MCP servers",
+        "Bash commands"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     },
     {
       "slug": "e2b",
@@ -234,7 +290,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-08"
+      "checked": "2026-10-09"
     }
   ]
 }
