@@ -55,7 +55,7 @@ export function GET() {
     "",
     `- [Contact](${abs("/contact/")}): how to reach us`,
     `- [Feedback on GitHub](${SITE.feedbackUrl}): corrections and story tips as issues, questions as discussions`,
-    `- [Privacy](${abs("/privacy/")}): no cookies, no analytics`,
+    `- [Privacy](${abs("/privacy/")}): no cookies; visit counts from self-hosted analytics`,
     `- [RSS](${abs("/rss.xml")})`,
     "",
   ];

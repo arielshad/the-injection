@@ -4,6 +4,7 @@ import "@/styles/global.css";
 import { SITE, abs } from "@/site";
 import Masthead from "@/components/Masthead.astro";
 import Footer from "@/components/Footer.astro";
+import Analytics from "@/components/Analytics.astro";
 
 interface Props {
   title?: string;
@@ -133,6 +134,7 @@ const siteGraph = {
 
     <script type="application/ld+json" set:html={JSON.stringify(siteGraph)} />
     {jsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+    {import.meta.env.PROD && SITE.analytics.websiteId && <Analytics />}
     <noscript><style>[data-blur-fade]{opacity:1!important;filter:none!important;transform:none!important}</style></noscript>
   </head>
   <body class="min-h-dvh bg-paper text-ink">

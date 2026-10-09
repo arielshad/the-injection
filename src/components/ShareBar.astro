@@ -24,10 +24,10 @@ const label = "w-16 shrink-0 font-mono text-[10.5px] uppercase tracking-wider te
   <div class="flex items-start gap-3">
     <p class={label}>Share</p>
     <ul class="flex flex-wrap gap-1.5">
-      <li><button type="button" class={chip} data-copy-url={url} aria-live="polite">Copy link</button></li>
-      <li hidden data-native-share-wrap><button type="button" class={chip} data-native-share data-url={url} data-title={title}>Share…</button></li>
+      <li><button type="button" class={chip} data-copy-url={url} data-track="copy-link" aria-live="polite">Copy link</button></li>
+      <li hidden data-native-share-wrap><button type="button" class={chip} data-native-share data-track="native-share" data-url={url} data-title={title}>Share…</button></li>
       {shareLinks(url, title).map((s) => (
-        <li><a class={chip} href={s.href} rel="noopener nofollow" target="_blank" aria-label={`Share on ${s.label}`}>{s.label}</a></li>
+        <li><a class={chip} href={s.href} rel="noopener nofollow" target="_blank" data-track="share" data-track-target={s.label} aria-label={`Share on ${s.label}`}>{s.label}</a></li>
       ))}
     </ul>
   </div>
@@ -36,7 +36,7 @@ const label = "w-16 shrink-0 font-mono text-[10.5px] uppercase tracking-wider te
       <p class={label}>Ask AI</p>
       <ul class="flex flex-wrap gap-1.5">
         {askAiLinks(askPrompt({ url, title, context, question })).map((s) => (
-          <li><a class={chip} href={s.href} rel="noopener nofollow" target="_blank" aria-label={`Ask ${s.label} about this`}>{s.label}</a></li>
+          <li><a class={chip} href={s.href} rel="noopener nofollow" target="_blank" data-track="ask-ai" data-track-target={s.label} aria-label={`Ask ${s.label} about this`}>{s.label}</a></li>
         ))}
       </ul>
     </div>
