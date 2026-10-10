@@ -1028,6 +1028,88 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261010t202256z",
+      "timestamp": "2026-10-10T20:22:56.708Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, vendor and lab posts (Anthropic, OpenAI alignment, AISI, MSRC, Google threat intel), research blogs (Zenity, AIR, Embrace The Red, JFrog, Wiz, HiddenLayer, Socket, ReversingLabs, Snyk, CrowdStrike, Pluto, Pillar, Cycode), paper-scan (62 arXiv candidates, only SLDR showed two signals and it is already in the feed), repo-scan (13 queries, 0 candidates), GitHub trending, HN and Show HN, and talk-scan (43 videos). Added two CrowdStrike items: the ARTEX campaign against South Korean finance and a safety-classifier bypass by request decomposition. Left out the large advisory batches for Langflow, PraisonAI and vLLM: each was originally published before the window (June to September) and only reached the global GitHub advisory database this week. r/netsec could not be fetched in this run.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "crowdstrike-artex-korean-finance",
+          "title": "ARTEX: attackers paired an agentic pentest tool with Claude Code",
+          "category": "incident",
+          "severity": "info",
+          "note": "First named report of the open-source agentic pentest tool ARTEX being used in an in-the-wild campaign, with the operator's own Claude Code sessions and indicators published inside the window."
+        },
+        {
+          "id": "crowdstrike-classifier-decomposition-bypass",
+          "title": "Request, Aggregate, Bypass: benign subtasks defeat a safety classifier",
+          "category": "attack",
+          "severity": "medium",
+          "note": "A measured bypass of a deployed frontier-model safety classifier where all 515 direct attempts failed, with named researchers and an independent Microsoft Research parallel."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json (13 queries, 0 candidates)",
+        "paper-scan.ts (62 arXiv candidates)",
+        "talk-scan.ts (43 videos)",
+        "Hacker News front page and Show HN",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "alignment.openai.com",
+        "Google Cloud threat intelligence blog",
+        "Microsoft MSRC blog",
+        "aisi.gov.uk",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security",
+        "socket.dev/blog",
+        "JFrog Research",
+        "wiz.io/blog",
+        "hiddenlayer.com",
+        "lakera.ai/blog",
+        "blog.trailofbits.com",
+        "reversinglabs.com/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "snyk.io AI security blog",
+        "crowdstrike.com/blog",
+        "cycode.com",
+        "pluto.security",
+        "pillar.security",
+        "knostic.ai",
+        "hush.security",
+        "coalitionforsecureai.org",
+        "CISA KEV catalog",
+        "simonwillison.net",
+        "artificialanalysis.ai",
+        "adversa.ai roundups (discovery only)"
+      ],
+      "windowDays": 7
     }
   ]
 }

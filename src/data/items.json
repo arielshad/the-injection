@@ -1,7 +1,196 @@
 {
-  "generatedAt": "2026-10-10T16:11:08.600Z",
+  "generatedAt": "2026-10-10T20:22:56.708Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "crowdstrike-artex-korean-finance",
+      "categories": [
+        "incident"
+      ],
+      "title": "ARTEX: attackers paired an agentic pentest tool with Claude Code",
+      "org": "CrowdStrike",
+      "date": "2026-10-07",
+      "url": "https://www.crowdstrike.com/en-us/blog/unknown-threat-actor-uses-artex-to-target-south-korean-finance/",
+      "summary": "ARTEX, an open-source agentic pentesting tool developed in China, was used alongside Claude Code and DeepSeek against South Korean financial organizations in late September 2026, CrowdStrike Intelligence reports.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "claude-code",
+        "deepseek"
+      ],
+      "affected": [
+        "Claude Code",
+        "ARTEX",
+        "DeepSeek v4.1-flash"
+      ],
+      "credits": [
+        {
+          "name": "Counter Adversary Operations",
+          "org": "CrowdStrike",
+          "url": "https://www.crowdstrike.com/en-us/blog/unknown-threat-actor-uses-artex-to-target-south-korean-finance/"
+        }
+      ],
+      "explainer": {
+        "tagline": "CrowdStrike found the attacker's own Claude Code session histories and ARTEX configuration files sitting in an open directory.",
+        "whatHappened": "CrowdStrike Intelligence published this analysis on October 7, 2026, after linking infrastructure to breaches at South Korean financial organizations that began in late September 2026. Open directories on the attacker's own servers exposed Claude Code session histories, ARTEX configuration files and Claude memory files. CrowdStrike reports that data was exfiltrated.",
+        "howItWorks": "ARTEX is described by CrowdStrike as a recently released open-source agentic penetration testing tool developed in China. The operator ran it with DeepSeek v4.1-flash as its primary model and kept a Chinese-language CLAUDE.md file on the ARTEX host that specified how the model should conduct a pentest. Additional Claude Code sessions used GLM-5.3 from Zhipu AI and Grok 4.6. The sessions show a two-server setup, with a Hong Kong based address as primary infrastructure and the ARTEX host likely responsible for the Korean activity.",
+        "whoIsAffected": "Several South Korean financial organizations were breached from late September 2026, and CrowdStrike says the number affected remains unconfirmed. At one bank the operator breached a loan progress inquiry service used by financial brokers, and at another it compromised an employee mobile work-support system.",
+        "whatToDo": "Block or monitor the ARTEX host and the nine proxy addresses in CrowdStrike's indicator table, listed below. CrowdStrike maps the activity to three MITRE ATT&CK techniques, among them T1588.007, obtaining AI capabilities, which covers adversary use of public generative AI services."
+      },
+      "quickFacts": [
+        {
+          "label": "Actor",
+          "value": "Not named, assessed as a Chinese speaker and financially motivated"
+        },
+        {
+          "label": "Confidence",
+          "value": "Moderate, based on a Chinese-developed tool and Chinese-language prompts"
+        },
+        {
+          "label": "Activity window",
+          "value": "Late September to early October 2026"
+        },
+        {
+          "label": "Offensive tool",
+          "value": "ARTEX, open-source agentic pentesting tool developed in China"
+        },
+        {
+          "label": "Models used",
+          "value": "DeepSeek v4.1-flash as primary, plus GLM-5.3 and Grok 4.6 in Claude Code sessions"
+        },
+        {
+          "label": "Indicators",
+          "value": "ARTEX host 38.244.50[.]120, nine proxy addresses, API reseller xcai[.]pro"
+        },
+        {
+          "label": "ATT&CK",
+          "value": "T1583.003, T1588.007, T1090"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which AI models did the ARTEX operator use?",
+          "a": "CrowdStrike reports that the ARTEX instance ran DeepSeek v4.1-flash as its primary model, likely reached through the API proxy and reseller xcai[.]pro. The same operator used GLM-5.3 from Zhipu AI and Grok 4.6 in additional Claude Code sessions, and kept a Chinese-language CLAUDE.md file on the ARTEX host that set out how the model should run a pentest."
+        },
+        {
+          "q": "Did CrowdStrike attribute the South Korean finance campaign to a named group?",
+          "a": "No named adversary is attached to this activity. CrowdStrike assesses with moderate confidence that the operator is a Chinese speaker and financially motivated, basing that on the Chinese-developed ARTEX tool and the Chinese-language prompts found in the exposed sessions. The report also notes that the operator asked Claude where threat actors usually sell Korean breach data."
+        },
+        {
+          "q": "What indicators did CrowdStrike publish for the ARTEX activity?",
+          "a": "CrowdStrike lists 38.244.50[.]120 as the threat actor controlled host that ran the ARTEX instance and the open directory, plus nine proxy addresses and the xcai[.]pro API reseller. The report maps the activity to three MITRE ATT&CK techniques: T1583.003 for the virtual private servers, T1588.007 for obtaining AI capabilities, and T1090 for proxy use."
+        }
+      ],
+      "links": [
+        {
+          "label": "CrowdStrike Report",
+          "url": "https://www.crowdstrike.com/en-us/blog/unknown-threat-actor-uses-artex-to-target-south-korean-finance/"
+        },
+        {
+          "label": "MITRE T1588.007",
+          "url": "https://attack.mitre.org/techniques/T1588/007/"
+        }
+      ],
+      "publishDate": "2026-10-10T20:22:56.708Z"
+    },
+    {
+      "id": "crowdstrike-classifier-decomposition-bypass",
+      "categories": [
+        "attack",
+        "research"
+      ],
+      "title": "Request, Aggregate, Bypass: benign subtasks defeat a safety classifier",
+      "org": "CrowdStrike",
+      "date": "2026-10-06",
+      "url": "https://www.crowdstrike.com/en-us/blog/how-attackers-can-bypass-llm-safety-classifiers/",
+      "summary": "Splitting an offensive goal into benign subtasks let CrowdStrike's lab pull exploit knowledge out of a classifier-guarded frontier model, then have a smaller unguarded model assemble working code in 9 of 10 attack categories.",
+      "severity": "medium",
+      "tags": [
+        "guardrail-bypass",
+        "jailbreak",
+        "cyber-capability",
+        "anthropic"
+      ],
+      "affected": [
+        "Claude Opus 5.5",
+        "Claude Fable 5"
+      ],
+      "credits": [
+        {
+          "name": "Donato Onofri",
+          "org": "CrowdStrike Cyber Superintelligence Lab",
+          "url": "https://www.crowdstrike.com/en-us/blog/how-attackers-can-bypass-llm-safety-classifiers/"
+        },
+        {
+          "name": "Paul Urian",
+          "org": "CrowdStrike Cyber Superintelligence Lab",
+          "url": "https://www.crowdstrike.com/en-us/blog/how-attackers-can-bypass-llm-safety-classifiers/"
+        }
+      ],
+      "explainer": {
+        "tagline": "A safety classifier blocked every one of about 515 direct attempts, then approved the same capability split across separate benign requests.",
+        "whatHappened": "Donato Onofri and Paul Urian of the CrowdStrike Cyber Superintelligence Lab published this technique on October 6, 2026. The team reports that no direct attempt in a set of about 515 bypass techniques, covering encodings, Unicode tricks, multi-turn escalation and psychological manipulation, got past the classifier it tested. The pipeline they built instead produced working exploit code in 9 of 10 categories aligned to MITRE ATT&CK.",
+        "howItWorks": "Request decomposition splits an objective into subtasks that each read as a legitimate software question, so a classifier judging one request at a time never sees the combined intent. The guarded frontier model supplies the primitives, and a smaller model with no classifier assembles them into the finished artifact. In the team's process injection case, three benign requests to the guarded model gave the smaller model enough to produce a 221-line compilable C program. CrowdStrike reports that the frontier model's domain knowledge transferred to the smaller model, with the largest effect in specialized domains.",
+        "whoIsAffected": "CrowdStrike tested what it calls the most advanced publicly deployed content safety classifier, which it says guards models such as Claude Opus 5.5 and Fable 5 at AI Safety Level 3. Defense evasion was the one category of ten that held, because the classifier blocked it at the conceptual level.",
+        "whatToDo": "Extend the threat model from single requests to request sequences, cross-model composition and knowledge transfer between guarded and unguarded models. The authors name cross-request semantic tracking as the natural mitigation, but say attackers can spread requests across providers, use local models or rotate API keys to escape it."
+      },
+      "quickFacts": [
+        {
+          "label": "Direct bypass rate",
+          "value": "0% across about 515 techniques"
+        },
+        {
+          "label": "Pipeline result",
+          "value": "Working exploit code in 9 of 10 ATT&CK-aligned categories"
+        },
+        {
+          "label": "Category that held",
+          "value": "Defense evasion, blocked at the conceptual level"
+        },
+        {
+          "label": "Example payload",
+          "value": "221-line compilable C program for Windows process injection"
+        },
+        {
+          "label": "Classifier tested",
+          "value": "Not named, AI Safety Level 3, guards Claude Opus 5.5 and Fable 5"
+        },
+        {
+          "label": "Found by",
+          "value": "CrowdStrike Cyber Superintelligence Lab"
+        },
+        {
+          "label": "Prior work",
+          "value": "Capability Laundering, Microsoft Research, September 2026, found independently"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the CrowdStrike classifier bypass a jailbreak of Claude?",
+          "a": "No single prompt broke the model. CrowdStrike reports that all of its roughly 515 direct bypass techniques failed against the classifier, which it rates the strongest publicly evaluated defense it has met. The bypass sits in the architecture instead: each decomposed request is genuinely benign, and a second model without a classifier does the assembly. The team concludes the classifier works and its surroundings need hardening."
+        },
+        {
+          "q": "Which attack category resisted the request decomposition pipeline?",
+          "a": "Defense evasion was the single category of ten that held. CrowdStrike reports that the classifier blocked this one at the conceptual level, so decomposition could not reach it, while the other nine categories yielded working exploit code. The ten categories were aligned to MITRE ATT&CK, and the lab also ran controlled A/B tests across eight use cases to compare the smaller model alone against the full pipeline."
+        },
+        {
+          "q": "How does this compare with Microsoft Research's Capability Laundering?",
+          "a": "Capability Laundering describes the same shape of attack: an unaligned local model splits harmful tasks into benign subtask queries aimed at aligned frontier models. Microsoft Research published it in September 2026, and CrowdStrike states the two teams worked independently. CrowdStrike's contribution is the measured run against a deployed Level 3 classifier and the working code it produced."
+        }
+      ],
+      "links": [
+        {
+          "label": "CrowdStrike Research",
+          "url": "https://www.crowdstrike.com/en-us/blog/how-attackers-can-bypass-llm-safety-classifiers/"
+        },
+        {
+          "label": "Capability Laundering",
+          "url": "https://microsoft.github.io/capability-laundering/"
+        }
+      ],
+      "publishDate": "2026-10-10T20:22:56.708Z"
+    },
     {
       "id": "azure-sre-agent-missing-authorization",
       "categories": [
