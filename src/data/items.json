@@ -1,7 +1,95 @@
 {
-  "generatedAt": "2026-10-10T20:22:56.708Z",
+  "generatedAt": "2026-10-10T23:50:05.863Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "talos-a3-ai-analysis-evasion",
+      "categories": [
+        "attack",
+        "research"
+      ],
+      "title": "A3 malware: Talos measures prompt injection aimed at AI triage",
+      "org": "Cisco Talos",
+      "date": "2026-10-08",
+      "url": "https://blog.talosintelligence.com/ignore-all-instructions-and-read-this-blog-the-state-of-ai-analysis-evasion-in-malware",
+      "summary": "Four malware families embed natural-language instructions to steer AI malware triage toward a benign verdict, Cisco Talos reports. Across 84 samples, the best technique shifted the verdict in the attacker's favor in about 35% of test runs.",
+      "severity": "info",
+      "tags": [
+        "prompt-injection",
+        "ai-enabled-offense",
+        "threat-intel",
+        "detection"
+      ],
+      "credits": [
+        {
+          "name": "Ryan Fetterman",
+          "org": "Cisco Talos",
+          "url": "https://blog.talosintelligence.com/author/ryan-fetterman/"
+        }
+      ],
+      "explainer": {
+        "tagline": "Cisco Talos tracked malware that writes messages to the AI reading it, then measured how often the trick actually works.",
+        "whatHappened": "Cisco Talos published a survey of AI-analysis evasion in malware on October 8, 2026, written by Ryan Fetterman. Talos calls the category A3: malware that embeds natural-language instructions to influence automated analysis. The study draws on samples collected through CAIRN, Talos's open-source toolkit for tracking AI-integrated malware, with the counts and family names listed below.",
+        "howItWorks": "A3 samples carry prompt injection text addressed to whatever model reads the file. FRUITSHELL opens with a comment telling the reader the script is benign and only generates prime numbers, code the script does not contain. HOLLOWCLAD uses template spraying: one instruction, repeated in seven LLM chat-template formats, so it lands whichever format the analysis pipeline uses. MANTLEMAZE claims ownership by Google, Microsoft and Valve and cites a fabricated US Air Force contract number and a fabricated FIPS 140-3 certification.",
+        "whoIsAffected": "Malware triage pipelines that pass a sample's own strings to a language model are the target, not the models themselves. Talos tested a panel of five local LLMs rating files as benign, suspicious or malicious, and reports that conventional detection is unaffected. Talos describes the progression as interesting but not alarming.",
+        "whatToDo": "Treat text found inside a sample as evidence, never as instruction, and make the boundary between an analyst's prompt and extracted content explicit so string blocks are never read as directives. Talos also advises alerting on plaintext imperative language aimed at analysis systems, because legitimate software has no reason to carry it."
+      },
+      "quickFacts": [
+        {
+          "label": "Samples",
+          "value": "84, collected January 2025 to July 2026"
+        },
+        {
+          "label": "Families",
+          "value": "FRUITSHELL, PLOTSAFE, HOLLOWCLAD, MANTLEMAZE"
+        },
+        {
+          "label": "Attack type",
+          "value": "Prompt injection embedded in malware (A3)"
+        },
+        {
+          "label": "Test setup",
+          "value": "Five local LLMs, three runs, 135 matched pairs per string"
+        },
+        {
+          "label": "Most effective",
+          "value": "Direct instructions to ignore the sample"
+        },
+        {
+          "label": "Found by",
+          "value": "Ryan Fetterman (Cisco Talos)"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-10-08"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does prompt injection inside malware actually fool AI analysis?",
+          "a": "Prompt injection inside malware works some of the time. Cisco Talos reports that the best techniques steered the outcome in the attacker's favor in about 35% of test runs, and that the cheapest option, a direct instruction to ignore the sample, worked almost universally. More elaborate attempts produced little impact or made the models more suspicious."
+        },
+        {
+          "q": "Is conventional malware detection affected by A3 techniques?",
+          "a": "Conventional malware detection is not affected, according to Cisco Talos. The A3 strings target language models reading a sample, not signature or behavioral engines, and Talos describes the progression as interesting but not alarming. Talos adds that a well-built AI pipeline is not much more vulnerable than an analyst who recognizes prompt injection when they see it."
+        },
+        {
+          "q": "How widely is the FRUITSHELL AI evasion comment reused?",
+          "a": "The FRUITSHELL AI evasion comment spread beyond its original family. Cisco Talos observed the same comment verbatim in nine additional scripts attributable to at least four distinct actors, including ROZESHELL, which paired it with an AMSI bypass and a shellcode loader. Talos found the original FRUITSHELL sample in a public PowerShell reverse-shell collection on GitHub."
+        }
+      ],
+      "links": [
+        {
+          "label": "Talos Research",
+          "url": "https://blog.talosintelligence.com/ignore-all-instructions-and-read-this-blog-the-state-of-ai-analysis-evasion-in-malware"
+        },
+        {
+          "label": "CAIRN Introduction",
+          "url": "https://blog.talosintelligence.com/introducing-cairn-frontier-tracking-for-ai-integrated-malware/"
+        }
+      ],
+      "publishDate": "2026-10-10T23:50:05.863Z"
+    },
     {
       "id": "crowdstrike-artex-korean-finance",
       "categories": [

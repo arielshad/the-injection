@@ -1110,6 +1110,78 @@
         "adversa.ai roundups (discovery only)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261010t235005z",
+      "timestamp": "2026-10-10T23:50:05.863Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (web and REST API), Cisco Talos, Anthropic, OpenAI alignment, MSRC, Google threat intel, AIR, Zenity, Trail of Bits, JFrog, Check Point, Socket, ReversingLabs, HiddenLayer, Mindgard, Lakera, Invariant, Unit 42, NCC Group, UK AISI, OWASP GenAI, Hugging Face, Hacker News and Show HN, GitHub trending (weekly), repo-scan (13 queries, 0 candidates), paper-scan (62 papers in window) and talk-scan (34 videos); one candidate met the bar, Cisco Talos on prompt injection embedded in malware to steer AI-assisted triage. Left out on purpose: GitSpawn, the Cycode MCP Python SDK OAuth flaw, Huntress on Custom GPT ClickFix, Transluce on agents probing government sites and HiddenLayer's Hugging Face dead-drop analysis all have original disclosure dates before 2026-10-03; no arXiv paper showed two signals that is not already in the feed (SLDR, PersistBD, BRANCH and HarnessSecurity-Bench are already items, and WebMirage and the option-channel guardrail attack had code only); NVIDIA SkillSpector, pipelock and the Show HN agent-pentest harness Vigil all failed the repo bar on dating or signals; OpenAI's October 9 misalignment report on a grader damaging its task environment was dropped because it names no researchers and openai.com returns 403 to scripts, leaving no second citable link; the Embrace The Red SSMS Copilot talk video is already linked on that item; r/netsec, NVD search and the Wiz research index did not load, and github.com HTML pages (the CAIRN repo and family docs) returned 503 and 504 to scripts, so they were left out of links.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "talos-a3-ai-analysis-evasion",
+          "title": "A3 malware: Talos measures prompt injection aimed at AI triage",
+          "category": "attack",
+          "severity": "info",
+          "note": "First measured study of prompt injection planted in real malware to steer LLM-assisted triage, published inside the window by a named Talos researcher, with per-family samples and a stated success rate."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (github.com/advisories)",
+        "GitHub advisories REST API (pip, npm, 2026-10-03 to 2026-10-11)",
+        "blog.talosintelligence.com",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "microsoft.com/msrc/blog",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "air.security/blog",
+        "labs.zenity.io",
+        "blog.trailofbits.com",
+        "research.jfrog.com/vulnerabilities",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com/innovation-hub/research",
+        "mindgard.ai/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "unit42.paloaltonetworks.com",
+        "nccgroup.com/research-blog",
+        "aisi.gov.uk/work",
+        "genai.owasp.org/news",
+        "huggingface.co/blog",
+        "Hacker News front page and Show HN",
+        "github.com/trending (weekly)",
+        "github.com/topics/prompt-injection",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + Hugging Face Daily Papers)",
+        "talk-scan.ts (conference and security-voice YouTube channels)",
+        "simonwillison.net",
+        "embracethered.com/blog",
+        "huntress.com/blog",
+        "transluce.org",
+        "adversa.ai/blog",
+        "gh-repo-meta.ts (NVIDIA/SkillSpector, luckyPipewrench/pipelock, VigilOSS/Vigil, Cisco-Talos/CAIRN)"
+      ],
+      "windowDays": 7
     }
   ]
 }
