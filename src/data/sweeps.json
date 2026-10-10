@@ -808,6 +808,60 @@
         "github.com/microsoft/mxc"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261010t023232z",
+      "timestamp": "2026-10-10T02:32:32.225Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked Anthropic news, OpenAI, Google Cloud security, MSRC, GitHub Security Advisories, CISA KEV, AIR, Zenity Labs, Socket, Cycode, Pillar, Pluto, Embrace The Red, Simon Willison, OWASP GenAI, UK AISI, Hugging Face, Hacker News front page and Show HN, GitHub trending, paper-scan (75 arXiv papers in window, 1 with two scanned signals) and repo-scan (13 queries, 0 candidates). No new AI-security disclosure, tool, paper or talk inside the 7-day window met the bar: the strongest candidates were all either already in the feed or dated before 2026-10-03.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "anthropic.com/news",
+        "cloud.google.com/blog/products/identity-security",
+        "microsoft.com/en-us/msrc/blog",
+        "github.com/advisories",
+        "github.com/pydantic/pydantic-ai/security/advisories",
+        "cisa.gov/known-exploited-vulnerabilities-catalog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "cycode.com/blog",
+        "pillar.security/blog",
+        "pluto.security/blog",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/blog",
+        "huggingface.co/blog",
+        "news.ycombinator.com/front",
+        "news.ycombinator.com/show",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts",
+        "gh-repo-meta.ts (morluto/rea)",
+        "adversa.ai digests (discovery only)"
+      ],
+      "windowDays": 7
     }
   ]
 }
