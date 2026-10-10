@@ -932,6 +932,102 @@
         "techcrunch.com (discovery only)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261010t161108z",
+      "timestamp": "2026-10-10T16:11:08.600Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research blogs, GitHub Security Advisories, arXiv, GitHub repo and trending data, Hacker News and conference and creator channels for the 7-day window to 2026-10-10. Added four items: a JFrog approval-bypass CVE in the VTCode coding agent, a Splunk MCP Server token leak, NCC Group's agent sandbox research, and Microsoft's service-side Azure SRE Agent CVE. Most candidates failed on dating: Adversa's MCP and coding-agent digests, GitSpawn, the Cycode MCP Python SDK flaw, the Pillar Grafana MCP findings, Langflow, Flowise, praisonai and pydantic-ai all had original disclosure dates before 2026-10-03, even where NVD or the GitHub Advisory Database republished them inside the window. paper-scan returned 65 arXiv papers in the window and only one with two scanned signals, which is already in the feed; WebMirage, SkillPoison, PackHallu and the option-channel guardrail attack each showed released code but no second signal, so no papers qualified. repo-scan ran 13 queries and returned zero candidates, and GitHub trending held no AI security repos. talk-scan found one relevant video, an Embrace The Red talk on CVE-2026-65669, already linked from that item. r/netsec could not be fetched from this runner, and openai.com returned 403 to the fetcher.",
+      "counts": {
+        "added": 4,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "jfrog-vtcode-find-approval-bypass",
+          "title": "VTCode: a quoted flag slipped past the agent's find approval check",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A disclosed CVE with a fix in an AI coding agent's approval system, and the quote-splicing bypass is a lesson for anyone building agent command allowlists."
+        },
+        {
+          "id": "splunk-mcp-server-custom-tool-token-leak",
+          "title": "Splunk MCP Server: a custom tool's URL could capture a user's token",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A credited, fixed CVE in the MCP server of a widely deployed security product, where the leaked value is the running user's own platform token."
+        },
+        {
+          "id": "nccgroup-agent-sandbox-breakout",
+          "title": "NCC Group: subagents did not inherit the parent agent's guardrails",
+          "category": "research",
+          "severity": "info",
+          "note": "First-hand assessment findings on agent sandbox strength, including that Claude Agent SDK subagents did not inherit the parent's guardrails, with concrete isolation advice."
+        },
+        {
+          "id": "azure-sre-agent-missing-authorization",
+          "title": "Azure SRE Agent: Microsoft discloses a critical authorization flaw",
+          "category": "vulnerability",
+          "severity": "low",
+          "note": "Microsoft's first published CVE for Azure SRE Agent, rated critical and fixed service-side, so the defender answer is that no action is needed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "anthropic.com/news",
+        "Microsoft Security Update Guide",
+        "MSRC blog",
+        "Google safety and security blog",
+        "GitHub Security Advisories",
+        "NVD",
+        "Splunk advisories",
+        "JFrog Security Research",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "hiddenlayer.com research",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com research",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "cycode.com/blog",
+        "pillar.security/blog",
+        "pluto.security/blog",
+        "knostic.ai/blog",
+        "manifold.security/blog",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "genai.owasp.org",
+        "aisi.gov.uk/blog",
+        "nist.gov/caisi",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }
