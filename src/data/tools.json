@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T11:40:00Z",
+  "generatedAt": "2026-10-11T11:45:00Z",
   "tools": [
     {
       "slug": "skillspector",
@@ -18,7 +18,7 @@
       ],
       "homepage": "https://docs.nvidia.com/skills/scanning-agent-skills",
       "added": "2026-10-09",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "tencent-ai-infra-guard",
@@ -36,7 +36,7 @@
       ],
       "homepage": "https://tencent.github.io/AI-Infra-Guard/",
       "added": "2026-10-09",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "snyk-agent-scan",
@@ -52,7 +52,7 @@
         "Coding agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "cisco-mcp-scanner",
@@ -66,7 +66,7 @@
         "MCP servers"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "splx-agentic-radar",
@@ -80,7 +80,23 @@
         "Agentic workflows"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
+    },
+    {
+      "slug": "numbat",
+      "name": "numbat",
+      "repo": "perplexityai/numbat",
+      "kind": "scanner",
+      "description": "Endpoint visibility for AI agent activity. Finds the agents on a machine and flags risky actions with CEL and YAML rules, such as a secret file read followed by egress. Shipped rules only monitor.",
+      "license": "Apache-2.0",
+      "maintainer": "Perplexity",
+      "covers": [
+        "Codex",
+        "Claude Code",
+        "OpenClaw"
+      ],
+      "added": "2026-10-11",
+      "checked": "2026-10-11"
     },
     {
       "slug": "protectai-modelscan",
@@ -94,7 +110,7 @@
         "Model files"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "picklescan",
@@ -109,7 +125,7 @@
         "Hugging Face models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "fickling",
@@ -124,7 +140,7 @@
         "PyTorch models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "nemo-guardrails",
@@ -139,7 +155,7 @@
       ],
       "homepage": "https://docs.nvidia.com/nemo/guardrails",
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "guardrails-ai",
@@ -153,7 +169,7 @@
         "LLM applications"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "purple-llama",
@@ -168,7 +184,7 @@
         "Open-weight models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "garak",
@@ -183,7 +199,7 @@
         "Chatbots"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "pyrit",
@@ -197,7 +213,7 @@
         "Generative AI systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "promptfoo",
@@ -212,7 +228,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "deepteam",
@@ -226,7 +242,7 @@
         "LLM systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "anamorpher",
@@ -244,7 +260,7 @@
         "Pillow"
       ],
       "added": "2026-10-09",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "agentdojo",
@@ -259,7 +275,7 @@
       ],
       "homepage": "https://agentdojo.spylab.ai/results/",
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "uber-adr",
@@ -278,7 +294,25 @@
         "MCP servers"
       ],
       "added": "2026-10-10",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
+    },
+    {
+      "slug": "giskard",
+      "name": "Giskard",
+      "repo": "Giskard-AI/giskard-oss",
+      "kind": "eval",
+      "description": "Python library for evals, red teaming and test generation on agentic systems. Its Scan mode probes an agent for prompt injection, jailbreaks, harmful content and other OWASP LLM Top 10 risks.",
+      "license": "Apache-2.0",
+      "maintainer": "Giskard",
+      "covers": [
+        "LLM agents",
+        "Multi-step pipelines",
+        "OpenAI",
+        "Anthropic"
+      ],
+      "homepage": "https://docs.giskard.ai/oss",
+      "added": "2026-10-11",
+      "checked": "2026-10-11"
     },
     {
       "slug": "sandbox-runtime",
@@ -294,7 +328,7 @@
         "Bash commands"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "e2b",
@@ -309,7 +343,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "toolhive",
@@ -329,7 +363,7 @@
       ],
       "homepage": "https://docs.stacklok.com/toolhive/",
       "added": "2026-10-10",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
     },
     {
       "slug": "agent-sandbox",
@@ -347,7 +381,25 @@
       ],
       "homepage": "https://agent-sandbox.sigs.k8s.io",
       "added": "2026-10-10",
-      "checked": "2026-10-10"
+      "checked": "2026-10-11"
+    },
+    {
+      "slug": "nono",
+      "name": "nono",
+      "repo": "nolabs-ai/nono",
+      "kind": "sandbox",
+      "description": "Least-privilege sandbox for AI coding agents, with no container, VM or daemon. Hides SSH keys, cloud credentials and the rest of the disk from the agent. Delegated tools get their own policies.",
+      "license": "Apache-2.0",
+      "maintainer": "nolabs, inc",
+      "covers": [
+        "Claude Code",
+        "Codex",
+        "OpenCode",
+        "OpenClaw"
+      ],
+      "homepage": "https://docs.nono.sh",
+      "added": "2026-10-11",
+      "checked": "2026-10-11"
     }
   ]
 }
