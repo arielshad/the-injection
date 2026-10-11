@@ -1252,6 +1252,85 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261011t130459z",
+      "timestamp": "2026-10-11T13:04:59.176Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (including October 4 and 5 pages), Grafana, MSRC, Anthropic news and Frontier Red Team, OpenAI alignment blog, Google GTIG, AISI, OWASP GenAI, CISA KEV, Embrace The Red, Zenity Labs, AIR Security, Socket, JFrog, Unit 42, Check Point, ReversingLabs, Trail of Bits, NCC Group, Wiz, Snyk, Pillar, Pluto, Knostic, HiddenLayer, Simon Willison, Hacker News, Hugging Face, GitHub trending, repo-scan (13 queries, 0 candidates), paper-scan (57 papers) and talk-scan (22 channels, 41 videos). One new disclosure met the bar: an arbitrary file read in Grafana's mcp-k6 MCP server, fixed the day it was published. Most October 4 to 11 candidates were old disclosures newly propagated into the GitHub Advisory Database (Langflow, PraisonAI, MaxKB), or research published just before the window (GitSpawn, PixelLeak, Pluto's MCP scanner bypasses).",
+      "counts": {
+        "added": 1,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "grafana-mcp-k6-prompt-file-read",
+          "title": "mcp-k6: a Grafana MCP prompt returned any file the server could read",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A new MCP server disclosure inside the window, from the vendor's own advisory with an official CVSS, a named reporter in the CVE record, and a fix a defender can act on."
+        }
+      ],
+      "updated": [
+        {
+          "id": "microsoft-mxc-sdk-v1",
+          "title": "MXC: Microsoft ships a stable sandbox SDK for untrusted model output",
+          "note": "Microsoft's own launch post for MXC, published October 7 by Logan Iyer on the Windows Developer Blog, was missing from the item. It is the announcement of record, says MXC is generally available, names the containment backends, and reached the Hacker News front page."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "grafana.com/security/security-advisories",
+        "nvd.nist.gov",
+        "cisa.gov Known Exploited Vulnerabilities Catalog",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "msrc.microsoft.com/blog",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "aisi.gov.uk/blog",
+        "genai.owasp.org/news",
+        "embracethered.com/blog",
+        "labs.zenity.io",
+        "air.security/blog",
+        "socket.dev/blog",
+        "research.jfrog.com/vulnerabilities",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "wiz.io/blog",
+        "snyk.io/blog",
+        "pillar.security/blog",
+        "pluto.security/blog",
+        "knostic.ai/blog",
+        "hiddenlayer.com/innovation-hub",
+        "lakera.ai/blog",
+        "adversa.ai/blog",
+        "simonwillison.net",
+        "Hacker News front page and Algolia search",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, guard)",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + Hugging Face Daily Papers)",
+        "talk-scan.ts (22 YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }

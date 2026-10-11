@@ -1,7 +1,91 @@
 {
-  "generatedAt": "2026-10-11T06:00:31.896Z",
+  "generatedAt": "2026-10-11T13:04:59.176Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "grafana-mcp-k6-prompt-file-read",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "mcp-k6: a Grafana MCP prompt returned any file the server could read",
+      "org": "Grafana Labs",
+      "date": "2026-10-05",
+      "url": "https://grafana.com/security/security-advisories/cve-2026-89039",
+      "summary": "CVE-2026-89039 is an arbitrary file read in mcp-k6, Grafana's experimental k6 MCP server, where the convert_playwright_script prompt returned the contents of any file the server's user could read. Grafana fixed it in 0.7.0.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "credential-theft",
+        "grafana",
+        "k6"
+      ],
+      "affected": [
+        "mcp-k6"
+      ],
+      "cve": "CVE-2026-89039",
+      "cvss": 6.5,
+      "credits": [
+        {
+          "name": "bebold6133"
+        }
+      ],
+      "explainer": {
+        "tagline": "One prompt on Grafana's mcp-k6 server returned any file its user could read, including SSH keys and cloud credentials.",
+        "whatHappened": "Grafana Labs published an advisory for CVE-2026-89039 on October 5, 2026, covering mcp-k6, its MCP server for the k6 load testing tool. The CVE record credits a researcher named bebold6133 and records the discovery as a bug bounty finding. Grafana shipped the fix in mcp-k6 0.7.0 on the same day.",
+        "howItWorks": "The convert_playwright_script prompt accepted a file path in its playwright_script argument and returned that file's contents to the caller. mcp-k6 restricted paths beginning with '@' to the working directory, but a bare path skipped that check, and a leading '~' expanded to the user's home directory. The server never canonicalized the path, so a symbolic link placed inside the working directory could point outside it and bypass the restriction too.",
+        "whoIsAffected": "Releases from 0.3.0 up to 0.7.0 carry the flaw, and Grafana's README describes the server as experimental. The CVSS vector requires low privileges, so the caller must already be able to invoke prompts on the server. What is exposed is whatever the account running mcp-k6 can read, which Grafana names as SSH keys and cloud credentials in that user's home directory.",
+        "whatToDo": "Upgrade mcp-k6 to 0.7.0 or later. Grafana's release notes for 0.7.0 say a broken release workflow pushed no container image, so deployments that pull images need another path to the fixed version. Rotate any SSH key or cloud credential readable by the account that ran an affected server."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "mcp-k6 0.3.0 up to 0.7.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "mcp-k6 0.7.0, released October 5, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-89039"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.5 medium, CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+        },
+        {
+          "label": "Found by",
+          "value": "bebold6133, recorded as a bug bounty finding"
+        },
+        {
+          "label": "Attack type",
+          "value": "Path traversal through an MCP prompt argument"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed, no container image published for 0.7.0"
+        }
+      ],
+      "links": [
+        {
+          "label": "Grafana Advisory",
+          "url": "https://grafana.com/security/security-advisories/cve-2026-89039"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-ffg3-vfrj-4mjj"
+        },
+        {
+          "label": "mcp-k6 0.7.0 Release",
+          "url": "https://github.com/grafana/mcp-k6/releases/tag/v0.7.0"
+        },
+        {
+          "label": "mcp-k6 Repo",
+          "url": "https://github.com/grafana/mcp-k6"
+        }
+      ],
+      "publishDate": "2026-10-11T13:04:59.176Z"
+    },
     {
       "id": "lumen-poellm-canto-incognito",
       "categories": [
@@ -1030,6 +1114,10 @@
         }
       ],
       "links": [
+        {
+          "label": "Microsoft Launch Post",
+          "url": "https://blogs.windows.com/windowsdeveloper/2026/10/07/microsoft-execution-containers-policy-driven-containment-for-ai-agents/"
+        },
         {
           "label": "MXC v1.0.0 Release",
           "url": "https://github.com/microsoft/mxc/releases/tag/v1.0.0"
