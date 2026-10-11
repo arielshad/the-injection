@@ -1,7 +1,112 @@
 {
-  "generatedAt": "2026-10-10T23:50:05.863Z",
+  "generatedAt": "2026-10-11T06:00:31.896Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "lumen-poellm-canto-incognito",
+      "categories": [
+        "incident"
+      ],
+      "title": "PoeLLM: a cryptomining botnet feeds on exposed LiteLLM servers",
+      "org": "Black Lotus Labs",
+      "date": "2026-10-07",
+      "url": "https://www.lumen.com/blog/en-us/canto-incognito-tracking-the-poellm-malware",
+      "summary": "PoeLLM is a cryptomining botnet that breaks into internet-facing AI services, which Black Lotus Labs says has reached more than 3,400 servers since April 2026. Infected hosts read their next command server from a poem hosted on GitHub.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "threat-intel",
+        "litellm",
+        "ollama"
+      ],
+      "affected": [
+        "LiteLLM",
+        "Ollama",
+        "Gotenberg",
+        "Gitea"
+      ],
+      "credits": [
+        {
+          "name": "Black Lotus Labs",
+          "org": "Lumen Technologies"
+        }
+      ],
+      "explainer": {
+        "tagline": "PoeLLM is a cryptomining botnet that breaks into internet-facing AI services and reads its next command server from a poem on GitHub.",
+        "whatHappened": "Black Lotus Labs, the threat research team at Lumen Technologies, published its tracking of the PoeLLM malware on October 7, 2026, under the campaign name Canto Incognito. The team counts more than 3,400 victim servers since the operation began in April 2026, with peak activity above 800 active servers a day. Black Lotus Labs assesses that a financially motivated, Italian-speaking actor runs the campaign, based on Italian comments in the code.",
+        "howItWorks": "Infection starts with scanning for exposed services on ports 3000 and 4000, where Gotenberg and LiteLLM listen by default. For LiteLLM, Black Lotus Labs assesses the likely path was the /mcp-rest/test/connection endpoint, the same endpoint behind the command injection flaw tracked as CVE-2026-42271. The malware then resolves its command server from a poem titled On the Nature of Connection, stored as a CSS file in a fork of the nodejs.org repository: four keywords at fixed positions map through a hard-coded dictionary to the four octets of an IPv4 address. Each victim is reused as a scanner and exploit host to find the next one.",
+        "whoIsAffected": "Internet-facing deployments are the exposure, not local installs. Black Lotus Labs names LiteLLM, Ollama, Gotenberg and Gitea as the services PoeLLM primarily affects, with possible targeting of Ivanti Sentry. LiteLLM versions from 1.74.2 up to 1.83.7 carry the command injection flaw the campaign is assessed to use.",
+        "whatToDo": "Upgrade LiteLLM to 1.83.7 or later, or block POST /mcp-rest/test/connection and /mcp-rest/test/tools/list at a gateway. Audit which AI services are reachable from the internet after every install, and close the ports that do not need outside access. Check network logs against the indicators Black Lotus Labs publishes, listed below."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Internet-facing LiteLLM, Ollama, Gotenberg and Gitea deployments"
+        },
+        {
+          "label": "Attack type",
+          "value": "Mass exploitation of exposed services, then cryptomining and reuse as scanners"
+        },
+        {
+          "label": "Found by",
+          "value": "Black Lotus Labs, Lumen Technologies"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 7, 2026"
+        },
+        {
+          "label": "Scale",
+          "value": "More than 3,400 victim servers since April 2026, peak above 800 a day"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-42271 in LiteLLM, assessed as the likely path, fixed in 1.83.7"
+        },
+        {
+          "label": "Status",
+          "value": "Three of 12 command servers still active on October 7, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my LiteLLM server exposed to PoeLLM?",
+          "a": "LiteLLM servers are only reachable by PoeLLM when the proxy port, 4000 by default, is open to the internet. Black Lotus Labs assesses the campaign used the /mcp-rest/test/connection endpoint, which GitHub tracks as CVE-2026-42271 and which affects versions 1.74.2 up to 1.83.7. Upgrading to 1.83.7 and closing the port to outside traffic removes both conditions."
+        },
+        {
+          "q": "How do I tell whether a server was compromised by PoeLLM?",
+          "a": "Black Lotus Labs publishes a PoeLLM indicator file listing 12 command server IP addresses with first and last seen dates, plus three SHA-256 hashes of the malware. Defenders should search network monitoring logs for connections to those addresses and for beacons to ports 3778, 5001, 5002 and 9999, and look for an ELF file named libgcrypt on the host."
+        },
+        {
+          "q": "Why does PoeLLM hide its command server in a poem on GitHub?",
+          "a": "Hiding the address in a poem gives the operator a resilient channel that survives takedowns. PoeLLM reads four keywords from fixed positions in a poem stored in a GitHub repository and maps them to an IPv4 address through a built-in dictionary. Black Lotus Labs recorded 11 edits to the poem after the first commit on April 13, 2026, and each edit moved every infected host at once."
+        },
+        {
+          "q": "Does PoeLLM steal model data or only mine cryptocurrency?",
+          "a": "Cryptomining is the only monetization Black Lotus Labs observed: PoeLLM deploys the XMRig and Iron miners and connects victims to Kryptex mining infrastructure. The report also notes that compromised hosts are turned into scanners and exploit servers to expand the botnet. Data loss and LLM jacking appear in the team's recommendations as risks from exposed AI services, not as findings from this campaign."
+        }
+      ],
+      "links": [
+        {
+          "label": "Black Lotus Labs Report",
+          "url": "https://www.lumen.com/blog/en-us/canto-incognito-tracking-the-poellm-malware"
+        },
+        {
+          "label": "PoeLLM Indicators",
+          "url": "https://github.com/blacklotuslabs/IOCs/blob/main/PoeLLM_IOCs.txt"
+        },
+        {
+          "label": "LiteLLM Advisory",
+          "url": "https://github.com/advisories/GHSA-v4p8-mg3p-g94g"
+        }
+      ],
+      "image": {
+        "url": "https://assets.lumen.com/is/image/Lumen/img-blog-resourcecard-BLL-canto-incognito",
+        "alt": "Canto incognito: tracking the PoeLLM malware",
+        "credit": "Lumen Technologies"
+      },
+      "publishDate": "2026-10-11T06:00:31.896Z"
+    },
     {
       "id": "talos-a3-ai-analysis-evasion",
       "categories": [

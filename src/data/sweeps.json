@@ -1182,6 +1182,76 @@
         "gh-repo-meta.ts (NVIDIA/SkillSpector, luckyPipewrench/pipelock, VigilOSS/Vigil, Cisco-Talos/CAIRN)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261011t060031z",
+      "timestamp": "2026-10-11T06:00:31.896Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab posts (Anthropic news, OpenAI alignment, MSRC, Google threat intel, UK AISI, CISA), research blogs (Black Lotus Labs, Zenity, AIR, Embrace The Red, HiddenLayer, Wiz, Trail of Bits, Check Point, JFrog, ReversingLabs, Socket, Mindgard, Pillar, Adversa, Lakera, Invariant, Koi), GitHub Security Advisories (web and REST API), OWASP GenAI, Hugging Face blog and guard-model uploads, Hacker News front page, newest and Show HN, GitHub trending daily and weekly, repo-scan (13 queries, 0 candidates), paper-scan (61 arXiv papers in window) and talk-scan (34 videos). One candidate met the bar: Lumen Black Lotus Labs on the PoeLLM cryptomining botnet, which mass-exploits internet-facing LiteLLM and other open-source services and derives its C2 address from a poem on GitHub. Left out on purpose: the JeecgBoot advisory batch published to NVD on October 10 and GitHub on October 11, including the AIRAG MCP token leak CVE-2026-108671, because all of it is unreviewed, unfixed, uncredited and traces to a single anonymous account whose repo holds bulk CVE-request PoCs for 16 unrelated projects; Anthropic's October 8 Cyber Mission post, which is the umbrella announcement already linked from the OSS Scanner item and otherwise a partner-program launch; Mindgard's October 5 Kimi clarification, a press response to September 14 research with no new measurements; the Patronus Wolf Defender prompt-injection model, created March 8 and last updated September 25, and Horizon-Labs prompt-injection-guard, whose changelog ends October 2, both outside the window; the Adversa October MCP, agent and coding-agent digests, whose items are September arXiv papers and earlier disclosures; HiddenLayer's coding-agent framework (July 28), Lasso's NemoClaw research (May 18), ReversingLabs on LLM pen testers (October 1, reporting Ridge Security's numbers) and CISA AA26-281A (October 8, no AI component). No arXiv paper showed two signals that is not already in the feed: SLDR was the only two-signal candidate and is already an item, and the embodied-agent guardrail benchmark, the option-channel attack and WebMirage had one signal each. talk-scan surfaced no qualifying talk: the Embrace The Red SSMS video is already linked from that item, and the one high-view AI security video was an interview, not original research. r/netsec and openai.com could not be fetched from this runner, and the Lumen post carries no visible publish date, so the October 7 date comes from Black Lotus Labs' own IOC file, which states indicators active to October 7, 2026.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "lumen-poellm-canto-incognito",
+          "title": "PoeLLM: a cryptomining botnet feeds on exposed LiteLLM servers",
+          "category": "incident",
+          "severity": "high",
+          "note": "A named threat research team documents in-the-wild mass exploitation of exposed LiteLLM and other open-source AI infrastructure, with a published victim count, a resilient GitHub-hosted C2 mechanism, downloadable indicators and a concrete patch and exposure action for defenders."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "Lumen Black Lotus Labs blog",
+        "blacklotuslabs/IOCs on GitHub",
+        "GitHub Security Advisories (web)",
+        "GitHub advisories REST API",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "Microsoft MSRC blog",
+        "Google Cloud threat intelligence blog",
+        "UK AISI blog",
+        "CISA cybersecurity advisories",
+        "OWASP GenAI Security Project",
+        "labs.zenity.io",
+        "air.security/blog",
+        "embracethered.com/blog",
+        "hiddenlayer.com research",
+        "wiz.io/blog",
+        "blog.trailofbits.com",
+        "research.checkpoint.com",
+        "research.jfrog.com/vulnerabilities",
+        "reversinglabs.com/blog",
+        "socket.dev/blog",
+        "mindgard.ai/blog",
+        "pillar.security/blog",
+        "adversa.ai/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "Hacker News front page and newest",
+        "github.com/trending daily and weekly",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and HF Daily Papers)",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
