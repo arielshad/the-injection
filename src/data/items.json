@@ -1,7 +1,109 @@
 {
-  "generatedAt": "2026-10-11T13:04:59.176Z",
+  "generatedAt": "2026-10-11T18:14:50.275Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "nexting-pinclaw-unauth-prompt-injection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Nexting pinclaw: an unauthenticated route injects prompts into an agent",
+      "org": "GitHub Advisory Database",
+      "date": "2026-10-11",
+      "url": "https://github.com/advisories/GHSA-w679-vj8x-2q83",
+      "summary": "Nexting's pinclaw plugin skips its token check on POST /pinclaw/send, so an unauthenticated caller on the same network can inject prompts into a user's main OpenClaw agent session. No fixed version is available.",
+      "severity": "medium",
+      "tags": [
+        "prompt-injection",
+        "agent-security",
+        "plugins",
+        "openclaw",
+        "nexting"
+      ],
+      "affected": [
+        "Nexting",
+        "pinclaw"
+      ],
+      "cve": "CVE-2026-108757",
+      "cvss": 7.1,
+      "credits": [
+        {
+          "name": "Nguyen Dinh Hai (HaiND)",
+          "org": "Post and Telecommunication Institute of Technology",
+          "url": "https://github.com/Haind03"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-108757 is a missing authentication flaw in Nexting's pinclaw plugin that takes agent prompts from anyone who reaches port 18790.",
+        "whatHappened": "HaiND, a security researcher at the Post and Telecommunication Institute of Technology in Vietnam, found that the pinclaw channel plugin exposes an agent prompt endpoint with no authentication. The GitHub Advisory Database, NVD and VulnCheck published the finding as CVE-2026-108757 on 11 October 2026, alongside HaiND's own write-up. None of the three records a vendor response.",
+        "howItWorks": "POST /pinclaw/send parses a JSON body, returns a request id and hands the message to the agent pipeline without ever comparing the authToken that sibling routes require. The message then arrives at the local OpenClaw Gateway as a chat.send call on the main session, carried by an operator connection holding admin, write and read scopes. Because the caller never sees the reply, the injection is blind. HaiND reports that the listener starts with no host argument, so Node binds every interface by default.",
+        "whoIsAffected": "Nexting installs that run the pinclaw channel plugin at version 0.3.0 or earlier are exposed, per the advisory. Reach decides the real risk: a loopback-only deployment limits callers to processes on the same host, while the default bind of port 18790 across all interfaces opens the endpoint to any caller on the local network.",
+        "whatToDo": "Bind the pinclaw listener to 127.0.0.1, or block port 18790 at the host firewall, until a patched release ships. HaiND also recommends routing every HTTP handler through a single authentication step so that a new route cannot skip the check, and dropping the wildcard CORS header from state-changing routes."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Nexting pinclaw channel plugin through 0.3.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-108757 (GHSA-w679-vj8x-2q83)"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.1 high, CVSS v4.0, per the GitHub advisory"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-306, missing authentication for a critical function"
+        },
+        {
+          "label": "Found by",
+          "value": "HaiND, Post and Telecommunication Institute of Technology"
+        },
+        {
+          "label": "Disclosed",
+          "value": "11 October 2026"
+        },
+        {
+          "label": "Status",
+          "value": "No fixed version listed, no vendor response recorded"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I exposed if I only run Nexting on my own machine?",
+          "a": "Nexting users on a single machine are still reachable by any local process, because pinclaw's listener starts without a host argument and Node then binds every interface. HaiND notes that a loopback-only deployment narrows exposure to processes on that host, while a LAN-reachable port 18790 lets any adjacent caller post prompts. Binding the listener to 127.0.0.1 closes the network path."
+        },
+        {
+          "q": "Is there a patched version of pinclaw?",
+          "a": "No patched pinclaw release is listed. The GitHub Advisory Database, NVD and VulnCheck records for CVE-2026-108757 all give affected versions through 0.3.0, none names a fixed version, and none records a vendor response. Until a release ships, blocking port 18790 at the host firewall or binding the listener to loopback are the mitigations HaiND describes."
+        },
+        {
+          "q": "Can CVE-2026-108757 run code on my machine?",
+          "a": "HaiND states the flaw is not remote code execution and not a secret read on its own. The injected text reaches the agent as user instructions, so harm depends on which tools that agent can call. HaiND did not test tool side effects or data disclosure, and did not establish a browser-based drive-by attack despite the route's wildcard CORS header."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-w679-vj8x-2q83"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://hackmd.io/@haind/nexting-pinclaw-send-unauth-agent-injection"
+        },
+        {
+          "label": "Vulnerable Route",
+          "url": "https://github.com/Nexting-ai/nexting/blob/a4b75f0429d3b1bf35eef68a296b2e72aa9c7483/plugin/src/core/http-router.ts"
+        },
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/nexting-pinclaw-through-0.3.0-missing-authentication-via-post-pinclaw-send"
+        }
+      ],
+      "publishDate": "2026-10-11T18:14:50.275Z"
+    },
     {
       "id": "grafana-mcp-k6-prompt-file-read",
       "categories": [
