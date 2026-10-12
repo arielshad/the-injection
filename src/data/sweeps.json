@@ -1554,6 +1554,75 @@
         "repo-scan.json"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261012t092739z",
+      "timestamp": "2026-10-12T09:27:39.612Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, NVD, Anthropic, OpenAI alignment, Embrace The Red, Zenity, AIR, NCC Group, Trail of Bits, Socket, JFrog, ReversingLabs, Check Point, Wiz, Lakera, HiddenLayer, Invariant, AISI, CAISI, OWASP GenAI, Hugging Face blog, papers and guard models, arXiv via paper-scan (54 papers in window), talk-scan (41 videos), repo-scan (13 queries, 0 candidates), GitHub trending daily and weekly, Hacker News front page and Show HN, and Simon Willison. No candidate met the bar, so this sweep adds nothing: the October 5 to 8 GitHub advisory wave for Langflow, PraisonAI and Flowise is database backfill of June to September disclosures, every genuinely in-window MCP advisory belongs to the source-review campaign already in the feed (extended through updates), no paper in the window showed two signals, no repo or talk cleared its bar, and the PixelLeak screenshot leak predates the window at September 29. openai.com/index returned 403, security.googleblog.com served a captcha and reddit.com was unreachable, so those are left out of sourcesChecked.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "vulncheck-mcp-source-review-cves",
+          "title": "MCP source review: at least 16 unpatched CVEs in three days",
+          "note": "The same two researchers published at least eight more CVEs on October 10 to 12, doubling the campaign to 16 and extending it past gateways and SDKs into application MCP servers, the mistral.rs inference server and the Phi agent runtime. The old title and counts said eight."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "NVD",
+        "HackMD researcher write-ups",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security/blog",
+        "nccgroup.com research blog",
+        "blog.trailofbits.com",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog and RSS",
+        "research.checkpoint.com",
+        "wiz.io/blog",
+        "lakera.ai/blog",
+        "hiddenlayer.com/research",
+        "invariantlabs.ai/blog",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "genai.owasp.org/news",
+        "huggingface.co/blog",
+        "huggingface.co/papers",
+        "huggingface.co/models prompt-injection and guard search",
+        "arXiv cs.CR via paper-scan",
+        "talk-scan (22 YouTube channels)",
+        "repo-scan.json",
+        "github.com/trending daily and weekly",
+        "Hacker News front page and Show HN",
+        "simonwillison.net",
+        "ox.security research",
+        "microsoft.com/msrc/blog",
+        "forcepoint.com x-labs"
+      ],
+      "windowDays": 7
     }
   ]
 }

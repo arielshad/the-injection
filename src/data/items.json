@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T01:38:15.507Z",
+  "generatedAt": "2026-10-12T09:27:39.612Z",
   "promptVersion": "1.3.0",
   "items": [
     {
@@ -8,17 +8,19 @@
         "vulnerability",
         "supply-chain"
       ],
-      "title": "MCP gateways: eight unpatched CVEs from a source-review sweep",
+      "title": "MCP source review: at least 16 unpatched CVEs in three days",
       "org": "VulnCheck",
       "date": "2026-10-11",
       "url": "https://www.vulncheck.com/advisories/amoylab-unla-through-0.10.0-oauth2-authentication-bypass-via-authorize",
-      "summary": "Eight MCP server and SDK CVEs were published on October 10 and 11, 2026, led by an unauthenticated token issuance flaw in the Unla gateway. None lists a patched version, and the researchers say they ran no proof of concept.",
+      "summary": "A static source-review campaign by two researchers has produced at least 16 MCP CVEs published October 10 to 12, 2026. The second wave reaches application MCP servers, an inference server sandbox and sub-agent permissions. None lists a fix.",
       "severity": "medium",
       "tags": [
         "mcp",
         "agent-security",
-        "plugins",
+        "sandbox-escape",
+        "approval-bypass",
         "credential-theft",
+        "plugins",
         "vulncheck"
       ],
       "affected": [
@@ -28,7 +30,15 @@
         "mcp-go",
         "mcp-remote",
         "argocd-mcp",
-        "1MCP Agent"
+        "1MCP Agent",
+        "mistral.rs",
+        "Phi",
+        "GenOffice",
+        "Tabularis",
+        "Odoo MCP",
+        "Abilityai Trinity",
+        "UnicomAI Wanwu",
+        "phpMyFAQ"
       ],
       "cve": "CVE-2026-108865",
       "cvss": 8.8,
@@ -44,28 +54,32 @@
         }
       ],
       "explainer": {
-        "tagline": "Two researchers reported eight flaws across MCP gateways, SDKs and servers in two days, all scored by NVD and all still unpatched.",
-        "whatHappened": "VulnCheck published eight MCP ecosystem advisories on October 10 and 11, 2026, reported by hieuPenguinnn and by Nguyen Dinh Hai of the Post and Telecommunication Institute of Technology. Seven projects are named: the Unla gateway, hyper-mcp, the MCP Kotlin SDK, mcp-go, mcp-remote, argocd-mcp and 1MCP Agent. GitHub's advisory database carries all eight entries as unreviewed, with no package and no patched version recorded.",
-        "howItWorks": "CVE-2026-108865, the highest scored of the set, sits in Unla's OAuth2 server, which issues an access token without ever authenticating a resource owner, so an anonymous caller can register a client, request a code from /authorize and exchange it at /token. Two hyper-mcp flaws let an attacker who controls registry responses serve a signed image to Cosign and an unsigned one to the loader, which runs an unsigned WebAssembly plugin with the host capabilities the operator configured. The rest are a path traversal in argocd-mcp's delete_application tool, an OAuth tag-scope bypass in 1MCP Agent reached through a negated tag filter, cleartext OAuth tokens in mcp-remote's device-code flow, and unbounded memory allocation in mcp-go and the MCP Kotlin SDK.",
-        "whoIsAffected": "Operators of the seven named projects are exposed, not MCP users in general. Unla and hyper-mcp carry the two highest scored flaws; the full project, version and CVE list is in the table above. Both write-ups state that the authors reviewed source only and did not build, run or exploit the code.",
-        "whatToDo": "Check whether your deployment runs any of the seven listed projects at or below the affected versions, and treat an exposed Unla or hyper-mcp instance as reachable until maintainers ship a fix. Restrict network access to MCP gateway OAuth2 endpoints, pin hyper-mcp plugins to image digests instead of mutable tags, and require HTTPS token endpoints for mcp-remote's device-code flow."
+        "tagline": "The two researchers behind eight MCP gateway CVEs have at least eight more, now covering app servers, an inference sandbox and sub-agents.",
+        "whatHappened": "The source-review campaign that produced eight MCP CVEs on October 10 and 11, 2026 now has at least eight more, published October 10 to 12 by the same two researchers, hieuPenguinnn and Nguyen Dinh Hai of the Post and Telecommunication Institute of Technology. The second set moves past gateways and SDKs into application MCP servers, the mistral.rs inference server and the Phi agent runtime. Each new finding carries an NVD CVSS v4.0 score, a HackMD write-up and a VulnCheck advisory, and GitHub's advisory database lists every one as unreviewed with no patched version.",
+        "howItWorks": "Most of the second wave are authorization gates that an attacker or a prompt-injected agent reaches through a tool call: Tabularis treats side-effecting SELECT statements as read-only, Odoo MCP's execute_method returns fields the caller is denied, phpMyFAQ's faq_search skips group checks, and Trinity's Telegram router accepts agent-scoped MCP keys for owner-only binding. Two findings break an isolation boundary instead. In mistral.rs, the sandboxed shell child creates a relative symlink and names it as an output file, and the unsandboxed parent reads the target with std::fs::read, which follows the link. In Phi, agent_spawn passes a model-supplied working directory to a child whose permission gate is rooted at that directory instead of the parent workspace, so a spawned worker writes outside a parent set to read-only.",
+        "whoIsAffected": "Operators of the named projects are exposed, not MCP users in general, and the versions and CVEs are listed above. Both researchers reviewed source at pinned commits, and the newer write-ups record coordinated disclosure as still pending. Only the mistral.rs escape was reproduced, in a syscall-faithful mirror and a Rust harness on synthetic data, never against a live instance.",
+        "whatToDo": "Check whether any listed project runs at or below its affected version, and treat it as exposed until maintainers ship a release. Put MCP gateway OAuth2 endpoints and HTTP MCP servers behind network controls, and stop treating a server-side read-only or workspace-only setting as the boundary for an agent that reads untrusted content. Resolve symlinks before reading agent output files, and restrict permissions on any HTTP MCP file store in a shared temporary directory."
       },
       "quickFacts": [
         {
-          "label": "Affected",
+          "label": "First wave",
           "value": "Unla <=0.10.0, hyper-mcp <=0.8.3, MCP Kotlin SDK <=0.15.0, mcp-go <=1.2.1, mcp-remote 0.8.0 to 0.14.3, argocd-mcp <=0.9.0, 1MCP Agent 0.20.0 to 0.39.0"
         },
         {
+          "label": "Second wave",
+          "value": "mistral.rs 0.9.0 to 0.9.4, Phi 0.3.0 to 0.28.4, GenOffice <=0.11.505, Tabularis <=0.27.0, Odoo MCP 1.0.0 to 1.3.2, Abilityai Trinity <=0.9.5, UnicomAI Wanwu <=0.6.5, phpMyFAQ <=4.1.10"
+        },
+        {
           "label": "CVEs",
-          "value": "CVE-2026-108865, 108699, 108698, 108714, 108859, 108716, 108585, 108586"
+          "value": "CVE-2026-108865, 108699, 108698, 108714, 108859, 108716, 108585, 108586, 108759, 108595, 108582, 108604, 108861, 108756, 108855, 108851"
         },
         {
           "label": "Fixed in",
-          "value": "No patched version listed in any of the eight advisories"
+          "value": "No patched version listed in any of the 16 advisories"
         },
         {
           "label": "CVSS",
-          "value": "5.3 to 8.8, CVSS v4.0 base scores from NVD"
+          "value": "4.8 to 8.8, CVSS v4.0 base scores from NVD"
         },
         {
           "label": "Found by",
@@ -73,25 +87,21 @@
         },
         {
           "label": "Method",
-          "value": "Static source review of pinned commits, no proof of concept run"
-        },
-        {
-          "label": "Disclosed",
-          "value": "October 10 and 11, 2026"
+          "value": "Static review of pinned commits; no live proof of concept, one finding reproduced in a syscall mirror"
         }
       ],
       "faq": [
         {
           "q": "Is there a patch for CVE-2026-108865 in Unla?",
-          "a": "No patched version appears in the Unla advisory for CVE-2026-108865. VulnCheck lists Unla up to and including 0.10.0 as affected and names no fixed release, and the researcher's write-up records the status as coordinated disclosure pending. Operators should restrict who can reach the gateway's OAuth2 endpoints until AmoyLab publishes a fix."
+          "a": "No patched version appears in the Unla advisory for CVE-2026-108865. GitHub names Unla through 0.10.0 as affected and lists the fixed version as unknown, and the researcher's write-up records coordinated disclosure as pending, offering fixes only as proposed diffs. Operators should restrict who can reach the gateway's OAuth2 endpoints until AmoyLab publishes a release."
         },
         {
           "q": "Were these MCP flaws proven with a working exploit?",
-          "a": "No. The hyper-mcp and Unla write-ups both state that the work was a static source review of pinned commits, that the authors did not build or run the code, and that the example requests were never executed. NVD still scores both findings high, so a scanner will flag them before anyone has shown end-to-end exploitation."
+          "a": "Almost none were. The Unla and Phi write-ups state the work was a static review of pinned commits, with no gateway built, no endpoint called and no runtime validation. The mistral.rs sandbox escape is the exception: its author reproduced the symlink read and write in a syscall-faithful mirror and a Rust harness on synthetic data, never against a live instance."
         },
         {
-          "q": "Which of the eight MCP CVEs matters most to a defender?",
-          "a": "CVE-2026-108865 in the Unla gateway matters most, because an unauthenticated caller can mint a valid token that reaches OAuth2-protected MCP prefixes, proxied upstream APIs and injected credentials. The two hyper-mcp signature flaws follow, since they let an unsigned WebAssembly plugin run with configured host capabilities. The mcp-go and MCP Kotlin SDK findings only exhaust server memory."
+          "q": "Which of the 16 MCP CVEs matters most to a defender?",
+          "a": "CVE-2026-108865 in the Unla gateway still leads, because an unauthenticated caller can mint a token that reaches protected MCP prefixes, proxied upstream APIs and injected credentials. From the second wave, CVE-2026-108759 in mistral.rs scores highest at 7.6, letting sandboxed shell code read and overwrite host files, and CVE-2026-108595 in Phi lets a spawned sub-agent write outside a read-only parent workspace."
         }
       ],
       "links": [
@@ -134,6 +144,46 @@
         {
           "label": "1MCP Agent Advisory",
           "url": "https://github.com/advisories/GHSA-w2j7-xxh9-9q67"
+        },
+        {
+          "label": "mistral.rs Advisory",
+          "url": "https://github.com/advisories/GHSA-fjjm-5mgr-r8vp"
+        },
+        {
+          "label": "mistral.rs Write-Up",
+          "url": "https://hackmd.io/@haind03/ericlbuehler-mistralrs-code-exec-output-symlink-sandbox-escape"
+        },
+        {
+          "label": "Phi Advisory",
+          "url": "https://github.com/advisories/GHSA-x8rp-9mrq-5584"
+        },
+        {
+          "label": "Phi Write-Up",
+          "url": "https://hackmd.io/@haind/phi-subagent-workdir-workspace-escape"
+        },
+        {
+          "label": "Tabularis Advisory",
+          "url": "https://github.com/advisories/GHSA-jj9h-m6r9-g37h"
+        },
+        {
+          "label": "Odoo MCP Advisory",
+          "url": "https://github.com/advisories/GHSA-hmxx-h27g-fgrq"
+        },
+        {
+          "label": "GenOffice Advisory",
+          "url": "https://github.com/advisories/GHSA-29j6-3xvc-79ff"
+        },
+        {
+          "label": "Trinity Advisory",
+          "url": "https://github.com/advisories/GHSA-65xq-cj8m-pqxc"
+        },
+        {
+          "label": "Wanwu Advisory",
+          "url": "https://github.com/advisories/GHSA-fhx6-5hpr-jhgm"
+        },
+        {
+          "label": "phpMyFAQ Advisory",
+          "url": "https://github.com/advisories/GHSA-52xr-g583-rx96"
         }
       ],
       "publishDate": "2026-10-12T01:38:15.507Z"
