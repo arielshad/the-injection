@@ -2,6 +2,7 @@ name: Update feed (hourly)
 
 # Runs the AI-security feed sweep on a schedule.
 #
+#   0. Gate: skip the run when the feed is already fresh (see `on:` below).
 #   1. Checkout, pnpm install.
 #   2. Claude Code reads prompts/update-feed.md and follows it: search,
 #      fetch and verify sources, write sweep-draft.json, run
@@ -19,9 +20,14 @@ name: Update feed (hourly)
 
 on:
   schedule:
-    # Minute 17 of every hour. A run can outlast the hour (two 35m attempts);
-    # the concurrency group below then holds the next run until it finishes.
-    - cron: "17 * * * *"
+    # Minute 17 of every hour is the sweep slot. GitHub drops most scheduled
+    # runs (SWEEP_MEMORY 2026-10-12-A: 18 runs in 5 days, not 120), so :37
+    # and :57 are catch-up slots. The gate job sweeps only when the feed is
+    # older than GATE_MINUTES, so when every slot fires the sweep stays
+    # hourly and the catch-ups cost a few seconds. A run can outlast the hour
+    # (two 35m attempts); the concurrency group below then holds the next
+    # run until it finishes.
+    - cron: "17,37,57 * * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -37,7 +43,36 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      due: ${{ steps.age.outputs.due }}
+    steps:
+      - name: Checkout the feed only
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout: src/data/items.json
+          sparse-checkout-cone-mode: false
+
+      - name: Is a sweep due?
+        id: age
+        env:
+          GATE_MINUTES: "30"
+          EVENT: ${{ github.event_name }}
+        run: |
+          node -e '
+            const age = Math.round((Date.now() - Date.parse(require("./src/data/items.json").generatedAt)) / 60000);
+            const due = process.env.EVENT !== "schedule" || !(age < Number(process.env.GATE_MINUTES));
+            console.log(`Last sweep ${age} min ago. Event ${process.env.EVENT}. Due: ${due}.`);
+            require("fs").appendFileSync(process.env.GITHUB_OUTPUT, `due=${due}\n`);
+          '
+
   sweep:
+    needs: gate
+    if: needs.gate.outputs.due == 'true'
     runs-on: ubuntu-latest
     # 2 attempts x 35m + setup, build and push.
     timeout-minutes: 85

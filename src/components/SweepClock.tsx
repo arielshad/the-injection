@@ -2,7 +2,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { NumberFlow } from "@/components/ui/number-flow";
 import StatusDot from "@/components/ui/status-dot";
 
-/** The sweep cron in update-feed.yml: minute 17 of every hour, UTC. */
+/** The sweep slot in update-feed.yml: minute 17 of every hour, UTC (:37 and :57 only catch up). */
 const SLOT_MINUTE = 17;
 
 function nextSweep(now: Date) {
@@ -18,19 +18,31 @@ function nextSweep(now: Date) {
  */
 const STALE_MS = 3 * 60 * 60 * 1000;
 
-/** "19:47" when the sweep was today (UTC), "Oct 7 19:47" otherwise. */
-function sweepLabel(iso: string, now: number) {
-  const hhmm = iso.slice(11, 16);
-  if (iso.slice(0, 10) === new Date(now).toISOString().slice(0, 10)) return hhmm;
+/**
+ * "19:47 UTC" when the sweep was today, "Oct 7 19:47 UTC" otherwise. The
+ * server render has no visitor time zone, so it prints UTC; once the island
+ * hydrates the label switches to the visitor's zone ("21:47 GMT+2").
+ */
+function sweepLabel(iso: string, now: number, local: boolean) {
+  const timeZone = local ? undefined : "UTC";
   const d = new Date(iso);
-  return `${d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })} ${hhmm}`;
+  const day = (t: Date | number) => new Date(t).toLocaleDateString("en-CA", { timeZone });
+  const hhmm = d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone });
+  // The zone name in the visitor's locale: "PDT" for en-US, "GMT+2" elsewhere.
+  const zone = new Intl.DateTimeFormat(local ? undefined : "en-US", { timeZone, timeZoneName: "short" })
+    .formatToParts(d)
+    .find((p) => p.type === "timeZoneName")?.value;
+  const time = zone ? `${hhmm} ${zone}` : hhmm;
+  if (day(d) === day(now)) return time;
+  return `${d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone })} ${time}`;
 }
 
 /**
- * "● LIVE  last sweep 07:05 UTC · next in 00:42:12". The dot ripples
+ * "● LIVE  last sweep 09:05 GMT+2 · next in 00:42:12". The dot ripples
  * (21st.dev @edwinvakayil/status-dot) and the countdown digits roll
- * (21st.dev @soralabs/number-flow). Server-rendered with the last sweep time;
- * the countdown starts once the island hydrates. When the last sweep is
+ * (21st.dev @soralabs/number-flow). Server-rendered with the last sweep time
+ * in UTC; the countdown starts and the time moves to the visitor's zone once
+ * the island hydrates. When the last sweep is
  * overdue the marker reads DELAYED and the time carries its date, so a
  * stalled schedule never passes for a live one.
  */
@@ -65,7 +77,7 @@ export default function SweepClock({ lastSweep, stacked = false }: { lastSweep: 
         </span>
       )}
       <span>
-        last sweep <time dateTime={lastSweep}>{sweepLabel(lastSweep, now ?? Date.parse(lastSweep))}</time> UTC
+        last sweep <time dateTime={lastSweep}>{sweepLabel(lastSweep, now ?? Date.parse(lastSweep), now !== null)}</time>
       </span>
       {!stacked && <span aria-hidden="true">·</span>}
       <span className="inline-flex items-center gap-1.5" aria-live="off">
