@@ -19,26 +19,40 @@ function nextSweep(now: Date) {
 const STALE_MS = 3 * 60 * 60 * 1000;
 
 /**
- * "19:47 UTC" when the sweep was today, "Oct 7 19:47 UTC" otherwise. The
- * server render has no visitor time zone, so it prints UTC; once the island
- * hydrates the label switches to the visitor's zone ("21:47 GMT+2").
+ * The server render has no visitor zone or locale, so it prints UTC:
+ * "19:47 UTC" when the sweep was today, "7 Oct, 19:47 UTC" otherwise. Once the
+ * island hydrates the label is plain local time in the visitor's own format,
+ * with no zone suffix: "21:47", "9:47 PM", "Oct 7, 21:47".
  */
 function sweepLabel(iso: string, now: number, local: boolean) {
-  const timeZone = local ? undefined : "UTC";
   const d = new Date(iso);
+  const locale = local ? undefined : "en-GB";
+  const timeZone = local ? undefined : "UTC";
   const day = (t: Date | number) => new Date(t).toLocaleDateString("en-CA", { timeZone });
-  const hhmm = d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone });
-  // The zone name in the visitor's locale: "PDT" for en-US, "GMT+2" elsewhere.
-  const zone = new Intl.DateTimeFormat(local ? undefined : "en-US", { timeZone, timeZoneName: "short" })
-    .formatToParts(d)
-    .find((p) => p.type === "timeZoneName")?.value;
-  const time = zone ? `${hhmm} ${zone}` : hhmm;
-  if (day(d) === day(now)) return time;
-  return `${d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone })} ${time}`;
+  const today = day(d) === day(now);
+  const label = d.toLocaleString(locale, {
+    ...(today ? {} : { month: "short", day: "numeric" }),
+    hour: local ? "numeric" : "2-digit",
+    minute: "2-digit",
+    timeZone,
+  });
+  return local ? label : `${label} UTC`;
 }
 
+/** Full local date, time and zone for the tooltip: "Monday, October 12, 2026 at 12:27 PM Israel Daylight Time". */
+const sweepTitle = (iso: string) =>
+  new Date(iso).toLocaleString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "long",
+  });
+
 /**
- * "● LIVE  last sweep 09:05 GMT+2 · next in 00:42:12". The dot ripples
+ * "● LIVE  last sweep 09:05 · next in 00:42:12". The dot ripples
  * (21st.dev @edwinvakayil/status-dot) and the countdown digits roll
  * (21st.dev @soralabs/number-flow). Server-rendered with the last sweep time
  * in UTC; the countdown starts and the time moves to the visitor's zone once
@@ -77,7 +91,7 @@ export default function SweepClock({ lastSweep, stacked = false }: { lastSweep: 
         </span>
       )}
       <span>
-        last sweep <time dateTime={lastSweep}>{sweepLabel(lastSweep, now ?? Date.parse(lastSweep), now !== null)}</time>
+        last sweep <time dateTime={lastSweep} title={now === null ? undefined : sweepTitle(lastSweep)}>{sweepLabel(lastSweep, now ?? Date.parse(lastSweep), now !== null)}</time>
       </span>
       {!stacked && <span aria-hidden="true">·</span>}
       <span className="inline-flex items-center gap-1.5" aria-live="off">
