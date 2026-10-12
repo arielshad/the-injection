@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T11:45:00Z",
+  "generatedAt": "2026-10-12T13:37:29Z",
   "tools": [
     {
       "slug": "skillspector",
@@ -18,7 +18,7 @@
       ],
       "homepage": "https://docs.nvidia.com/skills/scanning-agent-skills",
       "added": "2026-10-09",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "tencent-ai-infra-guard",
@@ -36,7 +36,7 @@
       ],
       "homepage": "https://tencent.github.io/AI-Infra-Guard/",
       "added": "2026-10-09",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "snyk-agent-scan",
@@ -52,7 +52,7 @@
         "Coding agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "cisco-mcp-scanner",
@@ -66,7 +66,7 @@
         "MCP servers"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "splx-agentic-radar",
@@ -80,7 +80,7 @@
         "Agentic workflows"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "numbat",
@@ -96,7 +96,7 @@
         "OpenClaw"
       ],
       "added": "2026-10-11",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "protectai-modelscan",
@@ -110,7 +110,7 @@
         "Model files"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "picklescan",
@@ -125,7 +125,7 @@
         "Hugging Face models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "fickling",
@@ -140,7 +140,7 @@
         "PyTorch models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "nemo-guardrails",
@@ -155,7 +155,7 @@
       ],
       "homepage": "https://docs.nvidia.com/nemo/guardrails",
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "guardrails-ai",
@@ -169,7 +169,7 @@
         "LLM applications"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "purple-llama",
@@ -184,7 +184,67 @@
         "Open-weight models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
+    },
+    {
+      "slug": "hol-guard",
+      "name": "HOL Guard",
+      "repo": "hashgraph-online/hol-guard",
+      "kind": "guardrail",
+      "description": "Local policy layer that reviews an agent action before it runs, including shell commands, file access, package installs and MCP tool calls, then allows it, blocks it or asks for approval.",
+      "license": "Apache-2.0",
+      "maintainer": "Hashgraph Online",
+      "covers": [
+        "Claude Code",
+        "Codex",
+        "Cursor",
+        "GitHub Copilot CLI",
+        "Gemini CLI",
+        "MCP servers",
+        "Agent skills"
+      ],
+      "added": "2026-10-12",
+      "checked": "2026-10-12"
+    },
+    {
+      "slug": "pipelock",
+      "name": "Pipelock",
+      "repo": "luckyPipewrench/pipelock",
+      "kind": "guardrail",
+      "description": "Agent firewall. Inspects the HTTP, WebSocket, MCP and A2A traffic it mediates for secret exfiltration, prompt injection, SSRF and tool poisoning, and signs a receipt for each action it passes.",
+      "license": "Apache-2.0 (core), Elastic-2.0 (enterprise directory)",
+      "maintainer": "Joshua Waldrep",
+      "covers": [
+        "MCP servers",
+        "A2A",
+        "Claude Code",
+        "Codex",
+        "Cursor",
+        "LangGraph"
+      ],
+      "homepage": "https://pipelab.org/learn",
+      "added": "2026-10-12",
+      "checked": "2026-10-12"
+    },
+    {
+      "slug": "praetorian-augustus",
+      "name": "Augustus",
+      "repo": "praetorian-inc/augustus",
+      "kind": "red-team",
+      "description": "Go command line scanner that tests an LLM or endpoint against 210+ adversarial probes for prompt injection, jailbreaks, encoding attacks and data extraction, then writes a findings report.",
+      "license": "Apache-2.0",
+      "maintainer": "Praetorian",
+      "covers": [
+        "LLMs",
+        "OpenAI",
+        "Anthropic",
+        "AWS Bedrock",
+        "Ollama",
+        "LangChain",
+        "REST API endpoints"
+      ],
+      "added": "2026-10-12",
+      "checked": "2026-10-12"
     },
     {
       "slug": "garak",
@@ -199,7 +259,7 @@
         "Chatbots"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "pyrit",
@@ -213,7 +273,7 @@
         "Generative AI systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "promptfoo",
@@ -228,7 +288,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "deepteam",
@@ -242,7 +302,7 @@
         "LLM systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "anamorpher",
@@ -260,7 +320,7 @@
         "Pillow"
       ],
       "added": "2026-10-09",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "agentdojo",
@@ -275,7 +335,7 @@
       ],
       "homepage": "https://agentdojo.spylab.ai/results/",
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "uber-adr",
@@ -294,7 +354,7 @@
         "MCP servers"
       ],
       "added": "2026-10-10",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "giskard",
@@ -312,7 +372,7 @@
       ],
       "homepage": "https://docs.giskard.ai/oss",
       "added": "2026-10-11",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "sandbox-runtime",
@@ -328,7 +388,7 @@
         "Bash commands"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "e2b",
@@ -343,7 +403,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "toolhive",
@@ -363,7 +423,7 @@
       ],
       "homepage": "https://docs.stacklok.com/toolhive/",
       "added": "2026-10-10",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "agent-sandbox",
@@ -381,7 +441,7 @@
       ],
       "homepage": "https://agent-sandbox.sigs.k8s.io",
       "added": "2026-10-10",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     },
     {
       "slug": "nono",
@@ -399,7 +459,7 @@
       ],
       "homepage": "https://docs.nono.sh",
       "added": "2026-10-11",
-      "checked": "2026-10-11"
+      "checked": "2026-10-12"
     }
   ]
 }
