@@ -2,7 +2,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { NumberFlow } from "@/components/ui/number-flow";
 import StatusDot from "@/components/ui/status-dot";
 
-/** The sweep cron in update-feed.yml: minute 17 of every hour, UTC. */
+/** The sweep slot in update-feed.yml: minute 17 of every hour, UTC (:37 and :57 only catch up). */
 const SLOT_MINUTE = 17;
 
 function nextSweep(now: Date) {

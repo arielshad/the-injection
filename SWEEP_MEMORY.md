@@ -49,6 +49,23 @@ Entry format:
 
 ## Change log
 
+### 2026-10-12-A: the hourly sweep ran about every 5 hours
+- Trigger: the masthead read DELAYED. The last sweep was 6.5 hours old.
+- Cause: GitHub drops scheduled runs under load. `17 * * * *` produced 18
+  runs from Oct 7 to Oct 12, not about 120, started 2 to 47 minutes late,
+  3.5 to 7 hours apart. Every run that started succeeded. Not a sweep bug.
+- Change: update-feed.yml fires at :17, :37 and :57. A `gate` job sweeps
+  only when the feed is 30+ minutes old (manual dispatch always sweeps), so
+  a dropped :17 is caught 20 or 40 minutes later and the cadence stays
+  hourly when every slot fires. The site clock now shows the last sweep in
+  the visitor's time zone.
+- Not changed on purpose: no external scheduler. Calling
+  `workflow_dispatch` hourly from cron-job.org or a Cloudflare Worker cron
+  is the reliable fix, but needs a token with actions:write held outside
+  GitHub. The human decides.
+- Status: watching. Expect runs roughly hourly; skipped catch-ups show as
+  runs with a skipped `sweep` job.
+
 ### 2026-10-08-B: ai-tldr parity pass (papers, talks, tags, tools, droughts)
 - Trigger: the human compared our prompt with ai-tldr's and asked for
   everything worth having, plus strong or viral conference talks.
