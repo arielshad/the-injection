@@ -1,7 +1,194 @@
 {
-  "generatedAt": "2026-10-12T09:27:39.612Z",
+  "generatedAt": "2026-10-12T20:10:05.503Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "air-vercellbreak",
+      "categories": [
+        "attack"
+      ],
+      "title": "VerCellBreak: a client certificate carries data out of Vercel Sandbox",
+      "org": "AIR Security",
+      "date": "2026-10-12",
+      "url": "https://air.security/blog-posts/vercel-break",
+      "summary": "VerCellBreak moves data out of Vercel Sandbox past its domain allowlist. AIR Security hid a secret in a client certificate's Authority Information Access URL, and the allowed server fetched that URL while validating the chain.",
+      "severity": "medium",
+      "tags": [
+        "data-exfiltration",
+        "sandbox-escape",
+        "agent-security",
+        "vercel",
+        "mtls"
+      ],
+      "affected": [
+        "Vercel Sandbox"
+      ],
+      "credits": [
+        {
+          "name": "Matan Elgabsi",
+          "org": "AIR Security"
+        },
+        {
+          "name": "Or Nevo",
+          "org": "AIR Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "VerCellBreak is an egress bypass: a crafted mTLS client certificate turns an allowed server into the agent's exfiltration channel.",
+        "whatHappened": "AIR Security published VerCellBreak on October 12, 2026. Matan Elgabsi and Or Nevo tested Vercel Sandbox under Vercel's bug bounty program and found that a compromised agent can send a secret to an attacker-controlled server even when the sandbox firewall allows only one domain. Vercel classified the finding as out of scope and did not accept the report.",
+        "howItWorks": "The sandbox firewall decides what an agent may reach by reading the hostname in the TLS handshake, so it only sees which domain a connection negotiates. The researchers built a client certificate whose Authority Information Access extension points at a URL such as https://evil.com/<key_base64>.cert, with the stolen data encoded in the path. The agent then opens a mutual TLS connection to the one allowed domain and presents that certificate. While the allowed server validates the certificate chain, it fetches the AIA URL and delivers the data to the attacker. AIR says no vulnerability was exploited on the server: the attack uses a standard TLS feature.",
+        "whoIsAffected": "Teams running AI agents or other untrusted code in Vercel Sandbox under a user-defined network policy, where the allowlist is the control stopping data from leaving. The attack needs the agent inside the sandbox to be compromised first, and needs an allowed domain whose server requests client certificates.",
+        "whatToDo": "Treat an egress allowlist as a way to reduce risk rather than a boundary that holds, since any allowed endpoint that takes attacker-controlled input and makes its own outbound requests can relay data. AIR recommends filtering what an agent reads so that it is not compromised in the first place. Prefer narrow, single-purpose allowed hostnames, which Vercel's own firewall documentation also advises."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Vercel Sandbox egress allowlist"
+        },
+        {
+          "label": "Attack type",
+          "value": "Data smuggled in an mTLS certificate's AIA URL"
+        },
+        {
+          "label": "Found by",
+          "value": "Matan Elgabsi and Or Nevo, AIR Security"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 12, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Vercel called it out of scope and did not accept the report"
+        },
+        {
+          "label": "Precondition",
+          "value": "The agent in the sandbox is already compromised"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Has Vercel fixed VerCellBreak?",
+          "a": "Vercel has not accepted VerCellBreak as a vulnerability. AIR Security reports that Vercel classified the finding as out of scope, on the grounds that the technique depends on an external server Vercel does not operate. AIR's write-up states no fix and gives no patched version, so teams relying on the sandbox allowlist should assume the behaviour still stands today."
+        },
+        {
+          "q": "Does VerCellBreak need a bug in the allowed server?",
+          "a": "No server bug is required for VerCellBreak. AIR Security writes that no vulnerability was exploited on the server side. Fetching an Authority Information Access URL during certificate chain validation is standard TLS behaviour, so an ordinary, fully patched server that requests client certificates will make the outbound request that carries the attacker's data."
+        },
+        {
+          "q": "Why does the Vercel Sandbox firewall not block the request?",
+          "a": "The Vercel Sandbox firewall matches outbound traffic on the hostname in the TLS handshake, as Vercel's firewall documentation describes. In VerCellBreak the agent only ever connects to the allowed domain, so the policy is satisfied. The request to the attacker's URL comes from the allowed server, outside the sandbox, where no sandbox policy applies."
+        }
+      ],
+      "links": [
+        {
+          "label": "AIR Write-up",
+          "url": "https://air.security/blog-posts/vercel-break"
+        },
+        {
+          "label": "Sandbox Firewall Docs",
+          "url": "https://vercel.com/docs/sandbox/concepts/firewall"
+        },
+        {
+          "label": "Vercel Sandbox Docs",
+          "url": "https://vercel.com/docs/sandbox"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a282d66e4248a84e0259ed9/6abe2cd66cc3501b36817f24_image%20(23)%20(1).png",
+        "alt": "VerCellBreak: How we escaped Vercel's hardened sandbox",
+        "credit": "AIR Security"
+      },
+      "publishDate": "2026-10-12T20:10:05.503Z"
+    },
+    {
+      "id": "socradar-cyberxero-ukraine",
+      "categories": [
+        "incident"
+      ],
+      "title": "CyberXero: an access broker ran 51 Claude Code agents against Ukraine",
+      "org": "SOCRadar",
+      "date": "2026-10-06",
+      "url": "https://socradar.io/blog/cyberxero-ai-iab-ukraine-critical-infrastructure/",
+      "summary": "CyberXero is a Russian-speaking initial access broker driving 51 specialized Claude Code agents. SOCRadar found its exposed working directory and confirmed theft of over 628,000 records from four Ukrainian organizations.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "claude-code",
+        "pentagi"
+      ],
+      "affected": [
+        "Claude Code",
+        "PentAGI",
+        "Cobalt Strike",
+        "WordPress"
+      ],
+      "credits": [
+        {
+          "name": "SOCRadar Threat Research Unit",
+          "org": "SOCRadar"
+        }
+      ],
+      "explainer": {
+        "tagline": "CyberXero is an AI-augmented initial access broker whose own agent session logs documented its intrusions in detail.",
+        "whatHappened": "SOCRadar's Threat Research Unit published its CyberXero report on October 6, 2026, after finding an open directory on the actor's seed workstation that leaked its working files. The broker has been active since at least July 2026, is financially motivated and Russian-speaking, and was still operating when SOCRadar published. The report counts more than 40 affected organizations worldwide.",
+        "howItWorks": "The operation runs on two layers. On the workstation, Claude Code drives 51 specialized agents split into offensive, reconnaissance and post-exploitation roles, with names such as c2-operator, exploit-chainer, scada-attacker and lateral-movement. On a separate team server, PentAGI, an open-source autonomous pentesting system, is wired into Cobalt Strike through an AI provider API to generate payloads and run tests. A recovered configuration assigns models by reasoning complexity and gives payload generation the largest token budget. SOCRadar describes the actor's refusal handling as context engineering rather than a technical bypass: a rehearsed claim of an authorized test on its own infrastructure, reused across four unrelated victims, and a fresh session opened with that framing preloaded whenever the model declined.",
+        "whoIsAffected": "Ukrainian energy and critical infrastructure were the targeted half of the campaign, with confirmed exfiltration at four organizations and a Kharkiv district heating provider losing 564,073 subscriber records. A separate automated pipeline hits WordPress and e-commerce sites worldwide, with confirmed compromises in Poland, China and the Netherlands, and the CVEs listed below are the entry points. SOCRadar reports two Pakistani national-security entities targeted without a confirmed result.",
+        "whatToDo": "Hunt for the indicators SOCRadar publishes: WordPress admin accounts matching wp2_ followed by eight hex characters, webshell plugin directories under /wp-content/plugins/wp2shell_[0-9a-f]{8}/, injected keys in ~/.ssh/authorized_keys on internet-exposed Redis hosts, and a Windows service named UpdSvc. Patch the WordPress and Support Board flaws listed below. SOCRadar also advises treating AI agent session logs as sensitive, with the retention, encryption and access controls given to credential logs, because those logs record offensive activity in full."
+      },
+      "quickFacts": [
+        {
+          "label": "Actor",
+          "value": "CyberXero, a Russian-speaking initial access broker, active since July 2026"
+        },
+        {
+          "label": "AI tooling",
+          "value": "Claude Code with 51 specialized agents, plus PentAGI into Cobalt Strike"
+        },
+        {
+          "label": "Confirmed theft",
+          "value": "Over 628,000 records from four Ukrainian organizations"
+        },
+        {
+          "label": "CVEs used",
+          "value": "CVE-2026-63030, CVE-2026-60137, CVE-2026-4815, CVE-2015-1397"
+        },
+        {
+          "label": "Automated run",
+          "value": "4,708 targets scanned, 429 admin panels reached, 32 shells in 61 seconds"
+        },
+        {
+          "label": "Found by",
+          "value": "SOCRadar Threat Research Unit, from an exposed open directory"
+        },
+        {
+          "label": "Status",
+          "value": "Active at the time of publication"
+        }
+      ],
+      "links": [
+        {
+          "label": "SOCRadar Report",
+          "url": "https://socradar.io/blog/cyberxero-ai-iab-ukraine-critical-infrastructure/"
+        },
+        {
+          "label": "PentAGI Repo",
+          "url": "https://github.com/vxcontrol/pentagi"
+        },
+        {
+          "label": "Operation Master",
+          "url": "https://socradar.io/blog/operation-master-intrusion-monetization-pipeline/"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.socradar.io/wp-content/uploads/2026/10/cyberxero-ai-augmented-initial-access-broker-targeting-ukraine-critical-infrastructure.jpg.webp",
+        "alt": "CyberXero: An AI-Augmented Initial Access Broker Targeting Ukrainian Critical Infrastructure",
+        "credit": "SOCRadar"
+      },
+      "publishDate": "2026-10-12T20:10:05.503Z"
+    },
     {
       "id": "vulncheck-mcp-source-review-cves",
       "categories": [

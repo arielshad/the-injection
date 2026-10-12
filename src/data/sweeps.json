@@ -1623,6 +1623,78 @@
         "forcepoint.com x-labs"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261012t201005z",
+      "timestamp": "2026-10-12T20:10:05.503Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (Anthropic, OpenAI, MSRC, Google GTIG, AISI, OWASP GenAI), research teams (AIR Security, Zenity Labs, NCC Group, JFrog, Socket, Trail of Bits, Check Point, Unit 42, ReversingLabs, HiddenLayer, Wiz, Snyk, VulnCheck, Lakera), GitHub Security Advisories, repo-scan (13 queries, 0 candidates), github.com/trending, paper-scan (46 arXiv candidates), talk-scan (40 videos), Hugging Face and Hacker News. Added two items: AIR Security's VerCellBreak egress bypass in Vercel Sandbox and SOCRadar's CyberXero report on an access broker running 51 Claude Code agents against Ukrainian critical infrastructure.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "air-vercellbreak",
+          "title": "VerCellBreak: a client certificate carries data out of Vercel Sandbox",
+          "category": "attack",
+          "severity": "medium",
+          "note": "New on 2026-10-12, named AIR Security researchers, and it defeats the control defenders rely on when they run agents in Vercel Sandbox; distinct from the Zenity urlquery item, which abused a public web scanner rather than mTLS certificate validation."
+        },
+        {
+          "id": "socradar-cyberxero-ukraine",
+          "title": "CyberXero: an access broker ran 51 Claude Code agents against Ukraine",
+          "category": "incident",
+          "severity": "info",
+          "note": "A new, still-active AI-augmented campaign with confirmed exfiltration, published 2026-10-06 with IOCs; distinct actor, tooling and victims from the CrowdStrike ARTEX item."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "anthropic.com/news",
+        "aisi.gov.uk/blog",
+        "genai.owasp.org",
+        "github.com/advisories",
+        "github.com/trending",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "research.jfrog.com/vulnerabilities",
+        "socket.dev/blog",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "unit42.paloaltonetworks.com",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com/innovation-hub",
+        "wiz.io/blog",
+        "snyk.io/blog/category/security-research",
+        "vulncheck.com/blog",
+        "lakera.ai/blog",
+        "huggingface.co/blog",
+        "news.ycombinator.com/front",
+        "thehackernews.com/search/label/artificial intelligence",
+        "socradar.io/blog",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "talk-scan.ts (YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
