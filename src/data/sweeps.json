@@ -1847,6 +1847,95 @@
         "github.com/Th0rgal/orb"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261013t172238z",
+      "timestamp": "2026-10-13T17:22:38.682Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research blogs, GitHub advisories, VulnCheck, arXiv (34 papers in window), repo-scan (13 queries, 1 candidate), GitHub trending, Hacker News, talk-scan (44 videos) and the security press. Added two Anthropic research posts from October 12: small open-weight models approaching self-replication on IoT hardware, and Anthropic's anti-distillation defenses.",
+      "counts": {
+        "added": 2,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "anthropic-small-model-self-replication",
+          "title": "Anthropic: small open-weight models came close to self-replicating on IoT",
+          "category": "research",
+          "severity": "info",
+          "note": "Original Frontier Red Team research dated inside the window, with named authors, measured results on named open-weight models and explicit blue-team mitigations a defender can act on."
+        },
+        {
+          "id": "anthropic-distillation-defenses",
+          "title": "Anthropic: new safeguards cut what distillers harvest by 90 to 99%",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A lab setting out specific safeguards, numbers and two API changes that affect anyone building on Claude, reported as Anthropic's own claims."
+        }
+      ],
+      "updated": [
+        {
+          "id": "mindgard-branch-guardrail-bypass",
+          "title": "BRANCH: a tree search bypassed six AI guardrail systems",
+          "note": "Mindgard published its own write-up of the BRANCH paper on its blog. Added as the authors' write-up link; same research, so not a new item."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "anthropic.com/news",
+        "anthropic.com/research",
+        "deploymentsafety.openai.com",
+        "github.com/advisories",
+        "vulncheck.com/advisories",
+        "cisa.gov/known-exploited-vulnerabilities-catalog",
+        "microsoft.com/en-us/security/blog",
+        "msrc.microsoft.com/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "research.jfrog.com",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com/innovation-hub",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "nccgroup.com/research-blog",
+        "blog.trailofbits.com",
+        "mindgard.ai/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "crowdstrike.com/blog",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "aisi.gov.uk/work",
+        "genai.owasp.org/news",
+        "huggingface.co/blog",
+        "huggingface.co/models (guard, created)",
+        "huggingface.co/papers",
+        "arXiv via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "news.ycombinator.com/front",
+        "news.ycombinator.com/show",
+        "talk-scan.ts",
+        "forever.security/blog",
+        "labs.cloudsecurityalliance.org"
+      ],
+      "windowDays": 7
     }
   ]
 }

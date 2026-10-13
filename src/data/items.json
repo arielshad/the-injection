@@ -1,7 +1,202 @@
 {
-  "generatedAt": "2026-10-13T09:38:47.753Z",
+  "generatedAt": "2026-10-13T17:22:38.682Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "anthropic-small-model-self-replication",
+      "categories": [
+        "research",
+        "benchmark"
+      ],
+      "title": "Anthropic: small open-weight models came close to self-replicating on IoT",
+      "org": "Anthropic",
+      "date": "2026-10-12",
+      "url": "https://www.anthropic.com/research/self-replicating-ai",
+      "summary": "Anthropic's Frontier Red Team reports that a 9B open-weight model got inference running on 8 of the 9 hardware types it tested, and that GLM-5.2 replicated end to end across a simplified 8-node network in 4 of 5 trials.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "evals",
+        "open-weights",
+        "ai-enabled-offense",
+        "anthropic",
+        "glm-5-2",
+        "qwen"
+      ],
+      "affected": [
+        "GLM-5.2",
+        "Qwen3.5-9B",
+        "Gemma4-26B-A4B",
+        "Llama3.1-8B"
+      ],
+      "credits": [
+        {
+          "name": "William Zhou",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Daniel Freeman",
+          "org": "Anthropic Frontier Red Team"
+        }
+      ],
+      "explainer": {
+        "tagline": "Anthropic's Frontier Red Team measured how close small open-weight models are to running themselves on cheap consumer hardware.",
+        "whatHappened": "William Zhou and Daniel Freeman of Anthropic's Frontier Red Team published this study on October 12, 2026. The team asked whether a small open-weight model can set up its own inference on hardware it has never seen, and then spread to new machines without a datacenter. Anthropic says the results are signs of life rather than a working rogue replicator.",
+        "howItWorks": "A weight-based replicator carries the model weights it needs onto every device it compromises and runs inference there, instead of calling an API that a provider could cut off. The study's Memento harness, built on the open-source Pi coding agent, starts fresh agent instances with the previous workspace and notes so the model does not fixate on a wrong hypothesis. In the end-to-end test each newly reached node received a copy of the worm only after its inference server passed correctness and anti-cheating checks. Because no device holds the whole model, a replica is a group of machines running pipeline parallelism, which also lets a failed node be replaced.",
+        "whoIsAffected": "Internet-reachable consumer hardware with AI chips sits in scope: smart TV boxes, cameras, appliances and edge accelerators. At 4-bit quantization the authors put a 9B model at about four boxes and a 26B model at ten or more, so one replica spans several devices. The models evaluated and their results are listed below.",
+        "whatToDo": "Aim to push the infection rate below one new device per infected device. Anthropic points to ISP quarantine paired with customer notification, which it reports cleared 92% of Mirai infections within 14 days against 74% without notification, and to flow monitoring for multi-gigabyte model transfers and sustained device-to-device traffic. Replace default credentials on internet-facing devices, the weakness earlier botnets relied on."
+      },
+      "quickFacts": [
+        {
+          "label": "In scope",
+          "value": "Open-weight models of 30B parameters or fewer; internet-reachable IoT devices with AI chips"
+        },
+        {
+          "label": "Models evaluated",
+          "value": "Qwen3.5-9B, GLM-5.2, Gemma4-26B-A4B, Llama3.1-8B, Qwen3-30B-A3B"
+        },
+        {
+          "label": "Inference setup",
+          "value": "A 9B model got inference running on 8 of the 9 hardware types tested"
+        },
+        {
+          "label": "End-to-end replication",
+          "value": "GLM-5.2 spread to 8 of 8 nodes in 4 of 5 trials, and 7 of 8 in the fifth"
+        },
+        {
+          "label": "Demo",
+          "value": "Gemma4-26B-A4B split across 15 off-brand Android TV boxes, about $55 and 4GB RAM each"
+        },
+        {
+          "label": "Found by",
+          "value": "William Zhou and Daniel Freeman, Anthropic Frontier Red Team"
+        },
+        {
+          "label": "Status",
+          "value": "Research. Anthropic reports signs of life, not a working rogue replicator"
+        }
+      ],
+      "links": [
+        {
+          "label": "Anthropic Research",
+          "url": "https://www.anthropic.com/research/self-replicating-ai"
+        },
+        {
+          "label": "Frontier Red Team",
+          "url": "https://www.anthropic.com/research/team/frontier-red-team"
+        },
+        {
+          "label": "Adaptive Worms Paper",
+          "url": "https://arxiv.org/abs/2606.03811"
+        }
+      ],
+      "image": {
+        "url": "https://www-cdn.anthropic.com/images/4zrzovbb/website/6d4a0d28992ade92d6fa63646fd9c9d318245c6c-2400x1260.jpg",
+        "alt": "Anthropic research post: AI models may be capable of self-replicating without access to a datacenter",
+        "credit": "Anthropic"
+      },
+      "publishDate": "2026-10-13T17:22:38.682Z"
+    },
+    {
+      "id": "anthropic-distillation-defenses",
+      "categories": [
+        "lab-safety"
+      ],
+      "title": "Anthropic: new safeguards cut what distillers harvest by 90 to 99%",
+      "org": "Anthropic",
+      "date": "2026-10-12",
+      "url": "https://www.anthropic.com/research/distillation-defenses",
+      "summary": "Anthropic published the defenses it runs against distillation attacks, where fraudulent accounts pull Claude's reasoning transcripts from the API to train other models. Anthropic says the methods cut harvested data by 90 to 99%.",
+      "severity": "info",
+      "tags": [
+        "detection",
+        "guardrails",
+        "cyber-capability",
+        "open-weights",
+        "anthropic",
+        "claude"
+      ],
+      "affected": [
+        "Claude API",
+        "Claude Sonnet 5.5",
+        "Claude Opus 5.5",
+        "Claude Fable 5.1"
+      ],
+      "credits": [
+        {
+          "name": "Anthropic"
+        }
+      ],
+      "explainer": {
+        "tagline": "A distillation attack extracts a model's reasoning transcripts through the API and trains a competing model on them.",
+        "whatHappened": "Anthropic set out its anti-distillation defenses on October 12, 2026, in a post under its Policy section. The post describes covert campaigns that copy one model's capabilities into another without the developer's permission, and names two cases: Anthropic says Zhipu distilled cyber capabilities while building GLM-5.3, and that requests to Moonshot's Kimi were secretly forwarded to Claude. Anthropic's stated worry is that a distilled model can approach frontier capability without comparable safeguards.",
+        "howItWorks": "The prize is the reasoning transcript, because it shows how a model reaches an answer rather than just the answer. Attackers moved from passive collection of ordinary traffic to active extraction, with prompts that ask Claude to output its prior reasoning verbatim, character for character, routed through proxy networks of false identities; Anthropic says one such network ran more than 20,000 accounts at once. The defense has three parts: summarize reasoning before it is shown and keep it inside the requesting organization, screen requests with a two-stage classifier built on Anthropic's constitutional classifiers research, and raise the cost of repeat attempts through stricter limits, bans and billing.",
+        "whoIsAffected": "Developers building on the Claude API meet two changes. Preserved thinking, which stops an account editing prior context, applies to accounts created on or after August 31, 2026, and Anthropic has charged for blocked requests since September 24, 2026. The classifier runs on the models listed below.",
+        "whatToDo": "Check whether your integration rewrites earlier assistant turns, because preserved thinking blocks that on newer API accounts. Budget for a small share of refusals and their cost: Anthropic puts the classifier's false positive rate under 0.1% and bills requests it blocks before a response."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Claude API accounts created on or after August 31, 2026"
+        },
+        {
+          "label": "Classifier runs on",
+          "value": "Claude Sonnet 5.5, Claude Opus 5 and 5.5, Claude Fable 5 and 5.1"
+        },
+        {
+          "label": "Reported effect",
+          "value": "90 to 99% less data harvested; 10 to 100 times fewer reasoning tokens extracted"
+        },
+        {
+          "label": "False positives",
+          "value": "Under 0.1% of requests"
+        },
+        {
+          "label": "Billing",
+          "value": "Blocked requests charged since September 24, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Anthropic's account of its own platform, not independently verified"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Distilled model score, SWE-bench Verified",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is better for the distiller. Both runs trained on Claude Opus 4.8 transcripts.",
+          "results": [
+            {
+              "name": "Trained on full transcripts",
+              "score": 80.4
+            },
+            {
+              "name": "Trained on summarized transcripts",
+              "score": 71.8,
+              "highlight": true
+            }
+          ],
+          "source": "https://www.anthropic.com/research/distillation-defenses"
+        }
+      ],
+      "links": [
+        {
+          "label": "Anthropic Policy Post",
+          "url": "https://www.anthropic.com/research/distillation-defenses"
+        },
+        {
+          "label": "Classifiers Research",
+          "url": "https://www.anthropic.com/research/constitutional-classifiers"
+        }
+      ],
+      "image": {
+        "url": "https://www-cdn.anthropic.com/images/4zrzovbb/website/a5934d1ae8428b2a97fae1963a5f427594fc7202-1200x630.jpg",
+        "alt": "Anthropic policy post: Strengthening our defenses against distillation attacks",
+        "credit": "Anthropic"
+      },
+      "publishDate": "2026-10-13T17:22:38.682Z"
+    },
     {
       "id": "continue-cli-bash-approval-bypass",
       "categories": [
@@ -2344,6 +2539,10 @@
         {
           "label": "arXiv Paper",
           "url": "https://arxiv.org/abs/2610.10742"
+        },
+        {
+          "label": "Mindgard Write-Up",
+          "url": "https://mindgard.ai/blog/branch-bypassing-multi-scanner-ai-guardrails"
         },
         {
           "label": "Paper Full Text",
