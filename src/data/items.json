@@ -1,7 +1,198 @@
 {
-  "generatedAt": "2026-10-13T02:19:39.324Z",
+  "generatedAt": "2026-10-13T09:38:47.753Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "continue-cli-bash-approval-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Continue CLI: chained commands bypass the Bash approval rule",
+      "org": "VulnCheck",
+      "date": "2026-10-12",
+      "url": "https://www.vulncheck.com/advisories/continue-cli-through-1.5.47-bash-permission-rule-bypass-via-command-chaining",
+      "summary": "CVE-2026-109560 lets text planted in a repository or a fetched web page add commands after an approved Bash prefix rule in Continue CLI, so they run as the user. Versions through 1.5.47 are affected, with no fix listed.",
+      "severity": "high",
+      "tags": [
+        "approval-bypass",
+        "indirect-prompt-injection",
+        "coding-agents",
+        "continue-cli"
+      ],
+      "affected": [
+        "Continue CLI"
+      ],
+      "cve": "CVE-2026-109560",
+      "cvss": 7.7,
+      "credits": [
+        {
+          "name": "Akıner Kısa"
+        },
+        {
+          "name": "Chengzhi Yi"
+        }
+      ],
+      "explainer": {
+        "tagline": "Continue CLI checked whether a Bash command was approved by matching the start of the line, so extra commands chained onto an approved one ran unasked.",
+        "whatHappened": "VulnCheck published CVE-2026-109560 on October 12, 2026, a permission bypass in the Continue CLI coding agent, and credits Akıner Kısa and Tardfyou. The underlying report, issue 13288 in the continuedev/continue repository, was opened on September 17, 2026 by Chengzhi Yi and is still open with no maintainer reply.",
+        "howItWorks": "A static allow rule such as Bash(ls*) is turned into a regular expression and tested against the whole command string, without parsing shell syntax (CWE-863). A chained line like ls; cat /etc/passwd therefore still matches the rule. Instructions planted in repository files or in pages the agent fetches can steer it into appending commands after a semicolon, a double ampersand or a pipe, and those commands run with the user's privileges.",
+        "whoIsAffected": "Continue CLI, published as the @continuedev/cli package, is affected through version 1.5.47. Setups that have approved broad Bash prefix rules carry the most risk, and VulnCheck lists no fixed version.",
+        "whatToDo": "Replace broad Bash prefix allow rules in Continue CLI with narrow ones, or approve commands one at a time, until a fixed release ships. Keep the agent away from untrusted repositories and web pages while permissive rules are in place."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-109560"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "7.7"
+        },
+        {
+          "label": "Affected",
+          "value": "Continue CLI (@continuedev/cli) through 1.5.47"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed version listed"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-863, allow rule matched against the whole command"
+        },
+        {
+          "label": "Found by",
+          "value": "Akıner Kısa and Chengzhi Yi (Tardfyou), via VulnCheck"
+        },
+        {
+          "label": "Status",
+          "value": "Report open since September 17, 2026, no maintainer reply"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Continue CLI versions are affected by CVE-2026-109560?",
+          "a": "CVE-2026-109560 affects Continue CLI, the @continuedev/cli package, through version 1.5.47. VulnCheck lists no fixed version, and the GitHub report describing the behavior, issue 13288, is still open with no maintainer reply. Teams running the CLI should tighten their Bash allow rules now rather than wait for a version number to upgrade to."
+        },
+        {
+          "q": "How do I check whether my Continue CLI setup is exposed?",
+          "a": "Look at the Bash permission rules in your Continue CLI configuration. Broad prefix rules such as Bash(ls*) are the condition the bypass needs, because Continue CLI tests the rule against the whole command line instead of parsing shell syntax. A rule that allows one safe command therefore also allows whatever is chained after it."
+        },
+        {
+          "q": "Does an attacker need access to my machine to use this bypass?",
+          "a": "No. VulnCheck describes the attacker input as instructions placed in repository files or in web pages the agent fetches, so the content arrives through normal agent work. The approved prefix rule does the rest, which is why CVE-2026-109560 carries a network attack vector in its CVSS 4.0 score of 7.7."
+        },
+        {
+          "q": "How does CVE-2026-109560 compare with earlier agent approval bypasses?",
+          "a": "Continue CLI repeats a pattern this feed has recorded in other coding agents: the approval check tests the start of a command and ignores shell syntax, so chaining defeats it. The lesson for defenders is that an approval prompt is not a security boundary unless the tool parses the command it is approving."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/continue-cli-through-1.5.47-bash-permission-rule-bypass-via-command-chaining"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-f54m-g39v-qf2p"
+        },
+        {
+          "label": "Original Report",
+          "url": "https://github.com/continuedev/continue/issues/13288"
+        }
+      ],
+      "publishDate": "2026-10-13T09:38:47.753Z"
+    },
+    {
+      "id": "sandboxed-sh-nsenter-container-escape",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "sandboxed.sh: agent code reached host files through nsenter",
+      "org": "VulnCheck",
+      "date": "2026-10-12",
+      "url": "https://www.vulncheck.com/advisories/sandboxed-sh-through-1.3.0-container-escape-via-nsenter-missing-root-namespace",
+      "summary": "CVE-2026-109569 lets code an agent runs inside a sandboxed.sh container workspace read and write files on the host, because nsenter attaches without the root namespace option. Versions through 1.3.0 are affected.",
+      "severity": "medium",
+      "tags": [
+        "sandbox-escape",
+        "agent-security",
+        "coding-agents",
+        "sandboxed-sh"
+      ],
+      "affected": [
+        "sandboxed.sh"
+      ],
+      "cve": "CVE-2026-109569",
+      "cvss": 9.3,
+      "credits": [
+        {
+          "name": "hieuPenguin"
+        }
+      ],
+      "explainer": {
+        "tagline": "Container workspaces in sandboxed.sh did not keep agent-run code away from the host filesystem, which the project documented as isolated.",
+        "whatHappened": "VulnCheck published CVE-2026-109569 on October 12, 2026, a container escape in sandboxed.sh through version 1.3.0, rated critical at CVSS 9.3 and credited to hieuPenguin. sandboxed.sh runs coding agents in container workspaces and is now the backend for the Orb clients.",
+        "howItWorks": "The tool attaches a shell to a container workspace using nsenter but leaves out the option that switches to the container root filesystem (CWE-1188), so the shell keeps the host root. Code that an agent runs in the workspace can then resolve absolute paths such as /etc on the host and read or modify files there. A hardening commit in the project repository describes a run that left its container and rewrote host files.",
+        "whoIsAffected": "Self-hosted installs of sandboxed.sh through version 1.3.0 are affected, which means teams relying on its container workspaces to contain coding agents. VulnCheck lists no fixed version.",
+        "whatToDo": "Turn on the scoped namespace by setting SANDBOXED_SH_NSENTER_USE_TARGET_ROOT=1, after checking that the agent binaries are present inside the container, because the maintainer's hardening commit leaves it off by default. Until that is in place, treat the workspace as able to reach host files and keep credentials and sensitive paths off that host."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-109569"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "9.3, rated critical by VulnCheck"
+        },
+        {
+          "label": "Affected",
+          "value": "sandboxed.sh through 1.3.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed version listed, hardening is opt-in"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-1188, insecure default in the nsenter attach"
+        },
+        {
+          "label": "Found by",
+          "value": "hieuPenguin, via VulnCheck"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patched version of sandboxed.sh for CVE-2026-109569?",
+          "a": "No fixed version appears in the VulnCheck advisory for CVE-2026-109569. The project repository holds a commit that adds a scoped namespace option, but the maintainer describes it as a defensive knob that stays off until each host is confirmed to carry the agent binaries inside the container, so installs stay exposed by default."
+        },
+        {
+          "q": "What does an attacker need to exploit the sandboxed.sh escape?",
+          "a": "An attacker needs code running inside a container workspace, which is the position a coding agent gives to any repository, package or prompt it processes. From there the missing root namespace makes host paths resolvable, so the escape needs no second flaw. The CVSS vector records a local attack vector with low privileges."
+        },
+        {
+          "q": "Why is this rated lower here than its critical CVSS score?",
+          "a": "Severity on The Injection measures the impact for defenders, and sandboxed.sh is a self-hosted tool with a narrow user base rather than a widely deployed product. CVE-2026-109569 is real and reproducible, which places it at medium in this rubric, while VulnCheck's critical rating reflects the technical impact on an affected install."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/sandboxed-sh-through-1.3.0-container-escape-via-nsenter-missing-root-namespace"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-xqq7-hjvp-gg2f"
+        },
+        {
+          "label": "Hardening Commit",
+          "url": "https://github.com/Th0rgal/orb/commit/4ab42e9"
+        }
+      ],
+      "publishDate": "2026-10-13T09:38:47.753Z"
+    },
     {
       "id": "openai-gpt-6-october-cyber-high",
       "categories": [
