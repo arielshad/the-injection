@@ -1936,6 +1936,87 @@
         "labs.cloudsecurityalliance.org"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261013t220522z",
+      "timestamp": "2026-10-13T22:05:22.239Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked Anthropic news and the claude-code advisories, MSRC, OpenAI (403 to scripts), GitHub Security Advisories, VulnCheck, JFrog, AIR, Zenity, Embrace The Red, Simon Willison, NCC Group, Wiz, Trail of Bits, HiddenLayer, Check Point, Lakera, Socket, ReversingLabs, Unit 42, Google GTIG, OWASP GenAI, UK AISI, CAISI, Hugging Face, Hacker News, paper-scan (30 arXiv candidates), repo-scan (1 candidate), GitHub trending and talk-scan (42 videos). Added two newly disclosed Anthropic advisories and one new reference architecture for agent-driven software factories.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "anthropic-claude-desktop-git-search-path-rce",
+          "title": "Claude Desktop on Windows: a planted git.exe ran when a project opened",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Anthropic published the advisory and CVE today: code runs on opening a cloned repository on Windows, fixed in a version manual updaters must install."
+        },
+        {
+          "id": "air-claude-code-plugin-sha-pin-bypass",
+          "title": "Claude Code: a branch named like a commit defeated plugin SHA pinning",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A commit pin that defenders rely on to review plugin code did not hold; vendor advisory, CVE and fixed version all published inside the window."
+        },
+        {
+          "id": "agent-baseline-secure-software-factory",
+          "title": "Secure Software Factory: a reference architecture for coding agents",
+          "category": "tool",
+          "severity": "info",
+          "note": "Version 1 published today by named authors from five companies, with concrete infrastructure-enforced boundaries a platform team can check their agent setup against."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "anthropic.com/news",
+        "github.com/anthropics/claude-code/security/advisories",
+        "github.com/advisories",
+        "vulncheck.com/advisories",
+        "research.jfrog.com/vulnerabilities",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "nccgroup.com/research-blog",
+        "wiz.io/blog",
+        "blog.trailofbits.com",
+        "hiddenlayer.com/innovation-hub",
+        "research.checkpoint.com",
+        "lakera.ai/blog",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "unit42.paloaltonetworks.com",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "microsoft.com/en-us/msrc/blog",
+        "genai.owasp.org",
+        "aisi.gov.uk/blog",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "news.ycombinator.com (front page and Show HN)",
+        "github.com/trending",
+        "arXiv via paper-scan.ts",
+        "repo-scan.json",
+        "talk-scan.ts",
+        "agentbaseline.org"
+      ],
+      "windowDays": 7
     }
   ]
 }
