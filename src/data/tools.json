@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T13:37:29Z",
+  "generatedAt": "2026-10-13T13:03:01Z",
   "tools": [
     {
       "slug": "skillspector",
@@ -18,7 +18,7 @@
       ],
       "homepage": "https://docs.nvidia.com/skills/scanning-agent-skills",
       "added": "2026-10-09",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "tencent-ai-infra-guard",
@@ -36,7 +36,7 @@
       ],
       "homepage": "https://tencent.github.io/AI-Infra-Guard/",
       "added": "2026-10-09",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "snyk-agent-scan",
@@ -52,7 +52,7 @@
         "Coding agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "cisco-mcp-scanner",
@@ -66,7 +66,7 @@
         "MCP servers"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "splx-agentic-radar",
@@ -80,7 +80,7 @@
         "Agentic workflows"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "numbat",
@@ -96,7 +96,7 @@
         "OpenClaw"
       ],
       "added": "2026-10-11",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "protectai-modelscan",
@@ -110,7 +110,7 @@
         "Model files"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "picklescan",
@@ -125,7 +125,7 @@
         "Hugging Face models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "fickling",
@@ -140,7 +140,7 @@
         "PyTorch models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "nemo-guardrails",
@@ -155,7 +155,7 @@
       ],
       "homepage": "https://docs.nvidia.com/nemo/guardrails",
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "guardrails-ai",
@@ -169,7 +169,7 @@
         "LLM applications"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "purple-llama",
@@ -177,14 +177,14 @@
       "repo": "meta-llama/PurpleLlama",
       "kind": "guardrail",
       "description": "Meta's umbrella project of open tools and evals for building with open generative AI models, including the Llama Guard safeguard models and the CyberSecEval benchmarks.",
-      "license": "MIT (evals), Llama 3.2 Community License (models)",
+      "license": "MIT (evals), Llama Community License (models)",
       "maintainer": "Meta",
       "covers": [
         "LLM applications",
         "Open-weight models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "hol-guard",
@@ -204,7 +204,7 @@
         "Agent skills"
       ],
       "added": "2026-10-12",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "pipelock",
@@ -224,7 +224,7 @@
       ],
       "homepage": "https://pipelab.org/learn",
       "added": "2026-10-12",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "praetorian-augustus",
@@ -244,7 +244,7 @@
         "REST API endpoints"
       ],
       "added": "2026-10-12",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "garak",
@@ -259,7 +259,7 @@
         "Chatbots"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "pyrit",
@@ -273,7 +273,7 @@
         "Generative AI systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "promptfoo",
@@ -288,7 +288,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "deepteam",
@@ -302,7 +302,7 @@
         "LLM systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "anamorpher",
@@ -320,7 +320,49 @@
         "Pillow"
       ],
       "added": "2026-10-09",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
+    },
+    {
+      "slug": "agentic-security",
+      "name": "Agentic Security",
+      "repo": "msoedov/agentic_security",
+      "kind": "red-team",
+      "description": "Vulnerability scanner for agent workflows and LLMs. Fires multi-step jailbreaks, fuzzing and text, image and audio attacks at an HTTP endpoint you describe, then reports. Runs in CI.",
+      "license": "Apache-2.0",
+      "maintainer": "Alexander Miasoiedov",
+      "covers": [
+        "LLM API endpoints",
+        "Agent workflows",
+        "OpenAI",
+        "Groq",
+        "garak",
+        "Inspect AI",
+        "Hugging Face datasets"
+      ],
+      "homepage": "https://agentic-security.vercel.app",
+      "added": "2026-10-13",
+      "checked": "2026-10-13"
+    },
+    {
+      "slug": "safelabs-eval",
+      "name": "safelabs-eval",
+      "repo": "AgentSafeLabs/safelabs-eval",
+      "kind": "red-team",
+      "description": "Red teaming and evaluation framework for AI agents. Fires 300 adversarial prompts across ten agent-security categories, scores the replies with pattern detectors and writes a report.",
+      "license": "Apache-2.0",
+      "maintainer": "Safe Labs AI Inc",
+      "covers": [
+        "LLM agents",
+        "LangChain",
+        "CrewAI",
+        "AutoGen",
+        "LlamaIndex",
+        "OpenAI Agents SDK",
+        "Google ADK",
+        "Semantic Kernel"
+      ],
+      "added": "2026-10-13",
+      "checked": "2026-10-13"
     },
     {
       "slug": "agentdojo",
@@ -335,7 +377,7 @@
       ],
       "homepage": "https://agentdojo.spylab.ai/results/",
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "uber-adr",
@@ -354,7 +396,7 @@
         "MCP servers"
       ],
       "added": "2026-10-10",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "giskard",
@@ -372,7 +414,7 @@
       ],
       "homepage": "https://docs.giskard.ai/oss",
       "added": "2026-10-11",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "sandbox-runtime",
@@ -388,7 +430,7 @@
         "Bash commands"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "e2b",
@@ -403,7 +445,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "toolhive",
@@ -423,7 +465,7 @@
       ],
       "homepage": "https://docs.stacklok.com/toolhive/",
       "added": "2026-10-10",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "agent-sandbox",
@@ -441,7 +483,7 @@
       ],
       "homepage": "https://agent-sandbox.sigs.k8s.io",
       "added": "2026-10-10",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
     },
     {
       "slug": "nono",
@@ -459,7 +501,26 @@
       ],
       "homepage": "https://docs.nono.sh",
       "added": "2026-10-11",
-      "checked": "2026-10-12"
+      "checked": "2026-10-13"
+    },
+    {
+      "slug": "gondolin",
+      "name": "Gondolin Agent Sandbox",
+      "repo": "earendil-works/gondolin",
+      "kind": "sandbox",
+      "description": "Runs AI-generated code in a local Linux micro-VM under host-side network and filesystem policy. Egress allowlists, request hooks, and secrets the guest sees only as a placeholder. Experimental.",
+      "license": "Apache-2.0",
+      "maintainer": "earendil-works",
+      "covers": [
+        "AI-generated code",
+        "Agents",
+        "QEMU",
+        "libkrun",
+        "Browser Use"
+      ],
+      "homepage": "https://earendil-works.github.io/gondolin",
+      "added": "2026-10-13",
+      "checked": "2026-10-13"
     }
   ]
 }
