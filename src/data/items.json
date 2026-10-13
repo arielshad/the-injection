@@ -1,7 +1,192 @@
 {
-  "generatedAt": "2026-10-12T20:10:05.503Z",
+  "generatedAt": "2026-10-13T02:19:39.324Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "openai-gpt-6-october-cyber-high",
+      "categories": [
+        "lab-safety",
+        "benchmark"
+      ],
+      "title": "OpenAI: GPT-6 Sol and Luna rated High cyber capability, below Critical",
+      "org": "OpenAI",
+      "date": "2026-10-07",
+      "url": "https://deploymentsafety.openai.com/gpt-6-october",
+      "summary": "OpenAI classifies the October GPT-6 Sol and GPT-6 Luna releases as High capability in cybersecurity but below Critical, and reports 99.99% and 99.79% robustness on its instruction hierarchy evaluations.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "evals",
+        "prompt-injection",
+        "jailbreak",
+        "openai",
+        "gpt-6"
+      ],
+      "affected": [
+        "GPT-6 Sol",
+        "GPT-6 Luna"
+      ],
+      "credits": [
+        {
+          "name": "OpenAI",
+          "org": "OpenAI"
+        }
+      ],
+      "explainer": {
+        "tagline": "OpenAI treats its October GPT-6 models as High capability in cybersecurity while claiming near-total direct prompt injection robustness.",
+        "whatHappened": "OpenAI published an October 2026 update to the GPT-6 Sol and GPT-6 Luna system card on 7 October 2026, on its Deployment Safety Hub. The update covers the October versions of both models and compares them with GPT-5.6 Sol and Luna. OpenAI says its Safety Advisory Group reviewed the evidence and kept both models below the Critical threshold for cyber.",
+        "howItWorks": "Capability tiers rest on benchmark runs rather than on model size. OpenAI measured exploit development on ExploitBench and vulnerability discovery on SEC-Bench Pro, scored below. Instruction hierarchy evaluations test whether a model keeps following a developer's rules when injected text tells it otherwise, and GPT-RED, OpenAI's automated red-teaming setup, drove the indirect prompt injection tests where hidden instructions sit in third-party content the model reads.",
+        "whoIsAffected": "Teams running the October GPT-6 Sol and GPT-6 Luna releases are the subject of the update. OpenAI notes the September versions stay in use in Codex and ChatGPT Work, so those deployments are not described by these numbers.",
+        "whatToDo": "Check which model version your product actually serves before applying these figures, since Codex and ChatGPT Work still run the September builds. Keep untrusted content out of privileged tool calls regardless of the robustness scores, which are OpenAI's own measurements on its own benchmarks."
+      },
+      "quickFacts": [
+        {
+          "label": "Models",
+          "value": "GPT-6 Sol (October), GPT-6 Luna (October)"
+        },
+        {
+          "label": "Cyber tier",
+          "value": "High capability, below Critical"
+        },
+        {
+          "label": "Instruction hierarchy",
+          "value": "99.99% Sol, 99.79% Luna"
+        },
+        {
+          "label": "ExploitBench",
+          "value": "82.62% Sol, 44.66% Luna, at maximum reasoning effort"
+        },
+        {
+          "label": "Safeguards",
+          "value": "Same set as the GPT-5.6 System Card"
+        },
+        {
+          "label": "Published",
+          "value": "7 October 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are GPT-6 Sol and GPT-6 Luna safe to use in an agent that reads untrusted web pages?",
+          "a": "OpenAI reports GPT-6 Sol and GPT-6 Luna saturate its instruction hierarchy evaluations, at 99.99% and 99.79% robustness, and calls both highly robust to prompt injection. Those are OpenAI's own figures on its own benchmarks, not independent results. Keep untrusted content away from privileged tools, because a residual failure rate still matters when an agent can spend money or read private repositories."
+        },
+        {
+          "q": "What does High capability in cybersecurity mean for GPT-6 Sol and GPT-6 Luna?",
+          "a": "High capability is the tier OpenAI assigns in the Cybersecurity domain, and OpenAI says its Safety Advisory Group reviewed the evidence and kept both October GPT-6 models below the Critical threshold. The tier brings the same safeguard set described in the GPT-5.6 System Card. OpenAI adds that model refusal remains one layer of a defense in depth stack, not the whole defense."
+        },
+        {
+          "q": "Did the October GPT-6 models get better at resisting multi-turn jailbreaks?",
+          "a": "Multi-turn jailbreak robustness did not clearly improve. OpenAI reports the October GPT-6 models score slightly lower point estimates than their September counterparts, with broadly overlapping 95% confidence intervals, so the difference may be noise. OpenAI also reports both October models beat GPT-5.6 Sol on observed defender success rates at every attacker budget tested."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Vulnerability discovery, SEC-Bench Pro",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher means more cyber-capable, on large JavaScript engines",
+          "results": [
+            {
+              "name": "GPT-6 Sol",
+              "score": 68.85
+            },
+            {
+              "name": "GPT-6 Luna",
+              "score": 48.5
+            },
+            {
+              "name": "GPT-6 Astra",
+              "score": 85.4
+            }
+          ],
+          "source": "https://deploymentsafety.openai.com/gpt-6-october"
+        }
+      ],
+      "links": [
+        {
+          "label": "Deployment Safety Hub",
+          "url": "https://deploymentsafety.openai.com/gpt-6-october"
+        },
+        {
+          "label": "October Update PDF",
+          "url": "https://cdn.openai.com/pdf/gpt-6-october.pdf"
+        }
+      ],
+      "publishDate": "2026-10-13T02:19:39.324Z"
+    },
+    {
+      "id": "anthropic-haiku-5-5-cyber-safeguards",
+      "categories": [
+        "lab-safety"
+      ],
+      "title": "Claude Haiku 5.5: Anthropic tightens cyber safeguards on its small model",
+      "org": "Anthropic",
+      "date": "2026-10-07",
+      "url": "https://www.anthropic.com/claude-haiku-5-5",
+      "summary": "Claude Haiku 5.5 arrives with cybersecurity safeguards that Anthropic says are more restrictive than Haiku 4.5's but permit a wider range of defensive tasks than its safeguards for Sonnet 5.5.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "guardrails",
+        "evals",
+        "anthropic",
+        "claude-haiku"
+      ],
+      "affected": [
+        "Claude Haiku 5.5"
+      ],
+      "credits": [
+        {
+          "name": "Anthropic",
+          "org": "Anthropic"
+        }
+      ],
+      "explainer": {
+        "tagline": "Claude Haiku 5.5 ships with cyber safeguards that Anthropic says are stricter than Haiku 4.5's and looser than Sonnet 5.5's.",
+        "whatHappened": "Anthropic released Claude Haiku 5.5 on 7 October 2026 and described the model's cybersecurity safeguards in the announcement, which links to a separate system card. Anthropic says Haiku 5.5 shows major improvements across almost all of its alignment evaluations relative to Haiku 4.5, with fewer instances of misaligned behavior and a lower willingness to cooperate with misuse.",
+        "howItWorks": "Safeguards here are refusal behavior tuned per model, not a bolt-on filter. Anthropic draws the line by task type: defensive work is allowed more freely than under the Sonnet 5.5 safeguards, while penetration testing and other techniques more likely to be used by attackers stay blocked. Reaching the blocked categories needs an application, not a configuration change.",
+        "whoIsAffected": "Security teams running Claude Haiku 5.5 for cyber work meet more refusals than on Haiku 4.5, and fewer than on Sonnet 5.5 for defensive tasks. Penetration testing stays blocked on the standard model for every user.",
+        "whatToDo": "Apply to Anthropic's Cyber Verification Program if your team needs the blocked cyber categories. Re-test existing security prompts against Haiku 5.5 before switching from Haiku 4.5, because the refusal boundary moved."
+      },
+      "quickFacts": [
+        {
+          "label": "Model",
+          "value": "Claude Haiku 5.5"
+        },
+        {
+          "label": "Released",
+          "value": "7 October 2026"
+        },
+        {
+          "label": "Cyber safeguards",
+          "value": "Stricter than Haiku 4.5, looser than Sonnet 5.5 for defensive tasks"
+        },
+        {
+          "label": "Still blocked",
+          "value": "Penetration testing and attacker-leaning techniques"
+        },
+        {
+          "label": "Exemption route",
+          "value": "Cyber Verification Program application"
+        }
+      ],
+      "links": [
+        {
+          "label": "Anthropic Announcement",
+          "url": "https://www.anthropic.com/claude-haiku-5-5"
+        },
+        {
+          "label": "Cyber Verification",
+          "url": "https://www.anthropic.com/news/cyber-verification-program"
+        }
+      ],
+      "image": {
+        "url": "https://www-cdn.anthropic.com/images/4zrzovbb/website/89e9b0fbfe0181f6ca565d913686ce8e49b5e9c2-1200x630.jpg",
+        "alt": "Anthropic's Claude Haiku 5.5 announcement image",
+        "credit": "Anthropic"
+      },
+      "publishDate": "2026-10-13T02:19:39.324Z"
+    },
     {
       "id": "air-vercellbreak",
       "categories": [

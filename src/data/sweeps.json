@@ -1695,6 +1695,81 @@
         "talk-scan.ts (YouTube channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261013t021939z",
+      "timestamp": "2026-10-13T02:19:39.324Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research blogs, GitHub and VulnCheck advisories, repo-scan (13 queries, 1 candidate), talk-scan, Hacker News, GitHub trending and Hugging Face for the 7 days to 2026-10-13. Added two in-window lab security claims the feed had missed: OpenAI's October GPT-6 Sol and Luna update (High cyber capability, below Critical) and the Claude Haiku 5.5 cyber safeguards. paper-scan's arXiv queries all returned HTTP 406, so arXiv was searched by hand; r/netsec, the Microsoft MSRC blog, the Google security blog and OpenAI's main news index could not be loaded from this runner.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "openai-gpt-6-october-cyber-high",
+          "title": "OpenAI: GPT-6 Sol and Luna rated High cyber capability, below Critical",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "OpenAI's own system card update inside the window puts a cyber capability tier and printed benchmark scores on two newly shipped models, which teams embedding them in agents need."
+        },
+        {
+          "id": "anthropic-haiku-5-5-cyber-safeguards",
+          "title": "Claude Haiku 5.5: Anthropic tightens cyber safeguards on its small model",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A new model release that moves the refusal boundary for security work, with the comparison to Haiku 4.5 and Sonnet 5.5 stated by Anthropic on the announcement page."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "deploymentsafety.openai.com",
+        "alignment.openai.com",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "jfrog.com security research",
+        "hiddenlayer.com",
+        "blog.trailofbits.com",
+        "reversinglabs.com",
+        "lakera.ai/blog",
+        "mindgard.ai/blog",
+        "adversa.ai/blog",
+        "invariantlabs.ai/blog",
+        "aisi.gov.uk",
+        "genai.owasp.org",
+        "nist.gov CAISI",
+        "huggingface.co/blog",
+        "huggingface.co/papers",
+        "huggingface.co/models prompt-injection",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "repo-scan.json",
+        "talk-scan",
+        "arXiv (manual, API returned 406)"
+      ],
+      "windowDays": 7
     }
   ]
 }
