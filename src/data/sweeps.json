@@ -2794,6 +2794,66 @@
         "jfrog.com security research"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t171406z",
+      "timestamp": "2026-10-14T17:14:06.262Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, the October Patch Tuesday, Anthropic, Google/GTIG, MSRC, Embrace The Red, AIR Security, Zenity Labs, Simon Willison, Trail of Bits, HiddenLayer, Lakera, Check Point, Socket, NCC Group, Snyk, OWASP GenAI, UK AISI, NIST CAISI, Hugging Face, paper-scan (56 arXiv papers in the window, none with two signals), repo-scan (13 queries, 1 candidate), GitHub trending, talk-scan (22 channels, 43 videos) and Hacker News: no new AI-security disclosure, tool, paper or talk inside the 7-day window met the bar. Everything that qualified was already in the feed (the VulnCheck MCP source-review batch now including NullHub CVE-2026-110616 at 9.2, AIR's Render/OpenAI skill and VerCellBreak, Zenity's AgentCorruption series, Anthropic's Cyber Mission and OSS Scanner, the hidden-capabilities paper on the HN front page), outside the window (Manifold Security's GitSpawn on September 1, Mandiant's AVDH on August 18, Google Fairwind on September 2, Cloudflare's Project Glasswing on May 18, Unit 42's in-the-wild indirect prompt injection on March 3), or out of scope (Trail of Bits' package-manager integrity study has no AI angle; Snyk's Evo COS versus Claude Security post is a vendor comparison on its own testbed). openai.com returned 403 to scripts and r/netsec could not be opened, so neither is listed as checked; MSRC's Update Guide and NVD detail pages do not render for scripts, so CVE-2026-69923 (Windows AI elevation of privilege, shipped October 13) was dropped for want of a citable primary source and credits.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (github.com/advisories, MCP and AI agent queries)",
+        "VulnCheck advisories",
+        "Microsoft October 2026 Patch Tuesday (Talos write-up)",
+        "microsoft.com/en-us/msrc/blog",
+        "anthropic.com/news",
+        "blog.google safety-security",
+        "cloud.google.com/blog/topics/threat-intelligence (GTIG and Mandiant)",
+        "embracethered.com/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "simonwillison.net (October 2026)",
+        "blog.trailofbits.com",
+        "hiddenlayer.com research",
+        "lakera.ai/blog",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "nccgroup.com/research-blog",
+        "snyk.io/blog",
+        "invariantlabs.ai/blog",
+        "genai.owasp.org/resources",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection and guard models, sorted by created)",
+        "arXiv cs.CR via scripts/paper-scan.ts",
+        "Hugging Face Daily Papers via scripts/paper-scan.ts",
+        "scripts/repo-scan.ts (repo-scan.json)",
+        "github.com/trending (daily and weekly)",
+        "Hacker News front page and Show HN",
+        "scripts/talk-scan.ts (22 conference and security-voice channels)",
+        "scripts/gh-repo-meta.ts (scs0209/laya-guard, ifixai-ai/iFixAi, morluto/rea)"
+      ],
+      "windowDays": 7
     }
   ]
 }
