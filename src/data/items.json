@@ -1,7 +1,109 @@
 {
-  "generatedAt": "2026-10-14T08:15:42.761Z",
+  "generatedAt": "2026-10-14T09:16:49.496Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "mistral-vibe-var-p-permission-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Mistral Vibe: a prompt-transform operator smuggled commands past approval",
+      "org": "VulnCheck",
+      "date": "2026-10-13",
+      "url": "https://www.vulncheck.com/advisories/mistral-vibe-bash-permission-bypass-via-var-p-prompt-transform",
+      "summary": "CVE-2026-109429 let a command hidden in a single-quoted variable run when Mistral Vibe re-expanded it with bash's ${var@P} operator, bypassing the approval gate. Versions before 2.25.4 are affected, and 2.25.4 shipped September 12, 2026.",
+      "severity": "medium",
+      "tags": [
+        "approval-bypass",
+        "coding-agents",
+        "mistral-vibe",
+        "mistral"
+      ],
+      "affected": [
+        "Mistral Vibe"
+      ],
+      "cve": "CVE-2026-109429",
+      "cvss": 8.7,
+      "credits": [
+        {
+          "name": "Minqiang Gui"
+        }
+      ],
+      "explainer": {
+        "tagline": "Mistral Vibe checked a command line with a static bash parser, so a command hidden in a quoted variable ran when bash re-expanded it.",
+        "whatHappened": "VulnCheck published CVE-2026-109429 on October 13, 2026, a command permission gate bypass in the Mistral Vibe coding agent, and credits Minqiang Gui. The fix is version 2.25.4, which Mistral released on September 12, 2026, a month before the CVE became public. Mistral's own advisory MAI-2026-003 listed six other shell permission CVEs fixed in that same release, and none of them is this one.",
+        "howItWorks": "The flaw is an interpretation conflict between the checker and the shell, classified as CWE-436. Mistral Vibe classifies a command line using tree-sitter-bash static parsing, which does not see a command substitution hidden inside a single-quoted variable value. The line then re-expands that variable with bash's ${var@P} prompt-transform operator, and bash's promptvars feature runs the hidden command. Only the trailing allowlisted command reaches the classifier, so the hidden one runs silently with the privileges of the agent's terminal session.",
+        "whoIsAffected": "Every Mistral Vibe release before 2.25.4 carries the bypass, per VulnCheck. Because the patch shipped a month before disclosure, installs that have updated since September 12, 2026 are not exposed, while pinned or vendored older builds still are.",
+        "whatToDo": "Update Mistral Vibe to 2.25.4 or later, and check any pinned or vendored copy separately, because the fixed release predates the CVE by a month. Treat a shell allowlist that is matched by static parsing as a weak boundary for an agent that reads untrusted content."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Mistral Vibe before 2.25.4"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.25.4, released September 12, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-109429"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "8.7, from VulnCheck"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-436, interpretation conflict between the parser and the shell"
+        },
+        {
+          "label": "Found by",
+          "value": "Minqiang Gui, via VulnCheck"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 13, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Mistral Vibe version fixes CVE-2026-109429?",
+          "a": "Mistral Vibe 2.25.4 fixes CVE-2026-109429, and VulnCheck lists every release before it as affected. That release shipped on September 12, 2026, roughly a month before the CVE was published, and its changelog records shell permission checks that now require approval for risky syntax. Anyone still running an older pinned build remains exposed."
+        },
+        {
+          "q": "Is CVE-2026-109429 the same as the six Mistral Vibe shell flaws from September?",
+          "a": "No. Mistral's advisory MAI-2026-003, published September 14, 2026, covers CVE-2026-87983 through CVE-2026-87988, six shell permission flaws whose advisories Mistral attributes to HiddenLayer. None of them mentions the ${var@P} prompt-transform operator or tree-sitter-bash parsing. CVE-2026-109429 is a separate bypass, credited to Minqiang Gui and published by VulnCheck on October 13, 2026."
+        },
+        {
+          "q": "How do I tell whether my Mistral Vibe install blocks the ${var@P} bypass?",
+          "a": "Check the installed Mistral Vibe version against 2.25.4, which VulnCheck names as the fixed release. Pull request 1084 in the mistralai/mistral-vibe repository merged that release on September 12, 2026 and records shell permission security fixes in its changelog. The advisory gives no proof-of-concept command and no detection signature, so a version check is the practical test."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/mistral-vibe-bash-permission-bypass-via-var-p-prompt-transform"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-m84r-3mrm-j4p8"
+        },
+        {
+          "label": "Mistral Advisory",
+          "url": "https://docs.mistral.ai/resources/security-advisories/MAI-2026-003"
+        },
+        {
+          "label": "Release Notes",
+          "url": "https://github.com/mistralai/mistral-vibe/releases/tag/v2.25.4"
+        },
+        {
+          "label": "Patch Pull Request",
+          "url": "https://github.com/mistralai/mistral-vibe/pull/1084"
+        }
+      ],
+      "publishDate": "2026-10-14T09:16:49.496Z"
+    },
     {
       "id": "ollama-api-pull-path-traversal",
       "categories": [
@@ -1739,7 +1841,8 @@
         "Odoo MCP",
         "Abilityai Trinity",
         "UnicomAI Wanwu",
-        "phpMyFAQ"
+        "phpMyFAQ",
+        "Katanemo Plano"
       ],
       "cve": "CVE-2026-108865",
       "cvss": 8.8,
@@ -1885,6 +1988,14 @@
         {
           "label": "phpMyFAQ Advisory",
           "url": "https://github.com/advisories/GHSA-52xr-g583-rx96"
+        },
+        {
+          "label": "Plano Advisory",
+          "url": "https://github.com/advisories/GHSA-54m9-qc5w-93rc"
+        },
+        {
+          "label": "Plano Write-Up",
+          "url": "https://hackmd.io/@1ExmmukzRMWN7B4gQ4W-4Q/cve-2026-108863-katanemo-plano-envoy-admin-config-secret-disclosure"
         }
       ],
       "publishDate": "2026-10-12T01:38:15.507Z"

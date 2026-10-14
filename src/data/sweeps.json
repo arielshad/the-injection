@@ -2323,6 +2323,76 @@
         "simonwillison.net"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t091649z",
+      "timestamp": "2026-10-14T09:16:49.496Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab posts (Anthropic, Microsoft MSRC, AISI, OWASP GenAI), researcher blogs (Embrace The Red, AIR, Zenity, Unit 42, JFrog, Wiz, Check Point, NCC, HiddenLayer, Socket, Simon Willison), GitHub Security Advisories, NVD, VulnCheck, arXiv via paper-scan (65 papers in window, only 2 at the two-signal bar and both already in the feed), repo-scan (1 candidate), github.com/trending, talk-scan (44 uploads), Hacker News front page and Show HN. One new item: CVE-2026-109429, a ${var@P} permission bypass in Mistral Vibe disclosed by VulnCheck on October 13. Left out as old news despite appearing in GitHub's advisory database this week: about 25 PraisonAI advisories (disclosed June 25, 2026) and the critical Flowise CSV Agent bypass (July 29, 2026), both database ingestions rather than new disclosures, and GitSpawn (Manifold Security, early October at the latest, outside the window).",
+      "counts": {
+        "added": 1,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "mistral-vibe-var-p-permission-bypass",
+          "title": "Mistral Vibe: a prompt-transform operator smuggled commands past approval",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A seventh Mistral Vibe shell permission bypass, first described publicly in VulnCheck's October 13 advisory and absent from Mistral's September advisory, so the disclosure is inside the window even though the fix is not."
+        }
+      ],
+      "updated": [
+        {
+          "id": "vulncheck-mcp-source-review-cves",
+          "title": "MCP source review: at least 16 unpatched CVEs in three days",
+          "note": "The same campaign published CVE-2026-108863 in Katanemo Plano on October 11, 2026, an LLM gateway rather than an MCP server: the Envoy admin interface is unauthenticated on port 9901 and /config_dump returns configured LLM provider API keys. Adds Plano to affected, plus its advisory and write-up as links."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "microsoft.com/security/blog",
+        "aisi.gov.uk/blog",
+        "genai.owasp.org",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "unit42.paloaltonetworks.com",
+        "research.jfrog.com",
+        "wiz.io/blog",
+        "research.checkpoint.com",
+        "nccgroup.com/research-blog",
+        "hiddenlayer.com/innovation-hub",
+        "socket.dev/blog",
+        "simonwillison.net",
+        "docs.mistral.ai security advisories",
+        "hackmd.io researcher write-ups",
+        "arXiv cs.CR via paper-scan",
+        "huggingface.co/blog",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan (YouTube conference and security channels)",
+        "Hacker News front page",
+        "Hacker News Show HN"
+      ],
+      "windowDays": 7
     }
   ]
 }
