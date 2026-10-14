@@ -2921,6 +2921,70 @@
         "arXiv abs and HTML"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t192002z",
+      "timestamp": "2026-10-14T19:20:02.502Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, NVD, MSRC, Anthropic (news, research and Frontier Red Team), OpenAI (403 to fetchers), AIR Security, Zenity Labs, Socket, Wiz, Koi, Unit 42, UK AISI, OWASP GenAI, Hugging Face blog, Simon Willison, Embrace The Red, Hacker News front page and Show HN, GitHub trending, npm registry, paper-scan (55 arXiv candidates), repo-scan (1 candidate) and talk-scan. Added one item: CVE-2026-110719, an unauthenticated SSRF in Portkey AI Gateway published today. Four stories I researched in full (the TensorLake npm compromise, AIR's OpenAI Sesame skill flaw, Zenity's AgentCorruption series and Anthropic's unintended model actions report) were already in the feed from earlier sweeps, so the only change they produced is one update: npm has now removed tensorlake 0.5.144.",
+      "counts": {
+        "added": 1,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "portkey-ai-gateway-custom-host-ssrf",
+          "title": "Portkey AI Gateway: a header makes the gateway read loopback services",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "An unauthenticated SSRF in a widely self-hosted LLM gateway, disclosed today with an official CVSS, a named researcher and no patched version, so the only defence is configuration."
+        }
+      ],
+      "updated": [
+        {
+          "id": "socket-tensorlake-npm-credential-stealer",
+          "title": "TensorLake npm SDK published a credential stealer in 0.5.144",
+          "note": "The malicious version is no longer installable: registry.npmjs.org returns 404 for tensorlake 0.5.144 and serves 0.5.151 as latest, both checked in this run. Hosts that already installed it still need the cleanup the item describes."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "github.com/advisories",
+        "vulncheck.com/advisories",
+        "nvd.nist.gov",
+        "msrc.microsoft.com/blog",
+        "anthropic.com/news",
+        "anthropic.com Frontier Red Team",
+        "air.security/blog",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "wiz.io/blog",
+        "aisi.gov.uk",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "simonwillison.net",
+        "embracethered.com",
+        "news.ycombinator.com front page and Show HN",
+        "github.com/trending",
+        "registry.npmjs.org",
+        "paper-scan (arXiv + HF Daily Papers)",
+        "repo-scan.json",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }
