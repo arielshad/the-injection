@@ -3111,6 +3111,84 @@
         "gh-repo-meta.ts (rea, laya-guard, iFixAi)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t221941z",
+      "timestamp": "2026-10-14T22:19:41.202Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, MSRC and the October Patch Tuesday, Anthropic, OpenAI alignment, Google GTIG, Microsoft, Talos, CrowdStrike, Embrace The Red, AIR, Zenity, Socket, JFrog, Trail of Bits, NCC Group, Wiz, ReversingLabs, HiddenLayer, OWASP GenAI, UK AISI, CAISI, Hugging Face, paper-scan (55 arXiv papers inside the window), repo-scan (1 candidate), talk-scan (43 videos), GitHub trending, Hacker News and Show HN. No candidate met the bar: in-window stories were already in the feed, the strong outside ones were dated before October 7 by original disclosure (PixelLeak September 29, NVIDIA NemoClaw August, ServiceNow AI Platform September 24, Cymulate CVE-2026-35603 January), no arXiv paper showed two signals, laya-guard was the only new repo and it shows one, and the three new talk-scan videos retell stories already published. Two existing items were patched instead; r/netsec was unreachable from this run.",
+      "counts": {
+        "added": 0,
+        "updated": 2,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "vulncheck-mcp-source-review-cves",
+          "title": "MCP source review: at least 23 unpatched CVEs in five days",
+          "note": "Fourth batch of the same source-review campaign: holaOS (CVE-2026-110769, CVE-2026-110768) published October 14, plus three October 10 CVEs the earlier sweep missed (9router, OpenLIT, TencentCloud Octop). Counts, affected list, credits and links corrected."
+        },
+        {
+          "id": "embracethered-visual-studio-copilot-rce",
+          "title": "Visual Studio Copilot: a trailing dot let the agent rewrite its own config",
+          "note": "Rehberger published his own video demo of CVE-2026-103572 on October 14. A video about a story already in the feed is a link, not a new item."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "MSRC blog and October 2026 Patch Tuesday",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "alignment.openai.com",
+        "Google Cloud threat intelligence (GTIG and Mandiant)",
+        "Microsoft Security blog",
+        "blog.talosintelligence.com",
+        "crowdstrike.com/blog",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "simonwillison.net",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "blog.trailofbits.com",
+        "nccgroup.com research",
+        "wiz.io/blog",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "labs.snyk.io",
+        "research.checkpoint.com",
+        "unit42.paloaltonetworks.com",
+        "genai.owasp.org",
+        "aisi.gov.uk/blog",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/papers",
+        "huggingface.co/models (guard and prompt-injection search)",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "talk-scan.ts",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "thehackernews.com (discovery only)"
+      ],
+      "windowDays": 7
     }
   ]
 }

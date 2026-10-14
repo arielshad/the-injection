@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T21:11:34.461Z",
+  "generatedAt": "2026-10-14T22:19:41.202Z",
   "promptVersion": "1.3.0",
   "items": [
     {
@@ -1301,6 +1301,10 @@
           "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-103572"
         },
         {
+          "label": "Video Demo",
+          "url": "https://www.youtube.com/watch?v=qROuNtl4Kdc"
+        },
+        {
           "label": "Windows Trailing Dots",
           "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/file-folder-name-whitespace-characters"
         }
@@ -2487,11 +2491,11 @@
         "vulnerability",
         "supply-chain"
       ],
-      "title": "MCP source review: at least 18 unpatched CVEs in five days",
+      "title": "MCP source review: at least 23 unpatched CVEs in five days",
       "org": "VulnCheck",
       "date": "2026-10-11",
       "url": "https://www.vulncheck.com/advisories/amoylab-unla-through-0.10.0-oauth2-authentication-bypass-via-authorize",
-      "summary": "A static source-review campaign by two researchers has produced at least 18 MCP and agent CVEs published October 10 to 14, 2026. The newest rates 9.2: NullHub's agent console ships an /api/* API that never checks its token.",
+      "summary": "A static source-review campaign by three researchers has produced at least 23 MCP and agent CVEs published October 10 to 14, 2026. The newest hit holaOS, whose chat connectors accept tasks from any sender by default.",
       "severity": "medium",
       "tags": [
         "mcp",
@@ -2521,7 +2525,11 @@
         "UnicomAI Wanwu",
         "phpMyFAQ",
         "Katanemo Plano",
-        "Open Computer Use"
+        "Open Computer Use",
+        "9router",
+        "OpenLIT",
+        "TencentCloud Octop",
+        "holaOS"
       ],
       "cve": "CVE-2026-108865",
       "cvss": 8.8,
@@ -2534,19 +2542,23 @@
           "name": "Nguyen Dinh Hai",
           "org": "Post and Telecommunication Institute of Technology",
           "url": "https://github.com/Haind03"
+        },
+        {
+          "name": "ra-co88",
+          "url": "https://github.com/ra-co88"
         }
       ],
       "explainer": {
         "tagline": "NullHub extends the MCP source-review campaign to agent consoles: its /api/* management API never checks the bearer token it defines.",
-        "whatHappened": "The source-review campaign that produced 16 MCP CVEs on October 10 to 12, 2026 gained a third wave on October 14, when NVD published CVE-2026-110616 against NullHub, a management console for AI agents. hieuPenguinnn, one of the two researchers behind the earlier findings, reported it through VulnCheck with a HackMD write-up, as in the first two waves. At CVSS v4.0 9.2 it is the campaign's highest score, and GitHub's advisory database lists it unreviewed with no patched version.",
-        "howItWorks": "NullHub's server defines an auth_token field that defaults to null and is never assigned at startup, and its bearer check runs only when a token exists, so the check never runs. Most of the campaign's other findings are authorization gates that an attacker or a prompt-injected agent reaches through a tool call: Tabularis treats side-effecting SELECT statements as read-only, Odoo MCP's execute_method returns fields the caller is denied, and Trinity's Telegram router accepts agent-scoped MCP keys for owner-only binding. Open Computer Use shows the same gap in a desktop agent: its password-manager denylist matches bundle ids case-sensitively while the resolver for already-running apps compares them case-insensitively and never re-applies the denylist, so the case variant com.1Password.1Password reaches the real process. Two findings break an isolation boundary instead. In mistral.rs, the sandboxed shell child creates a relative symlink and names it as an output file, and the unsandboxed parent reads the target with std::fs::read, which follows the link; in Phi, agent_spawn passes a model-supplied working directory to a child whose permission gate is rooted at that directory instead of the parent workspace.",
-        "whoIsAffected": "Operators of the named projects are exposed, not MCP users in general, and the versions and CVEs are listed above. NullHub is only remotely reachable when an operator binds it to a non-loopback address with --host, since it defaults to 127.0.0.1, and its latest release, v2026.5.29, is the affected one. Open Computer Use is exposed only on its macOS runtime, where the agent already holds Accessibility and Screen Recording permission, and only against a password manager that is open and unlocked. Both researchers reviewed source at pinned commits, the write-ups record disclosure as pending, and only the mistral.rs escape was reproduced, in a syscall-faithful mirror on synthetic data.",
-        "whatToDo": "Check whether any listed project runs at or below its affected version, and treat it as exposed until maintainers ship a release. Keep NullHub's /api/* management API on loopback, off any non-loopback bind, and rotate the provider credentials it stores if it has been reachable. Quit or lock your password manager before giving a macOS computer-use agent Accessibility and Screen Recording permission. Put MCP gateway OAuth2 endpoints behind network controls, resolve symlinks before reading agent output files, and stop treating a server-side read-only setting as the boundary for an agent that reads untrusted content."
+        "whatHappened": "The source-review campaign that produced at least 20 MCP and agent CVEs on October 10 to 12, 2026 added three more on October 14: CVE-2026-110616 against NullHub, a management console for AI agents, and CVE-2026-110769 and CVE-2026-110768 against holaOS, which turns Telegram, Slack and Discord messages into tasks for a local agent. hieuPenguinnn reported the holaOS pair through VulnCheck with a HackMD write-up, as in the earlier waves. NullHub's CVSS v4.0 9.2 is still the campaign's highest score, and no advisory in the set names a patched version.",
+        "howItWorks": "NullHub's server defines an auth_token field that defaults to null and is never assigned at startup, and its bearer check runs only when a token exists, so the check never runs. Most of the campaign's other findings are authorization gates that an attacker or a prompt-injected agent reaches through a tool call: Tabularis treats side-effecting SELECT statements as read-only, Odoo MCP's execute_method returns fields the caller is denied, and Trinity's Telegram router accepts agent-scoped MCP keys for owner-only binding. Open Computer Use shows the same gap in a desktop agent: its password-manager denylist matches bundle ids case-sensitively while the resolver for already-running apps compares them case-insensitively and never re-applies the denylist, so the case variant com.1Password.1Password reaches the real process. Two findings break an isolation boundary instead. In mistral.rs, the sandboxed shell child creates a relative symlink and names it as an output file, and the unsandboxed parent reads the target with std::fs::read, which follows the link; in Phi, agent_spawn passes a model-supplied working directory to a child whose permission gate is rooted at that directory instead of the parent workspace. 9router is the sharpest of the later findings: its Hermes Agent settings endpoint writes dashboard input straight into config.yaml, so quotes and newlines inside a baseUrl value add a hooks.post_llm_call entry that the agent then runs as a shell command without asking.",
+        "whoIsAffected": "Operators of the named projects are exposed, not MCP users in general, and the versions and CVEs are listed above. NullHub is only remotely reachable when an operator binds it to a non-loopback address with --host, since it defaults to 127.0.0.1, and its latest release, v2026.5.29, is the affected one. holaOS ships its allowFrom sender list empty, so each chat connector answers anyone who can message the operator's bot, and a configured allowlist is matched on the mutable Telegram @username rather than the numeric id. Open Computer Use is exposed only on its macOS runtime, where the agent already holds Accessibility and Screen Recording permission, and only against a password manager that is open and unlocked. OpenLIT 2.1.0 and TencentCloud Octop need an existing low-privileged account before a caller can read other projects' LLM prompts or stored provider keys. Both researchers reviewed source at pinned commits, the write-ups record disclosure as pending, and only the mistral.rs escape was reproduced, in a syscall-faithful mirror on synthetic data.",
+        "whatToDo": "Check whether any listed project runs at or below its affected version, and treat it as exposed until maintainers ship a release. Keep NullHub's /api/* management API on loopback, off any non-loopback bind, and rotate the provider credentials it stores if it has been reachable. On holaOS, set an explicit numeric sender allowlist on every channel connector before the bot is reachable, and rotate any LLM or voice provider key that Octop or OpenLIT held. Quit or lock your password manager before giving a macOS computer-use agent Accessibility and Screen Recording permission. Put MCP gateway OAuth2 endpoints behind network controls, resolve symlinks before reading agent output files, and stop treating a server-side read-only setting as the boundary for an agent that reads untrusted content."
       },
       "quickFacts": [
         {
           "label": "First wave",
-          "value": "Unla <=0.10.0, hyper-mcp <=0.8.3, MCP Kotlin SDK <=0.15.0, mcp-go <=1.2.1, mcp-remote 0.8.0 to 0.14.3, argocd-mcp <=0.9.0, 1MCP Agent 0.20.0 to 0.39.0"
+          "value": "Unla <=0.10.0, hyper-mcp <=0.8.3, MCP Kotlin SDK <=0.15.0, mcp-go <=1.2.1, mcp-remote 0.8.0 to 0.14.3, argocd-mcp <=0.9.0, 1MCP Agent 0.20.0 to 0.39.0, 9router 0.4.1 to 0.5.99, OpenLIT 2.1.0, TencentCloud Octop <=1.0.2b6"
         },
         {
           "label": "Second wave",
@@ -2554,15 +2566,15 @@
         },
         {
           "label": "Third wave",
-          "value": "NullHub <=2026.5.29, CVE-2026-110616, CVSS 9.2, the campaign's highest score"
+          "value": "NullHub <=2026.5.29 (CVE-2026-110616, CVSS 9.2, the campaign's highest score) and holaOS <=2026.822.1 (CVE-2026-110769 at 8.3, CVE-2026-110768 at 6.3)"
         },
         {
           "label": "CVEs",
-          "value": "CVE-2026-110616, 108865, 108721, 108699, 108698, 108714, 108859, 108716, 108585, 108586, 108759, 108595, 108582, 108604, 108861, 108756, 108855, 108851"
+          "value": "CVE-2026-110616, 110769, 110768, 108865, 108721, 108699, 108698, 108714, 108859, 108716, 108593, 108596, 108585, 108586, 108581, 108759, 108595, 108582, 108604, 108861, 108756, 108855, 108851"
         },
         {
           "label": "Fixed in",
-          "value": "No patched version listed in any of the 18 advisories; Open Computer Use v1.1.0, released October 14, lists no security fix"
+          "value": "No patched version listed in any of the 23 advisories; Open Computer Use v1.1.0, released October 14, lists no security fix"
         },
         {
           "label": "CVSS",
@@ -2570,7 +2582,7 @@
         },
         {
           "label": "Found by",
-          "value": "hieuPenguinnn; Nguyen Dinh Hai, Post and Telecommunication Institute of Technology"
+          "value": "hieuPenguinnn; Nguyen Dinh Hai, Post and Telecommunication Institute of Technology; ra-co88"
         },
         {
           "label": "Method",
@@ -2587,7 +2599,7 @@
           "a": "Almost none were. The Unla and Phi write-ups state the work was a static review of pinned commits, and NullHub's author reviewed commit 825b0cd without a Zig toolchain, so that software was never built or run. The mistral.rs sandbox escape is the exception: its author reproduced the symlink read and write in a syscall-faithful mirror on synthetic data."
         },
         {
-          "q": "Which of the 17 MCP CVEs matters most to a defender?",
+          "q": "Which of these MCP and agent CVEs matters most to a defender?",
           "a": "CVE-2026-110616 in NullHub now leads, because its /api/* management API checks no token at all, letting an unauthenticated caller on a non-loopback bind control agent instances, rewrite provider credentials and manage cron jobs and MCP servers. CVE-2026-108865 in the Unla gateway remains serious, since an unauthenticated caller can mint a token reaching protected MCP prefixes and injected credentials."
         }
       ],
@@ -2605,6 +2617,14 @@
           "url": "https://hackmd.io/@1ExmmukzRMWN7B4gQ4W-4Q/rJrLma3izg"
         },
         {
+          "label": "VulnCheck holaOS",
+          "url": "https://www.vulncheck.com/advisories/holaos-through-2026.822.1-missing-authorization-in-channel-gateway-connectors"
+        },
+        {
+          "label": "holaOS Write-Up",
+          "url": "https://hackmd.io/@hieuPenguinnn/holaos-channel-gateway-allow-all-sender-default"
+        },
+        {
           "label": "VulnCheck Unla",
           "url": "https://www.vulncheck.com/advisories/amoylab-unla-through-0.10.0-oauth2-authentication-bypass-via-authorize"
         },
@@ -2615,6 +2635,18 @@
         {
           "label": "Unla Write-Up",
           "url": "https://hackmd.io/@1ExmmukzRMWN7B4gQ4W-4Q/cve-2026-108865-amoylab-unla-oauth-self-issued-token-authz"
+        },
+        {
+          "label": "VulnCheck 9router",
+          "url": "https://www.vulncheck.com/advisories/9router-0.4.1-through-0.5.99-config-injection-rce-via-hermes-settings-endpoint"
+        },
+        {
+          "label": "VulnCheck OpenLIT",
+          "url": "https://www.vulncheck.com/advisories/openlit-2.1.0-authorization-bypass-via-x-openlit-project-id-header"
+        },
+        {
+          "label": "VulnCheck Octop",
+          "url": "https://www.vulncheck.com/advisories/octop-through-1.0-2b6-missing-authorization-exposes-provider-api-keys-via-api-providers"
         },
         {
           "label": "VulnCheck Open CU",
