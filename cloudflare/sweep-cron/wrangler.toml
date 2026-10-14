@@ -1,0 +1,14 @@
+name = "the-injection-sweep-cron"
+main = "worker.js"
+compatibility_date = "2025-09-01"
+# Cron only: no public URL.
+workers_dev = false
+
+[triggers]
+# UTC. Minute 17 matches SLOT_MINUTE in src/components/SweepClock.tsx.
+crons = ["17 * * * *"]
+
+[vars]
+GITHUB_REPO = "arielshad/the-injection"
+WORKFLOW = "update-feed.yml"
+REF = "main"
