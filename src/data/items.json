@@ -1,7 +1,216 @@
 {
-  "generatedAt": "2026-10-14T12:15:02.359Z",
+  "generatedAt": "2026-10-14T13:18:03.625Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "xbow-chrome-full-chain",
+      "categories": [
+        "research"
+      ],
+      "title": "XBOW: AI agents built a Chrome full-chain exploit in six days",
+      "org": "XBOW",
+      "date": "2026-10-13",
+      "url": "https://xbow.com/blog/xbow-built-a-chrome-full-chain-exploit",
+      "summary": "XBOW reports that four of its researchers directed AI agents running OpenAI's publicly available GPT-5.6 Sol to build a three-stage Chrome exploit chain in six days, and that Google paid its top $250,000 full-chain reward.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "red-team",
+        "xbow",
+        "google-chrome",
+        "openai"
+      ],
+      "affected": [
+        "Google Chrome"
+      ],
+      "credits": [
+        {
+          "name": "Oege de Moor",
+          "org": "XBOW"
+        },
+        {
+          "name": "Brendan Dolan-Gavitt",
+          "org": "XBOW"
+        },
+        {
+          "name": "Andres Luksenberg",
+          "org": "XBOW"
+        },
+        {
+          "name": "Baul Lee",
+          "org": "XBOW"
+        },
+        {
+          "name": "Willem Pinckaers",
+          "org": "XBOW"
+        }
+      ],
+      "explainer": {
+        "tagline": "Four XBOW researchers directed AI agents running a public OpenAI model to build a working Chrome exploit chain in six days.",
+        "whatHappened": "XBOW published the result on October 13, 2026, after Google awarded it the top $250,000 Chrome reward for a full exploit chain. Oege de Moor writes that Brendan Dolan-Gavitt, Andres Luksenberg, Baul Lee and Willem Pinckaers rebuilt the chain between August 2 and August 7, 2026, in Las Vegas during Black Hat and DEF CON. An earlier attempt was disqualified because Google already knew one of its bugs.",
+        "howItWorks": "The chain is three independent stages, each with a spare bug, so the team could swap a stage out when Google said a flaw was already known. AI agents running GPT-5.6 Sol and earlier OpenAI models searched Chrome's source code, tested ideas, built proofs of concept and wrote the first exploit drafts. The four humans set the strategy, chose where to look, checked the agents' work and redirected them on the results. XBOW does not publish the bug details or any CVE ids in this post.",
+        "whoIsAffected": "Chrome users on Windows were the target. XBOW's post is titled around a chain affecting a billion users, and describes an attacker using Chrome to take over a Windows machine remotely. XBOW states that all three bugs are fixed and that the exploit was never used against Chrome users.",
+        "whatToDo": "Update Chrome and relaunch the browser, which is XBOW's own advice to readers: a staged update only takes effect after a restart."
+      },
+      "quickFacts": [
+        {
+          "label": "Reward",
+          "value": "$250,000, Google's top Chrome full-chain award"
+        },
+        {
+          "label": "Model used",
+          "value": "OpenAI GPT-5.6 Sol and predecessors, publicly available"
+        },
+        {
+          "label": "Build time",
+          "value": "Six days, August 2 to 7, 2026"
+        },
+        {
+          "label": "Compute cost",
+          "value": "About $40,000, XBOW's figure"
+        },
+        {
+          "label": "Target",
+          "value": "Google Chrome on Windows"
+        },
+        {
+          "label": "Found by",
+          "value": "Four XBOW researchers directing AI agents"
+        },
+        {
+          "label": "Status",
+          "value": "All three bugs fixed, per XBOW"
+        }
+      ],
+      "links": [
+        {
+          "label": "XBOW Write-Up",
+          "url": "https://xbow.com/blog/xbow-built-a-chrome-full-chain-exploit"
+        },
+        {
+          "label": "Chrome VRP FAQ",
+          "url": "https://chromium.googlesource.com/chromium/src/+/main/docs/security/vrp-faq.md"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/1lq2ca9s/production/f6d108ced3d9de76b19fae50903abaf37aa6cbf2-1200x630.png?w=1200&h=630&fm=jpg&q=80&fit=crop",
+        "alt": "XBOW Built a Chrome Full-Chain Exploit Affecting a Billion Users in Six Days",
+        "credit": "XBOW"
+      },
+      "publishDate": "2026-10-14T13:18:03.625Z"
+    },
+    {
+      "id": "tencent-vghost-vhost-iotlb-cache",
+      "categories": [
+        "research",
+        "vulnerability"
+      ],
+      "title": "Vghost: an AI tool found a 2017 Linux kernel flaw in two hours",
+      "org": "Tencent Zhuque Lab",
+      "date": "2026-10-12",
+      "url": "https://matrix.tencent.com/en/2026/10/12/vghost-cve-2026-74580",
+      "summary": "Tencent Zhuque Lab disclosed Vghost, a stale cache bug in the Linux kernel's vhost driver that gives a local user kernel read and write and then root, and says its Corvus AI tool found the 2017 defect in about two hours.",
+      "severity": "medium",
+      "tags": [
+        "cyber-capability",
+        "privilege-escalation",
+        "linux-kernel",
+        "vhost",
+        "tencent"
+      ],
+      "affected": [
+        "Linux kernel",
+        "QEMU"
+      ],
+      "cve": "CVE-2026-74580",
+      "cvss": 8.8,
+      "credits": [
+        {
+          "name": "Tencent Zhuque Lab",
+          "org": "Tencent",
+          "url": "https://matrix.tencent.com/en/"
+        },
+        {
+          "name": "Fourie Zhang",
+          "org": "TencentOS Security Team"
+        }
+      ],
+      "explainer": {
+        "tagline": "Vghost is a stale IOTLB cache bug in the Linux vhost driver that Tencent says an AI tool found in about two hours.",
+        "whatHappened": "Tencent Zhuque Lab published the Vghost research on October 12, 2026, and Fourie Zhang of the TencentOS Security Team posted the disclosure to the oss-security list on October 14. The lab says its Corvus AI tool found the defect in about two hours, and that Tencent Hunyuan's Hy4-preview model took part in exploit verification and patch validation. Those claims come from Tencent and are not independently verified.",
+        "howItWorks": "The vhost driver caches IOTLB address translations for a virtqueue's descriptor, available and used rings. Two ioctls, VHOST_SET_VRING_ADDR and VHOST_SET_VRING_NUM, replace that configuration without clearing the cache, and a later cache hit is treated as proof that the address was already validated. Stale translations then let the kernel read and write outside the intended range through __copy_to_user and __copy_from_user.",
+        "whoIsAffected": "Linux kernels from 4.11 through 7.2 carry the flaw, in drivers/vhost/vhost.c. Tencent reports that its exploit reached root on Ubuntu 26.04 LTS, RHEL 9.8, Amazon Linux 2023, Azure Linux 3.0 and Oracle Linux 10.2, and that the difference between those systems was device node exposure: Ubuntu limits /dev/vhost-vsock to the kvm group, while the others left it mode 0666. The guest-to-host path needs device-IOTLB mode, a virtual IOMMU and iommu_platform.",
+        "whatToDo": "Install a kernel that contains commit de845981da67 or a vendor backport, then reboot into it. Until then, remove world access to /dev/vhost-net and /dev/vhost-vsock, keep untrusted containers from receiving those devices, and treat kvm group membership as privileged. Zhang notes that permission changes do not revoke file descriptors that are already open."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-74580, CVSS 3.1 base 8.8 High, Linux kernel CNA"
+        },
+        {
+          "label": "Affected",
+          "value": "Linux 4.11 through 7.2, drivers/vhost/vhost.c"
+        },
+        {
+          "label": "Fixed in",
+          "value": "5.10.265, 5.15.216, 6.1.183, 6.6.152, 6.12.104, 6.18.45, 7.1.9 and 7.2"
+        },
+        {
+          "label": "Fix commit",
+          "value": "de845981da67, in mainline on August 3, 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "Corvus AI, run by Tencent Zhuque Lab"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Write-up October 12, 2026; oss-security October 14"
+        },
+        {
+          "label": "Attack type",
+          "value": "Local privilege escalation, plus guest-to-host escape in some configurations"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Linux kernel versions fix CVE-2026-74580?",
+          "a": "The Linux kernel CNA lists first fixed stable releases 5.10.265, 5.15.216, 6.1.183, 6.6.152, 6.12.104, 6.18.45, 7.1.9 and 7.2 for CVE-2026-74580. Distribution kernels may carry the same fix backported onto an older base version, so check your vendor's changelog rather than the version number alone, and reboot afterwards, because a running kernel keeps the flaw."
+        },
+        {
+          "q": "Can a virtual machine guest escape to the host through Vghost?",
+          "a": "Tencent Zhuque Lab reports a guest-to-host path, but only when the vhost device runs in device-IOTLB mode, the virtio device sits behind a virtual IOMMU, and iommu_platform is enabled. Under those settings a guest can make the host kernel write out of bounds into the QEMU process on the host. The lab says it controlled QEMU's instruction pointer in testing."
+        },
+        {
+          "q": "Was Vghost exploited before Tencent disclosed it?",
+          "a": "Tencent Zhuque Lab reports no exploitation of Vghost. The fix reached mainline Linux on August 3, 2026, weeks before the October 12 write-up, and the lab published exploitation detail only after stable releases carried the patch. Neither the Tencent post nor the oss-security disclosure from Fourie Zhang mentions attacks in the wild against CVE-2026-74580."
+        }
+      ],
+      "links": [
+        {
+          "label": "Tencent Write-Up",
+          "url": "https://matrix.tencent.com/en/2026/10/12/vghost-cve-2026-74580"
+        },
+        {
+          "label": "oss-security Post",
+          "url": "https://www.openwall.com/lists/oss-security/2026/10/14/2"
+        },
+        {
+          "label": "Kernel Fix Commit",
+          "url": "https://github.com/torvalds/linux/commit/de845981da67a6b049080c87e605130b0c30adc5"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-74580"
+        }
+      ],
+      "image": {
+        "url": "https://secbench-1258476245.cos.ap-guangzhou.myqcloud.com/zhuque-blog/2026/09/1788404085527-cdf13453e7548380.png",
+        "alt": "Vghost: Beyond the Privilege Boundary",
+        "credit": "Tencent Zhuque Lab"
+      },
+      "publishDate": "2026-10-14T13:18:03.625Z"
+    },
     {
       "id": "gitlab-duo-agent-platform-instruction-injection",
       "categories": [

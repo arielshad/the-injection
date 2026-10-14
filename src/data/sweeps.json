@@ -2579,6 +2579,84 @@
         "gh-repo-meta.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t131803z",
+      "timestamp": "2026-10-14T13:18:03.625Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, Embrace The Red, AIR, Zenity, Anthropic, Microsoft Security and MSRC, Trail of Bits, Snyk, Socket, ReversingLabs, Check Point, JFrog, NCC Group, HiddenLayer, Lakera, Simon Willison, OWASP GenAI, UK AISI, Hugging Face, paper-scan (59 arXiv candidates in the window, both two-signal papers already in the feed), repo-scan (13 queries, 1 candidate below the repo bar), GitHub trending, Hacker News and talk-scan (22 channels, no talk met the bar). Added two AI-driven vulnerability research results published inside the window: XBOW's Chrome full chain and Tencent Zhuque Lab's Vghost. openai.com, the Google security blog, Chrome release notes, NVD and r/netsec returned 403 or did not load for scripts.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "xbow-chrome-full-chain",
+          "title": "XBOW: AI agents built a Chrome full-chain exploit in six days",
+          "category": "research",
+          "severity": "info",
+          "note": "A named offensive security team publishes a measured cyber-capability result on a real target: AI agents on a public OpenAI model produced a Chrome full chain that Google paid its top reward for, which is a concrete data point on what agentic exploit development costs today."
+        },
+        {
+          "id": "tencent-vghost-vhost-iotlb-cache",
+          "title": "Vghost: an AI tool found a 2017 Linux kernel flaw in two hours",
+          "category": "research",
+          "severity": "medium",
+          "note": "Tencent Zhuque Lab's write-up inside the window is the first public account of Vghost and states that its Corvus AI tool found the nine-year-old kernel defect in about two hours, with an official CVE and CVSS and concrete patching advice for defenders running VMs and containers."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "anthropic.com/news",
+        "microsoft.com/security/blog",
+        "MSRC blog",
+        "blog.trailofbits.com",
+        "snyk.io/blog",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "jfrog.com/blog",
+        "nccgroup.com/research-blog",
+        "hiddenlayer.com/innovation-hub",
+        "lakera.ai/blog",
+        "simonwillison.net",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers via paper-scan",
+        "huggingface.co/blog",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and newest",
+        "talk-scan (22 YouTube channels)",
+        "OWASP GenAI Security Project resources",
+        "aisi.gov.uk/work",
+        "xbow.com/blog",
+        "matrix.tencent.com (Tencent Zhuque Lab)",
+        "oss-security (openwall.com)",
+        "cveawg.mitre.org",
+        "thehackernews.com",
+        "censys.com/blog",
+        "ox.security"
+      ],
+      "windowDays": 7
     }
   ]
 }
