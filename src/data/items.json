@@ -1,7 +1,244 @@
 {
-  "generatedAt": "2026-10-14T00:53:50.555Z",
+  "generatedAt": "2026-10-14T05:48:04.814Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "arxiv-latentriskbench",
+      "categories": [
+        "research",
+        "benchmark"
+      ],
+      "title": "LatentRiskBench: action-level checks miss state-dependent agent risk",
+      "org": "arXiv",
+      "date": "2026-10-13",
+      "url": "https://arxiv.org/abs/2610.17685",
+      "summary": "Guardrails that judge one agent action at a time catch almost none of the policy violations that depend on workflow state, a new benchmark reports. The authors measure 0.09 detection at action level against 0.96 at state level.",
+      "severity": "info",
+      "tags": [
+        "agent-security",
+        "guardrails",
+        "evals"
+      ],
+      "affected": [
+        "Enterprise AI agents",
+        "LlamaGuard3",
+        "GuardAgent"
+      ],
+      "credits": [
+        {
+          "name": "Jingyue Cong",
+          "org": "RMIT University"
+        },
+        {
+          "name": "Estrid He",
+          "org": "RMIT University"
+        },
+        {
+          "name": "Zhuang Li",
+          "org": "RMIT University"
+        },
+        {
+          "name": "Nan Wu"
+        },
+        {
+          "name": "Li Shen",
+          "org": "YepAI"
+        },
+        {
+          "name": "RMIT University"
+        }
+      ],
+      "explainer": {
+        "tagline": "LatentRiskBench measures whether a guardrail can tell a safe agent action from an identical one that breaks policy in another state.",
+        "whatHappened": "Eight authors led by Jingyue Cong of RMIT University posted LatentRiskBench to arXiv on October 13, 2026, with code on GitHub. The benchmark was accepted to the EMNLP 2026 Industry Track. The team built it for enterprise agent risks that cannot be judged from a single action, and ran it against seven guardrails and five auditor models.",
+        "howItWorks": "Each case pairs a risky agent trajectory with a benign one that ends in the same final action, differing only in a hidden, policy-relevant workflow state. A guardrail reading the action alone cannot separate the pair, so it has to reconstruct the earlier context. The authors score residual risk left after a defense runs, and report a State-Reconstruction Gain of 0.87 between action-level and state-level auditing.",
+        "whoIsAffected": "Teams running policy guardrails over multi-step enterprise agents are the audience, in particular anyone relying on filters that score a single tool call. Among the defenses tested, the authors report GuardAgent leaving the least residual risk at 0.20 and an unguarded baseline the most at 0.96. Results come from the authors' own benchmark and one anonymized e-commerce deployment, not from a reported incident.",
+        "whatToDo": "Test a guardrail against pairs of trajectories that end in the same action but differ in earlier workflow state, rather than scoring actions one at a time. The authors report that giving an auditor access to workflow state lifts detection from 0.09 to 0.96 on their state-dependent set."
+      },
+      "quickFacts": [
+        {
+          "label": "Venue",
+          "value": "Accepted to EMNLP 2026 Industry Track"
+        },
+        {
+          "label": "arXiv v1",
+          "value": "October 13, 2026"
+        },
+        {
+          "label": "Guardrails tested",
+          "value": "Vanilla, Keyword, StepRule, LLMJudge, TrajRule, LlamaGuard3, GuardAgent"
+        },
+        {
+          "label": "Auditor backbones",
+          "value": "GPT-4o, GPT-4o-mini, Claude Sonnet 4.6, Gemini 2.5 Pro, DeepSeek-V3"
+        },
+        {
+          "label": "Detection",
+          "value": "0.09 action-level against 0.96 state-level on the state-dependent core"
+        },
+        {
+          "label": "Code",
+          "value": "Released on GitHub, no license stated in the repository"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.17685"
+        },
+        {
+          "label": "Full Text HTML",
+          "url": "https://arxiv.org/html/2610.17685v1"
+        },
+        {
+          "label": "LatentRiskBench Code",
+          "url": "https://github.com/JingyueCong/LatentRiskBench"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Residual risk by guardrail, LatentRiskBench",
+          "unit": "",
+          "max": 1,
+          "note": "Residual risk after the defense runs, lower is better for defenders",
+          "results": [
+            {
+              "name": "Vanilla",
+              "score": 0.96
+            },
+            {
+              "name": "Keyword",
+              "score": 0.78
+            },
+            {
+              "name": "StepRule",
+              "score": 0.59
+            },
+            {
+              "name": "LLMJudge",
+              "score": 0.32
+            },
+            {
+              "name": "TrajRule",
+              "score": 0.5
+            },
+            {
+              "name": "LlamaGuard3",
+              "score": 0.85
+            },
+            {
+              "name": "GuardAgent",
+              "score": 0.2
+            }
+          ],
+          "source": "https://arxiv.org/html/2610.17685v1"
+        }
+      ],
+      "publishDate": "2026-10-14T05:48:04.814Z"
+    },
+    {
+      "id": "barracuda-dual-target-email-prompt-injection",
+      "categories": [
+        "attack",
+        "incident"
+      ],
+      "title": "Barracuda: one phishing email targets both the reader and the inbox AI",
+      "org": "Barracuda",
+      "date": "2026-10-07",
+      "url": "https://blog.barracuda.com/2026/10/07/email-attacks-target-both-humans-ai-assistants",
+      "summary": "Phishing emails now hide instructions aimed at the AI assistant summarizing an inbox, Barracuda reports. One campaign paired a password-protected attachment for the reader with prompt injection in HTML comments for the AI.",
+      "severity": "high",
+      "tags": [
+        "indirect-prompt-injection",
+        "prompt-injection",
+        "threat-intel",
+        "barracuda"
+      ],
+      "affected": [
+        "AI email assistants"
+      ],
+      "credits": [
+        {
+          "name": "Guruprasad Kenja",
+          "org": "Barracuda"
+        }
+      ],
+      "explainer": {
+        "tagline": "Attackers are writing phishing mail with a second, hidden layer that instructs the AI assistant summarizing the inbox.",
+        "whatHappened": "Barracuda Research published an analysis on October 7, 2026 of a phishing campaign built for two readers at once. Threat analyst Guruprasad Kenja examined an email whose visible layer carried an ordinary lure and whose hidden layer carried instructions for the AI assistant that would summarize it. Barracuda reports no figures on how widespread the campaign is.",
+        "howItWorks": "Indirect prompt injection carries the second payload: text that a mail client never renders but a model still parses. Four hiding places recur, listed below. The injected text tells the assistant to ignore its earlier instructions, then to present the message as legitimate or urgent, request a transfer, or add a fake priority action. A reader sees only the assistant's output, never the instruction that shaped it.",
+        "whoIsAffected": "Any mailbox where an AI assistant summarizes or triages incoming mail is exposed, because the payload travels in the message body rather than in an attachment or a link. Barracuda's sample arrived from a public sector domain with matching From and To addresses and a trusted spam confidence score, which helped it pass reputation-based filtering. Barracuda names no affected product or version.",
+        "whatToDo": "Strip HTML comments, invisible CSS text, encoded blocks and zero-width characters from mail before any model reads it, and detect instruction-override language. Require human approval for payments and vendor-detail changes, and validate assistant output before it can trigger an action."
+      },
+      "quickFacts": [
+        {
+          "label": "Attack type",
+          "value": "Indirect prompt injection carried in email body content"
+        },
+        {
+          "label": "Hiding techniques",
+          "value": "HTML comments, CSS-invisible text, Base64-encoded data, zero-width Unicode characters"
+        },
+        {
+          "label": "Reader-facing lure",
+          "value": "Password-protected attachment with the password in the email body"
+        },
+        {
+          "label": "Sample traits",
+          "value": "Public sector sending domain, matching From and To addresses, trusted spam confidence score"
+        },
+        {
+          "label": "Found by",
+          "value": "Guruprasad Kenja, threat analyst, Barracuda Research"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 7, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Observed in a live campaign; no vendor fix, the defenses are configuration-side"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does Barracuda say this email prompt injection actually caused fraud?",
+          "a": "No. Barracuda describes one analyzed campaign and illustrative examples, and reports no confirmed fraudulent payments or data disclosure. The research shows the delivery mechanism and the injected instructions, not a measured success rate. Barracuda also publishes no figures on how many messages or organizations the campaign reached, so defenders should treat prevalence as unknown."
+        },
+        {
+          "q": "Which hiding techniques does Barracuda say attackers use most?",
+          "a": "Barracuda names four techniques that appear often: instructions inside HTML comment tags, which mail clients never render but a model still parses; text made invisible with CSS, such as a zero-pixel font size or white text; instructions carried in Base64-encoded data such as an image string; and zero-width Unicode characters mixed into normal text."
+        },
+        {
+          "q": "How do I check whether my inbox AI is exposed to this?",
+          "a": "Check whether any assistant summarizes or triages mail before a person reads it, then inspect raw message source rather than the rendered view. Barracuda recommends removing hidden elements, comments and invisible characters before content reaches a model, and detecting instruction-override language. Mail that renders cleanly in a client can still carry instructions in its source."
+        },
+        {
+          "q": "How is this different from ordinary phishing?",
+          "a": "Ordinary phishing targets only the person reading the message. Barracuda's campaign adds a second payload aimed at the AI assistant, so a reader who ignores the mail can still be pushed toward it by a poisoned summary. The password-protected attachment also stops scanners from opening it, which Barracuda calls a blind spot for traditional email security."
+        }
+      ],
+      "links": [
+        {
+          "label": "Barracuda Research",
+          "url": "https://blog.barracuda.com/2026/10/07/email-attacks-target-both-humans-ai-assistants"
+        },
+        {
+          "label": "Infosecurity Report",
+          "url": "https://www.infosecurity-magazine.com/news/attackers-hide-ai-prompt/"
+        },
+        {
+          "label": "Malwarebytes Writeup",
+          "url": "https://www.malwarebytes.com/blog/ai/2026/10/phishing-emails-are-baiting-your-ai-assistant"
+        }
+      ],
+      "image": {
+        "url": "https://www.barracuda.com/content/dam/barracuda-blog/images/2026/10/threat-spotlight-human-and-ai-attacks/email-attacks-human-ai-targets.jpg",
+        "alt": "Barracuda threat spotlight on email attacks that target humans and AI",
+        "credit": "Barracuda"
+      },
+      "publishDate": "2026-10-14T05:48:04.814Z"
+    },
     {
       "id": "embracethered-visual-studio-copilot-rce",
       "categories": [
