@@ -1,7 +1,108 @@
 {
-  "generatedAt": "2026-10-14T09:16:49.496Z",
+  "generatedAt": "2026-10-14T10:12:10.667Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "gitlab-duo-agent-platform-instruction-injection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "GitLab Duo Agent Platform: injected instructions ran commands as other users",
+      "org": "GitLab",
+      "date": "2026-10-12",
+      "url": "https://docs.gitlab.com/releases/patches/patch-release-gitlab-19-4-2-released/",
+      "summary": "GitLab Duo Agent Platform let an authenticated user inject content into AI agent instructions and run commands attributed to other users, fixed on October 12 in Enterprise Edition 19.2.8, 19.3.5 and 19.4.2.",
+      "severity": "medium",
+      "tags": [
+        "prompt-injection",
+        "privilege-escalation",
+        "agent-security",
+        "gitlab",
+        "gitlab-duo"
+      ],
+      "affected": [
+        "GitLab Duo Agent Platform",
+        "GitLab Enterprise Edition"
+      ],
+      "cve": "CVE-2026-96893",
+      "cvss": 7.3,
+      "credits": [
+        {
+          "name": "Mert Coskuner",
+          "org": "GitLab"
+        },
+        {
+          "name": "Rahul Barnwal",
+          "org": "GitLab"
+        }
+      ],
+      "explainer": {
+        "tagline": "GitLab patched a Duo Agent Platform flaw that let one authenticated user inject agent instructions and act as another user.",
+        "whatHappened": "GitLab fixed two Duo Agent Platform security issues in its patch release of October 12, 2026, which shipped versions 19.2.8, 19.3.5 and 19.4.2. GitLab team members Mert Coskuner and Rahul Barnwal found them internally. Both CVE records were published the next day.",
+        "howItWorks": "Prompt injection is the mechanism: GitLab built its AI conversation context without neutralizing special elements, so content supplied by one authenticated user became part of the instructions the agent followed. Commands the agent then ran were attributed to other users. The second issue is a governance control bypass, where a single granular permission was enough to obtain a Duo Agent Platform token that skipped those controls.",
+        "whoIsAffected": "Enterprise Edition instances running the Duo Agent Platform are exposed, from version 19.1 up to each of the three patched releases. GitLab marks both CVEs as Enterprise Edition only, so the upgrade work falls on self-managed administrators. The affected ranges and scores are listed below.",
+        "whatToDo": "Upgrade self-managed GitLab Enterprise Edition to 19.2.8, 19.3.5 or 19.4.2, whichever matches your release line. Review which users hold the granular permissions that can mint Duo Agent Platform tokens."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "GitLab Enterprise Edition 19.1 to 19.4.1, Duo Agent Platform"
+        },
+        {
+          "label": "Fixed in",
+          "value": "19.2.8, 19.3.5 and 19.4.2"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-96893 (CVSS 7.3), CVE-2026-105458 (CVSS 4.3)"
+        },
+        {
+          "label": "Found by",
+          "value": "Mert Coskuner and Rahul Barnwal, GitLab team members"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 12, 2026, in the 19.4.2 patch release"
+        },
+        {
+          "label": "Attack type",
+          "value": "Prompt injection into AI agent instructions"
+        },
+        {
+          "label": "Status",
+          "value": "Patched. Self-managed instances must upgrade."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which GitLab versions fix CVE-2026-96893?",
+          "a": "GitLab 19.2.8, 19.3.5 and 19.4.2 fix CVE-2026-96893, all published in the October 12, 2026 patch release. The flaw affects GitLab Enterprise Edition from version 19.1 until each of those releases, so an instance on 19.1 through 19.4.1 is exposed. GitLab scores the issue 7.3 and credits its own team member Mert Coskuner with finding it."
+        },
+        {
+          "q": "Is GitLab Duo Agent Platform affected by more than one flaw in this release?",
+          "a": "Two Duo Agent Platform issues shipped in the October 12 patch release. CVE-2026-96893, scored 7.3, is the instruction injection that can run commands attributed to another user. CVE-2026-105458, scored 4.3, let a user holding one granular permission obtain a Duo Agent Platform token that bypassed governance controls. Both affect Enterprise Edition from 19.1 and both are fixed in the same three versions."
+        },
+        {
+          "q": "How is CVE-2026-96893 different from the GitLab AI Gateway flaw CVE-2026-90970?",
+          "a": "CVE-2026-90970 affected the self-hosted GitLab AI Gateway and was disclosed on October 2, 2026. CVE-2026-96893 is a separate Duo Agent Platform flaw, fixed in the October 12 patch release, where content entering the AI conversation context is not neutralized before it reaches agent instructions. The two sit in different components and different releases, so applying the earlier fix does not cover this one."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitLab Patch Release",
+          "url": "https://docs.gitlab.com/releases/patches/patch-release-gitlab-19-4-2-released/"
+        },
+        {
+          "label": "GHSA CVE-2026-96893",
+          "url": "https://github.com/advisories/GHSA-5vgp-j37h-7wfx"
+        },
+        {
+          "label": "GHSA CVE-2026-105458",
+          "url": "https://github.com/advisories/GHSA-v9q6-j9c6-x45f"
+        }
+      ],
+      "publishDate": "2026-10-14T10:12:10.667Z"
+    },
     {
       "id": "mistral-vibe-var-p-permission-bypass",
       "categories": [

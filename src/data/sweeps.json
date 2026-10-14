@@ -2393,6 +2393,71 @@
         "Hacker News Show HN"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t101210z",
+      "timestamp": "2026-10-14T10:12:10.667Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, researcher blogs, GitHub Security Advisories, NVD, VulnCheck, arXiv via paper-scan (65 in-window papers, the only 2 at the two-signal bar already in the feed), repo-scan (13 queries, 1 candidate), talk-scan (44 uploads), GitHub trending, Hacker News and Show HN. One new item: the GitLab Duo Agent Platform fixes in the October 12 patch release, where an authenticated user could inject AI agent instructions and run commands attributed to other users (CVE-2026-96893, CVSS 7.3, with the governance control bypass CVE-2026-105458 alongside it). Earlier sweeps today had the Oct 2 GitLab AI Gateway flaw but not this release. Dropped on the bar: obsidian-tc MCP read ACL bypass (CVE-2026-77361 and CVE-2026-77362, project-published, no named researcher, narrow audience) and the Heym agent sandbox bypass (CVE-2026-55376, pre-1.0 self-hosted project, no named credit). Left out on date: HiddenLayer's Hugging Face agent dead-drop analysis (July 31), Microsoft 365 Copilot Business Chat CVE-2026-78501 (September 17) and AISI's frontier best-practice post (October 12 but a position paper with no new measurement). No repo or paper met its bar, and no talk met the talk bar: the strongest conference candidate held 15,772 views, under the 20,000 threshold, and YouTube watch pages do not render for fetching, so influencer substance could not be verified. openai.com returned 403 to scripts and reddit.com/r/netsec was unreachable. Note for a human: GitLab now has two stories in the feed and has no src/data/products.ts entry, but the workflow commits only the data files, so the sweep did not add one.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "gitlab-duo-agent-platform-instruction-injection",
+          "title": "GitLab Duo Agent Platform: injected instructions ran commands as other users",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A named AI agent product from a major vendor, with an official CVE and CVSS, credited researchers and a concrete upgrade action, patched inside the window and distinct from the October 2 AI Gateway flaw already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD REST API",
+        "VulnCheck advisories",
+        "docs.gitlab.com patch releases",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "research.checkpoint.com",
+        "wiz.io/blog",
+        "hiddenlayer.com/innovation-hub",
+        "blog.trailofbits.com",
+        "unit42.paloaltonetworks.com",
+        "koi.security (now redirects to paloaltonetworks.com)",
+        "anthropic.com/news",
+        "microsoft.com/msrc/blog",
+        "Microsoft October 2026 Patch Tuesday coverage",
+        "aisi.gov.uk/work",
+        "genai.owasp.org/news",
+        "arXiv cs.CR and cs.AI via paper-scan.ts",
+        "huggingface.co/blog",
+        "repo-scan.json",
+        "github.com/trending (daily)",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "talk-scan.ts YouTube channels",
+        "simonwillison.net October archive"
+      ],
+      "windowDays": 7
     }
   ]
 }
