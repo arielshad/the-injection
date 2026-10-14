@@ -2985,6 +2985,68 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t201414z",
+      "timestamp": "2026-10-14T20:14:14.959Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP, agent, langchain queries), VulnCheck, NVD, Anthropic news, OpenAI (403 to scripts), MSRC, AISI, CAISI, OWASP GenAI, AIR Security, Zenity Labs, Embrace The Red, Simon Willison, Socket, JFrog, ReversingLabs, Check Point, Trail of Bits, NCC Group, Lakera, HiddenLayer, Wiz, Hugging Face, paper-scan (55 arXiv papers in window, 1 with two scanned signals and already in the feed), repo-scan (1 candidate), github.com/trending, Show HN, HN front page and talk-scan (42 uploads). No new item met the bar: everything in the window was already in the feed. One update: an 18th CVE from the MCP source-review campaign, CVE-2026-108721 in Open Computer Use.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "vulncheck-mcp-source-review-cves",
+          "title": "MCP source review: at least 18 unpatched CVEs in five days",
+          "note": "An 18th finding from the same two-researcher campaign: CVE-2026-108721 in Open Computer Use, a macOS computer-use agent wrapped as an MCP server, published by VulnCheck on October 11 and credited to the same researcher. Still unpatched as of v1.1.0."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "microsoft.com/msrc/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "lakera.ai/blog",
+        "hiddenlayer.com/innovation-hub",
+        "wiz.io/blog",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, sorted by created)",
+        "arXiv via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending (daily and weekly)",
+        "Hacker News front page and Show HN",
+        "talk-scan.ts (YouTube conference and security channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T19:20:02.502Z",
+  "generatedAt": "2026-10-14T20:14:14.959Z",
   "promptVersion": "1.3.0",
   "items": [
     {
@@ -2487,11 +2487,11 @@
         "vulnerability",
         "supply-chain"
       ],
-      "title": "MCP source review: at least 17 unpatched CVEs in five days",
+      "title": "MCP source review: at least 18 unpatched CVEs in five days",
       "org": "VulnCheck",
       "date": "2026-10-11",
       "url": "https://www.vulncheck.com/advisories/amoylab-unla-through-0.10.0-oauth2-authentication-bypass-via-authorize",
-      "summary": "A static source-review campaign by two researchers has produced at least 17 MCP and agent CVEs published October 10 to 14, 2026. The newest rates 9.2: NullHub's agent console ships an /api/* API that never checks its token.",
+      "summary": "A static source-review campaign by two researchers has produced at least 18 MCP and agent CVEs published October 10 to 14, 2026. The newest rates 9.2: NullHub's agent console ships an /api/* API that never checks its token.",
       "severity": "medium",
       "tags": [
         "mcp",
@@ -2499,6 +2499,7 @@
         "sandbox-escape",
         "approval-bypass",
         "credential-theft",
+        "prompt-injection",
         "plugins",
         "vulncheck"
       ],
@@ -2519,7 +2520,8 @@
         "Abilityai Trinity",
         "UnicomAI Wanwu",
         "phpMyFAQ",
-        "Katanemo Plano"
+        "Katanemo Plano",
+        "Open Computer Use"
       ],
       "cve": "CVE-2026-108865",
       "cvss": 8.8,
@@ -2537,9 +2539,9 @@
       "explainer": {
         "tagline": "NullHub extends the MCP source-review campaign to agent consoles: its /api/* management API never checks the bearer token it defines.",
         "whatHappened": "The source-review campaign that produced 16 MCP CVEs on October 10 to 12, 2026 gained a third wave on October 14, when NVD published CVE-2026-110616 against NullHub, a management console for AI agents. hieuPenguinnn, one of the two researchers behind the earlier findings, reported it through VulnCheck with a HackMD write-up, as in the first two waves. At CVSS v4.0 9.2 it is the campaign's highest score, and GitHub's advisory database lists it unreviewed with no patched version.",
-        "howItWorks": "NullHub's server defines an auth_token field that defaults to null and is never assigned at startup, and its bearer check runs only when a token exists, so the check never runs. Most of the campaign's other findings are authorization gates that an attacker or a prompt-injected agent reaches through a tool call: Tabularis treats side-effecting SELECT statements as read-only, Odoo MCP's execute_method returns fields the caller is denied, and Trinity's Telegram router accepts agent-scoped MCP keys for owner-only binding. Two findings break an isolation boundary instead. In mistral.rs, the sandboxed shell child creates a relative symlink and names it as an output file, and the unsandboxed parent reads the target with std::fs::read, which follows the link; in Phi, agent_spawn passes a model-supplied working directory to a child whose permission gate is rooted at that directory instead of the parent workspace.",
-        "whoIsAffected": "Operators of the named projects are exposed, not MCP users in general, and the versions and CVEs are listed above. NullHub is only remotely reachable when an operator binds it to a non-loopback address with --host, since it defaults to 127.0.0.1, and its latest release, v2026.5.29, is the affected one. Both researchers reviewed source at pinned commits, the write-ups record disclosure as pending, and only the mistral.rs escape was reproduced, in a syscall-faithful mirror on synthetic data.",
-        "whatToDo": "Check whether any listed project runs at or below its affected version, and treat it as exposed until maintainers ship a release. Keep NullHub's /api/* management API on loopback, off any non-loopback bind, and rotate the provider credentials it stores if it has been reachable. Put MCP gateway OAuth2 endpoints behind network controls, resolve symlinks before reading agent output files, and stop treating a server-side read-only setting as the boundary for an agent that reads untrusted content."
+        "howItWorks": "NullHub's server defines an auth_token field that defaults to null and is never assigned at startup, and its bearer check runs only when a token exists, so the check never runs. Most of the campaign's other findings are authorization gates that an attacker or a prompt-injected agent reaches through a tool call: Tabularis treats side-effecting SELECT statements as read-only, Odoo MCP's execute_method returns fields the caller is denied, and Trinity's Telegram router accepts agent-scoped MCP keys for owner-only binding. Open Computer Use shows the same gap in a desktop agent: its password-manager denylist matches bundle ids case-sensitively while the resolver for already-running apps compares them case-insensitively and never re-applies the denylist, so the case variant com.1Password.1Password reaches the real process. Two findings break an isolation boundary instead. In mistral.rs, the sandboxed shell child creates a relative symlink and names it as an output file, and the unsandboxed parent reads the target with std::fs::read, which follows the link; in Phi, agent_spawn passes a model-supplied working directory to a child whose permission gate is rooted at that directory instead of the parent workspace.",
+        "whoIsAffected": "Operators of the named projects are exposed, not MCP users in general, and the versions and CVEs are listed above. NullHub is only remotely reachable when an operator binds it to a non-loopback address with --host, since it defaults to 127.0.0.1, and its latest release, v2026.5.29, is the affected one. Open Computer Use is exposed only on its macOS runtime, where the agent already holds Accessibility and Screen Recording permission, and only against a password manager that is open and unlocked. Both researchers reviewed source at pinned commits, the write-ups record disclosure as pending, and only the mistral.rs escape was reproduced, in a syscall-faithful mirror on synthetic data.",
+        "whatToDo": "Check whether any listed project runs at or below its affected version, and treat it as exposed until maintainers ship a release. Keep NullHub's /api/* management API on loopback, off any non-loopback bind, and rotate the provider credentials it stores if it has been reachable. Quit or lock your password manager before giving a macOS computer-use agent Accessibility and Screen Recording permission. Put MCP gateway OAuth2 endpoints behind network controls, resolve symlinks before reading agent output files, and stop treating a server-side read-only setting as the boundary for an agent that reads untrusted content."
       },
       "quickFacts": [
         {
@@ -2548,7 +2550,7 @@
         },
         {
           "label": "Second wave",
-          "value": "mistral.rs 0.9.0 to 0.9.4, Phi 0.3.0 to 0.28.4, GenOffice <=0.11.505, Tabularis <=0.27.0, Odoo MCP 1.0.0 to 1.3.2, Abilityai Trinity <=0.9.5, UnicomAI Wanwu <=0.6.5, phpMyFAQ <=4.1.10"
+          "value": "mistral.rs 0.9.0 to 0.9.4, Phi 0.3.0 to 0.28.4, GenOffice <=0.11.505, Tabularis <=0.27.0, Odoo MCP 1.0.0 to 1.3.2, Abilityai Trinity <=0.9.5, UnicomAI Wanwu <=0.6.5, phpMyFAQ <=4.1.10, Open Computer Use <=1.0.0"
         },
         {
           "label": "Third wave",
@@ -2556,11 +2558,11 @@
         },
         {
           "label": "CVEs",
-          "value": "CVE-2026-110616, 108865, 108699, 108698, 108714, 108859, 108716, 108585, 108586, 108759, 108595, 108582, 108604, 108861, 108756, 108855, 108851"
+          "value": "CVE-2026-110616, 108865, 108721, 108699, 108698, 108714, 108859, 108716, 108585, 108586, 108759, 108595, 108582, 108604, 108861, 108756, 108855, 108851"
         },
         {
           "label": "Fixed in",
-          "value": "No patched version listed in any of the 17 advisories"
+          "value": "No patched version listed in any of the 18 advisories; Open Computer Use v1.1.0, released October 14, lists no security fix"
         },
         {
           "label": "CVSS",
@@ -2613,6 +2615,18 @@
         {
           "label": "Unla Write-Up",
           "url": "https://hackmd.io/@1ExmmukzRMWN7B4gQ4W-4Q/cve-2026-108865-amoylab-unla-oauth-self-issued-token-authz"
+        },
+        {
+          "label": "VulnCheck Open CU",
+          "url": "https://www.vulncheck.com/advisories/open-computer-use-through-1.0.0-denylist-bypass-via-case-variant-bundle-id"
+        },
+        {
+          "label": "Open CU Advisory",
+          "url": "https://github.com/advisories/GHSA-6m6f-g6c9-vp3w"
+        },
+        {
+          "label": "Open CU Write-Up",
+          "url": "https://hackmd.io/@haind/open-codex-computer-use-denylist-case-bypass"
         },
         {
           "label": "hyper-mcp Signature",
