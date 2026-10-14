@@ -3047,6 +3047,70 @@
         "talk-scan.ts (YouTube conference and security channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t211134z",
+      "timestamp": "2026-10-14T21:11:34.461Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (MCP, agent and LLM queries), VulnCheck, NVD, MSRC, Anthropic news, OpenAI (403 to fetchers), Google Cloud security, UK AISI, NIST CAISI, OWASP GenAI, AIR Security, Zenity Labs, Embrace The Red, Simon Willison, Socket, JFrog, Trail of Bits, Unit 42, Check Point, Wiz, Lakera, HiddenLayer, ReversingLabs, Invariant Labs, Adversa, Hugging Face blog and prompt-injection models, Hacker News front page and Show HN, GitHub trending (daily and weekly), repo-scan (13 queries, 1 candidate), paper-scan (55 arXiv papers) and talk-scan (42 videos, 24 conference uploads). No disclosure, repo, paper or talk inside the 7-day window met the bar, so this sweep adds nothing. Closest calls, all dropped: the Langflow MCP stdio RCE (GHSA-w794-rj3p-xv45, CVE-2026-105697) and the PraisonAI, Pydantic AI, Flowise and Banks advisory batches, which reached the GitHub Advisory Database on October 7 and 8 but were originally published by their projects on September 28, June 25, August 12 and July 29, so they fail Hard Rule 3; the ToFu MCP fuzzing paper (arXiv 2610.13651, 253 verified bugs in 118 MCP servers), Skill Constellations (2610.11169) and the ZTAC confinement paper (2610.14488), each showing one paper-bar signal rather than two; laya-guard, a three-day-old coding-agent guardrail with 27 stars and no second signal; morluto/rea and ifixai-ai/iFixAi, both trending hard this week but created in April, so old repos with new stars; Google's Mantis bug-finding harness, published September 2; the UK AISI frontier best-practice position piece (October 12), which carries no new measurement or defender action; HiddenLayer's coding-agent harness framework (July 28); the RedHatAI prompt-injection guard model, a mirror of a Patronus model with 104 downloads; and the media.ccc.de LLM open-source security talk at 16,637 views, below the 20,000 conference-talk bar with no second signal. AIR Security's OpenAI Sesame post now shows October 14 on its blog index, but its content, including the real-victim sinkhole finding, is already fully covered by the existing item dated October 9, so no update was warranted.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "NVD",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "openai.com/index (403)",
+        "Google Cloud identity and security blog",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "OWASP GenAI Security Project",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "blog.trailofbits.com",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "wiz.io/blog",
+        "lakera.ai/blog",
+        "hiddenlayer.com/innovation-hub",
+        "reversinglabs.com/blog",
+        "invariantlabs.ai/blog",
+        "adversa.ai/blog",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, sorted by created)",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and HF Daily Papers)",
+        "arxiv.org/abs (ToFu, Skill Constellations, ZTAC, BrowseSafe++, option-channel)",
+        "talk-scan.ts",
+        "gh-repo-meta.ts (rea, laya-guard, iFixAi)"
+      ],
+      "windowDays": 7
     }
   ]
 }
