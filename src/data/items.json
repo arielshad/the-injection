@@ -1,7 +1,107 @@
 {
-  "generatedAt": "2026-10-14T22:19:41.202Z",
+  "generatedAt": "2026-10-14T23:14:57.242Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "network-ai-claudehookbridge-deny-pattern-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Network-AI: a payload in a second field slips past the hook's deny list",
+      "org": "VulnCheck",
+      "date": "2026-10-12",
+      "url": "https://www.vulncheck.com/advisories/network-ai-5.14.0-before-5.15.2-deny-pattern-bypass-via-claudehookbridge-extractfulltarget",
+      "summary": "Network-AI's ClaudeHookBridge matches deny patterns against only the first present field of a tool call, so a blocked command hidden in a second field, such as Write content, still runs. Fixed outside the 5.14.0 to 5.15.2 range.",
+      "severity": "medium",
+      "tags": [
+        "guardrail-bypass",
+        "approval-bypass",
+        "prompt-injection",
+        "network-ai",
+        "claude-code"
+      ],
+      "affected": [
+        "Network-AI"
+      ],
+      "cve": "CVE-2026-109331",
+      "cvss": 7.5,
+      "credits": [
+        {
+          "name": "Jace (manus-use)",
+          "url": "https://github.com/manus-use"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-109331 lets a prompt-injected agent slip a blocked command past Network-AI's deny list by moving it into a second tool-call field.",
+        "whatHappened": "VulnCheck published CVE-2026-109331 on October 12, 2026 against Network-AI, a TypeScript and Node.js orchestrator for multi-agent stacks. The advisory credits manus-use, a researcher who publishes under that handle. GitHub's advisory database carries the same finding as GHSA-8x93-4278-4f5c and scores it 7.5 High on CVSS 4.0.",
+        "howItWorks": "ClaudeHookBridge runs as a Claude Code PreToolUse hook and refuses a tool call whose text matches a deny pattern. VulnCheck reports that the check reads only the first candidate field that is present, so a harmless file_path or command satisfies it while the real payload sits in another field, such as Write content or an MCP script parameter. VulnCheck says the result is that web shells can be written or scripts executed even though the pattern was on the deny list. GitHub classes the weakness as CWE-436, an interpretation conflict between the component that checks and the component that runs.",
+        "whoIsAffected": "Versions 5.14.0 up to 5.15.2 are affected, per both advisories. Exposure needs the ClaudeHookBridge hook wired into Claude Code as the gate on Bash, Write, Edit and WebFetch calls, a setup the project's README documents. Network-AI is an independent open-source project, so the affected population is narrow.",
+        "whatToDo": "Update Network-AI past the affected range, listed in the table below. Until that is done, do not rely on the hook's deny list alone to stop an agent that is already following attacker instructions. The README documents signed audit trails and an observe mode, which give a record of the tool calls that were allowed."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Network-AI 5.14.0 up to 5.15.2 (npm network-ai)"
+        },
+        {
+          "label": "Fixed in",
+          "value": "5.15.2, the first version outside both advisories' affected range; 5.15.4 is the latest release"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-109331, CVSS 7.5 High (CVSS 4.0)"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-436, interpretation conflict"
+        },
+        {
+          "label": "Found by",
+          "value": "manus-use"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 12, 2026"
+        },
+        {
+          "label": "Also patched",
+          "value": "CVE-2026-109332, a low-severity CORS flaw in McpSseServer"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected by the Network-AI deny pattern bypass?",
+          "a": "Network-AI installations running 5.14.0 through 5.15.1 are affected when ClaudeHookBridge gates tool calls as a Claude Code PreToolUse hook. VulnCheck's advisory names Bash, Write, Edit and WebFetch as the gated tools. Deployments that never wired the hook into Claude Code, or that already run 5.15.2 or later, fall outside the advisories' affected range and need no action beyond staying current."
+        },
+        {
+          "q": "How do I check whether the Network-AI hook blocked what I think it blocked?",
+          "a": "Auditing a Network-AI deployment means reading the hook's own records: the README documents signed audit trails and an observe mode that logs without enforcing. Because the flaw lies in which field the deny check reads, look for Write or MCP tool calls where a harmless path passed the gate while the payload travelled in a content or script parameter."
+        },
+        {
+          "q": "Does updating Network-AI stop prompt injection against the agent?",
+          "a": "Updating Network-AI closes the field-ordering gap that CVE-2026-109331 describes, but a deny list is not a defense against prompt injection itself. VulnCheck's description assumes an agent is already following attacker instructions, and the hook only decides whether a given tool call runs. Defenders still need to limit what the agent can reach and review its tool calls."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/network-ai-5.14.0-before-5.15.2-deny-pattern-bypass-via-claudehookbridge-extractfulltarget"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-8x93-4278-4f5c"
+        },
+        {
+          "label": "CORS Flaw Advisory",
+          "url": "https://github.com/advisories/GHSA-pfmh-9x5p-7vh5"
+        },
+        {
+          "label": "Network-AI Repo",
+          "url": "https://github.com/Jovancoding/Network-AI"
+        }
+      ],
+      "publishDate": "2026-10-14T23:14:57.242Z"
+    },
     {
       "id": "portkey-ai-gateway-custom-host-ssrf",
       "categories": [
