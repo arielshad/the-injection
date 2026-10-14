@@ -2731,6 +2731,69 @@
         "npm registry"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t161619z",
+      "timestamp": "2026-10-14T16:16:19.117Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub and VulnCheck advisories, Embrace The Red, AIR Security, Zenity Labs, Simon Willison, Anthropic, MSRC, Google safety and security, Trail of Bits, Socket, Wiz, Unit 42, Check Point, HiddenLayer, JFrog, OWASP GenAI, UK AISI, Hugging Face blog and models, arXiv and HF Daily Papers via paper-scan (58 papers in the window, only SLDR and LatentRiskBench at two signals and both already in the feed), repo-scan (1 candidate, laya-guard at 27 stars with no second signal), github.com/trending daily and weekly, Hacker News front page and Show HN, and talk-scan (43 videos, none clearing the talk bar). No candidate met the inclusion bar, so no new items: the only change is an updates[] patch adding a third wave to the VulnCheck MCP source-review item, NullHub CVE-2026-110616 at CVSS 9.2 with no fix. Left out on purpose: morluto/rea (trending hard but created April 2026, a minor release, and general reverse engineering rather than AI security), EdgeEver CVE-2026-109557 and Network-AI CVE-2026-109331 (different researchers from the tracked campaign; EdgeEver's reporter records medium confidence with the chain unverified and the maintainer says the fix is unreleased, and Network-AI has 78 stars), ToFu arXiv 2610.13651 (253 MCP tool bugs but one paper signal: no code release, venue, CVEs or traction), Horizon-Labs prompt-injection guard models (first published September 23, outside the window), the Trail of Bits package-manager integrity study (not AI security), HiddenLayer's Hugging Face agent-intrusion analysis (published July 31), and the Check Point LiteLLM reports (CVE from May 2026, no in-window primary source). AIR Security's OpenAI Sesame post now shows October 14 but adds no facts beyond the existing item. Sources that did not load: openai.com returned 403, cybernews.com returned 403, r/netsec was blocked, and koi.security now redirects to a Palo Alto product page.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "vulncheck-mcp-source-review-cves",
+          "title": "MCP source review: at least 17 unpatched CVEs in five days",
+          "note": "Third wave of the same static source-review campaign: hieuPenguinnn's NullHub finding, CVE-2026-110616 at CVSS v4.0 9.2, published October 14 with no patched version."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "NVD",
+        "embracethered.com",
+        "air.security",
+        "labs.zenity.io",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "Microsoft MSRC blog",
+        "Google safety and security blog",
+        "arXiv cs.CR (paper-scan)",
+        "Hugging Face Daily Papers (paper-scan)",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "talk-scan (YouTube channels)",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "socket.dev/blog",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "hiddenlayer.com research",
+        "jfrog.com security research"
+      ],
+      "windowDays": 7
     }
   ]
 }
