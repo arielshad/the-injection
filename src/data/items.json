@@ -1,7 +1,108 @@
 {
-  "generatedAt": "2026-10-14T13:18:03.625Z",
+  "generatedAt": "2026-10-14T14:21:23.838Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "mac-shell-mcp-execute-command-injection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "mac-shell-mcp: shell metacharacters slip past the command allowlist",
+      "org": "VulnCheck",
+      "date": "2026-10-12",
+      "url": "https://www.vulncheck.com/advisories/mac-shell-mcp-before-2.0.0-os-command-injection-via-execute-command-arguments",
+      "summary": "mac-shell-mcp runs forbidden commands when an MCP client hides shell metacharacters in the arguments of an allowed command. VulnCheck published CVE-2026-108953 on October 12, 2026, eight months after a private report went unanswered.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "approval-bypass",
+        "rce",
+        "mac-shell-mcp",
+        "vulncheck"
+      ],
+      "affected": [
+        "mac-shell-mcp"
+      ],
+      "cve": "CVE-2026-108953",
+      "cvss": 8.5,
+      "credits": [
+        {
+          "name": "Bandana (HackWitHer)",
+          "org": "APIsec Research Labs",
+          "url": "https://github.com/hackwither"
+        }
+      ],
+      "explainer": {
+        "tagline": "A server built to run only approved shell commands runs anything, because its allowlist checks the command name and not the arguments.",
+        "whatHappened": "VulnCheck published CVE-2026-108953 on October 12, 2026, setting out an OS command injection flaw in mac-shell-mcp, an MCP server that gives AI clients a fixed set of macOS shell commands. Bandana (HackWitHer) of APIsec Research Labs reported the flaw privately through GitHub Security Advisories in January and followed it up in June without a maintainer reply. The researcher then opened a public issue on October 4, 2026, set an October 10 deadline, and took the finding to a third-party CNA.",
+        "howItWorks": "The allowlist in mac-shell-mcp decides which binary an MCP client may run, then passes the client's arguments on to a shell. A call to a permitted command such as pwd carries shell metacharacters in those arguments, and a semicolon closes the approved command and starts a second one, which runs as the account the server runs as. The approval step never inspects the second command, so the operator sees no prompt. The rebuilt 2.0.0 closes the gap by running commands without a shell, so arguments are no longer interpreted.",
+        "whoIsAffected": "Every mac-shell-mcp build before 2.0.0 is affected, including 1.0.4, which remains the newest version published under the plain mac-shell-mcp name on npm. Reaching the flaw needs an MCP client wired to the server, so the people exposed are developers who added it to a coding agent on macOS.",
+        "whatToDo": "Install the scoped package @the_cfdude/mac-shell-mcp at 2.0.0, which the advisory names as the first unaffected version. Upgrading in place on the unscoped name achieves nothing, because 1.0.4 is still its latest release. Until the move is done, drop the server from agent configurations and stop treating its command allowlist as a boundary for an agent that reads untrusted text."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "mac-shell-mcp before 2.0.0; unscoped npm latest is 1.0.4 from April 2025"
+        },
+        {
+          "label": "Fixed in",
+          "value": "@the_cfdude/mac-shell-mcp 2.0.0, published to npm September 24, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-108953"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.5 CVSS v4.0 base score, published by VulnCheck as CNA"
+        },
+        {
+          "label": "Attack type",
+          "value": "OS command injection (CWE-78) through an allowlisted command's arguments"
+        },
+        {
+          "label": "Found by",
+          "value": "Bandana (HackWitHer), APIsec Research Labs"
+        },
+        {
+          "label": "Status",
+          "value": "Maintainer never answered the private report; the fix ships under a new package name"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is mac-shell-mcp patched against CVE-2026-108953?",
+          "a": "mac-shell-mcp is fixed only in 2.0.0, and that release is published under the scoped npm name @the_cfdude/mac-shell-mcp. The unscoped mac-shell-mcp package still carries 1.0.4 from April 2025 as its newest version, so installing or upgrading on that name leaves the command injection in place. VulnCheck names 2.0.0 as the first unaffected version."
+        },
+        {
+          "q": "How do I check whether my coding agent runs a vulnerable mac-shell-mcp?",
+          "a": "Open the MCP server configuration your agent loads, find any mac-shell-mcp entry, and compare the package name and version. Anything resolving to the unscoped mac-shell-mcp package, or to a build below 2.0.0, is affected. The server's get_whitelist tool existed only in the 1.x line, so its presence is a second signal of an old install."
+        },
+        {
+          "q": "Why did a third party publish the mac-shell-mcp CVE instead of the maintainer?",
+          "a": "Bandana (HackWitHer) of APIsec Research Labs reported the flaw privately through GitHub Security Advisories and received no maintainer reply, according to the public issue the researcher opened on October 4, 2026. That issue set an October 10 deadline and said a third-party CNA would be asked for a CVE. VulnCheck, acting as that CNA, published the advisory on October 12."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/mac-shell-mcp-before-2.0.0-os-command-injection-via-execute-command-arguments"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-ffv7-8x5h-5w7r"
+        },
+        {
+          "label": "Disclosure Issue",
+          "url": "https://github.com/cfdude/mac-shell-mcp/issues/45"
+        },
+        {
+          "label": "Server Repository",
+          "url": "https://github.com/cfdude/mac-shell-mcp"
+        }
+      ],
+      "publishDate": "2026-10-14T14:21:23.838Z"
+    },
     {
       "id": "xbow-chrome-full-chain",
       "categories": [

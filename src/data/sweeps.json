@@ -2657,6 +2657,80 @@
         "ox.security"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t142123z",
+      "timestamp": "2026-10-14T14:21:23.838Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (Anthropic, Anthropic Frontier Red Team, MSRC, Google Cloud security and GTIG, AISI), GitHub Security Advisories (general, MCP, agent and LLM queries), CISA KEV, VulnCheck, research shops (AIR, Zenity, Embrace The Red, Wiz, JFrog, Unit 42, Check Point, ReversingLabs, Trail of Bits, NCC Group, Lakera, HiddenLayer, Snyk, Socket, Simon Willison), paper-scan (59 arXiv papers in the window) plus Hugging Face Daily Papers, repo-scan (13 queries, 1 candidate), GitHub trending daily and weekly, Show HN, Hacker News front page, talk-scan (43 uploads, 24 conference) and Hugging Face blog and guard models. One item met the bar: CVE-2026-108953 in mac-shell-mcp, published by VulnCheck on October 12 after an eight-month unanswered private report.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "mac-shell-mcp-execute-command-injection",
+          "title": "mac-shell-mcp: shell metacharacters slip past the command allowlist",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "First full technical disclosure landed inside the window (VulnCheck advisory, October 12), it names the researcher and her team, the fix status is concrete and unusual (the patched build sits under a different npm package name while the vulnerable one stays latest), and it continues the approval-bypass thread the feed already tracks in Continue CLI, VTCode and Mistral Vibe."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "VulnCheck advisories",
+        "GitHub Security Advisories",
+        "CISA Known Exploited Vulnerabilities catalog",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "Microsoft MSRC blog",
+        "Google Cloud security blog",
+        "Google Threat Intelligence (GTIG)",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "air.security/blog",
+        "Zenity Labs",
+        "embracethered.com",
+        "simonwillison.net",
+        "Wiz blog",
+        "JFrog blog",
+        "Unit 42",
+        "Check Point Research",
+        "ReversingLabs blog",
+        "Trail of Bits blog",
+        "NCC Group research blog",
+        "Lakera blog",
+        "HiddenLayer research",
+        "Snyk blog",
+        "Socket blog",
+        "Pillar Security blog",
+        "Cycode blog",
+        "Adversa AI MCP digest",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers",
+        "Hugging Face blog",
+        "Hugging Face models (prompt-injection guards)",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "talk-scan (conference and security channels)",
+        "npm registry"
+      ],
+      "windowDays": 7
     }
   ]
 }
