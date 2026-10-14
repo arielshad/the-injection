@@ -2518,6 +2518,67 @@
         "artificialanalysis.ai"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t121502z",
+      "timestamp": "2026-10-14T12:15:02.359Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (mcp, agent and llm queries), VulnCheck, Embrace The Red, AIR Security, Zenity Labs, Socket, JFrog, Trail of Bits, ReversingLabs, HiddenLayer, NCC Group, Check Point, CrowdStrike, Wiz, Lakera, Invariant Labs, Anthropic, MSRC, Google Threat Intelligence, UK AISI, OWASP GenAI, Hugging Face, CISA KEV, Hacker News, Simon Willison, paper-scan (43 arXiv papers, 4 of 9 queries failed on HTTP 429 or timeout), repo-scan (13 queries, 1 candidate), github.com/trending and talk-scan (44 videos); no new AI-security disclosure, repo, paper or talk inside the 7-day window met the bar. The strongest candidates failed on date: the PraisonAI advisory set, Flowise CVE-2026-73487, the Banks chat-role flaw and the Network-AI ClaudeHookBridge bypass were all first published between June and September and only entered the GitHub Advisory Database this week, and the Glow PixelLeak screenshot research was first disclosed 2026-09-29; openai.com returned 403, r/netsec and the MSRC Security Update Guide did not load, so an unconfirmed Microsoft 365 Copilot CVE was left out.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "blog.trailofbits.com",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com research",
+        "nccgroup.com/research-blog",
+        "research.checkpoint.com",
+        "crowdstrike.com/blog",
+        "wiz.io/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "anthropic.com/news",
+        "microsoft.com/msrc/blog",
+        "Google Cloud Threat Intelligence",
+        "aisi.gov.uk",
+        "OWASP GenAI Security Project",
+        "huggingface.co/blog",
+        "Hugging Face model hub API",
+        "CISA KEV catalog",
+        "Hacker News front page and newest",
+        "simonwillison.net",
+        "arXiv cs.CR via paper-scan.ts",
+        "Hugging Face Daily Papers via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan.ts",
+        "gh-repo-meta.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
