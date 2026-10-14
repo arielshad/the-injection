@@ -1,7 +1,230 @@
 {
-  "generatedAt": "2026-10-13T22:05:22.239Z",
+  "generatedAt": "2026-10-14T00:53:50.555Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "embracethered-visual-studio-copilot-rce",
+      "categories": [
+        "vulnerability",
+        "attack"
+      ],
+      "title": "Visual Studio Copilot: a trailing dot let the agent rewrite its own config",
+      "org": "Embrace The Red",
+      "date": "2026-10-13",
+      "url": "https://embracethered.com/blog/posts/2026/visual-studio-copilot-remote-code-execution/",
+      "summary": "CVE-2026-103572 let GitHub Copilot in Visual Studio and SSMS write to its own MCP and settings files by adding a trailing dot to a blocked path, turning a compromised agent into code execution. Microsoft fixed it on October 13.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "approval-bypass",
+        "prompt-injection",
+        "mcp",
+        "coding-agents",
+        "github-copilot",
+        "visual-studio",
+        "ssms",
+        "microsoft"
+      ],
+      "affected": [
+        "Visual Studio 2026",
+        "Visual Studio 2022",
+        "SQL Server Management Studio",
+        "GitHub Copilot in Visual Studio"
+      ],
+      "cve": "CVE-2026-103572",
+      "cvss": 8.8,
+      "credits": [
+        {
+          "name": "Johann Rehberger",
+          "org": "Embrace The Red",
+          "url": "https://embracethered.com/blog/"
+        }
+      ],
+      "explainer": {
+        "tagline": "A trailing period defeated the check on which files Copilot may edit, letting an injected agent point the IDE at a binary it chose.",
+        "whatHappened": "Microsoft published CVE-2026-103572 on October 13, 2026 and shipped the fix the same day in its October Patch Tuesday release. Johann Rehberger of Embrace The Red reported the path bypass to MSRC on August 4, 2026, Microsoft confirmed it on September 16, and he published his write-up on October 13. Rehberger notes the report earned no bounty.",
+        "howItWorks": "Windows saves a file name that ends in a period without that character, so settings.json and settings.json. are the same file. Copilot's confirmation check, GetEditConfirmationTypeAsync in Microsoft.VisualStudio.Copilot.Core.dll, compared path strings, so .mcp.json. passed while the write landed on .mcp.json. Rehberger chained the write into code execution two ways: adding an attacker-controlled MCP server that the IDE then launches, and overwriting the ripgrep path in settings.VisualStudio.json so a binary of his choice runs during a search. His proof of concept started calc.exe.",
+        "whoIsAffected": "Developers running Copilot in Visual Studio 2022 or Visual Studio 2026 are exposed, in the version ranges Microsoft lists in the table below. Rehberger reports that SQL Server Management Studio is affected too, because it shares the Copilot code with Visual Studio. Exploitation needs the agent to be injected or misaligned first, which is the threat model his post argues security controls must survive.",
+        "whatToDo": "Install the October 2026 Patch Tuesday updates for Visual Studio, and for SQL Server Management Studio alongside them. Rehberger's advice is to patch both. Because both attack chains work by writing agent configuration that the IDE later executes, review a project's .mcp.json and Visual Studio settings files for MCP servers or tool paths nobody added."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-103572"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "8.8 (Microsoft)"
+        },
+        {
+          "label": "Affected",
+          "value": "Visual Studio 2022 17.14.0 to before 17.14.42; Visual Studio 2026 18.10.0 to before 18.10.4"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Visual Studio 2022 17.14.42, Visual Studio 2026 18.10.4"
+        },
+        {
+          "label": "Attack type",
+          "value": "Path validation bypass via trailing dot, agent config write"
+        },
+        {
+          "label": "Found by",
+          "value": "Johann Rehberger (Embrace The Red)"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Reported August 4, 2026; patched October 13, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Visual Studio versions fix CVE-2026-103572?",
+          "a": "Visual Studio 2022 version 17.14.42 and Visual Studio 2026 version 18.10.4 fix CVE-2026-103572, according to Microsoft's CVE record. Earlier builds in the 17.14 and 18.10 lines are listed as affected. Johann Rehberger also reports that SQL Server Management Studio shares the vulnerable Copilot code, so SSMS installations deserve an update in the same pass."
+        },
+        {
+          "q": "Is SQL Server Management Studio affected by CVE-2026-103572?",
+          "a": "SQL Server Management Studio is affected, according to Johann Rehberger, who found the flaw and notes that SSMS shares Copilot code with Visual Studio. Microsoft's CVE title names both Visual Studio Tools for Applications and SQL Server Management Studio, though its machine-readable affected list shows only Visual Studio 2022 and Visual Studio 2026 builds. Administrators should patch SSMS as well."
+        },
+        {
+          "q": "How does CVE-2026-103572 differ from the earlier SQL Copilot sysadmin flaw?",
+          "a": "CVE-2026-103572 is a file path validation bypass that lets Copilot write its own MCP and settings files, which leads to code execution on the developer's machine. The earlier flaw Rehberger disclosed, CVE-2026-65669, was a read-only bypass inside SQL Server Management Studio that escalated a user to sysadmin in the database. Different mechanism, different target, same researcher."
+        },
+        {
+          "q": "How can I tell whether an agent changed my MCP configuration?",
+          "a": "Open the project's .mcp.json and the Visual Studio settings files and look for MCP servers or tool paths nobody added. Rehberger's two attack chains work by registering an attacker-controlled MCP server that the IDE then launches, or by repointing the ripgrep path so a chosen binary runs during a search. Entries naming unfamiliar commands deserve scrutiny."
+        }
+      ],
+      "links": [
+        {
+          "label": "Embrace The Red Post",
+          "url": "https://embracethered.com/blog/posts/2026/visual-studio-copilot-remote-code-execution/"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-103572"
+        },
+        {
+          "label": "MSRC Advisory",
+          "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-103572"
+        },
+        {
+          "label": "Windows Trailing Dots",
+          "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/file-folder-name-whitespace-characters"
+        }
+      ],
+      "image": {
+        "url": "https://embracethered.com/blog/images/2026/sqlcopilot/copilot-vs-rce.png",
+        "alt": "Visual Studio Copilot and SSMS remote code execution title card",
+        "credit": "Embrace The Red"
+      },
+      "publishDate": "2026-10-14T00:53:50.555Z"
+    },
+    {
+      "id": "arxiv-provably-hidden-capabilities",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Provably hidden capabilities: encrypted backdoors resist elicitation",
+      "org": "arXiv",
+      "date": "2026-10-09",
+      "url": "https://arxiv.org/abs/2610.13928",
+      "summary": "Four researchers embedded an encrypted neural network in a model's weights that runs only on a secret trigger, and report that fine-tuning, weight noising and gradient-based trigger search failed to draw it out. Accepted at NeurIPS 2026.",
+      "severity": "info",
+      "tags": [
+        "model-backdoor",
+        "evals",
+        "open-weights",
+        "red-team"
+      ],
+      "affected": [
+        "Open-weight models",
+        "Capability evaluations"
+      ],
+      "credits": [
+        {
+          "name": "Andis Draguns",
+          "org": "Contramont Research"
+        },
+        {
+          "name": "Sumeet Ramesh Motwani",
+          "org": "University of Oxford"
+        },
+        {
+          "name": "Raymond Douglas",
+          "org": "ACS Research"
+        },
+        {
+          "name": "Christian Schroeder de Witt",
+          "org": "University of Oxford"
+        }
+      ],
+      "explainer": {
+        "tagline": "A backdoor built from digital lockers kept a hidden skill out of reach of audits that held the model's full weights.",
+        "whatHappened": "Andis Draguns, Sumeet Ramesh Motwani, Raymond Douglas and Christian Schroeder de Witt posted this paper to arXiv on October 9, 2026, accepted at NeurIPS 2026. The work targets an assumption behind pre-deployment capability evaluations: that a dangerous behaviour hidden in a model can be drawn out before release. The authors say they release their models so defences can be improved.",
+        "howItWorks": "The authors compile a small neural network into a host model's weights in encrypted form, using a cryptographic primitive called a digital locker, and the circuit decrypts and runs only when it receives a secret trigger. They build the circuit from linear threshold circuits turned into SwiGLU MLPs with RMSNorm. Under cryptographic assumptions, the authors argue the hidden circuit is provably hard to elicit or interpret even for an auditor holding every weight. Earlier work of this kind hid fixed strings; this construction hides arbitrary computation.",
+        "whoIsAffected": "Red teams, evaluation labs and anyone certifying an open-weight model they did not train, where a failed elicitation attempt is read as evidence that a capability is absent. The authors tested a chemical reaction prediction classifier as a proxy for CBRN-relevant capability, not a cyber capability, and describe the work as a proof of concept on small tasks.",
+        "whatToDo": "Stop treating a failed elicitation attempt as proof that a capability is absent from a model you did not train. The authors point to one opening for defenders: the compiled weights are statistically anomalous and may be detectable as modified, even where the capability itself cannot be drawn out. They also report a large cost to the attacker, about 2.07 billion dense parameters of overhead for the chemistry model."
+      },
+      "quickFacts": [
+        {
+          "label": "Venue",
+          "value": "Accepted at NeurIPS 2026"
+        },
+        {
+          "label": "Correct trigger",
+          "value": "73.5% accuracy on the chemistry task"
+        },
+        {
+          "label": "Wrong trigger",
+          "value": "About 50%, the chance baseline"
+        },
+        {
+          "label": "Elicitation tried",
+          "value": "Fine-tuning, latent adversarial training, GCG trigger search, weight noising"
+        },
+        {
+          "label": "Attacker cost",
+          "value": "About 2.07 billion dense parameters of overhead"
+        },
+        {
+          "label": "Stated limitation",
+          "value": "Proof of concept on small tasks; compiled weights look anomalous"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Chemistry accuracy after 500 steps of supervised fine-tuning",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher means the audit succeeded in eliciting the hidden skill",
+          "results": [
+            {
+              "name": "Encrypted circuit (this paper)",
+              "score": 50.9,
+              "highlight": true
+            },
+            {
+              "name": "Password-locked baseline",
+              "score": 92.8
+            }
+          ],
+          "source": "https://arxiv.org/html/2610.13928v1"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.13928"
+        },
+        {
+          "label": "Full Text HTML",
+          "url": "https://arxiv.org/html/2610.13928v1"
+        }
+      ],
+      "publishDate": "2026-10-14T00:53:50.555Z"
+    },
     {
       "id": "anthropic-claude-desktop-git-search-path-rce",
       "categories": [
