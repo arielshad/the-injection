@@ -1,7 +1,184 @@
 {
-  "generatedAt": "2026-10-14T05:48:04.814Z",
+  "generatedAt": "2026-10-14T07:19:55.465Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "ollama-api-pull-path-traversal",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Ollama: an unauthenticated pull leads to code execution as root",
+      "org": "CERT Polska",
+      "date": "2026-10-08",
+      "url": "https://cert.pl/en/posts/2026/10/CVE-2026-103663/",
+      "summary": "CVE-2026-103663 lets an unauthenticated attacker abuse Ollama's /api/pull endpoint to write a binary outside the model store, which runs as root on the next restart. Ollama 0.35.0 fixes it, CERT Polska disclosed it on October 8, 2026.",
+      "severity": "high",
+      "cve": "CVE-2026-103663",
+      "cvss": 9.4,
+      "tags": [
+        "rce",
+        "ollama"
+      ],
+      "affected": [
+        "Ollama"
+      ],
+      "credits": [
+        {
+          "name": "Bartłomiej Dmitruk",
+          "org": "striga.ai"
+        }
+      ],
+      "explainer": {
+        "tagline": "A crafted layer digest in an Ollama model pull escapes the model store and lands an executable that runs as root on the next restart.",
+        "whatHappened": "CERT Polska published CVE-2026-103663 on October 8, 2026, having helped coordinate the disclosure. Bartłomiej Dmitruk of striga.ai reported the flaw. The GitHub Advisory Database records a CVSS 4.0 base score of 9.4 and lists the entry as unreviewed, with the version range and fix below.",
+        "howItWorks": "The /api/pull endpoint does not validate layer digests before the digestToPath function uses them, so a traversal sequence inside a digest sends a downloaded layer outside the model store. Where the server process can write to /usr/lib/ollama, which CERT Polska says is the default in most Ollama Docker images, the planted file is loaded and executed on the next restart, as root. Calling the endpoint needs no authentication.",
+        "whoIsAffected": "Ollama 0.34.2 up to 0.35.0 carries the flaw, per CERT Polska. Two conditions decide real exposure: whether an attacker can reach the Ollama API, and whether the server process can write to /usr/lib/ollama, which CERT Polska reports as the default in most of Ollama's Docker images.",
+        "whatToDo": "Update Ollama to 0.35.0 or later, the release CERT Polska lists as fixed. Keep the API off untrusted networks, since it accepts a pull without credentials. Removing the server's write access to /usr/lib/ollama takes away the step that turns the file write into execution."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Ollama 0.34.2 up to 0.35.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Ollama 0.35.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-103663"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.4, CVSS 4.0, in the GitHub Advisory Database"
+        },
+        {
+          "label": "Found by",
+          "value": "Bartłomiej Dmitruk, striga.ai"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unauthenticated path traversal, CWE-23, to code execution"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 8, 2026, coordinated by CERT Polska"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Ollama versions are affected by CVE-2026-103663?",
+          "a": "Ollama versions 0.34.2 up to 0.35.0 are affected, according to CERT Polska's advisory. Ollama 0.35.0 carries the fix. Deployments built from Ollama's Docker images matter most here, because CERT Polska says the server process can write to /usr/lib/ollama by default in most of them, which is the condition that turns the file write into code execution as root."
+        },
+        {
+          "q": "Is CVE-2026-103663 fixed, and in which Ollama release?",
+          "a": "Yes. Ollama 0.35.0 fixes CVE-2026-103663, and CERT Polska lists that release as the fixed version. The release notes for 0.35.0 do not mention the flaw, so the version number is the thing to check rather than the changelog. Servers still running 0.34.2 through the builds before 0.35.0 remain exposed to an unauthenticated pull."
+        },
+        {
+          "q": "Can CVE-2026-103663 be exploited without credentials?",
+          "a": "No credentials are needed. CERT Polska describes an unauthenticated remote attacker supplying a traversal sequence as a layer digest to /api/pull. The CVSS 4.0 vector in the GitHub Advisory Database reports no privileges required and passive user interaction, which matches the server restart that executes the planted file. Reachability of the API is therefore the main exposure question."
+        },
+        {
+          "q": "How do I check whether my Ollama server is exposed to CVE-2026-103663?",
+          "a": "Check the running Ollama version first, then whether the API is reachable from outside the host. CERT Polska's advisory covers 0.34.2 up to 0.35.0. Containers built on Ollama's Docker images deserve a second look, because the write target /usr/lib/ollama is writable by the server there, per CERT Polska, and a restart is enough to run the planted binary."
+        }
+      ],
+      "links": [
+        {
+          "label": "CERT Polska Advisory",
+          "url": "https://cert.pl/en/posts/2026/10/CVE-2026-103663/"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-w8p2-phwr-px3r"
+        },
+        {
+          "label": "Ollama 0.35.0 Release",
+          "url": "https://github.com/ollama/ollama/releases/tag/v0.35.0"
+        }
+      ],
+      "publishDate": "2026-10-14T07:19:55.465Z"
+    },
+    {
+      "id": "microsoft-forge-lab-ai-vuln-research",
+      "categories": [
+        "research"
+      ],
+      "title": "Microsoft FORGE Lab: 140 Windows CVEs from AI-driven bug hunting",
+      "org": "Microsoft Security",
+      "date": "2026-10-07",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/07/3-lessons-from-frontier-ai-vulnerability-research/",
+      "summary": "Microsoft says its FORGE Lab helped find vulnerabilities assigned 140 Windows CVEs from May to September 2026, and prices AI-driven discovery at a few dollars per proof of concept. Taesoo Kim published the numbers on October 7, 2026.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "red-team",
+        "microsoft"
+      ],
+      "affected": [
+        "Windows",
+        "Linux kernel"
+      ],
+      "credits": [
+        {
+          "name": "Taesoo Kim",
+          "org": "Microsoft"
+        },
+        {
+          "name": "FORGE Lab",
+          "org": "Microsoft Security",
+          "url": "https://github.com/microsoft/forge-lab"
+        }
+      ],
+      "explainer": {
+        "tagline": "Microsoft puts dollar figures and minutes on AI-driven vulnerability discovery, and says the bottleneck is review, not finding.",
+        "whatHappened": "Taesoo Kim, Microsoft's vice president of agentic security, published three lessons from the FORGE Lab's AI-driven vulnerability research on October 7, 2026. The post sets out what the lab produced on Windows and on open-source software from May to September 2026, with the counts and per-finding costs listed below. Cleared CVE identifiers go into a public index the lab keeps on GitHub.",
+        "howItWorks": "MDASH, Microsoft's multi-model agentic scanning harness, drives discovery, and the post says GPT-5.5 generated the proofs of concept it prices, without extensive tuning. An internal deduplication project built on abstract syntax trees removed about 45% of repeated findings across scans, by Microsoft's count. Validated findings then feed remediation and go back into discovery, so each stage leaves evidence the next one can reuse.",
+        "whoIsAffected": "Windows and 23 open-source projects, including the Linux kernel, are where the reports landed, and they went to MSRC and upstream maintainers through the usual channels. Nobody faces new exposure from the post itself: the AI here is the finder, not the target. Teams that run or buy AI-assisted vulnerability research are the audience for the throughput and cost figures.",
+        "whatToDo": "Judge an AI discovery pipeline end to end rather than by raw finding count, which is Microsoft's own argument: track duplicates, rejected reports, validated defects, queue age and the time from a confirmed defect to a released fix. Maintainers buried in machine-generated reports are the problem Akrites was set up to coordinate, and Microsoft says one of its Linux kernel reports became the first Akrites submission to reach a merged patch."
+      },
+      "quickFacts": [
+        {
+          "label": "Windows CVEs",
+          "value": "140 assigned from May to September 2026, 52 in the September release"
+        },
+        {
+          "label": "Open source",
+          "value": "155 validated reports across 23 projects, 93 acknowledged across 14"
+        },
+        {
+          "label": "Proof of concept",
+          "value": "$3.61 and 21.5 minutes on average, across 182 Linux kernel crash findings"
+        },
+        {
+          "label": "Exploit generation",
+          "value": "$8.56 and 25.4 minutes on average, across six privilege escalation cases"
+        },
+        {
+          "label": "Model used",
+          "value": "GPT-5.5, inside the MDASH harness"
+        },
+        {
+          "label": "Duplicates removed",
+          "value": "About 45% across repeated scans"
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Security Blog",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/07/3-lessons-from-frontier-ai-vulnerability-research/"
+        },
+        {
+          "label": "FORGE Lab CVE Index",
+          "url": "https://github.com/microsoft/forge-lab"
+        },
+        {
+          "label": "Akrites",
+          "url": "https://akrites.org/"
+        }
+      ],
+      "publishDate": "2026-10-14T07:19:55.465Z"
+    },
     {
       "id": "arxiv-latentriskbench",
       "categories": [

@@ -2178,6 +2178,86 @@
         "invariantlabs.ai/blog"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t071955z",
+      "timestamp": "2026-10-14T07:19:55.465Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab posts, advisories, papers, repos, talks and HN for the 7 days to October 14, 2026, and added two items: the unauthenticated Ollama /api/pull path traversal (CVE-2026-103663) disclosed through CERT Polska, and Microsoft's FORGE Lab numbers on AI-driven vulnerability discovery. paper-scan returned 20 candidates but 6 of its 9 arXiv queries failed on rate limits or timeouts, so paper coverage this run is partial; no candidate showed the two signals the paper bar needs, including ToFu (253 verified bugs across MCP servers, one signal only). repo-scan ran 13 queries and found one candidate, laya-guard, which has 27 stars and no second signal. Left out on date: PixelLeak agent screenshot leaks (Glow Security, September 29), Zscaler in-the-wild indirect prompt injection (July 2), DuneSlide in Cursor (July 1), the Langflow X-Forwarded-For advisory (first published August 13) and the Horizon Labs and Patronus prompt-injection guard models. New MCP CVEs on October 12 and 13 (mac-shell-mcp, Network-AI, conductor, houtini-ai) are the same VulnCheck source-review wave already in the feed. No talk met the bar: the strongest conference candidate had 15,581 views, under the 20,000 threshold.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "ollama-api-pull-path-traversal",
+          "title": "Ollama: an unauthenticated pull leads to code execution as root",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Critical-scored, unauthenticated remote path traversal to root code execution in widely used local model infrastructure, disclosed inside the window with a named reporter and a fixed version."
+        },
+        {
+          "id": "microsoft-forge-lab-ai-vuln-research",
+          "title": "Microsoft FORGE Lab: 140 Windows CVEs from AI-driven bug hunting",
+          "category": "research",
+          "severity": "info",
+          "note": "First published figures on what AI-driven vulnerability discovery costs per finding at Windows scale, from the vendor doing it, and a measurement defenders can compare against the NCC Group and Anthropic pipelines already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "cert.pl",
+        "VulnCheck advisories",
+        "Microsoft Security Blog",
+        "MSRC blog",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "Google safety and security blog",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "simonwillison.net",
+        "Trail of Bits blog",
+        "NCC Group research",
+        "HiddenLayer innovation hub",
+        "Check Point Research",
+        "Socket blog",
+        "JFrog Security Research",
+        "ReversingLabs blog",
+        "Talos blog",
+        "CrowdStrike blog",
+        "Snyk blog",
+        "Unit 42",
+        "Lakera blog",
+        "Invariant Labs blog",
+        "arXiv (paper-scan, partial)",
+        "Hugging Face Daily Papers",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, created)",
+        "repo-scan.json (13 queries)",
+        "github.com/trending (daily and weekly)",
+        "Hacker News front page and Show HN",
+        "talk-scan.ts (YouTube channels)",
+        "OWASP GenAI Security Project",
+        "UK AISI blog",
+        "nist.gov news"
+      ],
+      "windowDays": 7
     }
   ]
 }
