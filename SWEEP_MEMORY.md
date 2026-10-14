@@ -49,6 +49,21 @@ Entry format:
 
 ## Change log
 
+### 2026-10-14-A: catch-up slots did not help; a Cloudflare Worker schedules the sweep
+- Trigger: after 2026-10-12-A the sweep still ran every 3 to 8 hours.
+- Cause: GitHub dropped the catch-up slots too. From Oct 12 10:31Z to
+  Oct 14 05:30Z, about 130 slots produced 6 sweeps. Every run that started
+  succeeded.
+- Change: a Cloudflare Worker cron (cloudflare/sweep-cron/) calls
+  `workflow_dispatch` on update-feed.yml at minute 17 of every hour with a
+  fine-grained token (Actions: read and write, this repo only). Dispatch
+  always sweeps. The GitHub cron stays as a fallback and its gate now waits
+  70 minutes, so a late slot never doubles a Worker sweep, and the sweep
+  still runs every 70 to 90 minutes if the Worker stops.
+- Status: watching. Expect one `workflow_dispatch` run per hour. Runs every
+  70+ minutes from `schedule` instead mean the Worker stopped: check its
+  logs and the token's expiry.
+
 ### 2026-10-12-A: the hourly sweep ran about every 5 hours
 - Trigger: the masthead read DELAYED. The last sweep was 6.5 hours old.
 - Cause: GitHub drops scheduled runs under load. `17 * * * *` produced 18

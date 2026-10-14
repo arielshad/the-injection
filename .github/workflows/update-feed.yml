@@ -2,7 +2,7 @@ name: Update feed (hourly)
 
 # Runs the AI-security feed sweep on a schedule.
 #
-#   0. Gate: skip the run when the feed is already fresh (see `on:` below).
+#   0. Gate: skip a GitHub-cron run when the feed is already fresh (see `on:`).
 #   1. Checkout, pnpm install.
 #   2. Claude Code reads prompts/update-feed.md and follows it: search,
 #      fetch and verify sources, write sweep-draft.json, run
@@ -17,17 +17,22 @@ name: Update feed (hourly)
 #
 # Secrets:  CLAUDE_CODE_OAUTH_TOKEN (claude setup-token)
 # Variables: SITE_URL (e.g. https://theinjection.dev)
+#
+# Scheduler: a Cloudflare Worker cron (cloudflare/sweep-cron/) calls
+# workflow_dispatch at minute 17 of every hour. The `schedule:` below is
+# only the fallback for when the Worker stops (expired token, Cloudflare down).
 
 on:
   schedule:
-    # Minute 17 of every hour is the sweep slot. GitHub drops most scheduled
-    # runs (SWEEP_MEMORY 2026-10-12-A: 18 runs in 5 days, not 120), so :37
-    # and :57 are catch-up slots. The gate job sweeps only when the feed is
-    # older than GATE_MINUTES, so when every slot fires the sweep stays
-    # hourly and the catch-ups cost a few seconds. A run can outlast the hour
-    # (two 35m attempts); the concurrency group below then holds the next
-    # run until it finishes.
+    # Fallback only. GitHub drops most scheduled runs (SWEEP_MEMORY
+    # 2026-10-12-A, 2026-10-14-A), so the hourly sweep comes from the
+    # Cloudflare Worker's workflow_dispatch at :17. These slots sweep only
+    # when the feed is older than GATE_MINUTES, which does not happen while
+    # the Worker is up, so they cost a few seconds each. A run can
+    # outlast the hour (two 35m attempts); the concurrency group below then
+    # holds the next run until it finishes, and its gate sees a fresh feed.
     - cron: "17,37,57 * * * *"
+  # The Worker's hourly call and the manual "Run workflow" button. Always sweeps.
   workflow_dispatch: {}
 
 permissions:
@@ -60,7 +65,10 @@ jobs:
       - name: Is a sweep due?
         id: age
         env:
-          GATE_MINUTES: "30"
+          # Above the Worker's 60-minute cadence, so a late GitHub slot does
+          # not double a Worker sweep. Slots are 20 minutes apart, so if the
+          # Worker stops the fallback sweeps every 70 to 90 minutes.
+          GATE_MINUTES: "70"
           EVENT: ${{ github.event_name }}
         run: |
           node -e '
