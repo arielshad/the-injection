@@ -2458,6 +2458,66 @@
         "simonwillison.net October archive"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261014t111438z",
+      "timestamp": "2026-10-14T11:14:38.561Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (GitHub Security Advisories AI and MCP queries, anthropics/claude-code, VulnCheck, CISA, Talos on the October 13 Patch Tuesday), research groups (Embrace The Red, AIR Security, Zenity Labs, Mindgard, NCC Group, Trail of Bits, JFrog, Unit 42, Check Point, HiddenLayer, Wiz, Censys), paper-scan (63 arXiv candidates in the window, 2 with two signals and both already in the feed), repo-scan (13 queries, 1 candidate), GitHub trending, Hacker News front page and Show HN, Hugging Face blog and prompt-injection model search, UK AISI, OWASP GenAI and talk-scan (22 channels, 44 uploads in the window). Nothing new met the bar: the window's qualifying disclosures are already in the feed, and the October 7 to 13 batch in the GitHub Advisory Database turned out to be backfill of older advisories (Langflow CVE-2026-105697 was published September 28, PraisonAI CVE-2026-61427 on June 25), so their original disclosure dates fall outside the 7-day window.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "anthropics/claude-code security advisories",
+        "VulnCheck advisories",
+        "CISA cybersecurity advisories",
+        "blog.talosintelligence.com",
+        "anthropic.com/news",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "mindgard.ai/blog",
+        "nccgroup.com/research-blog",
+        "blog.trailofbits.com",
+        "research.jfrog.com",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "hiddenlayer.com/innovation-hub",
+        "wiz.io/blog",
+        "censys.com/blog",
+        "simonwillison.net",
+        "arXiv cs.CR (paper-scan)",
+        "repo-scan (GitHub repo search)",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection)",
+        "aisi.gov.uk/blog",
+        "genai.owasp.org",
+        "talk-scan (YouTube conference and security channels)",
+        "gh-repo-meta (laya-guard, morluto/rea, NVIDIA/SkillSpector)",
+        "adversa.ai/blog",
+        "artificialanalysis.ai"
+      ],
+      "windowDays": 7
     }
   ]
 }
