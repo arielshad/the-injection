@@ -1,7 +1,196 @@
 {
-  "generatedAt": "2026-10-15T06:12:39.301Z",
+  "generatedAt": "2026-10-15T07:19:18.195Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "manifold-agent-skill-high-risk-domains",
+      "categories": [
+        "supply-chain",
+        "research"
+      ],
+      "title": "Agent skills: 121 components reach domains rated high risk",
+      "org": "Manifold Security",
+      "date": "2026-10-13",
+      "url": "https://www.manifold.security/blog/high-risk-domains-agent-skills-where-they-lead",
+      "summary": "Manifold rated 100 domains used by indexed agent components high risk, and found 121 components that call them: 108 skills, 11 MCP servers and 2 plugins, including a crypto miner skill using domains listed as botnet C2.",
+      "severity": "medium",
+      "tags": [
+        "skills",
+        "mcp",
+        "plugins",
+        "threat-intel"
+      ],
+      "affected": [
+        "AI agent skills",
+        "MCP servers",
+        "Agent plugins"
+      ],
+      "credits": [
+        {
+          "name": "Swapnil Patil",
+          "org": "Manifold"
+        },
+        {
+          "name": "Cody Nash",
+          "org": "Manifold"
+        }
+      ],
+      "explainer": {
+        "tagline": "Manifold found 121 agent skills, MCP servers and plugins that call domains its scan rated high risk.",
+        "whatHappened": "Researchers Swapnil Patil and Cody Nash published a scan of the domains behind agent components on October 13, 2026. Starting from 5,458,152 URLs in Manifold's Manifest index of skills, MCP servers and plugins, they reduced the set to 63,446 distinct domains and download hosts, then rated 100 of those high risk.",
+        "howItWorks": "Free checks ran against every domain first: the ThreatFox and HaGeZi threat feeds, popularity rankings, and the malware filters of Quad9 and Cloudflare. About 1,900 flagged domains then went to paid lookups at VirusTotal, AlienVault OTX, urlscan.io and Shodan. The authors then read how each component actually used each domain, because many appear only in documentation or test fixtures.",
+        "whoIsAffected": "Anyone running one of the 121 named components is exposed, and the mix is listed below. Finance skills are over-represented: they are 43% of the skills calling a high-risk domain while making up 6% of all indexed skills. Sixteen skills tell agents to run code from a high-risk domain, eleven of them through a polyfill.io script tag.",
+        "whatToDo": "Treat the domains inside skills, MCP configs and plugins as dependencies, and check them against protective DNS and reputation sources before an agent loads one. Watch where agents connect, not only what commands they run, and re-check approved components on a schedule, because a clean domain can change hands."
+      },
+      "quickFacts": [
+        {
+          "label": "Scanned",
+          "value": "5,458,152 URLs, reduced to 63,446 domains and download hosts"
+        },
+        {
+          "label": "High-risk domains",
+          "value": "100"
+        },
+        {
+          "label": "Components affected",
+          "value": "108 skills, 11 MCP servers, 2 plugins"
+        },
+        {
+          "label": "Code execution",
+          "value": "16 skills run code from a high-risk domain, 11 via a polyfill.io script tag"
+        },
+        {
+          "label": "Worked example",
+          "value": "clawrtc, a crypto miner skill that reports host name and MAC addresses"
+        },
+        {
+          "label": "Found by",
+          "value": "Swapnil Patil and Cody Nash, Manifold"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which agent components did Manifold find calling high-risk domains?",
+          "a": "Manifold names 121 components from its Manifest index: 108 skills, 11 MCP servers and 2 plugins. Finance skills are over-represented, at 43% of the skills that call a high-risk domain while making up 6% of all indexed skills. The authors describe these counts as a floor, because some malicious domains passed every check they ran."
+        },
+        {
+          "q": "What is clawrtc and are its domains still in use?",
+          "a": "Clawrtc is a crypto miner skill whose installer contacts an undisclosed domain, bottube.ai, and whose miner reports the host name and MAC addresses. ThreatFox listed that domain and rustchain.org as botnet command and control in April. Manifold reports that as of October 2026, 17 skills and one MCP server still used those two domains."
+        },
+        {
+          "q": "How can a team vet agent skills for risky domains before installing them?",
+          "a": "Pull the domains out of a skill, MCP config or plugin and check them against protective DNS and reputation services, as Manifold did with ThreatFox, Quad9 and Cloudflare filters. Read installers before an agent runs them, monitor which destinations agents connect to, and re-check approved components periodically, since a once-clean domain can change owners."
+        }
+      ],
+      "links": [
+        {
+          "label": "Manifold Research",
+          "url": "https://www.manifold.security/blog/high-risk-domains-agent-skills-where-they-lead"
+        },
+        {
+          "label": "Manifest Registry",
+          "url": "https://manifest.manifold.security/"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/phwxcc13/production/e7ca8bc0118f40a2544075cfa0d1432398aa31e6-2528x1696.jpg?rect=0,185,2528,1327&w=1200&h=630&auto=format",
+        "alt": "The High-Risk Domains of Agent Skills and Where They Lead",
+        "credit": "Manifold Security"
+      },
+      "publishDate": "2026-10-15T07:19:18.195Z"
+    },
+    {
+      "id": "straiker-session-inception",
+      "categories": [
+        "attack",
+        "supply-chain"
+      ],
+      "title": "Session Inception: an untrusted repo's hook runs in a child Claude session",
+      "org": "Straiker",
+      "date": "2026-10-08",
+      "url": "https://www.straiker.ai/blog/session-inception-spawning-a-child-claude-session-to-bypass-parent-guardrails",
+      "summary": "Session Inception makes a parent Claude Code session start a second session inside an untrusted repository, where a SessionStart hook in that repo's settings runs attacker code without the folder-switch confirmation.",
+      "severity": "medium",
+      "tags": [
+        "approval-bypass",
+        "coding-agents",
+        "claude-code",
+        "anthropic"
+      ],
+      "affected": [
+        "Claude Code",
+        "Claude Desktop"
+      ],
+      "credits": [
+        {
+          "name": "Jesus Padilla Soqui",
+          "org": "Straiker STAR Team"
+        }
+      ],
+      "explainer": {
+        "tagline": "Session Inception runs attacker code when Claude Code starts a second session inside an untrusted repository.",
+        "whatHappened": "Straiker researcher Jesus Padilla Soqui published Session Inception on October 8, 2026, after reporting it to Anthropic through HackerOne on September 17. Anthropic closed the report the same day as Informative, treating trust in repository settings as part of the user's own workspace-trust decision. Three of the researcher's four attempts failed before one worked.",
+        "howItWorks": "A parent session asked to test a linked repository can run the Claude CLI itself with claude -p, instead of the desktop folder-switch flow that asks the user to confirm. The new session starts inside the repository and loads its .claude/settings.json. A SessionStart hook in that file runs on its own and fetches an attacker-controlled script, which Straiker hid behind User-Agent gating and a DNS TXT record.",
+        "whoIsAffected": "Claude Code CLI users and the Claude Desktop Code flow are exposed when an agent is pointed at a repository nobody vetted. Straiker searched GitHub and found that about 5,000 of roughly 67,000 Claude Code configuration files carry an active SessionStart hook, roughly one in thirteen.",
+        "whatToDo": "Read a repository's .claude/settings.json before letting an agent work inside it, and do not ask an agent to clone and test code from a source you have not checked. Administrators can set allowManagedHooksOnly in managed settings, which makes Claude Code ignore user, project, local and plugin hooks."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Claude Code CLI, Claude Desktop Code flow"
+        },
+        {
+          "label": "Attack type",
+          "value": "Untrusted repository settings run a SessionStart hook at session start"
+        },
+        {
+          "label": "Found by",
+          "value": "Jesus Padilla Soqui, Straiker STAR Team"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-10-08, reported to Anthropic 2026-09-17"
+        },
+        {
+          "label": "Status",
+          "value": "No fix. Anthropic closed the report as Informative"
+        },
+        {
+          "label": "Reliability",
+          "value": "One of four attempts succeeded in Straiker's testing"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patch for Session Inception in Claude Code?",
+          "a": "No patch exists. Anthropic closed Straiker's HackerOne report on September 17, 2026 as Informative, treating trust in a repository's settings as part of the workspace-trust decision a user already makes. Defenders have to handle Session Inception with process and policy instead: inspect a repository's settings file before an agent works in it, or block project hooks through managed settings."
+        },
+        {
+          "q": "How do I check whether a repository can trigger Session Inception?",
+          "a": "Open the repository's .claude/settings.json and look for a SessionStart hook. Anthropic's hook documentation says SessionStart runs whenever a session starts, resumes, clears, compacts or forks, and that a project settings file can be committed to a repository and shared with everyone who clones it. A hook fetching a remote script is the pattern Straiker demonstrated."
+        },
+        {
+          "q": "Does Session Inception need the user to approve anything?",
+          "a": "No approval prompt appeared in Straiker's proof of concept. The parent session skipped the Claude Desktop folder-switch flow, which does ask for confirmation, by running the Claude CLI with claude -p instead. Straiker reports that three of four attempts failed before one succeeded, so the technique is not reliable, but the run that worked executed attacker-controlled commands at session start."
+        }
+      ],
+      "links": [
+        {
+          "label": "Straiker Research",
+          "url": "https://www.straiker.ai/blog/session-inception-spawning-a-child-claude-session-to-bypass-parent-guardrails"
+        },
+        {
+          "label": "Claude Code Hooks Docs",
+          "url": "https://code.claude.com/docs/en/hooks"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/67e35850d44d18d58bb24073/6ac7b440c6d38fa507a356aa_opengraph-Spawning-Child-Claude-Session-Bypass-Parent-Guardrails.jpg",
+        "alt": "Session Inception: Spawning a Child Claude Session to Bypass Parent Guardrails",
+        "credit": "Straiker"
+      },
+      "publishDate": "2026-10-15T07:19:18.195Z"
+    },
     {
       "id": "elastic-apex-accelerator-npm",
       "categories": [

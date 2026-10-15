@@ -3689,6 +3689,85 @@
         "talk-scan (21 YouTube channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t071918z",
+      "timestamp": "2026-10-15T07:19:18.195Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (Anthropic, OpenAI, MSRC, Google GTIG, GitHub Security Advisories, VulnCheck, JFrog, Grafana), research teams (Embrace The Red, AIR, Zenity, HiddenLayer, Trail of Bits, NCC Group, Socket, ReversingLabs, Talos, CrowdStrike, Snyk, Wiz, Pillar, Straiker, Manifold, OX, Datadog, Check Point, Lakera), paper-scan (69 arXiv candidates, 1 with two scanned signals, already in the feed), repo-scan (13 queries, 1 candidate), talk-scan (22 channels), GitHub trending, Hacker News and OWASP, AISI and CAISI. Added two items: Straiker's Session Inception against Claude Code and Manifold's scan of high-risk domains behind agent skills.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "straiker-session-inception",
+          "title": "Session Inception: an untrusted repo's hook runs in a child Claude session",
+          "category": "attack",
+          "severity": "medium",
+          "note": "New, in-window disclosure of a working technique against Claude Code with no fix, from a named researcher, and Anthropic's response is on the record."
+        },
+        {
+          "id": "manifold-agent-skill-high-risk-domains",
+          "title": "Agent skills: 121 components reach domains rated high risk",
+          "category": "supply-chain",
+          "severity": "medium",
+          "note": "Original large-scale measurement naming live malicious agent components and the domains they call, with concrete vetting steps for defenders."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "github.com/advisories",
+        "vulncheck.com/advisories",
+        "research.jfrog.com",
+        "microsoft.com/security/blog",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "hiddenlayer.com/innovation-hub/research",
+        "blog.trailofbits.com",
+        "nccgroup.com/research",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "blog.talosintelligence.com",
+        "crowdstrike.com/blog",
+        "snyk.io/blog",
+        "wiz.io/blog",
+        "pillar.security/blog",
+        "straiker.ai/blog",
+        "manifold.security/blog",
+        "ox.security/blog",
+        "securitylabs.datadoghq.com",
+        "research.checkpoint.com",
+        "lakera.ai/blog",
+        "simonwillison.net",
+        "genai.owasp.org",
+        "aisi.gov.uk/blog",
+        "huggingface.co/blog",
+        "github.com/trending",
+        "news.ycombinator.com/front",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
