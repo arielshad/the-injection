@@ -3837,6 +3837,74 @@
         "cveawg.mitre.org and NVD"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t091213z",
+      "timestamp": "2026-10-15T09:12:13.863Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research-group blogs, GitHub advisories, VulnCheck, arXiv and HF papers (66 in window), repo-scan (13 queries, 1 candidate), GitHub trending, talk-scan (22 channels) and Hacker News. One new item: CloudSEK's NEBULA npm campaign. Left out: DuneSlide, PromptFiction and the Glow screenshot leak (all disclosed before the window), CloudSEK's Gentlemen Files MCP C2 report (2026-10-05, outside the window), Decepticon (repo created 2025, only a patch release in window) and laya-guard (27 stars, one signal). openai.com returned 403 and reddit.com could not be fetched.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "cloudsek-nebula-fake-ai-sdk-npm",
+          "title": "NEBULA: seven fake AI SDK packages on npm drop a Windows RAT",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "Live npm supply-chain campaign aimed at developers adding an AI SDK, with two packages still installable at publication and concrete indicators a defender can hunt today."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "CloudSEK",
+        "OSV",
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "JFrog Research",
+        "Embrace The Red",
+        "Zenity Labs",
+        "AIR Security",
+        "Unit 42",
+        "Check Point Research",
+        "ReversingLabs",
+        "Wiz Research",
+        "Trail of Bits",
+        "Lakera",
+        "Invariant Labs",
+        "HiddenLayer",
+        "Socket",
+        "Anthropic news",
+        "MSRC blog",
+        "Google Threat Intelligence",
+        "UK AISI",
+        "US CAISI",
+        "OWASP GenAI Security Project",
+        "Simon Willison",
+        "Hacker News",
+        "arXiv cs.CR (paper-scan)",
+        "Hugging Face Daily Papers (paper-scan)",
+        "Hugging Face blog and models",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan (YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }

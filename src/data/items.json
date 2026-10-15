@@ -1,7 +1,117 @@
 {
-  "generatedAt": "2026-10-15T08:15:44.561Z",
+  "generatedAt": "2026-10-15T09:12:13.863Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "cloudsek-nebula-fake-ai-sdk-npm",
+      "categories": [
+        "supply-chain"
+      ],
+      "title": "NEBULA: seven fake AI SDK packages on npm drop a Windows RAT",
+      "org": "CloudSEK",
+      "date": "2026-10-08",
+      "url": "https://www.cloudsek.com/blog/nebula-fake-ai-sdk-npm-packages-windows-rat",
+      "summary": "NEBULA is a malicious npm campaign that ships seven packages posing as a NebulaAI SDK and installs a Windows remote access trojan at install time. CloudSEK reports two of them were still downloadable on October 8.",
+      "severity": "high",
+      "tags": [
+        "malicious-package",
+        "rce",
+        "npm",
+        "cloudsek",
+        "kntrat",
+        "windows"
+      ],
+      "affected": [
+        "npm",
+        "api-nebula (npm)",
+        "llm-nebula (npm)"
+      ],
+      "credits": [
+        {
+          "name": "Vikas Kundu",
+          "org": "CloudSEK"
+        }
+      ],
+      "explainer": {
+        "tagline": "Seven npm packages impersonating a NebulaAI SDK run an obfuscated install hook that drops a modified KNTRAT remote access trojan.",
+        "whatHappened": "CloudSEK published the NEBULA campaign on October 8, 2026, after tracking a single actor posing as the vendor of a NebulaAI SDK. Researcher Vikas Kundu traced seven malicious npm packages pushed through four burner accounts, starting in late September 2026. Two of them, api-nebula and llm-nebula, were still downloadable when the report went out.",
+        "howItWorks": "Each package pairs a client that looks legitimate with an obfuscated preinstall.cjs dropper, which npm runs automatically during installation. The dropper writes a binary to %LOCALAPPDATA%\\Microsoft\\Conhost\\conhost.exe, either from an embedded base64 and zlib payload or by fetching it over the network at install time. The payload is a modified build of KNTRAT, an open-source remote access tool, which calls direct NT and win32k syscalls and leaves an empty Import Address Table so it imports no standard DLLs.",
+        "whoIsAffected": "Windows developers who installed one of the NebulaAI packages are exposed, and CloudSEK names api-nebula and llm-nebula among the seven. Anyone searching npm for an AI SDK is in the target group. CloudSEK reports no download counts and names no confirmed victim.",
+        "whatToDo": "Block installs of api-nebula and llm-nebula, and restrict outbound traffic to 65.87.7.132. Hunt for conhost.exe under %LOCALAPPDATA%\\Microsoft\\Conhost, for the kntrat/0xB15B00B6 user agent, and for named-pipe and hidden-desktop artifacts. Treat any machine that ran the install as fully compromised and rotate its secrets from a different computer."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Seven npm packages, including api-nebula and llm-nebula"
+        },
+        {
+          "label": "Attack type",
+          "value": "Malicious preinstall hook dropping a Windows RAT"
+        },
+        {
+          "label": "Payload",
+          "value": "Modified KNTRAT, C2 at 65.87.7.132"
+        },
+        {
+          "label": "Advisory",
+          "value": "MAL-2026-17531 and GHSA-q4h6-37pw-8pc9, both for api-nebula"
+        },
+        {
+          "label": "Status",
+          "value": "api-nebula and llm-nebula still installable at publication"
+        },
+        {
+          "label": "Found by",
+          "value": "Vikas Kundu, CloudSEK"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-10-08"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if I installed a NebulaAI package on macOS or Linux?",
+          "a": "NEBULA's dropper targets Windows only: the payload is a Windows executable written to the local AppData folder, and it uses direct NT and win32k syscalls. CloudSEK reports no macOS or Linux payload. Developers on those systems should still remove the packages, because the install hook runs on any platform and the actor could change the payload."
+        },
+        {
+          "q": "Which npm packages does the NEBULA campaign cover?",
+          "a": "CloudSEK counted seven packages published through four burner accounts named nebulallms, nebulallms2, nebulallms3 and nebulallms4. The report names two of them, api-nebula and llm-nebula, and says both were still downloadable when it was published on October 8, 2026. The remaining five are not named on the blog page, so check the linked PDF report for the full list."
+        },
+        {
+          "q": "How do I check whether the NEBULA RAT is on a machine?",
+          "a": "Look for a file named conhost.exe under %LOCALAPPDATA%\\Microsoft\\Conhost, which is where the dropper writes the payload and is not the normal location for the Windows console host. CloudSEK also lists outbound traffic to 65.87.7.132, the user agent kntrat/0xB15B00B6, named-pipe patterns and hidden-desktop artifacts as indicators worth hunting across developer endpoints."
+        },
+        {
+          "q": "Have the NEBULA packages been taken down from npm?",
+          "a": "Two packages remained installable when CloudSEK published. Amazon Inspector flagged api-nebula as MAL-2026-17531 on October 5, 2026, and GitHub published advisory GHSA-q4h6-37pw-8pc9 for the same package on October 12, yet CloudSEK reports that api-nebula continued to be installable. Both advisories say a machine that ran the package should be treated as fully compromised."
+        },
+        {
+          "q": "Does removing the NEBULA package clean the machine?",
+          "a": "Removing the package is not enough. Both the OSV and GitHub advisories warn that removal may not eliminate all resulting malware, and CloudSEK reports Winlogon Shell persistence, so the trojan survives a reboot. Rebuild the affected machine where you can, and rotate every secret stored on it from a different computer, as the advisories recommend."
+        }
+      ],
+      "links": [
+        {
+          "label": "CloudSEK Report",
+          "url": "https://www.cloudsek.com/blog/nebula-fake-ai-sdk-npm-packages-windows-rat"
+        },
+        {
+          "label": "OSV Advisory",
+          "url": "https://osv.dev/vulnerability/MAL-2026-17531"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-q4h6-37pw-8pc9"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/635e632477408d12d1811a64/6ac7937b85c92d1ee52503ee_Nebula%20AI.jpg",
+        "alt": "NEBULA fake AI SDK npm campaign title card",
+        "credit": "CloudSEK"
+      },
+      "publishDate": "2026-10-15T09:12:13.863Z"
+    },
     {
       "id": "manifold-agent-skill-high-risk-domains",
       "categories": [
