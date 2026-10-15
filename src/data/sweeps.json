@@ -4511,6 +4511,75 @@
         "TypeSafe docs"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t191434z",
+      "timestamp": "2026-10-15T19:14:34.588Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP and agent queries), the CVE Program records, MSRC, Anthropic, AISI, CAISI, Embrace The Red, AIR, Zenity, Datadog, Straiker, HiddenLayer, Check Point, Trail of Bits, NCC Group, ReversingLabs, Socket, JFrog, Lakera, VulnCheck, Hugging Face (blog, guard models, Daily Papers), arXiv via paper-scan (62 candidates, 1 with two signals and already in the feed), repo-scan (2 candidates, both below the signal bar), GitHub trending daily and weekly, Hacker News front page and Show HN, and talk-scan. One new item: CVE-2026-111091 in JetBrains Junie CLI, published and fixed today. openai.com returned 403 to fetches, reddit.com could not be fetched, and koi.security now redirects to Palo Alto Networks, so none of those three are listed as checked.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "jetbrains-junie-cli-mcp-config-rce",
+          "title": "Junie CLI: an untrusted project's MCP config could run code",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "JetBrains disclosed and fixed code execution in its Junie coding agent CLI today, through configuration that an untrusted repository supplies, which is the AI dev security beat and affects no product already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "n8n security advisories",
+        "CVE Program records (cveawg.mitre.org)",
+        "VulnCheck advisories",
+        "MSRC blog",
+        "anthropic.com/news",
+        "UK AI Security Institute",
+        "US CAISI (nist.gov)",
+        "embracethered.com",
+        "air.security/blog",
+        "Zenity Labs",
+        "Datadog Security Labs",
+        "Straiker",
+        "HiddenLayer",
+        "Check Point Research",
+        "Trail of Bits",
+        "NCC Group research",
+        "ReversingLabs",
+        "Socket",
+        "JFrog",
+        "Lakera",
+        "Invariant Labs",
+        "Hugging Face blog",
+        "Hugging Face models (guard search)",
+        "Hugging Face Daily Papers",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "gh-repo-meta.ts",
+        "github.com/trending",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

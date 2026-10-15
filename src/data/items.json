@@ -1,7 +1,103 @@
 {
-  "generatedAt": "2026-10-15T18:13:42.340Z",
+  "generatedAt": "2026-10-15T19:14:34.588Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "jetbrains-junie-cli-mcp-config-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Junie CLI: an untrusted project's MCP config could run code",
+      "org": "JetBrains",
+      "date": "2026-10-15",
+      "url": "https://github.com/advisories/GHSA-44gv-r4c4-w64m",
+      "summary": "CVE-2026-111091 let code run in JetBrains Junie CLI through an untrusted project's MCP server configuration. JetBrains published the flaw on October 15 and fixed it in Junie CLI 26.8.3, rating it 7.8 on CVSS 3.1.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "mcp",
+        "coding-agents",
+        "jetbrains",
+        "junie"
+      ],
+      "affected": [
+        "JetBrains Junie CLI"
+      ],
+      "cve": "CVE-2026-111091",
+      "cvss": 7.8,
+      "credits": [
+        {
+          "name": "JetBrains security team",
+          "org": "JetBrains"
+        }
+      ],
+      "explainer": {
+        "tagline": "An MCP server configuration carried inside a project was enough to run code in JetBrains Junie CLI before version 26.8.3.",
+        "whatHappened": "JetBrains published CVE-2026-111091 on October 15, 2026, acting as the CVE Numbering Authority for its own products. The record states that code execution was possible in Junie CLI before 26.8.3 via an untrusted project's MCP server configuration. JetBrains scored the flaw 7.8 and shipped the fix in Junie CLI 26.8.3.",
+        "howItWorks": "MCP server configuration travels with a project, and Junie CLI read it without treating it as untrusted input. JetBrains classifies the flaw as CWE-829, inclusion of functionality from an untrusted control sphere, which is the pattern where a program loads a component that someone outside its trust boundary controls. The published CVSS vector adds that the path is local, needs no privileges, and takes one user action.",
+        "whoIsAffected": "Every Junie CLI release below 26.8.3 is listed as vulnerable, and 26.8.3 and later are marked unaffected. Developers who run the CLI against repositories they did not write carry the risk, because the configuration comes from the project rather than from the user. JetBrains names no other product in the record.",
+        "whatToDo": "Update Junie CLI to 26.8.3 or later, which is the only remedy JetBrains gives. Until that update lands, avoid running Junie CLI inside a repository you do not control, and read the MCP server configuration a cloned project ships before letting an agent act on it."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-111091"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "7.8 (JetBrains)"
+        },
+        {
+          "label": "Affected",
+          "value": "JetBrains Junie CLI before 26.8.3"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Junie CLI 26.8.3"
+        },
+        {
+          "label": "Attack type",
+          "value": "Code execution via an untrusted project's MCP server configuration (CWE-829)"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 15, 2026, by JetBrains"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Junie CLI version fixes CVE-2026-111091?",
+          "a": "JetBrains Junie CLI 26.8.3 fixes CVE-2026-111091. JetBrains lists every release below 26.8.3 as vulnerable and marks 26.8.3 and later as unaffected in the CVE record it published on October 15, 2026. No workaround is listed, so updating the CLI is the only remedy JetBrains names for this flaw."
+        },
+        {
+          "q": "Does CVE-2026-111091 require the developer to do anything?",
+          "a": "Exploitation of CVE-2026-111091 requires one user action, according to the CVSS vector JetBrains published: AV:L/AC:L/PR:N/UI:R. The attack is local and needs no privileges, but user interaction is required, which fits a developer running Junie CLI inside a project someone else wrote. Attack complexity is rated low."
+        },
+        {
+          "q": "Which other JetBrains products does CVE-2026-111091 affect?",
+          "a": "CVE-2026-111091 names only JetBrains Junie CLI. The CVE record JetBrains filed lists Junie CLI as the single affected product, sets a default status of unaffected, and marks every version below 26.8.3 as vulnerable. Defenders tracking other JetBrains tools will find no entry for them in this record, which JetBrains assigned and published itself."
+        },
+        {
+          "q": "Is CVE-2026-111091 being exploited?",
+          "a": "No exploitation of CVE-2026-111091 has been recorded. The CISA Vulnrichment data attached to the CVE record sets exploitation to none and automatable to no, while rating the technical impact total. Those values describe the state when the record was enriched on October 15, 2026, and they can change, so defenders should still update rather than wait."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-44gv-r4c4-w64m"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-111091"
+        },
+        {
+          "label": "JetBrains Fixed Issues",
+          "url": "https://www.jetbrains.com/privacy-security/issues-fixed/"
+        }
+      ],
+      "publishDate": "2026-10-15T19:14:34.588Z"
+    },
     {
       "id": "datadog-jev-counterfeit-policy",
       "categories": [
