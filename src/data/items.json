@@ -1,7 +1,109 @@
 {
-  "generatedAt": "2026-10-15T02:12:50.223Z",
+  "generatedAt": "2026-10-15T03:18:24.796Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "hiddenlayer-system-one-jev-prompt-injection",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Jev: a planted ad derails TypeSafe's System One model",
+      "org": "HiddenLayer",
+      "date": "2026-10-14",
+      "url": "https://www.hiddenlayer.com/research/system-one-model-security",
+      "summary": "TypeSafe's Jev and other System One models follow instructions planted in untrusted web pages, HiddenLayer reports, and evade their own toxicity scoring under TokenBreak-style edits.",
+      "severity": "medium",
+      "tags": [
+        "indirect-prompt-injection",
+        "guardrail-bypass",
+        "browser-agents",
+        "typesafe",
+        "jev",
+        "hiddenlayer"
+      ],
+      "affected": [
+        "TypeSafe Jev",
+        "GPT-6 Luna"
+      ],
+      "credits": [
+        {
+          "name": "Kenneth Yeung",
+          "org": "HiddenLayer"
+        },
+        {
+          "name": "Kasimir Schulz",
+          "org": "HiddenLayer"
+        }
+      ],
+      "explainer": {
+        "tagline": "System One models return structured decisions, not text, and HiddenLayer shows they inherit prompt injection and classifier evasion.",
+        "whatHappened": "HiddenLayer researchers Kenneth Yeung and Kasimir Schulz published tests of TypeSafe's Jev on 14 October 2026. Jev is the first public System One model, a class that answers typed questions with calibrated probabilities instead of generating text. The team ran two experiments against it: a browser agent task and a toxicity scoring task.",
+        "howItWorks": "The jev-ultrafast harness turns a web page into a numbered list of interactive elements and asks the model which one to pick. An attacker-controlled ad on the page tells the agent to finish another task before checkout, and the model selects the ad even though its system prompt marks page text as untrusted. For the second experiment the team applied TokenBreak, their 2025 technique that adds characters to words so a tokenizer splits them differently while the meaning survives.",
+        "whoIsAffected": "Jev reached through TypeSafe's API and OpenAI's GPT-6 Luna through the Decisions API both made the attacker's choice, GPT-6 Luna less consistently. HiddenLayer saw the same behaviour in its own System One model built on Qwen3.8-27b, and in that model's conventional autoregressive variant. TypeSafe announced Jev in early access on 15 September 2026.",
+        "whatToDo": "HiddenLayer recommends testing these models inside the application that will use them, including against untrusted web pages and against inputs reworded to keep their meaning while changing their form. Monitor the decisions and scores a System One model returns, and put independent checks around outcomes that matter."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "TypeSafe Jev, GPT-6 Luna, HiddenLayer's Qwen3.8-27b System One build"
+        },
+        {
+          "label": "Attack type",
+          "value": "Indirect prompt injection, plus tokenizer-level classifier evasion"
+        },
+        {
+          "label": "Found by",
+          "value": "Kenneth Yeung and Kasimir Schulz, HiddenLayer"
+        },
+        {
+          "label": "Disclosed",
+          "value": "14 October 2026"
+        },
+        {
+          "label": "Classifier baseline",
+          "value": "30 of 30 toxic prompts flagged before TokenBreak edits"
+        },
+        {
+          "label": "Vendor response",
+          "value": "None published in the post"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is TypeSafe Jev patched against the prompt injection HiddenLayer found?",
+          "a": "HiddenLayer's post records no fix and no response from TypeSafe. The research describes a weakness in how System One models weigh untrusted page text, not a software bug with a version number, so there is nothing for users to install. Teams building on Jev should add their own checks around any decision that matters rather than wait for a patch."
+        },
+        {
+          "q": "Does using a System One model instead of an LLM remove prompt injection risk?",
+          "a": "No. Kenneth Yeung and Kasimir Schulz state that using a System One model does not automatically negate the risk of prompt injection, and they advise treating the whole decoder class with caution. Jev answers typed questions with probabilities rather than generating text, but HiddenLayer found the model still follows instructions planted in the page it reads."
+        },
+        {
+          "q": "How does the TokenBreak result on Jev compare to HiddenLayer's 2025 TokenBreak work?",
+          "a": "TokenBreak, published by HiddenLayer in June 2025, bypassed text classifiers by adding characters so that BPE or WordPiece tokenizers split words differently while the meaning survived. Applied to Jev and to HiddenLayer's own System One model, single character insertions achieved little, but more numerous and better targeted perturbations raised attack success across many prompts in the test corpus."
+        }
+      ],
+      "links": [
+        {
+          "label": "HiddenLayer Research",
+          "url": "https://www.hiddenlayer.com/research/system-one-model-security"
+        },
+        {
+          "label": "TypeSafe Jev Launch",
+          "url": "https://typesafe.ai/blog/introducing-system-one-models-and-jev"
+        },
+        {
+          "label": "TokenBreak Attack",
+          "url": "https://www.hiddenlayer.com/research/the-tokenbreak-attack"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/694066252c49b2800c70cf5e/6acf838d7b536e824f2f2cc3_Jevil%20in%20the%20Details_FeaturedImage.jpg",
+        "alt": "Jevil in the Details, HiddenLayer research title card",
+        "credit": "HiddenLayer"
+      },
+      "publishDate": "2026-10-15T03:18:24.796Z"
+    },
     {
       "id": "intentkit-toolnode-authorization-bypass",
       "categories": [
