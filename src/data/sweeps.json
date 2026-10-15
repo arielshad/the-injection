@@ -4105,6 +4105,75 @@
         "media.ccc.de Datenspuren 2026"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t131751z",
+      "timestamp": "2026-10-15T13:17:51.116Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (AI, MCP and agent queries), VulnCheck, NVD, MSRC, Anthropic news, OpenAI (403 to scripts), AISI, CAISI, AIR Security, Zenity Labs, Embrace The Red, HiddenLayer, Straiker, Manifold, Elastic, Lasso, Snyk, Trail of Bits, NCC Group, Check Point, JFrog, Wiz, ReversingLabs, Lakera, GTIG, OWASP GenAI, Hugging Face blog and models, Simon Willison, Hacker News front page and Show HN, repo-scan (2 candidates), GitHub trending daily and weekly, paper-scan (65 arXiv papers) and talk-scan (42 videos). One item qualified: Lasso Security's wave of six agent-platform CVEs published October 12 to 15.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "lasso-agent-platform-shell-tool-cves",
+          "title": "Lasso Security: five agent platforms ship an ungated shell tool",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Six CVEs from one named research team inside the window, each with a reproduced proof of concept, one shared root cause and a concrete defender action, and only one of the five products has a patch."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "n8n security advisories",
+        "lasso.security vulnerability database",
+        "anthropic.com/news",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "hiddenlayer.com research",
+        "straiker.ai/blog",
+        "manifold.security/blog",
+        "elastic.co/security-labs",
+        "snyk.io security research",
+        "blog.trailofbits.com",
+        "nccgroup.com research-blog",
+        "research.checkpoint.com",
+        "research.jfrog.com",
+        "wiz.io research",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "cloud.google.com threat intelligence",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection",
+        "simonwillison.net",
+        "Hacker News front page and Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }
