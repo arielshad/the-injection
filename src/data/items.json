@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T23:14:57.242Z",
+  "generatedAt": "2026-10-15T00:18:23.388Z",
   "promptVersion": "1.3.0",
   "items": [
     {
@@ -1403,6 +1403,10 @@
         {
           "label": "Video Demo",
           "url": "https://www.youtube.com/watch?v=qROuNtl4Kdc"
+        },
+        {
+          "label": "SSMS Video Demo",
+          "url": "https://www.youtube.com/watch?v=2-RGJzf3KL4"
         },
         {
           "label": "Windows Trailing Dots",
