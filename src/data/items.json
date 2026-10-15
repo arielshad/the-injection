@@ -1,7 +1,120 @@
 {
-  "generatedAt": "2026-10-15T04:14:11.369Z",
+  "generatedAt": "2026-10-15T05:15:14.727Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "elastic-apex-accelerator-npm",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "Apex Accelerator: a fake npm coding agent plants an attacker MCP server",
+      "org": "Elastic Security Labs",
+      "date": "2026-10-12",
+      "url": "https://www.elastic.co/security-labs/threat-command/apex-accelerator-malicious-npm-packages",
+      "summary": "Apex Accelerator is a fake Web3 accelerator that shipped two malicious npm packages. Elastic Security Labs found that the operation's AI coding assistant repackages Oh My Pi, reroutes model traffic and registers an attacker MCP server.",
+      "severity": "medium",
+      "tags": [
+        "malicious-package",
+        "mcp",
+        "coding-agents",
+        "credential-theft",
+        "npm",
+        "elastic"
+      ],
+      "affected": [
+        "npm",
+        "OpenRouter",
+        "Oh My Pi",
+        "Claude",
+        "Cursor",
+        "Windsurf"
+      ],
+      "credits": [
+        {
+          "name": "Jia Yu Chan",
+          "org": "Elastic Security Labs"
+        },
+        {
+          "name": "Daniel Stepanic",
+          "org": "Elastic Security Labs"
+        }
+      ],
+      "explainer": {
+        "tagline": "Apex Accelerator is a malware operation that lures crypto startups with free AI credits, then ships a backdoored coding agent on npm.",
+        "whatHappened": "Elastic Security Labs published its analysis of Apex Accelerator on October 12, 2026, tracking the operation as REF8801. Jia Yu Chan and Daniel Stepanic examined two npm packages, @apexacc/cli and @apexacc/audit, published by a group posing as a Web3 venture accelerator. Elastic's supply-chain monitor flagged the CLI, which the researchers say was malicious from the moment it was published.",
+        "howItWorks": "The CLI is a near-complete copy of Oh My Pi, an open-source terminal coding agent: 1,351 of the 1,363 files compared in Apex Copilot v1.6.1 match Oh My Pi v16.3.6 exactly. The added bootstrap overwrites three environment variables so model requests reach an attacker endpoint while the provider still reads as OpenRouter, and Elastic saw local file contents from a read tool call appear in a later request there. The bootstrap also writes an apex-copilot entry into the agent's MCP config, pointing at an attacker server that supplies its own tool definitions and instructions. Both packages then download platform-specific executables.",
+        "whoIsAffected": "Developers who installed @apexacc/cli or @apexacc/audit, which the operation promoted to crypto founders and startups with offers of free AI credits, coding tools and security audits. Elastic publishes no install or victim counts. On Windows the stealer also reads AI client configuration files for Claude, Cursor and Windsurf, alongside browser, wallet and remote-access data.",
+        "whatToDo": "Treat any host that ran either package as compromised and rotate the credentials it held, because Elastic documents wallet and browser credential theft. Check the agent MCP config for an apex-copilot entry and the environment for overwritten OPENROUTER_API_KEY and OPENROUTER_BASE_URL values. Elastic lists the campaign's indicators and its endpoint behavior rules in the report."
+      },
+      "quickFacts": [
+        {
+          "label": "Packages",
+          "value": "@apexacc/cli and @apexacc/audit on npm"
+        },
+        {
+          "label": "Attack type",
+          "value": "Backdoored coding agent and fake MCP audit server"
+        },
+        {
+          "label": "MCP config",
+          "value": "apex-copilot entry in ~/.apex/agent/mcp.json"
+        },
+        {
+          "label": "Payloads",
+          "value": "CloudSyncD on macOS, a custom infostealer on Windows"
+        },
+        {
+          "label": "Exfiltration",
+          "value": "Telegram bots, plus encrypted POSTs to ccmihr[.]com"
+        },
+        {
+          "label": "Found by",
+          "value": "Jia Yu Chan and Daniel Stepanic, Elastic Security Labs"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 12, 2026, tracked as REF8801"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I check whether the Apex packages touched my machine?",
+          "a": "Three places show the changes Elastic documented: the agent MCP config at ~/.apex/agent/mcp.json, which gains an apex-copilot entry pointing at arena.apexaccs[.]org; the environment, where the bootstrap overwrites OPENROUTER_API_KEY, OPENROUTER_BASE_URL and PI_OPENROUTER_RESPONSES; and npm install records naming @apexacc/cli or @apexacc/audit. Elastic also publishes an indicators table in the report."
+        },
+        {
+          "q": "Is the Apex Audit MCP server a real security scanner?",
+          "a": "Apex Audit performs no real analysis. Elastic found that all 18 tool handlers return fabricated output built from hard-coded text, user-supplied labels, random values or values derived from the date. The audit_full_contract tool claims a Slither v0.10.4 run over 847 lines, audit_honeypot always answers NOT A HONEYPOT, and audit_token_risk returns random scores between 55 and 94."
+        },
+        {
+          "q": "Did Apex Accelerator tamper with the answers the coding agent gave?",
+          "a": "Elastic reports that it did not observe malicious substitution of model responses, while noting that the captured defaults would permit it. What Elastic did observe is collection: prompts, conversation history, code and tool output pass through the attacker endpoint, and the researchers saw contents from a local read tool call appear in a later request to that service."
+        },
+        {
+          "q": "How does Apex Accelerator relate to the earlier Apex npm packages?",
+          "a": "Elastic's report links to earlier SafeDep research on Apex-branded npm packages. SafeDep's Kunal Singh documented @apexfdn/apex on July 22, 2026, a postinstall dropper that npm removed after 34 versions and that the operator republished as @copilot-mcp/apex about eleven hours later. The October packages carry different names and a different payload set."
+        }
+      ],
+      "links": [
+        {
+          "label": "Elastic Security Labs",
+          "url": "https://www.elastic.co/security-labs/threat-command/apex-accelerator-malicious-npm-packages"
+        },
+        {
+          "label": "Oh My Pi Repo",
+          "url": "https://github.com/can1357/oh-my-pi"
+        },
+        {
+          "label": "SafeDep July Report",
+          "url": "https://safedep.io/malicious-copilot-mcp-apex-npm-macos-infostealer/"
+        },
+        {
+          "label": "Jamf On CloudSyncD",
+          "url": "https://www.jamf.com/blog/cloudsyncd-macos-backdoor-fake-zoom-installer/"
+        }
+      ],
+      "publishDate": "2026-10-15T05:15:14.727Z"
+    },
     {
       "id": "n8n-chat-hub-tool-role-bypass",
       "categories": [

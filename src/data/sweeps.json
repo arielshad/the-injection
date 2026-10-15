@@ -3563,6 +3563,69 @@
         "csoonline.com (discovery)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t051514z",
+      "timestamp": "2026-10-15T05:15:14.727Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Searched vendor and lab advisories, research-group blogs, GitHub Security Advisories, arXiv and Hugging Face, GitHub trending and Show HN, and dated searches per category; added one item, Elastic Security Labs' Apex Accelerator npm campaign (REF8801, October 12), where a fake Web3 accelerator shipped a backdoored copy of Oh My Pi that registers an attacker MCP server. Everything else in the window was already in the feed (Anthropic's Cyber Mission announcement belongs to the same October 8 release as the OSS Scanner item, Zenity's AgentCorruption series, AIR's OpenAI Sesame post including its in-the-wild sinkhole findings, and both Embrace The Red videos, already linked on the Visual Studio Copilot item) or fell outside the 7-day window: GitSpawn (Manifold Security, September 1), PromptFiction (Oasis Security, July), the n8n MCP interpreter prototype pollution (GHSA-5jr4-xmvf-frmj, September 30), the Claude Mythos 5 PyPI incident (July 30), Unit 42's in-the-wild prompt injection study (March 3) and the DeepSeek Harness sandbox escape. paper-scan returned 66 papers in the window and only LatentRiskBench cleared two scanned signals, which is already in the feed; TRACER (EMNLP Findings) and the CVE-2026-65616 forensic paper each had one verifiable signal, and that CVE could not be confirmed at NVD. repo-scan ran 13 queries for one candidate, scs0209/laya-guard (created October 11, MIT, 27 stars), which clears no second repo-bar signal; every AI security repo on GitHub trending (morluto/rea, vxcontrol/pentagi, mksglu/context-mode, ifixai-ai/iFixAi) was created between January 2025 and April 2026, so it is an old repo with new stars. talk-scan listed 46 videos with no qualifying new talk. openai.com, npmjs.com and reddit.com returned 403 or were unreachable, so they are left out of sourcesChecked.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "elastic-apex-accelerator-npm",
+          "title": "Apex Accelerator: a fake npm coding agent plants an attacker MCP server",
+          "category": "supply-chain",
+          "severity": "medium",
+          "note": "First in-window AI-dev supply-chain campaign where the malicious package IS a coding agent: it repackages Oh My Pi, reroutes model traffic and writes an attacker MCP server into the agent's own config, all read from Elastic's primary write-up."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "Elastic Security Labs",
+        "GitHub Security Advisories",
+        "n8n-io/n8n security advisories",
+        "anthropic.com/news",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "labs.zenity.io",
+        "hiddenlayer.com/research",
+        "safedep.io",
+        "jamf.com/blog",
+        "unit42.paloaltonetworks.com",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "genai.owasp.org/resources",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, by created)",
+        "arXiv via paper-scan.ts (66 papers)",
+        "repo-scan.json (13 queries, 1 candidate)",
+        "talk-scan.ts (22 channels, 46 videos)",
+        "github.com/trending (daily)",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "NVD",
+        "microsoft.com/msrc/blog",
+        "nvd.nist.gov CVE lookup"
+      ],
+      "windowDays": 7
     }
   ]
 }
