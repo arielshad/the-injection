@@ -4039,6 +4039,72 @@
         "gh-repo-meta.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t121736z",
+      "timestamp": "2026-10-15T12:17:36.815Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (reviewed, plus MCP, agent and copilot queries), MSRC, Anthropic news, OpenAI alignment, AIR Security, Zenity Labs, Embrace The Red, Simon Willison, Unit 42, Check Point, Socket, JFrog, ReversingLabs, Trail of Bits, NCC Group, Lakera, HiddenLayer, Wiz, Invariant Labs, OWASP GenAI, UK AISI, NIST CAISI, Hugging Face, paper-scan (65 arXiv candidates), repo-scan (13 queries, 1 candidate), talk-scan (22 channels, 43 videos), GitHub trending and Hacker News. Every in-window story that met the bar is already in the feed, and the closest candidates failed on date, credits or signals, so this sweep adds nothing.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "n8n GitHub security advisories",
+        "cveawg.mitre.org CVE records",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "lakera.ai/blog",
+        "hiddenlayer.com security advisories",
+        "wiz.io/blog",
+        "invariantlabs.ai/blog",
+        "genai.owasp.org/resources",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "arXiv cs.CR via paper-scan.ts",
+        "Hugging Face Daily Papers via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending (daily and weekly)",
+        "Hacker News front page and Show HN",
+        "talk-scan.ts YouTube channels",
+        "promptinjection.wtf",
+        "Cloud Security Alliance research notes",
+        "pcisecuritystandards.org press releases",
+        "boozallen.com/insights/cyber",
+        "media.ccc.de Datenspuren 2026"
+      ],
+      "windowDays": 7
     }
   ]
 }
