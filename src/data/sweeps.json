@@ -3964,6 +3964,81 @@
         "gh-repo-meta.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t111733z",
+      "timestamp": "2026-10-15T11:17:33.781Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, the NVD and MSRC APIs, VulnCheck, Embrace The Red, AIR Security, Zenity Labs, HiddenLayer, Socket, Trail of Bits, NCC Group, JFrog, Wiz, Check Point, ReversingLabs, Elastic, Anthropic, AISI, GTIG, OWASP GenAI, Hugging Face, Hacker News, GitHub trending, paper-scan (65 arXiv papers), repo-scan (1 candidate) and talk-scan. Added two October 13 disclosures: five unpatched approval bypasses in the discontinued Roo Code extension and a Windows AI privilege escalation flaw. Left out MCP Python and Java SDK, Nginx UI and Astron Agent CVEs whose GHSAs were published before the window, the HiddenLayer Hugging Face dead-drop analysis (July 31) and the Anthropic PyPI incident analysis, all old news; openai.com returned 403 and r/netsec would not load.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "roo-code-auto-approve-bypasses",
+          "title": "Roo Code: five ways to slip denied commands past auto-approve",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Five CVEs published inside the window against a widely installed coding agent, with researcher write-ups and proof of concept, and no fix possible because the project is archived."
+        },
+        {
+          "id": "microsoft-windows-ai-search-path-eop",
+          "title": "Windows AI: a search path flaw could reach SYSTEM privileges",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A High-severity Microsoft advisory for an AI component, published in the window, with an official fix and an Exploitation More Likely rating that defenders should act on."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD API",
+        "MSRC Security Update Guide API",
+        "VulnCheck advisories",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "simonwillison.net",
+        "hiddenlayer.com research",
+        "socket.dev/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com research blog",
+        "jfrog.com/blog",
+        "wiz.io/blog",
+        "research.checkpoint.com",
+        "lakera.ai/blog",
+        "reversinglabs.com/blog",
+        "elastic.co/security-labs",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "Microsoft Security Blog",
+        "aisi.gov.uk",
+        "Google Cloud threat intelligence",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "Hacker News front page and Show HN",
+        "github.com/trending",
+        "arXiv via paper-scan.ts",
+        "repo-scan.json",
+        "talk-scan.ts",
+        "gh-repo-meta.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

@@ -1,7 +1,192 @@
 {
-  "generatedAt": "2026-10-15T10:11:01.664Z",
+  "generatedAt": "2026-10-15T11:17:33.781Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "roo-code-auto-approve-bypasses",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Roo Code: five ways to slip denied commands past auto-approve",
+      "org": "VulnCheck",
+      "date": "2026-10-13",
+      "url": "https://www.vulncheck.com/advisories/roo-code-through-3.54.0-auto-approve-bypass-via-redirect-operator-stripping",
+      "summary": "Roo Code 3.54.0 and earlier approve denied shell commands in five different ways, each filed as a CVE on October 13. The AI coding extension shut down in May 2026 and its repository is archived, so no fix will ship.",
+      "severity": "medium",
+      "tags": [
+        "approval-bypass",
+        "indirect-prompt-injection",
+        "coding-agents",
+        "roo-code"
+      ],
+      "affected": [
+        "Roo Code"
+      ],
+      "cve": "CVE-2026-110202",
+      "cvss": 7.7,
+      "credits": [
+        {
+          "name": "Minqiang Gui"
+        },
+        {
+          "name": "Siyu Lou"
+        }
+      ],
+      "explainer": {
+        "tagline": "Five command-approval bypasses in Roo Code have no patch coming: the AI coding extension shut down in May 2026.",
+        "whatHappened": "Minqiang Gui and Siyu Lou found five ways to defeat the shell command allowlist in Roo Code, an AI coding agent extension for VS Code. VulnCheck published an advisory for each on October 13, 2026, and the researchers published write-ups with working proof-of-concept commands.",
+        "howItWorks": "Every one of the five is an interpretation conflict, CWE-436: Roo Code's approval check parses a command one way and the shell runs it another. The checker strips redirection operators, masks quotes, discards command substitutions that sit next to glob characters, and reads a ${ command; } substitution as a parameter expansion. In each case it sees an allowlisted prefix such as echo while bash executes a different, denied command.",
+        "whoIsAffected": "Developers who still run the Roo Code extension with a command allowlist are exposed, across every release up to and including v3.54.0. VulnCheck's vectors need no attacker privileges on the machine, only content the agent reads, which it describes as indirect prompt injection.",
+        "whatToDo": "Remove the Roo Code extension or move to a maintained coding agent, because no patched version exists. Until then, turn auto-approval off so each shell command needs a human click."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Roo Code 3.54.0 and earlier, which is every release"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-110202, 110203, 110204, 110205, 110206"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.7 CVSS v4.0 for each, from NVD; 8.8 on CVSS 3.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed version: the repository was archived on May 15, 2026 and v3.54.0 is the last release"
+        },
+        {
+          "label": "Found by",
+          "value": "Minqiang Gui and Siyu Lou, credited by VulnCheck"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 13, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Approval bypass through indirect prompt injection, CWE-436"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Roo Code patched against these auto-approve bypasses?",
+          "a": "No patch exists for the five Roo Code bypasses. The RooCodeInc/Roo-Code repository is archived and read-only, v3.54.0 from May 15, 2026 is its final release, and none of the five VulnCheck advisories lists a fixed version. Anyone who still has the extension installed should remove it or switch to a maintained coding agent."
+        },
+        {
+          "q": "Am I affected if I never turned on auto-approval in Roo Code?",
+          "a": "Roo Code prompts for a click on each shell command when no allowlist is active, and an allowlist is exactly what these five flaws defeat. Developers who approve every command by hand still face the ordinary risk of an agent acting on injected instructions, but not the silent execution that these CVEs describe."
+        },
+        {
+          "q": "What do the published proof-of-concept payloads for Roo Code do?",
+          "a": "The write-up for CVE-2026-110202 runs a command beginning with a bare redirect operator, which Roo Code reads as an allowlisted echo call. Bash instead creates a file named echo and runs the denied command that follows, dropping a marker file under /tmp. The other write-ups use the same shape: an allowed prefix for the checker, a denied command for the shell."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/roo-code-through-3.54.0-auto-approve-bypass-via-redirect-operator-stripping"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://github.com/7rah/oss-cve/blob/6adb836d24ca446fd168c3acdc4c170beb77fe0f/roocode-group14-redirect.md"
+        },
+        {
+          "label": "Quote Masking Advisory",
+          "url": "https://www.vulncheck.com/advisories/roo-code-through-3.54.0-auto-approve-bypass-via-quote-masking-desynchronization"
+        },
+        {
+          "label": "Disclosure Repository",
+          "url": "https://github.com/7rah/oss-cve"
+        },
+        {
+          "label": "Archived Repository",
+          "url": "https://github.com/RooCodeInc/Roo-Code"
+        }
+      ],
+      "publishDate": "2026-10-15T11:17:33.781Z"
+    },
+    {
+      "id": "microsoft-windows-ai-search-path-eop",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Windows AI: a search path flaw could reach SYSTEM privileges",
+      "org": "Microsoft",
+      "date": "2026-10-13",
+      "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69923",
+      "summary": "Windows AI carries an uncontrolled search path flaw, CVE-2026-69923, that let a local attacker with an ordinary account elevate to SYSTEM. Microsoft published the fix on October 13 and rates exploitation more likely.",
+      "severity": "medium",
+      "tags": [
+        "privilege-escalation",
+        "windows-ai",
+        "microsoft"
+      ],
+      "affected": [
+        "Windows AI"
+      ],
+      "cve": "CVE-2026-69923",
+      "cvss": 7.8,
+      "credits": [
+        {
+          "name": "Microsoft Security Response Center",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-69923 is a local privilege escalation flaw in Windows AI, fixed in Microsoft's October 2026 security release.",
+        "whatHappened": "Microsoft disclosed CVE-2026-69923 on October 13, 2026 in release 2026-Oct, rating it Important with a CVSS 3.1 base score of 7.8. The advisory FAQ states that an attacker who exploited the flaw could gain SYSTEM privileges. Microsoft records the flaw as neither exploited nor publicly disclosed before the fix.",
+        "howItWorks": "An uncontrolled search path element, CWE-427, is the mechanism: the affected component resolves a file it needs from a location that a user without administrative rights can write to, so attacker code loads in place of the expected file and runs with the higher privileges of the service. Microsoft's vector records local access, low attack complexity, low privileges and no user interaction.",
+        "whoIsAffected": "Windows installations that carry the Windows AI component are in scope, and exploitation needs an attacker who can already sign in to the machine. Microsoft tags the product as Windows AI and its record lists no specific builds or editions.",
+        "whatToDo": "Install Microsoft's October 2026 security updates, which the record marks as customer action required and whose vector reports an official fix. Microsoft's own exploitability rating is Exploitation More Likely, so put this ahead of equally scored flaws on shared and multi-user machines, where a local account is easier to come by."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Windows AI"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-69923"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.8 on CVSS 3.1, from Microsoft; 6.8 temporal"
+        },
+        {
+          "label": "Attack type",
+          "value": "Local elevation of privilege to SYSTEM, CWE-427"
+        },
+        {
+          "label": "Status",
+          "value": "Official fix in release 2026-Oct; not exploited and not publicly disclosed before the fix, per Microsoft"
+        },
+        {
+          "label": "Exploitability",
+          "value": "Exploitation More Likely, Microsoft's rating"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 13, 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "MSRC Advisory",
+          "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69923"
+        },
+        {
+          "label": "NVD Record",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-69923"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-793v-c26g-q9m4"
+        }
+      ],
+      "publishDate": "2026-10-15T11:17:33.781Z"
+    },
     {
       "id": "cloudsek-nebula-fake-ai-sdk-npm",
       "categories": [
