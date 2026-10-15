@@ -1,7 +1,106 @@
 {
-  "generatedAt": "2026-10-15T22:16:37.148Z",
+  "generatedAt": "2026-10-15T23:10:35.388Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "vulncheck-xoscar-cloudpickle-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Xoscar: unauthenticated code execution in the Xinference actor pool",
+      "org": "VulnCheck",
+      "date": "2026-10-13",
+      "url": "https://www.vulncheck.com/advisories/xorbits-xoscar-unauthenticated-deserialization-rce-via-actor-pool",
+      "summary": "Xoscar, the actor framework behind the Xinference model server, runs attacker code from any unauthenticated TCP message sent to its actor pool. VulnCheck published CVE-2026-49950 on October 13 with no fixed version available.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "xoscar",
+        "xinference"
+      ],
+      "affected": [
+        "Xorbits Xoscar",
+        "Xinference"
+      ],
+      "cve": "CVE-2026-49950",
+      "cvss": 9.3,
+      "credits": [
+        {
+          "name": "Valentin Lobstein",
+          "org": "VulnCheck"
+        }
+      ],
+      "explainer": {
+        "tagline": "Xoscar's actor pool deserializes every inbound TCP message with cloudpickle before it checks the message type, and before any authentication.",
+        "whatHappened": "VulnCheck published CVE-2026-49950 on October 13, 2026, after a 120-day coordinated disclosure deadline passed without a vendor fix. Valentin Lobstein found the flaw in Xorbits Xoscar, the Python actor and RPC framework that the Xinference model server uses to connect supervisors, workers and model pools. VulnCheck is the assigning CNA and rates the flaw 9.3 on CVSS 4.0.",
+        "howItWorks": "The actor pool's socket receive path hands raw bytes to cloudpickle.loads() before it checks what kind of message arrived. A Python pickle payload carrying a __reduce__ gadget therefore runs during deserialization. The channel has no authentication, no restricted unpickler and no class allowlist, so the one byte of protocol version read first is framing, not a security control.",
+        "whoIsAffected": "Every released version of Xoscar from 0.1.0 through 0.11.2 is affected, including the current release. VulnCheck reports that Xinference binds the actor pool to 0.0.0.0 in distributed mode, which puts the port within reach of an internal network, and that the pool process often runs as root on GPU nodes.",
+        "whatToDo": "Block network access to Xoscar actor pool ports at the host and network level, and keep Xinference workers on an isolated segment rather than one reachable from general internal traffic. Reduce the pool process away from root where the deployment allows it, and watch the Xoscar repository for a release above 0.11.2."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Xorbits Xoscar 0.1.0 through 0.11.2"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed version, disclosure deadline passed"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-49950"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.3 (CVSS 4.0, assigned by VulnCheck)"
+        },
+        {
+          "label": "Found by",
+          "value": "Valentin Lobstein (Chocapikk)"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-10-13"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unauthenticated pickle deserialization"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if I run Xinference?",
+          "a": "Xinference users are exposed when the deployment runs in distributed mode, because VulnCheck reports the Xoscar actor pool binds to 0.0.0.0 by default and accepts unauthenticated messages. Anyone able to reach that TCP port on the internal network can run code in the pool process. Single-process local setups that never open the actor pool port to other hosts are not reachable the same way."
+        },
+        {
+          "q": "Is there a patch for CVE-2026-49950 in Xoscar?",
+          "a": "No fixed version of Xoscar exists. The flaw affects every release from 0.1.0 through 0.11.2, and 0.11.2 is the current release, published on October 7, 2026. VulnCheck says its 120-day coordinated disclosure deadline passed without a vendor fix, so defenders have to rely on network controls and privilege reduction rather than an upgrade."
+        },
+        {
+          "q": "How do I check whether my Xoscar actor pool is exposed?",
+          "a": "Defenders should look for Xoscar actor pool ports listening on all interfaces rather than loopback on each Xinference supervisor and worker host, then confirm from another host whether those ports accept connections. VulnCheck notes the pool often runs as root on GPU nodes, so any reachable port deserves treatment as a path to full host compromise."
+        },
+        {
+          "q": "Does authentication on Xinference protect the actor pool?",
+          "a": "Authentication on the Xinference API does not protect the Xoscar actor pool. VulnCheck describes the actor pool channel as having no authentication of its own, no restricted unpickler and no class allowlist, so any peer that can open the TCP port is trusted. The only check before deserialization is a one-byte protocol version, which VulnCheck calls a framing check rather than a security control."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/xorbits-xoscar-unauthenticated-deserialization-rce-via-actor-pool"
+        },
+        {
+          "label": "VulnCheck Write-Up",
+          "url": "https://www.vulncheck.com/blog/xorbits-xoscar-unauth-cloudpickle-rce"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-5rfg-55mw-4h28"
+        }
+      ],
+      "publishDate": "2026-10-15T23:10:35.388Z"
+    },
     {
       "id": "n0tsa-eilik-ai-robot-backend",
       "categories": [

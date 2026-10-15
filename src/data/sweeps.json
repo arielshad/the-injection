@@ -4777,6 +4777,67 @@
         "Hacker News front page, newest and Show HN"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t231035z",
+      "timestamp": "2026-10-15T23:10:35.388Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (mcp, agent and xoscar queries), the CVE Program record for CVE-2026-49950, VulnCheck advisories and blog, Embrace The Red, AIR Security, Zenity Labs, Datadog Security Labs, HiddenLayer, JFrog, Trail of Bits, Socket, Anthropic news, UK AISI, MSRC, OWASP GenAI, Signals Corps, Simon Willison, Hugging Face blog, paper-scan (61 arXiv candidates, 1 with two signals), repo-scan (13 queries, 2 candidates), github.com/trending, Hacker News front page and Show HN, and talk-scan (22 channels, 24 videos). One item qualified: CVE-2026-49950, an unauthenticated cloudpickle deserialization flaw in Xorbits Xoscar, the actor framework behind Xinference, published by VulnCheck on October 13 with no fix available. Left out: the five Nginx UI MCP advisories and the MCP Python SDK session-exhaustion advisory, which GitHub only ingested on October 15 but whose maintainers published them on July 17 and September 30; the Pydantic AI and PraisonAI batches dated October 8 in the GitHub database, which the maintainers published on October 2 and June 25; the Signals Corps HTTP header study that reached the Hacker News front page, published October 6; HiddenLayer's Hugging Face dead drop analysis, published July 31; Anthropic's Cyber Mission post and Socket's coverage of it, which is the OSS Scanner story already in the feed; the AISI best practice and JFrog governance posts, which state no security finding; morluto/rea, which trended today but was created in April and first released in July; and both repo-scan candidates, which show one signal each. nvd.nist.gov and cve.org would not render for the fetcher, and the Unit 42 category listing returned no entries, so none of those three are listed as checked.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "vulncheck-xoscar-cloudpickle-rce",
+          "title": "Xoscar: unauthenticated code execution in the Xinference actor pool",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Unauthenticated remote code execution in the RPC layer of a widely deployed open-source model server, disclosed inside the window by the assigning CNA with no fixed version available."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "CVE Program record (cveawg)",
+        "vulncheck.com advisories and blog",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "securitylabs.datadoghq.com",
+        "hiddenlayer.com/research",
+        "jfrog.com/blog",
+        "blog.trailofbits.com",
+        "socket.dev/blog",
+        "anthropic.com/news",
+        "aisi.gov.uk/blog",
+        "MSRC blog",
+        "genai.owasp.org/news",
+        "signalscorps.com",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "talk-scan (YouTube channels)",
+        "gh-repo-meta.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
