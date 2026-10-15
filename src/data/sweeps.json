@@ -4649,6 +4649,53 @@
         "aaif-goose/goose repository and releases"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t210934z",
+      "timestamp": "2026-10-15T21:09:34.507Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (Anthropic news, GitHub Advisory Database, MSRC October Patch Tuesday, VulnCheck), research and vendor blogs (AIR Security, Zenity Labs, Embrace The Red, Pluto Security, Unit 42, OWASP GenAI), paper-scan (61 arXiv papers in window), repo-scan (13 queries, 2 candidates), talk-scan (24 videos), GitHub trending, Hugging Face blog and Hacker News. No candidate inside the 7-day window cleared the bar: the strongest finds were either already in the feed, re-publications of disclosures from before the window, or short of the required signals.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "anthropic.com/news",
+        "GitHub Security Advisories",
+        "github.com/n8n-io/n8n/security/advisories",
+        "MSRC October 2026 Patch Tuesday",
+        "vulncheck.com/advisories",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "pluto.security/blog",
+        "unit42.paloaltonetworks.com",
+        "genai.owasp.org/news",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "scripts/gh-repo-meta.ts",
+        "talk-scan.ts",
+        "github.com/trending",
+        "huggingface.co/blog",
+        "Hacker News front page"
+      ],
+      "windowDays": 7
     }
   ]
 }
