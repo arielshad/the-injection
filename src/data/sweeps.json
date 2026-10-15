@@ -3905,6 +3905,65 @@
         "talk-scan (YouTube channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t101101z",
+      "timestamp": "2026-10-15T10:11:01.664Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP query plus a published:2026-10-08..2026-10-15 filter), Embrace The Red, AIR Security, Zenity Labs, HiddenLayer, Manifold, Straiker, Socket, Elastic Security Labs, JFrog, Trail of Bits, Datadog Security Labs, Check Point, Wiz, Lakera, ReversingLabs, GTIG, Anthropic news, MSRC, AISI, OWASP GenAI, Hugging Face blog and guard-model search, Hacker News front page and Show HN, GitHub trending (daily and weekly), repo-scan (13 queries, 1 candidate), paper-scan (66 arXiv candidates, 1 with two scanned signals) and talk-scan (22 channels, 43 videos). Nothing inside the 7-day window met the bar: the live MCP and agent CVEs (hyper-mcp, holaOS, NullHub, MCP Kotlin SDK, mcp-go, mcp-remote) are already covered by the VulnCheck source-review item, the n8n agent CVEs published October 15 are the CVE records for the October 14 batch already in the feed, IntentKit CVE-2026-76066 and AIR's OpenAI Sesame post are in the feed with no new facts, and the two Embrace The Red demo videos from October 14 are already linked on the Visual Studio Copilot item. The only two-signal paper, LatentRiskBench, is already in the feed. openai.com/index returned 403 to the fetcher, the Unit 42 threat-research listing returned no entries, r/netsec could not be fetched, and koi.security now redirects to Palo Alto Networks, so those four are left out of sourcesChecked.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "hiddenlayer.com research",
+        "manifold.security/blog",
+        "straiker.ai/blog",
+        "socket.dev/blog",
+        "elastic.co/security-labs",
+        "research.jfrog.com",
+        "blog.trailofbits.com",
+        "securitylabs.datadoghq.com",
+        "research.checkpoint.com",
+        "wiz.io/blog",
+        "lakera.ai/blog",
+        "reversinglabs.com/blog",
+        "Google Cloud threat intelligence (GTIG)",
+        "anthropic.com/news",
+        "Microsoft MSRC blog",
+        "aisi.gov.uk",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, by created)",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "talk-scan.ts",
+        "gh-repo-meta.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
