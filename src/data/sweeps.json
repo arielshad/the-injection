@@ -4312,6 +4312,67 @@
         "talk-scan.ts (22 channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t161521z",
+      "timestamp": "2026-10-15T16:15:21.480Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, CISA KEV, MSRC, Anthropic, Google, Embrace The Red, AIR Security, Zenity Labs, Socket, Trail of Bits, NCC Group, Check Point, JFrog, ReversingLabs, Wiz, Lakera, Snyk/Invariant, OWASP GenAI, UK AISI, Hugging Face, Hacker News, repo-scan (13 queries, 2 candidates), GitHub trending and talk-scan (22 channels, 26 videos); paper-scan failed on every arXiv query with HTTP 429, so arXiv was searched by hand and returned 30 in-window papers. Nothing new met the bar: the window's disclosures (n8n, IntentKit, NullHub, holaOS and the MCP source-review CVEs, the Visual Studio Copilot RCE, the Anthropic Cyber Mission and OSS Scanner) are already in the feed, and the best outside candidates failed on date or on their category bar.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "CISA Known Exploited Vulnerabilities catalog",
+        "MSRC blog",
+        "anthropic.com/news",
+        "blog.google/security",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "research.checkpoint.com",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "wiz.io/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "adversa.ai/blog",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "huggingface.co/blog",
+        "huggingface.co/papers",
+        "arXiv cs.CR (searched by hand, paper-scan rate-limited)",
+        "simonwillison.net",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "repo-scan.json",
+        "github.com/trending",
+        "github.com/topics/prompt-injection",
+        "talk-scan.ts",
+        "oasis.security",
+        "ai-security-letter.org"
+      ],
+      "windowDays": 7
     }
   ]
 }
