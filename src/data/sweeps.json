@@ -4433,6 +4433,84 @@
         "dated web searches"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t181342z",
+      "timestamp": "2026-10-15T18:13:42.340Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (reviewed, mcp and agent queries), VulnCheck, n8n's own advisory pages, Datadog Security Labs, Embrace The Red, AIR Security, Zenity Labs, Lasso, Manifold, Straiker, Pillar, HiddenLayer, Wiz, JFrog, Trail of Bits, NCC Group, Check Point Research, Elastic Security Labs, ReversingLabs, Invariant Labs, Lakera, Socket, Anthropic news, UK AISI, OWASP GenAI, Google Threat Intelligence, Hugging Face blog and prompt-injection models, Simon Willison, the Hacker News front page and Show HN, github.com/trending daily and weekly, repo-scan (13 queries, 2 candidates), paper-scan (62 arXiv candidates, 1 with two signals) and talk-scan (22 channels, 26 videos). One item qualified: Datadog Security Labs' counterfeit policy research against TypeSafe Jev, published today. Everything else failed on date or on its category bar: the Signals Corps HTTP-header prompt-injection study that reached the Hacker News front page today was published October 6, BragJack was published September 16, the n8n Git node code execution carrying CVE-2026-110845 mirrors an n8n advisory published September 30, LatentRiskBench is the only two-signal paper and is already in the feed, both repo-scan candidates show at most one signal from the repo bar, and the Embrace The Red CVE-2026-103572 videos retell an existing item. msrc.microsoft.com, cve.org, nvd.nist.gov, the Unit 42 listing and reddit.com would not render for the fetcher, so they are left out of sourcesChecked.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "datadog-jev-counterfeit-policy",
+          "title": "Jev as a judge: a counterfeit policy cuts injection detection to 3.88%",
+          "category": "research",
+          "severity": "medium",
+          "note": "Original measured research from a named vendor security team, published inside the window, showing a reproducible way to collapse a production security classifier and to walk a denied tool call past LangChain's risk gate, with concrete defender guidance."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "n8n security advisories",
+        "Datadog Security Labs",
+        "embracethered.com",
+        "air.security/blog",
+        "Zenity Labs blog",
+        "Lasso Security blog",
+        "Manifold Security blog",
+        "Straiker blog",
+        "Pillar Security blog",
+        "HiddenLayer research",
+        "Wiz blog",
+        "JFrog blog",
+        "Trail of Bits blog",
+        "NCC Group research blog",
+        "Check Point Research",
+        "Elastic Security Labs",
+        "ReversingLabs blog",
+        "Invariant Labs blog",
+        "Lakera blog",
+        "Socket blog",
+        "anthropic.com/news",
+        "UK AISI",
+        "OWASP GenAI Security Project",
+        "Google Threat Intelligence blog",
+        "Hugging Face blog",
+        "Hugging Face models (prompt-injection, sorted by created)",
+        "simonwillison.net",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan",
+        "talk-scan",
+        "arXiv abstract pages",
+        "Adversa AI October roundups",
+        "Forever Security blog",
+        "Signals Corps blog",
+        "LangChain docs",
+        "TypeSafe docs"
+      ],
+      "windowDays": 7
     }
   ]
 }

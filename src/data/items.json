@@ -1,7 +1,141 @@
 {
-  "generatedAt": "2026-10-15T17:11:45.315Z",
+  "generatedAt": "2026-10-15T18:13:42.340Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "datadog-jev-counterfeit-policy",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Jev as a judge: a counterfeit policy cuts injection detection to 3.88%",
+      "org": "Datadog Security Labs",
+      "date": "2026-10-15",
+      "url": "https://securitylabs.datadoghq.com/articles/jev-as-a-judge-how-counterfeit-policy-steers-jev/",
+      "summary": "Counterfeit policy is a prompt-injection technique that hands a security classifier its own answer key. Datadog Security Labs reports it cut TypeSafe Jev's injection detection from 82.90% recall to 3.88% across 12,295 samples.",
+      "severity": "medium",
+      "tags": [
+        "guardrail-bypass",
+        "prompt-injection",
+        "detection",
+        "typesafe",
+        "jev",
+        "langchain"
+      ],
+      "affected": [
+        "TypeSafe Jev",
+        "LangChain"
+      ],
+      "credits": [
+        {
+          "name": "Nick Frichette",
+          "org": "Datadog"
+        },
+        {
+          "name": "Feras Al-Kassar",
+          "org": "Datadog"
+        }
+      ],
+      "explainer": {
+        "tagline": "Jev returns the verdict an attacker wants when the text it judges carries a counterfeit policy that redefines the criteria.",
+        "whatHappened": "Datadog Security Labs published this research on October 15, 2026. Nick Frichette and Feras Al-Kassar tested Jev, the first public System One decision model from TypeSafe AI, both as a prompt-injection classifier and as a gate on tool calls. They measured it on four public datasets, then repeated every test with a counterfeit policy prepended to the input.",
+        "howItWorks": "A counterfeit policy is text an attacker places inside the content the classifier is about to read. The text supplies the answers the attacker wants, quotes the attack itself as a benign exception, and redefines each attack category as something unrelated, so that credential access applies only to a door key. Jev then answers the criteria the input carries rather than the criteria the application intended, and the verdict flips while the attack text stays in place.",
+        "whoIsAffected": "Applications that ask Jev to judge untrusted input and then act on the answer are exposed, including LangChain's experimental AutoModeMiddleware, which refuses a tool call when the risk probability reaches 0.5. Any field an attacker can edit and the classifier later reads can carry the policy. Datadog used a user-editable profile description in its test application.",
+        "whatToDo": "Enforce permissions in the tool or service layer rather than in a model's verdict, as Datadog advises. Trace which user-editable fields reach a classifier, and treat tool arguments, tool descriptions and stored state as untrusted data. Test any classifier against adversarial content before it gates real actions."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "TypeSafe Jev used as a classifier or a tool-risk gate"
+        },
+        {
+          "label": "Attack type",
+          "value": "Counterfeit policy prepended to untrusted content"
+        },
+        {
+          "label": "Found by",
+          "value": "Nick Frichette and Feras Al-Kassar, Datadog Security Labs"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 15, 2026"
+        },
+        {
+          "label": "Test set",
+          "value": "12,295 samples from four public datasets, 4,643 of them attacks"
+        },
+        {
+          "label": "Gate bypass",
+          "value": "Mean risk score fell from 0.893 to 0.290 over 40 runs, under LangChain's 0.5 block"
+        },
+        {
+          "label": "Vendor response",
+          "value": "None published in the post"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if my application uses Jev to screen untrusted input?",
+          "a": "Applications that pass untrusted text to Jev and act on its verdict are exposed, because Datadog Security Labs showed the verdict can be written by the same text being judged. Exposure depends on whether an attacker controls any field the classifier reads. Datadog's test used a user-editable profile description, a pattern common in agent applications."
+        },
+        {
+          "q": "Is there a fix for the Jev counterfeit policy bypass?",
+          "a": "No patch exists, because Datadog Security Labs describes a limit of model-based classification rather than a software bug with a version number. TypeSafe's documentation for jev-1.13 states that state is data and that the model does not treat it as hostile by default. Datadog recommends enforcing authorization deterministically in the tool or service layer instead."
+        },
+        {
+          "q": "How does counterfeit policy differ from ordinary prompt injection against Jev?",
+          "a": "Ordinary injection did not work in Datadog's tests. Messages impersonating a system or assistant turn and claiming editor rights produced a mean risk score of 0.905 over 40 runs, slightly above the 0.893 baseline. Counterfeit policy instead rewrites the criteria the model is asked to apply, and that pushed the mean score down to 0.290."
+        }
+      ],
+      "links": [
+        {
+          "label": "Datadog Research",
+          "url": "https://securitylabs.datadoghq.com/articles/jev-as-a-judge-how-counterfeit-policy-steers-jev/"
+        },
+        {
+          "label": "Tool Risk Gating Docs",
+          "url": "https://docs.langchain.com/oss/python/integrations/providers/typesafe"
+        },
+        {
+          "label": "TypeSafe Jev 1.13 Docs",
+          "url": "https://docs.typesafe.ai/model-jaggedness/jev-1.13"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Prompt injection recall, 12,295 samples",
+          "unit": "%",
+          "max": 100,
+          "note": "Recall over 4,643 attack samples. Higher is better for defenders.",
+          "results": [
+            {
+              "name": "Noul question, raw input",
+              "score": 82.9
+            },
+            {
+              "name": "Choice question, raw input",
+              "score": 85.46
+            },
+            {
+              "name": "Noul question, counterfeit policy",
+              "score": 3.88,
+              "highlight": true
+            },
+            {
+              "name": "Choice question, counterfeit policy",
+              "score": 9.69
+            }
+          ],
+          "source": "https://securitylabs.datadoghq.com/articles/jev-as-a-judge-how-counterfeit-policy-steers-jev/"
+        }
+      ],
+      "image": {
+        "url": "https://securitylabs.dd-static.net/img/jev-as-a-judge-how-counterfeit-policy-steers-jev/hero.png?w=1200&h=630&auto=format",
+        "alt": "Jev as a judge, Datadog Security Labs research header",
+        "credit": "Datadog Security Labs"
+      },
+      "publishDate": "2026-10-15T18:13:42.340Z"
+    },
     {
       "id": "lasso-agent-platform-shell-tool-cves",
       "categories": [
