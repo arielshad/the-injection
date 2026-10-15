@@ -4580,6 +4580,75 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t201247z",
+      "timestamp": "2026-10-15T20:12:47.847Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (mcp, agent and goose queries), VulnCheck, the NVD records behind the n8n October CVEs, Embrace The Red, AIR Security, Zenity Labs, Pillar Security, Straiker, Datadog Security Labs, HiddenLayer, Check Point, Trail of Bits, NCC Group, JFrog, ReversingLabs, Socket, Lakera, Wiz, Microsoft Security, Google threat intelligence, Anthropic news, UK AISI, OWASP GenAI, Hugging Face blog and prompt-injection models, paper-scan (61 arXiv candidates, 1 with two signals), repo-scan (13 queries, 2 candidates), github.com/trending daily and weekly, Hacker News front page and Show HN, and talk-scan (27 videos). One item qualified: CVE-2026-109561 in goose, published by VulnCheck on October 12 and the only advisory in that batch not yet in the feed. Left out: BadEngram from Pillar Security and Fujitsu, because its arXiv v1 is September 11; the five PraisonAI advisories added to the GitHub database on October 8, because the maintainer published them on June 25; the n8n CVEs published October 14 and 15, because they point back to advisories from September 30 that the existing n8n item already links; the Signals Corps HTTP header study on the Hacker News front page, published October 6; Anthropic's independent evaluators post and the AISI best practice paper, which state no security finding; and both repo-scan candidates, which show one signal each. reddit.com, unit42.paloaltonetworks.com and the Fujitsu research page (HTTP 429) would not load for the fetcher, so they are not listed as checked.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "goose-read-only-annotation-approval-bypass",
+          "title": "goose: read-only tool annotations skipped Manual Approval",
+          "category": "vulnerability",
+          "severity": "low",
+          "note": "A manual approval bypass in goose, disclosed by VulnCheck inside the window with a named credit, is the one advisory from the October 12 batch that the feed does not already carry, and it is honest at low severity because the fix shipped in July."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "NVD CVE records",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "pillar.security/blog",
+        "straiker.ai/blog",
+        "securitylabs.datadoghq.com",
+        "hiddenlayer.com/research",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "socket.dev/blog",
+        "lakera.ai/blog",
+        "wiz.io/blog",
+        "microsoft.com/security/blog",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "anthropic.com/news",
+        "aisi.gov.uk/work",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, sorted by created)",
+        "arXiv via paper-scan",
+        "repo-scan.json",
+        "github.com/trending (daily and weekly)",
+        "Hacker News front page and Show HN",
+        "talk-scan (22 YouTube channels)",
+        "simonwillison.net",
+        "aaif-goose/goose repository and releases"
+      ],
+      "windowDays": 7
     }
   ]
 }

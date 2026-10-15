@@ -1,7 +1,108 @@
 {
-  "generatedAt": "2026-10-15T19:14:34.588Z",
+  "generatedAt": "2026-10-15T20:12:47.847Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "goose-read-only-annotation-approval-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "goose: read-only tool annotations skipped Manual Approval",
+      "org": "VulnCheck",
+      "date": "2026-10-12",
+      "url": "https://www.vulncheck.com/advisories/goose-from-1.28.0-before-1.44.0-manual-approval-bypass-via-read-only-tool-annotations",
+      "summary": "CVE-2026-109561 let prompt-injected calls to tools marked read-only run without a prompt in goose's Manual Approval mode, once a session had used Smart Approval. goose 1.28.0 to 1.43.x are affected, fixed in 1.44.0.",
+      "severity": "low",
+      "tags": [
+        "approval-bypass",
+        "prompt-injection",
+        "agent-security",
+        "goose"
+      ],
+      "affected": [
+        "goose"
+      ],
+      "cve": "CVE-2026-109561",
+      "cvss": 2.3,
+      "credits": [
+        {
+          "name": "Akıner Kısa"
+        },
+        {
+          "name": "Project Loupe"
+        }
+      ],
+      "explainer": {
+        "tagline": "goose kept read-only tool annotations from an earlier Smart Approval session, so Manual Approval mode stopped asking before those tools ran.",
+        "whatHappened": "VulnCheck published CVE-2026-109561 on October 12, 2026, an approval bypass in goose, the open source AI agent that the project says is part of the Agentic AI Foundation at the Linux Foundation. The advisory credits Akıner Kısa and Project Loupe. The NVD published the record the same day, three months after the goose maintainers shipped the code change.",
+        "howItWorks": "Approval decisions rested on tool annotations that outlived the mode which honored them. A session run in Smart Approval mode stored read-only annotations, and update_goose_mode never cleared them, so PermissionInspector::inspect kept treating those tools as already allowed after the user switched to Manual Approval. A prompt-injected call to any tool annotated readOnlyHint: true then ran with no prompt, which VulnCheck classes as incorrect authorization (CWE-863).",
+        "whoIsAffected": "Versions 1.28.0 up to 1.44.0 of goose are affected, and only in sessions that used Smart Approval before the user selected Manual Approval. The patched release came out on July 23, 2026, so an installation pinned below 1.44.0 is the condition that still matters.",
+        "whatToDo": "Upgrade goose to 1.44.0 or later, the release VulnCheck lists as fixed. Check version pins in container images, lockfiles and installer scripts, because the fix is old enough that a stale pin is the likely reason for still running an affected build."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-109561"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "2.3, rated Low"
+        },
+        {
+          "label": "Affected",
+          "value": "goose 1.28.0 up to 1.44.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.44.0, released July 23, 2026"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-863, annotations not cleared on a mode change"
+        },
+        {
+          "label": "Found by",
+          "value": "Akıner Kısa and Project Loupe"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 12, 2026 by VulnCheck, same day at the NVD"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which goose versions need the CVE-2026-109561 fix?",
+          "a": "goose 1.28.0 up to 1.44.0 carries the Manual Approval bypass, and 1.44.0 is the fixed release. VulnCheck lists no workaround, so an upgrade is the action. Because that release shipped in July 2026, a current install is already covered, and the versions that still matter are the ones held back by a pin."
+        },
+        {
+          "q": "Why did goose get a CVE for something fixed in July 2026?",
+          "a": "VulnCheck published the goose advisory on October 12, 2026, while the code change shipped in release 1.44.0 on July 23, 2026, listed there as a bug fix called enforce manual approval for code mode. The public security record arrived about three months after the patch, so a team that tracks goose by CVE meets this flaw only this week."
+        },
+        {
+          "q": "Does Smart Approval mode in goose still use read-only annotations?",
+          "a": "Yes. Pull request 10528 keeps read-only annotations and cached allows in effect for Smart Approval, and stops them from carrying over into Manual Approval. The same change marks the execute_bash tool in Code Mode as mutating and destructive, so goose no longer treats that tool as safe to allow without asking."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/goose-from-1.28.0-before-1.44.0-manual-approval-bypass-via-read-only-tool-annotations"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-8h69-7j5q-pwfc"
+        },
+        {
+          "label": "Patch Pull Request",
+          "url": "https://github.com/aaif-goose/goose/pull/10528"
+        },
+        {
+          "label": "Release Notes 1.44.0",
+          "url": "https://github.com/aaif-goose/goose/releases/tag/v1.44.0"
+        }
+      ],
+      "publishDate": "2026-10-15T20:12:47.847Z"
+    },
     {
       "id": "jetbrains-junie-cli-mcp-config-rce",
       "categories": [
