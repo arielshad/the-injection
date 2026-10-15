@@ -1,7 +1,108 @@
 {
-  "generatedAt": "2026-10-15T01:12:08.739Z",
+  "generatedAt": "2026-10-15T02:12:50.223Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "intentkit-toolnode-authorization-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "IntentKit: owner-only tools ran for unauthenticated callers",
+      "org": "VulnCheck",
+      "date": "2026-10-15",
+      "url": "https://www.vulncheck.com/advisories/intentkit-executor-tool-authorization-bypass-via-toolnode",
+      "summary": "CVE-2026-76066 lets an unauthenticated caller run IntentKit's owner-only tools, including a wallet transfer, because the executor checks the full tool registry instead of the tools advertised for that turn.",
+      "severity": "medium",
+      "tags": [
+        "approval-bypass",
+        "indirect-prompt-injection",
+        "agent-security",
+        "intentkit",
+        "crestal-network"
+      ],
+      "affected": [
+        "IntentKit"
+      ],
+      "cve": "CVE-2026-76066",
+      "cvss": 8.7,
+      "credits": [
+        {
+          "name": "Noy Pearl"
+        },
+        {
+          "name": "Michael Sromin"
+        },
+        {
+          "name": "Ophir Dror"
+        }
+      ],
+      "explainer": {
+        "tagline": "IntentKit hid owner-only tools from the model but still let the executor run them, so a public caller could trigger a wallet transfer.",
+        "whatHappened": "VulnCheck published CVE-2026-76066 on October 15, 2026, an authorization bypass in IntentKit, an open-source framework for autonomous AI agents from Crestal Network. The advisory credits Noy Pearl, Michael Sromin and Ophir Dror. Lasso Security's vulnerability database carries its own entry for the flaw and names the four source files involved.",
+        "howItWorks": "The bypass is a missing authorization check, CWE-862, between two layers that disagree about which tools exist. ToolBindingMiddleware narrows the tool list advertised to the model for each request, but the executor builds its ToolNode from the full private tool registry, so a call naming a de-advertised tool still runs. An attacker reaches it either by indirect prompt injection in content the agent retrieves, naming the tool and its arguments, or by replaying checkpoint and history data on a reused thread. Lasso Security reports that no tool carries an approval or human-in-the-loop gate.",
+        "whoIsAffected": "VulnCheck lists IntentKit 2.6.3 and every earlier release as affected. Exposure depends on reach: a caller in the WEB, API, TWITTER or TELEGRAM contexts needs no authentication, so agents published to public users or fed untrusted content are the exposed configurations. Lasso Security names the always-present cdp_native_transfer wallet tool, plus DeFi swap, posting and memory-write tools, as the state-changing ones within reach.",
+        "whatToDo": "Build the executor's ToolNode from the same context-filtered tool set shown to the model, or reject any call whose tool name is not in that turn's advertised set, as Lasso Security recommends. Add an approval or human-in-the-loop gate on state-changing tools, enabled by default for public or shared agents. Treat retrieved and inbound-message content as data, not instructions."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "IntentKit 2.6.3 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Not named in either advisory; the latest release is v2.6.3 from June 14, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-76066"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "8.7, from VulnCheck"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-862, missing authorization at the executor"
+        },
+        {
+          "label": "Found by",
+          "value": "Noy Pearl, Michael Sromin and Ophir Dror"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 15, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patch for CVE-2026-76066 in IntentKit?",
+          "a": "No fixed IntentKit version is named in either the VulnCheck or the Lasso Security advisory for CVE-2026-76066. VulnCheck lists 2.6.3 and earlier as affected, and the project's most recent GitHub release is v2.6.3 from June 14, 2026. Until a patched release appears, Lasso Security's mitigations are the available defense: filter tools at the executor and gate state-changing tools."
+        },
+        {
+          "q": "Which IntentKit deployments are exposed to this tool bypass?",
+          "a": "Deployments that expose an IntentKit agent to public users or to untrusted content are exposed, because a caller in the WEB, API, TWITTER or TELEGRAM contexts needs no authentication. Lasso Security calls this a high priority for those setups. A private agent that serves only its owner and never ingests retrieved content has far less reach, though the missing check is still present."
+        },
+        {
+          "q": "How is CVE-2026-76066 different from ordinary prompt injection?",
+          "a": "Prompt injection supplies the text, while CVE-2026-76066 is the reason that text lands. IntentKit already narrows the tools advertised to the model on each request, a control that should put hidden tools out of reach. Because the executor still validates against the full registry, that narrowing is cosmetic. A second path, replaying checkpoint and history on a reused thread, needs no injected prompt."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/intentkit-executor-tool-authorization-bypass-via-toolnode"
+        },
+        {
+          "label": "Lasso Vulnerability DB",
+          "url": "https://www.lasso.security/vulnerability-database/cve-2026-76066"
+        },
+        {
+          "label": "IntentKit Repo",
+          "url": "https://github.com/crestalnetwork/intentkit"
+        }
+      ],
+      "publishDate": "2026-10-15T02:12:50.223Z"
+    },
     {
       "id": "network-ai-claudehookbridge-deny-pattern-bypass",
       "categories": [

@@ -3377,6 +3377,60 @@
         "promptinjection.wtf (discovery)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t021250z",
+      "timestamp": "2026-10-15T02:12:50.223Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked VulnCheck, GitHub advisories, Embrace The Red, AIR, Zenity, Simon Willison, Anthropic, OWASP GenAI, Socket, Hacker News, github.com/trending, repo-scan (13 queries, 1 candidate), paper-scan (68 papers) and talk-scan (45 videos). Added one item: an unauthenticated tool-authorization bypass in IntentKit, disclosed today with no fixed version. Left out the ToFu MCP fuzzing paper (arXiv 2610.13651, one signal only: no code release, no venue, no Hugging Face page), the trending repos rea, iFixAi and pentagi (all created before the window, point releases only), laya-guard (27 stars, no second signal) and the Embrace The Red CVE-2026-103572 demo videos (already linked on the existing item). openai.com returned 403 and reddit.com was unreachable from this run.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "intentkit-toolnode-authorization-bypass",
+          "title": "IntentKit: owner-only tools ran for unauthenticated callers",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Disclosed today with an official CVE and CVSS from VulnCheck, named researchers, and no fixed release: an unauthenticated caller can reach owner-only state-changing tools, including a wallet transfer."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "VulnCheck advisories",
+        "GitHub Security Advisories",
+        "Lasso Security vulnerability database",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "genai.owasp.org",
+        "socket.dev/blog",
+        "Hacker News front page",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv cs.CR)",
+        "Hugging Face Daily Papers",
+        "talk-scan",
+        "gh-repo-meta"
+      ],
+      "windowDays": 7
     }
   ]
 }
