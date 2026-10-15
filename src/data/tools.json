@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T10:42:57Z",
+  "generatedAt": "2026-10-15T10:25:12Z",
   "tools": [
     {
       "slug": "skillspector",
@@ -18,7 +18,7 @@
       ],
       "homepage": "https://docs.nvidia.com/skills/scanning-agent-skills",
       "added": "2026-10-09",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "tencent-ai-infra-guard",
@@ -36,7 +36,7 @@
       ],
       "homepage": "https://tencent.github.io/AI-Infra-Guard/",
       "added": "2026-10-09",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "snyk-agent-scan",
@@ -52,7 +52,7 @@
         "Coding agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "cisco-mcp-scanner",
@@ -66,7 +66,7 @@
         "MCP servers"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "splx-agentic-radar",
@@ -80,7 +80,7 @@
         "Agentic workflows"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "numbat",
@@ -96,7 +96,7 @@
         "OpenClaw"
       ],
       "added": "2026-10-11",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "protectai-modelscan",
@@ -110,7 +110,7 @@
         "Model files"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "picklescan",
@@ -125,7 +125,7 @@
         "Hugging Face models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "fickling",
@@ -140,7 +140,26 @@
         "PyTorch models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
+    },
+    {
+      "slug": "api-relay-audit",
+      "name": "API Relay Audit",
+      "repo": "toby-bridges/api-relay-audit",
+      "kind": "scanner",
+      "description": "Local audit for AI API relays and LLM proxies. Probes a relay for injected prompts, instruction override, context truncation, altered install commands, leaked errors and model substitution signals.",
+      "license": "AGPL-3.0",
+      "maintainer": "toby-bridges",
+      "covers": [
+        "LLM proxies",
+        "API relays",
+        "Anthropic-compatible APIs",
+        "OpenAI-compatible APIs",
+        "DeepSeek Harness"
+      ],
+      "homepage": "https://toby-bridges.github.io/api-relay-audit/",
+      "added": "2026-10-15",
+      "checked": "2026-10-15"
     },
     {
       "slug": "nemo-guardrails",
@@ -155,7 +174,7 @@
       ],
       "homepage": "https://docs.nvidia.com/nemo/guardrails",
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "guardrails-ai",
@@ -169,7 +188,7 @@
         "LLM applications"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "purple-llama",
@@ -184,7 +203,7 @@
         "Open-weight models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "hol-guard",
@@ -204,7 +223,7 @@
         "Agent skills"
       ],
       "added": "2026-10-12",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "pipelock",
@@ -224,7 +243,7 @@
       ],
       "homepage": "https://pipelab.org/learn",
       "added": "2026-10-12",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "adrian",
@@ -243,7 +262,27 @@
       ],
       "homepage": "https://docs.adrian.secureagentics.ai",
       "added": "2026-10-14",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
+    },
+    {
+      "slug": "vestige",
+      "name": "Vestige",
+      "repo": "samvallad33/vestige",
+      "kind": "guardrail",
+      "description": "Fail-closed runtime firewall for AI agents. A deterministic gate checks each proposed tool call against 27 rules and records a receipt. Starts in shadow mode, which records decisions without blocking.",
+      "license": "AGPL-3.0",
+      "maintainer": "samvallad33",
+      "covers": [
+        "Claude Code",
+        "Cursor",
+        "OpenCode",
+        "Gemini CLI",
+        "Windsurf",
+        "Cline",
+        "OpenClaw"
+      ],
+      "added": "2026-10-15",
+      "checked": "2026-10-15"
     },
     {
       "slug": "praetorian-augustus",
@@ -263,7 +302,7 @@
         "REST API endpoints"
       ],
       "added": "2026-10-12",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "garak",
@@ -278,7 +317,7 @@
         "Chatbots"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "pyrit",
@@ -292,7 +331,7 @@
         "Generative AI systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "promptfoo",
@@ -307,7 +346,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "deepteam",
@@ -321,7 +360,7 @@
         "LLM systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "anamorpher",
@@ -339,7 +378,7 @@
         "Pillow"
       ],
       "added": "2026-10-09",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "agentic-security",
@@ -360,7 +399,7 @@
       ],
       "homepage": "https://agentic-security.vercel.app",
       "added": "2026-10-13",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "safelabs-eval",
@@ -381,7 +420,7 @@
         "Semantic Kernel"
       ],
       "added": "2026-10-13",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "agent-opfor",
@@ -398,7 +437,7 @@
       ],
       "homepage": "https://docs.agentopfor.ai",
       "added": "2026-10-14",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "agentdojo",
@@ -413,7 +452,7 @@
       ],
       "homepage": "https://agentdojo.spylab.ai/results/",
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "uber-adr",
@@ -432,7 +471,7 @@
         "MCP servers"
       ],
       "added": "2026-10-10",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "giskard",
@@ -450,7 +489,7 @@
       ],
       "homepage": "https://docs.giskard.ai/oss",
       "added": "2026-10-11",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "open-prompt-injection",
@@ -468,7 +507,7 @@
         "Mistral"
       ],
       "added": "2026-10-14",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "sandbox-runtime",
@@ -484,7 +523,7 @@
         "Bash commands"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "e2b",
@@ -499,7 +538,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "toolhive",
@@ -519,7 +558,7 @@
       ],
       "homepage": "https://docs.stacklok.com/toolhive/",
       "added": "2026-10-10",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "agent-sandbox",
@@ -537,7 +576,7 @@
       ],
       "homepage": "https://agent-sandbox.sigs.k8s.io",
       "added": "2026-10-10",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "nono",
@@ -555,7 +594,7 @@
       ],
       "homepage": "https://docs.nono.sh",
       "added": "2026-10-11",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
     },
     {
       "slug": "gondolin",
@@ -574,7 +613,25 @@
       ],
       "homepage": "https://earendil-works.github.io/gondolin",
       "added": "2026-10-13",
-      "checked": "2026-10-14"
+      "checked": "2026-10-15"
+    },
+    {
+      "slug": "coi",
+      "name": "Coi (Code on Incus)",
+      "repo": "coipond/coi",
+      "kind": "sandbox",
+      "description": "Runs an AI coding agent inside an isolated Incus system container with its own root filesystem. Host SSH keys, tokens and environment variables stay out unless passed in. Adds nftables egress control.",
+      "license": "MIT",
+      "maintainer": "Maciej Mensfeld",
+      "covers": [
+        "Claude Code",
+        "Codex CLI",
+        "opencode",
+        "Incus"
+      ],
+      "homepage": "https://github.com/coipond/coi/wiki",
+      "added": "2026-10-15",
+      "checked": "2026-10-15"
     }
   ]
 }
