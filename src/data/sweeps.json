@@ -4696,6 +4696,87 @@
         "Hacker News front page"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t221637z",
+      "timestamp": "2026-10-15T22:16:37.148Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, NVD, Anthropic news, AISI, MSRC, Unit 42, Zenity Labs, AIR Security, Embrace The Red, Datadog Security Labs, HiddenLayer, Trail of Bits, NCC Group, Snyk, Socket, JFrog, ReversingLabs, Check Point, Simon Willison, OWASP GenAI, Hugging Face models and blog, Hacker News, github.com/trending, repo-scan (2 candidates), paper-scan (61 arXiv candidates, 1 with two signals) and talk-scan (24 videos). Added three items: the Energize Lab Eilik robot audit, Unit 42's CL-UNK-1211 report and Snyk's VulnBump benchmark.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "n0tsa-eilik-ai-robot-backend",
+          "title": "Energize Lab Eilik: unauthenticated model admin and leaked child data",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "First public audit of an LLM-backed consumer robot whose model administration is unauthenticated: nine reserved CVE ids, five advisories published inside the window, and a vendor that has not replied in four months."
+        },
+        {
+          "id": "unit42-cl-unk-1211-linux-espionage",
+          "title": "CL-UNK-1211: Unit 42 sees LLM traces in Linux espionage tooling",
+          "category": "incident",
+          "severity": "info",
+          "note": "Distinct threat-intel report from the existing AI-offense items: a new cluster id, new malware and Unit 42's reasoning for calling the attacker tooling LLM-assisted."
+        },
+        {
+          "id": "snyk-vulnbump",
+          "title": "VulnBump: a dependency fix only counts if the tests still pass",
+          "category": "benchmark",
+          "severity": "info",
+          "note": "Open benchmark with paper, harness and all 43 cases released, measuring whether coding agents actually remove dependency vulnerabilities without breaking the build."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "cveawg.mitre.org",
+        "anthropic.com/news",
+        "aisi.gov.uk",
+        "microsoft.com/msrc/blog",
+        "unit42.paloaltonetworks.com",
+        "labs.zenity.io",
+        "air.security/blog",
+        "embracethered.com",
+        "securitylabs.datadoghq.com",
+        "hiddenlayer.com",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "snyk.io/blog",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "lakera.ai/blog",
+        "simonwillison.net",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "arxiv.org (paper-scan)",
+        "Hugging Face Daily Papers (paper-scan)",
+        "github.com/advisories",
+        "github.com/trending",
+        "repo-scan.json",
+        "talk-scan (YouTube channels)",
+        "Hacker News front page, newest and Show HN"
+      ],
+      "windowDays": 7
     }
   ]
 }

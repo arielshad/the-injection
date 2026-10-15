@@ -1,7 +1,319 @@
 {
-  "generatedAt": "2026-10-15T21:09:34.507Z",
+  "generatedAt": "2026-10-15T22:16:37.148Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "n0tsa-eilik-ai-robot-backend",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Energize Lab Eilik: unauthenticated model admin and leaked child data",
+      "org": "Sammy Azdoufal",
+      "date": "2026-10-15",
+      "url": "https://github.com/xn0tsa/your-secrets-are-safe-with-me",
+      "summary": "Energize Lab's Eilik and EilikO desk robots expose unauthenticated AI model administration and leak conversation and child profile data, says an audit by Sammy Azdoufal. Nine CVE ids are reserved and the vendor has not replied.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "prompt-injection",
+        "agent-memory",
+        "energize-lab",
+        "eilik"
+      ],
+      "affected": [
+        "Eilik",
+        "EilikO",
+        "EnergizeLab AI Station"
+      ],
+      "cve": "CVE-2026-105038",
+      "cvss": 9.8,
+      "credits": [
+        {
+          "name": "Sammy Azdoufal",
+          "url": "https://github.com/xn0tsa"
+        }
+      ],
+      "explainer": {
+        "tagline": "Energize Lab's Eilik robots let anyone on the internet administer the AI model behind them, with nine CVE ids reserved and no vendor reply.",
+        "whatHappened": "Sammy Azdoufal, an independent researcher who bought the robot, published an audit of the Energize Lab Eilik and EilikO desk companions on GitHub, dated 2026-10-13. The GitHub Advisory Database listed five EnergizeLab advisories from the audit on 2026-10-15. Energize Lab answered none of the researcher's contact attempts, the disclosure log states, and the audit reports 57 findings.",
+        "howItWorks": "Eilik's voice pipeline sends speech to a cloud LLM and plays a synthesized reply back, and the services behind that pipeline check no credentials. Unauthenticated model administration endpoints let a remote caller change model configuration and switch the model in use at runtime, which the write-up says can also swap the synthesized voice and the robot's personality. A file read on the admin panel returns a .env file holding JWT signing secrets, so a caller can forge a super-admin token, and the researcher reports that the nightly profiling pipeline accepts prompt injection and that profile notes in a public Redis key are treated as ground truth the robot will defend.",
+        "whoIsAffected": "Owners of the Eilik and EilikO robots and operators of the EnergizeLab AI Station are exposed, because most of the flaws sit in the vendor's cloud services rather than in a setting an owner controls. The AI Station firmware image is separate: it ships default root credentials with SSH enabled, rated 8.8. Conversation transcripts are stored in cleartext and a nightly job extracts child profile fields, the audit says.",
+        "whatToDo": "Treat anything said near an Eilik as published, since owners cannot patch the vendor's cloud and the audit reports no secret rotated since discovery. Keep the robot and any AI Station off network segments that carry other sensitive devices, because the firmware accepts default root logins over SSH."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Eilik, EilikO, EnergizeLab AI Station"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-105038 at CVSS 9.8, one of nine ids reserved (CVE-2026-105032 to CVE-2026-105040)"
+        },
+        {
+          "label": "Found by",
+          "value": "Sammy Azdoufal, independent, audit opened 2026-06-14"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Report dated 2026-10-13, advisories published 2026-10-15"
+        },
+        {
+          "label": "Status",
+          "value": "32 of 40 remotely testable findings open at the 2026-10-13 retest, 8 fixed, no secrets rotated"
+        },
+        {
+          "label": "Vendor response",
+          "value": "None by email, SMTP relay, Feishu bot, in-app ticket or press inquiry"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authentication and authorization on cloud AI services, plus default firmware credentials"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the Eilik robot flaw fixed?",
+          "a": "Eight of the Eilik audit's findings were fixed as of the 2026-10-13 retest, leaving 32 of 40 remotely testable findings open, according to the researcher's disclosure log. The log adds that no secret has been rotated since discovery, that the JWT signing secret is unchanged, and that the MySQL and Redis instances stay publicly reachable."
+        },
+        {
+          "q": "Which CVE ids cover the Eilik and EnergizeLab AI Station flaws?",
+          "a": "Nine CVE ids, CVE-2026-105032 through CVE-2026-105040, are reserved for the audit, and the researcher's mapping file lists the finding behind each one. The GitHub Advisory Database listed five EnergizeLab advisories on 2026-10-15, among them CVE-2026-105038 for unauthenticated model administration at CVSS 9.8 and CVE-2026-105033 for default root credentials on the AI Station at CVSS 8.8."
+        },
+        {
+          "q": "Can an attacker change which model an Eilik robot uses?",
+          "a": "Unauthenticated model administration endpoints in the Eilik and EilikO inference services let a remote caller change model configuration and switch the model in use at runtime, the GitHub advisory for CVE-2026-105038 states, scoring that 9.8. The researcher's write-up says the same class of endpoint can swap the language model, the synthesized voice and the robot's personality."
+        },
+        {
+          "q": "Did Energize Lab respond to the Eilik disclosure?",
+          "a": "Energize Lab did not reply through any channel, the disclosure log states, naming email, an SMTP relay, a Feishu bot, an in-app feedback ticket and a press inquiry from The Verge. First contact was attempted in June 2026, the master report was finalized on 2026-09-01, and a 72-hour final deadline communicated on 2026-09-15 expired without an answer."
+        }
+      ],
+      "links": [
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://github.com/xn0tsa/your-secrets-are-safe-with-me"
+        },
+        {
+          "label": "Reserved CVE Map",
+          "url": "https://github.com/xn0tsa/your-secrets-are-safe-with-me/blob/master/cve-reserved.md"
+        },
+        {
+          "label": "Disclosure Timeline",
+          "url": "https://github.com/xn0tsa/your-secrets-are-safe-with-me/blob/master/DISCLOSURE.md"
+        },
+        {
+          "label": "GHSA Model Admin",
+          "url": "https://github.com/advisories/GHSA-33f8-3xw6-r37g"
+        },
+        {
+          "label": "GHSA AI Station Root",
+          "url": "https://github.com/advisories/GHSA-qf77-4488-8pm4"
+        },
+        {
+          "label": "GHSA Middleware Authz",
+          "url": "https://github.com/advisories/GHSA-mhf9-fr35-f2j3"
+        }
+      ],
+      "publishDate": "2026-10-15T22:16:37.148Z"
+    },
+    {
+      "id": "unit42-cl-unk-1211-linux-espionage",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "CL-UNK-1211: Unit 42 sees LLM traces in Linux espionage tooling",
+      "org": "Unit 42",
+      "date": "2026-10-15",
+      "url": "https://unit42.paloaltonetworks.com/ai-campaign-targets-linux-infrastructure/",
+      "summary": "Unit 42 reports that an espionage cluster it tracks as CL-UNK-1211 hit government Linux servers from October 2025 to April 2026, and that comments left in the attacker's scripts suggest an LLM wrote or ran them.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "detection"
+      ],
+      "affected": [
+        "Linux servers",
+        "Microsoft SQL Server"
+      ],
+      "credits": [
+        {
+          "name": "Roey Porat",
+          "org": "Unit 42"
+        },
+        {
+          "name": "Tom Fakterman",
+          "org": "Unit 42"
+        }
+      ],
+      "explainer": {
+        "tagline": "Unit 42 reports that an espionage cluster it calls CL-UNK-1211 left LLM-style comments in the scripts it ran against government Linux servers.",
+        "whatHappened": "Unit 42 published an analysis of CL-UNK-1211 on 2026-10-15, an intrusion cluster that targeted government entities and state-affiliated infrastructure between October 2025 and April 2026. Roey Porat and Tom Fakterman write that several of the attacker's scripts carried conversational annotations and developer reasoning comments, which they read as a sign the code was generated by an LLM or run by an automated AI agent. Unit 42 names no AI product or model on the attacker's side, and has not tied the cluster to a state or to a criminal group.",
+        "howItWorks": "Web shells on Linux servers gave the cluster entry, and persistence came from setting auto_prepend_file across PHP configurations in /etc/php/ and /opt/plesk/php/, so a malicious file loads before any other PHP script. A hijacked .bashrc imitated a sudo password prompt and wrote captured passwords to a file named Solarwinds.StatusLog.txt, which Unit 42 says was evasion naming and not a SolarWinds compromise. The authors name a custom cross-platform Go remote access trojan, SysGoRAT, which uses WebSocket command and control and renames itself to blend in. Besides the LLM-style comments, Unit 42 cites heavy Base64 command encoding and switching between PHP, JavaScript, Bash and Python as traits consistent with AI assistance.",
+        "whoIsAffected": "Government entities and state-affiliated infrastructure running Linux servers and databases are the reported targets. Unit 42 publishes no victim count, and lists at least seven command and control servers, 17 IP addresses and four domains. The cluster also used LinPEAS, PwnKit and a custom Go scanner for the React Server Components flaw CVE-2025-55182.",
+        "whatToDo": "Enforce strict outbound firewall rules and alert when standard utilities spawn interactive shells. Monitor Linux servers for PHP configuration changes, shell history clearing and log tampering, and check the indicators the report publishes."
+      },
+      "quickFacts": [
+        {
+          "label": "Cluster",
+          "value": "CL-UNK-1211, affiliation undetermined"
+        },
+        {
+          "label": "Activity",
+          "value": "October 2025 to April 2026"
+        },
+        {
+          "label": "AI evidence",
+          "value": "Conversational annotations and reasoning comments in attacker scripts, read by Unit 42 as LLM output"
+        },
+        {
+          "label": "Malware",
+          "value": "SysGoRAT, a cross-platform Go RAT with WebSocket command and control"
+        },
+        {
+          "label": "Indicators",
+          "value": "At least seven command and control servers, 17 IP addresses, four domains"
+        },
+        {
+          "label": "Found by",
+          "value": "Roey Porat and Tom Fakterman, Unit 42"
+        }
+      ],
+      "links": [
+        {
+          "label": "Unit 42 Analysis",
+          "url": "https://unit42.paloaltonetworks.com/ai-campaign-targets-linux-infrastructure/"
+        },
+        {
+          "label": "React2Shell CVE",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2025-55182"
+        },
+        {
+          "label": "PwnKit CVE",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2021-4034"
+        }
+      ],
+      "publishDate": "2026-10-15T22:16:37.148Z"
+    },
+    {
+      "id": "snyk-vulnbump",
+      "categories": [
+        "benchmark",
+        "research"
+      ],
+      "title": "VulnBump: a dependency fix only counts if the tests still pass",
+      "org": "Snyk",
+      "date": "2026-10-12",
+      "url": "https://snyk.io/blog/vulnbump/",
+      "summary": "VulnBump is an open benchmark from Snyk that counts a dependency upgrade as fixed only when the vulnerabilities are gone and the build and tests still pass. Four approaches scored 46.9% to 90.2% across 307 tasks.",
+      "severity": "info",
+      "tags": [
+        "evals",
+        "coding-agents",
+        "claude-code",
+        "snyk"
+      ],
+      "affected": [
+        "Claude Code",
+        "Claude Sonnet 5.5",
+        "Snyk Evo Remediation Agent"
+      ],
+      "credits": [
+        {
+          "name": "Gabija Pasiunaite",
+          "org": "Snyk"
+        },
+        {
+          "name": "Ryan McMorrow",
+          "org": "Snyk"
+        },
+        {
+          "name": "Brian Clark",
+          "org": "Snyk"
+        },
+        {
+          "name": "Liran Tal",
+          "org": "Snyk"
+        },
+        {
+          "name": "Luke Tu",
+          "org": "Snyk"
+        }
+      ],
+      "explainer": {
+        "tagline": "VulnBump is Snyk's open benchmark that counts a dependency fix only when the vulnerability is gone and the tests still pass.",
+        "whatHappened": "Snyk posted VulnBump to arXiv on 2026-10-12 and published the scores in a write-up on 2026-10-15. Gabija Pasiunaite, Ryan McMorrow, Brian Clark, Liran Tal and Luke Tu built 307 dependency upgrade tasks from 43 real repositories, covering 2,066 fixable vulnerabilities across six package managers. The harness and all 43 evaluation cases are released under Apache 2.0.",
+        "howItWorks": "Each VulnBump task runs in a fresh container and passes only when four gates clear: dependencies resolve, a rescan shows the vulnerabilities fixed, the project builds, and previously passing tests still pass. Every entrant ran on Claude Sonnet 5.5 with a 110-turn limit, so the comparison measures the harness around the model rather than the model itself. The authors report that Claude Code's failures usually leave the vulnerability in place, while the Snyk agent's failures usually break the build or the tests.",
+        "whoIsAffected": "Teams that let coding agents raise dependency upgrades are the audience, across Maven, Gradle, npm, Yarn, pip and Poetry. The authors report that 163 of the 307 tasks needed more than a version bump, and that major upgrades and large framework migrations stay hard for every approach tested.",
+        "whatToDo": "Check an agent's dependency fix by rescanning, rebuilding and rerunning the previously passing tests, rather than accepting a version bump as done. Weigh the scores against the limits Snyk states: one model, one run per upgrade, Snyk Open Source as the judge, and no penalty for new vulnerabilities an upgrade introduced."
+      },
+      "quickFacts": [
+        {
+          "label": "Scope",
+          "value": "307 upgrade tasks, 43 repositories, 2,066 fixable vulnerabilities"
+        },
+        {
+          "label": "Setup",
+          "value": "Claude Sonnet 5.5 for every entrant, 110-turn limit, one run per task"
+        },
+        {
+          "label": "Package managers",
+          "value": "Maven, Gradle, npm, Yarn, pip, Poetry"
+        },
+        {
+          "label": "Code",
+          "value": "Harness and all 43 cases released under Apache 2.0"
+        },
+        {
+          "label": "Published",
+          "value": "arXiv v1 on 2026-10-12, Snyk write-up on 2026-10-15"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "VulnBump pass rate, 307 upgrade tasks",
+          "unit": "%",
+          "max": 100,
+          "note": "A task passes only if the vulnerabilities are gone and the build and tests still pass. Snyk's own agent is one of the four entrants.",
+          "results": [
+            {
+              "name": "Snyk Evo Remediation Agent",
+              "score": 90.2
+            },
+            {
+              "name": "Claude Code with Snyk scan",
+              "score": 77.5
+            },
+            {
+              "name": "Claude Code unaided",
+              "score": 59.6
+            },
+            {
+              "name": "Package manager bump",
+              "score": 46.9
+            }
+          ],
+          "source": "https://snyk.io/blog/vulnbump/"
+        }
+      ],
+      "links": [
+        {
+          "label": "Snyk Write-Up",
+          "url": "https://snyk.io/blog/vulnbump/"
+        },
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.17374"
+        },
+        {
+          "label": "Benchmark Code",
+          "url": "https://github.com/snyk-labs/snyk-vulnbump"
+        }
+      ],
+      "publishDate": "2026-10-15T22:16:37.148Z"
+    },
     {
       "id": "goose-read-only-annotation-approval-bypass",
       "categories": [
