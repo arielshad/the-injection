@@ -3626,6 +3626,69 @@
         "nvd.nist.gov CVE lookup"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t061239z",
+      "timestamp": "2026-10-15T06:12:39.301Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (npm and pip), VulnCheck, CISA KEV, MSRC, Anthropic, OpenAI deployment-safety and alignment, Google Cloud security, AIR, Zenity Labs, Embrace The Red, HiddenLayer, Socket, JFrog, Trail of Bits, NCC Group, Unit 42, Check Point, Wiz, Lakera, Invariant Labs, ReversingLabs, Simon Willison, OWASP GenAI, UK AISI, Hugging Face blog and guard models, Hacker News front page and Show HN, github.com/trending, repo-scan (13 queries, 1 candidate), paper-scan (66 arXiv papers in window) and talk-scan (21 channels, 45 videos); nothing inside the 7-day window met the bar that the feed does not already carry. The loudest candidates each failed a hard rule. About 25 PraisonAI advisories reached the GitHub Advisory Database on 2026-10-07 and 10-08, but every one I opened was published by the maintainer on 2026-06-25 and fixed in 4.6.78, so the database import is not the disclosure; the two Banks advisories are the same pattern, published 2026-09-09. morluto/rea leads GitHub trending daily and weekly, but it was created 2026-04-14 with its first release on 2026-07-12, which makes it an old repo with new stars, and rea-agents-6.5.0 is not a new major version; iFixAi and PentAGI fail the same way. Glow's PixelLeak screenshot exposure was disclosed 2026-09-29, outside the window, and the ReversingLabs post of 2026-10-13 is coverage of it, not research. Trail of Bits' package-manager integrity study (2026-10-14) is solid work but tests no AI or model registry, so it is out of scope. Google's Mantis harness was announced 2026-09-02. Anthropic's Cyber Mission post is the same announcement as the OSS Scanner item already in the feed, and its Critical Infrastructure Defense Program half is a partner program. UK AISI's technical best practice post (2026-10-12) is an agenda document with no concrete defender action. The one repo-scan candidate, scs0209/laya-guard, is real MIT-licensed code created 2026-10-11 with install steps and self-reported AgentDojo numbers, but it shows at most one signal of the six: 27 stars, no trending placement, no Hacker News thread, an individual maintainer with no linkable prior security work and no external write-up or researcher pickup. No paper cleared the two-signal bar: the only two-signal candidate, LatentRiskBench, is already in the feed, and 2610.20437 released code but reproduces a pre-existing CVE on the author's own rebuilt servers rather than a named product, with no venue and no traction. No talk cleared the bar: Embrace The Red's two 2026-10-14 demo videos are a retelling of CVE-2026-103572 and that item's links already include both watch URLs, and the one AI security conference upload (media.ccc.de, open-source security and LLMs) had 16,000 views against a 20,000 bar and sits at the window edge on a relative date. openai.com/news returned 403 and r/netsec would not load, so both are left out of sourcesChecked; YouTube watch pages returned no body, so talk-scan's channel-page data was the only confirmation available.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (npm)",
+        "GitHub Security Advisories (pip)",
+        "VulnCheck advisories",
+        "CISA Known Exploited Vulnerabilities catalog",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "deploymentsafety.openai.com",
+        "alignment.openai.com",
+        "Google Cloud security blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "hiddenlayer.com research",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "blog.trailofbits.com",
+        "nccgroup.com research blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "wiz.io/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "reversinglabs.com blog",
+        "simonwillison.net",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, sorted by created)",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "paper-scan (arXiv + Hugging Face Daily Papers)",
+        "talk-scan (21 YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
