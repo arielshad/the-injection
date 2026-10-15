@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T07:19:18.195Z",
+  "generatedAt": "2026-10-15T08:15:44.561Z",
   "promptVersion": "1.3.0",
   "items": [
     {
@@ -3259,7 +3259,8 @@
         "9router",
         "OpenLIT",
         "TencentCloud Octop",
-        "holaOS"
+        "holaOS",
+        "Rill"
       ],
       "cve": "CVE-2026-108865",
       "cvss": 8.8,
@@ -3465,6 +3466,14 @@
         {
           "label": "Plano Write-Up",
           "url": "https://hackmd.io/@1ExmmukzRMWN7B4gQ4W-4Q/cve-2026-108863-katanemo-plano-envoy-admin-config-secret-disclosure"
+        },
+        {
+          "label": "VulnCheck Rill",
+          "url": "https://www.vulncheck.com/advisories/rill-0.77.0-through-0.90.5-oauth-missing-authorization-via-dynamic-client-registration"
+        },
+        {
+          "label": "Rill Write-Up",
+          "url": "https://hackmd.io/@haind03/cve-2026-108718-rill-oauth-open-registration-long-lived-token"
         }
       ],
       "publishDate": "2026-10-12T01:38:15.507Z"

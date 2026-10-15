@@ -3768,6 +3768,75 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261015t081544z",
+      "timestamp": "2026-10-15T08:15:44.561Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, the research blogs, arXiv and Hugging Face papers, GitHub repos and conference channels for the October 8 to 15 window: no candidate met the bar. The week's loudest items all date outside the window or are already in the feed, so the sweep adds one update, a 24th product in the VulnCheck MCP source-review campaign.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "vulncheck-mcp-source-review-cves",
+          "title": "MCP source review: at least 23 unpatched CVEs in five days",
+          "note": "VulnCheck published CVE-2026-108718 for Rill 0.77.0 through 0.90.5 on October 11, 2026, rated 8.6: the admin OAuth server issues authorization codes to dynamically registered clients without consent, so a client registered with the long_lived_access_token scope yields a non-expiring token with the victim's permissions. It is credited to HaiND of the Post and Telecommunication Institute of Technology, already a credit on this item, and lists no patched version, so it belongs to the same source-review campaign."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "n8n GitHub Security Advisories",
+        "VulnCheck advisories",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "hiddenlayer.com research",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "nccgroup.com research blog",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "jfrog.com security research",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "anthropic.com/news",
+        "Microsoft MSRC blog",
+        "aisi.gov.uk",
+        "nist.gov CAISI",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "simonwillison.net",
+        "manifold.security/blog",
+        "pluto.security",
+        "adversa.ai roundups",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "talk-scan.ts",
+        "cveawg.mitre.org and NVD"
+      ],
+      "windowDays": 7
     }
   ]
 }
