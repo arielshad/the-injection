@@ -1,7 +1,128 @@
 {
-  "generatedAt": "2026-10-15T03:18:24.796Z",
+  "generatedAt": "2026-10-15T04:14:11.369Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "n8n-chat-hub-tool-role-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "n8n Chat Hub: a chat-only role could register code-running tools",
+      "org": "n8n",
+      "date": "2026-10-14",
+      "url": "https://github.com/n8n-io/n8n/security/advisories/GHSA-43v8-hjhm-chjp",
+      "summary": "n8n's Chat Hub let users with the chat-only role register tool types that run code in the task runner sandbox, reach permitted files, and use the instance's workflows, Data Tables and agents. Fixed in 1.123.85, 2.43.5 and 2.44.1.",
+      "severity": "medium",
+      "tags": [
+        "privilege-escalation",
+        "credential-theft",
+        "agent-security",
+        "n8n"
+      ],
+      "affected": [
+        "n8n"
+      ],
+      "explainer": {
+        "tagline": "Chat Hub blocked only a small set of tool types, so an n8n chat user could register tools their role was never meant to reach.",
+        "whatHappened": "n8n published 15 security advisories on October 14, 2026, one of them a Chat Hub role bypass rated Moderate at CVSS 5.3. The reporters credited across the batch include sm1ee and momenashrafff, and n8n's own security maintainers published the advisories. The highest rated flaw in the batch, a crafted workflow ID that reached Data Tables in other projects, is rated High at CVSS 7.2.",
+        "howItWorks": "Tool restrictions in Chat Hub rested on a block list that named only a small set of tool types. Users with the chat user role cannot create or edit workflows, but the gap let them register tools that run code in the task runner sandbox, read and write files in directories n8n allows, and use the instance's workflows, Data Tables and agents. Running those tools through a chat then performed the actions, so the role's limits no longer held.",
+        "whoIsAffected": "Self-hosted n8n instances below 1.123.85, 2.43.5 and 2.44.1 with Chat Hub in use and the global:chatUser role assigned. The path matters most where that role is given to people who are not fully trusted, which is the condition n8n names in its workarounds.",
+        "whatToDo": "Upgrade n8n to 1.123.85, 2.43.5 or 2.44.1, which n8n says fully remediates the issue. Until then n8n advises withholding the global:chatUser role from users who are not fully trusted, disabling Chat Hub when it is not needed, and removing high-risk node types with the NODES_EXCLUDE environment variable. The other advisories in the batch name different patched versions, listed below."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "n8n below 1.123.85, 2.43.5 and 2.44.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.123.85, 2.43.5, 2.44.1"
+        },
+        {
+          "label": "Vendor rating",
+          "value": "Moderate, CVSS 5.3"
+        },
+        {
+          "label": "Needs",
+          "value": "An account holding the global:chatUser role"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 14, 2026, with 14 other n8n advisories"
+        },
+        {
+          "label": "CVE",
+          "value": "None known for this advisory"
+        },
+        {
+          "label": "Reported by",
+          "value": "Not named; sm1ee and momenashrafff are credited elsewhere in the batch"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which n8n versions fix the Chat Hub tool registration bypass?",
+          "a": "n8n fixes the Chat Hub tool registration gap in 1.123.85, 2.43.5 and 2.44.1, and says upgrading fully remediates it. Instances on an older release can withhold the global:chatUser role from users who are not fully trusted, disable Chat Hub when it is unused, or drop high-risk node types with the NODES_EXCLUDE environment variable, which n8n describes as temporary measures only."
+        },
+        {
+          "q": "Do the n8n CVEs published on October 14 cover this advisory batch?",
+          "a": "No. The CVE records published on October 14 and 15, 2026, including CVE-2026-110850, point back to n8n advisories from September 30 that were fixed in 2.41.4 and 2.42.1. Every October 14 advisory checked here, including the Chat Hub and Data Tables ones, lists no known CVE, so tracking n8n by CVE alone misses them."
+        },
+        {
+          "q": "What else did n8n fix on October 14, 2026?",
+          "a": "n8n's October 14 batch also covers credential exposure and cross-project access. Three nodes, Git, MongoDB Atlas Vector Store and Google Cloud Storage, stored credential secrets in execution error data. A project editor could inherit a colleague's identity through an error workflow, an unauthenticated caller could redirect a Slack workspace token through the Slack Trigger webhook, and a crafted workflow ID reached Data Table rows in every project."
+        },
+        {
+          "q": "How can an n8n admin tell whether the chat role is in use?",
+          "a": "An n8n admin can check which accounts hold the global:chatUser role and whether Chat Hub is enabled, since both conditions are needed for this path. n8n also suggests auditing project memberships for the credential flaws in the same batch, and reviewing each workflow's errorWorkflow setting for values a colleague did not set."
+        }
+      ],
+      "links": [
+        {
+          "label": "Chat Hub Advisory",
+          "url": "https://github.com/n8n-io/n8n/security/advisories/GHSA-43v8-hjhm-chjp"
+        },
+        {
+          "label": "Data Tables Advisory",
+          "url": "https://github.com/n8n-io/n8n/security/advisories/GHSA-wvjj-qg37-pv73"
+        },
+        {
+          "label": "Credentials In Errors",
+          "url": "https://github.com/n8n-io/n8n/security/advisories/GHSA-qmvv-q3c9-wpp7"
+        },
+        {
+          "label": "Error Workflow Theft",
+          "url": "https://github.com/n8n-io/n8n/security/advisories/GHSA-pcr3-v5vr-qppf"
+        },
+        {
+          "label": "Slack Trigger Advisory",
+          "url": "https://github.com/n8n-io/n8n/security/advisories/GHSA-3c3p-5959-3ghr"
+        },
+        {
+          "label": "Agent Node Credentials",
+          "url": "https://github.com/n8n-io/n8n/security/advisories/GHSA-x25p-9mr6-cwgp"
+        },
+        {
+          "label": "CVE-2026-110850 Record",
+          "url": "https://github.com/advisories/GHSA-fv6m-3pmx-fcmp"
+        }
+      ],
+      "credits": [
+        {
+          "name": "sm1ee",
+          "url": "https://github.com/sm1ee"
+        },
+        {
+          "name": "momenashrafff",
+          "url": "https://github.com/momenashrafff"
+        },
+        {
+          "name": "n8n security maintainers",
+          "org": "n8n"
+        }
+      ],
+      "publishDate": "2026-10-15T04:14:11.369Z"
+    },
     {
       "id": "hiddenlayer-system-one-jev-prompt-injection",
       "categories": [
