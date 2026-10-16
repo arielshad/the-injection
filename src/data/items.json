@@ -1,7 +1,195 @@
 {
-  "generatedAt": "2026-10-16T22:14:06.187Z",
+  "generatedAt": "2026-10-16T23:12:52.690Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "99ai-chatlog-unauth-export",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "99AI: an unauthenticated export hands over every user's chat log",
+      "org": "VulnCheck",
+      "date": "2026-10-16",
+      "url": "https://www.vulncheck.com/advisories/99ai-through-4.3.0-unauthenticated-information-disclosure-via-chatlog-exportexcel",
+      "summary": "CVE-2026-111706 lets an unauthenticated caller POST to /api/chatLog/exportExcel in 99AI through 4.3.0 and download an xlsx file holding every user's username, email, prompts and AI answers. No fixed version is named.",
+      "severity": "medium",
+      "tags": [
+        "data-exfiltration",
+        "99ai"
+      ],
+      "affected": [
+        "99AI"
+      ],
+      "cve": "CVE-2026-111706",
+      "cvss": 8.7,
+      "credits": [
+        {
+          "name": "hieuPenguinnn",
+          "url": "https://github.com/hieuPenguinnn"
+        }
+      ],
+      "explainer": {
+        "tagline": "One 99AI export route has no authentication guard, so a stranger can download the prompts and answers of every user on the server.",
+        "whatHappened": "VulnCheck published CVE-2026-111706 for 99AI on October 16, 2026, and the GitHub Advisory Database listed it the same day with a CVSS 4.0 score of 8.7. The finder, who writes as hieuPenguinnn, documented the flaw in a HackMD write-up against version 4.3.0 at a pinned commit, and states the work was a source review with no live requests run. Neither advisory names a fixed release.",
+        "howItWorks": "99AI is built on NestJS, which leaves a route anonymous unless the code attaches a guard to it. The chatLog controller declares POST /api/chatLog/exportExcel with no guard at all, so any caller can set the page, size and optional email fields and receive an xlsx export of stored conversations, narrowed to one victim by supplying that person's email address. The same write-up reports a second problem in GET /api/chatLog/querySingleChat, which checks for a token but not for ownership, so a message can be read by its id.",
+        "whoIsAffected": "Self-hosted 99AI deployments are exposed in every version through 4.3.0, which is the range VulnCheck lists. The project is a multi-user AI platform with chat, model access and an admin panel, so the exported rows carry account emails alongside the text users typed and the answers the models returned. Anyone who can reach the server over the network can call the route, because no account is needed.",
+        "whatToDo": "Put authentication in front of 99AI and block outside access to /api/chatLog/* until a patched release exists, because no advisory names one. Operators who can patch locally can follow the write-up's advice: attach an admin guard to the export route, add an owner check to the single-message lookup, and register a global guard that fails closed with an explicit list of public routes."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-111706"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "8.7 (VulnCheck)"
+        },
+        {
+          "label": "Affected",
+          "value": "99AI through 4.3.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No patched version named"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authentication on the chat log export route"
+        },
+        {
+          "label": "Found by",
+          "value": "hieuPenguinnn"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 16, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Source review, no proof of concept run"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/99ai-through-4.3.0-unauthenticated-information-disclosure-via-chatlog-exportexcel"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://hackmd.io/@hieuPenguinnn/99ai-chatlog-unauth-export-and-idor"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-q472-g8p5-86fq"
+        },
+        {
+          "label": "Vulnerable Route",
+          "url": "https://github.com/vastxie/99AI/blob/v4.3.0/service/src/modules/chatLog/chatLog.controller.ts#L47-L52"
+        }
+      ],
+      "publishDate": "2026-10-16T23:12:52.690Z"
+    },
+    {
+      "id": "microsoft-nvidia-open-weight-model-risk",
+      "categories": [
+        "research"
+      ],
+      "title": "Microsoft and NVIDIA: a shared risk taxonomy for open-weight models",
+      "org": "Microsoft",
+      "date": "2026-10-16",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/16/managing-open-weight-model-risk-in-enterprise-deployments/",
+      "summary": "Microsoft and NVIDIA published joint guidance for enterprises that deploy open-weight AI models, built on a five-category risk taxonomy that ties each risk to evaluations that measure it and controls that reduce it.",
+      "severity": "info",
+      "tags": [
+        "open-weights",
+        "evals",
+        "standard",
+        "microsoft",
+        "nvidia"
+      ],
+      "affected": [
+        "Open-weight models"
+      ],
+      "credits": [
+        {
+          "name": "Michael Scovetta",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Andrew Berkley",
+          "org": "Microsoft"
+        },
+        {
+          "name": "April Chen",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Michael Boone",
+          "org": "NVIDIA"
+        },
+        {
+          "name": "Eileen Long",
+          "org": "NVIDIA"
+        },
+        {
+          "name": "Arun Rao",
+          "org": "NVIDIA"
+        }
+      ],
+      "explainer": {
+        "tagline": "Microsoft and NVIDIA argue that whether a model's weights are open says little about its risk, and offer a taxonomy to judge the rest.",
+        "whatHappened": "Microsoft published Risk Management for Open-Weight Models in Enterprise on October 16, 2026, a paper written with NVIDIA and released as a PDF in a shared GitHub repository that also holds evaluations and technical resources. Michael Scovetta of Microsoft introduced the work on the Microsoft Security Blog. Andrew Berkley and April Chen of Microsoft and Michael Boone, Eileen Long and Arun Rao of NVIDIA led the paper.",
+        "howItWorks": "The taxonomy sorts open-weight model risk into the five categories listed below, then connects each risk to evaluations that produce evidence about it and to safeguards that can reduce it. Control coverage spans model changes, access controls, input and output filtering, monitoring and human review, with the paper concentrating on the model layer. The authors ground the structure in ISO standards and the NIST AI Risk Management Framework, and say runtime, harness and application layers are left for later work.",
+        "whoIsAffected": "Enterprise teams choosing, hosting or fine-tuning open-weight models are the intended readers, in particular those who self-host. Microsoft and NVIDIA state that a team which runs a model itself takes on controls a managed service would otherwise provide, so the owner of each safeguard changes with the deployment.",
+        "whatToDo": "Pair every risk you identify with an evaluation, a mitigation and an accountable owner, and assess the whole system rather than the model alone, including agent permissions, data access, tools and runtime. Microsoft and NVIDIA also advise checking that each control is actually available for your model and deployment, including whether it is still in preview, and revisiting the decisions whenever a model or deployment changes."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "October 16, 2026"
+        },
+        {
+          "label": "Authors",
+          "value": "Microsoft and NVIDIA, jointly"
+        },
+        {
+          "label": "Risk categories",
+          "value": "Cybersecurity, Data Protection, Content, Human-AI Interaction, Bias"
+        },
+        {
+          "label": "Grounded in",
+          "value": "ISO standards and the NIST AI Risk Management Framework"
+        },
+        {
+          "label": "Scope",
+          "value": "Model layer; runtime, harness and application layers deferred"
+        },
+        {
+          "label": "Format",
+          "value": "PDF paper plus a public GitHub resource repository"
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Security Blog",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/16/managing-open-weight-model-risk-in-enterprise-deployments/"
+        },
+        {
+          "label": "Whitepaper PDF",
+          "url": "https://github.com/NVIDIA/OpenEnterpriseRiskManagementGuidance/blob/main/Papers/Risk%20Management%20Guidance.pdf"
+        },
+        {
+          "label": "Resource Repository",
+          "url": "https://github.com/NVIDIA/OpenEnterpriseRiskManagementGuidance"
+        }
+      ],
+      "image": {
+        "url": "https://www.microsoft.com/en-us/security/blog/wp-content/uploads/2026/10/MSFT-NVIDIA-SCI.jpg",
+        "alt": "Microsoft and NVIDIA: a shared risk taxonomy for open-weight models",
+        "credit": "Microsoft"
+      },
+      "publishDate": "2026-10-16T23:12:52.690Z"
+    },
     {
       "id": "fireworks-eval-job-secret-exposure",
       "categories": [
