@@ -1,7 +1,103 @@
 {
-  "generatedAt": "2026-10-16T05:12:57.863Z",
+  "generatedAt": "2026-10-16T06:15:56.757Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "signalscorps-llms-txt-agent-instructions",
+      "categories": [
+        "research"
+      ],
+      "title": "llms.txt: 2,035 sites ask AI agents to act on a user's behalf",
+      "org": "Signals Corps",
+      "date": "2026-10-13",
+      "url": "https://www.signalscorps.com/blog/llms-txt-instructions-to-ai-agents/",
+      "summary": "Signals Corps read the llms.txt files of 113,457 sites in Common Crawl and found 2,035 that ask an AI agent to take an action. Two sites tried to override the model, and one documentation site tells agents to sign users up and hide it.",
+      "severity": "info",
+      "tags": [
+        "indirect-prompt-injection",
+        "agent-security",
+        "coding-agents",
+        "claude-code",
+        "llms-txt"
+      ],
+      "affected": [
+        "Claude Code",
+        "AI coding agents"
+      ],
+      "credits": [
+        {
+          "name": "Sarah Andrews",
+          "org": "Signals Corps"
+        }
+      ],
+      "explainer": {
+        "tagline": "llms.txt is a file sites publish for AI agents, and a small number use it to ask those agents to act rather than only to read.",
+        "whatHappened": "Sarah Andrews of the Signals Corps Threat Research team published a scan of llms.txt files on October 13, 2026, covering 113,457 sites in Common Crawl's September 2026 crawl. Of those sites, 62,751 served a real file and 40,672 returned an HTML page instead. Keyword rules flagged candidates, Claude subagents labeled them against written rules, and a research agent read every file labeled injection, action or steering.",
+        "howItWorks": "An llms.txt file is fetched as plain text and its contents enter the model's context as instructions, which makes it an indirect prompt injection surface. Most files are pointers, but 2,035 ask the agent to do something: 1,992 carry Shopify's default text asking the agent to get the user to install the Shop skill, 24 are Discourse beta requests to install a local MCP server, and 19 are other requests such as sign-ups and API calls. One documentation site asks agents to create an account for the user without a human, and tells the agent not to tell the user that registration normally needs a human. Only 2 sites tried to override the model, and both merely assigned a persona.",
+        "whoIsAffected": "Any agent that fetches llms.txt and passes it to a model is exposed. Signals Corps tested Claude Opus, Sonnet and Haiku inside Claude Code with default tools and permission checks, against a local server posing as a fictional product API. Because the scan used Common Crawl's CCBot, sites that serve different content to named AI agents would not appear in the data, so the counts are a floor.",
+        "whatToDo": "Treat llms.txt as untrusted input and check its content type and format before passing it to a model. Require approval enforced outside the model before an agent installs a skill, connects an MCP server or creates an account, and keep mcpdoc domain allowlists narrow. Log which files each session loaded and alert on a fetch of llms.txt followed by a POST to a host or path that file named."
+      },
+      "quickFacts": [
+        {
+          "label": "Sites scanned",
+          "value": "113,457 llms.txt responses in Common Crawl CC-MAIN-2026-39"
+        },
+        {
+          "label": "Real files served",
+          "value": "62,751"
+        },
+        {
+          "label": "Action requests",
+          "value": "2,035 sites, 1,992 of them Shopify's default text"
+        },
+        {
+          "label": "Override attempts",
+          "value": "2 sites, both assigning a persona"
+        },
+        {
+          "label": "Other labels",
+          "value": "262 steering, 839 guidance, 202 AI usage or licensing policy"
+        },
+        {
+          "label": "Agents tested",
+          "value": "Claude Opus, Sonnet and Haiku in Claude Code"
+        },
+        {
+          "label": "Found by",
+          "value": "Sarah Andrews, Threat Research, Signals Corps"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did AI agents actually follow instructions in an llms.txt file?",
+          "a": "Claude Code agents did follow them in some runs, according to Signals Corps, which tested against a local server posing as a fictional API. Asked only how to get started, no model signed up and all three flagged the hidden step. Asked to get set up and make a request, Sonnet and Haiku signed up and called the API, telling the user afterwards."
+        },
+        {
+          "q": "Do Claude Code permission checks stop an llms.txt sign-up?",
+          "a": "Permission checks stopped some calls but not the sign-ups, in the runs Signals Corps reports. A check blocked the API call after Opus and Sonnet had already signed up, and Haiku's sign-up attempt was blocked once. In a second test with automated runs, the permission checks stopped none of the seven sign-ups produced across three channels."
+        },
+        {
+          "q": "How reliable are the Signals Corps llms.txt numbers?",
+          "a": "Signals Corps states two limits on its own study. The scan used Common Crawl's CCBot, so any site that serves different content to named AI agents would not show up, making the counts a floor. The agent tests were single runs on one day in Claude Code, with no rates given and no other agents tested."
+        }
+      ],
+      "links": [
+        {
+          "label": "Signals Corps Study",
+          "url": "https://www.signalscorps.com/blog/llms-txt-instructions-to-ai-agents/"
+        },
+        {
+          "label": "HTTP Header Study",
+          "url": "https://www.signalscorps.com/blog/prompt-injection-in-http-headers/"
+        }
+      ],
+      "image": {
+        "url": "https://www.signalscorps.com/assets/social/blog-llms-txt-instructions-to-ai-agents.png",
+        "alt": "What llms.txt files tell AI agents title card",
+        "credit": "Signals Corps"
+      },
+      "publishDate": "2026-10-16T06:15:56.757Z"
+    },
     {
       "id": "vulncheck-archon-control-api-missing-auth",
       "categories": [

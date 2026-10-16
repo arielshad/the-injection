@@ -5221,6 +5221,68 @@
         "nezhahq/nezha security advisories"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t061556z",
+      "timestamp": "2026-10-16T06:15:56.757Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Anthropic news, Embrace The Red, AIR Security, Zenity Labs, Pillar Security, Trail of Bits, VulnCheck, Check Point, Wiz, OWASP GenAI, UK AISI, MSRC, Hugging Face (blog and prompt-injection models), repo-scan (13 queries, 2 candidates), GitHub trending daily and weekly, talk-scan (55 videos), paper-scan (72 arXiv candidates) and Hacker News; added one item, the Signals Corps scan of 113,457 llms.txt files. Left out on purpose: BadEngram (arXiv v1 September 11, outside the window despite an October 13 Pillar and Fujitsu press release), the Signals Corps HTTP header study (published October 6), morluto/rea (created April 2026, trending today on old stars), ToFu and the other arXiv candidates (at most one paper-bar signal each), zero-lab-ai/skills and scs0209/laya-guard (new and licensed but below the two-signal repo bar), the Pipecat development runner CVE (disclosed September 29, maintainers say the behavior is intentional), the Embrace The Red Visual Studio Copilot videos (already linked on that item), and the CSO Online rogue-agent piece (expert commentary, no new research). openai.com returned 403 to fetches, koi.security now redirects to Palo Alto Networks, and reddit.com/r/netsec was unreachable.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "signalscorps-llms-txt-agent-instructions",
+          "title": "llms.txt: 2,035 sites ask AI agents to act on a user's behalf",
+          "category": "research",
+          "severity": "info",
+          "note": "Original measurement of an agent-facing file at 113,457-site scale, published inside the window with a named author, named agents tested and concrete defender actions."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "anthropic.com/news",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "pillar.security/blog",
+        "blog.trailofbits.com",
+        "vulncheck.com/blog",
+        "research.checkpoint.com",
+        "wiz.io/blog",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "msrc.microsoft.com/blog",
+        "blog.google/technology/safety-security",
+        "simonwillison.net",
+        "signalscorps.com/blog",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, by created)",
+        "arXiv cs.CR via paper-scan.ts",
+        "Hugging Face Daily Papers via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending (daily and weekly)",
+        "talk-scan.ts (YouTube conference and security channels)",
+        "Hacker News front page and Algolia search",
+        "Dated web searches per category"
+      ],
+      "windowDays": 7
     }
   ]
 }
