@@ -4898,6 +4898,85 @@
         "gh-repo-meta (GitHub API)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t012608z",
+      "timestamp": "2026-10-16T01:26:08.182Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab posts (Anthropic, OpenAI, Google GTIG, MSRC), GitHub Security Advisories, research groups (AIR, Zenity, Embrace The Red, Check Point, HiddenLayer, Mindgard, Trail of Bits, NCC Group, Lasso, Straiker, Ox, Endor, Socket, Datadog, Talos, ReversingLabs, Wiz, JFrog), paper-scan (41 arXiv candidates), repo-scan (2 candidates), GitHub trending, Hacker News, Hugging Face, OWASP GenAI, UK AISI and talk-scan (47 videos). Added two in-window threat-intelligence items: the Swarmchasers report tracing an Amap-probing agent fleet to Tencent Cloud, and RST Cloud's measurement of how attackers actually use AI. Most other candidates failed the 7-day window on original disclosure date.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "swarmchasers-tencent-amap-agent-fleet",
+          "title": "Swarmchasers: an agent fleet on Tencent Cloud probed Alibaba's Amap",
+          "category": "incident",
+          "severity": "info",
+          "note": "First detailed public trace of an autonomous agent fleet to a named cloud provider, with measured volumes, an exposed-credential finding and concrete guidance for anyone running internet-connected agent evaluations."
+        },
+        {
+          "id": "rstcloud-living-off-the-harness",
+          "title": "RST Cloud: 18 of 293 in-the-wild AI cases were malware calling a model",
+          "category": "research",
+          "severity": "info",
+          "note": "Measures what adversary AI actually looks like across 293 in-the-wild cases and gives defenders specific hunting targets in agent harness files, correcting a widely repeated assumption."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "swarmcha.se",
+        "rstcloud.com",
+        "GitHub Security Advisories",
+        "anthropic.com/news",
+        "cloud.google.com threat intelligence",
+        "microsoft.com/msrc/blog",
+        "air.security/blog",
+        "embracethered.com",
+        "zenity.io/blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com research",
+        "mindgard.ai/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com research",
+        "lasso.security/blog",
+        "straiker.ai/blog",
+        "ox.security/blog",
+        "endorlabs.com",
+        "socket.dev/blog",
+        "securitylabs.datadoghq.com",
+        "blog.talosintelligence.com",
+        "reversinglabs.com/blog",
+        "wiz.io/blog",
+        "jfrog.com security research",
+        "invariantlabs.ai/blog",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "NVD and CVE records",
+        "talk-scan (YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
