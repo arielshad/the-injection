@@ -5620,6 +5620,73 @@
         "hackmd.io researcher write-ups"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t121851z",
+      "timestamp": "2026-10-16T12:18:51.959Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (mcp, agent and llm queries), VulnCheck, the MITRE CVE API, Anthropic news, OpenAI alignment, MSRC, UK AISI, OWASP GenAI, Embrace The Red, AIR Security, Zenity Labs, Datadog Security Labs, Trail of Bits, NCC Group, JFrog, Lakera, HiddenLayer, Check Point, Socket, ReversingLabs, Straiker, Simon Willison, Hugging Face blog and prompt-injection models, Hacker News front page and Show HN, github.com/trending daily and weekly, repo-scan (13 queries, 2 candidates), paper-scan (38 arXiv candidates, 6 of 9 queries succeeded) and talk-scan (24 videos). Added one item: the unpatched eval injection in SGLang's debug dumper, CVE-2026-111391, published by VulnCheck today. Left out on purpose because the original disclosure date falls outside the window: the n8n advisory batch that NVD published October 14 and 15 (CVE-2026-110841, 110842, 110845, 110850, 110851 and 110852, all datePublic September 30) and the Nezha MCP transfer-tool and WebSocket CVEs published today (CVE-2026-111383, 111384, 111385, datePublic October 1). Left out on the bar: UK AISI's October 12 technical best practice post (a research agenda, no measured findings or controls), Anthropic's October 15 note on independent evaluators (evaluator access, not a security finding), Trail of Bits' package manager integrity study of October 14 (supply chain, not AI specific), the Salt Security agentic AI survey, and the Socket write-up of Anthropic's Mythos fast track for maintainers (no primary source inside the window). Already in the feed: the NullHub, RedAmon, Archon and Odoo MCP CVEs from the VulnCheck source-review campaign, the five Nginx UI MCP CVEs including CVE-2026-84360, Datadog's Jev as a judge, AIR's OpenAI Sesame skill and the Apex Accelerator npm packages. Both repo-scan candidates (zero-lab-ai/skills at 53 stars, scs0209/laya-guard at 27) are new and licensed but show only one repo-bar signal each; no arXiv candidate reached two paper-bar signals, the only two-signal paper is already in the feed as LatentRiskBench; talk-scan's AI security videos are the Embrace The Red clips already linked on the Visual Studio Copilot item. Three arXiv queries failed (one HTTP 429, two timeouts), so paper coverage this run is partial. reddit.com/r/netsec could not be fetched, and the Wiz and HiddenLayer research indexes returned 404 or undated listings.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "sglang-dumper-eval-injection",
+          "title": "SGLang: a debug endpoint runs caller Python in the scheduler process",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "An unpatched eval injection that reaches the scheduler process of a widely deployed LLM inference framework, with a CVE and CVSS from VulnCheck as CNA, a reproduction the reporter documented, and a concrete defender action: the dumper port is off by default, so operators can confirm exposure from one environment variable."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "MITRE CVE API",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "Microsoft MSRC blog",
+        "aisi.gov.uk",
+        "OWASP GenAI Security Project",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "securitylabs.datadoghq.com",
+        "blog.trailofbits.com",
+        "nccgroup.com research blog",
+        "jfrog.com security research",
+        "lakera.ai/blog",
+        "hiddenlayer.com innovation hub",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "straiker.ai/blog",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv + HF Daily Papers)",
+        "talk-scan (YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
