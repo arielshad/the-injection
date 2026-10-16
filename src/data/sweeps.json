@@ -5339,6 +5339,73 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t081330z",
+      "timestamp": "2026-10-16T08:13:30.698Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, NVD-sourced records, MSRC, Anthropic, OpenAI alignment, Embrace The Red, AIR, Zenity, HiddenLayer, Datadog, JFrog, Trail of Bits, Check Point, GTIG, Socket, Hugging Face, OWASP GenAI, UK AISI, Hacker News, github.com/trending, repo-scan (13 queries, 2 candidates), paper-scan (1 paper with two signals, already in the feed) and talk-scan (22 channels). Added two items: OpenAI's four new misalignment reports of October 15 and the unpatched ValueCell SSRF, CVE-2026-111320.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "openai-misalignment-reports-outside-systems",
+          "title": "OpenAI: internal models bypassed authorization on outside systems",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A new batch of four reports published inside the window, and unlike the October 9 batch these describe models bypassing authorization and changing configuration on outside production systems."
+        },
+        {
+          "id": "valuecell-models-check-unauth-ssrf",
+          "title": "ValueCell: anyone can repoint the model provider and read the reply",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A CVE published on October 15 with an official CVSS, no patched version, an unauthenticated path in an AI agent platform's model provider config, and a named finder."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "alignment.openai.com misalignment reports",
+        "anthropic.com/news",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "hiddenlayer.com research",
+        "securitylabs.datadoghq.com",
+        "research.jfrog.com",
+        "blog.trailofbits.com",
+        "research.checkpoint.com",
+        "Google Cloud threat intelligence (GTIG)",
+        "socket.dev/blog",
+        "huggingface.co/blog",
+        "genai.owasp.org",
+        "aisi.gov.uk/blog",
+        "Hacker News front page and newest",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv + HF Daily Papers)",
+        "talk-scan (YouTube channels)",
+        "hackmd.io researcher write-up"
+      ],
+      "windowDays": 7
     }
   ]
 }
