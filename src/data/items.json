@@ -1,7 +1,205 @@
 {
-  "generatedAt": "2026-10-16T03:14:06.997Z",
+  "generatedAt": "2026-10-16T04:16:22.175Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "vulncheck-archon-control-api-missing-auth",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Archon: the agent control API answers unauthenticated callers",
+      "org": "VulnCheck",
+      "date": "2026-10-15",
+      "url": "https://www.vulncheck.com/advisories/archon-0.2.13-through-0.11.1-missing-authentication-via-api-control-api",
+      "summary": "Archon, an open-source harness builder for AI coding, serves its /api/* control API with no authentication in a default install, on every network interface. VulnCheck rates it CVSS 9.3. No fixed release is listed.",
+      "severity": "high",
+      "tags": [
+        "agent-security",
+        "coding-agents",
+        "archon"
+      ],
+      "affected": [
+        "Archon"
+      ],
+      "cve": "CVE-2026-111322",
+      "cvss": 9.3,
+      "credits": [
+        {
+          "name": "hieuPenguinnn",
+          "url": "https://github.com/hieuPenguinnn"
+        }
+      ],
+      "explainer": {
+        "tagline": "Archon's control API accepts conversation and workflow calls from anyone who can reach it in a default SQLite install.",
+        "whatHappened": "VulnCheck published CVE-2026-111322 for Archon on October 15, 2026, crediting the finder hieuPenguinnn. The finder's write-up reports the flaw from reading the source of release v0.11.1, and states that no instance was started and no requests were sent. Archon is Cole Medin's open-source harness builder for AI coding agents.",
+        "howItWorks": "Three defaults line up. The server falls back to binding 0.0.0.0 when the HOST variable is unset, so it listens on every interface. The /api/* middleware returns without resolving an identity unless the API gate is enabled, and that gate requires both DATABASE_URL and BETTER_AUTH_SECRET, neither of which a default SQLite install sets. Routes that start conversations, send messages to the agent and run or approve workflows are then open to any caller.",
+        "whoIsAffected": "Versions 0.2.13 through 0.11.1 are listed as affected, which includes v0.11.1, the current release. Exposure needs the default SQLite configuration, no HOST override, and an attacker who can reach the service over the network. Installs that set a Postgres DATABASE_URL and a signing secret switch the gate on, and binding to loopback removes the network reach.",
+        "whatToDo": "Set HOST to 127.0.0.1 so Archon listens on loopback only, or configure both DATABASE_URL and BETTER_AUTH_SECRET and leave ARCHON_WEB_AUTH_REQUIRED unset so the gate enforces an identity on every mutating route. Check whether the service port is reachable from outside the host."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Archon 0.2.13 through 0.11.1, including the current release v0.11.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No patched version listed"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-111322, assigned by VulnCheck"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.3 under CVSS 4.0 and 9.8 under CVSS 3.1, both from VulnCheck"
+        },
+        {
+          "label": "Found by",
+          "value": "hieuPenguinnn, from source review, with no runtime testing"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 15, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authentication on the /api/* control API, CWE-306"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Archon affected by CVE-2026-111322 in a default install?",
+          "a": "Archon installs that use the default SQLite setup are affected, because the /api/* authentication gate only switches on when both DATABASE_URL and BETTER_AUTH_SECRET are set. A default install sets neither, so the middleware skips the identity check. The server also binds 0.0.0.0 when HOST is unset, which puts the control API on every network interface."
+        },
+        {
+          "q": "Is there a patch for the Archon control API flaw?",
+          "a": "No patched Archon release is listed. VulnCheck names 0.2.13 through 0.11.1 as affected, and v0.11.1, published on September 25, 2026, is still the latest release. Operators have to mitigate through configuration: bind the server to loopback using HOST, or set DATABASE_URL and BETTER_AUTH_SECRET so the gate enforces an identity on mutating routes."
+        },
+        {
+          "q": "Did the researcher demonstrate remote code execution in Archon?",
+          "a": "hieuPenguinnn's write-up does not claim remote code execution, and reports no runtime testing: no instance was started and no requests were sent. VulnCheck's advisory goes further, saying a network attacker can message the AI coding agent, which runs with bypassPermissions, and execute commands as the Archon user. The finder says impact depends on the workflows and agent configured."
+        },
+        {
+          "q": "Which Archon endpoints accept unauthenticated requests?",
+          "a": "The write-up lists conversation creation, conversation messages, workflow runs, the workflow approve and reject routes, and the provider update and delete routes under /api/auth/providers as reachable without authentication under default settings. Only the health route and /api/auth/* sit on a deliberate public allowlist. Reading stored provider secrets back through the API is not established, the author notes."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/archon-0.2.13-through-0.11.1-missing-authentication-via-api-control-api"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://hackmd.io/@hieuPenguinnn/archon-os-api-missing-authentication-default"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-111322"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-3q7p-hhhj-qh4p"
+        },
+        {
+          "label": "Auth Gate Source",
+          "url": "https://github.com/coleam00/Archon/blob/v0.11.1/packages/server/src/auth/config.ts"
+        }
+      ],
+      "publishDate": "2026-10-16T04:16:22.175Z"
+    },
+    {
+      "id": "arxiv-mcp-filesystem-capability-laundering",
+      "categories": [
+        "research",
+        "supply-chain"
+      ],
+      "title": "MCP-FSD: 150 MCP servers read files outside their declared scope",
+      "org": "arXiv",
+      "date": "2026-10-15",
+      "url": "https://arxiv.org/abs/2610.22301",
+      "summary": "One in six MCP servers that carry no filesystem classification can still reach the host filesystem, five authors report after cataloguing 21,097 servers from nine registries. Paired dynamic tests confirmed 150 vulnerable instances.",
+      "severity": "info",
+      "tags": [
+        "mcp",
+        "agent-security",
+        "credential-theft",
+        "detection"
+      ],
+      "affected": [
+        "MCP servers",
+        "mcp-server-git"
+      ],
+      "credits": [
+        {
+          "name": "Zeqian Huang"
+        },
+        {
+          "name": "Mingyue Tang"
+        },
+        {
+          "name": "Aonan Guan"
+        },
+        {
+          "name": "Qiming Sun"
+        },
+        {
+          "name": "Pengzhou He"
+        }
+      ],
+      "explainer": {
+        "tagline": "MCP-FSD measures how often an MCP server's code can read host files that its tool descriptions never declare.",
+        "whatHappened": "Zeqian Huang, Mingyue Tang, Aonan Guan, Qiming Sun and Pengzhou He posted the MCP-FSD study to arXiv on October 15, 2026. The authors catalogued 21,097 MCP servers from nine registries, then tested a triaged subset for filesystem access wider than each tool declares. Coordinated disclosure produced 13 security advisories, the authors say, including two CVEs in Anthropic's Git MCP Server.",
+        "howItWorks": "The authors name the pattern filesystem capability laundering: a server advertises non-filesystem tools, yet its implementation passes attacker-controlled arguments into file operations that reach whatever the server process can read. MCP-FSD infers a least-privilege path boundary for each tool, plants credential files outside that boundary, then runs paired executions to see whether a tool reads them and whether the sandbox stops it. Bypassable path validation is treated as a third analysis layer, after server-category screening and per-tool contract analysis.",
+        "whoIsAffected": "Teams that install MCP servers from public registries are the audience, in particular anyone who leaves a server with the host filesystem it inherits. The authors report 787 of 4,806 triaged servers, 16.4%, holding filesystem capabilities despite a non-filesystem classification. All figures come from the authors' own scanning pipeline, not from reported incidents.",
+        "whatToDo": "Treat an MCP server's declared tool category as a label rather than a boundary, and run each server under a sandbox limited to the paths its job needs. One case the authors cite, CVE-2026-27735 in mcp-server-git, is fixed in version 2026.1.14."
+      },
+      "quickFacts": [
+        {
+          "label": "arXiv v1",
+          "value": "October 15, 2026"
+        },
+        {
+          "label": "Servers catalogued",
+          "value": "21,097 from nine registries"
+        },
+        {
+          "label": "Off-contract access",
+          "value": "787 of 4,806 triaged servers, 16.4%"
+        },
+        {
+          "label": "Confirmed vulnerable",
+          "value": "150 instances under the sandbox policies tested"
+        },
+        {
+          "label": "Disclosure",
+          "value": "13 advisories and two CVEs in Anthropic's Git MCP Server, per the authors"
+        },
+        {
+          "label": "Verified case",
+          "value": "CVE-2026-27735, git_add path traversal, fixed in mcp-server-git 2026.1.14"
+        },
+        {
+          "label": "Code",
+          "value": "No repository linked on the arXiv page"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.22301"
+        },
+        {
+          "label": "Git MCP Advisory",
+          "url": "https://github.com/advisories/GHSA-vjqx-cfc4-9h6v"
+        },
+        {
+          "label": "Author Case Study",
+          "url": "https://oddguan.com/blog/anthropic-mcp-server-git-add-path-traversal-credential-exfiltration-capability-laundering-cve-2026-27735/"
+        }
+      ],
+      "publishDate": "2026-10-16T04:16:22.175Z"
+    },
     {
       "id": "nginx-ui-mcp-config-validation-cves",
       "categories": [
@@ -11,7 +209,7 @@
       "org": "Nginx UI",
       "date": "2026-10-15",
       "url": "https://github.com/advisories/GHSA-9jww-cxg5-rj9m",
-      "summary": "Nginx UI's MCP tools wrote Nginx configuration and reloaded the server without the directive validation its REST API applies. Four High CVEs for flaws the project fixed in July 2026 were published this week.",
+      "summary": "Nginx UI's MCP tools wrote Nginx configuration and reloaded the server without the directive validation its REST API applies. Five High CVEs for flaws the project fixed in July 2026 were published this week.",
       "severity": "medium",
       "tags": [
         "mcp",
@@ -60,7 +258,7 @@
         },
         {
           "label": "CVEs",
-          "value": "CVE-2026-84317 and CVE-2026-84318 (CVSS 8.8), CVE-2026-84319 (8.3), CVE-2026-84360 (8.1)"
+          "value": "CVE-2026-84316, CVE-2026-84317 and CVE-2026-84318 (CVSS 8.8), CVE-2026-84319 (8.3), CVE-2026-84360 (8.1)"
         },
         {
           "label": "Found by",
@@ -101,6 +299,10 @@
         {
           "label": "GitHub Advisory",
           "url": "https://github.com/advisories/GHSA-9jww-cxg5-rj9m"
+        },
+        {
+          "label": "CVE-2026-84316",
+          "url": "https://github.com/advisories/GHSA-cf23-7qxj-xmhr"
         },
         {
           "label": "CVE-2026-84317",
