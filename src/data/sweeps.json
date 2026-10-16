@@ -5551,6 +5551,75 @@
         "promptinjection.wtf"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t111440z",
+      "timestamp": "2026-10-16T11:14:40.161Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, NVD, VulnCheck, Anthropic, OpenAI alignment, MSRC, AIR, Zenity, Embrace The Red, HiddenLayer, Socket, Unit 42, Trail of Bits, NCC Group, Check Point, Lakera, Lasso, Straiker, Adversa, ReversingLabs, Simon Willison, OWASP GenAI, UK AISI, CAISI, Hugging Face, Hacker News, GitHub trending, paper-scan (70 arXiv papers, 1 with two signals and already in the feed), repo-scan (13 queries, 2 candidates) and talk-scan (24 videos). No new item met the bar: the only new AI advisories inside the window belong to the VulnCheck source-review campaign the feed already tracks, so they went in as an update. The MCP Python SDK session-exhaustion flaw (CVE-2026-59951) was republished to NVD on October 14 but originally disclosed September 30, outside the window. Both repo-scan candidates failed the two-signal repo bar, the two most promising one-signal papers failed the paper bar, and the only AI-security videos in talk-scan were the Embrace The Red clips already linked on the Visual Studio Copilot item. r/netsec could not be fetched.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "vulncheck-mcp-source-review-cves",
+          "title": "MCP source review: at least 27 unpatched CVEs in six days",
+          "note": "Four more CVEs from the same VulnCheck source-review campaign, verified on the VulnCheck advisories and the researchers' write-ups: mini-swe-agent (CVE-2026-108592), open-multi-agent (CVE-2026-108600) and zotero-mcp (CVE-2026-108583) on October 10, and RedAmon (CVE-2026-111323) on October 15. Same three researchers, same method, none patched."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "vulncheck.com/advisories",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "microsoft.com/msrc/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "hiddenlayer.com/research",
+        "socket.dev/blog",
+        "unit42.paloaltonetworks.com",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "research.checkpoint.com",
+        "jfrog.com security research",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "lasso.security/blog",
+        "straiker.ai/blog",
+        "adversa.ai/blog",
+        "wiz.io/blog",
+        "simonwillison.net",
+        "genai.owasp.org/resources",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "news.ycombinator.com front page and Show HN",
+        "github.com/trending daily and weekly",
+        "arXiv via paper-scan.ts",
+        "GitHub repo search via repo-scan.ts",
+        "YouTube channels via talk-scan.ts",
+        "hackmd.io researcher write-ups"
+      ],
+      "windowDays": 7
     }
   ]
 }

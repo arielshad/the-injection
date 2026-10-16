@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T10:15:15.293Z",
+  "generatedAt": "2026-10-16T11:14:40.161Z",
   "promptVersion": "1.3.0",
   "items": [
     {
@@ -5711,11 +5711,11 @@
         "vulnerability",
         "supply-chain"
       ],
-      "title": "MCP source review: at least 23 unpatched CVEs in five days",
+      "title": "MCP source review: at least 27 unpatched CVEs in six days",
       "org": "VulnCheck",
       "date": "2026-10-11",
       "url": "https://www.vulncheck.com/advisories/amoylab-unla-through-0.10.0-oauth2-authentication-bypass-via-authorize",
-      "summary": "A static source-review campaign by three researchers has produced at least 23 MCP and agent CVEs published October 10 to 14, 2026. The newest hit holaOS, whose chat connectors accept tasks from any sender by default.",
+      "summary": "A static source-review campaign by three researchers has produced at least 27 MCP and agent CVEs published October 10 to 15, 2026. The newest hit RedAmon, whose unauthenticated verify endpoint fetches any URL a caller sends it.",
       "severity": "medium",
       "tags": [
         "mcp",
@@ -5750,7 +5750,11 @@
         "OpenLIT",
         "TencentCloud Octop",
         "holaOS",
-        "Rill"
+        "Rill",
+        "mini-swe-agent",
+        "open-multi-agent",
+        "zotero-mcp",
+        "RedAmon"
       ],
       "cve": "CVE-2026-108865",
       "cvss": 8.8,
@@ -5770,11 +5774,11 @@
         }
       ],
       "explainer": {
-        "tagline": "NullHub extends the MCP source-review campaign to agent consoles: its /api/* management API never checks the bearer token it defines.",
-        "whatHappened": "The source-review campaign that produced at least 20 MCP and agent CVEs on October 10 to 12, 2026 added three more on October 14: CVE-2026-110616 against NullHub, a management console for AI agents, and CVE-2026-110769 and CVE-2026-110768 against holaOS, which turns Telegram, Slack and Discord messages into tasks for a local agent. hieuPenguinnn reported the holaOS pair through VulnCheck with a HackMD write-up, as in the earlier waves. NullHub's CVSS v4.0 9.2 is still the campaign's highest score, and no advisory in the set names a patched version.",
-        "howItWorks": "NullHub's server defines an auth_token field that defaults to null and is never assigned at startup, and its bearer check runs only when a token exists, so the check never runs. Most of the campaign's other findings are authorization gates that an attacker or a prompt-injected agent reaches through a tool call: Tabularis treats side-effecting SELECT statements as read-only, Odoo MCP's execute_method returns fields the caller is denied, and Trinity's Telegram router accepts agent-scoped MCP keys for owner-only binding. Open Computer Use shows the same gap in a desktop agent: its password-manager denylist matches bundle ids case-sensitively while the resolver for already-running apps compares them case-insensitively and never re-applies the denylist, so the case variant com.1Password.1Password reaches the real process. Two findings break an isolation boundary instead. In mistral.rs, the sandboxed shell child creates a relative symlink and names it as an output file, and the unsandboxed parent reads the target with std::fs::read, which follows the link; in Phi, agent_spawn passes a model-supplied working directory to a child whose permission gate is rooted at that directory instead of the parent workspace. 9router is the sharpest of the later findings: its Hermes Agent settings endpoint writes dashboard input straight into config.yaml, so quotes and newlines inside a baseUrl value add a hooks.post_llm_call entry that the agent then runs as a shell command without asking.",
-        "whoIsAffected": "Operators of the named projects are exposed, not MCP users in general, and the versions and CVEs are listed above. NullHub is only remotely reachable when an operator binds it to a non-loopback address with --host, since it defaults to 127.0.0.1, and its latest release, v2026.5.29, is the affected one. holaOS ships its allowFrom sender list empty, so each chat connector answers anyone who can message the operator's bot, and a configured allowlist is matched on the mutable Telegram @username rather than the numeric id. Open Computer Use is exposed only on its macOS runtime, where the agent already holds Accessibility and Screen Recording permission, and only against a password manager that is open and unlocked. OpenLIT 2.1.0 and TencentCloud Octop need an existing low-privileged account before a caller can read other projects' LLM prompts or stored provider keys. Both researchers reviewed source at pinned commits, the write-ups record disclosure as pending, and only the mistral.rs escape was reproduced, in a syscall-faithful mirror on synthetic data.",
-        "whatToDo": "Check whether any listed project runs at or below its affected version, and treat it as exposed until maintainers ship a release. Keep NullHub's /api/* management API on loopback, off any non-loopback bind, and rotate the provider credentials it stores if it has been reachable. On holaOS, set an explicit numeric sender allowlist on every channel connector before the bot is reachable, and rotate any LLM or voice provider key that Octop or OpenLIT held. Quit or lock your password manager before giving a macOS computer-use agent Accessibility and Screen Recording permission. Put MCP gateway OAuth2 endpoints behind network controls, resolve symlinks before reading agent output files, and stop treating a server-side read-only setting as the boundary for an agent that reads untrusted content."
+        "tagline": "The source-review campaign reaches agent sandboxes: mini-swe-agent's bubblewrap shell inherits the runner's API keys.",
+        "whatHappened": "VulnCheck published four more CVEs from the same source-review campaign, taking the set to at least 27 between October 10 and 15, 2026. Three arrived on October 10 against agent sandboxes and agent fetch tools: CVE-2026-108592 in mini-swe-agent, CVE-2026-108600 in open-multi-agent and CVE-2026-108583 in zotero-mcp, all reported by Nguyen Dinh Hai with a HackMD write-up. CVE-2026-111323 followed on October 15 against RedAmon, reported by hieuPenguinnn. Both write-ups record disclosure as in progress, and no advisory in the fourth wave names a patched version.",
+        "howItWorks": "NullHub's server defines an auth_token field that defaults to null and is never assigned at startup, and its bearer check runs only when a token exists, so the check never runs. Most of the campaign's other findings are authorization gates that an attacker or a prompt-injected agent reaches through a tool call: Tabularis treats side-effecting SELECT statements as read-only, Odoo MCP's execute_method returns fields the caller is denied, and Trinity's Telegram router accepts agent-scoped MCP keys for owner-only binding. Open Computer Use shows the same gap in a desktop agent: its password-manager denylist matches bundle ids case-sensitively while the resolver for already-running apps compares them case-insensitively and never re-applies the denylist, so the case variant com.1Password.1Password reaches the real process. Two findings break an isolation boundary instead. In mistral.rs, the sandboxed shell child creates a relative symlink and names it as an output file, and the unsandboxed parent reads the target with std::fs::read, which follows the link; in Phi, agent_spawn passes a model-supplied working directory to a child whose permission gate is rooted at that directory instead of the parent workspace. 9router is the sharpest of the later findings: its Hermes Agent settings endpoint writes dashboard input straight into config.yaml, so quotes and newlines inside a baseUrl value add a hooks.post_llm_call entry that the agent then runs as a shell command without asking. The fourth wave applies the same reading to agent sandboxes and fetch tools. mini-swe-agent's optional BubblewrapEnvironment builds its wrapper args without --clearenv and calls subprocess.run with no env mapping, so the sandboxed shell inherits the runner's whole environment, including model API keys the runner loads from a global .env, and the default args leave the network shared. In open-multi-agent, realpathTolerant() in path-safety.ts catches realpath()'s failure on a dangling symlink and re-attaches the basename without an lstat, the lexical isWithin() check then approves the in-root link path, and file_write writes without O_NOFOLLOW, so the kernel follows the link outside the workspace. zotero-mcp's _fetch_embedded_metadata and RedAmon's /tradecraft/verify both fetch a caller-supplied URL without checking where it points, and RedAmon's validate_url reads only the first hostname, so a redirect or DNS rebind reaches internal addresses and the answer returns inside the model's summary.",
+        "whoIsAffected": "Operators of the named projects are exposed, not MCP users in general, and the versions and CVEs are listed above. NullHub is only remotely reachable when an operator binds it to a non-loopback address with --host, since it defaults to 127.0.0.1, and its latest release, v2026.5.29, is the affected one. holaOS ships its allowFrom sender list empty, so each chat connector answers anyone who can message the operator's bot, and a configured allowlist is matched on the mutable Telegram @username rather than the numeric id. Open Computer Use is exposed only on its macOS runtime, where the agent already holds Accessibility and Screen Recording permission, and only against a password manager that is open and unlocked. OpenLIT 2.1.0 and TencentCloud Octop need an existing low-privileged account before a caller can read other projects' LLM prompts or stored provider keys. Both researchers reviewed source at pinned commits, the write-ups record disclosure as pending, and only the mistral.rs escape was reproduced, in a syscall-faithful mirror on synthetic data. In the fourth wave, mini-swe-agent is exposed only when an operator opts into the BubblewrapEnvironment backend and a secret sits in the runner's environment, and the researcher reached the canary under bubblewrap 0.6.1 without running an agent loop or a real credential. open-multi-agent was confirmed at v1.21.1 and main from source alone, below the advisory's wider 1.5.0 to 1.21.2 range. RedAmon's /tradecraft/verify endpoint needs no account at all.",
+        "whatToDo": "Check whether any listed project runs at or below its affected version, and treat it as exposed until maintainers ship a release. Keep NullHub's /api/* management API on loopback, off any non-loopback bind, and rotate the provider credentials it stores if it has been reachable. On holaOS, set an explicit numeric sender allowlist on every channel connector before the bot is reachable, and rotate any LLM or voice provider key that Octop or OpenLIT held. Quit or lock your password manager before giving a macOS computer-use agent Accessibility and Screen Recording permission. Put MCP gateway OAuth2 endpoints behind network controls, resolve symlinks before reading agent output files, and stop treating a server-side read-only setting as the boundary for an agent that reads untrusted content. On mini-swe-agent, add --clearenv and --unshare-net to the bubblewrap wrapper args and re-add only the variables a task needs. Reject symlinks with an lstat before an agent tool writes through a path it has just approved, and validate every redirect hop, not only the first hostname, on any tool that fetches a URL an agent was given."
       },
       "quickFacts": [
         {
@@ -5790,16 +5794,20 @@
           "value": "NullHub <=2026.5.29 (CVE-2026-110616, CVSS 9.2, the campaign's highest score) and holaOS <=2026.822.1 (CVE-2026-110769 at 8.3, CVE-2026-110768 at 6.3)"
         },
         {
+          "label": "Fourth wave",
+          "value": "mini-swe-agent 1.10.0 to 2.4.6 (CVE-2026-108592, CVSS 6.0), open-multi-agent 1.5.0 to 1.21.2 (CVE-2026-108600, 5.7), zotero-mcp 0.10.0 to 0.14.1 (CVE-2026-108583, 2.3), RedAmon <=7.0.1 (CVE-2026-111323, 6.9)"
+        },
+        {
           "label": "CVEs",
-          "value": "CVE-2026-110616, 110769, 110768, 108865, 108721, 108699, 108698, 108714, 108859, 108716, 108593, 108596, 108585, 108586, 108581, 108759, 108595, 108582, 108604, 108861, 108756, 108855, 108851"
+          "value": "CVE-2026-110616, 110769, 110768, 108865, 108721, 108699, 108698, 108714, 108859, 108716, 108593, 108596, 108585, 108586, 108581, 108759, 108595, 108582, 108604, 108861, 108756, 108855, 108851, 108592, 108600, 108583, 111323"
         },
         {
           "label": "Fixed in",
-          "value": "No patched version listed in any of the 23 advisories; Open Computer Use v1.1.0, released October 14, lists no security fix"
+          "value": "No patched version listed in any of the 27 advisories; Open Computer Use v1.1.0, released October 14, lists no security fix"
         },
         {
           "label": "CVSS",
-          "value": "4.8 to 9.2, CVSS v4.0 base scores from NVD"
+          "value": "2.3 to 9.2, CVSS v4.0 base scores from NVD and VulnCheck"
         },
         {
           "label": "Found by",
@@ -5964,6 +5972,30 @@
         {
           "label": "Rill Write-Up",
           "url": "https://hackmd.io/@haind03/cve-2026-108718-rill-oauth-open-registration-long-lived-token"
+        },
+        {
+          "label": "mini-swe-agent CVE",
+          "url": "https://www.vulncheck.com/advisories/mini-swe-agent-1.10.0-through-2.4.6-environment-exposure-via-bubblewrapenvironment"
+        },
+        {
+          "label": "Bubblewrap Write-Up",
+          "url": "https://hackmd.io/@haind/minisweagent-bubblewrap-host-environment-leak"
+        },
+        {
+          "label": "open-multi-agent CVE",
+          "url": "https://www.vulncheck.com/advisories/open-multi-agent-1.5.0-through-1.21.2-sandbox-escape-via-file-write-dangling-symlink"
+        },
+        {
+          "label": "Symlink Write-Up",
+          "url": "https://hackmd.io/@haind/open-multi-agent-file-write-dangling-symlink-escape"
+        },
+        {
+          "label": "zotero-mcp CVE",
+          "url": "https://www.vulncheck.com/advisories/zotero-mcp-0.10.0-through-0.14.1-ssrf-via-zotero-add-by-url-tool"
+        },
+        {
+          "label": "RedAmon CVE",
+          "url": "https://www.vulncheck.com/advisories/redamon-through-7.0.1-unauthenticated-ssrf-via-tradecraft-verify-endpoint"
         }
       ],
       "publishDate": "2026-10-12T01:38:15.507Z"
