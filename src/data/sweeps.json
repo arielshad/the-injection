@@ -6017,6 +6017,62 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t181424z",
+      "timestamp": "2026-10-16T18:14:24.266Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, VulnCheck, MSRC, Anthropic news and research, OpenAI alignment reports, AIR Security, Zenity Labs, Embrace The Red, Unit 42, Hugging Face blog and Daily Papers, OWASP GenAI, repo-scan (13 queries, 2 candidates), github.com/trending, Hacker News front page and Show HN, talk-scan (22 channels) and dated per-category searches. One new item: CVE-2026-111392, a prefix-cache poisoning flaw in SGLang published today. Most of the week's disclosures were already in the feed; paper-scan's arXiv queries all returned HTTP 429, and manual arXiv API calls returned 429 and 503, so papers were searched only through Hugging Face Daily Papers and web search, which surfaced nothing inside the window that was not already covered.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "sglang-mm-hashes-kv-cache-poisoning",
+          "title": "SGLang: a caller-set hash makes the cache serve another request's image",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A CVE published today for a distinct SGLang flaw (cross-request image disclosure through an unverified cache key), separate from the debug dumper code injection already in the feed, with named researchers and no fixed release."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "vulncheck.com/advisories",
+        "msrc.microsoft.com",
+        "anthropic.com/news",
+        "anthropic.com/research",
+        "alignment.openai.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "unit42.paloaltonetworks.com",
+        "huggingface.co/blog",
+        "huggingface.co/papers",
+        "genai.owasp.org",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "talk-scan (22 YouTube channels)",
+        "github.com/sgl-project/sglang"
+      ],
+      "windowDays": 7
     }
   ]
 }
