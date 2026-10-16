@@ -1,7 +1,104 @@
 {
-  "generatedAt": "2026-10-16T20:19:25.061Z",
+  "generatedAt": "2026-10-16T21:13:00.767Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "bloom-slugfest",
+      "categories": [
+        "supply-chain",
+        "vulnerability"
+      ],
+      "title": "SlugFest: npm Trusted Publishing bound packages to a name, not an id",
+      "org": "Bloom Security",
+      "date": "2026-10-13",
+      "url": "https://bloom.security/blog/slugfest-millions-of-ai-agents-download-exposed-npm-packages",
+      "summary": "npm Trusted Publishing bound a package to a GitHub repository name, not its permanent id, so anyone reclaiming a renamed or deleted repository's slug could publish new versions. Bloom Security found 1,500+ exposed packages.",
+      "severity": "medium",
+      "tags": [
+        "malicious-package",
+        "coding-agents",
+        "agent-security",
+        "npm",
+        "github-actions",
+        "trusted-publishing"
+      ],
+      "affected": [
+        "npm",
+        "npm Trusted Publishing",
+        "GitHub Actions"
+      ],
+      "credits": [
+        {
+          "name": "Golan Myers"
+        }
+      ],
+      "explainer": {
+        "tagline": "A GitHub repository name freed by a rename or deletion could be claimed by anyone, who then inherited the right to publish an npm package.",
+        "whatHappened": "Bloom Security published SlugFest on October 13, 2026, naming a flaw in the way npm Trusted Publishing decides which GitHub repository may publish a package. Golan Myers writes that the team reported it through GitHub's HackerOne program on June 6, 2026, that npm triaged it on June 9, and that the last reply came on July 8, leaving six follow-ups and a mediation request unanswered. The researchers found a fix had shipped shortly before they published.",
+        "howItWorks": "Trusted Publishing lets a GitHub Actions workflow publish without a stored token by trusting an OIDC token from a named repository. The binding records the owner and repository slug, and npm stores GitHub's permanent numeric ids only after the first successful publish from it. When a bound repository is renamed, transferred or deleted, its old slug becomes free to register, so an attacker can create a repository at that slug, add a workflow file with the bound name, and exchange the resulting OIDC token for a publish credential. No maintainer account or secret is touched, and the provenance attestation then points at the attacker's repository.",
+        "whoIsAffected": "Packages that use npm Trusted Publishing and whose bound GitHub repository was renamed, transferred or deleted are exposed, in the numbers listed below. Myers writes that npm's GitLab Trusted Publishing implementation was affected in the same way. Adoption of Trusted Publishing is still under 20% of active packages, by Bloom's estimate.",
+        "whatToDo": "Run npm trust list for each package you maintain and confirm that every bound slug still resolves to a repository you control. Bloom's guidance is to delete and re-create a binding after any rename or transfer, to treat a repository deletion as a revocation event, and to publish a version immediately after creating a new binding. Watch for publish events nobody on the team started."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "npm packages using Trusted Publishing whose bound GitHub repository was renamed, transferred or deleted"
+        },
+        {
+          "label": "Exposed packages",
+          "value": "1,500+, with 10M+ downloads in total and 1M+ a month (Bloom Security)"
+        },
+        {
+          "label": "Attack type",
+          "value": "GitHub repository slug reclaim, OIDC trust binding abuse"
+        },
+        {
+          "label": "Fix",
+          "value": "npm expires unvalidated trusted publishing configurations 48 hours after creation, shipped October 2, 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "Golan Myers, published by Bloom Security"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Reported June 6, 2026; published October 13, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "No confirmed takeover in the wild; demonstrated end to end by the researchers"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my npm package affected by the SlugFest trusted publishing flaw?",
+          "a": "A package is exposed if it uses npm Trusted Publishing and the GitHub repository in its trust binding was renamed, transferred or deleted. Bloom Security counted more than 1,500 packages in that state. Running npm trust list shows each bound slug, and maintainers can check whether every one still resolves to a repository they control."
+        },
+        {
+          "q": "Has npm fixed the SlugFest slug reclaim flaw?",
+          "a": "npm shipped a change on October 2, 2026 that expires a trusted publishing configuration 48 hours after creation unless a successful publish validates it first, according to GitHub's changelog. Bloom Security argues for a different fix: resolving each slug to GitHub's permanent numeric ids when the trust is created, the way PyPI's Warehouse does."
+        },
+        {
+          "q": "Were any npm packages actually taken over through SlugFest?",
+          "a": "Bloom Security reports no confirmed takeover in the wild. The researchers demonstrated the attack end to end against an npm scope and repositories they controlled themselves. Myers writes that a publish nobody initiated, arriving from a repository that is not the expected one, would be the evidence of exploitation that maintainers should watch for."
+        },
+        {
+          "q": "Why do AI coding agents make the SlugFest flaw worse?",
+          "a": "Bloom Security's telemetry puts about 70 agent-installed packages a month on an average endpoint and close to 350 on developer machines, with three or more agents running per endpoint. Agents install without the human review that might catch an unexpected new version, which is why the researchers frame a dormant slug binding as an agent exposure."
+        }
+      ],
+      "links": [
+        {
+          "label": "Bloom Security Post",
+          "url": "https://bloom.security/blog/slugfest-millions-of-ai-agents-download-exposed-npm-packages"
+        },
+        {
+          "label": "npm Fix Changelog",
+          "url": "https://github.blog/changelog/2026-10-02-unvalidated-npm-trusted-publishing-configurations-now-expire/"
+        }
+      ],
+      "publishDate": "2026-10-16T21:13:00.767Z"
+    },
     {
       "id": "claude-agent-sdk-resume-argument-injection",
       "categories": [

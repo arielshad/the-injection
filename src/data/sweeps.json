@@ -6221,6 +6221,73 @@
         "cveawg.mitre.org CVE records"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t211300z",
+      "timestamp": "2026-10-16T21:13:00.767Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, JFrog, MSRC, Anthropic, OpenAI coverage, Embrace The Red, AIR, Zenity, Socket, Datadog, Snyk, HiddenLayer, Check Point, ReversingLabs, Trail of Bits, Wiz, GTIG, Unit 42, AISI, CAISI, OWASP GenAI, Hugging Face, paper-scan (69 papers, 1 with two signals, already in the feed), talk-scan (25 videos), repo-scan (2 candidates), GitHub trending and Hacker News. One new item: Bloom Security's SlugFest npm Trusted Publishing flaw, published October 13.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "bloom-slugfest",
+          "title": "SlugFest: npm Trusted Publishing bound packages to a name, not an id",
+          "category": "supply-chain",
+          "severity": "medium",
+          "note": "New in the window, with a named researcher, a reproduced attack, a scanned population of exposed packages, and a fix confirmed on GitHub's own changelog; the agent beat is Bloom's own telemetry on packages that coding agents install without review."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "JFrog Security Research",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "securitylabs.datadoghq.com",
+        "snyk.io/blog",
+        "hiddenlayer.com research",
+        "research.checkpoint.com",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "wiz.io/blog",
+        "Google Cloud threat intelligence",
+        "unit42.paloaltonetworks.com",
+        "anthropic.com/news",
+        "aisi.gov.uk/blog",
+        "nist.gov/caisi",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "arXiv cs.CR via paper-scan.ts",
+        "Hugging Face Daily Papers via paper-scan.ts",
+        "YouTube channels via talk-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "bloom.security/blog",
+        "github.blog changelog"
+      ],
+      "windowDays": 7
     }
   ]
 }
