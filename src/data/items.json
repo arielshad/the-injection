@@ -1,7 +1,126 @@
 {
-  "generatedAt": "2026-10-15T23:10:35.388Z",
+  "generatedAt": "2026-10-16T00:15:32.224Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "previdian-langflow-mcp-exploitation",
+      "categories": [
+        "incident",
+        "vulnerability"
+      ],
+      "title": "Langflow: attackers exploit the MCP stdio command flaw in the wild",
+      "org": "Previdian",
+      "date": "2026-10-15",
+      "url": "https://previdian.com/CVE-2026-105740",
+      "summary": "Previdian's sensors logged 1,674 attempts to exploit CVE-2026-105740, a command injection in Langflow's MCP stdio transport, from 28 IP addresses. Payloads read Langflow's own secrets. The fix shipped in Langflow 1.9.0 in September.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "credential-theft",
+        "mcp",
+        "threat-intel",
+        "langflow"
+      ],
+      "affected": [
+        "Langflow"
+      ],
+      "cve": "CVE-2026-105740",
+      "cvss": 9.9,
+      "credits": [
+        {
+          "name": "Previdian"
+        },
+        {
+          "name": "Ryan Dewhurst",
+          "org": "Previdian"
+        },
+        {
+          "name": "AbdrrahimDahmani"
+        }
+      ],
+      "explainer": {
+        "tagline": "Langflow instances below 1.9.0 are under active attack, with payloads that read the platform's secret key and superuser password.",
+        "whatHappened": "Previdian reported on October 15, 2026 that attackers are exploiting CVE-2026-105740 in Langflow, an open-source platform for building AI agents and workflows. Previdian's sensors recorded 1,674 exploitation attempts from 28 IP addresses across 16 countries, first seen on September 19 and still arriving on October 16. Previdian marks the exploitation status as confirmed and notes the flaw is not on CISA's Known Exploited Vulnerabilities catalog.",
+        "howItWorks": "OS command injection sits in Langflow's Model Context Protocol stdio transport. Any logged-in user, including a non-admin, can register an MCP server whose user-supplied command field Langflow passes to bash -c with no validation, allowlist or sandbox, according to the project's advisory. The stored command runs whenever the server list is fetched, so the configuration acts as a backdoor that fires again for other users and for admins. The env field also accepts injected variables such as LD_PRELOAD or PATH.",
+        "whoIsAffected": "Langflow releases before 1.9.0 are affected, and the project's advisory lists the pip package langflow at 1.8.3. Instances reachable from the internet are the exposed ones, because the attacks Previdian saw began with a login: in its sensor the attackers checked the Langflow version, tried the auto-login endpoint, then signed in with common credentials.",
+        "whatToDo": "Upgrade Langflow to 1.10.3 or later. Version 1.9.0 closes CVE-2026-105740, but a second critical command injection in the same MCP stdio transport, CVE-2026-105697, was not fixed until 1.10.3. Previdian also advises disabling auto-login, enforcing strong unique passwords, confirming which instances are reachable from the internet, and reviewing authentication logs and requests to the MCP servers endpoint listed below."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Langflow before 1.9.0 (advisory lists langflow 1.8.3)"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Langflow 1.9.0; CVE-2026-105697 needs 1.10.3"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-105740"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "9.9 (Langflow advisory)"
+        },
+        {
+          "label": "Attack type",
+          "value": "OS command injection via the MCP stdio command field"
+        },
+        {
+          "label": "Observed",
+          "value": "1,674 attempts, 28 IP addresses, 16 countries, September 19 to October 16 (Previdian sensors)"
+        },
+        {
+          "label": "Status",
+          "value": "Exploitation confirmed by Previdian; not on CISA KEV"
+        },
+        {
+          "label": "Found by",
+          "value": "AbdrrahimDahmani reported the flaw; Previdian tracked the exploitation"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Langflow version fixes CVE-2026-105740?",
+          "a": "Langflow 1.9.0 fixes CVE-2026-105740, according to the project's advisory, which lists the pip package langflow at 1.8.3 as affected. Upgrading only that far is not enough, though: a second critical command injection in the same MCP stdio transport, CVE-2026-105697, was patched in Langflow 1.10.3, langflow-base 0.10.3 and lfx 1.10.3."
+        },
+        {
+          "q": "How do I check whether my Langflow instance was attacked?",
+          "a": "Review authentication logs and requests to /api/v2/mcp/servers/ on each Langflow instance, which is where Previdian points defenders. Previdian reports that attackers checked the Langflow version, tried the /api/v1/auto_login endpoint, then signed in with common credentials before reaching the vulnerable endpoint. Stored MCP server entries that nobody added are the sign of a planted backdoor."
+        },
+        {
+          "q": "What did the attackers try to steal from Langflow?",
+          "a": "Payloads aimed at Langflow's own secrets, according to Previdian's findings as reported by The Hacker News: attackers read environment variables including LANGFLOW_SECRET_KEY and LANGFLOW_SUPERUSER_PASSWORD and sent them to an external host. Other attempts ran Docker commands to reach the host filesystem and read /etc/passwd, alongside simple probes such as id and whoami."
+        },
+        {
+          "q": "Is CVE-2026-105740 on the CISA Known Exploited Vulnerabilities list?",
+          "a": "CVE-2026-105740 is not on CISA's Known Exploited Vulnerabilities catalog, according to Previdian's alert page, even though Previdian marks its exploitation status as confirmed. Previdian's sensors first saw attempts on September 19, 2026 and were still seeing them on October 16. Absence from the KEV catalog does not mean the attempts stopped."
+        }
+      ],
+      "links": [
+        {
+          "label": "Previdian Alert",
+          "url": "https://previdian.com/CVE-2026-105740"
+        },
+        {
+          "label": "Langflow Advisory",
+          "url": "https://github.com/langflow-ai/langflow/security/advisories/GHSA-7w94-79vh-5mr2"
+        },
+        {
+          "label": "Langflow 1.9.0",
+          "url": "https://github.com/langflow-ai/langflow/releases/tag/v1.9.0"
+        },
+        {
+          "label": "CVE-2026-105697",
+          "url": "https://osv.dev/vulnerability/CVE-2026-105697"
+        },
+        {
+          "label": "Exploitation Report",
+          "url": "https://thehackernews.com/2026/10/langflows-critical-authenticated-rce.html"
+        }
+      ],
+      "publishDate": "2026-10-16T00:15:32.224Z"
+    },
     {
       "id": "vulncheck-xoscar-cloudpickle-rce",
       "categories": [
