@@ -5892,6 +5892,65 @@
         "msrc.microsoft.com/blog"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t161141z",
+      "timestamp": "2026-10-16T16:11:41.175Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, the MITRE CVE API, VulnCheck, Anthropic news, Unit 42, AIR Security, Zenity Labs, Embrace The Red, Socket, MSRC, OWASP GenAI, Simon Willison, Hugging Face's blog, Hacker News front page and Show HN, github.com/trending daily and weekly, repo-scan (13 queries, 2 candidates), paper-scan (9 queries, 68 arXiv candidates) and talk-scan (24 videos), and added one item: CVE-2026-88755 in Z.ai ZCode, where opening a repository connects the client to the MCP servers that repository declares. The gist that first described it was created October 14 and MITRE published the record today. Left out because the original disclosure date falls outside the window: the MCP Python SDK session-exhaustion flaw (CVE-2026-59951, maintainer advisory of September 30) and the Wheels CLI MCP command injection (CVE-2026-111451, vendor advisory of October 1). Left out on the bar: the DoubleScale CRM upload flaw (MCP appears only in the product name), Anthropic's October 15 note on embedding METR evaluators (access terms, not a security finding), and morluto/rea, the agentic reverse-engineering tool that took the top of GitHub trending this week, which was created in April with its first release in July and is out of scope on topic. Both repo-scan candidates are new, licensed and not forks but show one repo-bar signal each (zero-lab-ai/skills at 53 stars, scs0209/laya-guard at 27), GitHub trending held no AI security repo, the only two-signal arXiv paper is already in the feed as LatentRiskBench, and talk-scan's only AI security videos are the Embrace The Red clips already linked on the Visual Studio Copilot item. The NVD detail page served its home page to the fetcher, so the CVE facts here come from the MITRE record and the GitHub advisory; r/netsec could not be fetched and koi.security now redirects to a Palo Alto Networks product page with no research index.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "zcode-workspace-mcp-autotrust",
+          "title": "ZCode: opening a repo connects to the MCP servers it declares",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "First public write-up and CVE record both inside the window, a named reporter, a documented proof of concept against a shipping coding agent, and a concrete check a defender can run on any cloned repository."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "MITRE CVE API (cveawg)",
+        "VulnCheck advisories",
+        "GitHub Gist API",
+        "zcode.z.ai changelog",
+        "anthropic.com/news",
+        "Unit 42",
+        "AIR Security",
+        "Zenity Labs",
+        "embracethered.com",
+        "Socket",
+        "MSRC blog",
+        "OWASP GenAI news",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "arXiv (paper-scan)",
+        "Hugging Face Daily Papers (paper-scan)",
+        "repo-scan.json",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }

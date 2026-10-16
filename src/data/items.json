@@ -1,7 +1,103 @@
 {
-  "generatedAt": "2026-10-16T15:13:04.012Z",
+  "generatedAt": "2026-10-16T16:11:41.175Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "zcode-workspace-mcp-autotrust",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "ZCode: opening a repo connects to the MCP servers it declares",
+      "org": "lkloliver",
+      "date": "2026-10-14",
+      "url": "https://gist.github.com/lkloliver/aac8dcf8a53fc4b3c1b0a5dfbf36ef68",
+      "summary": "CVE-2026-88755 lets a crafted repository run commands in Z.ai ZCode 3.11.2.6792, which connects to MCP servers declared in a repo's own .zcode/config.json without asking. The reporter published a proof of concept on October 14.",
+      "severity": "medium",
+      "tags": [
+        "rce",
+        "mcp",
+        "tool-poisoning",
+        "coding-agents",
+        "zcode",
+        "zhipu-ai"
+      ],
+      "affected": [
+        "Z.ai ZCode"
+      ],
+      "cve": "CVE-2026-88755",
+      "credits": [
+        {
+          "name": "lkloliver",
+          "url": "https://github.com/lkloliver"
+        }
+      ],
+      "explainer": {
+        "tagline": "ZCode merges a repository's own MCP server list into its configuration and connects to it when the project opens, with no approval prompt.",
+        "whatHappened": "A researcher using the handle lkloliver published a write-up on October 14, 2026 on a trust boundary flaw in Z.ai ZCode, the desktop coding agent made by Beijing Zhipu Huazhang Technology. MITRE published the finding as CVE-2026-88755 on October 16 with no CVSS score. The report says a test on Windows 11 x64 on September 8 started calc.exe and sent a credential file out in a tool call after a crafted repository was opened.",
+        "howItWorks": "Opening a workspace makes ZCode read .zcode/config.json from the repository and merge its MCP server entries into the client's own server list. For a stdio server the client starts the declared command directly, so the repository picks a process for the client to run. Tool descriptions from those servers then enter the agent's context, where the report says a poisoned description can ask the agent to send local credential files to an attacker's server. ZCode holds a workspace trust state for hooks, the report adds, and does not apply it to MCP servers.",
+        "whoIsAffected": "ZCode 3.11.2.6792 on Windows x64 is the only build the report names. Z.ai's public changelog through 3.15.3, released October 13, records no change to how ZCode trusts MCP servers declared in a workspace. Developers who clone and open an untrusted repository or a pull request in ZCode sit in the exposed path.",
+        "whatToDo": "Look for a .zcode/config.json file and read its MCP entries before opening a cloned project in ZCode, and keep untrusted repositories in a throwaway virtual machine or container. No fix for this flaw appears in the Z.ai changelog, so treat a repository as able to start a process on open."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Z.ai ZCode 3.11.2.6792 on Windows x64, the build the reporter tested"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-88755, published by MITRE on 2026-10-16, no CVSS score published"
+        },
+        {
+          "label": "Attack type",
+          "value": "Repo-declared MCP servers connected without approval, then command execution and credential theft"
+        },
+        {
+          "label": "Found by",
+          "value": "lkloliver, independent, test dated 2026-09-08"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Write-up published 2026-10-14, CVE record published 2026-10-16"
+        },
+        {
+          "label": "Status",
+          "value": "No fix listed in the ZCode changelog through 3.15.3 of 2026-10-13, and the report records no vendor response"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Z.ai ZCode patched against CVE-2026-88755?",
+          "a": "Z.ai's public changelog through version 3.15.3, dated October 13, 2026, lists no fix for MCP servers declared in a workspace configuration, and the reporter's write-up records no vendor response. ZCode users should assume the behavior is still present and avoid opening untrusted repositories until Z.ai states otherwise. Z.ai takes vulnerability reports through its own security response center."
+        },
+        {
+          "q": "Which ZCode version did the researcher test?",
+          "a": "ZCode 3.11.2.6792 on Windows 11 x64 is the only build named in the report, tested on September 8, 2026. Z.ai has since shipped its 3.14 and 3.15 releases, reaching 3.15.3 on October 13, 2026. The report does not say whether newer builds behave differently, so a defender cannot read the version number alone as a fix."
+        },
+        {
+          "q": "How can a team check whether a repository targets ZCode?",
+          "a": "Searching a cloned repository for a .zcode/config.json file shows whether the project declares MCP servers to ZCode, and reading its entries shows which commands a stdio server would start. Reviewers should treat that file like a build script, because the report says ZCode merges it into the client configuration as soon as the workspace opens."
+        }
+      ],
+      "links": [
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://gist.github.com/lkloliver/aac8dcf8a53fc4b3c1b0a5dfbf36ef68"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-88755"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-2vx4-m2rp-32rx"
+        },
+        {
+          "label": "ZCode Changelog",
+          "url": "https://zcode.z.ai/en/changelog"
+        }
+      ],
+      "publishDate": "2026-10-16T16:11:41.175Z"
+    },
     {
       "id": "noma-sneakpeek-claude-desktop-preview",
       "categories": [
