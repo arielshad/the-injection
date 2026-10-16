@@ -6288,6 +6288,76 @@
         "github.blog changelog"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t221406z",
+      "timestamp": "2026-10-16T22:14:06.187Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub and n8n advisories, VulnCheck, Embrace The Red, Zenity, AIR Security, JFrog, Datadog, Socket, ReversingLabs, Trail of Bits, NCC Group, Noma, Straiker, Check Point, Anthropic, OpenAI alignment, UK AISI, CAISI, OWASP GenAI, Hugging Face blog, papers and models, arXiv cs.CR by hand, repo-scan (13 queries, 2 candidates), github.com/trending and talk-scan (22 channels), and added one item: the Fireworks AI evaluation job credential incident. paper-scan.ts failed with every arXiv query erroring, so arXiv was searched by hand; MSRC's Security Update Guide, the Unit 42 research index and r/netsec did not render for the fetcher.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "fireworks-eval-job-secret-exposure",
+          "title": "Fireworks AI: stolen internal credentials exposed customer eval job secrets",
+          "category": "incident",
+          "severity": "high",
+          "note": "A confirmed intrusion at a widely used inference platform, disclosed in the vendor's own bulletin inside the window, with concrete rotation steps that affected customers must carry out themselves."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "n8n security advisories",
+        "VulnCheck advisories",
+        "embracethered.com",
+        "Zenity Labs",
+        "AIR Security",
+        "JFrog Security Research",
+        "Datadog Security Labs",
+        "Socket blog",
+        "ReversingLabs blog",
+        "Trail of Bits blog",
+        "NCC Group research",
+        "Noma Security blog",
+        "Straiker blog",
+        "Check Point Research",
+        "HiddenLayer research",
+        "Wiz blog",
+        "Lakera blog",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "aisi.gov.uk",
+        "NIST CAISI",
+        "OWASP GenAI Security Project",
+        "Hugging Face blog",
+        "huggingface.co/papers",
+        "Hugging Face models (prompt-injection, by created)",
+        "arXiv cs.CR recent listing",
+        "github.com/trending (weekly)",
+        "repo-scan.json",
+        "talk-scan (22 channels)",
+        "Hacker News front page and Show HN",
+        "Fireworks AI security bulletins"
+      ],
+      "windowDays": 7
     }
   ]
 }

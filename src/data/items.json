@@ -1,7 +1,94 @@
 {
-  "generatedAt": "2026-10-16T21:13:00.767Z",
+  "generatedAt": "2026-10-16T22:14:06.187Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "fireworks-eval-job-secret-exposure",
+      "categories": [
+        "incident"
+      ],
+      "title": "Fireworks AI: stolen internal credentials exposed customer eval job secrets",
+      "org": "Fireworks AI",
+      "date": "2026-10-09",
+      "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident",
+      "summary": "Fireworks AI says an unauthorized third party used internal Fireworks credentials to read environment variables from evaluation jobs in a limited number of customer accounts, likely capturing API keys and tokens stored there as secrets.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "fireworks-ai"
+      ],
+      "affected": [
+        "Fireworks AI"
+      ],
+      "credits": [
+        {
+          "name": "Fireworks AI security team",
+          "org": "Fireworks AI"
+        }
+      ],
+      "explainer": {
+        "tagline": "Fireworks AI disclosed that an attacker used internal credentials to reach secrets stored in customer evaluation jobs.",
+        "whatHappened": "Fireworks AI identified unauthorized use of internal Fireworks credentials on October 6, 2026, and published a security bulletin on October 9. The company says an unauthorized third party accessed environment variables used in evaluation jobs in a limited number of customer accounts. Fireworks has engaged an outside cybersecurity firm and lists the incident as under active monitoring.",
+        "howItWorks": "Evaluation jobs on the Fireworks platform receive configuration through environment variables, and customers store API keys and tokens there as secrets. Holding valid internal Fireworks credentials, the actor could read those variables in affected accounts. Fireworks states no root cause and says it is reviewing how secrets are made available to evaluation jobs.",
+        "whoIsAffected": "Affected accounts are a limited number of Fireworks customers who stored secrets in environment variables used by evaluation jobs. Fireworks notified those customers directly by email, naming the credentials that need action. Customers who received no notice were not identified as affected based on the investigation so far.",
+        "whatToDo": "Replace any revoked Fireworks API keys and update the applications that use them, because calls with revoked keys will fail authentication. Rotate every third-party credential named in the notice with its issuing provider, since deleting the stored secret does not invalidate it. Review provider activity for unauthorized reads, downloads or changes, and report unfamiliar API keys, users, evaluators, training jobs or datasets to Fireworks."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "A limited number of Fireworks AI customer accounts"
+        },
+        {
+          "label": "Exposed",
+          "value": "Environment variables in evaluation jobs, including API keys and tokens stored as secrets"
+        },
+        {
+          "label": "No evidence of access",
+          "value": "Customer models, datasets, training data, inference traffic, personal information"
+        },
+        {
+          "label": "Detected",
+          "value": "October 6, 2026, by Fireworks AI"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 9, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Active monitoring, outside cybersecurity firm engaged"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Was my Fireworks account affected by the October 2026 incident?",
+          "a": "Fireworks AI notified every customer it identified as affected by direct email, naming the specific credentials that require action. Customers who did not receive a notice were not identified as affected based on the investigation to date, and Fireworks says they need no incident-specific action. Anyone unsure of their status can contact the address given in the bulletin."
+        },
+        {
+          "q": "Were prompts or model outputs exposed in the Fireworks incident?",
+          "a": "Fireworks AI reports no evidence that customer models, datasets, training data, inference traffic or personal information were accessed within its security perimeter. The company also states that its platform runs with zero data retention and does not store prompts or outputs by default. Review of calls made with the exposed credentials was still ongoing when the bulletin was published."
+        },
+        {
+          "q": "Do I need to rotate third-party API keys stored in Fireworks?",
+          "a": "Rotation is required for every third-party credential named in the Fireworks notice, and Fireworks says to rotate them even when no suspicious activity appears. Deleting a stored secret from the platform does not invalidate the credential at the issuing provider, so the key must be rotated there. Fireworks can supply secret names and credential fingerprints through a secure channel."
+        },
+        {
+          "q": "What caused the Fireworks evaluation job secret exposure?",
+          "a": "Fireworks AI has not published a root cause for the October 2026 incident. The bulletin states only that an unauthorized third party made use of internal Fireworks credentials, and that the company is reviewing how secrets are made available to evaluation jobs. Fireworks has engaged an outside cybersecurity firm and lists the incident status as active monitoring."
+        }
+      ],
+      "links": [
+        {
+          "label": "Security Bulletin",
+          "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident"
+        },
+        {
+          "label": "Fireworks API Key Docs",
+          "url": "https://docs.fireworks.ai/getting-started/quickstart"
+        }
+      ],
+      "publishDate": "2026-10-16T22:14:06.187Z"
+    },
     {
       "id": "bloom-slugfest",
       "categories": [
