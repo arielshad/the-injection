@@ -6133,6 +6133,94 @@
         "talk-scan (22 channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t201925z",
+      "timestamp": "2026-10-16T20:19:25.061Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (MCP, agent and prompt-injection queries), VulnCheck, MSRC, Anthropic, OpenAI (403 to scripts), AISI, NIST CAISSI, Embrace The Red, AIR Security, Zenity Labs, HiddenLayer, Pillar Security, Trail of Bits, NCC Group, Check Point, Socket, ReversingLabs, JFrog, Snyk, Lakera, Wiz, Hugging Face blog and papers, repo-scan (13 queries, 2 candidates), GitHub trending, Show HN and Hacker News. Added four items: a CVE published today for the Claude Agent SDK resume flaw, indirect prompt injection that survives context compaction in DeepSeek Harness, an unpatched prompt-injection-to-RCE chain in iFlytek AstronRPA, and joint NIST CAISSI, NSA and CISA incident-readiness practices. arXiv returned HTTP 429 to every paper-scan query and to manual queries, so papers were checked through Hugging Face Daily Papers and web search only; no paper met the two-signal bar. Neither repo-scan candidate (zero-lab-ai/skills, scs0209/laya-guard) showed two repo-bar signals. The two Embrace The Red videos on CVE-2026-103572 are already linked on that item.",
+      "counts": {
+        "added": 4,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "claude-agent-sdk-resume-argument-injection",
+          "title": "Claude Agent SDK: a dash in a resume id could run commands",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "CVE-2026-96620 was published by GitHub today with a 9.2 CVSS v4 score, bringing a critical argument injection in Anthropic's own Python agent SDK into every scanner that reads the advisory database."
+        },
+        {
+          "id": "dsh-compaction-injection-persistence",
+          "title": "DeepSeek Harness: injected orders survive context compaction",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A new mechanism, not another injection sink: the payload survives the compaction checkpoint that becomes the resumed session's whole context, and the user never sees it."
+        },
+        {
+          "id": "astronrpa-smart-chat-ipc-rce",
+          "title": "AstronRPA: text on a web page makes the AI chat run commands",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A full prompt-injection-to-command-execution chain in a shipping desktop AI client, with the CVE published inside the window and no fixed version available."
+        },
+        {
+          "id": "caissi-si-incident-readiness-practices",
+          "title": "CAISSI, NSA and CISA: ten practices for agent incidents",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "The first joint US government guidance on responding to uninstructed agent action during training and evaluation, the failure mode behind several incidents already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "UK AI Security Institute",
+        "NIST CAISSI",
+        "OWASP GenAI Security Project",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "hiddenlayer.com research",
+        "pillar.security/blog",
+        "blog.trailofbits.com",
+        "NCC Group research",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "jfrog.com/blog",
+        "snyk.io/blog",
+        "lakera.ai/blog",
+        "wiz.io/blog",
+        "simonwillison.net",
+        "Hugging Face Daily Papers",
+        "huggingface.co/blog",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "talk-scan.ts (22 YouTube channels)",
+        "cveawg.mitre.org CVE records"
+      ],
+      "windowDays": 7
     }
   ]
 }

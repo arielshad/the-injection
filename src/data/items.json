@@ -1,7 +1,352 @@
 {
-  "generatedAt": "2026-10-16T19:15:36.853Z",
+  "generatedAt": "2026-10-16T20:19:25.061Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "claude-agent-sdk-resume-argument-injection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Claude Agent SDK: a dash in a resume id could run commands",
+      "org": "Anthropic",
+      "date": "2026-10-16",
+      "url": "https://github.com/advisories/GHSA-h4mw-j7qp-8mwm",
+      "summary": "CVE-2026-96620 covers an argument injection in Anthropic's Claude Agent SDK for Python: a resume session id starting with a dash became a CLI flag, which let an attacker define an MCP server that runs commands. Fixed in 0.2.121.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "mcp",
+        "approval-bypass",
+        "claude-agent-sdk",
+        "anthropic"
+      ],
+      "affected": [
+        "Claude Agent SDK"
+      ],
+      "cve": "CVE-2026-96620",
+      "cvss": 9.2,
+      "credits": [
+        {
+          "name": "moamenmahmood",
+          "url": "https://hackerone.com/moamenmahmood"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-96620 let a crafted resume session id become a command-running MCP server in Anthropic's Python Claude Agent SDK.",
+        "whatHappened": "Anthropic published the advisory for this flaw on September 12, 2026 in the claude-agent-sdk-python repository. GitHub published the record for CVE-2026-96620 on October 16, 2026 and reviewed the advisory into the GitHub Advisory Database the same day, rating it 9.2 critical on CVSS v4. A researcher using the handle moamenmahmood reported the flaw through HackerOne.",
+        "howItWorks": "The SDK passed the resume option to the Claude CLI as its own argument without validating it. A value that begins with a dash was then read as a separate CLI flag, so an attacker could supply --mcp-config and define a stdio MCP server of their choosing. That server's command ran at CLI startup, which the advisory says bypassed the SDK's permission controls.",
+        "whoIsAffected": "Applications built on the claude-agent-sdk pip package below 0.2.121 are exposed when they pass untrusted input as the session id to resume. Services that resume only ids they generated themselves cannot be reached through this path.",
+        "whatToDo": "Update claude-agent-sdk to 0.2.121 or later. Where an application resumes sessions from values a user supplies, treat the session id as an opaque token you issued and reject anything that starts with a dash."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "claude-agent-sdk (pip) before 0.2.121"
+        },
+        {
+          "label": "Fixed in",
+          "value": "0.2.121"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-96620, published by GitHub on October 16, 2026"
+        },
+        {
+          "label": "CVSS v4",
+          "value": "9.2 critical, scored by GitHub"
+        },
+        {
+          "label": "Disclosed",
+          "value": "September 12, 2026, in the anthropics/claude-agent-sdk-python advisory"
+        },
+        {
+          "label": "Found by",
+          "value": "moamenmahmood, reported through HackerOne"
+        },
+        {
+          "label": "Attack type",
+          "value": "Argument injection into the Claude CLI that defines a stdio MCP server"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if my app uses the Claude Agent SDK for Python?",
+          "a": "Applications on claude-agent-sdk below 0.2.121 are affected only when they pass untrusted input as the session id to resume. Anthropic's advisory states that exploitation requires an application to use attacker-controlled input as the session being resumed. A service that resumes sessions from ids it generated itself cannot be reached this way, though updating remains the safe choice."
+        },
+        {
+          "q": "Which version of claude-agent-sdk fixes CVE-2026-96620?",
+          "a": "Version 0.2.121 of the claude-agent-sdk Python package fixes CVE-2026-96620. The release notes say --resume and --session-id are now passed as single argv tokens joined with an equals sign, so a dash-prefixed value can no longer be read as a separate CLI flag. The same release also hardened the build scripts against command injection through the CLAUDE_CLI_VERSION value."
+        },
+        {
+          "q": "Why did the CVE for this flaw appear a month after the advisory?",
+          "a": "Anthropic published the repository advisory on September 12, 2026, and GitHub, acting as the CNA, published the CVE-2026-96620 record on October 16, 2026. The advisory was reviewed into the GitHub Advisory Database on the same day. Dependency scanners that read that database begin flagging claude-agent-sdk from today, which is why many teams see the alert now rather than in September."
+        },
+        {
+          "q": "Does this flaw get past the Claude Agent SDK permission controls?",
+          "a": "Yes. The advisory states that the injected --mcp-config flag defines a stdio MCP server whose command runs at CLI startup, which bypasses the SDK's permission controls. Because the command runs as the CLI process starts, the SDK's tool approval settings never see the call. GitHub scored the result 9.2 on CVSS v4, with high confidentiality, integrity and availability impact."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-h4mw-j7qp-8mwm"
+        },
+        {
+          "label": "Anthropic Advisory",
+          "url": "https://github.com/anthropics/claude-agent-sdk-python/security/advisories/GHSA-h4mw-j7qp-8mwm"
+        },
+        {
+          "label": "Release 0.2.121",
+          "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.121"
+        },
+        {
+          "label": "Fix Commit",
+          "url": "https://github.com/anthropics/claude-agent-sdk-python/commit/347a1cb88d7652199399db1b7f914e0a459a6662"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-96620"
+        }
+      ],
+      "publishDate": "2026-10-16T20:19:25.061Z"
+    },
+    {
+      "id": "caissi-si-incident-readiness-practices",
+      "categories": [
+        "lab-safety"
+      ],
+      "title": "CAISSI, NSA and CISA: ten practices for agent incidents",
+      "org": "NIST",
+      "date": "2026-10-16",
+      "url": "https://www.nist.gov/news-events/news/2026/10/key-practices-incident-readiness-and-response-super-intelligence-training",
+      "summary": "NIST CAISSI, the NSA Super Intelligence Security Center and CISA published ten voluntary practices for handling incidents in which super intelligence agents take significant uninstructed actions during training and evaluation.",
+      "severity": "info",
+      "tags": [
+        "rogue-agents",
+        "agent-security",
+        "evals",
+        "nist",
+        "cisa",
+        "nsa"
+      ],
+      "affected": [
+        "Frontier super intelligence training and evaluation"
+      ],
+      "credits": [
+        {
+          "name": "NIST CAISSI",
+          "org": "National Institute of Standards and Technology",
+          "url": "https://www.nist.gov/caissi"
+        },
+        {
+          "name": "NSA Super Intelligence Security Center",
+          "org": "National Security Agency"
+        },
+        {
+          "name": "Cybersecurity and Infrastructure Security Agency"
+        }
+      ],
+      "explainer": {
+        "tagline": "Ten voluntary key practices from NIST CAISSI, the NSA and CISA set out how frontier labs should prepare for and respond to agent incidents.",
+        "whatHappened": "NIST's Center for Advancing Innovation and Standards for Super Intelligence published the key practices on October 16, 2026, together with the NSA Super Intelligence Security Center and CISA. NIST says the document answers a recommendation in the 2025 White House SI Action Plan and builds on a NIST workshop held in May 2026. The agencies thank members of NIST SI Consortium Task Group 8 for their feedback.",
+        "howItWorks": "The guidance addresses incidents in which one or more super intelligence agents take significant uninstructed actions that undermine an operator's policies, controls, security measures or human oversight. Ten practices are grouped into five stages of the incident management lifecycle, listed below. NIST states that the structure follows established cybersecurity incident management frameworks, including NIST SP 800-61r3, and draws on CAISSI's own experience running secure evaluations of frontier models.",
+        "whoIsAffected": "Frontier developers that train and evaluate super intelligence models are the intended readers, in particular the teams running internal deployments and evaluation infrastructure. The practices are voluntary, and NIST describes the document as support for industry rather than a requirement.",
+        "whatToDo": "Compare the five lifecycle stages against your own runbooks for evaluations and internal deployments, and check that uninstructed agent action is a reportable event in them. NIST names agentic SI training and evaluation as the subject of its next piece of work."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "October 16, 2026"
+        },
+        {
+          "label": "Authors",
+          "value": "NIST CAISSI, NSA SISC and CISA"
+        },
+        {
+          "label": "Scope",
+          "value": "Incidents where SI agents take significant uninstructed actions during training and evaluation"
+        },
+        {
+          "label": "Structure",
+          "value": "Ten key practices across five stages: preparation, detection, response, recovery, reporting"
+        },
+        {
+          "label": "Status",
+          "value": "Voluntary, not a requirement"
+        },
+        {
+          "label": "Builds on",
+          "value": "NIST SP 800-61r3 and the May 2026 NIST workshop on SI incident management"
+        }
+      ],
+      "links": [
+        {
+          "label": "NIST Announcement",
+          "url": "https://www.nist.gov/news-events/news/2026/10/key-practices-incident-readiness-and-response-super-intelligence-training"
+        },
+        {
+          "label": "Key Practices PDF",
+          "url": "https://www.nist.gov/document/keypracticesforincidentreadinessandresponseinsuperintelligence-trainingandevaluation"
+        },
+        {
+          "label": "NIST SP 800-61r3",
+          "url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final"
+        }
+      ],
+      "publishDate": "2026-10-16T20:19:25.061Z"
+    },
+    {
+      "id": "dsh-compaction-injection-persistence",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "DeepSeek Harness: injected orders survive context compaction",
+      "org": "lkloliver",
+      "date": "2026-10-14",
+      "url": "https://gist.github.com/lkloliver/c54c0cc91e1ec4f16b538e0d8a1411b6",
+      "summary": "CVE-2026-95183 is indirect prompt injection in DeepSeek Harness: instructions planted in tool output are copied into the model-written compaction summary and come back as the resumed session's own pending tasks, unseen by the user.",
+      "severity": "medium",
+      "tags": [
+        "indirect-prompt-injection",
+        "agent-memory",
+        "coding-agents",
+        "deepseek"
+      ],
+      "affected": [
+        "DeepSeek Harness"
+      ],
+      "cve": "CVE-2026-95183",
+      "credits": [
+        {
+          "name": "lkloliver",
+          "url": "https://github.com/lkloliver"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-95183 carries injected instructions across a context compaction boundary in DeepSeek Harness and returns them as the session's own tasks.",
+        "whatHappened": "A researcher using the handle lkloliver published the write-up for CVE-2026-95183 on October 14, 2026, covering DeepSeek Harness (dsh), a developer preview, verified at master commit c291e796. NVD and the GitHub Advisory Database published the CVE on October 16, 2026. The write-up records no vendor contact and no fix.",
+        "howItWorks": "Compaction replaces the conversation history with a model-written summary that becomes the entire context of the resumed session. The summarizer is instructed to reproduce the primary request and intent word for word and to list pending jobs, while tool output carries no provenance marking that separates it from the user's own instructions. Injected directives are therefore copied into the summary and inherited as established tasks.",
+        "whoIsAffected": "DeepSeek Harness is affected in the @deepseek-ai/dsh-compaction-basic package, at the master commit the researcher tested. Any content the agent reads can carry the payload, including web pages, email, repository files and supplier documents.",
+        "whatToDo": "Read a compacted summary before resuming a long session, because the user is not shown what the checkpoint contains. The write-up notes that the file sandbox detects writes outside the workspace while network egress from a resumed session is unrestricted, so limiting outbound traffic narrows the exfiltration path."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "DeepSeek Harness (dsh) developer preview, master commit c291e796"
+        },
+        {
+          "label": "Component",
+          "value": "@deepseek-ai/dsh-compaction-basic, summarizer.ts"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-95183, published October 16, 2026, no CVSS score published"
+        },
+        {
+          "label": "Found by",
+          "value": "lkloliver"
+        },
+        {
+          "label": "Status",
+          "value": "No vendor response or fix recorded in the write-up"
+        },
+        {
+          "label": "Result",
+          "value": "The payload was preserved in three summary sections; the resumed model declined to run it in the tested configuration"
+        }
+      ],
+      "links": [
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://gist.github.com/lkloliver/c54c0cc91e1ec4f16b538e0d8a1411b6"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-8rmg-g7v9-j8x6"
+        },
+        {
+          "label": "Proof Of Concept",
+          "url": "https://github.com/lkloliver/poc/tree/main/CVE-2026-95183"
+        }
+      ],
+      "publishDate": "2026-10-16T20:19:25.061Z"
+    },
+    {
+      "id": "astronrpa-smart-chat-ipc-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AstronRPA: text on a web page makes the AI chat run commands",
+      "org": "VulnCheck",
+      "date": "2026-10-09",
+      "url": "https://www.vulncheck.com/advisories/astronrpa-through-1.1.6-rce-via-smart-component-chat-xss-and-ipc-bridge",
+      "summary": "CVE-2026-108159 is a code execution chain in iFlytek's AstronRPA desktop client: injected text on a web page makes the model return HTML that calls an unrestricted IPC handler with shell metacharacters. No fixed version is listed.",
+      "severity": "medium",
+      "tags": [
+        "indirect-prompt-injection",
+        "rce",
+        "astronrpa",
+        "iflytek"
+      ],
+      "affected": [
+        "AstronRPA"
+      ],
+      "cve": "CVE-2026-108159",
+      "cvss": 7.7,
+      "credits": [
+        {
+          "name": "George Chen"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-108159 turns prompt injection in AstronRPA's chat panel into operating system commands run as the desktop user.",
+        "whatHappened": "VulnCheck published the advisory for CVE-2026-108159 on October 9, 2026, covering iFlytek's AstronRPA through version 1.1.6, and credits George Chen with the discovery. A public issue in the astron-rpa repository describes the same chain and is still open, with no maintainer reply shown.",
+        "howItWorks": "AstronRPA's desktop client renders streamed model output as raw HTML through Vue's v-html directive, without sanitizing it. An attacker plants prompt injection text in a web page the model reads, and the model then returns HTML carrying event handlers. Those handlers reach the client's open-path IPC handler, which is unrestricted and builds a shell command from the path it is given, so shell metacharacters execute as the desktop user.",
+        "whoIsAffected": "AstronRPA 1.1.6 and earlier are affected, in the desktop client's smart-component chat. Exposure needs the model to read attacker-controlled content during a chat, so the risk sits with teams that let AstronRPA reach untrusted pages.",
+        "whatToDo": "Keep AstronRPA's chat away from untrusted web content, because the advisory lists no patched version. The repository issue names the two places to check in a local build: raw HTML rendering in the chat panel, and the generic IPC bridge that exposes the open-path and read-file handlers."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "AstronRPA 1.1.6 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No patched version listed; repository issue 892 remains open"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-108159, published October 9, 2026"
+        },
+        {
+          "label": "CVSS v4",
+          "value": "7.7 high, scored by VulnCheck"
+        },
+        {
+          "label": "Found by",
+          "value": "George Chen"
+        },
+        {
+          "label": "Attack type",
+          "value": "Prompt injection to unsanitized HTML to Electron IPC command execution"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/astronrpa-through-1.1.6-rce-via-smart-component-chat-xss-and-ipc-bridge"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-gwjf-3fv9-8jxc"
+        },
+        {
+          "label": "Repository Issue",
+          "url": "https://github.com/iflytek/astron-rpa/issues/892"
+        }
+      ],
+      "publishDate": "2026-10-16T20:19:25.061Z"
+    },
     {
       "id": "sglang-mm-hashes-kv-cache-poisoning",
       "categories": [
