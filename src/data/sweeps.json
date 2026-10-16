@@ -5687,6 +5687,68 @@
         "talk-scan (YouTube channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261016t131257z",
+      "timestamp": "2026-10-16T13:12:57.973Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, the MITRE CVE API, VulnCheck advisories, Anthropic news, OpenAI's misalignment reports, MSRC, Embrace The Red, AIR Security, Zenity Labs, HiddenLayer, Socket, Unit 42, OX Security, Cloud Security Alliance labs, OWASP GenAI, Simon Willison, Hugging Face blog and Daily Papers, Hacker News front page and Show HN, github.com/trending daily, repo-scan (13 queries, 2 candidates), paper-scan (9 queries, 70 arXiv candidates) and talk-scan (24 videos). Added one item: two VulnCheck advisories of October 12 for EdgeEver, an AI notes app with a native MCP interface, where notebook names, memo titles and templates written through MCP tools ran as script in the desktop app and reached the privileged Electron bridge, fixed in v1.113.0. Left out because the original disclosure date falls outside the window: the Wheels CLI MCP command injection (CVE-2026-111451, published today but a vendor advisory of October 1, already fixed in 4.1.2), NVIDIA NemoClaw CVE-2026-65105 (August), Unit 42's web-based indirect prompt injection telemetry (March 3), the CSA indirect injection research note (April 26) and OX Security's MCP supply chain advisory (April 15). Left out on the bar: the DoubleScale CRM file upload (MCP appears only in the product name, the flaw is a WordPress REST endpoint), the houtini-ai seo-crawler-mcp SSRF (CVSS 2.1, no MCP-specific behavior, no credit) and Anthropic's October 15 note on independent evaluators (evaluator access, not a security finding). No arXiv candidate reached two paper-bar signals: the only two-signal paper is already in the feed as LatentRiskBench, the ToFu MCP fuzzing paper of October 9 releases no code and names no tested server, venue or vendor response, and the CVE in the title of the RL privilege-escalation paper is a JFrog Artifactory flaw from July, not an id assigned for that work. Both repo-scan candidates are new and licensed but show one repo-bar signal each (zero-lab-ai/skills at 53 stars, scs0209/laya-guard at 27), GitHub trending held no AI security repo, and talk-scan's only AI security videos are the Embrace The Red clips already linked on the Visual Studio Copilot item. reddit.com/r/netsec could not be fetched, koi.security now redirects to Palo Alto Networks and serves no research index, and HiddenLayer's index shows no dates.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "edgeever-mcp-stored-xss",
+          "title": "EdgeEver: a note title written through MCP ran script in the desktop app",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Two VulnCheck CVEs inside the window for an AI notes app with a native MCP interface: agent-writable note fields became script that reached the privileged desktop bridge and its session token, and the maintainer documents which parts are fixed and which stay by design."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "MITRE CVE API (cveawg.mitre.org)",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "alignment.openai.com misalignment reports",
+        "MSRC blog",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "hiddenlayer.com innovation hub",
+        "socket.dev/blog",
+        "unit42.paloaltonetworks.com",
+        "ox.security blog",
+        "labs.cloudsecurityalliance.org",
+        "genai.owasp.org",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "Hugging Face Daily Papers (paper-scan)",
+        "arXiv cs.CR (paper-scan, 70 candidates)",
+        "repo-scan.json (13 queries, 2 candidates)",
+        "github.com/trending",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "talk-scan (24 videos)",
+        "github.com/tianma-if/edgeever (repo, issues, releases, commit)"
+      ],
+      "windowDays": 7
     }
   ]
 }
