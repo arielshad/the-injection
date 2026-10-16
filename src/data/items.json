@@ -1,7 +1,105 @@
 {
-  "generatedAt": "2026-10-16T13:12:57.973Z",
+  "generatedAt": "2026-10-16T14:15:50.463Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "noma-sneakpeek-claude-desktop-preview",
+      "categories": [
+        "vulnerability",
+        "attack"
+      ],
+      "title": "SneakPeek: a big HTML file let Claude Code Desktop's preview read local keys",
+      "org": "Noma Security",
+      "date": "2026-10-14",
+      "url": "https://noma.security/noma-labs/sneakpeek-how-the-preview-pane-in-claude-code-desktop-can-exfiltrate-your-data",
+      "summary": "SneakPeek is a data theft flaw in Claude Code Desktop's preview pane. HTML files over 256KB loaded as file:// URLs, skipping the content security policy, so embedded JavaScript read SSH and cloud keys. Anthropic fixed it in 1.30096.1.",
+      "severity": "medium",
+      "tags": [
+        "data-exfiltration",
+        "credential-theft",
+        "sandbox-escape",
+        "coding-agents",
+        "claude-desktop",
+        "anthropic"
+      ],
+      "affected": [
+        "Claude Desktop",
+        "Claude Code"
+      ],
+      "credits": [
+        {
+          "name": "Eli Ainhorn",
+          "org": "Noma Labs"
+        }
+      ],
+      "explainer": {
+        "tagline": "A padded HTML file slipped past the preview pane's security policy, letting attacker JavaScript read a developer's keys with no prompt.",
+        "whatHappened": "Noma Labs published SneakPeek on October 14, 2026, a flaw its researcher Eli Ainhorn found in the HTML preview pane of Claude Code Desktop. Ainhorn reported it to Anthropic on July 4, 2026, then bypassed Anthropic's first patch on July 24. Anthropic shipped the working fix on August 17 in Claude Desktop 1.30096.1.",
+        "howItWorks": "Claude Code Desktop renders preview HTML in Electron's Chromium engine. Files under 256KB load as data: URLs, where a content security policy applies; larger files are written to a temp file and loaded over file://, where it does not, so embedded JavaScript runs unrestricted. A request filter blocked file:// reads from the main page, so Ainhorn moved the read into a Web Worker created from a blob: URL, which the filter did not cover. The payload sent what it collected to the attacker's server with navigator.sendBeacon.",
+        "whoIsAffected": "Developers running Claude Desktop before version 1.30096.1 were exposed. Exploitation needed the developer to clone a repository holding the padded HTML file, disguised as a test coverage report, and ask Claude to review it; the preview then rendered it with no permission prompt.",
+        "whatToDo": "Update Claude Desktop to 1.30096.1 or later, which Anthropic delivered by auto-update on August 17, 2026. Anyone who previewed HTML from an untrusted repository on an older build should rotate the credentials listed below, because Noma's payload read them from the developer's own machine."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Claude Desktop before 1.30096.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Claude Desktop 1.30096.1, August 17, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "Requested by Anthropic, not yet published"
+        },
+        {
+          "label": "Vendor rating",
+          "value": "CVSS 8.7 high, CVSS v4.0 (Anthropic triage, reported by Noma)"
+        },
+        {
+          "label": "Found by",
+          "value": "Eli Ainhorn (Noma Labs)"
+        },
+        {
+          "label": "Data at risk",
+          "value": "SSH private keys, AWS keys, npm and GitHub tokens, Kubernetes and Docker credentials, Claude OAuth tokens"
+        },
+        {
+          "label": "Attack type",
+          "value": "Content security policy bypass through a file:// preview over 256KB"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Claude Desktop version fixes the SneakPeek preview pane flaw?",
+          "a": "Claude Desktop 1.30096.1 and later fix the SneakPeek flaw, according to Noma Labs, and Anthropic shipped that build on August 17, 2026 through the app's auto-update. Noma reported the original issue on July 4 and bypassed Anthropic's first patch on July 24, so builds carrying only that earlier fix stayed exploitable until August."
+        },
+        {
+          "q": "Does SneakPeek have a CVE number?",
+          "a": "SneakPeek has no published CVE as of Noma's October 14, 2026 write-up. Noma's Eli Ainhorn told CSO Online that Anthropic confirmed it is preparing a GitHub Security Advisory and has requested a CVE identifier. Anthropic scored the flaw 8.7 on CVSS version 4.0 during triage, a rating Noma reports from that exchange rather than from a public advisory."
+        },
+        {
+          "q": "Should I rotate credentials after the SneakPeek disclosure?",
+          "a": "Rotation is worth considering for developers who previewed HTML from untrusted repositories in Claude Desktop before August 17, 2026. Noma's demonstrated payload read SSH private keys, AWS access keys, npm and GitHub tokens, Kubernetes and Docker credentials, and Claude's own OAuth tokens, then sent them to a server the attacker controlled. Nothing in the preview warned the developer."
+        }
+      ],
+      "links": [
+        {
+          "label": "Noma Labs Write-Up",
+          "url": "https://noma.security/noma-labs/sneakpeek-how-the-preview-pane-in-claude-code-desktop-can-exfiltrate-your-data"
+        },
+        {
+          "label": "CSO Online Report",
+          "url": "https://www.csoonline.com/article/4235139/how-claude-codes-256kb-blind-spot-put-developers-secrets-in-the-preview-pane.html"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a2fc1eb62d2fd1e9605374e/6acb5b2b5f514da625afb97e_SneakPeek%20(1).jpg",
+        "alt": "SneakPeek title card for the Claude Code Desktop preview pane flaw",
+        "credit": "Noma Security"
+      },
+      "publishDate": "2026-10-16T14:15:50.463Z"
+    },
     {
       "id": "edgeever-mcp-stored-xss",
       "categories": [
