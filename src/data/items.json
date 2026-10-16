@@ -1,7 +1,110 @@
 {
-  "generatedAt": "2026-10-16T16:11:41.175Z",
+  "generatedAt": "2026-10-16T17:10:51.903Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "redwood-screwtape-monitor-red-teaming",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Screwtape: edited agent transcripts slip past action-only monitors",
+      "org": "Redwood Research",
+      "date": "2026-10-14",
+      "url": "https://arxiv.org/abs/2610.20941",
+      "summary": "Screwtape is a Redwood Research pipeline that edits real agent transcripts into attacks on the monitors watching AI agents. In 252 runs over 94 Claude Code and Codex transcripts it produced 35 attacks that evaded the authors' own monitors.",
+      "severity": "info",
+      "tags": [
+        "red-team",
+        "detection",
+        "agent-security",
+        "claude-code",
+        "codex"
+      ],
+      "affected": [
+        "Action-only agent monitors",
+        "Claude Opus 4.8",
+        "Gemini 3.1 Pro",
+        "GPT-5.6 Sol",
+        "GLM-5.2"
+      ],
+      "credits": [
+        {
+          "name": "Gosha Kozhevnikov"
+        },
+        {
+          "name": "Tyler Tracy",
+          "org": "Redwood Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Screwtape turns real agent transcripts into attacks that action-only monitors fail to flag, and some of them transfer.",
+        "whatHappened": "Redwood Research published Screwtape as an arXiv preprint on October 14, 2026, written by Gosha Kozhevnikov and Tyler Tracy, and described it on its own blog on October 16. The work red-teams the monitors that AI developers run over agent transcripts. The authors ran the pipeline on 94 Claude Code and Codex transcripts taken from Redwood staff.",
+        "howItWorks": "An attacker model rewrites a real transcript so the agent appears to cause a chosen harm, such as leaking an API key or starting an unmonitored agent. A separate verifier model rejects edits that contradict the original transcript or fall below a severity bar, which matters because the edited actions are never executed. The attacker then revises the edit until the monitor stops flagging it. Because the attacker cannot yet write synthetic chain-of-thought text, the method applies only to action-only monitors, which see messages, tool calls and outputs.",
+        "whoIsAffected": "Teams that supervise coding agents with action-only monitors are the audience. The proxy monitors the authors optimized against were built on Opus 4.8, Gemini 3.1 Pro, GPT-5.6 Sol and GLM-5.2, and the authors also tested a held-out monitor supplied by a frontier developer they do not name.",
+        "whatToDo": "Treat action-only monitoring as evadable rather than as a settled control. Redwood says developers can patch the blind spots these attacks expose, improve monitor prompts, or fine-tune monitors on realistic data. The pipeline is not public, and the authors ask researchers who want access to contact Tyler Tracy."
+      },
+      "quickFacts": [
+        {
+          "label": "Found by",
+          "value": "Gosha Kozhevnikov and Tyler Tracy, Redwood Research"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-10-14, arXiv v1"
+        },
+        {
+          "label": "Attack type",
+          "value": "Adversarial transcript editing against action-only monitors"
+        },
+        {
+          "label": "Result",
+          "value": "35 verified attacks from 252 runs on 94 transcripts"
+        },
+        {
+          "label": "Transfer",
+          "value": "17 of 35 evaded a frontier developer's held-out monitor, 6 confirmed by human review"
+        },
+        {
+          "label": "Code",
+          "value": "Not released, shared with researchers on request"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does Screwtape work against monitors that read an agent's reasoning?",
+          "a": "Screwtape applies only to action-only monitors, which see an agent's messages, tool calls and outputs but not its chain of thought. The authors state that their attacker model cannot yet produce synthetic chain-of-thought text, so monitors that read reasoning traces fall outside the scope of the method as published on October 14, 2026."
+        },
+        {
+          "q": "Can defenders run Screwtape themselves today?",
+          "a": "Redwood Research is not releasing the Screwtape implementation publicly for now, and its blog post says the team is open to sharing it with other researchers who contact Tyler Tracy. Defenders cannot download the pipeline, so the usable takeaway is the finding: action-only monitors built on current frontier models missed 35 verified attacks."
+        },
+        {
+          "q": "How many Screwtape attacks beat a monitor the authors did not build?",
+          "a": "Seventeen of the 35 verified attacks evaded a held-out action-only monitor supplied by a frontier developer that Redwood Research does not name, and human review confirmed six of those seventeen as valid. Redwood argues the result shows that an outsider without access to a developer's infrastructure can still find real monitor failures."
+        }
+      ],
+      "links": [
+        {
+          "url": "https://arxiv.org/abs/2610.20941",
+          "label": "arXiv Paper"
+        },
+        {
+          "url": "https://blog.redwoodresearch.org/p/screwtape-adversarial-transcript",
+          "label": "Redwood Research Post"
+        },
+        {
+          "url": "https://arxiv.org/html/2610.20941v1",
+          "label": "Paper Full Text"
+        }
+      ],
+      "image": {
+        "url": "https://substackcdn.com/image/fetch/$s_!Epxv!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc311c042-341f-4cc2-8a87-de830f497cd9_2048x781.png",
+        "alt": "Screwtape: Adversarial Transcript Editing for Monitor Red-Teaming",
+        "credit": "Redwood Research"
+      },
+      "publishDate": "2026-10-16T17:10:51.903Z"
+    },
     {
       "id": "zcode-workspace-mcp-autotrust",
       "categories": [
