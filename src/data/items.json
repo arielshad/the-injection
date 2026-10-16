@@ -1,7 +1,126 @@
 {
-  "generatedAt": "2026-10-16T02:13:37.108Z",
+  "generatedAt": "2026-10-16T03:14:06.997Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "nginx-ui-mcp-config-validation-cves",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Nginx UI: MCP tools skipped the checks its REST API enforces",
+      "org": "Nginx UI",
+      "date": "2026-10-15",
+      "url": "https://github.com/advisories/GHSA-9jww-cxg5-rj9m",
+      "summary": "Nginx UI's MCP tools wrote Nginx configuration and reloaded the server without the directive validation its REST API applies. Four High CVEs for flaws the project fixed in July 2026 were published this week.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "rce",
+        "privilege-escalation",
+        "nginx-ui"
+      ],
+      "affected": [
+        "Nginx UI"
+      ],
+      "cve": "CVE-2026-84318",
+      "cvss": 8.8,
+      "credits": [
+        {
+          "name": "novice-22",
+          "url": "https://github.com/novice-22"
+        },
+        {
+          "name": "Ponlawat Suparat",
+          "url": "https://github.com/thekogo"
+        },
+        {
+          "name": "Aleff",
+          "url": "https://github.com/aleff-github"
+        },
+        {
+          "name": "Vincent Yang",
+          "url": "https://github.com/Vincent550102"
+        }
+      ],
+      "explainer": {
+        "tagline": "Four High CVEs landed this week for Nginx UI MCP tools that bypassed the validation and the step-up login its REST API requires.",
+        "whatHappened": "Four Nginx UI advisories about its MCP interface received CVE ids, published by the NVD on October 12, 2026 and added to the GitHub Advisory Database on October 15. Jacky, the Nginx UI maintainer, published the advisories on July 17, 2026 after reports from four researchers, and the code fix shipped in v2.4.1. The CVE records are what make dependency scanners flag affected builds.",
+        "howItWorks": "Nginx UI serves its configuration tools over MCP at the /mcp and /mcp_message endpoints. Config writes through the REST API pass ValidateConfigFile, which rejects directives such as load_module, js_import, js_content and user root, but the MCP tool nginx_config_add wrote caller-supplied content to disk and reloaded Nginx without calling it. A fourth advisory covers the same alternate path for authentication: MCP callers skipped the OTP secure-session step-up that the HTTP mutation routes require, so an OTP-enabled account could change configuration with a plain JWT.",
+        "whoIsAffected": "Nginx UI deployments that enable MCP are affected in every build below the patched pseudo-version the four advisories name, which the project ships as v2.4.1. The repository advisories state the ranges as 2.3.11 and earlier for CVE-2026-84317 and 2.4.0 and earlier for CVE-2026-84360. CVE-2026-84317 states that where the njs or perl module is available, as in the official Docker image, the result is code execution in the Nginx worker plus arbitrary file read and write as root; without those modules it causes a failed reload. An attacker needs a valid node secret or user JWT, and the maintainer notes an agent steered by prompt injection can supply the tool call.",
+        "whatToDo": "Update Nginx UI to v2.4.1 or later; v2.8.4 is the current release. Turn off the MCP endpoints on deployments that do not use them, and treat every account or token that can reach /mcp as able to rewrite Nginx configuration."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "All builds before 1.9.10-0.20260703131214-23d1934099b0, released as v2.4.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "v2.4.1 (current release v2.8.4)"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-84317 and CVE-2026-84318 (CVSS 8.8), CVE-2026-84319 (8.3), CVE-2026-84360 (8.1)"
+        },
+        {
+          "label": "Found by",
+          "value": "novice-22, Ponlawat Suparat, Aleff, Vincent Yang"
+        },
+        {
+          "label": "Disclosed",
+          "value": "July 17, 2026; CVEs published October 12, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed in July 2026, added to the GitHub Advisory Database October 15, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Authenticated MCP tool call that skips REST API validation"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Nginx UI version fixes the MCP configuration flaws?",
+          "a": "All four Nginx UI advisories record the same patched Go module build, 1.9.10-0.20260703131214-23d1934099b0, which the advisory for CVE-2026-84318 ties to commit 23d1934 and release v2.4.1. Operators should move well past that July release rather than stop at it: v2.8.4, published October 7, 2026, is the current version of Nginx UI."
+        },
+        {
+          "q": "Am I affected if I never turned on MCP in Nginx UI?",
+          "a": "Nginx UI deployments without the MCP endpoints enabled are not reachable through these four flaws, because every one of them runs through the /mcp or /mcp_message interface. The OTP step-up bypass, CVE-2026-84360, is explicitly scoped to deployments where MCP is enabled. Operators who do use MCP should assume any authenticated caller could change Nginx configuration before v2.4.1."
+        },
+        {
+          "q": "Why are the Nginx UI CVEs appearing now if the fix shipped in July?",
+          "a": "Jacky published the four Nginx UI advisories on July 17, 2026, but the CVE ids reached the NVD on October 12, 2026 and the GitHub Advisory Database on October 15. Dependency scanners read those feeds, so builds pinned below v2.4.1 start showing alerts only now. The underlying code has been fixed for three months."
+        },
+        {
+          "q": "Does an attacker need credentials to exploit the Nginx UI MCP flaws?",
+          "a": "Yes. Every one of the four advisories requires authentication, through either a node secret or a user JWT, and the writes stay inside the managed Nginx config directory. The maintainer adds one path that needs no human attacker: an agent reached by prompt injection already holds the caller's credentials and can issue the nginx_config_add tool call itself."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-9jww-cxg5-rj9m"
+        },
+        {
+          "label": "CVE-2026-84317",
+          "url": "https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-76pm-mq2q-9gcr"
+        },
+        {
+          "label": "CVE-2026-84319",
+          "url": "https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-5r62-gj48-897x"
+        },
+        {
+          "label": "CVE-2026-84360",
+          "url": "https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-vc32-4gwf-77xp"
+        },
+        {
+          "label": "Fix Release v2.4.1",
+          "url": "https://github.com/0xJacky/nginx-ui/releases/tag/v2.4.1"
+        }
+      ],
+      "publishDate": "2026-10-16T03:14:06.997Z"
+    },
     {
       "id": "swarmchasers-tencent-amap-agent-fleet",
       "categories": [
