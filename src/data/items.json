@@ -1,7 +1,106 @@
 {
-  "generatedAt": "2026-10-16T09:29:39.080Z",
+  "generatedAt": "2026-10-16T10:15:15.293Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "wordfence-wsp-mcp-draft-exposure",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "WSP MCP: a subscriber account could read every unpublished post",
+      "org": "Wordfence",
+      "date": "2026-10-15",
+      "url": "https://github.com/advisories/GHSA-829v-95xx-xwjh",
+      "summary": "WSP MCP, a WordPress plugin that connects Claude and ChatGPT to a site over MCP, registered its post listing tool with no capability check, letting any logged-in subscriber read every draft, pending and scheduled post. Fixed in 2.9.6.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "agent-security",
+        "wordpress",
+        "wordfence"
+      ],
+      "affected": [
+        "WSP MCP"
+      ],
+      "cve": "CVE-2026-109382",
+      "cvss": 6.5,
+      "credits": [
+        {
+          "name": "Wordfence PRISM",
+          "org": "Wordfence"
+        }
+      ],
+      "explainer": {
+        "tagline": "Wordfence found that WSP MCP's post listing tool accepted any logged-in WordPress user, exposing every unpublished post on the site.",
+        "whatHappened": "Wordfence published CVE-2026-109382 on October 16, 2026 against WSP MCP, a free WordPress plugin that connects Claude, ChatGPT, Cursor and Codex to a site over MCP. Wordfence credits the finding to Wordfence PRISM, its own detection system, and records that the developer was notified on October 13 and the record disclosed on October 15.",
+        "howItWorks": "The wsp_get_posts MCP tool shipped with an empty capability requirement, while the MCP endpoint's authenticate() method accepts any logged-in user. The tool's callback then honours a caller-supplied status=all argument, which widens the query to published, draft, pending and future posts with no author or ownership filter. Wordfence classes the weakness as CWE-863, incorrect authorization.",
+        "whoIsAffected": "Sites running the affected versions are exposed, and the plugin's directory listing reports more than 2,000 active installations. An account at Subscriber level or above is enough, so sites that allow open registration or hand out membership and commenting accounts face the widest exposure. Wordfence records confidentiality impact only, with no ability to change or delete content.",
+        "whatToDo": "Update WSP MCP to 2.9.6, whose changelog describes hardened authorization checks on the post listing, Elementor, Ultimate Addons for Elementor and media upload tools. Review which accounts hold Subscriber access where unpublished posts are sensitive, and check the plugin's audit log for post listing calls made before the update."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "WSP MCP 2.9.5 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.9.6"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-109382"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "6.5 (Wordfence)"
+        },
+        {
+          "label": "Found by",
+          "value": "Wordfence PRISM"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Developer notified October 13, 2026; disclosed October 15, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "MCP tool registered with an empty capability requirement, CWE-863"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which WSP MCP version fixes CVE-2026-109382?",
+          "a": "WSP MCP 2.9.6 is the release to install. The plugin's changelog labels 2.9.6 a security fix and says authorization checks were hardened on the post listing, Elementor, Ultimate Addons for Elementor and media upload tools. Wordfence lists every version up to and including 2.9.5 as affected, and the plugin directory shows 2.9.6 as the current release."
+        },
+        {
+          "q": "What could an attacker actually read through the wsp_get_posts tool?",
+          "a": "Wordfence states that an attacker with Subscriber access could read the titles, URLs, authors, categories, tags and 40-word excerpts of every unpublished post on the site, covering draft, pending and scheduled content. Published posts were already public. The advisory records confidentiality impact only, with no reported ability to change or delete posts."
+        },
+        {
+          "q": "Does an attacker need an AI assistant connected to exploit WSP MCP?",
+          "a": "No connected assistant is needed. The flaw sits in the plugin's own MCP endpoint, which authenticates any logged-in WordPress user, so a Subscriber account can call the wsp_get_posts tool directly. Sites that allow open registration are reachable by anyone who signs up, whether or not Claude, ChatGPT or another assistant is configured."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-829v-95xx-xwjh"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-109382"
+        },
+        {
+          "label": "Wordfence Record",
+          "url": "https://www.wordfence.com/threat-intel/vulnerabilities/id/809eb78f-fd8e-4434-a36b-bb8e313cf264?source=cve"
+        },
+        {
+          "label": "Plugin Page",
+          "url": "https://wordpress.org/plugins/wsp-mcp-ai-agents-connector/"
+        }
+      ],
+      "publishDate": "2026-10-16T10:15:15.293Z"
+    },
     {
       "id": "cert-in-ai-agents-attack-vectors",
       "categories": [
