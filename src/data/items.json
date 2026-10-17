@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T15:12:11.688Z",
+  "generatedAt": "2026-10-17T16:13:32.879Z",
   "promptVersion": "1.3.0",
   "items": [
     {
@@ -4907,6 +4907,14 @@
         {
           "label": "CVE-2026-110850 Record",
           "url": "https://github.com/advisories/GHSA-fv6m-3pmx-fcmp"
+        },
+        {
+          "label": "Agent Chat Resume",
+          "url": "https://github.com/advisories/GHSA-v38m-4hx4-9x2r"
+        },
+        {
+          "label": "Agents Create Bypass",
+          "url": "https://github.com/advisories/GHSA-wrfc-h8h3-x3xj"
         }
       ],
       "credits": [

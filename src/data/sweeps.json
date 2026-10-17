@@ -7511,6 +7511,78 @@
         "Security press via dated web searches"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t161332z",
+      "timestamp": "2026-10-17T16:13:32.879Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (newest and the MCP and n8n queries), VulnCheck, CISA advisories, n8n's own advisory list, Anthropic news, alignment.openai.com, blog.google safety and security, Microsoft Security and MSRC, UK AISI, OWASP GenAI, Embrace The Red, AIR Security, Zenity Labs, HiddenLayer, Unit 42, Check Point Research, Datadog Security Labs, Mindgard, Noma, Pillar, Straiker, Lakera, Socket, ReversingLabs, Trail of Bits, NCC Group, Hugging Face blog and the prompt-injection model search, Simon Willison, Hacker News front page, newest and Show HN, GitHub trending, repo-scan (13 queries, 3 candidates), paper-scan (9 queries, 61 papers) and talk-scan (25 videos): no new item met the bar. One update: two further agent authorization bypasses in the n8n CVE batch, which the existing n8n item did not record. Left out on purpose: Horizon-Labs' prompt-injection-guard models, whose page was touched today but whose latest documented release is v2.2 on 2026-10-02, outside the window; speedydivid/TokenForge, created today but a token-optimization tool with no license and one repo-bar signal; zero-lab-ai/skills and scs0209/laya-guard, still short of two signals; HiddenLayer's Hugging Face dead-drop analysis (July 31) and NCC Group's agent sandbox post (October 6), both older than the window; CoRedSkill (arXiv 2610.20049) with no code, venue or named product, and every other paper in the scan at one scanned signal or none, the only two-signal paper being LatentRiskBench, already in the feed; Pillar's and Straiker's October 16 and 17 posts, which are vendor listicles and partnership announcements. openai.com/index returned 403 to this run and reddit.com could not be fetched, so neither is listed as checked; the Snyk Labs index carries no dates, so nothing from it could be dated and cited.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "n8n-chat-hub-tool-role-bypass",
+          "title": "n8n Chat Hub: a chat-only role could register code-running tools",
+          "note": "Two more agent authorization bypasses from the same n8n CVE batch, fixed in 2.41.4 and 2.42.1: CVE-2026-110841 lets an authenticated project member read other members' private agent conversations and approve their pending tool calls, and CVE-2026-110851 lets a user with read-only agent access move an agent out of another project."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "CISA cybersecurity advisories",
+        "n8n GitHub security advisories",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "blog.google safety and security",
+        "Microsoft Security blog",
+        "MSRC blog",
+        "aisi.gov.uk",
+        "OWASP GenAI Security Project",
+        "embracethered.com",
+        "air.security/blog",
+        "Zenity Labs",
+        "HiddenLayer research",
+        "Unit 42",
+        "Check Point Research",
+        "Datadog Security Labs",
+        "Mindgard",
+        "Noma Security",
+        "Pillar Security",
+        "Straiker",
+        "Lakera",
+        "Socket",
+        "ReversingLabs",
+        "Trail of Bits",
+        "NCC Group",
+        "Snyk Labs",
+        "simonwillison.net",
+        "Hugging Face blog",
+        "Hugging Face prompt-injection models",
+        "Hacker News",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan",
+        "talk-scan",
+        "arXiv"
+      ],
+      "windowDays": 7
     }
   ]
 }
