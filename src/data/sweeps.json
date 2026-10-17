@@ -7107,6 +7107,71 @@
         "The Register, BleepingComputer"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t101251z",
+      "timestamp": "2026-10-17T10:12:51.640Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (newest reviewed and MCP-filtered), VulnCheck, CISA KEV, the MITRE CVE API, MSRC and the Microsoft security blog, Anthropic news and research, blog.google safety and security, UK AISI, NIST CAISI, OWASP GenAI, Embrace The Red, AIR Security, Zenity Labs, Unit 42, Check Point Research, Datadog Security Labs, Socket, Simon Willison, Hugging Face blog, Daily Papers and guard-model listings, Hacker News front page, Show HN and newest, GitHub trending daily and weekly, repo-scan (13 queries, 2 candidates), paper-scan (62 candidates) and talk-scan (23 videos): no new AI-security disclosure, tool, paper or talk inside the 7-day window met the bar that the feed does not already carry. One update: LMCache's maintainers published their own guidance on CVE-2026-105192 on 13 October, which adds the Kubernetes example exposure the item did not record. Left out on purpose: arXiv 2610.20437, whose title carries CVE-2026-65616, because the MITRE record shows that id is a JFrog Artifactory privilege escalation published 2026-07-27 and credited to Kostya Kortchinsky of OpenAI, not a new agent flaw, leaving the paper one paper-bar signal (released code); morluto/rea, which gained about 249,000 stars this week but was created 2026-04-14 and first released 2026-07-12, making it an old repo with new stars whose only in-window release is a minor version, and a reverse-engineering tool rather than AI security; zero-lab-ai/skills and scs0209/laya-guard, new in the window but short of the repo bar's two signals; TRACER (2610.19133, Findings of EMNLP, no code and no named product), MetaCascade (2610.14836, code only in supplementary material), Encrypted Skills (2610.18262) and Same Operation Different Permission (2610.16838), each one signal or none; Cycode's MCP Python SDK OAuth takeover (2026-09-28), Pluto Security's malicious MCP servers passing five scanners, Wiz's LiteLLM KEV chain, Manifold's GitSpawn, Comment and Control, and Socket's GlassWorm extension cluster (2026-10-02) and Claude PyPI analysis (2026-09-10), all disclosed before the window; GHSA-w5f2-9q9c-ff4h, the SGLang and Nginx-UI MCP advisories and the Claude Agent SDK argument injection, already in the feed; Anthropic's independent evaluators update (10-15) and AISI's technical best-practice post (10-12), governance with no security specifics; both Embrace The Red videos on CVE-2026-103572, already in that item's links; Unit 42's 16 October initial-access roundup, no AI angle. openai.com returned 403 to fetches from this runner and reddit.com/r/netsec was unavailable, so neither is listed as checked.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "jfrog-lmcache-zmq-pickle-rce",
+          "title": "LMCache: the unauthenticated pickle RCE is fixed in 0.5.6",
+          "note": "LMCache's maintainers published their own post on CVE-2026-105192 on 13 October 2026. It adds one exposure fact the item did not record: the project's example Kubernetes deployment bound every interface until PR 5684 changed the default to localhost, so operators who copied it were exposed even though the transport binds to localhost by default."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "CISA Known Exploited Vulnerabilities catalog",
+        "MITRE CVE API (cveawg)",
+        "Microsoft Security blog",
+        "anthropic.com/news",
+        "anthropic.com/research",
+        "blog.google safety and security",
+        "UK AI Security Institute",
+        "NIST CAISI",
+        "OWASP GenAI Security Project",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "Unit 42",
+        "Check Point Research",
+        "Datadog Security Labs",
+        "socket.dev/blog",
+        "blog.lmcache.ai",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "Hugging Face Daily Papers",
+        "Hugging Face model hub (guard models)",
+        "arXiv cs.CR",
+        "Hacker News front page, Show HN and newest",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts",
+        "Adversa AI MCP and coding-agent roundups"
+      ],
+      "windowDays": 7
     }
   ]
 }
