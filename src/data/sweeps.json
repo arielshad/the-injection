@@ -6962,6 +6962,83 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t081256z",
+      "timestamp": "2026-10-17T08:12:56.741Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (Oct 10 to 17), VulnCheck, MSRC and the Microsoft security blog, Anthropic, OpenAI safety and alignment plus its misalignment reports, Google DeepMind and blog.google, AISI, CAISI, OWASP GenAI, Embrace The Red, AIR, Zenity, Noma, Straiker, Lasso, Manifold, Snyk, Socket, Bloom, Wiz, Unit 42, Datadog, Trail of Bits, Check Point, ReversingLabs, Lakera, Hugging Face blog and models, Hacker News front page and Show HN, GitHub trending daily and weekly, repo-scan (2 candidates), paper-scan (62 candidates) and talk-scan (23 videos). One item qualified: Google's Gemini 4 Argon safety and security report of October 13, which the feed had missed. Everything else in the window was already in the feed or failed the bar.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "deepmind-gemini-4-argon-cyber-safeguards",
+          "title": "Gemini 4 Argon: Google cannot rule out its cybersecurity capability level",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A frontier lab's own report says it cannot rule out that its new model reaches its cybersecurity capability threshold, and it gates the model's offensive-capable cyber version behind a trusted-defender program: a specific security claim with numbers a defender can check."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Microsoft Security Blog",
+        "anthropic.com/news",
+        "OpenAI safety and alignment",
+        "alignment.openai.com misalignment reports",
+        "blog.google safety and security",
+        "deepmind.google model cards",
+        "aisi.gov.uk/blog",
+        "nist.gov CAISI",
+        "genai.owasp.org news",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "labs.zenity.io",
+        "noma.security/noma-labs",
+        "straiker.ai/blog",
+        "lasso.security/blog",
+        "manifold.security/blog",
+        "snyk.io/blog",
+        "socket.dev/blog",
+        "bloom.security/blog",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "securitylabs.datadoghq.com",
+        "blog.trailofbits.com",
+        "research.checkpoint.com",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "cloud.google.com threat intelligence",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending daily and weekly",
+        "repo-scan.json",
+        "paper-scan (arXiv and HF Daily Papers)",
+        "talk-scan (22 YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
