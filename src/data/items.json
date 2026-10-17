@@ -1,7 +1,103 @@
 {
-  "generatedAt": "2026-10-17T13:14:11.499Z",
+  "generatedAt": "2026-10-17T14:16:41.160Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "anthropic-metr-embedded-evaluator-access",
+      "categories": [
+        "lab-safety"
+      ],
+      "title": "Anthropic: METR gets employee-like access to internal risk systems",
+      "org": "Anthropic",
+      "date": "2026-10-15",
+      "url": "https://www.anthropic.com/news/an-update-on-independent-evaluators",
+      "summary": "Anthropic has onboarded six METR employees with company hardware, office space and internal tool access on par with its own risk assessment teams. Anthropic says it cannot veto METR's publications but can require set redactions.",
+      "severity": "info",
+      "tags": [
+        "evals",
+        "anthropic",
+        "metr"
+      ],
+      "affected": [
+        "Anthropic frontier models"
+      ],
+      "credits": [
+        {
+          "name": "Anthropic",
+          "org": "Anthropic"
+        }
+      ],
+      "explainer": {
+        "tagline": "Six METR staff now work inside Anthropic with access close to its own risk assessment teams, and Anthropic cannot veto what they publish.",
+        "whatHappened": "Anthropic announced on October 15, 2026 that it has begun giving an embedded team from METR, a nonprofit that evaluates frontier AI models, employee-like access to its systems. Six METR employees have been onboarded. Anthropic says METR will publish its own analysis of risk levels, incidents and practices.",
+        "howItWorks": "Three access tiers set how much an outside evaluator sees and what it may say. Tier 1 covers narrowly scoped risk investigations that Anthropic approves before publication, Tier 2 removes that approval step and shares more information, and Tier 3 is METR's embedded arrangement. At every tier Anthropic can require that predefined categories be cut, listed below, and Anthropic decides what falls into them. METR may state whether a redaction was justified and may describe the access it received.",
+        "whoIsAffected": "Nobody is exposed to a flaw here, because the change concerns who outside Anthropic can inspect its own risk work. Teams that assess Anthropic as a vendor are the audience, since the arrangement sets what an outside evaluator can see about its safeguards and say in public. Anthropic names SecureBio, Accenture and Faculty as other evaluator relationships, with early talks under way with Hugging Face."
+      },
+      "quickFacts": [
+        {
+          "label": "Announced",
+          "value": "October 15, 2026"
+        },
+        {
+          "label": "Evaluator",
+          "value": "METR, six employees onboarded"
+        },
+        {
+          "label": "Access",
+          "value": "Company hardware, office space and internal tools on par with Anthropic's risk assessment teams"
+        },
+        {
+          "label": "Publication",
+          "value": "Anthropic cannot veto; redaction of predefined categories allowed"
+        },
+        {
+          "label": "Redaction categories",
+          "value": "Customer data, attorney-client privileged information, model architecture details"
+        },
+        {
+          "label": "Tiers",
+          "value": "Three, from scoped investigations to METR's embedded access"
+        },
+        {
+          "label": "Other partners",
+          "value": "SecureBio, Accenture, Faculty; early talks with Hugging Face"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can Anthropic block METR from publishing criticism?",
+          "a": "Anthropic cannot veto METR's publications, according to its October 15, 2026 post. Anthropic can require redaction of predefined categories, and Anthropic decides what falls into them: customer data, attorney-client privileged information and model architecture details. METR can still state publicly whether a redaction was justified, and can describe the access and information it received."
+        },
+        {
+          "q": "How much access do METR's staff at Anthropic have?",
+          "a": "Six METR employees have company hardware, office space, and access to internal tools and systems roughly on par with Anthropic's own risk assessment teams, Anthropic says. Anthropic describes the METR team as siloed, bound by enforceable agreements and held to Anthropic's security standards. METR has reviewed several Anthropic Risk Reports over the past year under narrower arrangements."
+        },
+        {
+          "q": "Which other evaluators is Anthropic working with besides METR?",
+          "a": "SecureBio is reviewing the chemical and biological weapons chapter of Anthropic's August Risk Report, after a pilot review of the previous report. Anthropic says it is working toward a partnership with Accenture and Faculty covering model evaluation, red-teaming, alignment assessments, safeguard testing and capability building. Anthropic adds that early discussions with Hugging Face are under way."
+        }
+      ],
+      "links": [
+        {
+          "label": "Anthropic Announcement",
+          "url": "https://www.anthropic.com/news/an-update-on-independent-evaluators"
+        },
+        {
+          "label": "METR Risk Report Review",
+          "url": "https://metr.org/blog/2026-05-08-rd-section-anthropic-risk-report-feb-2026-review/"
+        },
+        {
+          "label": "METR Opus 5.5 Eval",
+          "url": "https://metr.org/blog/2026-09-22-claude-opus-5-5/"
+        }
+      ],
+      "image": {
+        "url": "https://www-cdn.anthropic.com/images/4zrzovbb/website/d2e351e6311a0ada8ea4a0304ce6cda39243eaf4-1200x630.jpg",
+        "alt": "Anthropic: METR gets employee-like access to internal risk systems",
+        "credit": "Anthropic"
+      },
+      "publishDate": "2026-10-17T14:16:41.160Z"
+    },
     {
       "id": "mitre-attack-v20-ai-techniques",
       "categories": [

@@ -7367,6 +7367,79 @@
         "Security press via dated web searches"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t141641z",
+      "timestamp": "2026-10-17T14:16:41.160Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, CISA KEV, NVD, Anthropic, OpenAI's misalignment reports, DeepMind, Microsoft, MSRC, AISI, CAISI, OWASP GenAI, Embrace The Red, Zenity, AIR, Socket, JFrog, ReversingLabs, HiddenLayer, Trail of Bits, NCC Group, Check Point, Lakera, Snyk, Unit 42, GTIG, Hugging Face, GitHub trending, Hacker News, VulnCheck, repo-scan (13 queries, 2 candidates), paper-scan (61 papers) and talk-scan (24 videos): one new item, Anthropic's embedded evaluator access for METR. Everything else inside the window was already in the feed, was first published before October 10, or failed the paper, repo or talk bar; openai.com returned 403 to fetches and r/netsec could not be fetched, so both are left out of sourcesChecked.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "anthropic-metr-embedded-evaluator-access",
+          "title": "Anthropic: METR gets employee-like access to internal risk systems",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "First time a frontier lab has given an outside evaluator employee-like internal access with publication rights it cannot veto, with named partners, numbers and a three-tier access model on the vendor's own page: material for anyone assessing Anthropic as a vendor."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "CISA Known Exploited Vulnerabilities catalog",
+        "NVD",
+        "anthropic.com/news",
+        "alignment.openai.com misalignment reports",
+        "deepmind.google blog",
+        "Microsoft Security blog",
+        "MSRC blog",
+        "aisi.gov.uk",
+        "nist.gov CAISI",
+        "genai.owasp.org",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security/blog",
+        "socket.dev/blog",
+        "wiz.io/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com research",
+        "blog.trailofbits.com",
+        "nccgroup.com research blog",
+        "research.checkpoint.com",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "snyk.io/blog",
+        "unit42.paloaltonetworks.com",
+        "cloud.google.com threat intelligence (GTIG and Mandiant)",
+        "vulncheck.com/advisories",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "github.com/trending",
+        "Hacker News front page, newest and Show HN",
+        "metr.org/blog",
+        "arXiv via paper-scan.ts",
+        "YouTube channels via talk-scan.ts",
+        "GitHub repo search via repo-scan.json"
+      ],
+      "windowDays": 7
     }
   ]
 }
