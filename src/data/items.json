@@ -1,7 +1,111 @@
 {
-  "generatedAt": "2026-10-17T11:09:20.566Z",
+  "generatedAt": "2026-10-17T12:24:16.361Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "mitre-attack-v20-ai-techniques",
+      "categories": [
+        "research"
+      ],
+      "title": "MITRE ATT&CK v20: prompt injection gets its own technique IDs",
+      "org": "MITRE",
+      "date": "2026-10-13",
+      "url": "https://attack.mitre.org/resources/updates/updates-october-2026/",
+      "summary": "MITRE ATT&CK v20 adds four AI techniques to the Enterprise matrix, among them Direct Prompt Injection (T1699), Indirect Prompt Injection (T1698) and AI-Enabled Exfiltration (T1700), giving detection teams IDs to map coverage against.",
+      "severity": "info",
+      "tags": [
+        "detection",
+        "prompt-injection",
+        "indirect-prompt-injection",
+        "data-exfiltration",
+        "mitre"
+      ],
+      "affected": [
+        "Enterprise AI agents"
+      ],
+      "credits": [
+        {
+          "name": "MITRE ATT&CK",
+          "org": "MITRE"
+        },
+        {
+          "name": "Caio Silva"
+        },
+        {
+          "name": "Girshel Chokhonelidze"
+        }
+      ],
+      "explainer": {
+        "tagline": "MITRE ATT&CK v20 gives prompt injection, AI-enabled exfiltration and AI result poisoning official technique IDs in the Enterprise matrix.",
+        "whatHappened": "MITRE released ATT&CK v20 on October 13, 2026, with nine new Enterprise techniques, four of which name AI or prompt injection directly. The release also documents campaign C0064, in which operators used Claude Code and OpenAI GPT-4.1 against Mexican government institutions between December 2025 and February 2026. Caio Silva and Girshel Chokhonelidze are credited as contributors on the Indirect Prompt Injection entry.",
+        "howItWorks": "Direct Prompt Injection (T1699) covers malicious prompts typed straight into an LLM's interface, and Indirect Prompt Injection (T1698) covers prompts embedded in content the model later reads. MITRE places both under the Execution tactic. AI-Enabled Exfiltration (T1700) sits under Exfiltration and chains either injection technique into data theft, and Stage Capabilities: AI Result Poisoning (T1608.007) covers planting public web content that AI search tools may cite.",
+        "whoIsAffected": "MITRE lists SaaS and Windows as the platforms for T1698, T1699 and T1700, and T1700's description names enterprise AI agents as the target. The entries apply to any deployment where an agent reads untrusted content or holds access to internal data.",
+        "whatToDo": "Map existing agent monitoring to the new IDs, starting with detection strategy DET0927 for T1700, whose three analytics watch for an AI process reading data outside its authorized scope and then moving it out. T1698 lists six mitigations, including keeping instructions from external content from independently authorizing consequential agent actions."
+      },
+      "quickFacts": [
+        {
+          "label": "Released",
+          "value": "October 13, 2026"
+        },
+        {
+          "label": "New AI techniques",
+          "value": "T1699, T1698, T1700, T1608.007"
+        },
+        {
+          "label": "Tactics",
+          "value": "Execution (T1698, T1699), Exfiltration (T1700)"
+        },
+        {
+          "label": "Enterprise matrix",
+          "value": "227 techniques, 479 sub-techniques"
+        },
+        {
+          "label": "New AI campaign",
+          "value": "C0064, AI-assisted breach of Mexican government infrastructure"
+        },
+        {
+          "label": "T1698 contributors",
+          "value": "Caio Silva, Girshel Chokhonelidze"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which ATT&CK IDs cover prompt injection?",
+          "a": "ATT&CK v20 assigns T1699 to Direct Prompt Injection, for malicious prompts entered into an LLM's user interface, and T1698 to Indirect Prompt Injection, for prompts embedded in content the model processes. MITRE places both under the Execution tactic, with SaaS and Windows listed as platforms. Both entries are at version 1.0, created in September 2026."
+        },
+        {
+          "q": "Does ATT&CK v20 include detections for AI-enabled exfiltration?",
+          "a": "MITRE publishes detection strategy DET0927 for AI-Enabled Exfiltration (T1700), with three analytics. AN2079 and AN2080 look for an AI-associated process reading data outside its authorized scope, then running transfer-capable code and connecting to a destination outside approved AI endpoints. AN2078 looks for an agent that reads protected data, calls a tool with it, and completes a transfer outside authorized flows."
+        },
+        {
+          "q": "What mitigations does MITRE list for indirect prompt injection?",
+          "a": "Indirect Prompt Injection (T1698) carries six mitigations in ATT&CK v20: execution prevention, network segmentation, privileged account management, restricting file and directory permissions, user account management and user training. MITRE's guidance includes stopping external content from independently authorizing consequential agent actions, giving agents minimal-permission identities that retrieved content cannot alter, and limiting the destinations agents handling untrusted content can reach."
+        }
+      ],
+      "links": [
+        {
+          "label": "ATT&CK v20 Release Notes",
+          "url": "https://attack.mitre.org/resources/updates/updates-october-2026/"
+        },
+        {
+          "label": "T1698 Indirect Injection",
+          "url": "https://attack.mitre.org/techniques/T1698/"
+        },
+        {
+          "label": "T1699 Direct Injection",
+          "url": "https://attack.mitre.org/techniques/T1699/"
+        },
+        {
+          "label": "T1700 AI Exfiltration",
+          "url": "https://attack.mitre.org/techniques/T1700/"
+        },
+        {
+          "label": "C0064 Mexico Campaign",
+          "url": "https://attack.mitre.org/campaigns/C0064/"
+        }
+      ],
+      "publishDate": "2026-10-17T12:24:16.361Z"
+    },
     {
       "id": "arxiv-decisionrobust",
       "categories": [

@@ -7233,6 +7233,72 @@
         "talk-scan.ts YouTube channels"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t122416z",
+      "timestamp": "2026-10-17T12:24:16.361Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked MITRE ATT&CK, GitHub advisories, VulnCheck, Anthropic, OpenAI, AIR, Zenity, Embrace The Red, HiddenLayer, Socket, ReversingLabs, Trail of Bits, NCC Group, Check Point, Lakera, Invariant Labs, JFrog, Unit 42, UK AISI, Hugging Face, arXiv via paper-scan (61 candidates, 1 with two scanned signals and already in the feed), repo-scan (2 candidates), github.com/trending, Hacker News and talk-scan (23 videos). Added the MITRE ATT&CK v20 release, which gives prompt injection, AI-enabled exfiltration and AI result poisoning official Enterprise technique IDs. Everything else inside the window was already in the feed, or its original disclosure date fell outside the 7 days (Signals Corps HTTP-header injection study, Oct 6; Glow Labs PixelLeak, Sep 29; MCP Python SDK CVE-2026-59951 and pipecat-ai CVE-2026-102682, both first published end of September), or it missed the bar: Trail of Bits' package-manager integrity study names no AI angle, the two repo-scan candidates showed at most one repo-bar signal, and no paper reached two signals. The first paper-scan run lost 7 of 9 arXiv queries to timeouts and HTTP 429; a retry ran all 9. r/netsec could not be fetched.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "mitre-attack-v20-ai-techniques",
+          "title": "MITRE ATT&CK v20: prompt injection gets its own technique IDs",
+          "category": "research",
+          "severity": "info",
+          "note": "ATT&CK is the map detection teams measure coverage against, and v20 is the first release to give prompt injection and AI-enabled exfiltration their own Enterprise technique IDs, with mitigations and a detection strategy attached."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "attack.mitre.org",
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "red.anthropic.com",
+        "AIR Security blog",
+        "Zenity Labs",
+        "embracethered.com",
+        "simonwillison.net",
+        "HiddenLayer research",
+        "Socket blog",
+        "ReversingLabs blog",
+        "Trail of Bits blog",
+        "NCC Group research",
+        "Check Point Research",
+        "Invariant Labs blog",
+        "Lakera blog",
+        "JFrog blog",
+        "Unit 42",
+        "UK AI Security Institute",
+        "huggingface.co/blog",
+        "huggingface.co/papers",
+        "arXiv cs.CR (paper-scan)",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News (front page, Algolia, Show HN)",
+        "MSRC blog",
+        "OWASP GenAI newsletter",
+        "talk-scan (22 YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
