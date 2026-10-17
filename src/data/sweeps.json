@@ -7856,6 +7856,55 @@
         "talk-scan (YouTube conference and security channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t211105z",
+      "timestamp": "2026-10-17T21:11:05.027Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab posts (Anthropic news, AISI, OWASP GenAI, Hugging Face blog), GitHub Security Advisories (mcp, agent, llm queries), VulnCheck advisories, research groups (AIR Security, Zenity Labs, Embrace The Red, HiddenLayer, Socket, ReversingLabs, Check Point, Invariant Labs, Simon Willison), paper-scan (59 arXiv papers in window, 1 with two scanned signals), repo-scan (3 candidates) plus github.com/trending, talk-scan (26 videos across 22 channels) and Hacker News. Nothing inside the 7-day window met the bar that the feed does not already carry: the strongest candidates were either already published (HiddenLayer's Hugging Face dead-drop analysis, July 31; Unit 42's in-the-wild indirect prompt injection study, March 3; GitSpawn and PixelLeak, September) or already in the feed (LatentRiskBench, DecisionRobust, INFUSE, MCP-FSD, the Nginx UI MCP cluster, AIR's OpenAI Sesame skill, Embrace The Red's Visual Studio Copilot RCE and its demo video).",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "anthropic.com/news",
+        "aisi.gov.uk/blog",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "github.com/advisories (mcp, agent, llm)",
+        "vulncheck.com/advisories",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "hiddenlayer.com/innovation-hub/research",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "invariantlabs.ai/blog",
+        "simonwillison.net/2026/Oct",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan.ts",
+        "news.ycombinator.com (front, newest)"
+      ],
+      "windowDays": 7
     }
   ]
 }
