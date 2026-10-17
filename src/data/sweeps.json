@@ -7725,6 +7725,73 @@
         "perplexity.ai/hub/blog"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t191210z",
+      "timestamp": "2026-10-17T19:12:10.718Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, VulnCheck, CISA KEV, MSRC, Anthropic news and Frontier Red Team, Google safety and security, AIR Security, Zenity Labs, Embrace The Red, Simon Willison, Datadog Security Labs, Snyk, Wiz, Socket, Unit 42, Check Point, NCC Group, Trail of Bits, HiddenLayer, ReversingLabs, Straiker, OX Security, Lakera, Adversa, OWASP GenAI, UK AISI, CAISI, Hugging Face blog and guard-model search, Hacker News front page and Show HN, github.com/trending, repo-scan (13 queries, 3 candidates), paper-scan (61 arXiv papers, 1 with two scanned signals) and talk-scan (25 videos); every AI-security disclosure, paper, repo and video inside the 7-day window was already in the feed, so nothing was added. Near misses dropped on the rules: MCP Python SDK CVE-2026-59951 and Pipecat CVE-2026-102682 were first published by their maintainers on September 30 and September 29, so the October 14 and 15 NVD and GitHub Advisory Database entries are republication, not disclosure; Manifold Security's GitSpawn was disclosed on September 1; NVIDIA SkillSpector was open-sourced in August; the only two-signal paper, LatentRiskBench, is already in the feed; NullHub CVE-2026-110616 is already recorded in the VulnCheck MCP source-review item; both Embrace The Red videos on CVE-2026-103572 are already linked from that item; and the three repo-scan candidates each showed fewer than two signals from the repo bar. Reddit r/netsec, protectai.com and openai.com did not load for this run.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "CISA Known Exploited Vulnerabilities catalog",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "blog.google safety and security",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "securitylabs.datadoghq.com",
+        "snyk.io security research",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "nccgroup.com research blog",
+        "blog.trailofbits.com",
+        "hiddenlayer.com research",
+        "reversinglabs.com/blog",
+        "straiker.ai/blog",
+        "ox.security/blog",
+        "lakera.ai/blog",
+        "adversa.ai/blog",
+        "jfrog.com security research",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "arXiv abstract pages"
+      ],
+      "windowDays": 7
     }
   ]
 }
