@@ -1,7 +1,95 @@
 {
-  "generatedAt": "2026-10-17T06:17:56.030Z",
+  "generatedAt": "2026-10-17T07:12:26.461Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "arxiv-agent-step-up-effect-binding",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Approve What, Exactly: four agent frameworks run unapproved arguments",
+      "org": "arXiv",
+      "date": "2026-10-15",
+      "url": "https://arxiv.org/abs/2610.21063",
+      "summary": "LangGraph, Agno, Pydantic AI and CrewAI can execute tool-call arguments that changed after a user approved them, three authors report in a paper that audited ten agent runtimes and released its test code.",
+      "severity": "info",
+      "tags": [
+        "approval-bypass",
+        "agent-security",
+        "mcp",
+        "langgraph",
+        "crewai",
+        "pydantic-ai",
+        "agno"
+      ],
+      "affected": [
+        "LangGraph",
+        "Agno",
+        "Pydantic AI",
+        "CrewAI",
+        "MCP Python SDK"
+      ],
+      "credits": [
+        {
+          "name": "Sai Varun Kodathala"
+        },
+        {
+          "name": "Prashanth Pollishetty"
+        },
+        {
+          "name": "Jaylen Cargill"
+        }
+      ],
+      "explainer": {
+        "tagline": "An approval counts as a second factor only when the action that runs is the exact action the user saw and agreed to, the paper argues.",
+        "whatHappened": "Sai Varun Kodathala, Prashanth Pollishetty and Jaylen Cargill posted \"Approve What, Exactly?\" to arXiv on 15 October 2026. The paper defines twelve attacks on the approval path of AI agents, then audits ten agent runtimes to see whether an approval binds to the action that later runs. The authors report that none of the ten produced an approval record a third party could verify, and they released their gateway, test code and data on GitHub.",
+        "howItWorks": "Effect binding is the property under test: the arguments a user approved should be the only arguments that execute. LangGraph runs whatever arguments sit in thread state when a paused run resumes, and Pydantic AI runs arguments taken from a caller-supplied message history, so a later write can replace an approved call. In CrewAI, a hook that runs after approval can change the arguments an earlier hook checked. The paper names a second problem forged narration: the agent writes the approval card itself, so the text shown to the user can describe one action while another is queued.",
+        "whoIsAffected": "Teams that rely on a human approval step in LangGraph, Agno, Pydantic AI or CrewAI are the audience for this finding, which covers four of the eight audited runtimes whose binding the authors could measure. The authors report that argument substitution in Agno still worked in versions 3.0.9, 3.0.10 and 3.1.3. Claude Code, Codex CLI and Cursor sit outside the audit because the authors did not run them.",
+        "whatToDo": "Treat an approval in these frameworks as a record of what a user intended, not proof of what executed, and keep the policy and authorization checks that already gate the action. The authors argue an approval should be bound to a canonical description of the effect and signed, and they note that no approval design stops an effect that policy already permits."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "LangGraph, Agno, Pydantic AI, CrewAI: 4 of 8 runtimes with measurable binding"
+        },
+        {
+          "label": "Runtimes audited",
+          "value": "OpenAI Agents SDK, LangGraph, Google ADK, Agno, Pydantic AI, CrewAI, AutoGen AgentChat, smolagents, MCP Python SDK, OpenClaw"
+        },
+        {
+          "label": "Also tested",
+          "value": "AP2 reference implementation v0.2.0, Microsoft Agent Governance Toolkit, MCP Python SDK 2.3.0 elicitation"
+        },
+        {
+          "label": "Attack type",
+          "value": "Post-approval argument substitution, forged approval narration, approval flooding"
+        },
+        {
+          "label": "Found by",
+          "value": "Sai Varun Kodathala, Prashanth Pollishetty, Jaylen Cargill"
+        },
+        {
+          "label": "Disclosed",
+          "value": "15 October 2026, arXiv v1"
+        },
+        {
+          "label": "Status",
+          "value": "Research paper, no CVE assigned. Code and data released"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.21063"
+        },
+        {
+          "label": "Code And Data",
+          "url": "https://github.com/Sports-Vision-Inc/agent-step-up"
+        }
+      ],
+      "publishDate": "2026-10-17T07:12:26.461Z"
+    },
     {
       "id": "anthropic-ecdsa-curve-seeds",
       "categories": [

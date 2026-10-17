@@ -6895,6 +6895,73 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t071226z",
+      "timestamp": "2026-10-17T07:12:26.461Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (npm and pip), VulnCheck, Anthropic, OpenAI alignment and misalignment reports, Microsoft Security, AIR, Zenity, Embrace The Red, Noma, HiddenLayer, Datadog, JFrog, NCC Group, Unit 42, Check Point, Socket, Snyk, ReversingLabs, OWASP GenAI, UK AISI, NIST CAISI, Hacker News front page and Show HN, Hugging Face blog and weekly papers, the arXiv cs.CR listing, GitHub trending, repo-scan (2 candidates) and talk-scan (23 videos). One item qualified: an arXiv paper that audits approval binding in ten agent runtimes. paper-scan.ts returned queriesRun 0 twice (arXiv HTTP 429 from this runner), so the arXiv cs.CR listing was read directly instead.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "arxiv-agent-step-up-effect-binding",
+          "title": "Approve What, Exactly: four agent frameworks run unapproved arguments",
+          "category": "research",
+          "severity": "info",
+          "note": "Two paper-bar signals verified in this run: code and data at a GitHub repo whose README loads with install and usage steps, and named real products shown failing (argument substitution reproduced in LangGraph, Agno, Pydantic AI and CrewAI, with attacks also run against AP2 v0.2.0 and MCP Python SDK 2.3.0 elicitation)."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (npm)",
+        "GitHub Security Advisories (pip)",
+        "vulncheck.com/advisories",
+        "anthropic.com/news",
+        "alignment.openai.com misalignment reports",
+        "microsoft.com/security/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "noma.security/noma-labs",
+        "hiddenlayer.com research",
+        "securitylabs.datadoghq.com",
+        "research.jfrog.com",
+        "nccgroup.com research blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "snyk.io/blog",
+        "reversinglabs.com/blog",
+        "genai.owasp.org",
+        "aisi.gov.uk/blog",
+        "nist.gov/caisi",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "huggingface.co/blog",
+        "huggingface.co/papers weekly",
+        "arxiv.org/list/cs.CR/recent",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
