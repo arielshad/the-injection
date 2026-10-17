@@ -7905,6 +7905,68 @@
         "news.ycombinator.com (front, newest)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t221147z",
+      "timestamp": "2026-10-17T22:11:47.648Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, VulnCheck, MSRC, Anthropic, OpenAI alignment reports, the Google safety blog, Embrace The Red, AIR Security, Zenity Labs, Snyk, Datadog Security Labs, JFrog, ReversingLabs, Check Point, NCC Group, Trail of Bits, Wiz, Lakera, HiddenLayer, Unit 42, UK AISI, NIST, OWASP GenAI, Hugging Face, Hacker News, GitHub trending, repo-scan (13 queries, 3 candidates), paper-scan (44 papers, 1 with two scanned signals) and talk-scan (22 channels, 25 uploads); nothing inside the 7-day window met the bar that the feed does not already carry. Closest calls, all dropped: the Cycode MCP Python SDK OAuth takeover, the Glow screenshot-leak research and the Google Fairwind program all have original disclosure dates before 2026-10-10; the one paper with two scanned signals (LatentRiskBench) and the GHSA for LMCache CVE-2026-105192 are already in the feed; Trail of Bits on package-manager integrity is not AI security; the three repo-scan candidates and the Horizon Labs prompt-injection guard models each clear only one signal of the two the repo bar needs. Johann Rehberger's two demo videos for CVE-2026-103572 are already linked on that item. r/netsec could not be fetched from this environment, so it is left out of sourcesChecked.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "MSRC Security Update Guide",
+        "anthropic.com/news",
+        "alignment.openai.com misalignment reports",
+        "blog.google safety and security",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "snyk.io/blog",
+        "securitylabs.datadoghq.com",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "nccgroup.com research",
+        "blog.trailofbits.com",
+        "wiz.io/blog",
+        "lakera.ai/blog",
+        "hiddenlayer.com/research",
+        "unit42.paloaltonetworks.com",
+        "socket.dev/blog",
+        "aisi.gov.uk/blog",
+        "nist.gov news",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection by created",
+        "simonwillison.net",
+        "Hacker News front page and Show HN",
+        "github.com/trending daily and weekly",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "gh-repo-meta.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
