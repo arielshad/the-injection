@@ -1,7 +1,91 @@
 {
-  "generatedAt": "2026-10-17T16:13:32.879Z",
+  "generatedAt": "2026-10-17T17:14:35.743Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "coai-archive-download-path-traversal",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "CoAI: an unauthenticated download reads other users' archives",
+      "org": "VulnCheck",
+      "date": "2026-10-16",
+      "url": "https://www.vulncheck.com/advisories/coai-through-4.0.0-unauthenticated-path-traversal-via-archive-download-endpoints",
+      "summary": "CoAI through 4.0.0 builds a download path from a hash parameter it never checks, so an unauthenticated caller can send ../ and read any .tar.gz or .zip file the server reaches, including archives other users generated.",
+      "severity": "medium",
+      "tags": [
+        "data-exfiltration",
+        "coai",
+        "chat-nio"
+      ],
+      "affected": [
+        "CoAI"
+      ],
+      "cve": "CVE-2026-111618",
+      "cvss": 6.9,
+      "credits": [
+        {
+          "name": "hieuPenguinnn",
+          "url": "https://github.com/hieuPenguinnn"
+        }
+      ],
+      "explainer": {
+        "tagline": "A missing check on one query parameter turns CoAI's archive downloads into a reader for other people's files.",
+        "whatHappened": "VulnCheck published CVE-2026-111618 on 2026-10-16, an unauthenticated path traversal in CoAI, the self-hosted multi-model AI chat platform also shipped under the name Chat Nio. hieuPenguinnn found the flaw by reading the version 4.0.0 source and records the status as reported, with no vendor advisory published at the time of writing.",
+        "howItWorks": "Four download handlers in CoAI's addition module read the hash query parameter, trim its whitespace and paste it straight into a storage path such as storage/generation/<hash>.tar.gz. A hash carrying ../ segments climbs out of the storage directory, so the server returns a file from elsewhere on disk. Each handler appends the .tar.gz or .zip suffix itself, which holds a caller to those two extensions.",
+        "whoIsAffected": "Anyone self-hosting CoAI 4.0.0 or earlier is exposed on the four routes listed below. The reach covers .tar.gz and .zip files the CoAI process can read, which includes the generated project and article archives belonging to other users; the researcher reports that files with other extensions, such as configuration files, cannot be pulled this way.",
+        "whatToDo": "Put authentication in front of the generation and article download routes at a reverse proxy, or block them from untrusted networks, until a fixed release ships. Treat every archive the CoAI process can reach as readable by an unauthenticated caller."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "CoAI (Chat Nio) through 4.0.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-111618"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.9 medium, CVSS 4.0, published by VulnCheck"
+        },
+        {
+          "label": "Routes",
+          "value": "/generation/download/tar, /generation/download/zip, /article/download/tar, /article/download/zip"
+        },
+        {
+          "label": "Found by",
+          "value": "hieuPenguinnn"
+        },
+        {
+          "label": "Status",
+          "value": "Reported, no vendor fix listed in the advisory"
+        },
+        {
+          "label": "Validation",
+          "value": "Source review: the researcher states the proof of concept was not executed"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/coai-through-4.0.0-unauthenticated-path-traversal-via-archive-download-endpoints"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://hackmd.io/@hieuPenguinnn/coai-chatnio-generation-article-download-path-traversal"
+        },
+        {
+          "label": "Generation Route",
+          "url": "https://github.com/coaidev/coai/blob/v4.0.0/addition/generation/api.go#L19-L29"
+        },
+        {
+          "label": "Article Route",
+          "url": "https://github.com/coaidev/coai/blob/v4.0.0/addition/article/api.go#L25-L35"
+        }
+      ],
+      "publishDate": "2026-10-17T17:14:35.743Z"
+    },
     {
       "id": "anthropic-metr-embedded-evaluator-access",
       "categories": [

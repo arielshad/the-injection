@@ -7583,6 +7583,81 @@
         "arXiv"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t171435z",
+      "timestamp": "2026-10-17T17:14:35.743Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, Embrace The Red, AIR Security, Zenity, Unit 42, JFrog, Socket, ReversingLabs, Snyk, HiddenLayer, Check Point, Lakera, Trail of Bits, NCC Group, Noma, Lasso, Straiker, MSRC, Anthropic, Google, OWASP GenAI, UK AISI, NIST CAISI, arXiv and HF Daily Papers (61 papers in window, 1 with two signals and already in the feed), repo-scan (3 candidates), GitHub trending, the HF model hub, talk-scan (25 videos) and Hacker News. One item qualified: an unauthenticated path traversal in the CoAI chat platform. openai.com and trellix.com returned 403 to fetches, so a Trellix report on agents exposing credentials was left out as unverified.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "coai-archive-download-path-traversal",
+          "title": "CoAI: an unauthenticated download reads other users' archives",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "New CVE published inside the window against a self-hosted AI chat platform, with the vulnerable source read in this run and no fix yet; distinct from the 99AI item by the same researcher (different product, different flaw)."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "embracethered.com",
+        "simonwillison.net",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "arXiv cs.CR (paper-scan)",
+        "Hugging Face Daily Papers (paper-scan)",
+        "huggingface.co/blog",
+        "Hugging Face model hub (prompt-injection, sorted by created)",
+        "repo-scan.json",
+        "github.com/trending (daily and weekly)",
+        "talk-scan (YouTube conference and security channels)",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "air.security/blog",
+        "Zenity blog",
+        "Unit 42",
+        "JFrog Research",
+        "ReversingLabs blog",
+        "Socket blog",
+        "Snyk security research",
+        "Wiz blog",
+        "HiddenLayer research",
+        "Check Point Research",
+        "Lakera blog",
+        "Trail of Bits blog",
+        "NCC Group research",
+        "Noma Security blog",
+        "Lasso Security blog",
+        "Straiker blog",
+        "Microsoft MSRC blog",
+        "Google security blog",
+        "OWASP GenAI Security Project",
+        "UK AISI",
+        "NIST CAISI",
+        "Invariant Labs blog",
+        "Adversa AI October roundup (discovery only)"
+      ],
+      "windowDays": 7
     }
   ]
 }
