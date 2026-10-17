@@ -7967,6 +7967,64 @@
         "gh-repo-meta.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t231521z",
+      "timestamp": "2026-10-17T23:15:21.119Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (AI, MCP and agent queries), VulnCheck, JFrog, MSRC, Anthropic news and Frontier Red Team, Google safety and security, OWASP GenAI, UK AISI, Embrace The Red, AIR Security, Zenity Labs, HiddenLayer, Lakera, Trail of Bits, NCC Group, Check Point Research, Socket, ReversingLabs, Unit 42, Invariant Labs, Simon Willison, Hugging Face blog, models and Daily Papers, Hacker News and Show HN, GitHub trending, repo-scan (13 queries, 3 candidates) and talk-scan (25 videos); nothing inside the 7-day window met the bar. The AI-related advisories this week (MCP Python SDK CVE-2026-59951, NullHub CVE-2026-110616, the n8n agent-node wave, the LMCache GHSA) are either already in the feed or disclosed before 10 October, the ReversingLabs PixelLeak coverage reports Glow research first published 29 September, and all three repo-scan candidates failed the repo bar on stars, licence or signals. paper-scan failed: arXiv returned HTTP 429 or timed out on every query, and hand searches of the arXiv API and the cs.CR listing were rate-limited too, so arXiv is not in sourcesChecked this run.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "JFrog Research",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "Google safety and security blog",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "embracethered.com",
+        "AIR Security blog",
+        "Zenity Labs",
+        "HiddenLayer research",
+        "Lakera blog",
+        "Trail of Bits blog",
+        "NCC Group research",
+        "Check Point Research",
+        "Socket blog",
+        "ReversingLabs blog",
+        "Unit 42",
+        "Invariant Labs blog",
+        "simonwillison.net",
+        "Hugging Face blog",
+        "Hugging Face models search",
+        "Hugging Face Daily Papers",
+        "Hacker News newest and Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }
