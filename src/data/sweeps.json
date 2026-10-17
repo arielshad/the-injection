@@ -7658,6 +7658,73 @@
         "Adversa AI October roundup (discovery only)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t181401z",
+      "timestamp": "2026-10-17T18:14:01.327Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub and VulnCheck advisories, Anthropic, AIR Security, Zenity Labs, Embrace The Red, Trail of Bits, Socket, NCC Group, Unit 42, MSRC, UK AISI, OWASP GenAI, arXiv via paper-scan (61 candidates, 1 with two signals), repo-scan (13 queries, 3 candidates), talk-scan, github.com/trending, Hacker News and the Hugging Face hub; added one item, Perplexity open-sourcing its SPACE agent sandbox. Left out: the ToFu MCP fuzzing paper (arXiv v1 2026-10-09, one day before the window), LatentRiskBench and the MCP filesystem laundering paper (already in the feed), the MCP Python SDK session-exhaustion advisory (maintainer disclosure 2026-09-30), the RedAmon SSRF CVE (same VulnCheck MCP source review already in the feed), Wheels CLI and xSpeed Cache (flaws not in the AI or MCP path, no credits named), and three repo-scan candidates that each showed only one signal.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "perplexity-space-agent-sandbox",
+          "title": "Perplexity SPACE: the microVM sandbox behind Computer goes open source",
+          "category": "tool",
+          "severity": "info",
+          "note": "An agent sandbox a defender can self-host, new under repo dating (launch post 2026-10-15), with two repo-bar signals checked this run: 1,325 stars from gh-repo-meta, and a launch post plus a published escape evaluation that measures the isolation boundary."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "blog.trailofbits.com",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "nccgroup.com/research-blog",
+        "reversinglabs.com/blog",
+        "unit42.paloaltonetworks.com",
+        "msrc.microsoft.com/blog",
+        "blog.google/security",
+        "lakera.ai/blog",
+        "wiz.io/blog",
+        "aisi.gov.uk/work",
+        "OWASP GenAI Security Project news",
+        "arXiv cs.CR (paper-scan)",
+        "Hugging Face Daily Papers (paper-scan)",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection)",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan (YouTube channels)",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "cveawg.mitre.org",
+        "perplexity.ai/hub/blog"
+      ],
+      "windowDays": 7
     }
   ]
 }

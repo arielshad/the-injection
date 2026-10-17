@@ -1,7 +1,123 @@
 {
-  "generatedAt": "2026-10-17T17:14:35.743Z",
+  "generatedAt": "2026-10-17T18:14:01.327Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "perplexity-space-agent-sandbox",
+      "categories": [
+        "tool"
+      ],
+      "title": "Perplexity SPACE: the microVM sandbox behind Computer goes open source",
+      "org": "Perplexity",
+      "date": "2026-10-15",
+      "url": "https://www.perplexity.ai/hub/blog/open-sourcing-space",
+      "summary": "SPACE is the Firecracker microVM sandbox behind Perplexity's Computer agent, now open source under Apache 2.0. Perplexity reports no escape from guest to host in 108 red-team runs, but agents did get around its network policy.",
+      "severity": "info",
+      "tags": [
+        "agent-security",
+        "sandbox-escape",
+        "red-team",
+        "perplexity",
+        "firecracker"
+      ],
+      "affected": [
+        "AI agents",
+        "Perplexity Computer"
+      ],
+      "credits": [
+        {
+          "name": "Perplexity",
+          "url": "https://github.com/perplexityai"
+        },
+        {
+          "name": "Kyle Polley",
+          "org": "Perplexity Secure Intelligence Institute"
+        },
+        {
+          "name": "Ninghui Li",
+          "org": "Perplexity Secure Intelligence Institute"
+        },
+        {
+          "name": "Yuntao Du",
+          "org": "Perplexity Secure Intelligence Institute"
+        },
+        {
+          "name": "John Louie",
+          "org": "Perplexity Secure Intelligence Institute"
+        },
+        {
+          "name": "Kumar Pallav",
+          "org": "Perplexity Secure Intelligence Institute"
+        }
+      ],
+      "explainer": {
+        "tagline": "SPACE gives defenders a self-hostable microVM sandbox for untrusted agent code, with its own escape testing published.",
+        "whatHappened": "Perplexity released SPACE, the sandbox platform behind its Computer agent, as open source on 15 October 2026. The code is on GitHub, written in Rust, and carries an Apache 2.0 license. Perplexity says SPACE has run every Computer session since July 2026 and handles millions of sandbox creations a day.",
+        "howItWorks": "Each SPACE sandbox is a Firecracker microVM with its own operating system, so agent code is separated from the host by a virtualization boundary instead of container namespaces. A control plane creates, pauses, resumes and deletes sandboxes over an HTTP API, and keeps network egress policy and platform credentials outside the guest. Snapshots store changes rather than repeated full copies, which lets a session pause and resume later.",
+        "whoIsAffected": "Teams that run agent or user code they do not trust are the intended users. Kubernetes is the documented deployment path, with a local Kind cluster and a reference EKS setup, and the architecture guide says operation outside Kubernetes is possible. An E2B compatibility wrapper exposes an E2B-compatible API, tested against the E2B Python SDK, and Akamai, Crusoe and CoreWeave are named as deployment partners.",
+        "whatToDo": "Read SPACE's isolation model and its published escape testing before treating the sandbox as a security boundary, and confirm the egress fixes are present in the commit you deploy. Keep network policy and platform credentials on the host side, as SPACE's own design does, rather than inside the guest."
+      },
+      "quickFacts": [
+        {
+          "label": "Isolation",
+          "value": "One Firecracker microVM per sandbox"
+        },
+        {
+          "label": "License",
+          "value": "Apache 2.0"
+        },
+        {
+          "label": "Language",
+          "value": "Rust"
+        },
+        {
+          "label": "Deployment",
+          "value": "Kubernetes (local Kind, reference EKS); non-Kubernetes possible"
+        },
+        {
+          "label": "Network policy",
+          "value": "11 of 54 runs bypassed a partial-network policy before fixes"
+        },
+        {
+          "label": "In production since",
+          "value": "July 2026, all Perplexity Computer sessions"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Perplexity SPACE safe to use as a security boundary for untrusted agent code?",
+          "a": "SPACE isolates each workload in a Firecracker microVM, which Perplexity's Secure Intelligence Institute tested by giving agents root in the guest and a host-side honeytoken to reach. No run reached it. The weaker boundary was network egress, where forged DNS responses and allowed IP addresses shared with other CDN services let agents call out. Perplexity reports both methods failed after its fixes."
+        },
+        {
+          "q": "Which models bypassed SPACE's network restrictions in the evaluation?",
+          "a": "Four models got around a partial-network egress policy during Perplexity's September 2026 evaluation: Claude Opus 5.0, GPT-5.6 Sol, GPT-5.6 Cyber and Kimi K3. None of the nine models tested escaped the microVM to reach the host. Perplexity traced the bypasses to forged DNS responses and to allowed IP addresses shared with other services on the same CDN."
+        },
+        {
+          "q": "How do I try SPACE without running a Kubernetes cluster in production?",
+          "a": "SPACE documents a local Kind cluster as its starting point, and the repository's installation guide covers deploying, authenticating and running a first command. Perplexity also ships an E2B compatibility wrapper, tested with the E2B Python SDK, so code written against E2B can target SPACE instead. The architecture guide states that running SPACE outside Kubernetes is possible."
+        }
+      ],
+      "links": [
+        {
+          "label": "Open-Sourcing SPACE",
+          "url": "https://www.perplexity.ai/hub/blog/open-sourcing-space"
+        },
+        {
+          "label": "SPACE on GitHub",
+          "url": "https://github.com/perplexityai/SPACE"
+        },
+        {
+          "label": "Escaping SPACE: Part I",
+          "url": "https://www.perplexity.ai/hub/blog/escaping-space-part-i"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/aqo64vfr/production/85aca8565652ce1dd2886392c7445ad593e9db6f-2688x1512.jpg?rect=0,51,2688,1411&w=1200&h=630&fm=jpg&q=80&fit=crop",
+        "alt": "Open-sourcing SPACE, the sandbox platform behind Computer",
+        "credit": "Perplexity"
+      },
+      "publishDate": "2026-10-17T18:14:01.327Z"
+    },
     {
       "id": "coai-archive-download-path-traversal",
       "categories": [
