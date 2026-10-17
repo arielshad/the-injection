@@ -7172,6 +7172,67 @@
         "Adversa AI MCP and coding-agent roundups"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t110920z",
+      "timestamp": "2026-10-17T11:09:20.566Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, MSRC, Anthropic, Embrace The Red, AIR Security, Zenity Labs, Socket, Trail of Bits, NCC Group, Check Point, JFrog, ReversingLabs, Wiz, Lakera, Invariant Labs, HiddenLayer, Unit 42, Google GTIG, OWASP GenAI, UK AISI, NIST, Hugging Face, Hacker News front page and Show HN, Simon Willison, Snyk, paper-scan (9 queries, one candidate with two signals), repo-scan (13 queries, 2 candidates) and talk-scan (22 channels); nothing inside the 7-day window met the bar that the feed does not already carry. Closest candidates failed on date (pipecat CVE-2026-102682 disclosed 2026-09-29 and only added to the GitHub database on 10-15, the ToFu MCP paper at 2026-10-09, the Glow screenshot research at 2026-09-29, Semantic Kernel CVE-2026-26030 from early 2026), on the repo two-signal bar (zero-lab-ai/skills at 53 stars, scs0209/laya-guard at 28, neither with a write-up or known team), or on scope (Trail of Bits package-manager integrity is not AI, Anthropic's independent-evaluator and AISI best-practice posts carry no safeguards or measured results, Wiz/JFrog/Snyk Evo posts are product announcements, CoAI CVE-2026-111618 is a conventional path traversal in an AI chat app). openai.com/news returned 403 and r/netsec could not be fetched, so neither is listed as checked.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com research",
+        "research.checkpoint.com",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "wiz.io/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "hiddenlayer.com/research",
+        "unit42.paloaltonetworks.com",
+        "cloud.google.com threat intelligence",
+        "genai.owasp.org",
+        "aisi.gov.uk/blog",
+        "nist.gov news",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "simonwillison.net",
+        "snyk.io/blog",
+        "arXiv via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan.ts YouTube channels"
+      ],
+      "windowDays": 7
     }
   ]
 }
