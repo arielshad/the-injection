@@ -6565,6 +6565,73 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t021605z",
+      "timestamp": "2026-10-17T02:16:05.393Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, JFrog, Anthropic, MSRC, Google GTIG, UK AISI, OWASP GenAI, Embrace The Red, AIR, Zenity, Unit 42, Socket, Datadog, Manifold, Noma, Trail of Bits, NCC Group, Check Point, Simon Willison, repo-scan (13 queries, 2 candidates), github.com/trending, Hacker News, Hugging Face papers and blog, talk-scan (14 videos) and the arXiv cs.CR listing. No candidate inside the 7-day window met the bar, so this sweep only patches the LMCache RCE, which shipped a fix in 0.5.6 on 14 October and gained a replacement GitHub advisory on 16 October. paper-scan.ts failed with every arXiv query erroring, so arXiv was searched by hand; openai.com returned 403 and r/netsec was unreachable.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "jfrog-lmcache-zmq-pickle-rce",
+          "title": "LMCache: the unauthenticated pickle RCE is fixed in 0.5.6",
+          "note": "LMCache 0.5.6 shipped on 14 October 2026 and removes the pickle call behind CVE-2026-105192. GitHub published GHSA-w5f2-9q9c-ff4h on 16 October listing 0.5.6 as patched, and withdrew GHSA-vv44-hjm2-qw2f as a duplicate. The item said no fix was available."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "JFrog Research",
+        "LMCache releases and issue tracker",
+        "arXiv cs.CR recent listing",
+        "Hugging Face Daily Papers",
+        "huggingface.co/blog",
+        "repo-scan.json (13 queries)",
+        "github.com/trending (daily and weekly)",
+        "Hacker News front page",
+        "Hacker News Algolia search",
+        "talk-scan.ts (14 videos in window)",
+        "anthropic.com/news",
+        "Microsoft MSRC blog",
+        "Google Cloud threat intelligence blog",
+        "aisi.gov.uk",
+        "OWASP GenAI Security Project news",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "simonwillison.net",
+        "Unit 42",
+        "Check Point Research",
+        "Trail of Bits",
+        "NCC Group research",
+        "ReversingLabs blog",
+        "Socket blog",
+        "Datadog Security Labs",
+        "Manifold Security",
+        "Noma Labs",
+        "Adversa AI",
+        "CSO Online (discovery only)"
+      ],
+      "windowDays": 7
     }
   ]
 }

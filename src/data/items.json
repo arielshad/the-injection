@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T01:11:36.184Z",
+  "generatedAt": "2026-10-17T02:16:05.393Z",
   "promptVersion": "1.3.0",
   "items": [
     {
@@ -8648,11 +8648,11 @@
       "categories": [
         "vulnerability"
       ],
-      "title": "LMCache: unauthenticated remote code execution, no fix available",
+      "title": "LMCache: the unauthenticated pickle RCE is fixed in 0.5.6",
       "org": "JFrog",
       "date": "2026-10-07",
       "url": "https://research.jfrog.com/vulnerabilities/lmcache-is-vulnerable-to-unauthenticated-remote-code-execution-via-pickle-deserialization-on-the-multiprocess-zmq-transport-cve-2026-105192-jfsa-2026-001694382/",
-      "summary": "CVE-2026-105192 lets anyone who can reach LMCache's multiprocess transport port run code as the LMCache user, with no credentials and no fixed release. Official container images run that process as root.",
+      "summary": "LMCache 0.5.6 fixes CVE-2026-105192, the unauthenticated remote code execution flaw on the multiprocess ZeroMQ transport. The release replaces pickle with typed MessagePack descriptors and disables the /run_script endpoint by default.",
       "severity": "high",
       "cve": "CVE-2026-105192",
       "cvss": 9.8,
@@ -8674,24 +8674,24 @@
         }
       ],
       "explainer": {
-        "tagline": "LMCache's multiprocess mode accepts pickled data on an unauthenticated ZeroMQ socket, so one message can run code as root.",
-        "whatHappened": "JFrog Security Research disclosed CVE-2026-105192 on 7 October 2026, an unauthenticated remote code execution flaw in LMCache, the distributed KV cache used to speed up LLM serving alongside vLLM. Yuval Moravchick of JFrog found it, and the advisory carries a CVSS score of 9.8. A second unauthenticated code execution path in LMCache's internal API server, CVE-2026-107204, was reported in the project's issue tracker a day earlier.",
-        "howItWorks": "Multiprocess mode opens a ZeroMQ ROUTER socket with no authentication: no CURVE, no ZAP, no password and no message authentication. Incoming msgpack messages carrying extension code 1 are handed to DeviceIPCWrapper.Deserialize, which calls pickle.loads while decoding the arguments for REGISTER_KV_CACHE. Deserialization happens before the request handler runs, so a single crafted message executes code as the LMCache process user.",
-        "whoIsAffected": "LMCache 0.3.9 and later are affected in multiprocess mode, which the project also calls distributed mode. Exposure depends on the bind address: the transport listens on localhost by default, and JFrog's 9.8 score applies to deployments that set a routable address with --host, as multi-node clusters commonly do. LMCache running only inside a vLLM process does not open the port.",
-        "whatToDo": "Keep the LMCache transport port, 5555 by default, on localhost or a trusted cluster network, and do not set --host to a routable address until a release ships a fix. JFrog notes that a firewall reduces who can reach the port but does not remove the risk from any host that can still connect."
+        "tagline": "LMCache 0.5.6 removes the pickle call behind CVE-2026-105192, so the multiprocess transport no longer runs code from unauthenticated peers.",
+        "whatHappened": "LMCache shipped v0.5.6 on 14 October 2026, the first release that removes the pickle call behind CVE-2026-105192. GitHub published advisory GHSA-w5f2-9q9c-ff4h on 16 October 2026, listing 0.5.6 as the patched version, and withdrew the earlier GHSA-vv44-hjm2-qw2f as a duplicate. JFrog's own advisory, which disclosed the flaw on 7 October 2026, still records no fixed release.",
+        "howItWorks": "The flaw sits in LMCache's multiprocess ZeroMQ ROUTER socket, which carries no CURVE, ZAP or password authentication. Messages tagged with msgpack extension code 1 reached pickle.loads while the server decoded REGISTER_KV_CACHE arguments, so one crafted frame ran code before any handler checked the request. Version 0.5.6 replaces that path with versioned, typed MessagePack descriptors that are validated before use, and takes the device wrapper type from a fixed allowlist with no pickle fallback.",
+        "whoIsAffected": "LMCache 0.3.9 up to 0.5.6 are affected in multiprocess mode, which the project also calls distributed mode. GitHub's advisory lists 0.5.6 as the first patched version and says the fix covers both the ZeroMQ and gRPC paths. Deployments that keep the transport on localhost, or that run LMCache only inside a vLLM process, never open the port.",
+        "whatToDo": "Upgrade LMCache to 0.5.6 or later. GitHub's advisory says the wire format changed, so every worker and server must be upgraded together. The same advisory says a host whose transport port was ever reachable from an untrusted network should be treated as potentially compromised and redeployed from clean images."
       },
       "quickFacts": [
         {
           "label": "Affected",
-          "value": "LMCache 0.3.9 and later, in multiprocess (distributed) mode"
+          "value": "LMCache 0.3.9 up to 0.5.6, in multiprocess (distributed) mode"
         },
         {
           "label": "Fixed in",
-          "value": "No fixed release: v0.5.5, the v0.5.6 release candidates and the dev branch still call pickle.loads"
+          "value": "0.5.6, released 14 October 2026"
         },
         {
           "label": "CVE",
-          "value": "CVE-2026-105192, CVSS 9.8. A second unauthenticated RCE is CVE-2026-107204"
+          "value": "CVE-2026-105192, CVSS 9.8 (GHSA-w5f2-9q9c-ff4h)"
         },
         {
           "label": "Found by",
@@ -8702,30 +8702,30 @@
           "value": "7 October 2026 (JFSA-2026-001694382)"
         },
         {
-          "label": "Attack type",
-          "value": "Pickle deserialization on an unauthenticated ZeroMQ ROUTER socket, default port 5555"
+          "label": "Status",
+          "value": "Patched in 0.5.6. JFrog's advisory still lists no fixed release"
         },
         {
-          "label": "Exposure",
-          "value": "Only when multiprocess mode binds a routable address with --host"
+          "label": "Attack type",
+          "value": "Pickle deserialization on an unauthenticated ZeroMQ ROUTER socket, default port 5555"
         }
       ],
       "faq": [
         {
-          "q": "Is my LMCache deployment exposed to CVE-2026-105192?",
-          "a": "LMCache is exposed when multiprocess mode binds a routable address through --host, which multi-node deployments commonly do. JFrog states that a stock single-host install keeps the transport on localhost and is not reachable from other machines, and that LMCache used only inside a vLLM process never opens the port. Check whether port 5555 answers from another host."
+          "q": "Is there a patch for LMCache CVE-2026-105192?",
+          "a": "LMCache 0.5.6, released on 14 October 2026, is the first version that fixes CVE-2026-105192. GitHub's advisory GHSA-w5f2-9q9c-ff4h lists 0.5.6 as the patched release and marks every version from 0.3.9 onward as affected. The release notes say pickle is no longer used to serialize device IPC handles in multiprocess mode."
         },
         {
-          "q": "Is there a patch for LMCache?",
-          "a": "No fixed release existed when JFrog published the advisory on 7 October 2026. JFrog reports that the latest PyPI release v0.5.5, the v0.5.6 release candidates and the dev branch all still call pickle.loads on data from unauthenticated peers. JFrog's advice until a fix ships is direct: do not set --host to a routable address."
+          "q": "Which LMCache deployments were exposed?",
+          "a": "Multiprocess mode, which LMCache also calls distributed mode, opens the vulnerable ZeroMQ transport on port 5555. The transport listens on localhost by default, so the CVSS 9.8 score applies to deployments that set a routable address with --host, as multi-node clusters commonly do. LMCache running only inside a vLLM process never opens the port."
         },
         {
-          "q": "What can an attacker do with CVE-2026-105192?",
-          "a": "An attacker who can reach the ZeroMQ transport port needs no credentials and can run code as the user running LMCache. JFrog notes that the official container images run that process as root. One crafted message is decoded with pickle.loads during argument handling, before any request handler runs, so no valid session is needed."
+          "q": "Do I need to do anything else after upgrading LMCache?",
+          "a": "Upgrading changes the wire format, so GitHub's advisory says every worker and server must move to 0.5.6 together. The advisory also says a host whose transport port was ever reachable from an untrusted network should be treated as potentially compromised and redeployed from clean images. Official container images now run as a non-root user."
         },
         {
-          "q": "How does CVE-2026-107204 differ from the ZeroMQ flaw?",
-          "a": "CVE-2026-107204 is a separate unauthenticated remote code execution path, in LMCache's internal API server rather than the ZeroMQ transport. Callers post Python to the /run_script endpoint, then reach the real builtins through the exposed FastAPI app object to escape the sandbox and run operating system commands. The GitHub user yyymk reported it on 6 October 2026."
+          "q": "What happened to the second LMCache code execution path?",
+          "a": "CVE-2026-107204 is a separate unauthenticated code execution path in LMCache's internal API server, where callers post Python to the /run_script endpoint and reach the real builtins through the FastAPI app object. The 0.5.6 release notes say /run_script is now disabled by default. LMCache issue 5510, opened by yyymk on 6 October 2026, remains open."
         }
       ],
       "links": [
@@ -8735,6 +8735,14 @@
         },
         {
           "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-w5f2-9q9c-ff4h"
+        },
+        {
+          "label": "Release Notes 0.5.6",
+          "url": "https://github.com/LMCache/LMCache/releases/tag/v0.5.6"
+        },
+        {
+          "label": "Withdrawn Advisory",
           "url": "https://github.com/advisories/GHSA-vv44-hjm2-qw2f"
         },
         {
