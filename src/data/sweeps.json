@@ -7039,6 +7039,74 @@
         "talk-scan (22 YouTube channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261017t091449z",
+      "timestamp": "2026-10-17T09:14:49.990Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (GitHub Security Advisories, MSRC, Microsoft Security blog, Anthropic news and Frontier Red Team, OpenAI alignment, VulnCheck, JFrog, NCC Group, Trail of Bits, Wiz, Check Point, Datadog, ReversingLabs, Hugging Face), research groups (AIR Security, Zenity Labs, Embrace The Red, Lakera, HiddenLayer, Socket, Signals Corps), OWASP GenAI, UK AISI, paper-scan (94 papers in window), repo-scan (13 queries, 2 candidates), GitHub trending, talk-scan (23 videos), Hacker News and Show HN, and security press. One paper cleared the bar: DecisionRobust, a robustness benchmark for typed decision models.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "arxiv-decisionrobust",
+          "title": "DecisionRobust: typed decision models still fall to prompt injection",
+          "category": "research",
+          "severity": "info",
+          "note": "Two paper-bar signals verified in this run: data and evaluation tools released at the project site (fetched), and 20 Hugging Face Daily Papers upvotes (paper-scan). arXiv v1 is 2026-10-13, inside the window, and the finding that injection resistance does not follow from perturbation resistance is actionable for anyone running decision models."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "MSRC and Microsoft Security blog",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "alignment.openai.com",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "securitylabs.datadoghq.com",
+        "research.jfrog.com",
+        "nccgroup.com research",
+        "trailofbits.com",
+        "wiz.io/blog",
+        "research.checkpoint.com",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "hiddenlayer.com/research",
+        "socket.dev/blog",
+        "signalscorps.com/blog",
+        "genai.owasp.org",
+        "aisi.gov.uk/blog",
+        "arXiv cs.CR via paper-scan.ts",
+        "huggingface.co/papers",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, created)",
+        "repo-scan.json",
+        "github.com/trending (daily and weekly)",
+        "talk-scan.ts (22 YouTube channels)",
+        "Hacker News front page and Show HN",
+        "The Register, BleepingComputer"
+      ],
+      "windowDays": 7
     }
   ]
 }

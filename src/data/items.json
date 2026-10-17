@@ -1,7 +1,158 @@
 {
-  "generatedAt": "2026-10-17T08:12:56.741Z",
+  "generatedAt": "2026-10-17T09:14:49.990Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "arxiv-decisionrobust",
+      "categories": [
+        "research",
+        "benchmark"
+      ],
+      "title": "DecisionRobust: typed decision models still fall to prompt injection",
+      "org": "The Pennsylvania State University",
+      "date": "2026-10-13",
+      "url": "https://arxiv.org/abs/2610.19118",
+      "summary": "DecisionRobust is a Penn State benchmark that attacks JEV-style decision models with text edits, image perturbations and injected instructions. Target attack success ranges from 18.3% to 82.5% across six text decision models.",
+      "severity": "info",
+      "tags": [
+        "prompt-injection",
+        "evals",
+        "jev"
+      ],
+      "affected": [
+        "Jev",
+        "KEV",
+        "AutoTrust",
+        "OpenJEV",
+        "Bosun",
+        "Liquid D1"
+      ],
+      "credits": [
+        {
+          "name": "Yifan Lan"
+        },
+        {
+          "name": "Zhongye Liu"
+        },
+        {
+          "name": "Yurui Chang"
+        },
+        {
+          "name": "Hanyu Wang"
+        },
+        {
+          "name": "Yongkang Du"
+        },
+        {
+          "name": "The Pennsylvania State University"
+        }
+      ],
+      "explainer": {
+        "tagline": "DecisionRobust measures how far typed decision models bend under text edits, image changes and injected instructions.",
+        "whatHappened": "Researchers at The Pennsylvania State University published DecisionRobust on arXiv on October 13, 2026. The benchmark targets decision models, which return typed choices, judgments and scores instead of free text, and which teams increasingly wire into automated decisions. Data and evaluation tools are published on the project site.",
+        "howItWorks": "Each decision task is paired with four attack families: meaning-preserving text edits, common and optimized image perturbations, and prompt injection placed either in the text or inside the image. Attacks are built against six text and five vision selection models, then replayed against held-out models they were never tuned on. A label-consistency check discards cases where the model was already wrong before the attack, separating genuine flips from noise.",
+        "whoIsAffected": "Teams routing decisions through typed decision models are in scope, starting with the six text models and five vision models the paper tests. The authors report that attacks built on those models also transfer to held-out models, including Perplexity Decider v1.1-27B and Strands Decider-2B, so absence from the benchmark is not evidence of safety.",
+        "whatToDo": "Add a label-consistency check before acting on a decision model's output: the authors report it substantially lowers measured attack success in both text and vision. Measure injection resistance separately from perturbation resistance, because the paper finds that one does not predict the other."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "arXiv v1, October 13, 2026"
+        },
+        {
+          "label": "Text models",
+          "value": "30 configurations, 6 used to build attacks"
+        },
+        {
+          "label": "Vision models",
+          "value": "17 configurations, 5 used to build attacks"
+        },
+        {
+          "label": "Attack types",
+          "value": "Text edits, image perturbations, text and in-image prompt injection"
+        },
+        {
+          "label": "Curated set",
+          "value": "1,058 examples across five suites"
+        },
+        {
+          "label": "Data and code",
+          "value": "Dataset on Hugging Face, evaluation tools on GitHub"
+        },
+        {
+          "label": "Found by",
+          "value": "Penn State: Lan, Liu, Chang, Wang, Du, Lin, Chen"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which decision models does DecisionRobust test?",
+          "a": "DecisionRobust evaluates 30 text configurations and 17 vision configurations. Six text models, Jev, KEV, AutoTrust, OpenJEV, Bosun and Liquid D1, were used to build the text attacks, alongside five vision models. The remaining 24 text and 12 vision models were held out, letting the authors check whether attacks transfer to models they never targeted."
+        },
+        {
+          "q": "Does resisting text perturbation mean a decision model resists prompt injection?",
+          "a": "No, according to the DecisionRobust authors, who write that resistance to perturbations does not necessarily imply resistance to prompt injection. Their example is Perplexity Decider v1.1-27B, which shows a 3.2% perturbation attack success rate but 45.7% target success under instruction injection. Security teams should measure both attack families separately rather than treat one score as a proxy."
+        },
+        {
+          "q": "Can I run the DecisionRobust benchmark myself?",
+          "a": "Yes. The DecisionRobust project site publishes the dataset on Hugging Face and the evaluation tools on GitHub, plus a downloadable CSV of leaderboard results. The curated benchmark holds 1,058 examples across five suites: 141 text adversarial, 374 text injection, 200 image perturbation, 223 image overlay and 120 image instruction cases."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Text prompt injection: target attack success rate",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders. Construction pool, either injection location.",
+          "results": [
+            {
+              "name": "Jev",
+              "score": 49.6
+            },
+            {
+              "name": "KEV",
+              "score": 18.3
+            },
+            {
+              "name": "AutoTrust",
+              "score": 60.7
+            },
+            {
+              "name": "OpenJEV",
+              "score": 82.5
+            },
+            {
+              "name": "Bosun",
+              "score": 41.1
+            },
+            {
+              "name": "Liquid D1",
+              "score": 23.2
+            }
+          ],
+          "source": "https://arxiv.org/html/2610.19118v1"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.19118"
+        },
+        {
+          "label": "Benchmark Site",
+          "url": "https://yifan-lan.github.io/DecisionRobust/"
+        },
+        {
+          "label": "Full Paper (HTML)",
+          "url": "https://arxiv.org/html/2610.19118v1"
+        },
+        {
+          "label": "Hugging Face Paper",
+          "url": "https://huggingface.co/papers/2610.19118"
+        }
+      ],
+      "publishDate": "2026-10-17T09:14:49.990Z"
+    },
     {
       "id": "deepmind-gemini-4-argon-cyber-safeguards",
       "categories": [
