@@ -1,7 +1,141 @@
 {
-  "generatedAt": "2026-10-16T23:12:52.690Z",
+  "generatedAt": "2026-10-17T00:16:49.942Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "anthropic-ecdsa-curve-seeds",
+      "categories": [
+        "research"
+      ],
+      "title": "Anthropic: Claude traced the NIST ECDSA curve seeds to lrand48",
+      "org": "Anthropic",
+      "date": "2026-10-16",
+      "url": "https://www.anthropic.com/research/ecdsa-curve-origins",
+      "summary": "Anthropic's Frontier Red Team reports that an internal research model traced the NIST P-192 through P-521 curve seeds to the C library's lrand48 generator seeded with a Unix timestamp, not to a lost hash input.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "anthropic",
+        "claude"
+      ],
+      "credits": [
+        {
+          "name": "John Wood",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Henry de Valence",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Ava Howell",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Zack Voase",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Lucy Sweet",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Amir Omidi",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Paul Crowley",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Iain McGinniss",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Nicholas Carlini",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Steve Weis",
+          "org": "Anthropic Frontier Red Team"
+        }
+      ],
+      "explainer": {
+        "tagline": "Claude found the unexplained NIST curve seeds are consecutive outputs of a 1990s random number generator, not hashes of a lost phrase.",
+        "whatHappened": "Anthropic published the result on October 16, 2026. The post says a curious Anthropic employee asked an internal research model in October 2026 how the NIST elliptic curve seeds were generated, without passing on the rumored clue, and that in under half an hour Claude had the origins of the P-192, P-224, P-256, P-384 and P-521 seeds. Ten Anthropic staff are named on the work, including Nicholas Carlini and Steve Weis.",
+        "howItWorks": "None of the prime-curve seeds were the output of a hash algorithm, according to the post. Claude wrote a scanner that slid along each published seed one bit at a time looking for consecutive outputs of a 1990s-style generator, then spotted zero top bits, the signature of lrand48, which returns only the top 31 bits of a 48-bit state. Anthropic puts the chance of that pattern appearing at random at 1/5810, and says Claude recovered the generator's internal state for the prime curves with LLL lattice reduction. For the prime curves each srand48 call was seeded with a Unix timestamp between May 1997 and April 1998, and a published seed is one 20-byte chunk in that stream: for P-256 it is candidate 1842, and candidate 876 of the same run also gives a prime-order curve.",
+        "whoIsAffected": "Nobody running ECDSA on the NIST curves is exposed by the finding. Anthropic states that the work is not a cryptographic break, new attack, or weakness in the ECDSA curves, and argues the findings make a deliberate backdoor much less plausible, because the seeds came from a simple reproducible process. Several seeds and base points remain unexplained, listed below.",
+        "whatToDo": "Anthropic says there is no action to be taken or things to do differently."
+      },
+      "quickFacts": [
+        {
+          "label": "Generator",
+          "value": "lrand48, seeded by srand48 with a Unix timestamp between May 1997 and April 1998"
+        },
+        {
+          "label": "Seeds explained",
+          "value": "NIST P-192, P-224, P-256, P-384, P-521; ANSI X9.62 prime192v2, prime192v3, prime239v1, prime239v2, prime239v3; binary B-233, B-283, B-409, B-571"
+        },
+        {
+          "label": "Still unexplained",
+          "value": "The B-163 seed, and the base points for P-224, P-256, P-384, P-521 and the NIST binary curves"
+        },
+        {
+          "label": "Time taken",
+          "value": "Under half an hour"
+        },
+        {
+          "label": "Found by",
+          "value": "An internal Anthropic research model, prompted by a curious employee"
+        },
+        {
+          "label": "Status",
+          "value": "Not a cryptographic break; Anthropic says no action is needed"
+        },
+        {
+          "label": "Bounty",
+          "value": "$36,864, to be donated to the Internet Security Research Group"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do the NIST curve seed findings mean I should stop using ECDSA P-256?",
+          "a": "ECDSA on P-256 needs no change, according to Anthropic, which states the work is not a cryptographic break, new attack, or weakness in the ECDSA curves. The post says there is no action to be taken or things to do differently. Anthropic's argument runs the other way: knowing the seeds came from a simple reproducible process makes a deliberate backdoor much less plausible."
+        },
+        {
+          "q": "Which NIST curve seeds and base points are still unexplained?",
+          "a": "The B-163 seed remains unexplained, Anthropic reports, along with the base points for P-224, P-256, P-384, P-521 and the NIST binary curves. Claude did recover the base points for P-192 and five ANSI X9.62 example curves, using a generator derived from FreeLIP. The seeds Anthropic says it explained cover the five NIST prime curves and four binary curves, listed above."
+        },
+        {
+          "q": "Which model found the NIST curve seeds, and how long did it take?",
+          "a": "Anthropic names only an internal research model, not a released Claude version, and says an employee asked it in October 2026 without supplying the rumored passphrase clue. Under half an hour later the model had the origins of the P-192, P-224, P-256, P-384 and P-521 seeds. Ten Anthropic staff are credited, including Nicholas Carlini and Steve Weis."
+        },
+        {
+          "q": "What did researchers believe about the NIST curve seeds before this?",
+          "a": "Stephen A. Weis set out the open question in a 2023 essay: Alfred Menezes told him that Jerry Solinas of the NSA supplied the seeds in 1997, and several sources said they were SHA-1 hashes of a lost English phrase. Solinas died in early 2023 without explaining the method. Anthropic's finding is that the seeds were not hash outputs at all."
+        }
+      ],
+      "links": [
+        {
+          "label": "Anthropic Post",
+          "url": "https://www.anthropic.com/research/ecdsa-curve-origins"
+        },
+        {
+          "label": "The Open Question",
+          "url": "https://saweis.net/posts/nist-curve-seed-origins.html"
+        },
+        {
+          "label": "Seeds Bounty",
+          "url": "https://words.filippo.io/seeds-bounty/"
+        }
+      ],
+      "image": {
+        "url": "https://www-cdn.anthropic.com/images/4zrzovbb/website/d0c862c5cabd703c0fcbaad939385133f02b694c-1200x630.jpg",
+        "alt": "Claude reveals ECDSA curve origins",
+        "credit": "Anthropic"
+      },
+      "publishDate": "2026-10-17T00:16:49.942Z"
+    },
     {
       "id": "99ai-chatlog-unauth-export",
       "categories": [
