@@ -8328,6 +8328,64 @@
         "adversa.ai October 2026 digest"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t051013z",
+      "timestamp": "2026-10-18T05:10:13.571Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP and newest-reviewed), VulnCheck, Embrace The Red, AIR Security, Zenity Labs, Simon Willison, Anthropic, DeepMind, MSRC, Trail of Bits, NCC Group, Check Point, ReversingLabs, Socket, JFrog, Lakera, CAISI, UK AISI, Hugging Face, Hacker News front page and Show HN, GitHub trending, repo-scan (13 queries, 3 candidates), paper-scan (57 candidates) and talk-scan (12 videos); nothing inside the 7-day window met the bar. The four unseen MCP and AI advisories (MCP Python SDK CVE-2026-59951, ckan-mcp-server CVE-2026-76894, Nginx UI CVE-2026-84360, unstructured CVE-2026-104250) are NVD and GitHub Advisory Database backfill of disclosures from Sep 30, Jul 9, Jul 17 and Jul 27, so their original dates fall outside the window. OpenCode disclosed a Console breach exposing stored OpenAI, Anthropic and Google provider keys on 2026-10-17, but its only statement is an X post that returns HTTP 402 to fetchers, and neither opencode.ai, its changelog, its status page nor its GitHub advisories carry a notice, so there is no primary source that loads and the item is dropped rather than cited to press.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "deepmind.google/discover/blog",
+        "Microsoft MSRC blog",
+        "blog.trailofbits.com",
+        "NCC Group research blog",
+        "research.checkpoint.com",
+        "reversinglabs.com/blog",
+        "socket.dev/blog",
+        "jfrog.com security research",
+        "lakera.ai/blog",
+        "NIST CAISI",
+        "UK AISI",
+        "huggingface.co/blog",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "Hacker News newest",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "talk-scan.ts",
+        "arxiv.org",
+        "opencode.ai and GitHub anomalyco/opencode",
+        "Google Cloud threat intelligence blog"
+      ],
+      "windowDays": 7
     }
   ]
 }
