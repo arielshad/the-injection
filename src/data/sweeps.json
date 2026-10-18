@@ -9070,6 +9070,77 @@
         "github.com/anomalyco/opencode advisories and issues"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t171523z",
+      "timestamp": "2026-10-18T17:15:23.313Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, CISA KEV, MSRC, Anthropic, OpenAI alignment, DeepMind and Google, AIR Security, Zenity, Embrace The Red, Unit 42, Wiz, Check Point, HiddenLayer, Manifold, Datadog Security Labs, ReversingLabs, Socket, Trail of Bits, NCC Group, Snyk, JFrog, Lakera, OWASP GenAI, UK AISI, NIST CAISI, Hugging Face, Hacker News, r/netsec, Simon Willison, paper-scan (55 arXiv candidates, 1 with two signals), repo-scan (5 candidates, 13 queries) and talk-scan (25 videos, 22 channels); r/netsec would not load, so it is left out of sourcesChecked. No new disclosure, tool, paper or talk inside the 7-day window met the bar: everything qualifying was already in the feed. One update: ReversingLabs' October 15 follow-up on the GTG-20006 cluster adds indicators and shows the staging server still live on October 5.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "reversinglabs-gtg-20006-behavior-detection",
+          "title": "ReversingLabs: behavior beat hashes on an AI-assisted spy campaign",
+          "note": "ReversingLabs published a second analysis on October 15, 2026 that maps the same GTG-20006 cluster from two hashes in Anthropic's report. New facts for defenders: the staging server was still serving malicious files on October 5, Microsoft's parallel attribution, and indicator totals absent from both public reports. Same incident, so it patches the existing item instead of adding one. The patch also corrects Igor Lasic's title, which both ReversingLabs posts give as SVP of Engineering."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories and blog",
+        "CISA Known Exploited Vulnerabilities catalog",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "alignment.openai.com misalignment reports",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "unit42.paloaltonetworks.com",
+        "wiz.io/blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com research",
+        "manifold.security/blog",
+        "securitylabs.datadoghq.com",
+        "reversinglabs.com/blog",
+        "socket.dev/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com research blog",
+        "snyk.io security research",
+        "jfrog.com security research",
+        "lakera.ai/blog",
+        "cycode.com/blog",
+        "pluto.security/blog",
+        "adversa.ai MCP and coding-agent digests",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/papers",
+        "Hacker News front page and Show HN",
+        "simonwillison.net October archive",
+        "github.com/trending daily and weekly",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

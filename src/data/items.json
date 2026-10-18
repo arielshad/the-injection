@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T16:13:33.941Z",
+  "generatedAt": "2026-10-18T17:15:23.313Z",
   "promptVersion": "1.3.0",
   "items": [
     {
@@ -10714,15 +10714,15 @@
       ],
       "explainer": {
         "tagline": "Behavior-based hunting found implants that an actor rebuilt with Claude, while hashes and file names changed too fast to track.",
-        "whatHappened": "Igor Lasic, SVP of Technology at ReversingLabs, published the analysis on October 8, 2026. Anthropic's September 2026 threat intelligence report described GTG-20006, a Russian espionage actor whose attribution Anthropic says is consistent with public reporting linking it to Midnight Blizzard. ReversingLabs compared that report against its own historical telemetry.",
+        "whatHappened": "Igor Lasic, SVP of Engineering at ReversingLabs, published the analysis on October 8, 2026, and a second analysis mapping the cluster's infrastructure on October 15. Anthropic's September 2026 threat intelligence report described GTG-20006, a Russian-speaking espionage operator whose attribution Anthropic says is consistent with public reporting linking it to Midnight Blizzard. ReversingLabs compared that report against its own historical telemetry.",
         "howItWorks": "Anthropic states the actor built automated loops in which agents noticed when security products flagged their malware, then rewrote and redeployed it until it evaded detection. ReversingLabs reports that the loop changed hashes, build artifacts and file names but not the underlying behaviors. A hunt built on the operator's beacon behavior returned seven malicious files and no hits on clean software.",
         "whoIsAffected": "Anthropic says the actor targeted more than 20 organizations, mainly Ukrainian and European government, military intelligence, diplomatic and defense bodies, along with Ukrainian drone technology suppliers. Anthropic reports the activity ran on its Claude Haiku, Sonnet and Opus models, with a human operator maintaining the Claude Code skills that drove the workflows.",
-        "whatToDo": "Hunt on behavior rather than on hashes wherever an actor can regenerate artifacts cheaply, and retain historical telemetry so a later report can be matched against files already seen. ReversingLabs notes that 13 of the 14 servers Anthropic listed looked low risk in third-party reputation sources, so reputation feeds alone would have missed that infrastructure."
+        "whatToDo": "Check each vendor report's indicators against historical telemetry as soon as it is published, and treat disclosure as no guarantee of takedown: ReversingLabs found the staging server still answering with malicious files on October 5, 2026. Review Microsoft Entra ID sign-ins for device-code authentication and block that flow with Conditional Access where the business allows it."
       },
       "quickFacts": [
         {
           "label": "Actor",
-          "value": "GTG-20006, attribution consistent with Midnight Blizzard (Anthropic)"
+          "value": "GTG-20006 (Anthropic); Microsoft assesses Storm-2945 as a Midnight Blizzard sub-cluster"
         },
         {
           "label": "Anthropic report",
@@ -10730,23 +10730,23 @@
         },
         {
           "label": "First seen by RL",
-          "value": "Go backdoor July 6, PowerShell stager July 10, 2026"
+          "value": "Go backdoor July 6, PowerShell stager July 10, 2026; both classified malicious August 1"
         },
         {
-          "label": "RL verdict",
-          "value": "Both classified malicious August 1, 2026"
+          "label": "Rebuilt stagers",
+          "value": "Five PowerShell stagers with five different hashes and one 35-item capability profile"
         },
         {
-          "label": "Behavior hunt",
-          "value": "7 malicious files, no clean-software hits"
-        },
-        {
-          "label": "Added indicators",
-          "value": "7 files, 8 URLs, 2 infrastructure links absent from Anthropic's appendix"
+          "label": "Lures",
+          "value": "Two 60-byte .url shortcut files, flagged by none of 37 antivirus engines"
         },
         {
           "label": "Reputation gap",
-          "value": "13 of 14 listed servers looked low risk in third-party sources"
+          "value": "The median cluster domain is flagged by about 2 of 47 reputation sources"
+        },
+        {
+          "label": "Status",
+          "value": "Staging server 213.145.86.112 still returned malicious files on October 5, 2026"
         }
       ],
       "faq": [
@@ -10767,6 +10767,10 @@
         {
           "label": "ReversingLabs Analysis",
           "url": "https://www.reversinglabs.com/blog/anthropic-midnight-blizzard-what-reversinglabs-found-first"
+        },
+        {
+          "label": "RL Indicator Mapping",
+          "url": "https://www.reversinglabs.com/blog/how-rl-mapped-a-midnight-blizzard-linked-campaign-from-two-hashes"
         },
         {
           "label": "Anthropic Threat Report",
