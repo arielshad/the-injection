@@ -9141,6 +9141,62 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t181233z",
+      "timestamp": "2026-10-18T18:12:33.090Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept GitHub advisories, VulnCheck, JFrog, Embrace The Red, Zenity, AIR, Socket, Trail of Bits, Check Point, Unit 42, Anthropic, AISI, OWASP GenAI, Hugging Face, arXiv (55 papers scanned, none showing two signals), repo-scan (5 candidates, none clearing the repo bar), GitHub trending, Hacker News, Show HN and talk-scan (24 videos). Nothing inside the 7-day window met the bar: the one strong candidate, the LMCache pickle RCE fix, is already covered by jfrog-lmcache-zmq-pickle-rce, and the remaining leads were disclosed before the window.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "vulncheck.com/advisories",
+        "research.jfrog.com",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security/blog",
+        "socket.dev/blog",
+        "blog.trailofbits.com",
+        "research.checkpoint.com",
+        "unit42.paloaltonetworks.com",
+        "wiz.io/blog",
+        "lakera.ai/blog",
+        "hiddenlayer.com",
+        "reversinglabs.com/blog",
+        "anthropic.com/news",
+        "anthropic.com/research",
+        "msrc.microsoft.com/blog",
+        "blog.google/security",
+        "aisi.gov.uk",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "arXiv via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "talk-scan.ts",
+        "simonwillison.net"
+      ],
+      "windowDays": 7
     }
   ]
 }
