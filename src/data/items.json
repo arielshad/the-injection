@@ -1,7 +1,219 @@
 {
-  "generatedAt": "2026-10-18T11:09:16.042Z",
+  "generatedAt": "2026-10-18T12:15:34.661Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "omnigent-multi-user-advisory-batch",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Omnigent: six advisories hit agent policies, sandbox and multi-user auth",
+      "org": "Omnigent",
+      "date": "2026-10-13",
+      "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-rqfc-q7j9-5v59",
+      "summary": "Omnigent, an agent meta-harness that orchestrates Claude Code, Codex and Cursor, published six security advisories on October 13 and 14, 2026. Two are rated critical. Most are fixed in 0.18.0, whose release notes do not mention them.",
+      "severity": "high",
+      "tags": [
+        "agent-security",
+        "sandbox-escape",
+        "approval-bypass",
+        "rce",
+        "omnigent"
+      ],
+      "affected": [
+        "Omnigent"
+      ],
+      "credits": [
+        {
+          "name": "Rea1mindxRing"
+        },
+        {
+          "name": "TahirMars"
+        },
+        {
+          "name": "sfwani"
+        },
+        {
+          "name": "manus-pi"
+        },
+        {
+          "name": "manus-use"
+        },
+        {
+          "name": "fg0x0"
+        }
+      ],
+      "explainer": {
+        "tagline": "Omnigent shipped fixes for six flaws that let one user reach another's host, forge an identity, escape the sandbox or dodge agent policies.",
+        "whatHappened": "Omnigent published six security advisories on October 13 and 14, 2026, five of them alongside version 0.18.0. The reporters named in them are Rea1mindxRing, TahirMars, sfwani, manus-pi, manus-use and fg0x0, and maintainer TomeHirata published each record. None of the six carries a CVE id.",
+        "howItWorks": "Three of the flaws are incomplete input lists, the weakness class CWE-184: Omnigent's GitHub and working-directory policies misread git global options and some shell syntax, so commands that should have needed approval ran unchecked. A fourth ran uploaded Python source tools during tool-schema discovery, which happens before the isolation that covers later tool calls. The session import path did not confirm that the chosen host belonged to the importing user. On Linux, the bubblewrap sandbox gave helper executors host temporary files, so code inside the sandbox could take over the launcher.",
+        "whoIsAffected": "Multi-user Omnigent servers carry the most risk, because four of the six advisories need an authenticated account on the server. Affected version ranges differ per advisory and are listed below. The header authentication flaw is the exception: no account is needed, and it reaches deployments below 0.7.0 that answer requests without a proxy that strips the X-Forwarded-Email header.",
+        "whatToDo": "Upgrade to Omnigent 0.18.0 or later and restart agent and runner processes, and do not rely on the changelog to flag the need, because the 0.18.0 release notes do not mention these fixes. Review imported sessions for host associations that do not belong to their owner and stop any session that should not reach its host. Operators who pin OMNIGENT_AUTH_PROVIDER=header should confirm their proxy strips client-supplied copies of the identity header."
+      },
+      "quickFacts": [
+        {
+          "label": "Advisories",
+          "value": "Six, published October 13 and 14, 2026, out of 13 the project has published since June"
+        },
+        {
+          "label": "Critical",
+          "value": "Session import uses another user's host (CVSS 9.9), X-Forwarded-Email impersonation (CVSS 9.4)"
+        },
+        {
+          "label": "High",
+          "value": "Sandbox launcher isolation and uploaded source tools (both CVSS 8.8), git policy bypass (8.3), shell policy bypass (7.6)"
+        },
+        {
+          "label": "Affected",
+          "value": "The omnigent package on PyPI; ranges differ per advisory, most below 0.18.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "0.18.0 for five of them; the header impersonation flaw was fixed in 0.7.0"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned; every advisory records no known CVE"
+        },
+        {
+          "label": "Found by",
+          "value": "Rea1mindxRing, TahirMars, sfwani, manus-pi, manus-use and fg0x0"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Omnigent version fixes these advisories?",
+          "a": "Omnigent 0.18.0, released October 13, 2026, patches five of the six advisories, and the sixth, the X-Forwarded-Email impersonation flaw, was already fixed in 0.7.0. Upgrading to 0.18.0 or later therefore covers all six. The advisories also ask operators to restart agent and runner processes after upgrading, because processes already running keep the old behaviour."
+        },
+        {
+          "q": "Am I affected if I run Omnigent for just myself?",
+          "a": "Single-user and local Omnigent installs face less exposure, because four of the six advisories require an authenticated account on a multi-user server. The sandbox launcher flaw still applies wherever agent code runs under bubblewrap on Linux. Omnigent also keeps source-tool support for trusted, operator-authored bundles on local or single-user servers after the fix."
+        },
+        {
+          "q": "Do these Omnigent flaws have CVE ids?",
+          "a": "No CVE id is assigned to any of the six advisories, and each GitHub record states that no known CVE exists, so tracking them needs the GHSA ids instead. Omnigent does carry CVEs for earlier flaws, including CVE-2026-62677 for an agent bundle path traversal fixed in 0.3.0, so the gap is specific to the October batch."
+        },
+        {
+          "q": "How do I check whether another user reached my Omnigent host?",
+          "a": "Review imported sessions on the server for host associations that do not belong to the owning user, which the critical advisory recommends directly, and stop any session that should not reach its host. Host identifiers can be visible to anyone able to view a shared session. Omnigent 0.18.0 verifies host ownership when an imported session is saved or replaced."
+        }
+      ],
+      "links": [
+        {
+          "label": "Session Import Advisory",
+          "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-rqfc-q7j9-5v59"
+        },
+        {
+          "label": "Header Auth Advisory",
+          "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-x6v6-fg8x-997h"
+        },
+        {
+          "label": "Sandbox Launcher GHSA",
+          "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-v3vj-mch3-x6c2"
+        },
+        {
+          "label": "Source Tools GHSA",
+          "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-jw77-57v9-jmcm"
+        },
+        {
+          "label": "Git Policy Bypass GHSA",
+          "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-h6vq-3549-mppq"
+        },
+        {
+          "label": "Shell Policy Bypass GHSA",
+          "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-m3m2-42jg-grrv"
+        },
+        {
+          "label": "Omnigent 0.18.0 Release",
+          "url": "https://github.com/omnigent-ai/omnigent/releases/tag/v0.18.0"
+        }
+      ],
+      "publishDate": "2026-10-18T12:15:34.661Z"
+    },
+    {
+      "id": "lobsterai-provider-export-password",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "LobsterAI: one hardcoded password unlocks every exported provider key",
+      "org": "VulnCheck",
+      "date": "2026-10-13",
+      "url": "https://www.vulncheck.com/advisories/lobsterai-before-2026.10.16-hardcoded-password-in-provider-api-key-export",
+      "summary": "CVE-2026-112014 let anyone holding a LobsterAI providers export file recover every AI provider API key inside, because the export was encrypted with the constant lobsterai-APP taken from the public source. Fixed in 2026.10.16.",
+      "severity": "medium",
+      "cve": "CVE-2026-112014",
+      "cvss": 6.8,
+      "tags": [
+        "credential-theft",
+        "agent-security",
+        "lobsterai",
+        "netease-youdao"
+      ],
+      "affected": [
+        "LobsterAI"
+      ],
+      "credits": [
+        {
+          "name": "George Chen"
+        }
+      ],
+      "explainer": {
+        "tagline": "LobsterAI encrypted exported provider API keys with a password written into its own public source code.",
+        "whatHappened": "A public GitHub issue opened on October 13, 2026 reported that LobsterAI's Export Providers feature protected API keys with a constant from the repository. The issue was closed as completed on October 16, and the fix shipped the same day in version 2026.10.16. VulnCheck published CVE-2026-112014 on October 18 and credits George Chen.",
+        "howItWorks": "The export path derived its AES-GCM key with PBKDF2 from the fixed string lobsterai-APP, recorded in the issue as EXPORT_PASSWORD in the public source. Because the salt travels inside the export file, the derivation needs nothing an attacker does not already hold. VulnCheck states that anyone who obtains a providers export can recover every third-party AI provider key it contains. The weakness class is CWE-321, use of a hard-coded cryptographic key.",
+        "whoIsAffected": "Every LobsterAI release before 2026.10.16 is affected, in the open-source desktop agent NetEase Youdao builds on OpenClaw. Exposure follows the file: a providers export that reached a backup, a chat message, a shared drive or a colleague carries usable keys. Users who never ran Export Providers have no such file in circulation.",
+        "whatToDo": "Rotate every AI provider key that was ever included in a LobsterAI providers export, at the provider, and delete the old export files. Update to 2026.10.16 or later, where exports leave credentials out by default and including them requires a password the user chooses."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-112014, CVSS 4.0 6.8, assigned by VulnCheck"
+        },
+        {
+          "label": "Affected",
+          "value": "LobsterAI before 2026.10.16"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2026.10.16, released October 16, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Use of a hard-coded cryptographic key, CWE-321"
+        },
+        {
+          "label": "Hardcoded value",
+          "value": "EXPORT_PASSWORD, set to lobsterai-APP in the public source"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 13, 2026 in issue #2851; CVE published October 18"
+        },
+        {
+          "label": "Found by",
+          "value": "George Chen, credited by VulnCheck"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/lobsterai-before-2026.10.16-hardcoded-password-in-provider-api-key-export"
+        },
+        {
+          "label": "Security Issue 2851",
+          "url": "https://github.com/netease-youdao/LobsterAI/issues/2851"
+        },
+        {
+          "label": "Fix Commit",
+          "url": "https://github.com/netease-youdao/LobsterAI/commit/1eb28c40d7e42d6cbade07874e6f6c068b6a9a64"
+        },
+        {
+          "label": "Release 2026.10.16",
+          "url": "https://github.com/netease-youdao/LobsterAI/releases/tag/2026.10.16"
+        }
+      ],
+      "publishDate": "2026-10-18T12:15:34.661Z"
+    },
     {
       "id": "efak-model-config-api-key-exposure",
       "categories": [
