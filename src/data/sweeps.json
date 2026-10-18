@@ -8576,6 +8576,57 @@
         "hackmd.io/@hieuPenguinnn"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t091216z",
+      "timestamp": "2026-10-18T09:12:16.263Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, VulnCheck, MSRC, Anthropic news and the Frontier Red Team, AIR Security, Zenity Labs, Embrace The Red, ReversingLabs, HiddenLayer, OWASP GenAI, Hugging Face blog and models, GitHub trending, Hacker News, repo-scan (13 queries, 3 candidates), paper-scan (57 arXiv papers, 1 with two signals) and talk-scan (25 videos); nothing inside the 7-day window met the bar. The Oct 11 to 16 disclosures were already in the feed, and VulnCheck's and GitHub's Oct 17 batches held no AI, agent or MCP items. Dropped on purpose: the OpenCode Console breach of Oct 17 (provider API keys of 1.4% of Console users), because OpenCode published it only by email and in a post on x.com that returns 402 to fetchers, with no notice on its site, blog, changelog or status page, and the remaining coverage is derivative and disagrees on the provider list, the disclosure date and the charges; ReversingLabs PromptMink (published Apr 29) and PixelLeak (Sep 29), Unit 42 web-based prompt injection (Mar 3), Semantic Kernel CVE-2026-26030 and CVE-2026-25592 (May 7), AppOmni BodySnatcher (Jan 13) and HiddenLayer's OpenAI Guardrails bypass (Oct 10, 2025), all outside the window; MCP Python SDK session exhaustion (GHSA-84m7-p3x7-pcfv), first published Sep 30; arXiv 2610.20437, whose CVE-2026-65616 belongs to JFrog's July advisory and whose subject is already covered by the OpenAI misalignment items; NVIDIA/SkillSpector, uber/ADR, Tencent/AI-Infra-Guard, pipelab-org/pipelock and ifixai-ai/iFixAi, all created between February and April; and the three repo-scan candidates (zero-lab-ai/skills, scs0209/laya-guard, speedydivid/TokenForge), none of which clears two signals. Embrace The Red's two CVE-2026-103572 video demos are already linked from that item, so no update was needed. openai.com returned 403, x.com 402, the Google security blog a captcha, and reddit.com was unreachable.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "AIR Security blog",
+        "Zenity Labs",
+        "embracethered.com",
+        "ReversingLabs blog",
+        "HiddenLayer research",
+        "OWASP GenAI Security Project",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, by created)",
+        "github.com/trending (daily and weekly)",
+        "github.com/topics/prompt-injection",
+        "Hacker News (front page, newest, Algolia)",
+        "repo-scan.json",
+        "gh-repo-meta.ts",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "talk-scan.ts",
+        "cveawg.mitre.org",
+        "opencode.ai (site, changelog, status, GitHub advisories and issues)"
+      ],
+      "windowDays": 7
     }
   ]
 }
