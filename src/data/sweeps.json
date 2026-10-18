@@ -8943,6 +8943,64 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t151133z",
+      "timestamp": "2026-10-18T15:11:33.486Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories newest-first through October 18, VulnCheck, NVD and MITRE CVE records, MSRC and the Microsoft security blog, Anthropic news and the Frontier Red Team, OpenAI (403 to fetchers), UK AISI, OWASP GenAI, AIR Security, Zenity Labs, Embrace The Red, Unit 42, Socket, JFrog, ReversingLabs, HiddenLayer, Check Point, Simon Willison, Hugging Face blog, Hacker News front page and Show HN plus Algolia, github.com/trending daily, paper-scan (55 arXiv papers in the window, 1 with two scanned signals), repo-scan (13 queries, 4 candidates, 1 skipped) and talk-scan (22 channels); nothing inside the 7-day window met the bar that the feed does not already carry. New ground this sweep, all dropped: the two AI Engine WordPress advisories published October 18, CVE-2026-111041 and CVE-2026-110976, both found by Karthik Ramakrishnan and fixed in 3.7.9, because the flaw is a missing WordPress capability check that needs an Editor account and exposes posts rather than any AI asset or model-reachable surface; arXiv 2610.20437, which recreates CVE-2026-65616, a JFrog Artifactory flaw published on July 27 and credited to Kostya Kortchinsky, so the paper clears only the code signal; and OpenCode pull request 54921, a system-config precedence regression merged October 13 and reverted in 55267 on October 14, with no advisory and no named reporter. Dropped again: the OpenCode Console provider-key breach of October 17, for a ninth sweep, because the only first-party statement is an x.com post that returned HTTP 402 in this run, while opencode.ai, its changelog and its three repository advisories (dated September 24 and January 12) carry no notice; Omnigent CVE-2026-112015, a VulnCheck and NVD backfill of repository advisory GHSA-p5x3-3gqh-x44g, which the project published on September 16 and fixed in 0.14.0; the October 16 LMCache GHSA, which carries CVE-2026-105192, already in the feed; the Mage OSS, DataBuff ai-apm-web, Vanus, WhoDB, Teable and Wheels CLI advisories, none tied to an AI or MCP feature; Check Point on three agent disclosures (August 5) and JFrog's and Socket's commentary on Anthropic's OSS Scanner, all secondary to stories already in the feed; and the UK AISI frontier best-practice statement of October 12, which names no defender action. LatentRiskBench was the only paper with two scanned signals and is already in the feed. The four repo-scan candidates clear at most one signal from the repo bar: zero-lab-ai/skills at 56 stars, laya-guard at 29, MCP-checkup at 21, and TokenForge, which is a context-optimization tool rather than a security one; the Show HN launches MCPX and MIKE sat at 2 points each. openai.com returned 403, wpscan.com search and the VulnCheck Omnigent advisory returned 404, koi.security redirects to a Palo Alto product page and reddit.com could not be fetched, so none of those is claimed below.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "MITRE CVE records (cveawg)",
+        "WPScan vulnerability database",
+        "Microsoft MSRC blog",
+        "Anthropic news",
+        "Anthropic Frontier Red Team",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "AIR Security",
+        "Zenity Labs",
+        "embracethered.com",
+        "Unit 42",
+        "Socket",
+        "JFrog",
+        "ReversingLabs",
+        "HiddenLayer",
+        "Check Point Research",
+        "simonwillison.net",
+        "Hugging Face blog",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "Hacker News Algolia",
+        "github.com/trending",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers via paper-scan",
+        "repo-scan.json",
+        "talk-scan",
+        "opencode.ai and anomalyco/opencode advisories"
+      ],
+      "windowDays": 7
     }
   ]
 }
