@@ -8253,6 +8253,81 @@
         "Unit 42"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t041531z",
+      "timestamp": "2026-10-18T04:15:31.889Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (mcp, agent, prompt-injection and llm queries), NVD and the CVE Awg records, VulnCheck advisories, MSRC, Anthropic news, OpenAI (403 to scripts), UK AISI, NIST CAISI, OWASP GenAI, Embrace The Red, AIR Security, Zenity Labs, Mindgard, Straiker, Snyk, Trail of Bits, Check Point Research, JFrog research, HiddenLayer, Lakera, Invariant Labs, ReversingLabs, Socket, Koi (now redirects to a Palo Alto product page), Hugging Face blog and prompt-injection guard models, Google Cloud security blog, Hacker News front page and Show HN, github.com/trending daily and weekly, repo-scan (13 queries, 3 candidates), paper-scan (9 queries, 57 in-window arXiv candidates) and talk-scan (12 videos, no conference talks). Two items met the bar, both VulnCheck disclosures credited to hieuPenguinnn: missing authentication across LangChat's REST controllers (CVE-2026-111704) and OTA token issuance in Xiaozhi-esp32-server-java (CVE-2026-111623). Dropped on the rules: the MCP Python SDK session accumulation flaw (CVE-2026-59951) and the ckan-mcp-server postMessage advisory were published on September 30 and July 9, with only NVD and GHSA cataloguing them this week; Nezha's MCP host-header flaw was disclosed by the project on October 1; the JeecgBoot airag OCR authorization flaws were published by NVD on October 10; UK AISI's GPT-6 Astra supply-chain simulation post is dated September 28 and Google's Mantis harness September 2; Trail of Bits' package manager integrity study and the Coder agent debug server advisory are not about AI. Only one paper showed two scanned signals (LatentRiskBench) and the one Hugging Face Daily Paper above 20 upvotes was DecisionRobust, both already in the feed. The three repo-scan candidates each cleared at most one signal from the repo bar, and the viral morluto/rea reverse-engineering repo was created in April 2026, so its trending week does not make it new.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "langchat-rest-controllers-missing-auth",
+          "title": "LangChat: the REST API answers callers who never logged in",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "A CVSS 9.3 missing-authentication flaw that exposes the LLM provider API keys and user passwords a self-hosted AI agent platform stores, with no fixed version to install."
+        },
+        {
+          "id": "xiaozhi-esp32-java-ota-token-issuance",
+          "title": "Xiaozhi ESP32 server: an OTA call hands out another device's token",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "An unauthenticated OTA call yields a 30-day token for any known device MAC, exposing the device's system prompt, conversation history and provider credits, and the flaw only triggers where the operator turned device auth on."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "cveawg.mitre.org CVE records",
+        "VulnCheck advisories",
+        "MSRC blog",
+        "anthropic.com/news",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "mindgard.ai/blog",
+        "straiker.ai/blog",
+        "snyk.io security research",
+        "blog.trailofbits.com",
+        "research.checkpoint.com",
+        "research.jfrog.com",
+        "hiddenlayer.com innovation hub",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "reversinglabs.com/blog",
+        "socket.dev/blog",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "huggingface.co prompt-injection guard models",
+        "cloud.google.com security blog",
+        "Hacker News front page and Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts",
+        "adversa.ai October 2026 digest"
+      ],
+      "windowDays": 7
     }
   ]
 }

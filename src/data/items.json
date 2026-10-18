@@ -1,7 +1,221 @@
 {
-  "generatedAt": "2026-10-18T03:15:54.475Z",
+  "generatedAt": "2026-10-18T04:15:31.889Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "langchat-rest-controllers-missing-auth",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "LangChat: the REST API answers callers who never logged in",
+      "org": "VulnCheck",
+      "date": "2026-10-16",
+      "url": "https://www.vulncheck.com/advisories/langchat-through-commit-2a6285a-missing-authentication-on-rest-api-controllers",
+      "summary": "LangChat configures the Sa-Token library but registers no interceptor, so almost every REST route runs without a login. VulnCheck says unauthenticated callers can read stored passwords and LLM provider API keys. No fixed version exists.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "agent-security",
+        "langchat"
+      ],
+      "affected": [
+        "LangChat"
+      ],
+      "cve": "CVE-2026-111704",
+      "cvss": 9.3,
+      "credits": [
+        {
+          "name": "hieuPenguinnn",
+          "url": "https://github.com/hieuPenguinnn"
+        }
+      ],
+      "explainer": {
+        "tagline": "LangChat holds the API keys of every model provider an operator configured, and its REST routes ask no caller to log in.",
+        "whatHappened": "VulnCheck assigned CVE-2026-111704 to LangChat on October 16, 2026 and rates it 9.3 under CVSS 4.0, crediting the finder hieuPenguinnn. The finder's write-up reports the flaw from reading the default branch at commit 2a6285a and states that no instance was started and no requests were sent. The GitHub Advisory Database listed the report the same day, unreviewed.",
+        "howItWorks": "LangChat is a Spring Boot application that uses Sa-Token to issue and parse session tokens, but Sa-Token only enforces a login where something registers it. The project registers no SaInterceptor, no SaServletFilter and no HandlerInterceptor, so the only routes that require a session are the two handlers that carry the @SaCheckLogin annotation. Every other controller, including the one that lists user accounts and the one that returns configured model providers, resolves no identity before it answers.",
+        "whoIsAffected": "Self-hosted LangChat is exposed in all code up to commit 2a6285a, which is the current state of the default branch; the project publishes no release tags, so there is no version number to compare against. Operators are affected wherever the service port is reachable, because no account is needed. The routes listed below return the passwords and the provider API keys and base URLs that the deployment stores.",
+        "whatToDo": "Block outside access to LangChat and put an authenticating proxy in front of it until the project ships a fix, because no patched version is named. Operators who patch locally can follow the write-up: register a global SaInterceptor that requires a login on all routes with narrow exceptions for login and logout, add per-permission checks on the administrative controllers, and stop serializing the password and apiKey fields. Treat every provider key the deployment held as exposed and rotate it."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-111704, assigned by VulnCheck"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.3 under CVSS 4.0 and 9.8 under CVSS 3.1, both from VulnCheck"
+        },
+        {
+          "label": "Affected",
+          "value": "LangChat through commit 2a6285a on the default branch, no release tags published"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No patched version named"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authentication for a critical function, CWE-306"
+        },
+        {
+          "label": "Open routes",
+          "value": "/api/v1/auth/users, /api/v1/aigc/models, /api/v1/datasources, plus conversation, agent, knowledge, role and menu CRUD"
+        },
+        {
+          "label": "Guarded routes",
+          "value": "Only /api/v1/auth/me and /api/v1/auth/access-routes"
+        },
+        {
+          "label": "Found by",
+          "value": "hieuPenguinnn, from source review, with no runtime testing"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 16, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which LangChat versions are affected by CVE-2026-111704?",
+          "a": "LangChat publishes no release tags, so VulnCheck names the affected range as everything up to commit 2a6285a6b8c51d51cdc599771bb667a30bc03f5c on the default branch. That commit was current when the finder reviewed the code, which means an operator who pulled the default branch at any point has the flawed configuration. There is no version number to compare a deployment against."
+        },
+        {
+          "q": "Is there a patch for the LangChat missing authentication flaw?",
+          "a": "No patched LangChat release is listed by VulnCheck, the CVE record or the GitHub Advisory Database, and the finder reports that no public advisory or matching issue existed when the write-up was published. Mitigation is configuration work: keep the service off untrusted networks, front it with an authenticating proxy, or register a global Sa-Token interceptor locally."
+        },
+        {
+          "q": "What can an unauthenticated caller read from LangChat?",
+          "a": "The write-up lists the user account routes under /api/v1/auth/users, which return stored passwords; /api/v1/aigc/models, which returns provider API keys and base URLs; and the datasource routes, including a connection test and a schema introspection endpoint. Conversation, agent, knowledge, role and menu routes are also reachable. A caller can create a super-admin account and delete records."
+        },
+        {
+          "q": "Was the LangChat flaw demonstrated against a running server?",
+          "a": "No. hieuPenguinnn states the finding comes from source review, that runtime behaviour was not observed, and that no instance was started and no requests were sent. VulnCheck's advisory and the CVE record describe the impact without adding runtime evidence. The missing interceptor registration is visible in the code, so the gap is verifiable by reading, not by exploitation."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/langchat-through-commit-2a6285a-missing-authentication-on-rest-api-controllers"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://hackmd.io/@hieuPenguinnn/langchat-missing-global-auth-credential-exposure"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-111704"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-hgqj-chvw-c4p5"
+        },
+        {
+          "label": "MVC Config Source",
+          "url": "https://github.com/LangChat/langchat/blob/2a6285a6b8c51d51cdc599771bb667a30bc03f5c/langchat-server/src/main/java/cn/langchat/server/config/WebAsyncConfig.java#L17-L33"
+        },
+        {
+          "label": "User Controller Source",
+          "url": "https://github.com/LangChat/langchat/blob/2a6285a6b8c51d51cdc599771bb667a30bc03f5c/langchat-auth/src/main/java/cn/langchat/auth/controller/AigcUserController.java#L25-L60"
+        }
+      ],
+      "publishDate": "2026-10-18T04:15:31.889Z"
+    },
+    {
+      "id": "xiaozhi-esp32-java-ota-token-issuance",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Xiaozhi ESP32 server: an OTA call hands out another device's token",
+      "org": "VulnCheck",
+      "date": "2026-10-15",
+      "url": "https://www.vulncheck.com/advisories/xiaozhi-esp32-server-java-through-6.1.0-authentication-bypass-via-ota-endpoint-token-issuance",
+      "summary": "CVE-2026-111623 lets an anonymous caller post a victim's MAC address to /api/device/ota in Xiaozhi-esp32-server-java and receive a working WebSocket token for that device. The token exposes the device's system prompt and provider credits.",
+      "severity": "medium",
+      "tags": [
+        "data-exfiltration",
+        "agent-memory",
+        "xiaozhi"
+      ],
+      "affected": [
+        "Xiaozhi-esp32-server-java"
+      ],
+      "cve": "CVE-2026-111623",
+      "cvss": 6.3,
+      "credits": [
+        {
+          "name": "hieuPenguinnn",
+          "url": "https://github.com/hieuPenguinnn"
+        }
+      ],
+      "explainer": {
+        "tagline": "A device token in Xiaozhi-esp32-server-java proves only which MAC address asked for it, and the OTA route gives one to anyone.",
+        "whatHappened": "VulnCheck published CVE-2026-111623 for Xiaozhi-esp32-server-java on October 16, 2026 with a public date of October 15, crediting the finder hieuPenguinnn, and rates it 6.3 under CVSS 4.0. The write-up is a source review of release tag v6.1.0 and says runtime validation was not performed. No fix is recorded, and the project's GitHub security advisory count was zero when the finder looked.",
+        "howItWorks": "Four weaknesses line up. The OTA route carries the @SaIgnore annotation, so it needs no login. For a device already bound to a user, the handler returns a device token without checking that the caller is that device or that owner. The token is an HMAC over the normalized device id and a timestamp, with nothing tied to a user or a session, and it stays valid for 30 days by default. The WebSocket handshake then accepts any valid token for that MAC and binds the connection to the device and its owner.",
+        "whoIsAffected": "Versions through 6.1.0 are listed, but only where the operator set xiaozhi.device-auth.secret; the write-up excludes the default configuration that leaves the secret unset. An attacker needs the victim device's MAC address and network reach to the OTA endpoint and the dialogue service. Hobby and small-office deployments that exposed those ports to the internet are the realistic case.",
+        "whatToDo": "Keep the OTA endpoint and the dialogue service port off the public internet, and treat any LLM, speech-to-text or text-to-speech key configured on an exposed instance as abused until the bills say otherwise. The write-up's fix is to stop returning a reusable channel token to anonymous OTA callers for bound devices, issue short-lived single-use activation tokens instead, and bind tokens to a per-device secret provisioned at setup rather than to the MAC address."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-111623, assigned by VulnCheck"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.3 under CVSS 4.0 and 5.6 under CVSS 3.1, both from VulnCheck"
+        },
+        {
+          "label": "Affected",
+          "value": "Xiaozhi-esp32-server-java through 6.1.0, only when xiaozhi.device-auth.secret is set"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No patched version recorded"
+        },
+        {
+          "label": "Attack type",
+          "value": "Authentication bypass by spoofing, CWE-290"
+        },
+        {
+          "label": "Token lifetime",
+          "value": "30 days by default, from the expireSeconds setting of 2,592,000 seconds"
+        },
+        {
+          "label": "What it reaches",
+          "value": "The role's private system prompt, the conversation history, and the device's LLM, STT and TTS credits"
+        },
+        {
+          "label": "Not established",
+          "value": "Code execution, and reading raw stored provider secrets back"
+        },
+        {
+          "label": "Found by",
+          "value": "hieuPenguinnn, from source review, with no runtime testing"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/xiaozhi-esp32-server-java-through-6.1.0-authentication-bypass-via-ota-endpoint-token-issuance"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://hackmd.io/@hieuPenguinnn/xiaozhi-esp32-server-java-ota-device-token-issuance"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-111623"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-g79m-4gpq-p8x3"
+        },
+        {
+          "label": "Token Source",
+          "url": "https://github.com/joey-zhou/xiaozhi-esp32-server-java/blob/v6.1.0/xiaozhi-common/src/main/java/com/xiaozhi/communication/auth/DeviceAuthService.java#L76-L81"
+        }
+      ],
+      "publishDate": "2026-10-18T04:15:31.889Z"
+    },
     {
       "id": "microsoft-vscode-mcp-sandbox-approvals",
       "categories": [
