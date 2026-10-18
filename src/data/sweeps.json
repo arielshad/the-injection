@@ -8025,6 +8025,59 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t002024z",
+      "timestamp": "2026-10-18T00:20:24.290Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Anthropic, OpenAI, MSRC, Google GTIG, AISI, OWASP GenAI, Embrace The Red, AIR Security, Zenity Labs, Wiz, JFrog, Trail of Bits, ReversingLabs, HiddenLayer, Socket, Hugging Face, Simon Willison, Hacker News, GitHub trending, repo-scan (3 candidates) talk-scan (25 videos) and paper-scan (58 arXiv papers); nothing inside the 7-day window met the bar that the feed does not already carry. The OpenCode Console breach disclosed 2026-10-17 is left out because OpenCode's only statement is an x.com post that returns 402 to fetchers and no official page carries it, so no primary source could be read in this run.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "anthropic.com/news",
+        "microsoft.com/en-us/msrc/blog",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "aisi.gov.uk/work",
+        "genai.owasp.org/resources",
+        "embracethered.com/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "wiz.io/blog",
+        "jfrog.com/blog",
+        "blog.trailofbits.com",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com/innovation-hub",
+        "socket.dev/blog",
+        "huggingface.co/blog",
+        "simonwillison.net",
+        "Hacker News front page and Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "scripts/paper-scan.ts (arXiv + HF Daily Papers)",
+        "scripts/talk-scan.ts",
+        "scripts/gh-repo-meta.ts",
+        "arxiv.org"
+      ],
+      "windowDays": 7
     }
   ]
 }
