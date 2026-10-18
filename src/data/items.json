@@ -1,7 +1,107 @@
 {
-  "generatedAt": "2026-10-18T02:21:11.493Z",
+  "generatedAt": "2026-10-18T03:15:54.475Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "microsoft-vscode-mcp-sandbox-approvals",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "VS Code: one MCP server could inherit another's sandbox approvals",
+      "org": "Microsoft",
+      "date": "2026-10-13",
+      "url": "https://github.com/microsoft/vscode/issues/341381",
+      "summary": "CVE-2026-102851 is a security feature bypass in Visual Studio Code: MCP sandbox approvals for network access and filesystem writes were saved in shared configuration, so one server could use permissions granted to another.",
+      "severity": "medium",
+      "tags": [
+        "approval-bypass",
+        "mcp",
+        "agent-security",
+        "vs-code",
+        "microsoft"
+      ],
+      "affected": [
+        "Visual Studio Code"
+      ],
+      "cve": "CVE-2026-102851",
+      "cvss": 6.1,
+      "credits": [
+        {
+          "name": "Visual Studio Code team",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-102851 let one MCP server in Visual Studio Code use the sandbox permissions a user had approved for a different server.",
+        "whatHappened": "Microsoft disclosed CVE-2026-102851 on October 13, 2026 and shipped the fix the same day in Visual Studio Code 1.141.1. The flaw was filed and closed as a security issue in the microsoft/vscode repository, labelled mcp and security. MSRC rates the impact Important and acknowledges no outside reporter, so the finding is Microsoft's own.",
+        "howItWorks": "Visual Studio Code stored MCP sandbox approvals in a shared sandbox configuration instead of scoping each grant to the server that requested it. Network access and filesystem-write permissions recorded there then applied to any MCP server reading the same configuration. The patch scopes grants and saved approvals to individual servers, restricts shared configuration to deny rules, and writes server-specific filenames for generated sandbox settings.",
+        "whoIsAffected": "Visual Studio Code 1.141.0 and earlier, on installations that run MCP servers with sandboxing enabled. Microsoft marks customer action as required. Exploitation needs an attacker-controlled MCP server placed in a configuration that already holds permissions the user approved for a different server, which is why MSRC scores the attack complexity high.",
+        "whatToDo": "Update Visual Studio Code to 1.141.1 or later, the build Microsoft lists as fixed. Then review which MCP servers each workspace loads and re-approve the permissions they need, because the fix ignores grants left in the old shared configuration rather than migrating them."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Visual Studio Code 1.141.0 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Visual Studio Code 1.141.1"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-102851"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.1, CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:H/A:N (Microsoft)"
+        },
+        {
+          "label": "Impact",
+          "value": "Security Feature Bypass, rated Important by MSRC"
+        },
+        {
+          "label": "Found by",
+          "value": "Microsoft, no outside reporter acknowledged"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 13, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected by CVE-2026-102851 in Visual Studio Code?",
+          "a": "Visual Studio Code installations on 1.141.0 or earlier that run MCP servers with sandboxing enabled are affected. Exploitation requires an attacker-controlled MCP server sitting in a configuration that already holds sandbox permissions a user approved for a different server. Microsoft marks customer action as required, so updating is a more reliable answer than auditing each configuration by hand."
+        },
+        {
+          "q": "Which Visual Studio Code version fixes the MCP sandbox approval bypass?",
+          "a": "Version 1.141.1 fixes the bypass, and Microsoft lists it as the fixed build for CVE-2026-102851. The Visual Studio Code 1.141 release notes record that the 1.141.1 update addresses security issues. The patch scopes sandbox grants and saved approvals to individual servers, limits shared configuration to deny rules, and writes server-specific filenames for generated sandbox settings."
+        },
+        {
+          "q": "Do sandbox approvals granted before the Visual Studio Code fix still apply?",
+          "a": "Grants left in the old shared configuration are ignored after the update rather than carried over, according to the fix description in the microsoft/vscode security issue. Users who relied on previously approved network or filesystem-write permissions are asked again, now per server. Re-approving is a chance to check which MCP servers genuinely need each grant."
+        }
+      ],
+      "links": [
+        {
+          "label": "VS Code Security Issue",
+          "url": "https://github.com/microsoft/vscode/issues/341381"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-pqx5-457c-r54v"
+        },
+        {
+          "label": "MSRC Advisory",
+          "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102851"
+        },
+        {
+          "label": "VS Code 1.141 Notes",
+          "url": "https://code.visualstudio.com/updates/v1_141"
+        }
+      ],
+      "publishDate": "2026-10-18T03:15:54.475Z"
+    },
     {
       "id": "perplexity-space-agent-sandbox",
       "categories": [
