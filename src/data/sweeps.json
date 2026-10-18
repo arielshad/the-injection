@@ -9001,6 +9001,75 @@
         "opencode.ai and anomalyco/opencode advisories"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t161333z",
+      "timestamp": "2026-10-18T16:13:33.941Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, security company research, GitHub advisories, VulnCheck, arXiv and Hugging Face papers (55 candidates in window, 1 with two scanned signals and already in the feed), repo-scan (13 queries, 4 candidates), GitHub trending, Show HN and 22 talk channels. One item qualified: OpenCode's October 17 disclosure that a legacy Console system breach may have exposed stored OpenAI, Anthropic and Google keys. Left out on purpose: Omnigent CVE-2026-112015 (new CVE on October 18, but the original advisory GHSA-p5x3-3gqh-x44g published September 16, outside the window, fixed in 0.14.0); ckan-mcp-server CVE-2026-76894 (advisory published July 9, only added to the GitHub database on October 16); xSpeed Cache CVE-2026-109985 (stored XSS in a WordPress cache plugin, MCP only in the product name, no reporter credited); Coder CVE-2026-111926 (a workspace agent, not an AI agent); AISI's October 12 best-practice post (directional, no technical controls or measurements); Straiker's October 16 Workday partnership post (product announcement). The two Embrace The Red videos on CVE-2026-103572 are already linked on the existing Visual Studio Copilot item, so no talk item or update was needed. Could not read: openai.com/index (403), notebookcheck (403), x.com (402, where OpenCode's own disclosure sits, so the item cites Cyera's analysis and attributes every breach fact to OpenCode), koi.security/blog (now redirects to a Palo Alto Networks product page), r/netsec (blocked). No repo met the repo bar: laya-guard (29 stars) and MCP-checkup (21 stars) are in scope but show one signal each, TokenForge is out of scope, zero-lab-ai/skills is a skills collection, and the Show HN agent sandbox MIKE has 2 stars.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "opencode-console-provider-key-breach",
+          "title": "OpenCode Console: stored provider keys may have been exposed",
+          "category": "incident",
+          "severity": "high",
+          "note": "A widely used AI coding agent's hosted console lost users' model provider keys, users report unauthorized charges, and the fix is a key rotation every affected developer must do by hand."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "microsoft.com/msrc/blog",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security/blog",
+        "noma.security/noma-labs",
+        "straiker.ai/blog",
+        "hiddenlayer.com/research",
+        "lakera.ai/blog",
+        "nccgroup.com research",
+        "research.jfrog.com",
+        "securitylabs.datadoghq.com",
+        "socket.dev/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "cloud.google.com threat intelligence",
+        "cyera.com research",
+        "arXiv cs.CR via paper-scan.ts",
+        "Hugging Face Daily Papers",
+        "huggingface.co/blog",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "talk-scan.ts (22 YouTube channels)",
+        "genai.owasp.org",
+        "aisi.gov.uk/blog",
+        "nist.gov/caisi",
+        "opencode.ai changelog and status page",
+        "github.com/anomalyco/opencode advisories and issues"
+      ],
+      "windowDays": 7
     }
   ]
 }

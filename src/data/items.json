@@ -1,7 +1,111 @@
 {
-  "generatedAt": "2026-10-18T15:11:33.486Z",
+  "generatedAt": "2026-10-18T16:13:33.941Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "opencode-console-provider-key-breach",
+      "categories": [
+        "incident"
+      ],
+      "title": "OpenCode Console: stored provider keys may have been exposed",
+      "org": "Cyera",
+      "date": "2026-10-17",
+      "url": "https://www.cyera.com/research/opencode-breach-what-happened-and-how-to-rotate-exposed-ai-api-keys",
+      "summary": "OpenCode says a breach of a legacy Console system may have exposed the OpenAI, Anthropic and Google API keys stored by 1.4% of Console users. Affected users were emailed on October 17, 2026 and should revoke those keys at each provider.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "coding-agents",
+        "opencode"
+      ],
+      "affected": [
+        "OpenCode Console",
+        "OpenAI API keys",
+        "Anthropic API keys",
+        "Google API keys"
+      ],
+      "credits": [
+        {
+          "name": "Adam Ochayon",
+          "org": "Cyera"
+        },
+        {
+          "name": "Yuval Yogev",
+          "org": "Cyera"
+        }
+      ],
+      "explainer": {
+        "tagline": "OpenCode says a breach of a retiring legacy Console system may have exposed the provider keys stored by 1.4% of Console users.",
+        "whatHappened": "OpenCode confirmed a security breach on October 17, 2026 that reached third-party API keys stored in its hosted Console. The company described the incident as a large scale distillation attack affecting 1.4% of OpenCode Console users, and says it emailed every affected user. Cyera researchers Adam Ochayon and Yuval Yogev published an analysis and a key rotation guide the same day.",
+        "howItWorks": "A Console account can hold a user's own provider keys so that the hosted agent calls OpenAI, Anthropic or Google on that user's behalf, which puts long-lived credentials in one place. OpenCode attributes the intrusion to a legacy Console system it was in the process of decommissioning, which held those stored credentials. Cyera notes that OpenCode has not said how the attackers reached that system or how the keys were stored.",
+        "whoIsAffected": "Accounts at risk are OpenCode Console users who had external AI providers linked to them. OpenCode's notice covers the hosted Console and the provider credentials kept in it, and the company says users who received no email were not affected.",
+        "whatToDo": "Revoke and reissue every provider key that was stored in OpenCode Console, in each provider's own dashboard rather than through OpenCode or a link in an email. Reset the OpenCode account password, regenerate Console API keys, update any application or scheduled job that used an old credential, and confirm the retired key now fails. Read provider billing and usage from October 16, 2026 onward for charges nobody authorized, and set hard spend limits."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "OpenCode Console users with external AI providers linked, 1.4% of Console users by the company's count"
+        },
+        {
+          "label": "Exposed",
+          "value": "Provider API keys stored in Console, for OpenAI, Anthropic, Google and other providers"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 17, 2026, by email to affected users"
+        },
+        {
+          "label": "Cause",
+          "value": "Unauthorized access to a legacy Console system OpenCode was decommissioning, per its email to users"
+        },
+        {
+          "label": "Status",
+          "value": "Investigation open. OpenCode says it is working with OpenAI, Anthropic and Google on remediation"
+        },
+        {
+          "label": "Not known",
+          "value": "How the attackers got in, how the keys were stored, and whether any exposed key was used"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected by the OpenCode Console breach?",
+          "a": "OpenCode says it emailed every affected user, and that anyone who did not receive an email was not affected. Affected accounts are OpenCode Console users who had external AI providers linked, about 1.4% of Console users by the company's own count. Developers who stored an OpenAI, Anthropic or Google key in Console should check the inbox tied to that account."
+        },
+        {
+          "q": "How do I rotate API keys exposed in the OpenCode breach?",
+          "a": "Revoke each affected key in the provider's own dashboard, at OpenAI, Anthropic or Google, rather than swapping the value inside OpenCode Console, Cyera advises. Reach those dashboards directly instead of through a link in an email. Afterwards reset the OpenCode account password, regenerate Console API keys, update any job that used the old credential, and confirm the retired key fails."
+        },
+        {
+          "q": "Were the exposed OpenCode keys actually used by attackers?",
+          "a": "Whether any exposed key was used is unconfirmed. Some OpenCode users reported charges they did not authorize, according to Cyera, but OpenCode has published no count of misused keys and no list of indicators. Anyone who stored a provider key in Console should read provider billing from October 16, 2026 onward and set hard spend limits per key."
+        },
+        {
+          "q": "Does the OpenCode breach affect the local OpenCode agent?",
+          "a": "OpenCode's notice covers the hosted Console and the provider credentials kept there, and the 1.4% figure counts Console users rather than everyone who runs OpenCode. Cyera's guidance is Console-centric: locate Console accounts, check which providers are linked to each Console workspace, and regenerate Console API keys. Developers who never linked a provider account to Console have no key to rotate here."
+        },
+        {
+          "q": "What does OpenCode say caused the Console breach?",
+          "a": "OpenCode attributed the intrusion to a legacy Console system it was in the process of decommissioning, in its email to affected users, and called the incident a large scale distillation attack affecting 1.4% of Console users. How attackers reached that system, and how the keys were stored, the company has not said. Cyera reports the investigation was open at publication."
+        }
+      ],
+      "links": [
+        {
+          "label": "Cyera Analysis",
+          "url": "https://www.cyera.com/research/opencode-breach-what-happened-and-how-to-rotate-exposed-ai-api-keys"
+        },
+        {
+          "label": "User Report",
+          "url": "https://github.com/anomalyco/opencode/issues/56833"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/694a42d655201e09edb32d65/6ad3ed0580a777cfcca889a2_opencode-breach-ai-keys-og_1.jpg",
+        "alt": "OpenCode breach and AI API key rotation title card",
+        "credit": "Cyera"
+      },
+      "publishDate": "2026-10-18T16:13:33.941Z"
+    },
     {
       "id": "omnigent-multi-user-advisory-batch",
       "categories": [
