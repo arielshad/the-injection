@@ -8691,6 +8691,62 @@
         "Adversa AI digests"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t110916z",
+      "timestamp": "2026-10-18T11:09:16.042Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (reviewed newest-first, plus MCP and agent queries), VulnCheck, MSRC, Anthropic news, AIR Security, Embrace The Red, Zenity Labs, Socket, ReversingLabs, JFrog, Check Point Research, HiddenLayer, Trail of Bits, Unit 42, Simon Willison, OWASP GenAI, Hugging Face blog, Google Cloud threat intelligence, UK AISI, NIST CAISI, Hacker News front page and Show HN, github.com/trending daily and weekly, repo-scan (13 queries, 3 candidates), paper-scan (55 arXiv papers in window, 1 with two scanned signals) and talk-scan (25 videos); nothing inside the 7-day window met the bar that the feed does not already carry. The OpenCode Console breach stays out for a sixth sweep: it holds the Hacker News front page at 873 points, but OpenCode's only statement is an X post that returns HTTP 402 to fetchers, and opencode.ai, its GitHub advisories, its status page and the trust page added this week carry no notice, so there is still no primary source to cite. Also dropped: pipecat-ai CVE-2026-102682 and Nezha CVE-2026-111385, both GitHub Advisory Database backfill of disclosures first published on September 29 and October 1; xSpeed Cache CVE-2026-109985 and Coder GHSA-3gj5-9m6g-289w, neither tied to an AI or MCP feature; Trail of Bits on package manager integrity (October 14), which is not about AI; the AIR Security OpenAI Sesame skill post and both Embrace The Red Visual Studio Copilot videos, already in the feed. Only LatentRiskBench showed two scanned paper signals and it is already in the feed, and the three repo-scan candidates (zero-lab-ai/skills at 53 stars, TokenForge, laya-guard) each clear at most one signal from the repo bar. opencode.ai/docs/changelog returned 404 and reddit.com could not be fetched, so neither is claimed below.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "air.security/blog",
+        "embracethered.com",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "jfrog.com security research",
+        "research.checkpoint.com",
+        "hiddenlayer.com",
+        "blog.trailofbits.com",
+        "unit42.paloaltonetworks.com",
+        "simonwillison.net",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "cloud.google.com threat intelligence",
+        "aisi.gov.uk",
+        "nist.gov CAISI",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "talk-scan.ts",
+        "opencode.ai and OpenCode GitHub advisories"
+      ],
+      "windowDays": 7
     }
   ]
 }
