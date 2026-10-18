@@ -8824,6 +8824,67 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t130925z",
+      "timestamp": "2026-10-18T13:09:25.318Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (newest-first plus MCP and agent queries), VulnCheck, MSRC, Anthropic news, OpenAI (403 to fetchers), Google DeepMind, Google Cloud threat intelligence, UK AISI, NIST CAISI, OWASP GenAI, Embrace The Red, AIR Security, Zenity Labs, HiddenLayer, Lakera, Trail of Bits, NCC Group, Check Point Research, Wiz, Socket, JFrog, ReversingLabs, Unit 42, Invariant Labs, Simon Willison, Hugging Face blog and prompt-injection models, Hacker News front page and Show HN, github.com/trending daily and weekly, repo-scan (13 queries, 3 candidates), paper-scan (55 arXiv papers in window, 1 with two scanned signals) and talk-scan (25 videos); nothing inside the 7-day window met the bar that the feed does not already carry. The October 11 to 16 disclosures were already in the feed: the n8n Oct 15 agent authorization advisories (GHSA-v38m-4hx4-9x2r, GHSA-wrfc-h8h3-x3xj), the Nginx UI MCP cluster including the OTP step-up bypass (GHSA-vc32-4gwf-77xp) and the Archon control API advisory (GHSA-3q7p-hhhj-qh4p) are all already linked from existing items. Dropped on purpose: the OpenCode Console breach for an eighth sweep, because the project's repository at anomalyco/opencode still publishes no advisory about it, its three advisories being dated September 24 and January 12, and opencode.ai carries no notice, so there is still no primary source to cite; Omnigent CVE-2026-112015 (GitHub Advisory Database, October 18), an unreviewed NVD backfill of repo advisory GHSA-p5x3-3gqh-x44g, which the project published on September 16 and fixed in 0.14.0, so the disclosure predates the window; conductor-oss CVE-2026-109402, an SSRF in MCPService.listTools published October 13 but rated CVSS 2.1 with no vendor response, no patched version and no named finder, only a VulDB submission; Coder GHSA-3gj5-9m6g-289w and the Nezha and Wheels CLI advisories, none tied to an AI or MCP feature; Socket's note on arXiv rate limiting AI submissions, which is not a security disclosure; and Trail of Bits on package manager integrity (October 14), not about AI. The two agent-skill papers a defender would most want, CoRedSkill (arXiv 2610.20049) and Ciphered Skill Injection (2610.18262), each clear at most one signal from the paper bar: no code link, no accepted venue, no named commercial product in the evaluation and no traction. Only LatentRiskBench showed two scanned paper signals and it is already in the feed. The repo-scan candidates clear at most one signal each: zero-lab-ai/skills at 53 stars, laya-guard at 29 and TokenForge at 31 with no license, whose description duplicates mksglu/context-mode, itself a February 23 repo trending this week on new stars and a context-optimization tool rather than a security one. The Hugging Face guard model RedHatAI/wolf-defender-prompt-injection shows no release date on its card, 115 downloads last month and one like, and is a mirror of patronus-studio's model, so it fails both the dating rule and the use test. Both Embrace The Red videos on CVE-2026-103572 are already linked from that item, and the only other talk-scan candidate inside the window was a David Bombal interview upload with no original research. openai.com returned 403, hiddenlayer.com's dead-drop post 404, koi.security now redirects to a Palo Alto product page, and reddit.com could not be fetched, so none of those four is claimed below.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "deepmind.google",
+        "Google Cloud threat intelligence",
+        "UK AI Security Institute",
+        "NIST CAISI",
+        "OWASP GenAI Security Project",
+        "embracethered.com",
+        "AIR Security blog",
+        "Zenity Labs",
+        "HiddenLayer",
+        "Lakera",
+        "Trail of Bits",
+        "NCC Group",
+        "Check Point Research",
+        "Wiz Research",
+        "Socket",
+        "JFrog",
+        "ReversingLabs",
+        "Unit 42",
+        "Invariant Labs",
+        "simonwillison.net",
+        "Hugging Face blog",
+        "Hugging Face models (prompt-injection, sorted by created)",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv)",
+        "talk-scan (YouTube)"
+      ],
+      "windowDays": 7
     }
   ]
 }
