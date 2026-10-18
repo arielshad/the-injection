@@ -8457,6 +8457,63 @@
         "opencode.ai and github.com/anomalyco/opencode"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t071127z",
+      "timestamp": "2026-10-18T07:11:27.886Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, MSRC and the Microsoft security blog, Anthropic, OpenAI alignment, Google threat intelligence, AISI, NIST CAISI, Embrace The Red, AIR Security, Zenity Labs, Socket, JFrog, NCC Group, Check Point, ReversingLabs, Trail of Bits, Simon Willison, OWASP GenAI, Hugging Face, Hacker News, GitHub trending, repo-scan (3 candidates), paper-scan (56 papers in window, 1 with two scanned signals) and talk-scan (26 videos); nothing inside the 7-day window met the bar. Everything new was already in the feed, dated outside the window at its original disclosure, or below the bar.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "vulncheck.com/advisories",
+        "Microsoft Security Blog",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "aisi.gov.uk/blog",
+        "nist.gov/caisi",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "nccgroup.com/research-blog",
+        "research.checkpoint.com",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "simonwillison.net",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "Hacker News front page and search",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "talk-scan.ts",
+        "signalscorps.com",
+        "unit42.paloaltonetworks.com",
+        "cveawg.mitre.org"
+      ],
+      "windowDays": 7
     }
   ]
 }
