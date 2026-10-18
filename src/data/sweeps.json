@@ -8514,6 +8514,68 @@
         "cveawg.mitre.org"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t081130z",
+      "timestamp": "2026-10-18T08:11:30.089Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (mcp, agent, llm and prompt-injection queries sorted newest first), VulnCheck advisories, the CVE Awg records, MSRC and the Microsoft security blog, Anthropic news, OpenAI (403 to fetchers), Google Cloud threat intelligence, UK AISI, OWASP GenAI, Embrace The Red, AIR Security, Zenity, Socket, JFrog research, Check Point Research, Unit 42, Simon Willison, Hugging Face blog, Hacker News front page and Show HN, github.com/trending daily and weekly, repo-scan (13 queries, 3 candidates), paper-scan (57 arXiv papers in window) and talk-scan (25 videos). One item met the bar: EFAK's missing admin gate on its REST API, CVE-2026-111682 and CVE-2026-111681, which exposes the LLM provider keys its AI assistant uses and lets any logged-in user become an administrator. The OpenCode Console breach of October 17 stays out for a third sweep: it reached the Hacker News front page with 849 points, but OpenCode's only statement is an X post that returns HTTP 402 to fetchers, and opencode.ai, its changelog and its GitHub advisories still carry no notice, so there is no primary source to cite. Also dropped: the mise shell-argument flaw (CVE-2026-103929, not about AI and first published July 26), Wheels CLI (CVE-2026-111451, AI agents named only as one possible source of input to a CFML framework CLI), TinyLLaVA_Factory config injection (CVE-2026-108957, CVSS 2.1, no vendor response, research code), Socket's GlassWorm extension cluster (April 2026 and not AI tooling), and UK AISI's October 12 best-practice paper, which sets priority areas for frontier developers rather than anything a defender can act on. Only LatentRiskBench showed two scanned paper signals and it is already in the feed; the three repo-scan candidates (zero-lab-ai/skills at 53 stars, laya-guard at 29, TokenForge) each cleared at most one signal from the repo bar, and both Embrace The Red videos on CVE-2026-103572 are already linked from that item.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "efak-model-config-api-key-exposure",
+          "title": "EFAK: any logged-in user reads the AI assistant's provider keys",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Two VulnCheck CVEs published inside the window for one missing admin gate in an AI-driven Kafka platform: a low-privilege account reads the unmasked LLM provider keys and can promote itself to administrator, with no patched version named."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "CVE Awg records",
+        "Microsoft Security Blog",
+        "anthropic.com/news",
+        "Google Cloud threat intelligence",
+        "aisi.gov.uk",
+        "OWASP GenAI Security Project",
+        "embracethered.com",
+        "air.security/blog",
+        "zenity.io/blog",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "research.checkpoint.com",
+        "unit42.paloaltonetworks.com",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "Hacker News front page",
+        "Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv + Hugging Face Daily Papers)",
+        "talk-scan (YouTube channels)",
+        "github.com/smartloli/EFAK",
+        "hackmd.io/@hieuPenguinnn"
+      ],
+      "windowDays": 7
     }
   ]
 }

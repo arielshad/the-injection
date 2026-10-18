@@ -1,7 +1,108 @@
 {
-  "generatedAt": "2026-10-18T07:11:27.886Z",
+  "generatedAt": "2026-10-18T08:11:30.089Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "efak-model-config-api-key-exposure",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "EFAK: any logged-in user reads the AI assistant's provider keys",
+      "org": "VulnCheck",
+      "date": "2026-10-15",
+      "url": "https://www.vulncheck.com/advisories/efak-5.0.0-through-5.1.0-missing-authorization-via-api-model-config-exposes-api-keys",
+      "summary": "CVE-2026-111682 lets any EFAK account with the default ROLE_USER role call /api/model-config and read unmasked LLM provider API keys. The same missing admin gate also lets that account make itself an administrator. No fixed version exists.",
+      "severity": "medium",
+      "cve": "CVE-2026-111682",
+      "cvss": 7.1,
+      "tags": [
+        "credential-theft",
+        "privilege-escalation",
+        "efak",
+        "kafka"
+      ],
+      "affected": [
+        "EFAK"
+      ],
+      "credits": [
+        {
+          "name": "hieuPenguinnn",
+          "url": "https://github.com/hieuPenguinnn"
+        }
+      ],
+      "explainer": {
+        "tagline": "EFAK stores the provider keys its AI assistant uses, and its REST API returns them unmasked to any account that can log in.",
+        "whatHappened": "VulnCheck published CVE-2026-111682 and CVE-2026-111681 for EFAK on October 16, 2026, both recording October 15 as the public disclosure date and both crediting the finder hieuPenguinnn. The finder's HackMD write-up documents a source review of the v5.1.0 tag and states that no requests were sent to a running instance. The GitHub Advisory Database listed the key exposure the same day, unreviewed.",
+        "howItWorks": "EFAK builds one Spring Security filter chain, and that chain asks for the ADMIN role only on page paths such as /users and /config, plus /api/password/**. Every other route falls through to a rule that asks for nothing but a login. The REST controllers behind those admin pages carry no method-level annotation and no interceptor, so ModelConfigController answers any authenticated caller, and its listing handler copies the stored apiKey straight into the response. UserController is open the same way and reads the roles value out of the request body, so a caller can name itself an administrator. CSRF protection is disabled globally, so a logged-in victim's browser can be made to send those writes.",
+        "whoIsAffected": "Self-hosted EFAK is exposed in versions 5.0.0 through 5.1.0, the range both CVE records list, and the project's changelog dates 5.1.0 to September 12, 2026. One ordinary account is enough: the low-privilege ROLE_USER role reaches both APIs, so every user an operator has added can reach them. The keys at risk belong to the models EFAK's AI assistant talks to, which its README lists as OpenAI, Claude and DeepSeek.",
+        "whatToDo": "Treat every provider key stored in an EFAK deployment as exposed and rotate it with the model provider, because no advisory names a patched version. Block outside access to the instance and check the user list for accounts holding the admin role without reason. Operators who patch locally can follow the write-up: put /api/users/**, /api/model-config/** and /api/scheduler/** behind the ADMIN matcher, annotate the admin controllers, verify that a caller may assign the role it asks for instead of trusting the request body, and mask apiKey on every read path."
+      },
+      "quickFacts": [
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-111682 (CVSS 4.0 7.1) and CVE-2026-111681 (8.7), both assigned by VulnCheck"
+        },
+        {
+          "label": "Affected",
+          "value": "EFAK 5.0.0 through 5.1.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No patched version named"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authorization on REST routes, CWE-862"
+        },
+        {
+          "label": "Open routes",
+          "value": "GET /api/model-config/page and /api/model-config/{id}, plus POST, PUT and DELETE on /api/users"
+        },
+        {
+          "label": "Needs",
+          "value": "Any account on the instance, including the default ROLE_USER role"
+        },
+        {
+          "label": "Found by",
+          "value": "hieuPenguinnn, from source review with no live requests"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 15, 2026; CVEs published October 16"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/efak-5.0.0-through-5.1.0-missing-authorization-via-api-model-config-exposes-api-keys"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://hackmd.io/@hieuPenguinnn/efak-missing-admin-gate-user-management-api"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-111682"
+        },
+        {
+          "label": "Admin Escalation CVE",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-111681"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-jqpg-p8wq-hcmv"
+        },
+        {
+          "label": "Model Config Source",
+          "url": "https://github.com/smartloli/EFAK/blob/v5.1.0/efak-web/src/main/java/org/kafka/eagle/web/controller/ModelConfigController.java#L34-L56"
+        },
+        {
+          "label": "Security Config Source",
+          "url": "https://github.com/smartloli/EFAK/blob/v5.1.0/efak-web/src/main/java/org/kafka/eagle/web/security/config/WebSecurityConfig.java#L89-L93"
+        }
+      ],
+      "publishDate": "2026-10-18T08:11:30.089Z"
+    },
     {
       "id": "langchat-rest-controllers-missing-auth",
       "categories": [
