@@ -1,7 +1,103 @@
 {
-  "generatedAt": "2026-10-18T21:14:17.298Z",
+  "generatedAt": "2026-10-18T22:10:04.957Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "oneuptime-ai-cluster-scope-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "OneUptime: AI cluster actions ignored each member's label and owner limits",
+      "org": "OneUptime",
+      "date": "2026-10-18",
+      "url": "https://github.com/OneUptime/oneuptime/security/advisories/GHSA-8fph-9j9f-xxgc",
+      "summary": "OneUptime's AI Kubernetes actions checked project-wide permissions, so a member limited by label or owner could test, reset the agent on, or approve AI kubectl plans for clusters outside their scope. Fixed in 14.0.69.",
+      "severity": "medium",
+      "tags": [
+        "approval-bypass",
+        "agent-security",
+        "privilege-escalation",
+        "oneuptime",
+        "kubernetes"
+      ],
+      "affected": [
+        "OneUptime"
+      ],
+      "cve": "CVE-2026-112047",
+      "cvss": 5.4,
+      "credits": [
+        {
+          "name": "carfeii",
+          "url": "https://github.com/carfeii"
+        }
+      ],
+      "explainer": {
+        "tagline": "OneUptime 14.0.69 fixes an authorization flaw where AI cluster actions used project-wide permission checks instead of per-cluster ones.",
+        "whatHappened": "OneUptime published advisory GHSA-8fph-9j9f-xxgc on October 18, 2026, describing incorrect authorization in the Kubernetes features its AI drives. carfeii reported the flaw, and maintainer simlarsen merged the fix on October 17 before release 14.0.69 shipped. The GitHub Advisory Database tracks it as CVE-2026-112047.",
+        "howItWorks": "The cluster test-connection endpoint asked only whether the caller could edit clusters anywhere in the project, never whether they could edit the cluster named in the request. Label scopes, ownership and label blocks were skipped as a result. The same project-wide check gated resetting a cluster's AI agent, approving an AI-generated kubectl plan, and the read-only kubectl commands offered inside incident AI conversations.",
+        "whoIsAffected": "OneUptime projects on the version range listed below are exposed only where a member's cluster edit permission is narrowed by label, ownership or a label block. Members with project-wide cluster permissions were unaffected, and OneUptime states the flaw reached nothing outside the member's own project.",
+        "whatToDo": "Upgrade OneUptime to 14.0.69 or later. Until then, OneUptime advises removing cluster edit permission from members whose access should be limited by label or ownership, keeping AI admin and runbook-start permissions with people who can edit every cluster, and turning off AI investigation on clusters that some incident readers cannot view."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "OneUptime 14.0.2 through 14.0.68"
+        },
+        {
+          "label": "Fixed in",
+          "value": "14.0.69"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-112047"
+        },
+        {
+          "label": "CVSS",
+          "value": "5.4, CVSS v3.1, from OneUptime's advisory"
+        },
+        {
+          "label": "Attack type",
+          "value": "Incorrect authorization, CWE-863"
+        },
+        {
+          "label": "Found by",
+          "value": "carfeii"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my OneUptime project affected by CVE-2026-112047?",
+          "a": "OneUptime projects running 14.0.2 through 14.0.68 are affected only when some members hold Kubernetes cluster edit permission that is narrowed by label, ownership or a label block. Projects where every member with edit rights can edit all clusters were never exposed. OneUptime states the flaw stayed inside a member's own project and reached no other tenant."
+        },
+        {
+          "q": "What could a restricted OneUptime member actually do?",
+          "a": "A restricted member could run the cluster access test, which reveals a cluster's Kubernetes version and the RBAC permissions of its agent credential. With AI admin permissions they could reset a cluster's agent, disconnecting it until it re-registers. With permission to start runbooks they could approve a pending AI-generated kubectl plan for a cluster they could not edit."
+        },
+        {
+          "q": "Does upgrading OneUptime change who can use its AI cluster actions?",
+          "a": "Upgrading to 14.0.69 tightens access: test connection, agent reset and kubectl plan approval now require edit permission on the specific cluster or resource, and incident AI conversations only offer commands for clusters the requester can view. OneUptime warns that members whose edit access is scoped by label or owner will lose these actions on clusters outside their scope."
+        }
+      ],
+      "links": [
+        {
+          "label": "OneUptime Advisory",
+          "url": "https://github.com/OneUptime/oneuptime/security/advisories/GHSA-8fph-9j9f-xxgc"
+        },
+        {
+          "label": "CVE-2026-112047",
+          "url": "https://github.com/advisories/GHSA-j2m9-x4vf-qv28"
+        },
+        {
+          "label": "Release 14.0.69",
+          "url": "https://github.com/OneUptime/oneuptime/releases/tag/14.0.69"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/OneUptime/oneuptime/pull/4960"
+        }
+      ],
+      "publishDate": "2026-10-18T22:10:04.957Z"
+    },
     {
       "id": "opencode-console-provider-key-breach",
       "categories": [
