@@ -9267,6 +9267,70 @@
         "gh-repo-meta.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261018t201402z",
+      "timestamp": "2026-10-18T20:14:02.109Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, VulnCheck, Embrace The Red, AIR, Zenity, HiddenLayer, Wiz, Unit 42, Check Point, Trail of Bits, JFrog, ReversingLabs, Socket, Snyk, NCC Group, Anthropic, Microsoft, Google GTIG, AISI, CAISI, Hugging Face, Hacker News, repo-scan (13 queries, 5 candidates), GitHub trending, paper-scan (54 arXiv candidates) and talk-scan (22 channels); every in-window story that met the bar is already in the feed, so nothing was added. Rejected as outside the 7-day window: the MCP Python SDK session-exhaustion flaw (CVE-2026-59951, disclosed September 30), Omnigent CVE-2026-112015 (GHSA published September 16, CVE assigned October 18, already fixed in 0.14.0), Unit 42's web-based indirect prompt injection study (March 3), Glow's PixelLeak screenshot exposure (September 29), Salt Labs on Manus, NVIDIA's Open Agent Safety Platform and the Pipecat dev-runner advisory. The GHSA entries for Claude Code plugin hash pinning and LMCache that appeared this week are database republications of CVE-2026-86063 and CVE-2026-105192, both already in the feed. No paper cleared the two-signal bar: the only candidate with two scanned signals, LatentRiskBench, is already in the feed, and arXiv 2610.20437 has code but its CVE-2026-65616 is a pre-existing JFrog Artifactory CVE, not the paper's own finding. No repo cleared the two-signal bar: zero-lab-ai/skills (68 stars) and MCP-checkup (21 stars) are new and licensed but show no second signal, and GitHub trending held no AI security repos. The Embrace The Red videos on CVE-2026-103572 are already linked from that item. genai.owasp.org, openai.com and r/netsec were not reachable from this run and are left out of sourcesChecked.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "VulnCheck blog",
+        "MITRE CVE Services API",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "simonwillison.net",
+        "hiddenlayer.com",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "socket.dev/blog",
+        "snyk.io/blog",
+        "nccgroup.com/research-blog",
+        "lakera.ai/blog",
+        "anthropic.com/news",
+        "Microsoft Security Blog",
+        "MSRC blog",
+        "Google Cloud Threat Intelligence",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers via paper-scan",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "talk-scan YouTube channels",
+        "gh-repo-meta.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
