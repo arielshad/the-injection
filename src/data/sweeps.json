@@ -10103,6 +10103,58 @@
         "og-image.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261019t091019z",
+      "timestamp": "2026-10-19T09:10:19.328Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (four dated and keyword queries plus four individual GHSA pages), VulnCheck, Embrace The Red, AIR Security, Zenity Labs, Pillar Security, HiddenLayer, Datadog Security Labs, Socket, ReversingLabs, NCC Group, Check Point Research, Microsoft MSRC, Anthropic news, UK AISI, NIST CAISI, Simon Willison, Hugging Face blog, Hacker News front page and newest, github.com/trending daily and weekly, repo-scan (13 queries, 3 candidates, two checked with gh-repo-meta), paper-scan (74 arXiv candidates, 15 with a scanned signal) and talk-scan (22 channels, 24 videos); nothing inside the 7-day window met the bar. Everything new since the 08:17Z sweep was already in the feed, and the three closest candidates failed on dates or the repo bar: Pillar and Fujitsu's BadEngram memory-parameter backdoor was written up on October 13 but its arXiv v1 is September 11, the MCP Python SDK session-exhaustion advisory (CVE-2026-59951) was first published September 30, and MCP-checkup and TokenForge show no second repo signal, with TokenForge carrying no license.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "pillar.security/blog",
+        "hiddenlayer.com",
+        "securitylabs.datadoghq.com",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "nccgroup.com/research-blog",
+        "research.checkpoint.com",
+        "microsoft.com/msrc/blog",
+        "anthropic.com/news",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "Hacker News front page and newest",
+        "github.com/trending",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }
