@@ -9659,6 +9659,63 @@
         "adversa.ai roundups"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261019t022055z",
+      "timestamp": "2026-10-19T02:20:55.826Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, MSRC, Anthropic news, Google and DeepMind, UK AISI, CAISI, Embrace The Red, AIR Security, Zenity, Trail of Bits, NCC Group, HiddenLayer, Unit 42, Check Point, JFrog, ReversingLabs, Socket, Wiz, Snyk and Invariant, Hugging Face, Hacker News, GitHub trending, repo-scan (13 queries, 3 candidates) and talk-scan (22 channels); no new AI-security disclosure, repo, paper or talk inside the 7-day window met the bar. paper-scan hit arXiv rate limits, so arXiv was searched by hand across six queries: four returned, two kept failing with HTTP 429.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "blog.google safety and security",
+        "aisi.gov.uk",
+        "nist.gov CAISI",
+        "embracethered.com",
+        "air.security/blog",
+        "zenity.io/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com research blog",
+        "hiddenlayer.com research",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "socket.dev/blog",
+        "wiz.io/blog",
+        "invariantlabs.ai/blog",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "huggingface.co/papers",
+        "arXiv cs.CR (manual, paper-scan rate-limited)",
+        "Hacker News front page and newest",
+        "github.com/trending",
+        "repo-scan.json",
+        "talk-scan.ts",
+        "genai.owasp.org"
+      ],
+      "windowDays": 7
     }
   ]
 }
