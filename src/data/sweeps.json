@@ -9598,6 +9598,67 @@
         "CSO Online"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261019t011758z",
+      "timestamp": "2026-10-19T01:17:58.558Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP, agent and LLM queries), VulnCheck, Embrace The Red, AIR Security, Zenity Labs, Signals Corps, Simon Willison, Trail of Bits, Wiz, Check Point, Lakera, Unit 42, MSRC, Anthropic, UK AISI, CAISI, OWASP GenAI, Hacker News and Show HN, GitHub trending, Hugging Face, repo-scan (13 queries, 3 candidates) and talk-scan (22 channels); paper-scan ran only 4 of its 9 arXiv queries after HTTP 429 retries and returned 39 in-window candidates. Nothing new met the bar: this week's disclosures are already in the feed (NullHub CVE-2026-110616 and RedAmon CVE-2026-111323 inside the VulnCheck source-review item, Omnigent CVE-2026-112015, OneUptime CVE-2026-112047 and Archon CVE-2026-111322 in their own items, and the two Embrace The Red videos already linked from the Visual Studio Copilot item), and the rest sit outside the window by original disclosure date (Nezha's MCP Host-header advisory October 1, the Signals Corps HTTP-header study October 6, MCP Python SDK CVE-2026-59951 September 30, Cycode's MCP Python SDK OAuth flaw September 28, DeepKeep InkJect July, Mandiant's AI-assistant hijack September) or failed a bar: no arXiv paper showed two signals, no repo candidate had a license and in-window dating, and the Trail of Bits package-manager study, the AISI best-practice post and the Nezha, Coder, Arcane and Wheels CLI advisories are not AI-security findings.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "NVD CVE records",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "signalscorps.com",
+        "simonwillison.net",
+        "blog.trailofbits.com",
+        "wiz.io/blog",
+        "research.checkpoint.com",
+        "lakera.ai/blog",
+        "unit42.paloaltonetworks.com",
+        "invariantlabs.ai/blog",
+        "reversinglabs.com/blog",
+        "socket.dev/blog",
+        "jfrog.com security research",
+        "microsoft.com/msrc/blog",
+        "anthropic.com/news",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "genai.owasp.org/news",
+        "Hacker News front page and Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "nezhahq/nezha security advisories",
+        "theregister.com",
+        "adversa.ai roundups"
+      ],
+      "windowDays": 7
     }
   ]
 }
