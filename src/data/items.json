@@ -1,7 +1,117 @@
 {
-  "generatedAt": "2026-10-19T03:11:09.784Z",
+  "generatedAt": "2026-10-19T04:16:25.317Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "microsoft-vscode-copilot-hook-edit-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "VS Code: a prompt injection could plant a shell command in Copilot hooks",
+      "org": "Microsoft",
+      "date": "2026-10-13",
+      "url": "https://github.com/microsoft/vscode/security/advisories/GHSA-fq62-m6f5-c7h9",
+      "summary": "CVE-2026-102232 let Visual Studio Code's Copilot harness auto-approve edits to custom hook files, so a prompt injection could plant a shell command that ran with the user's privileges. Microsoft fixed it in 1.141.1.",
+      "severity": "high",
+      "tags": [
+        "indirect-prompt-injection",
+        "rce",
+        "approval-bypass",
+        "coding-agents",
+        "vs-code",
+        "github-copilot",
+        "microsoft"
+      ],
+      "affected": [
+        "Visual Studio Code",
+        "GitHub Copilot"
+      ],
+      "cve": "CVE-2026-102232",
+      "credits": [
+        {
+          "name": "Visual Studio Code team",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-102232 let a prompt injection add a shell command to Visual Studio Code's Copilot hook files without asking the user to approve it.",
+        "whatHappened": "Microsoft published a batch of Visual Studio Code security advisories on October 13, 2026 and shipped the fixes in version 1.141.1. Two of them cover the editor's agent surface: CVE-2026-102232 in the Copilot harness and CVE-2026-70098 in workspace trust. Microsoft maintainers published each record, and the advisories name no outside reporter.",
+        "howItWorks": "Visual Studio Code's Copilot harness automatically approved edits to the custom hook and agent-definition locations set in chat.hookFilesLocations and chat.agentFilesLocations, treating them as ordinary workspace files. Indirect prompt injection from attacker-controlled content could therefore make the agent write a shell command into one of those files with no approval prompt, and the command ran with the user's privileges when the hook was next invoked. The second flaw sits elsewhere in the editor: opening a workspace through the vscode.dev/agents/tunnel path skipped the workspace trust gate, so skills supplied by an attacker ran without a warning.",
+        "whoIsAffected": "Visual Studio Code 1.141.0 and earlier carry both flaws, and 1.141.1 fixes them. Exploiting the hook flaw needs a custom entry in one of the two hook or agent-definition settings, hooks turned on, and a Copilot-harness session run against attacker-controlled content. The workspace trust flaw needs the user to open a workspace through the agents tunnel web path and run sessions in it.",
+        "whatToDo": "Update Visual Studio Code to 1.141.1 or later. Before updating, Microsoft's workarounds are to set chat.useHooks and chat.useClaudeHooks to false, remove custom entries from chat.hookFilesLocations and chat.agentFilesLocations, and keep Copilot-harness sessions off untrusted workspaces. Do not open workspaces through the agents tunnel path from a source you do not trust."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Visual Studio Code 1.141.0 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Visual Studio Code 1.141.1"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-102232, remote code execution via custom hook edits in the Copilot harness"
+        },
+        {
+          "label": "Also fixed",
+          "value": "CVE-2026-70098 skipped workspace trust (CVSS 8.8), plus CVE-2026-102233 and CVE-2026-102234, two workspace trust bypasses in the integrated terminal"
+        },
+        {
+          "label": "Attack type",
+          "value": "Indirect prompt injection into agent hook files, then command execution as the user"
+        },
+        {
+          "label": "Workaround",
+          "value": "Set chat.useHooks and chat.useClaudeHooks to false, and clear custom hook and agent-definition locations"
+        },
+        {
+          "label": "Found by",
+          "value": "Microsoft, no outside reporter acknowledged"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Visual Studio Code version fixes the Copilot hook command execution flaw?",
+          "a": "Visual Studio Code 1.141.1 fixes CVE-2026-102232, and Microsoft lists every earlier build as affected. The patch treats enabled workspace-relative hook and agent-definition locations as sensitive, so direct writes and shell redirections to them need confirmation under normal permission settings. Coverage includes the Agents Window, the workbench Chat, multi-root workspaces, symbolic links, case-insensitive paths and configuration changes made during a session."
+        },
+        {
+          "q": "Am I affected if I never configured custom Copilot hook locations?",
+          "a": "Visual Studio Code users with no custom entry in chat.hookFilesLocations or chat.agentFilesLocations fall outside the conditions Microsoft states for CVE-2026-102232, which also require hooks to be enabled and a Copilot-harness session run against attacker-controlled content. Version 1.141.1 still matters, because the same release fixes CVE-2026-70098, where opening a workspace through the agents tunnel path skipped workspace trust entirely."
+        },
+        {
+          "q": "How do I reduce the risk before updating Visual Studio Code?",
+          "a": "Microsoft's advisory lists three workarounds for CVE-2026-102232: set chat.useHooks and chat.useClaudeHooks to false, remove or disable custom entries in chat.hookFilesLocations and chat.agentFilesLocations, and avoid Copilot-harness sessions on attacker-controlled content. Declining unexpected changes to hook configuration files and agent definitions helps too. None of these replace 1.141.1, which closes the auto-approval path itself."
+        },
+        {
+          "q": "How does the skipped workspace trust flaw differ from the Copilot hook flaw?",
+          "a": "CVE-2026-70098 defeats the trust gate rather than an approval prompt: opening a workspace through the vscode.dev/agents/tunnel path skipped workspace trust, letting skills supplied by an attacker run with no warning. Microsoft scores that flaw CVSS 8.8 and fixed it by adding a trust check to the endpoint. CVE-2026-102232 instead abuses auto-approval inside the Copilot harness for hook and agent-definition files."
+        }
+      ],
+      "links": [
+        {
+          "label": "Copilot Hook Advisory",
+          "url": "https://github.com/microsoft/vscode/security/advisories/GHSA-fq62-m6f5-c7h9"
+        },
+        {
+          "label": "Workspace Trust GHSA",
+          "url": "https://github.com/microsoft/vscode/security/advisories/GHSA-r2p5-jgfw-r5vw"
+        },
+        {
+          "label": "Terminal Relaunch GHSA",
+          "url": "https://github.com/microsoft/vscode/security/advisories/GHSA-vpr6-4m2g-43cx"
+        },
+        {
+          "label": "Link Schemes GHSA",
+          "url": "https://github.com/microsoft/vscode/security/advisories/GHSA-vmmp-977m-xvwx"
+        },
+        {
+          "label": "VS Code 1.141 Notes",
+          "url": "https://code.visualstudio.com/updates/v1_141"
+        }
+      ],
+      "publishDate": "2026-10-19T04:16:25.317Z"
+    },
     {
       "id": "ai-security-letter-containment",
       "categories": [

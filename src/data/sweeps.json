@@ -9775,6 +9775,75 @@
         "Hacker News"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261019t041625z",
+      "timestamp": "2026-10-19T04:16:25.317Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, MSRC, Anthropic, OpenAI alignment, DeepMind, AISI, CAISI, Embrace The Red, AIR, Zenity, HiddenLayer, JFrog, Socket, Trail of Bits, NCC Group, Check Point, ReversingLabs, Lakera, Invariant, Hugging Face, Hacker News, GitHub trending, repo-scan (3 candidates), paper-scan (75 papers) and talk-scan (12 videos). One item qualified: Microsoft's October 13 Visual Studio Code batch included a Copilot harness hook-edit RCE and an agents-tunnel workspace trust bypass that the feed had not covered. Dropped as outside the 7-day window: GitSpawn (September 1), BragJack (September 16), MaxKBypass, Signals Corps HTTP header injections (October 6), HiddenLayer's Hugging Face intrusion analysis (July 31), Unit 42 in-the-wild injections (March 3) and two Google Agent Mesh CVEs whose advisories published September 4 and 6. No repo cleared the repo bar and no paper cleared two signals.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "microsoft-vscode-copilot-hook-edit-rce",
+          "title": "VS Code: a prompt injection could plant a shell command in Copilot hooks",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "The feed covered only the moderate MCP sandbox CVE from Visual Studio Code's October 13 batch; the Copilot harness hook-edit RCE (CVE-2026-102232) and the agents-tunnel workspace trust bypass (CVE-2026-70098) are separate high-severity flaws on the agent surface, both fixed in 1.141.1, and both give defenders a concrete action."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "microsoft/vscode security advisories",
+        "google/agentmesh security advisories",
+        "VulnCheck advisories",
+        "MSRC blog",
+        "anthropic.com/news",
+        "alignment.openai.com misalignment reports",
+        "deepmind.google blog",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "hiddenlayer.com research",
+        "research.jfrog.com",
+        "socket.dev/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com research blog",
+        "research.checkpoint.com",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "unit42.paloaltonetworks.com",
+        "signalscorps.com",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, created)",
+        "Hacker News front page and Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "talk-scan.ts",
+        "code.visualstudio.com release notes"
+      ],
+      "windowDays": 7
     }
   ]
 }
