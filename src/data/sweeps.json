@@ -10155,6 +10155,69 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261019t101340z",
+      "timestamp": "2026-10-19T10:13:40.945Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (mcp, agent, prompt injection and llm queries), VulnCheck, JFrog, MSRC and the Microsoft Security blog, Anthropic, OpenAI alignment, UK AISI, Unit 42, Check Point, NCC Group, Trail of Bits, Snyk, Socket, ReversingLabs, Datadog, Elastic, HiddenLayer, Pillar, AIR Security, Zenity, Embrace The Red, Simon Willison, Hugging Face blog and guard models, OWASP GenAI, Hacker News front page and Show HN, GitHub trending, repo-scan (13 queries, 3 candidates) and talk-scan (22 channels); nothing inside the 7-day window met the bar that the feed does not already carry. paper-scan completed only 2 of 9 arXiv queries (5 HTTP 429, 2 timeouts), so arXiv was covered partly through its 17 candidates plus Hugging Face Daily Papers for the week and direct fetches of the two strongest candidates, and no paper showed the required two signals.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "JFrog Security Research",
+        "Microsoft MSRC blog",
+        "Microsoft Security blog",
+        "anthropic.com/news",
+        "alignment.openai.com misalignment reports",
+        "aisi.gov.uk/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "nccgroup.com research",
+        "blog.trailofbits.com",
+        "snyk.io/blog",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "securitylabs.datadoghq.com",
+        "elastic.co/security-labs",
+        "hiddenlayer.com research",
+        "pillar.security/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "huggingface.co/papers week 2026-W42",
+        "genai.owasp.org",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "talk-scan.ts",
+        "paper-scan.ts (partial, 2 of 9 queries)",
+        "gh-repo-meta.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
