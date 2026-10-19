@@ -1,7 +1,100 @@
 {
-  "generatedAt": "2026-10-19T07:18:00.667Z",
+  "generatedAt": "2026-10-19T08:16:56.608Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "pillar-opencode-mcp-oauth-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "opencode: a remote MCP server could run commands on Windows",
+      "org": "Pillar Security",
+      "date": "2026-10-19",
+      "url": "https://www.pillar.security/blog/open-and-shut-remote-code-execution-in-opencode-via-mcp-oauth",
+      "summary": "opencode ran attacker-supplied commands on Windows when a remote MCP server returned a crafted OAuth authorization endpoint. Anomaly fixed the flaw in 1.18.33 without a CVE, so scanners will not flag older installs.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "rce",
+        "coding-agents",
+        "opencode"
+      ],
+      "affected": [
+        "opencode"
+      ],
+      "credits": [
+        {
+          "name": "Eilon Cohen",
+          "org": "Pillar Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "opencode ran attacker code on Windows when it connected to a malicious remote MCP server, fixed in version 1.18.33.",
+        "whatHappened": "Pillar Security disclosed a command injection flaw in opencode, the open-source coding agent built by Anomaly. Researcher Eilon Cohen reported it privately on 2026-08-29 and published the write-up on 2026-10-19. Anomaly shipped the fix in version 1.18.33 on 2026-09-28 as a refactor, with no security advisory and no CVE.",
+        "howItWorks": "A remote MCP server controls its own OAuth discovery document, and opencode passed that document's authorization_endpoint value straight to the open() browser launcher. On Windows, open built a PowerShell command string without escaping the URL, and PowerShell expands $(...) inside double quotes. A URL such as https://evil.test/$(...) therefore ran as code, even though the browser launch itself then failed.",
+        "whoIsAffected": "Windows and WSL users of opencode-ai from 1.0.137 through 1.18.32 are exposed, and only when they add a remote MCP server an attacker controls. macOS and Linux installs are not affected, per Pillar Security's FAQ.",
+        "whatToDo": "Upgrade opencode to 1.18.33 or later. On Windows or WSL installs that cannot upgrade, remove remote MCP servers you have not vetted. Inventory opencode installs by hand, because no CVE was assigned and dependency scanners will not flag the old versions."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "opencode-ai 1.0.137 through 1.18.32, Windows and WSL only"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.18.33, published 2026-09-28"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned; Anomaly declined to request one"
+        },
+        {
+          "label": "Found by",
+          "value": "Eilon Cohen, Pillar Security"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Reported 2026-08-29, published 2026-10-19"
+        },
+        {
+          "label": "Attack type",
+          "value": "OS command injection via an MCP OAuth discovery document"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed, shipped as a refactor with no advisory"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is opencode patched against the MCP OAuth command injection?",
+          "a": "Anomaly fixed the flaw in opencode 1.18.33, published on 2026-09-28, by bumping the open dependency from 10.1.2 to 11.0.4 and routing browser launches through a shared opener that accepts only http and https URLs. Pillar Security says the dependency bump is what actually closes the hole, because the scheme check alone would not block the payload."
+        },
+        {
+          "q": "Am I affected if I run opencode on macOS or Linux?",
+          "a": "macOS and Linux installs of opencode are not affected, according to Pillar Security's FAQ. The flaw depends on the open package building a PowerShell command string on Windows, where $(...) inside double quotes is expanded as code. Windows and WSL users running opencode-ai 1.0.137 through 1.18.32 are the exposed group."
+        },
+        {
+          "q": "Why is there no CVE for the opencode MCP OAuth flaw?",
+          "a": "Anomaly did not publish a security advisory or request a CVE after Pillar Security asked for one, taking the position that a malicious MCP server sits outside the product's threat model. Pillar Security warns that without a CVE, dependency scanners and vulnerability feeds will not flag affected installs, so teams need to check opencode versions themselves."
+        }
+      ],
+      "links": [
+        {
+          "label": "Pillar Security Report",
+          "url": "https://www.pillar.security/blog/open-and-shut-remote-code-execution-in-opencode-via-mcp-oauth"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/anomalyco/opencode/pull/51414"
+        },
+        {
+          "label": "Release 1.18.33",
+          "url": "https://github.com/anomalyco/opencode/releases/tag/v1.18.33"
+        }
+      ],
+      "publishDate": "2026-10-19T08:16:56.608Z"
+    },
     {
       "id": "google-agent-mesh-enrollment-ingress-cves",
       "categories": [
