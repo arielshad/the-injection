@@ -1,7 +1,115 @@
 {
-  "generatedAt": "2026-10-19T05:12:51.869Z",
+  "generatedAt": "2026-10-19T06:11:53.028Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "google-agent-mesh-enrollment-ingress-cves",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Google Agent Mesh: unauthenticated peers could invoke MCP tools",
+      "org": "GitHub Advisory Database",
+      "date": "2026-10-19",
+      "url": "https://github.com/advisories/GHSA-qx8v-pq9p-7g7v",
+      "summary": "Google Agent Mesh, an open-source mesh for MCP and A2A agents, received two critical CVEs on October 19, 2026 for flaws fixed in September: an unauthenticated peer could enroll itself and call tools on connected MCP backends.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "agent-security",
+        "privilege-escalation",
+        "google",
+        "agent-mesh"
+      ],
+      "affected": [
+        "Google Agent Mesh",
+        "MCP servers"
+      ],
+      "cve": "CVE-2026-103091",
+      "cvss": 9.3,
+      "credits": [
+        {
+          "name": "Eli Ainhorn",
+          "org": "Noma Security"
+        },
+        {
+          "name": "Yanchon918s"
+        }
+      ],
+      "explainer": {
+        "tagline": "Two missing-authorization flaws let an outsider join Google's Agent Mesh or skip its policy check, then call tools on connected MCP servers.",
+        "whatHappened": "The National Vulnerability Database and the GitHub Advisory Database published CVE-2026-103091 and CVE-2026-102503 on October 19, 2026, rating both 9.3 under CVSS v4. Google's Agent Mesh project had already disclosed and fixed both flaws in September. Eli Ainhorn of Noma Security reported the enrollment chain, and Yanchon918s reported the ingress bypass.",
+        "howItWorks": "Missing authorization is the shared weakness. The control plane served its OIDC settings from an unauthenticated GET /info, accepted any valid provider token at POST /register with no claim filtering and no ban check, then applied a default policy that granted sam:system:authenticated a wildcard over every service and target. Separately, a node exposed its backends on a parallel /libp2p-http route that never verified a Biscuit token, so any peer able to dial the node reached the same handlers the MCP protocol path guards.",
+        "whoIsAffected": "Deployments below v0.1.0-alpha.9 carry the enrollment chain, and those below v0.1.0-alpha.3 carry the ingress bypass. Google's advisory states that the official deployment configuration shipped the wildcard policy, so default installs were exploitable, and that the shipped 0.0.0.0 libp2p bind with DHT discovery left nodes reachable. The current release is v0.1.1.",
+        "whatToDo": "Upgrade to v0.1.0-alpha.9 or later, which fails closed by default, requires explicit policy bindings at enrollment and adds ban checks. Replace any wildcard binding of sam:system:authenticated with explicit per-service bindings. Re-run dependency scanners against the github.com/google/sam Go module, because the CVE ids are new and earlier scans had nothing to match."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-103091 and CVE-2026-102503, both published October 19, 2026"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.3 (CVSS v4, GitHub Advisory Database); the project's own advisories rate both 9.8 under CVSS v3.1"
+        },
+        {
+          "label": "Affected",
+          "value": "Agent Mesh (SAM) below v0.1.0-alpha.9; the ingress bypass reaches versions below v0.1.0-alpha.3"
+        },
+        {
+          "label": "Fixed in",
+          "value": "v0.1.0-alpha.9 and v0.1.0-alpha.3, both released in September 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "Eli Ainhorn (Noma Security) and Yanchon918s"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Project advisories published September 4 and 6, 2026; CVE ids assigned October 19, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed. The latest release, v0.1.1, shipped October 18, 2026 and needs no policy changes coming from v0.1.0"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if I run Google Agent Mesh with the default configuration?",
+          "a": "Default Agent Mesh installs below v0.1.0-alpha.9 were exploitable, because Google's advisory says the official deployment configuration shipped a policy granting sam:system:authenticated a wildcard over all services and targets. Every enrolled member therefore passed authorization. Operators who kept that shipped policy and never upgraded remain exposed, so check the running version before assuming the defaults were safe."
+        },
+        {
+          "q": "Which Agent Mesh version fixes CVE-2026-103091 and CVE-2026-102503?",
+          "a": "Version v0.1.0-alpha.9 fixes the enrollment chain behind CVE-2026-103091, and v0.1.0-alpha.3 fixes the /libp2p-http ingress bypass behind CVE-2026-102503. Upgrading to v0.1.0-alpha.9 or later covers both. Google describes the alpha.9 fix as a fail-closed default policy, explicit policy bindings required at enrollment, and ban checks added to the registration path."
+        },
+        {
+          "q": "Why do these CVEs appear now if Google fixed the flaws in September?",
+          "a": "Google published both advisories on its own repository on September 4 and 6, 2026, before any CVE id existed. The National Vulnerability Database and the GitHub Advisory Database assigned and published the two ids on October 19, 2026. Dependency scanners and SBOM tools match on CVE ids, so an Agent Mesh deployment that scanned clean last week can start reporting these findings."
+        }
+      ],
+      "links": [
+        {
+          "label": "CVE-2026-103091",
+          "url": "https://github.com/advisories/GHSA-qx8v-pq9p-7g7v"
+        },
+        {
+          "label": "CVE-2026-102503",
+          "url": "https://github.com/advisories/GHSA-vc9x-qg3j-cxg6"
+        },
+        {
+          "label": "Enrollment Advisory",
+          "url": "https://github.com/google/agentmesh/security/advisories/GHSA-cgmg-9xf6-rrgw"
+        },
+        {
+          "label": "Ingress Advisory",
+          "url": "https://github.com/google/agentmesh/security/advisories/GHSA-r6hp-67wp-c7jx"
+        },
+        {
+          "label": "Agent Mesh v0.1.1",
+          "url": "https://github.com/google/agentmesh/releases/tag/v0.1.1"
+        }
+      ],
+      "publishDate": "2026-10-19T06:11:53.028Z"
+    },
     {
       "id": "microsoft-vscode-copilot-hook-edit-rce",
       "categories": [
