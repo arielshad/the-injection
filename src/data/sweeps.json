@@ -10218,6 +10218,107 @@
         "gh-repo-meta.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261021t171126z",
+      "timestamp": "2026-10-21T17:11:26.911Z",
+      "source": "local-backfill",
+      "promptVersion": "1.3.0",
+      "summary": "Local backfill after the scheduled sweep stopped at 2026-10-19T10:14Z. Searched GitHub Advisories (MCP and agent queries), VulnCheck, php.net, Anthropic news and research, OpenAI (openai.com returned 403 to fetches), Google safety blog, MSRC, Embrace The Red, Simon Willison, AIR Security, Zenity Labs, Socket, JFrog, Unit 42, HiddenLayer, ProjectDiscovery, Hugging Face blog, OWASP GenAI, Hacker News front pages for Oct 20 and 21, github.com/trending, repo-scan (3 candidates), paper-scan (85 candidates) and talk-scan. Added six items: the live LiteLLM 1.107.0 PyPI and container compromise, the AI-assisted PHP2Shell RCE disclosure, Unit 42 on the BUGSTER operator, Anthropic's attack surface reduction work, one in-window MCP TypeScript SDK advisory, and Redact's hidden WhatsApp AI instructions.",
+      "counts": {
+        "added": 6,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "socket-litellm-1-107-0-compromise",
+          "title": "LiteLLM 1.107.0: backdoored wheels steal cloud and AI keys",
+          "category": "supply-chain",
+          "severity": "critical",
+          "note": "A credential stealer in all seven wheels of a package with roughly 23 million weekly downloads, published and quarantined today, with AI coding assistant auth files among its targets."
+        },
+        {
+          "id": "wiz-php2shell",
+          "title": "PHP2Shell: AI-assisted research found two critical PHP RCE flaws",
+          "category": "research",
+          "severity": "high",
+          "note": "Unauthenticated code execution confirmed against mod_php at default settings, patched the same day, and the clearest example this week of frontier models being used to find and port a real exploit."
+        },
+        {
+          "id": "unit42-bugster-ai-cybercrime",
+          "title": "BUGSTER: one operator ran cybercrime through a Telegram AI agent",
+          "category": "incident",
+          "severity": "info",
+          "note": "First Unit 42 reporting on this operator, and a concrete case of both model safety controls and a coding agent's permission model being bypassed by configuration rather than exploits."
+        },
+        {
+          "id": "anthropic-attack-surface-reduction",
+          "title": "Anthropic: Claude found 493 attack surface issues in 25 projects",
+          "category": "research",
+          "severity": "info",
+          "note": "A lab claim with numbers and an independent check: the OpenSSH release notes credit the same researcher and Anthropic Research for the changes described."
+        },
+        {
+          "id": "mcp-typescript-sdk-shared-instance-message-leak",
+          "title": "MCP TypeScript SDK: a shared server instance mixed up clients' replies",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "A cross-client confidentiality flaw in the official MCP server package, published October 15 but only listed in the GitHub Advisory Database on October 20, so earlier sweeps did not see it."
+        },
+        {
+          "id": "redact-whatsapp-hidden-ai-instructions",
+          "title": "WhatsApp help pages carried 102 hidden blocks of AI instructions",
+          "category": "research",
+          "severity": "info",
+          "note": "A verified, vendor-confirmed case of hidden page text steering a deployed assistant, on the same surface indirect prompt injection uses."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "php.net security advisories",
+        "github.com/php/php-src security advisories",
+        "modelcontextprotocol/typescript-sdk security advisories",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "anthropic.com/research",
+        "blog.google safety and security",
+        "Microsoft MSRC blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "unit42.paloaltonetworks.com",
+        "hiddenlayer.com",
+        "projectdiscovery.io/research",
+        "wiz.io/blog",
+        "redact.dev/blog",
+        "huggingface.co/blog",
+        "genai.owasp.org",
+        "Hacker News front page",
+        "github.com/trending",
+        "pypi.org",
+        "openssh.org release notes",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

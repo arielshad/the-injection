@@ -1,7 +1,647 @@
 {
-  "generatedAt": "2026-10-19T10:13:40.945Z",
+  "generatedAt": "2026-10-21T17:11:26.911Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "socket-litellm-1-107-0-compromise",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "LiteLLM 1.107.0: backdoored wheels steal cloud and AI keys",
+      "org": "Socket",
+      "date": "2026-10-21",
+      "url": "https://socket.dev/blog/litellm-compromise",
+      "summary": "LiteLLM 1.107.0 on PyPI shipped a credential stealer in all seven wheels and in the v1.107.0 container images, Socket and JFrog report. PyPI quarantined the release; anyone who installed it should rotate every reachable secret.",
+      "severity": "critical",
+      "tags": [
+        "malicious-package",
+        "credential-theft",
+        "coding-agents",
+        "litellm",
+        "pypi",
+        "docker"
+      ],
+      "affected": [
+        "LiteLLM",
+        "litellm (PyPI)",
+        "Claude",
+        "Codex",
+        "Cursor",
+        "Copilot",
+        "Hugging Face"
+      ],
+      "credits": [
+        {
+          "name": "Socket Research Team",
+          "org": "Socket"
+        },
+        {
+          "name": "Guy Korolevski",
+          "org": "JFrog Security Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "LiteLLM 1.107.0 installed a credential stealer that runs whenever Python starts, even if nothing imports LiteLLM.",
+        "whatHappened": "Socket's scanner flagged litellm 1.107.0 on PyPI about seven minutes after it was published on October 21, 2026, and JFrog published its own analysis the same day. All seven wheels carried a credential stealer, and the v1.107.0 container images carried the same payload. PyPI has quarantined the release and JFrog reports that Docker Hub removed the affected image.",
+        "howItWorks": "Three files land in site-packages: cook.pth, cook.py and sitecustomize.py. Python runs .pth files at interpreter startup, so the collector fires on any Python or pip command in that environment, not only when an application imports LiteLLM. What it gathers is encrypted with AES-256 and RSA-4096 and posted to a lookalike domain over plain HTTP. A second file starts a detached daemon that polls a file in a GitHub repository roughly hourly for a domain, then downloads and runs Python from that domain with no signature or hash check.",
+        "whoIsAffected": "Any environment that installed litellm 1.107.0 from PyPI, or pulled ghcr.io/berriai/litellm:v1.107.0 or a floating tag that briefly resolved to it, is exposed. JFrog also names the official litellm/litellm:1.107.0 image on Docker Hub. Socket notes that the macOS build's database and browser-password routines fail on typical macOS systems, while its other modules still run.",
+        "whatToDo": "Isolate any host or container that ran it and treat every secret it could read as exposed, including LiteLLM master and virtual keys and the upstream provider keys in LiteLLM_CredentialsTable. Delete cook.pth, cook.py and sitecustomize.py with tools that do not start the affected interpreter, kill any detached Python process holding /tmp/remote_code_loader.lock, then rebuild and pin litellm 1.106.2."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "litellm 1.107.0, all seven PyPI wheels, plus the v1.107.0 container images"
+        },
+        {
+          "label": "Clean version",
+          "value": "1.106.2, per JFrog and the PyPI quarantine notice"
+        },
+        {
+          "label": "Status",
+          "value": "Quarantined by PyPI admins on October 21, 2026"
+        },
+        {
+          "label": "Payload",
+          "value": "cook.pth, cook.py and sitecustomize.py in site-packages"
+        },
+        {
+          "label": "Exfiltration",
+          "value": "www[.]litellm[.]dev/healthcheck over plain HTTP"
+        },
+        {
+          "label": "Attack type",
+          "value": "Credential stealer plus hourly remote code loader"
+        },
+        {
+          "label": "Found by",
+          "value": "Socket Research Team and JFrog Security Research"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if my code never imports LiteLLM?",
+          "a": "LiteLLM 1.107.0 installs a .pth file, and Python executes .pth files at interpreter startup, so the stealer runs in any environment holding the package even when no application imports it. Socket and JFrog both note that an ordinary pip command is enough to trigger it. Treat the whole environment as compromised, not only the application that depends on LiteLLM."
+        },
+        {
+          "q": "Which LiteLLM version is safe to pin?",
+          "a": "JFrog recommends pinning litellm 1.106.2, and the PyPI quarantine notice for 1.107.0 points at the same release. Socket says it did not certify any earlier artifact as clean, so pinning should go together with rebuilding from a reviewed artifact. Container images deserve pinning by digest too, because floating tags briefly resolved to the compromised build."
+        },
+        {
+          "q": "Which credentials does the LiteLLM stealer take?",
+          "a": "The collector reaches SSH, GPG and TLS private keys, AWS, Azure and Google Cloud credentials, Kubernetes configs and service-account tokens, CI and infrastructure-as-code secrets, npm and PyPI configs, and browser password and cookie stores. It also reads the auth files of AI tools including Codex, Claude, Cursor, Copilot and Hugging Face, and where DATABASE_URL is set it queries the LiteLLM proxy's stored provider keys."
+        },
+        {
+          "q": "Does uninstalling the litellm package stop the stealer?",
+          "a": "Removing litellm leaves cook.pth, cook.py and sitecustomize.py behind in site-packages, so the startup hook keeps running. JFrog says to delete those files and their compiled __pycache__ entries, along with /tmp/.pc_once_72129118c59f5636c0bb and /tmp/remote_code_loader.lock, using tools that do not invoke the affected interpreter, and to find and kill any detached Python process still holding the lock."
+        },
+        {
+          "q": "How did the payload reach PyPI if the Git tag is clean?",
+          "a": "JFrog reports that the source tarball and Git tag do not contain the three payload files, while the sdist's pyproject.toml carries an added Maturin setting the tag lacks, and says the exact injection point is unknown. Socket found that the malicious container build's provenance names Berri-AI/litellm, one hyphen from the real BerriAI/litellm, and says the authorization behind that override remains unestablished."
+        }
+      ],
+      "links": [
+        {
+          "label": "Socket Analysis",
+          "url": "https://socket.dev/blog/litellm-compromise"
+        },
+        {
+          "label": "JFrog Analysis",
+          "url": "https://research.jfrog.com/post/litellm-hijacked-again/"
+        },
+        {
+          "label": "PyPI Quarantine",
+          "url": "https://pypi.org/project/litellm/1.107.0/"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/cgdhsj6q/production/4a675dc20dd32b1e21953743c78bca0cb2549e26-1830x1340.png?w=1000&q=95&fit=max&auto=format",
+        "alt": "Cover image for Socket's analysis of the compromised LiteLLM release",
+        "credit": "Socket"
+      },
+      "publishDate": "2026-10-21T17:11:26.911Z"
+    },
+    {
+      "id": "wiz-php2shell",
+      "categories": [
+        "research",
+        "vulnerability"
+      ],
+      "title": "PHP2Shell: AI-assisted research found two critical PHP RCE flaws",
+      "org": "Wiz",
+      "date": "2026-10-21",
+      "url": "https://www.wiz.io/blog/php2shell-php-rce",
+      "summary": "Wiz Research disclosed PHP2Shell, two memory-safety flaws in PHP's out-of-memory handling that allow unauthenticated remote code execution. PHP shipped fixes on October 21, 2026, and Wiz says AI models helped build the exploits.",
+      "severity": "high",
+      "tags": [
+        "cyber-capability",
+        "rce",
+        "php",
+        "wiz",
+        "gemini",
+        "openai"
+      ],
+      "affected": [
+        "PHP",
+        "PHP-FPM",
+        "mod_php",
+        "FrankenPHP",
+        "LiteSpeed"
+      ],
+      "cve": "CVE-2026-109618",
+      "cvss": 9.2,
+      "credits": [
+        {
+          "name": "Sagi Tzadik",
+          "org": "Wiz Research"
+        },
+        {
+          "name": "Shir Tamari",
+          "org": "Wiz Research"
+        },
+        {
+          "name": "Nir Ohfeld",
+          "org": "Wiz Research"
+        },
+        {
+          "name": "Tomer Schwartz",
+          "org": "Wiz Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "PHP2Shell is a pair of memory-safety flaws in PHP's fatal-error handling that an unauthenticated request can turn into code execution.",
+        "whatHappened": "Wiz Research published PHP2Shell on October 21, 2026, the same day the PHP project released the four versions that fix it. The PHP security team assigned CVE-2026-109618 and CVE-2026-109619, rated both CVSS v4.0 9.2 and labelled them Critical. Wiz names Sagi Tzadik, Shir Tamari, Nir Ohfeld and Tomer Schwartz as the authors, and says OpenAI and Calif helped with discovery, coordination and patch verification.",
+        "howItWorks": "Both flaws begin when PHP aborts a request mid-way, most reliably through an out-of-memory condition. The PHP advisory explains that PHP uses longjmp() to leave the current context on out-of-memory, which can leave request memory invalid while request shutdown later reads or branches on it. The second flaw lets request-owned internal state outlive the memory behind it, so a later request on the same worker can use that stale state before initialization resets it. The patch drops longjmp() for out-of-memory in favour of a delayed soft limit and an immediate _exit() at a higher threshold.",
+        "whoIsAffected": "Every PHP installation serving web requests is at risk, according to the PHP project, which lists PHP-FPM, Apache with mod_php, php-cgi, FrankenPHP and LiteSpeed. The project reports confirmed unauthenticated code execution as the web worker account against mod_php with default settings, and says FPM and FrankenPHP are susceptible on source analysis, with FPM exploitation not fully demonstrated. Wiz says every PHP release of the past decade carries at least one of the bugs, back to PHP 5.4, so applications are exposed even when their own code is sound.",
+        "whatToDo": "Update to one of the four patched releases listed below, which the PHP project calls the only complete fix, or take the patched packages from your distribution. If an update must wait, the project's advisory lists partial measures and says none makes an installation safe. Wiz suggests watching for unusual multipart requests followed by memory-limit errors, repeated HTTP 500 responses, unusually large or malformed PHPSESSID cookies and unexplained PHP worker churn."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-109618 (OOM corruption) and CVE-2026-109619 (stale global state)"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "9.2, Critical, per the PHP project"
+        },
+        {
+          "label": "Fixed in",
+          "value": "PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35, all released October 21, 2026"
+        },
+        {
+          "label": "Affected",
+          "value": "Every PHP release of the past decade, back to 5.4, per Wiz"
+        },
+        {
+          "label": "Highest risk",
+          "value": "mod_php, with confirmed unauthenticated code execution at default settings"
+        },
+        {
+          "label": "Found by",
+          "value": "Sagi Tzadik, Shir Tamari, Nir Ohfeld and Tomer Schwartz (Wiz Research)"
+        },
+        {
+          "label": "AI used",
+          "value": "Wiz Atlas, Gemini 4 Argon and GPT-5.6 Sol, per Wiz"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which PHP versions fix CVE-2026-109618 and CVE-2026-109619?",
+          "a": "PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35 fix both flaws, and all four shipped on October 21, 2026. The PHP security team also published minimal source backports for PHP 7.4, 8.0 and 8.1 on branches in php-src, because those lines no longer receive project updates. Linux distributions and LTS vendors received the patches in advance of the announcement."
+        },
+        {
+          "q": "Will PHP 8.1 and older get an official patch?",
+          "a": "PHP 8.1 and earlier no longer receive updates from the PHP project, which instead published minimal source backports for 7.4, 8.0 and 8.1 to help people building from source. The project advises contacting a distribution or LTS vendor for packaged fixes, or upgrading to a supported version, and warns that the volunteer-maintained rpms.remirepo.net had no update on release day."
+        },
+        {
+          "q": "What can I do if I cannot patch PHP immediately?",
+          "a": "The PHP project lists partial measures and states plainly that none makes an installation safe: setting memory_limit to -1 somewhere applications cannot override, lowering post_max_size, disabling session.upload_progress.enabled, and on PHP 8.5 setting fatal_error_backtraces to 0. Each blocks a confirmed path rather than the class of flaw. The project also warns against substituting RLIMIT_AS or RLIMIT_DATA."
+        },
+        {
+          "q": "How did AI contribute to finding PHP2Shell?",
+          "a": "Wiz says it used Wiz Atlas together with Gemini 4 Argon and GPT-5.6 Sol, and that the models helped adapt working exploits across PHP versions, configurations and memory layouts by analysing failures and iterating on fixes. Wiz credits Gemini 4 Argon with contributing to discovery, exploit development, attack detection and patch validation. Those claims come from Wiz's own write-up."
+        },
+        {
+          "q": "How would I hunt for PHP2Shell exploitation?",
+          "a": "Wiz suggests looking for unusual multipart requests followed by memory-limit errors or repeated HTTP 500 responses, unusually large or malformed PHPSESSID cookies, and unexplained PHP worker churn. The PHP advisory describes a demonstrated exploit against mod_php that fires before any application code runs, so web server and PHP-FPM error logs are the first place to look."
+        }
+      ],
+      "links": [
+        {
+          "label": "Wiz Research Post",
+          "url": "https://www.wiz.io/blog/php2shell-php-rce"
+        },
+        {
+          "label": "PHP Security Advisory",
+          "url": "https://www.php.net/archive/2026.php"
+        },
+        {
+          "label": "PHP Source Advisory",
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w"
+        }
+      ],
+      "image": {
+        "url": "https://www.datocms-assets.com/75231/1792534907-img_7274.png?fm=webp",
+        "alt": "Cover image for Wiz Research's PHP2Shell write-up",
+        "credit": "Wiz"
+      },
+      "publishDate": "2026-10-21T17:11:26.911Z"
+    },
+    {
+      "id": "unit42-bugster-ai-cybercrime",
+      "categories": [
+        "incident"
+      ],
+      "title": "BUGSTER: one operator ran cybercrime through a Telegram AI agent",
+      "org": "Unit 42",
+      "date": "2026-10-21",
+      "url": "https://unit42.paloaltonetworks.com/ai-assisted-cybercrime-analysis/",
+      "summary": "Unit 42 documented BUGSTER, an operator running a Telegram-controlled Hermes Agent on DeepSeek V4 with safety controls overridden, who took 5,200-plus university records and bypassed Cursor's permission checks with a proxy script.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "coding-agents",
+        "cursor",
+        "deepseek",
+        "openrouter"
+      ],
+      "affected": [
+        "Cursor",
+        "DeepSeek V4",
+        "Hermes Agent",
+        "OpenRouter",
+        "WordPress",
+        "MongoDB"
+      ],
+      "credits": [
+        {
+          "name": "Unit 42",
+          "org": "Palo Alto Networks",
+          "url": "https://unit42.paloaltonetworks.com/"
+        }
+      ],
+      "explainer": {
+        "tagline": "BUGSTER is a financially motivated operator who drove an agent framework on DeepSeek V4 over Telegram and bypassed Cursor's own permission controls.",
+        "whatHappened": "Unit 42 published its first report on BUGSTER on October 21, 2026, describing an English-speaking, financially motivated operator it had not tracked before. Unit 42 says the operator drove the Hermes Agent framework from Telegram, with DeepSeek V4 as the reasoning engine and its safety controls removed through a system-prompt override. The report ties the activity to an email address, a display name, a Cursor IDE user ID and a Telegram user ID.",
+        "howItWorks": "Two controls were turned off rather than broken. A system-prompt override disabled the model's safety behaviour inside Hermes, and a proxy script bypassed Cursor's permission and sandbox controls so the IDE produced attack code without the usual approval steps. Unit 42 says the operator tested GLM 5.2 and other models through OpenRouter before settling on DeepSeek V4, and had Cursor configured with Claude Opus 4.8, GPT-5.5 and Composer 2.5. Separate Hermes bot profiles handled different jobs.",
+        "whoIsAffected": "Named victims are two Indian public universities and an e-commerce site. Unit 42 reports that reconnaissance and a brute-force tool against the first university's WordPress platform produced one valid login, and that more than 5,200 student and faculty records with personal data left the second university's MongoDB database. The report also describes Wi-Fi handshake capture, which needs physical proximity to the target, and cryptocurrency reconnaissance it assesses as preparation for later targeting.",
+        "whatToDo": "Block the two IP addresses Unit 42 lists and hunt for the agent artefacts it documents. Because both of this operator's bypasses were configuration changes rather than exploits, audit developer machines for AI IDE settings that disable sandboxing or route traffic through a local proxy, and for agent frameworks whose system prompts have been edited."
+      },
+      "quickFacts": [
+        {
+          "label": "Actor",
+          "value": "BUGSTER, English-speaking and financially motivated, new to Unit 42"
+        },
+        {
+          "label": "Agent stack",
+          "value": "Hermes Agent over Telegram, DeepSeek V4 as the reasoning engine"
+        },
+        {
+          "label": "Controls bypassed",
+          "value": "Model safety via system-prompt override; Cursor permissions via proxy script"
+        },
+        {
+          "label": "Victims",
+          "value": "Two Indian public universities and one e-commerce site"
+        },
+        {
+          "label": "Data taken",
+          "value": "More than 5,200 student and faculty records, including personal data"
+        },
+        {
+          "label": "Found by",
+          "value": "Unit 42, Palo Alto Networks"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which AI models did BUGSTER use?",
+          "a": "Unit 42 reports that BUGSTER settled on DeepSeek V4 as the reasoning engine inside the Hermes Agent framework, after testing GLM 5.2 and other models reached through OpenRouter. The operator's Cursor installation was separately configured with Claude Opus 4.8, GPT-5.5 and Composer 2.5. Safety behaviour in Hermes was switched off with a system-prompt override rather than a multi-turn jailbreak."
+        },
+        {
+          "q": "How did BUGSTER get past Cursor's permission controls?",
+          "a": "Unit 42 says a proxy script bypassed Cursor's permission and sandbox controls, so the IDE generated attack tooling without the usual approvals. The report presents this as a configuration bypass rather than a flaw in Cursor, and pairs it with the system-prompt override used on the Hermes side. Both leave artefacts on the developer machine that defenders can search for."
+        },
+        {
+          "q": "Was BUGSTER's VoIP fraud operation actually running?",
+          "a": "Unit 42 assesses the VoIP fraud effort as planning or early setup, and reports no call logs and no active routing. A Hermes bot profile named alice served as an advisor on standing up the operation. The cryptocurrency activity is rated similarly: 45 wallets were documented from the top 500 ETH holders, with no follow-on activity observed."
+        },
+        {
+          "q": "How does BUGSTER compare with the earlier Hermes Agent operator?",
+          "a": "Unit 42 reported in July 2026 on a Chinese-speaking actor who ran DeepSeek inside Hermes Agent for autonomous enumeration and exploitation across hundreds of targets. BUGSTER uses the same framework and Telegram control pattern but spreads across credential theft, VoIP fraud planning, Wi-Fi cracking and crypto reconnaissance, with a separate Cursor bypass for building tooling."
+        }
+      ],
+      "links": [
+        {
+          "label": "Unit 42 Report",
+          "url": "https://unit42.paloaltonetworks.com/ai-assisted-cybercrime-analysis/"
+        },
+        {
+          "label": "Earlier Hermes Report",
+          "url": "https://unit42.paloaltonetworks.com/autonomous-ai-cyber-attack-campaign/"
+        }
+      ],
+      "publishDate": "2026-10-21T17:11:26.911Z"
+    },
+    {
+      "id": "anthropic-attack-surface-reduction",
+      "categories": [
+        "research",
+        "lab-safety"
+      ],
+      "title": "Anthropic: Claude found 493 attack surface issues in 25 projects",
+      "org": "Anthropic",
+      "date": "2026-10-20",
+      "url": "https://www.anthropic.com/research/attack-surface-reduction",
+      "summary": "Anthropic says Claude found 493 attack surface issues across 25 open-source projects, including about 4,500 lines of OpenSSH code reachable before authentication by default, and has packaged the method as a Claude skill.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "red-team",
+        "claude",
+        "anthropic",
+        "openssh"
+      ],
+      "affected": [
+        "OpenSSH",
+        "Open-source software"
+      ],
+      "credits": [
+        {
+          "name": "Chris Rohlf",
+          "org": "Anthropic Frontier Red Team"
+        }
+      ],
+      "explainer": {
+        "tagline": "Anthropic used Claude to find code that ships reachable but unneeded, arguing that cutting reachability lowers the severity of bugs nobody has found yet.",
+        "whatHappened": "Chris Rohlf of Anthropic's Frontier Red Team published the work on October 20, 2026. Claude examined 25 open-source projects totalling more than five million lines of C, C++, Java, PHP and Python, and produced 493 issues. OpenSSH is the case study: Anthropic reported findings with patches, and the OpenSSH release notes credit Rohlf in 10.5 and credit him with Claude and Anthropic Research in 10.6.",
+        "howItWorks": "Claude looked at three things instead of hunting individual bugs: code reachable in the shipped default configuration that no default feature needs, option pairs that are each reasonable but unsafe together, and complex security-sensitive code that runs before authentication or before a protocol state change. Anthropic inventoried more than 17,000 configuration options and marked 3,842 of them security-relevant. The method now runs as a Claude skill in three passes, each starting with a fresh context, with findings confirmed against dynamic traces and the project's own test suites.",
+        "whoIsAffected": "OpenSSH is the only project Anthropic names. In version 10.4 about 4,500 lines of ML-DSA-44 code were reachable before authentication in a default build, roughly 16% of the default sshd's pre-authentication code, and Anthropic says the 10.6 fix removed about a fifth of what an unauthenticated client could previously reach. Across the projects Anthropic groups as gated it counts 93 unnecessary pre-authentication surfaces and 61 option combinations that silently weakened a pre-authentication control.",
+        "whatToDo": "Anthropic's suggestion for defenders is to compare runtime logs against deployed configuration and switch off parsers, legacy protocols and dashboards that nothing uses. Anthropic says the skill is being integrated into OSS-Scanner, and that most gated-project findings were not exploitable on their own, so treat this kind of output as surface reduction rather than a vulnerability list."
+      },
+      "quickFacts": [
+        {
+          "label": "Issues found",
+          "value": "493 across 25 open-source projects"
+        },
+        {
+          "label": "Code reviewed",
+          "value": "More than five million lines of C, C++, Java, PHP and Python"
+        },
+        {
+          "label": "Config options",
+          "value": "17,000-plus inventoried, 3,842 security-relevant"
+        },
+        {
+          "label": "OpenSSH 10.4",
+          "value": "About 4,500 lines reachable pre-auth, roughly 16% of default sshd pre-auth code"
+        },
+        {
+          "label": "Oldest finding",
+          "value": "A certificate-requirement conflict that had existed for 21 years"
+        },
+        {
+          "label": "Published by",
+          "value": "Chris Rohlf, Anthropic Frontier Red Team"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does reducing attack surface fix the vulnerabilities Claude found?",
+          "a": "Anthropic is explicit that reducing reachability does not remove unknown vulnerabilities and only makes them harder to reach, and states that it is perhaps impossible to measure how many unknown vulnerabilities any given codebase holds. Most findings in the projects Anthropic groups as gated were not immediately exploitable on their own. The claim on offer is severity reduction, not bug elimination."
+        },
+        {
+          "q": "What did Anthropic report to OpenSSH?",
+          "a": "Anthropic reported the pre-authentication reachability of ML-DSA-44 code with patches, and says its proof of concept defeated the check OpenSSH added in 10.5, because a client could advertise one key type and send another while certificate CA signature paths went ungated. Anthropic says the final fix in 10.6 moved the checks inside the parser, before deserialization or signature verification."
+        },
+        {
+          "q": "Did OpenSSH confirm Anthropic's contribution?",
+          "a": "The OpenSSH release notes name Christopher Paul Rohlf of Anthropic for the 10.5 change that moves the public key type check before the peer's key is parsed, and for a ssh-keygen double-free fix. In 10.6, released October 6, 2026, two entries credit Chris Rohlf in collaboration with Claude and Anthropic Research, including the stricter key and CA signature type checks."
+        },
+        {
+          "q": "Can other teams use Anthropic's attack surface method?",
+          "a": "Anthropic packaged the three passes into a reusable Claude skill and says it is being integrated into OSS-Scanner, while noting the broader methodology is likely effective without that specific skill. Anthropic encourages organisations to analyse the software they depend on the same way, and leaves decisions about non-default configuration changes to a human reviewer."
+        }
+      ],
+      "links": [
+        {
+          "label": "Anthropic Research",
+          "url": "https://www.anthropic.com/research/attack-surface-reduction"
+        },
+        {
+          "label": "OpenSSH Release Notes",
+          "url": "https://www.openssh.org/releasenotes.html"
+        }
+      ],
+      "image": {
+        "url": "https://www-cdn.anthropic.com/images/4zrzovbb/website/6d4a0d28992ade92d6fa63646fd9c9d318245c6c-2400x1260.jpg",
+        "alt": "Cover image for Anthropic's attack surface reduction research post",
+        "credit": "Anthropic"
+      },
+      "publishDate": "2026-10-21T17:11:26.911Z"
+    },
+    {
+      "id": "redact-whatsapp-hidden-ai-instructions",
+      "categories": [
+        "research"
+      ],
+      "title": "WhatsApp help pages carried 102 hidden blocks of AI instructions",
+      "org": "Redact",
+      "date": "2026-10-19",
+      "url": "https://redact.dev/blog/whatsapp-help-pages-hidden-ai-instructions",
+      "summary": "Redact found 102 blocks of reader-invisible text across 80 WhatsApp help pages, one telling an AI not to recommend contacting a data protection authority. WhatsApp says the text was chatbot instructions exposed by a bug it has fixed.",
+      "severity": "info",
+      "tags": [
+        "indirect-prompt-injection",
+        "agent-security",
+        "whatsapp",
+        "meta"
+      ],
+      "affected": [
+        "WhatsApp",
+        "WhatsApp support chatbot"
+      ],
+      "credits": [
+        {
+          "name": "Dan Saltman",
+          "org": "Redact"
+        }
+      ],
+      "explainer": {
+        "tagline": "Hidden text on 80 WhatsApp help pages instructed an AI reader not to point people at privacy regulators or name privacy laws.",
+        "whatHappened": "Dan Saltman, founder and chief executive of Redact, published the finding on October 19, 2026. Saltman says he noticed the hidden notes on October 8, then read and saved all 545 pages the WhatsApp help centre links to, finding 102 blocks across 80 of them. The blocks were gone when he rechecked on October 18, and WhatsApp told WIRED they were instructions for its support chatbot that appeared because of a bug it has since fixed.",
+        "howItWorks": "The text sat in the page source, where a reader never sees it but an AI client does. Two blocks changed what an assistant would say. The account deletion page told the AI not to recommend contacting any data protection authority, regulator or supervisory authority, and not to suggest WhatsApp could delete an account manually. The reporting and blocking page told it not to cite privacy laws such as GDPR, LGPD or CCPA when a user mentioned lawyers, lawsuits or courts, even when the user raised them first.",
+        "whoIsAffected": "WhatsApp's support chatbot is the stated audience, per the company's statement to WIRED. Saltman reports that the same check across 300 Facebook and Instagram help centre pages turned up nothing similar. PPC Land reports the hidden text was also served to search engine crawlers. Any agent that reads a vendor's documentation inherits whatever instructions that page carries, whoever put them there.",
+        "whatToDo": "Treat vendor documentation as untrusted input when an agent fetches it, and strip or flag content that no human reader can see before it reaches a model. Saltman's advice to users is practical rather than technical: send WhatsApp an erasure request, and complain to a national data protection authority or the Irish Data Protection Commission if the outcome is unsatisfactory."
+      },
+      "quickFacts": [
+        {
+          "label": "Hidden blocks",
+          "value": "102 across 80 of the 545 linked WhatsApp help pages"
+        },
+        {
+          "label": "Key instruction",
+          "value": "Do not recommend contacting any Data Protection Authority, regulator, or supervisory authority"
+        },
+        {
+          "label": "Timeline",
+          "value": "Noticed October 8, 2026; pages rechecked October 15 and 18"
+        },
+        {
+          "label": "Status",
+          "value": "Text removed; WhatsApp says a bug caused it and is fixed"
+        },
+        {
+          "label": "Other Meta sites",
+          "value": "No similar notes in 300 Facebook and Instagram help pages"
+        },
+        {
+          "label": "Found by",
+          "value": "Dan Saltman, Redact"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did Meta confirm the hidden WhatsApp instructions were real?",
+          "a": "WhatsApp told WIRED that the text was instructions for its support chatbot rather than for users, that it appeared because of a bug, and that the bug is fixed. A spokesperson said the company wants its chatbots focused on WhatsApp advice and not offering legal advice. WhatsApp removed the hidden blocks while leaving the help pages themselves online."
+        },
+        {
+          "q": "Can the hidden WhatsApp instructions still be seen anywhere?",
+          "a": "Internet Archive copies of the WhatsApp help pages still contain the hidden blocks, according to Redact, and WIRED reported that the text remains visible in the underlying code of archived versions. Redact says it saved all 545 linked pages on October 8, 2026, before the blocks were removed. The live pages no longer carry them."
+        },
+        {
+          "q": "Why does hidden page text matter for AI agents?",
+          "a": "Any agent that fetches a page receives its full source, including text placed so that a human never sees it, so instructions aimed at one vendor's chatbot also reach a general-purpose agent reading the same documentation. Redact's finding is a vendor steering its own assistant, but the surface is exactly the one indirect prompt injection uses."
+        }
+      ],
+      "links": [
+        {
+          "label": "Redact Write-Up",
+          "url": "https://redact.dev/blog/whatsapp-help-pages-hidden-ai-instructions"
+        },
+        {
+          "label": "PPC Land Report",
+          "url": "https://ppc.land/whatsapp-help-pages-hid-102-ai-orders-one-barring-regulator-referrals/"
+        }
+      ],
+      "image": {
+        "url": "https://redact.dev/blog-images/2026/10/whatsapp-hidden-ai-notes-robot-puppeteer.jpg",
+        "alt": "Illustration of a puppeteer controlling a robot, from Redact's write-up",
+        "credit": "Redact"
+      },
+      "publishDate": "2026-10-21T17:11:26.911Z"
+    },
+    {
+      "id": "mcp-typescript-sdk-shared-instance-message-leak",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "MCP TypeScript SDK: a shared server instance mixed up clients' replies",
+      "org": "Model Context Protocol",
+      "date": "2026-10-15",
+      "url": "https://github.com/advisories/GHSA-jm63-cq47-j5jp",
+      "summary": "MCP servers on @modelcontextprotocol/server 2.0.0 through 2.2.0 could send one HTTP client's responses and notifications to another when clients shared a transport or server instance. Version 2.3.0 fixes it.",
+      "severity": "high",
+      "tags": [
+        "mcp",
+        "data-exfiltration",
+        "agent-security",
+        "modelcontextprotocol",
+        "typescript"
+      ],
+      "affected": [
+        "@modelcontextprotocol/server",
+        "@modelcontextprotocol/sdk",
+        "MCP servers"
+      ],
+      "cve": "CVE-2026-111770",
+      "cvss": 7.7,
+      "credits": [
+        {
+          "name": "DavidCarliez"
+        },
+        {
+          "name": "legitu1337"
+        }
+      ],
+      "explainer": {
+        "tagline": "A shared stateless transport or a single McpServer instance let one HTTP client receive another client's MCP responses and notifications.",
+        "whatHappened": "The MCP TypeScript SDK maintainers published GHSA-jm63-cq47-j5jp on October 15, 2026 as CVE-2026-111770, rated High at CVSS 7.7, and it reached the GitHub Advisory Database on October 20. DavidCarliez and legitu1337 are credited as reporters. Two further advisories for the same packages carry the same October 15 date, both about missing limits on request size and validation work.",
+        "howItWorks": "The SDK matched incoming messages to connections using the JSON-RPC id alone. SDK clients number their requests from 0, so ids collide routinely between clients, and a server that created one stateless transport or one McpServer or Server instance at startup could hand a reply to the wrong connection. The advisory classes the defect as a race condition, CWE-362, with a High confidentiality impact in its CVSS vector.",
+        "whoIsAffected": "Applications on @modelcontextprotocol/server 2.0.0 through 2.2.0 that create the transport or server once at startup are affected. The advisory states that stdio servers, createMcpHandler() used with a per-call factory, and @modelcontextprotocol/sdk 1.26.0 and later are not affected. A multi-tenant MCP server reached over Streamable HTTP is the exposed shape.",
+        "whatToDo": "Upgrade @modelcontextprotocol/server to 2.3.0. Where that must wait, create the transport and server per request instead of once at startup, or move to createMcpHandler() with a per-call factory. Treat the two other October 15 advisories in the same pass: both need a new option set rather than an upgrade alone, as the table below records."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-111770"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "7.7, High, per the GitHub Security Advisory"
+        },
+        {
+          "label": "Affected",
+          "value": "@modelcontextprotocol/server 2.0.0 through 2.2.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "@modelcontextprotocol/server 2.3.0"
+        },
+        {
+          "label": "Not affected",
+          "value": "stdio servers; createMcpHandler() with a per-call factory; sdk 1.26.0 and later"
+        },
+        {
+          "label": "Attack type",
+          "value": "Response misrouting through JSON-RPC id collision, CWE-362"
+        },
+        {
+          "label": "Same day",
+          "value": "CVE-2026-111768 and GHSA-f897-62hf-6gxq, both missing request limits"
+        },
+        {
+          "label": "Found by",
+          "value": "DavidCarliez and legitu1337"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my MCP server affected if it runs over stdio?",
+          "a": "Stdio servers are not affected, according to the advisory for CVE-2026-111770, because the flaw needs several HTTP clients sharing one transport or server instance. The advisory also exempts createMcpHandler() used with a per-call factory, and @modelcontextprotocol/sdk version 1.26.0 and later. Servers reached over Streamable HTTP that build the transport once at startup are the exposed configuration."
+        },
+        {
+          "q": "What data could leak between MCP clients?",
+          "a": "Responses and notifications meant for one HTTP client could reach another, because the SDK matched messages to connections on the JSON-RPC id alone. Whatever a tool call returns is therefore exposed to a different caller, which on a multi-tenant MCP server can mean another tenant's tool output. The advisory rates confidentiality impact High within its CVSS 7.7 vector."
+        },
+        {
+          "q": "What else did the MCP TypeScript SDK fix on October 15?",
+          "a": "Two further advisories carry the same date. CVE-2026-111768 covers unbounded validation of array elements and object keys, where one request inside the default 4 MiB limit could exhaust server memory. GHSA-f897-62hf-6gxq covers HTTP transports that capped neither request body size nor JSON-RPC batch length. Both are rated High, and both reach beyond the server package into sdk, node and hono."
+        },
+        {
+          "q": "Does upgrading alone close all three October 15 MCP SDK issues?",
+          "a": "Upgrading closes CVE-2026-111770, but the two resource-limit advisories also need configuration. The maxToolInputElements option on McpServer is off by default in sdk 1.32.0 and server 2.3.0, and maxRequestBodySize arrived in sdk 1.30.1 and server 2.1.0. Patched versions do start returning HTTP 413 above 4 MiB and HTTP 400 for batches over 100 messages."
+        }
+      ],
+      "links": [
+        {
+          "label": "GHSA-jm63-cq47-j5jp",
+          "url": "https://github.com/advisories/GHSA-jm63-cq47-j5jp"
+        },
+        {
+          "label": "Memory Exhaustion CVE",
+          "url": "https://github.com/advisories/GHSA-46jr-4wx8-v453"
+        },
+        {
+          "label": "Request Limit Advisory",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk/security/advisories/GHSA-f897-62hf-6gxq"
+        }
+      ],
+      "publishDate": "2026-10-21T17:11:26.911Z"
+    },
     {
       "id": "pillar-opencode-mcp-oauth-rce",
       "categories": [
