@@ -10319,6 +10319,108 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261022t234337z",
+      "timestamp": "2026-10-22T23:43:37.398Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked Microsoft Security Blog and MSRC, GitHub advisories, Anthropic, UK AISI, OWASP GenAI, Embrace The Red, Simon Willison, Socket, Zenity Labs, AIR Security, Wiz, Check Point, JFrog, HiddenLayer, Lakera, Trail of Bits, Snyk, NCC Group, Huntress, Hugging Face, Hacker News, github.com/trending, repo-scan (13 queries, 3 candidates), paper-scan (75 papers in window) and talk-scan (22 channels). Added six items, led by Microsoft's attribution of the ConnectWise Cloud Backup compromise to Storm-0940 running the open-source ARTEX agent framework. openai.com returned 403 to scripts, and the Koi Security and Unit 42 listing pages did not load.",
+      "counts": {
+        "added": 6,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "microsoft-storm-0940-artex-connectwise",
+          "title": "Storm-0940: an AI pentest agent drove the ConnectWise tenant breach",
+          "category": "incident",
+          "severity": "critical",
+          "note": "Microsoft's own primary report ties the in-the-wild ConnectWise supply chain compromise to a nation-state actor driving the ARTEX agent framework, with 2,250+ tenants targeted and remediation still incomplete."
+        },
+        {
+          "id": "air-skills-php2shell-libraries",
+          "title": "Agent skills: 88 still install PHP versions open to PHP2Shell",
+          "category": "supply-chain",
+          "severity": "medium",
+          "note": "A distinct finding from the PHP2Shell disclosure already in the feed: agent skills keep rebuilding the flaw in new projects, with counts AIR scanned and published."
+        },
+        {
+          "id": "wiz-llmjacking-cloud-billing",
+          "title": "LLMjacking: stolen GCP billing accounts pay for attackers' Gemini calls",
+          "category": "incident",
+          "severity": "medium",
+          "note": "A current campaign that turns a cloud account takeover into a bill for someone else's model usage, with concrete audit-log hunts for defenders."
+        },
+        {
+          "id": "wiz-cirt-ai-driven-cloud-intrusion",
+          "title": "Wiz CIRT: an AI agent ran a whole multi-cloud intrusion by itself",
+          "category": "incident",
+          "severity": "info",
+          "note": "First-hand incident response detail on an intrusion run end to end by an agent, and the behavioural fingerprint defenders can detect it by."
+        },
+        {
+          "id": "trailofbits-patching-bugs-regression-hunt",
+          "title": "Trail of Bits: two agent plugins that prove a patch and hunt regressions",
+          "category": "tool",
+          "severity": "info",
+          "note": "A new open-source tool from a named security company, with measured results and a design that refuses findings without a live proof."
+        },
+        {
+          "id": "arxiv-memory-injection-persistent-compromise",
+          "title": "Memory injection: planted orders outlive the chat session",
+          "category": "research",
+          "severity": "medium",
+          "note": "Two paper-bar signals (released artifacts and three named production assistants attacked) plus a cross-user finding on Claude's shared memory."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "Microsoft Security Blog",
+        "Microsoft MSRC blog",
+        "GitHub Security Advisories",
+        "Anthropic news",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "embracethered.com",
+        "simonwillison.net",
+        "Socket blog",
+        "Zenity Labs",
+        "AIR Security blog",
+        "Wiz blog",
+        "Check Point Research",
+        "JFrog security research",
+        "HiddenLayer research",
+        "Lakera blog",
+        "Trail of Bits blog",
+        "Snyk blog",
+        "NCC Group research",
+        "Huntress blog",
+        "PHP Foundation blog",
+        "arXiv cs.CR",
+        "Hugging Face blog",
+        "Hugging Face model hub",
+        "Hacker News front page",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts",
+        "Google security blog"
+      ],
+      "windowDays": 7
     }
   ]
 }

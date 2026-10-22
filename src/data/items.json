@@ -1,7 +1,586 @@
 {
-  "generatedAt": "2026-10-21T17:11:26.911Z",
+  "generatedAt": "2026-10-22T23:43:37.398Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "air-skills-php2shell-libraries",
+      "categories": [
+        "supply-chain",
+        "research"
+      ],
+      "title": "Agent skills: 88 still install PHP versions open to PHP2Shell",
+      "org": "AIR Security",
+      "date": "2026-10-22",
+      "url": "https://air.security/blog-posts/skills-use-php2shell",
+      "summary": "AIR Security found 88 AI agent skills across 65 repositories that still install or depend on PHP versions vulnerable to PHP2Shell, so an agent following them can rebuild a known remote code execution flaw in new projects.",
+      "severity": "medium",
+      "tags": [
+        "skills",
+        "coding-agents",
+        "rce",
+        "php",
+        "phpmyadmin",
+        "wordpress"
+      ],
+      "affected": [
+        "AI agent skills",
+        "PHP",
+        "phpMyAdmin",
+        "WordPress"
+      ],
+      "credits": [
+        {
+          "name": "Dor Granat",
+          "org": "AIR Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "AIR Security says 88 agent skills still point AI agents at PHP builds that the PHP2Shell flaws can break.",
+        "whatHappened": "AIR Security published the research on October 22, 2026, credited to Dor Granat. AIR scanned 6.5 million AI agent skills and found 88 of them, spread across 65 GitHub repositories holding 3,269 stars between them, that still set up PHP environments vulnerable to PHP2Shell. By AIR's count that is roughly one in every 13 PHP-related skills it identified.",
+        "howItWorks": "Agent skills carry setup instructions, and most have no update mechanism, so an instruction naming a vulnerable PHP runtime or container image keeps shipping long after a fix lands. A developer who asks an agent to build a Laravel application can get a skill that installs an unpatched PHP, which recreates a known flaw in a fresh environment. AIR notes that such a skill passes a malicious-code scan, because nothing in it is malicious: there is no payload, no credential theft and no prompt injection.",
+        "whoIsAffected": "Developers and teams whose agents load third-party skills that install PHP, phpMyAdmin or WordPress are exposed, and the resulting application carries the flaw rather than the agent itself. AIR names phpMyAdmin and WordPress among the software these skills install or depend on, and does not publish the list of 88 skills or 65 repositories.",
+        "whatToDo": "Inventory the skills your agents actually load, then scan their instructions, dependencies, runtime versions and container images against official advisories and fixed releases. Re-scan when a skill or any dependency it references changes, and add guardrails that stop agents from installing or deploying software with known flaws."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "88 AI agent skills across 65 GitHub repositories"
+        },
+        {
+          "label": "Scanned",
+          "value": "6.5 million AI agent skills, per AIR Security"
+        },
+        {
+          "label": "Share",
+          "value": "Roughly 1 in 13 PHP-related skills AIR identified"
+        },
+        {
+          "label": "Underlying flaws",
+          "value": "CVE-2026-109618 and CVE-2026-109619 in PHP"
+        },
+        {
+          "label": "Fixed in",
+          "value": "PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35"
+        },
+        {
+          "label": "Found by",
+          "value": "Dor Granat, AIR Security"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does this mean the AI agent skills themselves are malicious?",
+          "a": "None of the 88 skills AIR Security flagged contain malicious code. AIR describes them as insecure rather than malicious: they instruct an agent to install or depend on PHP builds affected by PHP2Shell, so the resulting application inherits a known remote code execution flaw. AIR notes such skills pass malicious-code scanning precisely because they carry no payload, credential theft or prompt injection."
+        },
+        {
+          "q": "How do I check whether my agents use one of these skills?",
+          "a": "Start by inventorying which skills your agents actually load, since AIR Security does not publish the names of the 88 skills or the 65 repositories. AIR recommends scanning each skill's instructions, dependencies, runtime versions and container images, then checking those versions against official PHP advisories and the fixed releases. Re-scan whenever a skill or any dependency it references changes."
+        },
+        {
+          "q": "Which PHP versions fix the PHP2Shell flaws?",
+          "a": "The PHP Foundation shipped fixes for CVE-2026-109618 and CVE-2026-109619 in PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35, released on October 21, 2026. The Foundation states the correct CVSS score is 9.2, correcting a leaked figure of 10.0. Patching servers does not help an agent that later installs an older PHP, so skill instructions need checking separately."
+        }
+      ],
+      "links": [
+        {
+          "label": "AIR Research",
+          "url": "https://air.security/blog-posts/skills-use-php2shell"
+        },
+        {
+          "label": "PHP Security Release",
+          "url": "https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a282d66e4248a84e0259ed9/6ada2c9fe164325b22062e5a_image%20(32)%20(1).png",
+        "alt": "Cover image for AIR Security's research on skills that install vulnerable PHP",
+        "credit": "AIR Security"
+      },
+      "publishDate": "2026-10-22T23:43:37.398Z"
+    },
+    {
+      "id": "microsoft-storm-0940-artex-connectwise",
+      "categories": [
+        "incident",
+        "supply-chain",
+        "attack"
+      ],
+      "title": "Storm-0940: an AI pentest agent drove the ConnectWise tenant breach",
+      "org": "Microsoft",
+      "date": "2026-10-21",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+      "summary": "Microsoft attributes the ConnectWise Cloud Backup compromise to Storm-0940, a China-state-aligned actor that used the open-source ARTEX agent framework to attempt sign-ins to over 2,250 Microsoft 365 tenants.",
+      "severity": "critical",
+      "tags": [
+        "ai-enabled-offense",
+        "credential-theft",
+        "threat-intel",
+        "connectwise",
+        "microsoft-365",
+        "entra-id",
+        "artex"
+      ],
+      "affected": [
+        "ConnectWise Cloud Backup",
+        "Microsoft 365",
+        "Microsoft Entra ID"
+      ],
+      "credits": [
+        {
+          "name": "Microsoft Threat Intelligence",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Sapir Federovsky",
+          "org": "Wiz Research"
+        },
+        {
+          "name": "Rami McCarthy",
+          "org": "Wiz Research"
+        },
+        {
+          "name": "Jonathan Semon",
+          "org": "Huntress"
+        }
+      ],
+      "explainer": {
+        "tagline": "Microsoft says a China-state-aligned actor ran the ConnectWise supply chain compromise with an open-source AI pentest agent.",
+        "whatHappened": "Microsoft Threat Intelligence published its analysis on October 21, 2026, assessing that Storm-0940 was behind the ConnectWise supply chain compromise. ConnectWise disclosed unauthorized access to application identities in its Cloud Backup environment on October 16, a day after Huntress first reported that a vendor credential was being abused against customer Microsoft 365 tenants. Microsoft says the actor has used the ARTEX framework since as early as September 2026, against hundreds of organizations globally.",
+        "howItWorks": "ARTEX is an open-source multi-agent penetration testing framework that drives an autonomous pentest from reconnaissance through exfiltration, collecting discovered assets and findings into a shared graph. Storm-0940 held a stolen ConnectWise application credential, so its agents authenticated into customer tenants through an application those tenants already trusted, with no user action and no password to guess. In some environments the agents went on to Microsoft Graph and directory operations, adding application credentials and changing identities, groups and privileged roles to keep access.",
+        "whoIsAffected": "Organizations that authorized ConnectWise Cloud Backup, formerly SkyKick, or the ConnectWise Cloud Management applications in Microsoft Entra ID are in scope. Huntress had confirmed unauthorized sign-ins in 162 tenants by October 16 and later found sign-in activity from the main attacker address in almost 1,000 Entra tenants, more than 300 of them successful. Microsoft states the activity did not result from a compromise of or a vulnerability in Microsoft corporate systems, products or services.",
+        "whatToDo": "Keep affected ConnectWise connections disabled until ConnectWise publishes formal restoration instructions, and disable rather than delete the enterprise applications so that evidence and consent survive. Review service principal sign-ins and Entra audit records from at least October 15, 2026, extending to October 1 where logs exist, and remove any application credential, owner, role assignment or consent grant you did not create. Disabling an application does not remove credentials the actor already added."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "ConnectWise Cloud Backup (formerly SkyKick) and Cloud Management apps in Microsoft 365"
+        },
+        {
+          "label": "Attack type",
+          "value": "Supply chain abuse of a trusted multi-tenant app, driven by an autonomous AI pentest agent"
+        },
+        {
+          "label": "Scale",
+          "value": "Sign-in attempts against more than 2,250 tenants; 162 tenants with confirmed unauthorized sign-ins"
+        },
+        {
+          "label": "Speed",
+          "value": "Under 3 hours from initial targeting to privileged access, in multiple instances"
+        },
+        {
+          "label": "Attribution",
+          "value": "Microsoft assesses Storm-0940, a China-state-aligned actor active since 2021"
+        },
+        {
+          "label": "Found by",
+          "value": "Huntress on October 16, with analysis by Microsoft Threat Intelligence and Wiz Research"
+        },
+        {
+          "label": "Status",
+          "value": "ConnectWise Cloud Backup offline, with no formal restoration instructions at publication"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if my tenant authorized ConnectWise Cloud Backup?",
+          "a": "Any Microsoft 365 tenant that authorized ConnectWise Cloud Backup or the ConnectWise Cloud Management applications should be treated as in scope. Huntress confirmed unauthorized sign-ins in 162 tenants and saw activity from the primary attacker address in almost 1,000 Entra tenants, over 300 of them successful. Microsoft advises reviewing service principal sign-ins and audit records from at least October 15, 2026."
+        },
+        {
+          "q": "Does disabling the ConnectWise application remove the attacker's access?",
+          "a": "Disabling the enterprise application stops new sign-ins but does not remove credentials the actor already added. Huntress warns that disabling apps will not remove credentials that were already added, so defenders must review credentials on enterprise applications and app registrations and delete any added since October 13 that they did not create. Microsoft also advises against deleting the applications first, because deletion destroys evidence and consent."
+        },
+        {
+          "q": "What makes the Storm-0940 campaign different from an ordinary password spray?",
+          "a": "Storm-0940 drove the intrusion with ARTEX, an open-source multi-agent penetration testing framework, rather than by hand. Microsoft reports that in multiple instances fewer than three hours passed between initial targeting and privileged access, and that the actor chained steps automatically across hundreds of organizations. Wiz Research, tracking the same tooling, recorded sessions running 24 to 30 hours with new addresses appearing within minutes of a block."
+        },
+        {
+          "q": "Was Microsoft itself breached in the ConnectWise campaign?",
+          "a": "Microsoft states that the ARTEX-driven activity did not result from a compromise of or a vulnerability in Microsoft corporate systems, products or services. The actor instead used a stolen ConnectWise application credential to authenticate into customer tenants through an application those tenants had already trusted. Microsoft also cautions that a successful authentication alone does not establish that customer data was accessed or exfiltrated."
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Analysis",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+        },
+        {
+          "label": "Huntress Disclosure",
+          "url": "https://www.huntress.com/blog/vendor-credential-enables-unauthorized-access"
+        },
+        {
+          "label": "Wiz Research Tracking",
+          "url": "https://www.wiz.io/blog/artex-in-the-wild-storm-0940-expands-targeting-of-it-and-software-vendors"
+        }
+      ],
+      "publishDate": "2026-10-22T23:43:37.398Z"
+    },
+    {
+      "id": "trailofbits-patching-bugs-regression-hunt",
+      "categories": [
+        "tool"
+      ],
+      "title": "Trail of Bits: two agent plugins that prove a patch and hunt regressions",
+      "org": "Trail of Bits",
+      "date": "2026-10-21",
+      "url": "https://blog.trailofbits.com/2026/10/21/your-ai-agent-fixed-the-bug-but-what-else-did-it-change/",
+      "summary": "Trail of Bits released patching-bugs and regression-hunt, two open-source agent plugins that demand a live proof for every claim: one proves a fix against original, patched and reverted code, the other hunts regressions.",
+      "severity": "info",
+      "tags": [
+        "coding-agents",
+        "skills",
+        "trail-of-bits",
+        "codex"
+      ],
+      "affected": [
+        "OpenAI Codex",
+        "AI coding agents"
+      ],
+      "credits": [
+        {
+          "name": "Anish Naik",
+          "org": "Trail of Bits"
+        },
+        {
+          "name": "Marcelo Morales",
+          "org": "Trail of Bits"
+        }
+      ],
+      "explainer": {
+        "tagline": "Trail of Bits published two agent plugins that refuse to report a finding without a live proof of concept.",
+        "whatHappened": "Trail of Bits published patching-bugs and regression-hunt on October 21, 2026, in a post by Anish Naik and Marcelo Morales. Both plugins live in the trailofbits/skills repository under a CC-BY-SA-4.0 license, and both landed there on October 20. The write-up reports that reviewing more than 130 merged upstream pull requests surfaced 21 confirmed regressions: 16 functional, one performance and four build or test.",
+        "howItWorks": "patching-bugs reproduces a reported bug, develops a scoped fix, and then runs what Trail of Bits calls a three-arm proof: the same reproduction must fail on the original code, pass on the patched code, and fail again on a full revert. regression-hunt traces a diff through callers to real interfaces, reproduces candidate regressions on a live deployment, replays the proof of concept with a fresh-context agent, and puts an adjudication step between evidence and verdict. A step that cannot produce a live proof returns an inconclusive result rather than a finding.",
+        "whoIsAffected": "Teams that let coding agents write security patches are the audience. The plugins read a THREAT_MODEL.md defining assets, trust boundaries and supported configurations, plus a PATCHING_GUIDELINES.md or AGENTS.md covering build and test commands, fix size and fix placement. The post describes use inside Codex sessions and names no other supported agent.",
+        "whatToDo": "Install both plugins together, since patching-bugs requires regression-hunt for its final regression check, and add the threat model and patching guideline files the skills read at every step. The authors report that in preliminary tests against the 21 known regressions, regression-hunt produced 25% fewer false-positive findings than a baseline Codex prompt, with a 95% confidence interval of 14% to 38%."
+      },
+      "quickFacts": [
+        {
+          "label": "Covers",
+          "value": "Agent-written security patches and regression checks"
+        },
+        {
+          "label": "License",
+          "value": "CC-BY-SA-4.0, in the trailofbits/skills repository"
+        },
+        {
+          "label": "Published by",
+          "value": "Anish Naik and Marcelo Morales, Trail of Bits"
+        },
+        {
+          "label": "Reported result",
+          "value": "21 confirmed regressions from over 130 merged upstream pull requests"
+        },
+        {
+          "label": "Requires",
+          "value": "Python 3.13 or later, run through uv"
+        }
+      ],
+      "links": [
+        {
+          "label": "Trail of Bits Write-Up",
+          "url": "https://blog.trailofbits.com/2026/10/21/your-ai-agent-fixed-the-bug-but-what-else-did-it-change/"
+        },
+        {
+          "label": "patching-bugs Plugin",
+          "url": "https://github.com/trailofbits/skills/tree/main/plugins/patching-bugs"
+        },
+        {
+          "label": "regression-hunt Plugin",
+          "url": "https://github.com/trailofbits/skills/tree/main/plugins/regression-hunt"
+        }
+      ],
+      "image": {
+        "url": "https://blog.trailofbits.com/2026/10/21/your-ai-agent-fixed-the-bug-but-what-else-did-it-change/patching_socialbanner3.png",
+        "alt": "Trail of Bits title card: Your AI agent fixed the bug, but what else did it change?",
+        "credit": "Trail of Bits"
+      },
+      "publishDate": "2026-10-22T23:43:37.398Z"
+    },
+    {
+      "id": "wiz-llmjacking-cloud-billing",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "LLMjacking: stolen GCP billing accounts pay for attackers' Gemini calls",
+      "org": "Wiz",
+      "date": "2026-10-20",
+      "url": "https://www.wiz.io/blog/from-phishing-to-llmjacking",
+      "summary": "Wiz CIRT reports attackers phishing Google Cloud logins through search ads, then linking their own projects to the victim's billing account and running Gemini API workloads that cost victims tens to hundreds of thousands of dollars.",
+      "severity": "medium",
+      "tags": [
+        "credential-theft",
+        "threat-intel",
+        "google-cloud",
+        "gemini",
+        "phishing"
+      ],
+      "affected": [
+        "Google Cloud Platform",
+        "Gemini API",
+        "Google Workspace"
+      ],
+      "credits": [
+        {
+          "name": "Shira Ayal",
+          "org": "Wiz CIRT"
+        },
+        {
+          "name": "Andre Maccarone",
+          "org": "Wiz CIRT"
+        }
+      ],
+      "explainer": {
+        "tagline": "Wiz CIRT describes attackers hijacking cloud billing accounts to fund their own large language model workloads.",
+        "whatHappened": "Wiz's Customer Incident Response Team published the analysis on October 20, 2026, written by Shira Ayal and Andre Maccarone. The team traced intrusions whose goal was financial: running large-scale model workloads on the victim's money rather than stealing or destroying data. Victims saw unauthorized Gemini API charges reaching tens to hundreds of thousands of dollars within 24 to 48 hours of initial access.",
+        "howItWorks": "Attackers bought Google search ads for terms such as google cloud and gcp, leading through a Google Sites redirect to a fake Google login page that captured credentials and MFA codes before passing the victim to the real site. Within minutes the kit reused those credentials to sign in. The attackers then enabled the Gemini API in existing low-usage projects, created service accounts with API keys, granted themselves high-privilege roles, deleted the organization policy that restricted IAM membership to company domains, and linked their own projects to the victim's billing account.",
+        "whoIsAffected": "Google Cloud customers whose users can be phished are exposed, and organizations relying on the iam.allowedPolicyMemberDomains organization policy should note that attackers deleted it so they could add external Gmail accounts. Wiz reports the attackers also demoted existing billing administrators to read-only billing viewers, and routed later activity through addresses geolocated in the victim's headquarters country.",
+        "whatToDo": "Hunt Google Workspace, GCP Admin Activity and Cloud Billing audit logs for IAM members on non-corporate domains, changes to organization policies and billing administrators, and unexpected Gemini API enablement or service account key creation in older projects. Set budget spend caps and alert on abnormal API cost surges, and review logins from the indicator address Wiz published."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Google Cloud billing accounts and the Gemini API"
+        },
+        {
+          "label": "Attack type",
+          "value": "Search-ad phishing with MFA capture, then billing account hijack"
+        },
+        {
+          "label": "Impact",
+          "value": "Tens to hundreds of thousands of dollars in unauthorized Gemini API usage"
+        },
+        {
+          "label": "Time to impact",
+          "value": "Cost surges within 24 to 48 hours of initial access"
+        },
+        {
+          "label": "Found by",
+          "value": "Shira Ayal and Andre Maccarone, Wiz CIRT"
+        },
+        {
+          "label": "Indicators",
+          "value": "One login address and 16 lookalike phishing domains"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is LLMjacking a flaw in Google Cloud or the Gemini API?",
+          "a": "LLMjacking as Wiz describes it exploits no flaw in Google Cloud or the Gemini API. Attackers phished a user's credentials and MFA code, then used ordinary administrative permissions to enable the Gemini API, grant roles and attach their own projects to the victim's billing account. Google removed the malicious search ads after reports, but the technique relies on account takeover rather than a product vulnerability."
+        },
+        {
+          "q": "How would I notice an LLMjacking intrusion in my own GCP organization?",
+          "a": "Abnormal model API spend is the clearest signal, since Wiz saw charges far above baseline within 24 to 48 hours. Wiz also recommends alerting on deletion or modification of the iam.allowedPolicyMemberDomains organization policy, on IAM members from domains such as gmail.com, on billing administrator changes, and on Gemini API enablement or service account key creation inside older, low-usage projects."
+        },
+        {
+          "q": "Why did the attackers demote the existing billing administrators?",
+          "a": "Demoting billing administrators to read-only billing viewers removed the victim's ability to respond. Wiz reports that once the legitimate admins held view-only rights, they could not revoke the attackers' access or detach the rogue projects consuming their budget. Combined with activity routed through addresses geolocated in the victim's headquarters country, the change bought the attackers time to keep running workloads unnoticed."
+        }
+      ],
+      "links": [
+        {
+          "label": "Wiz CIRT Analysis",
+          "url": "https://www.wiz.io/blog/from-phishing-to-llmjacking"
+        },
+        {
+          "label": "GCP Domain Policy Docs",
+          "url": "https://docs.cloud.google.com/organization-policy/restrict-domains"
+        }
+      ],
+      "image": {
+        "url": "https://www.datocms-assets.com/75231/1792511853-4-1.png?fm=webp",
+        "alt": "Cover image for Wiz CIRT's write-up on LLMjacking",
+        "credit": "Wiz"
+      },
+      "publishDate": "2026-10-22T23:43:37.398Z"
+    },
+    {
+      "id": "arxiv-memory-injection-persistent-compromise",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Memory injection: planted orders outlive the chat session",
+      "org": "arXiv",
+      "date": "2026-10-20",
+      "url": "https://arxiv.org/abs/2610.28810",
+      "summary": "Researchers at USP and UDESC report that prompt injections planted in the long-term memory of ChatGPT, Claude and Gemini persist into later sessions, and that all four NIST attack goals are collectively achievable.",
+      "severity": "medium",
+      "tags": [
+        "agent-memory",
+        "prompt-injection",
+        "data-exfiltration",
+        "chatgpt",
+        "claude",
+        "gemini"
+      ],
+      "affected": [
+        "ChatGPT Instant 5.3",
+        "Claude Sonnet 4.6",
+        "Gemini 3 Flash"
+      ],
+      "credits": [
+        {
+          "name": "Pedro H. Barcha Correia",
+          "org": "Universidade de São Paulo"
+        },
+        {
+          "name": "Matheus Azevedo de Sá",
+          "org": "Universidade do Estado de Santa Catarina"
+        },
+        {
+          "name": "Paulo H. Gomes de Senna",
+          "org": "Universidade do Estado de Santa Catarina"
+        },
+        {
+          "name": "Giovanni Mandel Martignago",
+          "org": "Universidade do Estado de Santa Catarina"
+        },
+        {
+          "name": "Victor Takashi Hayashi",
+          "org": "Universidade de São Paulo"
+        },
+        {
+          "name": "Universidade de São Paulo"
+        },
+        {
+          "name": "Universidade do Estado de Santa Catarina"
+        }
+      ],
+      "explainer": {
+        "tagline": "A new paper reports that injections stored in assistant memory keep acting in sessions that start clean.",
+        "whatHappened": "Pedro H. Barcha Correia and colleagues at the Universidade de São Paulo and the Universidade do Estado de Santa Catarina posted the paper to arXiv on October 20, 2026. The authors tested memory injection against three commercial services, ChatGPT Instant 5.3, Claude Sonnet 4.6 and Gemini 3 Flash, and report that the four attack goals in NIST's adversarial machine learning taxonomy are collectively achievable. The paper states the providers were notified before submission, and records no vendor response.",
+        "howItWorks": "Memory injection stores a prompt injection inside a feature built to remember, so the instruction reloads in later conversations instead of ending with the session. The authors used personal memories, projects, skills, organization instructions and MCP-connected resources as the storage, and judged each attack by majority vote of three reviewers comparing five attempts before and after injection. On Claude, shared memory features carried the injection to other users in the same organization, which is the only path by which the privacy goal succeeded.",
+        "whoIsAffected": "Users of the three tested services with long-term memory features enabled are in scope, and the organization-wide exposure the authors describe applies to Claude workspaces using shared memory, projects or organization instructions. The authors report that the privacy compromise goal failed on ChatGPT and Gemini, while availability breakdown, integrity violation and misuse enablement succeeded on all three, integrity on Claude only through shared memory.",
+        "whatToDo": "Review which memory, project and organization-instruction features your assistants have enabled, and inspect stored memories for instructions nobody added deliberately. The authors derive defenses from their threat model and report that nearly half of the mitigations they suggest remain unimplemented by the tested services, so treating assistant memory as attacker-writable storage is the safer assumption."
+      },
+      "quickFacts": [
+        {
+          "label": "Tested against",
+          "value": "ChatGPT Instant 5.3, Claude Sonnet 4.6 and Gemini 3 Flash"
+        },
+        {
+          "label": "Attack type",
+          "value": "Prompt injection stored in long-term memory, persisting across sessions"
+        },
+        {
+          "label": "Storage used",
+          "value": "Memories, projects, skills, organization instructions and MCP resources"
+        },
+        {
+          "label": "Vendor status",
+          "value": "Providers notified before submission; no response recorded in the paper"
+        },
+        {
+          "label": "Code and data",
+          "value": "Reproduction steps, datasets and screenshots published on GitHub"
+        },
+        {
+          "label": "arXiv v1",
+          "value": "2026-10-20"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.28810"
+        },
+        {
+          "label": "Reproduction Artifacts",
+          "url": "https://github.com/PedroBarcha/Memory-injection"
+        }
+      ],
+      "publishDate": "2026-10-22T23:43:37.398Z"
+    },
+    {
+      "id": "wiz-cirt-ai-driven-cloud-intrusion",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "Wiz CIRT: an AI agent ran a whole multi-cloud intrusion by itself",
+      "org": "Wiz",
+      "date": "2026-10-19",
+      "url": "https://www.wiz.io/blog/anatomy-of-ai-driven-cloud-attacks",
+      "summary": "Wiz CIRT describes an intrusion in which an AI agent system, not a human operator, ran the whole operation across GCP and AWS, and lists the behavioural traits that separate agent-driven attacks from manual ones.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "detection",
+        "credential-theft",
+        "kubernetes",
+        "aws",
+        "google-cloud"
+      ],
+      "affected": [
+        "Google Cloud Platform",
+        "Amazon Web Services",
+        "Kubernetes",
+        "Kafka UI"
+      ],
+      "credits": [
+        {
+          "name": "Eden Abergil",
+          "org": "Wiz CIRT"
+        },
+        {
+          "name": "Zohar Kaplan",
+          "org": "Wiz CIRT"
+        },
+        {
+          "name": "Kurt Giacchino",
+          "org": "Wiz CIRT"
+        }
+      ],
+      "explainer": {
+        "tagline": "Wiz CIRT says the AI agent system in this intrusion was not assisting an attacker, it was running the operation.",
+        "whatHappened": "Wiz's Customer Incident Response Team published the case study on October 19, 2026, written by Eden Abergil, Zohar Kaplan and Kurt Giacchino. The intrusion hit an unnamed organization with a large multi-cloud estate spanning GCP and AWS, Kubernetes clusters, CI/CD and GitOps pipelines, an identity provider, secrets management and data warehouses. Wiz reports the agent found entry points, harvested credentials, pivoted across platforms and debugged its own scripts.",
+        "howItWorks": "Initial access came through a Java remote code execution flaw in an internet-facing Kafka UI, and Wiz saw the same source address scanning more than 600 other customer environments. The agent harvested Kubernetes service account tokens, queried the instance metadata service for node credentials, and abused a service account with token-creation rights to mint credentials for dozens of identities. Five workstreams ran in parallel and fed each other, and malicious Kubernetes manifests arrived through the GitOps controller, which left no Git history.",
+        "whoIsAffected": "Organizations running multi-cloud estates with Kubernetes, GitOps and a cloud-linked identity provider match the pattern Wiz describes, and an exposed management interface such as Kafka UI was the entry point here. Wiz lists the traits it observed in the table below, including an operational tempo no human sustains and security-testing names on the resources the agent created.",
+        "whatToDo": "Unify logs across cloud, Kubernetes, runtime, identity provider, CI/CD and SaaS sources with consistent retention, since Wiz's point is that no single alert tells the full story. Treat every credential on a compromised resource as exposed, rotate it, map each secret to the identity that uses it, and hunt for anomalous use since the compromise."
+      },
+      "quickFacts": [
+        {
+          "label": "Entry point",
+          "value": "Java remote code execution in an internet-facing Kafka UI"
+        },
+        {
+          "label": "Scope",
+          "value": "GCP, AWS, Kubernetes, CI/CD and GitOps pipelines, and the identity provider"
+        },
+        {
+          "label": "Tempo",
+          "value": "Hundreds to thousands of actions per hour, without human-style pauses"
+        },
+        {
+          "label": "Tell-tale naming",
+          "value": "Resources prefixed pentest, probe, recon, redteam and exfil"
+        },
+        {
+          "label": "Exfiltration paths",
+          "value": "webhook.site, the org's own source control, a Kubernetes ConfigMap"
+        },
+        {
+          "label": "Found by",
+          "value": "Eden Abergil, Zohar Kaplan and Kurt Giacchino, Wiz CIRT"
+        }
+      ],
+      "links": [
+        {
+          "label": "Wiz CIRT Case Study",
+          "url": "https://www.wiz.io/blog/anatomy-of-ai-driven-cloud-attacks"
+        },
+        {
+          "label": "Wiz ARTEX Tracking",
+          "url": "https://www.wiz.io/blog/artex-in-the-wild-storm-0940-expands-targeting-of-it-and-software-vendors"
+        }
+      ],
+      "image": {
+        "url": "https://www.datocms-assets.com/75231/1792332491-17.png?fm=webp",
+        "alt": "Cover image for Wiz CIRT's anatomy of an AI-driven cloud attack",
+        "credit": "Wiz"
+      },
+      "publishDate": "2026-10-22T23:43:37.398Z"
+    },
     {
       "id": "socket-litellm-1-107-0-compromise",
       "categories": [
