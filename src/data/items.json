@@ -1,7 +1,307 @@
 {
-  "generatedAt": "2026-10-23T20:43:08.801Z",
+  "generatedAt": "2026-10-23T23:36:25.769Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "strands-agents-a2a-session-crossover",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Strands Agents SDK: an A2A server mixed up callers' chat history",
+      "org": "Strands Agents",
+      "date": "2026-10-22",
+      "url": "https://github.com/strands-agents/harness-sdk/security/advisories/GHSA-4v6f-7vjh-6x4m",
+      "summary": "The Strands Agents SDK A2A server shared conversation history across callers with different context_id values, so an authenticated user in a multi-tenant deployment could read another caller's history. Patched.",
+      "severity": "medium",
+      "cve": "CVE-2026-115419",
+      "cvss": 8.6,
+      "tags": [
+        "agent-security",
+        "agent-memory",
+        "strands-agents",
+        "aws"
+      ],
+      "affected": [
+        "Strands Agents SDK",
+        "strands-agents (PyPI)",
+        "@strands-agents/sdk (npm)"
+      ],
+      "credits": [
+        {
+          "name": "Strands Agents maintainers",
+          "org": "AWS",
+          "url": "https://github.com/strands-agents"
+        }
+      ],
+      "explainer": {
+        "tagline": "The Strands Agents A2A server reused conversation state instead of isolating it per context_id.",
+        "whatHappened": "The Strands Agents project published advisory GHSA-4v6f-7vjh-6x4m on 22 October 2026 for CVE-2026-115419, a session crossover flaw in the A2A server. GitHub reviewed the advisory and added it to its database on 23 October. The advisory names no outside reporter and directs security reports to AWS Security.",
+        "howItWorks": "An A2A server keys each conversation to the caller's context_id. Under some conditions the Strands server reused one agent instance across requests, so two callers with different context_id values shared a single conversation history. The published fix introduces an agent factory, which builds separate state per context_id. GitHub classes the flaw as CWE-488, exposure of a data element to the wrong session.",
+        "whoIsAffected": "Multi-tenant A2A deployments running strands-agents below 1.43.0 or @strands-agents/sdk below 1.5.0 are exposed. A server with one user is not. Beyond reading another caller's history, the advisory says an authenticated remote caller could influence the model's behavior for other callers.",
+        "whatToDo": "Run strands-agents 1.43.0 or later, or @strands-agents/sdk 1.5.0 or later. The advisory states that no workaround fully addresses the issue, and advises running a separate server instance per user or tenant until you upgrade."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "strands-agents < 1.43.0, @strands-agents/sdk < 1.5.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "strands-agents 1.43.0, @strands-agents/sdk 1.5.0"
+        },
+        {
+          "label": "Fix age",
+          "value": "PyPI dates strands-agents 1.43.0 to 12 June 2026"
+        },
+        {
+          "label": "Current release",
+          "value": "strands-agents 1.62.0, 21 October 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-115419, CVSS 8.6 (v4.0), High"
+        },
+        {
+          "label": "Attack type",
+          "value": "Exposure of data element to wrong session, CWE-488"
+        },
+        {
+          "label": "Disclosed",
+          "value": "22 October 2026 by the project"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Strands Agents versions fix CVE-2026-115419?",
+          "a": "The advisory lists strands-agents 1.43.0 for the Python package and @strands-agents/sdk 1.5.0 for the npm package as the patched versions. PyPI dates strands-agents 1.43.0 to 12 June 2026, and shows 1.62.0, released 21 October 2026, as current. Running a recent release therefore already includes the A2A isolation fix."
+        },
+        {
+          "q": "Am I affected if my Strands A2A server serves only one user?",
+          "a": "A single-tenant Strands Agents A2A server is not meaningfully exposed. CVE-2026-115419 leaks conversation history between callers holding different context_id values, so the impact the advisory describes, reading another caller's history or steering the model for them, requires more than one caller or tenant on the same server instance."
+        },
+        {
+          "q": "Is there a workaround for the Strands A2A session crossover?",
+          "a": "No workaround fully addresses CVE-2026-115419, according to the advisory. Until operators upgrade, it advises not exposing an A2A server to more than one user or tenant, and running a separate server instance per tenant when several callers need access. The permanent fix is an agent factory that isolates conversation state per context_id."
+        }
+      ],
+      "links": [
+        {
+          "label": "Project Advisory",
+          "url": "https://github.com/strands-agents/harness-sdk/security/advisories/GHSA-4v6f-7vjh-6x4m"
+        },
+        {
+          "label": "GitHub Advisory DB",
+          "url": "https://github.com/advisories/GHSA-4v6f-7vjh-6x4m"
+        },
+        {
+          "label": "strands-agents On PyPI",
+          "url": "https://pypi.org/project/strands-agents/"
+        }
+      ],
+      "publishDate": "2026-10-23T23:36:25.769Z"
+    },
+    {
+      "id": "langgraph-store-namespace-dot-collision",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "LangGraph: a dot in a namespace label reaches another tenant's data",
+      "org": "LangChain",
+      "date": "2026-10-21",
+      "url": "https://github.com/langchain-ai/langgraph/security/advisories/GHSA-6hmw-9432-67qq",
+      "summary": "LangGraph's Postgres and SQLite stores join namespace labels with a dot, so a label that contains a dot collides with a multi-label namespace and a caller can read, overwrite or delete another tenant's items. Patched.",
+      "severity": "medium",
+      "cve": "CVE-2026-115883",
+      "cvss": 6,
+      "tags": [
+        "agent-memory",
+        "privilege-escalation",
+        "langgraph",
+        "langchain"
+      ],
+      "affected": [
+        "LangGraph",
+        "langgraph-checkpoint-postgres",
+        "langgraph-checkpoint-sqlite",
+        "LangSmith Deployment"
+      ],
+      "credits": [
+        {
+          "name": "VuxNx",
+          "url": "https://github.com/VuxNx"
+        }
+      ],
+      "explainer": {
+        "tagline": "A LangGraph namespace label containing a dot maps to the same stored place as a two-label namespace.",
+        "whatHappened": "LangChain published advisory GHSA-6hmw-9432-67qq for LangGraph on 21 October 2026 and credits VuxNx as the reporter. The flaw carries CVE-2026-115883 and affects the Postgres and SQLite store backends. GitHub reviewed it and added it to its advisory database on 23 October.",
+        "howItWorks": "Both stores join the labels of a namespace tuple with a dot to build one stored key, so a single label that already contains a dot collides with a multi-label namespace: the tuple with the label tenant.bob lands where the tuple of tenant then bob lands. The put method rejected dotted labels, but get, search, delete and list_namespaces did not, nor their async forms, nor operations passed through batch and abatch. A caller who supplies such a label reads, overwrites or deletes items in the other namespace.",
+        "whoIsAffected": "Deployments on langgraph-checkpoint-postgres before 3.1.3 or langgraph-checkpoint-sqlite before 3.1.2 are exposed where namespace labels come from untrusted input. InMemoryStore is not. LangSmith Cloud is patched automatically, while self-hosted Agent Server needs 0.15.5 or 0.16.2.",
+        "whatToDo": "Upgrade to langgraph-checkpoint-postgres 3.1.3 or langgraph-checkpoint-sqlite 3.1.2, which reject invalid labels with InvalidNamespaceError. Stores implemented outside the repository should call langgraph.store.base.validate_op_namespace on each operation."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "langgraph-checkpoint-postgres < 3.1.3, langgraph-checkpoint-sqlite < 3.1.2"
+        },
+        {
+          "label": "Fixed in",
+          "value": "3.1.3 and 3.1.2, both requiring langgraph-checkpoint 4.3.0"
+        },
+        {
+          "label": "Not affected",
+          "value": "InMemoryStore"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-115883, CVSS 6.0 (v4.0), Moderate"
+        },
+        {
+          "label": "Attack type",
+          "value": "Improper input validation and incorrect authorization, CWE-20 and CWE-863"
+        },
+        {
+          "label": "Found by",
+          "value": "VuxNx, credited as reporter"
+        },
+        {
+          "label": "Status",
+          "value": "Patched; LangSmith Cloud updated automatically"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which LangGraph packages do I need to upgrade for CVE-2026-115883?",
+          "a": "Upgrade langgraph-checkpoint-postgres to 3.1.3 or langgraph-checkpoint-sqlite to 3.1.2. Both require langgraph-checkpoint 4.3.0 and reject a namespace label containing a dot with InvalidNamespaceError. Self-hosted LangSmith Deployment Agent Server needs version 0.15.5 or 0.16.2, while LangSmith Cloud deployments receive the fix automatically without any operator action."
+        },
+        {
+          "q": "Is LangGraph's InMemoryStore affected by the namespace collision?",
+          "a": "InMemoryStore is not affected by CVE-2026-115883. The advisory limits the flaw to the Postgres and SQLite store backends, which join namespace labels with a dot into a single stored key. The collision between a dotted single label and a two-label namespace does not arise in the in-memory store, so no upgrade is needed for it."
+        },
+        {
+          "q": "Am I exposed if my LangGraph namespace labels are not user-supplied?",
+          "a": "Exposure depends on who controls the namespace label. CVE-2026-115883 needs a caller able to supply a label containing a dot, which the advisory frames as an attacker controlling that label. Applications that build namespaces only from trusted server-side values are much less exposed, though upgrading the store package remains the advisory's remediation."
+        }
+      ],
+      "links": [
+        {
+          "label": "LangGraph Advisory",
+          "url": "https://github.com/langchain-ai/langgraph/security/advisories/GHSA-6hmw-9432-67qq"
+        },
+        {
+          "label": "GitHub Advisory DB",
+          "url": "https://github.com/advisories/GHSA-6hmw-9432-67qq"
+        },
+        {
+          "label": "Postgres Store On PyPI",
+          "url": "https://pypi.org/project/langgraph-checkpoint-postgres/"
+        }
+      ],
+      "publishDate": "2026-10-23T23:36:25.769Z"
+    },
+    {
+      "id": "fastmcp-post-transform-authorization-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "FastMCP: a transform let denied tools answer a direct call",
+      "org": "FastMCP",
+      "date": "2026-10-20",
+      "url": "https://github.com/PrefectHQ/fastmcp/security/advisories/GHSA-7xgj-8392-5q4r",
+      "summary": "FastMCP authorized a component before a server transform ran, then returned the transformed one without checking again, so a caller who knew a tool's identifier could invoke a tool the policy denied. Fixed in 3.4.10 and 4.1.2.",
+      "severity": "medium",
+      "cvss": 6.8,
+      "tags": [
+        "mcp",
+        "privilege-escalation",
+        "agent-security",
+        "fastmcp"
+      ],
+      "affected": [
+        "FastMCP",
+        "fastmcp (PyPI)",
+        "fastmcp-slim (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "Rishi Dhupar",
+          "url": "https://github.com/rishid"
+        }
+      ],
+      "explainer": {
+        "tagline": "FastMCP ran its authorization policy against the original component, not the transformed one a direct call returned.",
+        "whatHappened": "FastMCP maintainers published advisory GHSA-7xgj-8392-5q4r on 20 October 2026, after Rishi Dhupar reported that component authorization was skipped on direct calls. The project shipped fixes the same day in 3.4.10 and 4.1.2. GitHub added the advisory to its database on 23 October, and no CVE has been assigned.",
+        "howItWorks": "A FastMCP server transform can rewrite the metadata that a component's authorization policy reads. On a direct lookup the server checked the policy against the original component, then returned the transformed component without checking it again. A caller who knew a component identifier could therefore invoke a tool, or fetch a resource or prompt, that the policy denies. The advisory adds that a denied concrete resource could also be reached upstream through a matching proxy resource template.",
+        "whoIsAffected": "Servers on fastmcp or fastmcp-slim 3.0.0 through 3.4.9, or 4.0.0 through 4.1.1, that combine server transforms with an authorization policy. Deployments that use no transforms, or define no policy, are not exposed. The reporter reproduced the bypass on 4.1.0 with a caller that lacked the admin scope: the tool was hidden from listing, but a direct call still returned its output.",
+        "whatToDo": "Upgrade to FastMCP 3.4.10 or 4.1.2. Until then the advisory advises enforcing the required authorization at the handler or server boundary, rather than relying on a policy whose inputs a transform can change, and avoiding overlapping proxy templates for protected resources."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "fastmcp and fastmcp-slim 3.0.0 to 3.4.9, 4.0.0 to 4.1.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "3.4.10 and 4.1.2, both released 20 October 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.8 (v3.1), Moderate"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authorization, CWE-862"
+        },
+        {
+          "label": "Found by",
+          "value": "Rishi Dhupar, reported to the maintainers"
+        },
+        {
+          "label": "Discovery",
+          "value": "The report says OpenAI Codex assisted the static analysis and proof of concept"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is FastMCP patched against the post-transform authorization bypass?",
+          "a": "FastMCP shipped fixes on 20 October 2026 in versions 3.4.10 and 4.1.2, which authorize the final transformed tools, resources, templates and prompts rather than the originals. The 3.4.10 release notes describe the change as a backport and encourage all 3.x users to upgrade. Both releases also stop a denied concrete resource from being served through a matching resource template."
+        },
+        {
+          "q": "Which FastMCP versions are affected by GHSA-7xgj-8392-5q4r?",
+          "a": "GHSA-7xgj-8392-5q4r lists fastmcp and fastmcp-slim from 3.0.0 up to 3.4.9, and from 4.0.0 up to 4.1.1, as affected. Servers that do not use server transforms, or that define no authorization policy, are not exposed. The reporter reproduced the bypass on version 4.1.0 using a caller that lacked the admin scope."
+        },
+        {
+          "q": "Does the FastMCP authorization bypass have a CVE?",
+          "a": "No CVE is assigned to the FastMCP post-transform authorization bypass. GitHub lists it as GHSA-7xgj-8392-5q4r, rated Moderate with a CVSS v3.1 base score of 6.8, under CWE-862 for missing authorization. Defenders should track the fix through the FastMCP 3.4.10 and 4.1.2 release notes rather than through a CVE identifier."
+        },
+        {
+          "q": "How was the FastMCP authorization flaw found?",
+          "a": "Rishi Dhupar reported the flaw to the FastMCP maintainers, and the advisory credits him as the reporter. His original report states that OpenAI Codex assisted with the static analysis, the proof of concept and the write-up. Dhupar also co-authored the 3.x backport fix in pull request 5934 with maintainer zzstoatzz, as a first-time contributor."
+        }
+      ],
+      "links": [
+        {
+          "label": "FastMCP Advisory",
+          "url": "https://github.com/PrefectHQ/fastmcp/security/advisories/GHSA-7xgj-8392-5q4r"
+        },
+        {
+          "label": "GitHub Advisory DB",
+          "url": "https://github.com/advisories/GHSA-7xgj-8392-5q4r"
+        },
+        {
+          "label": "FastMCP 4.1.2 Release",
+          "url": "https://github.com/PrefectHQ/fastmcp/releases/tag/v4.1.2"
+        },
+        {
+          "label": "FastMCP 3.4.10 Release",
+          "url": "https://github.com/PrefectHQ/fastmcp/releases/tag/v3.4.10"
+        }
+      ],
+      "publishDate": "2026-10-23T23:36:25.769Z"
+    },
     {
       "id": "hf-datasets-pandas-builder-pickle-rce",
       "categories": [
