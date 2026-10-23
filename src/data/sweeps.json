@@ -10421,6 +10421,73 @@
         "Google security blog"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261023t001823z",
+      "timestamp": "2026-10-23T00:18:23.724Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, the MCP TypeScript SDK advisory list, Symantec, NorForge, AIR Security, Embrace The Red, Mindgard, OWASP GenAI, Simon Willison, Hacker News, Lasso Security, Hugging Face papers, repo-scan (3 candidates, all jailbreak collections or non-security), paper-scan (74 arXiv papers in the window, none clearing two signals) and talk-scan (40 videos, no new non-retelling talk). Added Symantec's Skynet LLMjacking agent and NorForge's Inside Cairn report, and extended the Lasso agent-platform item with DB-GPT; the remaining MCP TypeScript SDK CVEs (published October 2 and 5), CoreBreak (Black Hat USA 2026) and GitSpawn (September 1) all date outside the 7-day window, and the Meta Muse share-link exposure was dropped because Claroc's own write-up could not be reached.",
+      "counts": {
+        "added": 2,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "symantec-skynet-autonomous-llmjacking",
+          "title": "Skynet: an offensive agent hijacks exposed AI models to run its attacks",
+          "category": "incident",
+          "severity": "medium",
+          "note": "Primary Symantec threat-intelligence report inside the window, with named researchers, a captured attacker prompt, published IOCs and concrete defender actions; distinct from the Wiz GCP billing LLMjacking item and the Black Lotus Labs PoeLLM botnet item in actor, mechanism and research method."
+        },
+        {
+          "id": "norforge-inside-cairn",
+          "title": "Inside Cairn: exposed panels reveal an AI agent intrusion campaign",
+          "category": "incident",
+          "severity": "info",
+          "note": "Primary NorForge research inside the window that reads attacker task logs directly from exposed panels, names its researcher, separates confirmed findings from estimates, and covers a different platform and operator set than the existing ARTEX, BUGSTER and Swarmchasers items."
+        }
+      ],
+      "updated": [
+        {
+          "id": "lasso-agent-platform-shell-tool-cves",
+          "title": "Lasso Security: five agent platforms ship an ungated shell tool",
+          "note": "Same Lasso Security series, new platform: CVE-2026-77932 reached the GitHub Advisory Database on October 20, 2026, rated 9.3 critical. DB-GPT through 0.8.2 lets an unauthenticated caller reach /api/v1/chat/react-agent, whose mock get_user_from_headers function returns an admin for every request, and whose code_interpreter and shell_interpreter tools run unsandboxed as root in the webserver container."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "modelcontextprotocol/typescript-sdk security advisories",
+        "security.com (Symantec Threat Intelligence)",
+        "norforge.com",
+        "air.security/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "mindgard.ai/blog",
+        "genai.owasp.org",
+        "lasso.security vulnerability database",
+        "huggingface.co/papers",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "talk-scan.ts",
+        "github.com/oritera/Cairn",
+        "Hacker News front page",
+        "attack.mitre.org"
+      ],
+      "windowDays": 7
     }
   ]
 }

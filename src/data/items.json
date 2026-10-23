@@ -1,7 +1,206 @@
 {
-  "generatedAt": "2026-10-22T23:43:37.398Z",
+  "generatedAt": "2026-10-23T00:18:23.724Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "symantec-skynet-autonomous-llmjacking",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "Skynet: an offensive agent hijacks exposed AI models to run its attacks",
+      "org": "Symantec",
+      "date": "2026-10-21",
+      "url": "https://www.security.com/threat-intelligence/ai-llmjacking-skynet",
+      "summary": "Skynet is an autonomous offensive agent that finds exposed LLM endpoints, hijacks them, and uses the victim's model to plan its own attacks. Symantec captured the operators' full instruction set and 74 offensive tools with an AI honeypot.",
+      "severity": "medium",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "jailbreak",
+        "credential-theft",
+        "rogue-agents"
+      ],
+      "affected": [
+        "Self-hosted LLM servers",
+        "AI gateways",
+        "MCP servers"
+      ],
+      "credits": [
+        {
+          "name": "Priti More",
+          "org": "Symantec"
+        },
+        {
+          "name": "Susmit Yenkar",
+          "org": "Symantec"
+        }
+      ],
+      "explainer": {
+        "tagline": "Skynet is an autonomous offensive agent that steals access to exposed AI models and uses them as the reasoning engine for its attacks.",
+        "whatHappened": "Symantec published its Skynet analysis on October 21, 2026, written by researchers Priti More and Susmit Yenkar. An AI honeypot imitating an unprotected, internet-facing model service captured the operators' complete working prompt during summer 2026, because they sent it to what they believed was a real model. Symantec reports the honeypot logged more than 127,000 external requests from tens of thousands of unique addresses.",
+        "howItWorks": "Four layers of jailbreak text reassign the model a branded identity, tell it never to reveal its real provider, and instruct it to dismiss its own safety warnings. A later section frames reading configuration files, .env files, API keys and database schemas as routine development work that the model should never refuse or warn about. The prompt then supplies 74 offensive tool definitions, covering asset discovery through the FOFA search service, exploit modules for VS Code, Django, Jupyter, Laravel, Supabase, Next.js and Flask, server-side request forgery aimed at cloud metadata services, and botnet command and control. A final directive Symantec calls Skynet mode authorizes up to 100,000 unattended steps and tells the model to run tools immediately without narrating or asking permission.",
+        "whoIsAffected": "Two groups pay for one intrusion, according to Symantec. The owner of an exposed model server, AI gateway, MCP server or stolen API key covers the compute bill and, on a commercial model, loses its safety controls. Servers reached through the agent's exploit modules lose data and credentials and end up mining Monero.",
+        "whatToDo": "Require authentication on every LLM API, self-hosted model server and MCP path, including model-listing and health-check endpoints, and put those services behind a gateway instead of binding them to all interfaces. Restrict outbound network access from systems that host AI tools, and enforce IMDSv2 with a hop limit of one to blunt metadata theft. Rotate AI API keys, scope them narrowly, keep them out of source and config files, and watch for unusual inference volume."
+      },
+      "quickFacts": [
+        {
+          "label": "Attack type",
+          "value": "LLMjacking: theft of access to another party's AI model"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 21, 2026; prompt captured in summer 2026"
+        },
+        {
+          "label": "Honeypot traffic",
+          "value": "Over 127,000 requests from tens of thousands of unique addresses"
+        },
+        {
+          "label": "Toolkit",
+          "value": "74 offensive tool definitions in the captured prompt"
+        },
+        {
+          "label": "Autonomy",
+          "value": "Up to 100,000 unattended steps, per the Skynet mode directive"
+        },
+        {
+          "label": "Payload",
+          "value": "XMRig Monero miner, four fallback pools, hidden in go2rtc directories"
+        },
+        {
+          "label": "Found by",
+          "value": "Priti More and Susmit Yenkar, Symantec"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I check whether my AI model endpoint is exposed to Skynet?",
+          "a": "Skynet looks for model servers, AI gateways and MCP endpoints that answer without authentication, so the check is whether any inference, model-listing or health-check path on your estate responds to an unauthenticated request from the internet. Symantec reports its honeypot drew more than 127,000 requests from tens of thousands of addresses, which points to continuous scanning rather than targeted selection."
+        },
+        {
+          "q": "What does Skynet do with a hijacked AI model?",
+          "a": "Skynet uses the hijacked model as the reasoning engine that plans and drives attacks on separate victims, while the agent's own modules carry out scanning, exploitation and mining. Symantec recorded a payload that downloaded the XMRig Monero miner, hid the binary under a filename resembling a logging utility, configured four fallback mining pools, and ran a loop that erased a local service's access logs."
+        },
+        {
+          "q": "Which indicators of compromise did Symantec publish for Skynet?",
+          "a": "Symantec published two SHA-256 hashes covering the shell script and its gzip-compressed form, one Monero wallet address, three IP addresses, and four mining pool endpoints across the c3pool, skypool and xmrpool domains. Symantec notes that the indicators appear defanged in the write-up, so defenders need to restore the bracketed characters before loading them into detection tooling."
+        }
+      ],
+      "links": [
+        {
+          "label": "Symantec Analysis",
+          "url": "https://www.security.com/threat-intelligence/ai-llmjacking-skynet"
+        },
+        {
+          "label": "ATT&CK T1496",
+          "url": "https://attack.mitre.org/techniques/T1496/"
+        }
+      ],
+      "image": {
+        "url": "https://www.security.com/sites/default/files/styles/blogs_hero_tiny/public/2026-10/Hero%20Image_0.jpg.webp?h=8e56e860&itok=pg5XEvCM",
+        "alt": "Skynet: an offensive agent hijacks exposed AI models to run its attacks",
+        "credit": "Symantec"
+      },
+      "publishDate": "2026-10-23T00:18:23.724Z"
+    },
+    {
+      "id": "norforge-inside-cairn",
+      "categories": [
+        "incident"
+      ],
+      "title": "Inside Cairn: exposed panels reveal an AI agent intrusion campaign",
+      "org": "NorForge",
+      "date": "2026-10-19",
+      "url": "https://norforge.com/blog/inside_cairn",
+      "summary": "NorForge found more than 20 internet-exposed control panels of Cairn, an open-source AI penetration-testing engine, and read the operators' own task logs. Three financially motivated clusters ran agents against e-commerce and payment sites.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "rogue-agents",
+        "cairn",
+        "deepseek"
+      ],
+      "affected": [
+        "Cairn",
+        "E-commerce websites",
+        "Magento"
+      ],
+      "credits": [
+        {
+          "name": "Snorre Fagerland",
+          "org": "NorForge"
+        }
+      ],
+      "explainer": {
+        "tagline": "More than 20 control panels of Cairn, an open-source AI penetration-testing engine, were left open to the internet by the attackers running them.",
+        "whatHappened": "NorForge published Inside Cairn on October 19, 2026, written by researcher Snorre Fagerland. Gambit Security had reported in September 2026 on a criminal campaign against online marketplaces, and the recovered staging server named Cairn among the attacker's AI harnesses. NorForge then searched Shodan and Censys for exposed harness interfaces, found a handful of open Cairn panels with more coming online within days, and after filtering out empty, protected and apparently legitimate installations identified more than 20 likely malicious ones.",
+        "howItWorks": "Cairn treats an intrusion as a state-space search: given an origin and a goal, agent workers run an observe-orient-decide-act loop and post confirmed findings as Facts to a shared blackboard, coordinating only through that board rather than talking to each other. Operators add Hints to steer the search, and a Dispatcher schedules tasks and manages containers. Because the panels were unprotected, that whole board was readable, exposing operator task goals, discovered facts and harvested credentials. NorForge says the panels also appear to expose administrative controls for starting, stopping, redirecting and restarting projects, but states it did not test whether those controls work without authorization.",
+        "whoIsAffected": "Three clusters appear in the data, all of which NorForge assesses as financially motivated with no obvious state sponsorship. AIA0001 runs 14 Chinese-language dashboards holding more than 1,100 attack projects, aimed at persistent access to e-commerce and payment infrastructure mostly in the United States, Japan and Australia. AIA0002 runs 10 English-language panels focused on cards, crypto, merchant payment, pharma and African commerce sites, and AIA0003 is a single exploratory panel with 59 projects.",
+        "whatToDo": "Treat this as broad automated probing of e-commerce and payment stacks rather than targeted attack, and prioritize the paths AIA0001 explicitly sought: unauthenticated remote code execution and file-upload endpoints that yield an uploader shell. Rotate credentials that may sit in web application configuration, because NorForge ran Trufflehog over the panel data, found hundreds of secrets and verified 11 percent of them as still valid."
+      },
+      "quickFacts": [
+        {
+          "label": "Panels found",
+          "value": "More than 20 likely malicious, after filtering out legitimate ones"
+        },
+        {
+          "label": "Clusters",
+          "value": "AIA0001 (Chinese, 14 panels), AIA0002 (English, 10), AIA0003 (English, 1)"
+        },
+        {
+          "label": "Largest cluster",
+          "value": "AIA0001, more than 1,100 attack projects"
+        },
+        {
+          "label": "Success rate",
+          "value": "About 10 percent, which NorForge calls a reasonable assumption, not a measurement"
+        },
+        {
+          "label": "Cost",
+          "value": "About $5 per task on average; over $100 for projects above 1,000 intents and facts"
+        },
+        {
+          "label": "Time to goal",
+          "value": "A little under 23 hours on average for AIA0001 projects that reached their goal"
+        },
+        {
+          "label": "Confirmed",
+          "value": "One live uploader webshell at a hardware parts vendor, plus one validated US retailer case"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Cairn itself malicious software?",
+          "a": "Cairn is a general-purpose AI state-space search engine published under AGPL-3.0, and its README presents autonomous penetration testing as the first use it was validated on, alongside vulnerability research, mathematical proof and CTF challenges. The project disclaimer states that Cairn is intended only for environments where the user has explicit authorization. NorForge's report concerns attackers running their own Cairn deployments, not a flaw in the project."
+        },
+        {
+          "q": "Which models did the Cairn operators run?",
+          "a": "NorForge read worker names from the exposed panels rather than observing the models directly. Cluster AIA0001 used a worker named claudecode_deepseek-v4.1-flash and AIA0002 one named pi_openrouter_deepseek, which NorForge says could mean a Claude Code harness driving DeepSeek models and the Pi agent reaching DeepSeek through OpenRouter. NorForge treats that model attribution as unconfirmed."
+        },
+        {
+          "q": "How much of the Cairn campaign did NorForge verify itself?",
+          "a": "NorForge confirmed a live uploader webshell on a large hardware parts vendor's site and validated one very large US retailer case directly. Victim names reported elsewhere came from Reuters, not from NorForge, which did not identify victims in its technical report. NorForge marks the roughly 10 percent success rate, the cost figures and the model attribution as estimates with considerable uncertainty."
+        }
+      ],
+      "links": [
+        {
+          "label": "NorForge Report",
+          "url": "https://norforge.com/blog/inside_cairn"
+        },
+        {
+          "label": "Cairn Project",
+          "url": "https://github.com/oritera/Cairn"
+        }
+      ],
+      "image": {
+        "url": "https://norforge.com/blog/inside_cairn/images/cover.webp",
+        "alt": "Inside Cairn: exposed panels reveal an AI agent intrusion campaign",
+        "credit": "NorForge"
+      },
+      "publishDate": "2026-10-23T00:18:23.724Z"
+    },
     {
       "id": "air-skills-php2shell-libraries",
       "categories": [
@@ -6912,7 +7111,7 @@
       "org": "Lasso Security",
       "date": "2026-10-12",
       "url": "https://www.lasso.security/vulnerability-database/cve-2026-109444",
-      "summary": "Lasso Security published six CVEs in four days against five self-hosted AI agent platforms, including unauthenticated remote code execution in piflow and Cognition. Each traces to a command tool the model runs with no approval step.",
+      "summary": "Lasso Security published CVEs in quick succession against self-hosted AI agent platforms, including unauthenticated remote code execution in piflow, Cognition and DB-GPT. Each traces to a command tool the model runs with no approval step.",
       "severity": "high",
       "tags": [
         "indirect-prompt-injection",
@@ -6927,7 +7126,8 @@
         "MoviePilot",
         "LangAlpha",
         "piflow",
-        "Cognition"
+        "Cognition",
+        "DB-GPT"
       ],
       "cve": "CVE-2026-77931",
       "cvss": 8.7,
@@ -7024,6 +7224,14 @@
         {
           "label": "Cognition Advisory",
           "url": "https://www.lasso.security/vulnerability-database/cve-2026-74232"
+        },
+        {
+          "label": "DB-GPT Advisory",
+          "url": "https://www.lasso.security/vulnerability-database/cve-2026-77932"
+        },
+        {
+          "label": "DB-GPT GHSA",
+          "url": "https://github.com/advisories/GHSA-5vjv-vw3m-qpqp"
         },
         {
           "label": "VulnCheck MoviePilot",
