@@ -1,7 +1,109 @@
 {
-  "generatedAt": "2026-10-23T17:18:35.427Z",
+  "generatedAt": "2026-10-23T20:43:08.801Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "hf-datasets-pandas-builder-pickle-rce",
+      "categories": [
+        "vulnerability",
+        "supply-chain"
+      ],
+      "title": "Hugging Face Datasets: the pandas builder runs code from a dataset file",
+      "org": "VulnCheck",
+      "date": "2026-10-23",
+      "url": "https://www.vulncheck.com/advisories/hugging-face-datasets-pickle-deserialization-rce-via-pandas-builder",
+      "summary": "CVE-2026-57845 lets a crafted pickle file run arbitrary Python when Hugging Face Datasets 5.1.0 or earlier loads it through the deprecated pandas builder. No fixed release exists, and the proposed patch is still open.",
+      "severity": "medium",
+      "tags": [
+        "rce",
+        "model-supply-chain",
+        "hugging-face",
+        "pickle"
+      ],
+      "affected": [
+        "Hugging Face Datasets",
+        "datasets (PyPI)"
+      ],
+      "cve": "CVE-2026-57845",
+      "cvss": 8.7,
+      "credits": [
+        {
+          "name": "Sai Teja Erukude",
+          "url": "https://github.com/SaiTeja-Erukude"
+        }
+      ],
+      "explainer": {
+        "tagline": "A dataset file, not a model file, is enough to execute code when the deprecated pandas builder unpickles it.",
+        "whatHappened": "VulnCheck published CVE-2026-57845 on October 23, 2026, crediting Sai Teja Erukude, who opened a proposed fix on the same day. The advisory covers Hugging Face Datasets 5.1.0 and every earlier version, and VulnCheck scores it 8.7.",
+        "howItWorks": "The deprecated pandas packaged builder hands the files named in data_files straight to pandas.read_pickle() without checking them. Python's pickle format lets an object define its own __reduce__ method, which the unpickler calls, so the payload executes while the file is being read. Code runs with the privileges of the process that called load_dataset.",
+        "whoIsAffected": "Exposure needs the deprecated pandas builder: a caller that reaches datasets.load_dataset(\"pandas\", data_files=...) with a file it does not control. VulnCheck scopes the advisory to that builder, and release 5.1.0 of October 5, 2026 is still the newest version published.",
+        "whatToDo": "Stop passing untrusted files to the pandas builder, and convert stored pickles to Parquet or Arrow before loading them. Pull request 8879 on huggingface/datasets would make the builder raise an error before any file is opened, but it is unmerged, so there is no version to upgrade to yet."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Hugging Face Datasets 5.1.0 and earlier"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-57845"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.7, CVSS 4.0, assigned by VulnCheck"
+        },
+        {
+          "label": "Attack type",
+          "value": "Pickle deserialization through the pandas builder"
+        },
+        {
+          "label": "Found by",
+          "value": "Sai Teja Erukude"
+        },
+        {
+          "label": "Disclosed",
+          "value": "23 October 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Unpatched, pull request 8879 open"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patched version of Hugging Face Datasets for CVE-2026-57845?",
+          "a": "No patched release of Hugging Face Datasets exists as of October 23, 2026. Version 5.1.0, published on October 5, remains the newest release on GitHub. Sai Teja Erukude opened pull request 8879, which would make the pandas builder raise an error before opening or unpickling any file, but the pull request is still open and unmerged."
+        },
+        {
+          "q": "Am I affected if I only load Parquet or CSV datasets?",
+          "a": "Loading Parquet, CSV, JSON or Arrow data falls outside the scope of CVE-2026-57845, which VulnCheck places only in the deprecated pandas packaged builder. The risky call is datasets.load_dataset with the pandas builder and a data file you do not control. Teams that never select that builder are not exposed by this advisory."
+        },
+        {
+          "q": "How can I check whether my code uses the affected pandas builder?",
+          "a": "Search your codebase for calls to datasets.load_dataset with \"pandas\" as the builder name, and for data_files arguments pointing at .pkl or .pickle files. VulnCheck's advisory names datasets.load_dataset(\"pandas\", data_files=...) as the trigger. Pipelines that take a dataset path from user input or a remote hub listing deserve the closest look, because the file is then outside your control."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/hugging-face-datasets-pickle-deserialization-rce-via-pandas-builder"
+        },
+        {
+          "label": "Proposed Fix PR",
+          "url": "https://github.com/huggingface/datasets/pull/8879"
+        },
+        {
+          "label": "Datasets Releases",
+          "url": "https://github.com/huggingface/datasets/releases"
+        }
+      ],
+      "image": {
+        "url": "https://www.vulncheck.com/_og/d/c_Advisory,icon_i-mdi-comment-alert,title_Hugging+Face+Datasets+5.1.0+Pickle+Deserialization+RCE+via+Pandas+Builder,date_2026-10-23,headline_Advisories,cves_CVE-2026-57845,props_eyJhZmZlY3RpbmciOlsiZGF0YXNldHMgPD0gNS4xLjAiXX0,severity_HIGH,cvss_8.7,p_Ii9hZHZpc29yaWVzL2h1Z2dpbmctZmFjZS1kYXRhc2V0cy1waWNrbGUtZGVzZXJpYWxpemF0aW9uLXJjZS12aWEtcGFuZGFzLWJ1aWxkZXIi,s_sALK186eHF5oFyl1.png",
+        "alt": "Advisory card reading Hugging Face Datasets 5.1.0 Pickle Deserialization RCE via Pandas Builder",
+        "credit": "VulnCheck"
+      },
+      "publishDate": "2026-10-23T20:43:08.801Z"
+    },
     {
       "id": "anthropic-aisi-cybertesting-alignment-assessment",
       "categories": [
@@ -1921,6 +2023,10 @@
         {
           "label": "JFrog Analysis",
           "url": "https://research.jfrog.com/post/litellm-hijacked-again/"
+        },
+        {
+          "label": "Microsoft Analysis",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/"
         },
         {
           "label": "PyPI Quarantine",
