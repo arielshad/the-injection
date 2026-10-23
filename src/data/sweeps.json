@@ -10636,6 +10636,82 @@
         "theorem.dev"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261023t122029z",
+      "timestamp": "2026-10-23T12:20:29.442Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, MSRC and the Microsoft security blog, Anthropic news, OpenAI alignment, Embrace The Red, Zenity Labs, AIR Security, Simon Willison, Socket, Check Point Research, CrowdStrike, Trail of Bits, Unit 42, OWASP GenAI, UK AISI, Hugging Face, Hacker News front page and Show HN, GitHub trending, repo-scan (3 candidates), paper-scan (74 papers, 1 with two scanned signals) and talk-scan (43 videos). Added three items: two VulnCheck advisories published today in AI coding and agent tooling, and CrowdStrike's report on four previously unreported actors running Claude Code intrusion harnesses.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "aider-conf-yml-command-execution",
+          "title": "Aider: a repo's own config file runs shell commands, unpatched",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "VulnCheck published the CVE today for a widely used coding agent, no fix exists, and opening an untrusted repository is enough to trigger it."
+        },
+        {
+          "id": "agenticseek-llm-server-debug-rce",
+          "title": "AgenticSeek: Flask debug mode left on exposes the agent host to RCE",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "A critical-scored RCE disclosed today in a widely deployed self-hosted agent, where the fix is an untagged commit most users will not have pulled."
+        },
+        {
+          "id": "crowdstrike-four-agentic-ai-campaigns",
+          "title": "CrowdStrike: four unreported actors ran Claude Code intrusion agents",
+          "category": "incident",
+          "severity": "info",
+          "note": "First-hand threat intelligence on four distinct actors, recovered from their own exposed tooling, that is separate from the ARTEX and Cairn campaigns already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Microsoft Security Blog",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security/blog",
+        "simonwillison.net",
+        "socket.dev/blog",
+        "research.checkpoint.com",
+        "crowdstrike.com/blog",
+        "blog.trailofbits.com",
+        "unit42.paloaltonetworks.com",
+        "genai.owasp.org",
+        "aisi.gov.uk/blog",
+        "huggingface.co/blog",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "talk-scan.ts",
+        "arxiv.org",
+        "oasis.security"
+      ],
+      "windowDays": 7
     }
   ]
 }

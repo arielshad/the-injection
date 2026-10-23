@@ -1,7 +1,290 @@
 {
-  "generatedAt": "2026-10-23T06:51:17.283Z",
+  "generatedAt": "2026-10-23T12:20:29.442Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "aider-conf-yml-command-execution",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Aider: a repo's own config file runs shell commands, unpatched",
+      "org": "VulnCheck",
+      "date": "2026-10-23",
+      "url": "https://vulncheck.com/advisories/aider-through-0.86.2-command-execution-via-repository-aider-conf-yml-settings",
+      "summary": "Aider 0.86.2 and earlier run shell commands taken from a repository's .aider.conf.yml with no trust prompt. Opening an untrusted repo can execute the attacker's command. VulnCheck rates it 8.5. No fixed version has shipped.",
+      "severity": "high",
+      "tags": [
+        "coding-agents",
+        "rce",
+        "aider"
+      ],
+      "affected": [
+        "Aider"
+      ],
+      "cve": "CVE-2026-115726",
+      "cvss": 8.5,
+      "credits": [
+        {
+          "name": "Seoyoung Lee"
+        }
+      ],
+      "explainer": {
+        "tagline": "Aider loads a repository's .aider.conf.yml with no trust prompt, so a committed config value can run shell commands.",
+        "whatHappened": "VulnCheck published CVE-2026-115726 on 23 October 2026 and credited Seoyoung Lee with the finding. The report was filed as a public GitHub issue on 20 October because, as the report states, Aider has no dedicated security reporting channel. Aider's maintainers had not responded and no fix had shipped when the advisory went out.",
+        "howItWorks": "Aider reads .aider.conf.yml from the repository root and honours two keys that hold commands: notifications-command and editor. Both values reach a subprocess call made with shell=True, so shell metacharacters inside them are interpreted. The notifications-command path fires after the model replies, and the editor path fires when the user types /editor. VulnCheck classifies the weakness as CWE-78, OS command injection, driven by repository-controlled configuration rather than by prompt injection.",
+        "whoIsAffected": "Aider 0.86.2 and every earlier version are affected, and the reporter confirmed both sinks on that release and on the development branch at commit 5dc9490. Anyone who starts Aider inside a repository they did not write is exposed, including clones of public projects and repositories received as archives.",
+        "whatToDo": "Avoid starting Aider in a repository you do not trust until a fix ships. Look for an .aider.conf.yml at the repository root and read its notifications-command and editor values before running the agent."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Aider 0.86.2 and earlier, plus dev commit 5dc9490"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fix released"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-115726"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.5, CVSS 4.0, assigned by VulnCheck"
+        },
+        {
+          "label": "Found by",
+          "value": "Seoyoung Lee"
+        },
+        {
+          "label": "Disclosed",
+          "value": "23 October 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "OS command injection via repository config"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patched version of Aider for CVE-2026-115726?",
+          "a": "No patched Aider release existed when VulnCheck published the advisory on 23 October 2026. The GitHub issue documenting the flaw remained open, with no maintainer response, no assignee and no linked pull request. Aider users should keep away from untrusted repositories until the project ships a release that stops honouring command-bearing keys taken from a repository-root configuration file."
+        },
+        {
+          "q": "How do I check whether a repository can exploit Aider through .aider.conf.yml?",
+          "a": "Look in the repository root for a file named .aider.conf.yml before starting Aider. Two keys matter: notifications-command and editor. A shell command, a pipe or other shell metacharacters in either value points to an exploit attempt, because Aider passes both to a subprocess created with shell=True. Removing the file, or those two keys, closes this specific path."
+        },
+        {
+          "q": "Does exploiting CVE-2026-115726 need the user to do anything?",
+          "a": "Running Aider inside the malicious repository is enough for the notifications-command path, which fires once the model has replied. The editor path needs one further step, the user typing the /editor command. Neither path shows a trust prompt or a confirmation, so a victim gets no warning before a command supplied by the repository runs with their privileges."
+        },
+        {
+          "q": "Was CVE-2026-115726 reported to Aider privately first?",
+          "a": "No private channel was used, and the report gives the reason: Aider has no dedicated security reporting channel. Seoyoung Lee sent the finding to VulnCheck, and a public GitHub issue was opened on 20 October 2026 to serve as a reference for CVE assignment. VulnCheck published the advisory three days later, on 23 October 2026."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://vulncheck.com/advisories/aider-through-0.86.2-command-execution-via-repository-aider-conf-yml-settings"
+        },
+        {
+          "label": "Aider Issue 5885",
+          "url": "https://github.com/Aider-AI/aider/issues/5885"
+        },
+        {
+          "label": "Vulnerable Code",
+          "url": "https://github.com/Aider-AI/aider/blob/v0.86.2/aider/io.py"
+        }
+      ],
+      "publishDate": "2026-10-23T12:20:29.442Z"
+    },
+    {
+      "id": "agenticseek-llm-server-debug-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AgenticSeek: Flask debug mode left on exposes the agent host to RCE",
+      "org": "VulnCheck",
+      "date": "2026-10-23",
+      "url": "https://vulncheck.com/advisories/agenticseek-before-commit-409840c-rce-via-exposed-werkzeug-debugger-in-llm-server",
+      "summary": "AgenticSeek shipped llm_server with Flask debug mode hardcoded on while binding to all interfaces. An attacker who reaches the port and derives the Werkzeug PIN runs commands as the server process. Fixed in commit 409840c.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "agent-security",
+        "agenticseek"
+      ],
+      "affected": [
+        "AgenticSeek"
+      ],
+      "cve": "CVE-2026-115727",
+      "cvss": 9.2,
+      "credits": [
+        {
+          "name": "huangjicheng"
+        }
+      ],
+      "explainer": {
+        "tagline": "AgenticSeek's llm_server ran Flask in debug mode on 0.0.0.0, turning the Werkzeug debugger into a remote code execution path.",
+        "whatHappened": "VulnCheck published CVE-2026-115727 on 23 October 2026, credited huangjicheng with the finding and scored it 9.2. The flaw sat in llm_server/app.py of AgenticSeek, the self-hosted autonomous agent project maintained by Martin Legrand. Maintainer Fosowl had already turned debug mode off in commit 409840c, merged on 15 October, eight days before the advisory went public.",
+        "howItWorks": "AgenticSeek started Flask with debug mode hardcoded on while binding to 0.0.0.0, so the Werkzeug interactive debugger answered on every network interface. Werkzeug's debug console evaluates Python sent by the caller, gated only by a PIN that the advisory says can be derived. A caller who reaches the port and obtains that PIN runs arbitrary Python and operating system commands with the privileges of the llm_server process. VulnCheck classifies the weakness as CWE-489, active debug code.",
+        "whoIsAffected": "Every AgenticSeek checkout before commit 409840c is affected. The project publishes no tagged releases, so users follow the main branch directly and have no version number to check. Exposure depends on running the llm_server component: anyone who can reach its port is a potential attacker.",
+        "whatToDo": "Pull AgenticSeek at commit 409840c or later, which sets Flask debug mode to off in llm_server/app.py. Keep the llm_server port off untrusted networks either way, because the fix did not change the host binding and the service still listens on 0.0.0.0."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "AgenticSeek before commit 409840c"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Commit 409840c, no tagged release"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-115727"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.2, CVSS 4.0, assigned by VulnCheck"
+        },
+        {
+          "label": "Found by",
+          "value": "huangjicheng"
+        },
+        {
+          "label": "Disclosed",
+          "value": "23 October 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Active debug code, CWE-489"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I tell whether my AgenticSeek install is patched?",
+          "a": "Open llm_server/app.py in your AgenticSeek checkout and read the Flask run call. A patched copy sets debug to false and carries a comment warning that the Werkzeug debugger is remote code execution on 0.0.0.0. AgenticSeek publishes no tagged releases, so the only route to the fix is pulling commit 409840c or anything later on the main branch."
+        },
+        {
+          "q": "Does the AgenticSeek fix stop the server binding to every interface?",
+          "a": "No, the host binding did not change. Commit 409840c turns Flask debug mode off, and llm_server still listens on 0.0.0.0 afterwards. Operators who want the service reachable only from the local machine have to arrange that themselves, through a firewall rule, a different bind address or a private network, rather than relying on the upstream fix."
+        },
+        {
+          "q": "What can an attacker do with the exposed Werkzeug debugger?",
+          "a": "Werkzeug's debug console evaluates Python that the caller supplies. VulnCheck states that an attacker who reaches the llm_server port and obtains the debugger PIN, which the advisory says can be derived, runs arbitrary Python and operating system commands with the privileges of the llm_server process. Code execution at that level reaches the host's files and its environment."
+        },
+        {
+          "q": "Was the AgenticSeek debug flaw fixed before the CVE was published?",
+          "a": "Yes. Maintainer Fosowl merged pull request 558 on 15 October 2026, a broad hardening change that also switched Flask debug mode off in llm_server/app.py. VulnCheck published CVE-2026-115727 eight days later, on 23 October. Anyone who last pulled AgenticSeek before 15 October still runs the vulnerable code, because no tagged release signals the change."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://vulncheck.com/advisories/agenticseek-before-commit-409840c-rce-via-exposed-werkzeug-debugger-in-llm-server"
+        },
+        {
+          "label": "Fix Commit",
+          "url": "https://github.com/Fosowl/agenticSeek/commit/409840c033851d861c5c83a91c05fd4a2a75a096"
+        },
+        {
+          "label": "Hardening Pull Request",
+          "url": "https://github.com/Fosowl/agenticSeek/pull/558"
+        }
+      ],
+      "publishDate": "2026-10-23T12:20:29.442Z"
+    },
+    {
+      "id": "crowdstrike-four-agentic-ai-campaigns",
+      "categories": [
+        "incident"
+      ],
+      "title": "CrowdStrike: four unreported actors ran Claude Code intrusion agents",
+      "org": "CrowdStrike",
+      "date": "2026-10-21",
+      "url": "https://www.crowdstrike.com/en-us/blog/crowdstrike-uncovers-new-agentic-ai-campaigns/",
+      "summary": "CrowdStrike found four previously unreported threat actors running offensive agent harnesses built on Claude Code, each recovered from an open directory the actor left exposed. Victims include Argentine healthcare and government bodies.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "claude-code"
+      ],
+      "affected": [
+        "Claude Code",
+        "PentestGPT"
+      ],
+      "credits": [
+        {
+          "name": "CrowdStrike Counter Adversary Operations",
+          "org": "CrowdStrike"
+        }
+      ],
+      "explainer": {
+        "tagline": "CrowdStrike found four separate threat actors who built intrusion harnesses on Claude Code and left them in open directories.",
+        "whatHappened": "CrowdStrike Counter Adversary Operations published the research on 21 October 2026, covering activity its intelligence and OverWatch teams documented between May and August 2026. Four previously unreported threat actors each left an offensive agent framework exposed in an open directory, which is how CrowdStrike recovered them. The report labels them Threat Actor 1 to 4 rather than naming them.",
+        "howItWorks": "The four harnesses wrap Claude Code in different ways. One splits work between a Supervisor agent that picks tasks from a state machine and an Executor agent that carries them out, rebuilt from the open-source PentestGPT project with added MCP servers, Python exploitation scripts and skills. Another runs deterministic reconnaissance first and then lets the model pick from predefined actions, or hands work to specialist agents in parallel. A third drives Claude Code from a single /pentest-setup slash command that starts a seven-step workflow carrying explicit exfiltration instructions.",
+        "whoIsAffected": "Named victims span at least 15 Argentina-based healthcare entities, government entities in several countries including Indonesian government domains, and private-sector targets in Brazil, Russia, Kyrgyzstan and the United States across biotech, healthcare, food and beverage, retail, technology, travel, SaaS and data centres. One United States CRM vendor lost corporate client data, and credentials and medical records were taken from at least one Argentine healthcare victim."
+      },
+      "quickFacts": [
+        {
+          "label": "Actors",
+          "value": "Four, unnamed, labelled Threat Actor 1 to 4"
+        },
+        {
+          "label": "Activity period",
+          "value": "May to August 2026"
+        },
+        {
+          "label": "Agent used",
+          "value": "Claude Code, in all four harnesses"
+        },
+        {
+          "label": "How found",
+          "value": "Offensive frameworks left in open directories"
+        },
+        {
+          "label": "Fastest observed",
+          "value": "Domain controller credentials in about 20 minutes"
+        },
+        {
+          "label": "Found by",
+          "value": "CrowdStrike Counter Adversary Operations"
+        },
+        {
+          "label": "Published",
+          "value": "21 October 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which AI models and tools did the four actors use?",
+          "a": "Claude Code appears in all four harnesses CrowdStrike recovered. Threat Actor 2 reached Claude models mainly through a China-based AI proxy service the report calls a transfer station. Threat Actor 3 ran 819 skills pulled mostly from public GitHub repositories, primarily claude-red, with no extra orchestration. Threat Actor 1 rebuilt the open-source PentestGPT project around a two-agent design."
+        },
+        {
+          "q": "How did the actors get past commercial AI safety controls?",
+          "a": "CrowdStrike offers few specifics. Threat Actor 2 routed requests through a proxy service rather than a direct provider account. Threat Actor 3 had human operators step in periodically to push past the model's guardrails and keep Claude Code trying. Threat Actor 4 relied on instructions granting broad autonomy over exploitation methods. No technical evasion technique is described beyond that."
+        },
+        {
+          "q": "How fast did these agentic intrusions move?",
+          "a": "One case saw an AI agent move laterally and harvest domain controller credentials in about 20 minutes with no additional human guidance, according to CrowdStrike's companion report. The blog post adds that agentic AI can often reach its objectives within an hour, and assesses with high confidence that agentic AI-supported intrusions will grow in volume and sophistication."
+        }
+      ],
+      "links": [
+        {
+          "label": "CrowdStrike Research",
+          "url": "https://www.crowdstrike.com/en-us/blog/crowdstrike-uncovers-new-agentic-ai-campaigns/"
+        },
+        {
+          "label": "Campaigns Report",
+          "url": "https://www.crowdstrike.com/en-us/resources/reports/agentic-ai-attack-campaigns/"
+        }
+      ],
+      "publishDate": "2026-10-23T12:20:29.442Z"
+    },
     {
       "id": "anthropic-formal-verification-oss-fuzz",
       "categories": [
