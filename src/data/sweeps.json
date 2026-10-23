@@ -10567,6 +10567,75 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261023t065117z",
+      "timestamp": "2026-10-23T06:51:17.283Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Anthropic, OpenAI (403 to scripts), Google, MSRC, AIR, Zenity, Embrace The Red, Wiz, HiddenLayer, Trail of Bits, JFrog, Lakera, Check Point, Socket, OWASP GenAI, UK AISI, Hugging Face, Hacker News, GitHub trending, repo-scan (3 candidates), paper-scan (79 candidates) and talk-scan (22 channels). Added two items: the Compaction Laundering paper and Anthropic's formal verification result. Most of the week's disclosures were already in the feed, and this week's new advisory-database entries (the MCP TypeScript SDK batch, Storybook addon-mcp, Envoy AI Gateway, Vibe-Trading) were all originally published before the window.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "arxiv-compaction-laundering",
+          "title": "Compaction Laundering: a forged user turn survives agent summarization",
+          "category": "research",
+          "severity": "high",
+          "note": "arXiv v1 inside the window with three paper-bar signals: code and data released at a repository that loads, named real harnesses attacked and shown working, and an author from a security company; distinct from the existing DeepSeek Harness compaction item, which is one CVE about injected orders persisting, not forged message provenance across nine harnesses."
+        },
+        {
+          "id": "anthropic-formal-verification-oss-fuzz",
+          "title": "Anthropic: Claude wrote proofs for 239 fuzz targets in 123 libraries",
+          "category": "research",
+          "severity": "info",
+          "note": "A specific, measured security claim by a lab, published inside the window, with the proofs and the trusted components available at links that load; separate from Anthropic's attack-surface-reduction and OSS Scanner items, which are bug-finding rather than proof."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "research",
+        "lab-safety",
+        "attack",
+        "vulnerability",
+        "supply-chain",
+        "incident",
+        "tool",
+        "benchmark",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "anthropic.com/research",
+        "Anthropic Frontier Red Team",
+        "Microsoft MSRC blog",
+        "blog.google/security",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "wiz.io/blog",
+        "hiddenlayer.com research",
+        "blog.trailofbits.com",
+        "jfrog.com/blog",
+        "lakera.ai/blog",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "huggingface.co/blog",
+        "Hacker News front page",
+        "github.com/trending",
+        "arXiv cs.CR via paper-scan",
+        "talk-scan (22 YouTube channels)",
+        "repo-scan.json",
+        "VulnCheck advisories",
+        "theorem.dev"
+      ],
+      "windowDays": 7
     }
   ]
 }

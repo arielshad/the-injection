@@ -1,7 +1,228 @@
 {
-  "generatedAt": "2026-10-23T02:10:29.365Z",
+  "generatedAt": "2026-10-23T06:51:17.283Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "anthropic-formal-verification-oss-fuzz",
+      "categories": [
+        "research",
+        "lab-safety"
+      ],
+      "title": "Anthropic: Claude wrote proofs for 239 fuzz targets in 123 libraries",
+      "org": "Anthropic",
+      "date": "2026-10-22",
+      "url": "https://www.anthropic.com/research/formal-verification",
+      "summary": "Anthropic's Frontier Red Team reports that Claude produced machine-checked Rocq proofs that 239 fuzz-test entry points across 123 OSS-Fuzz libraries always exit normally on inputs under 64 MB, proven at the RISC-V binary level.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "anthropic",
+        "claude"
+      ],
+      "affected": [
+        "OSS-Fuzz libraries",
+        "Open-source software"
+      ],
+      "credits": [
+        {
+          "name": "Keane Lucas"
+        },
+        {
+          "name": "Aengus Lynch"
+        },
+        {
+          "name": "Luna Tong"
+        },
+        {
+          "name": "Luke Champine"
+        },
+        {
+          "name": "Zygi Straznickas"
+        },
+        {
+          "name": "Dino Distefano"
+        },
+        {
+          "name": "Anthropic Frontier Red Team",
+          "org": "Anthropic",
+          "url": "https://www.anthropic.com/research/team/frontier-red-team"
+        },
+        {
+          "name": "Theorem",
+          "org": "Theorem",
+          "url": "https://theorem.dev/oss-verify/"
+        }
+      ],
+      "explainer": {
+        "tagline": "Anthropic says Claude turned existing fuzz tests into machine-checked proofs that the compiled binary cannot crash on bounded inputs.",
+        "whatHappened": "Anthropic's Frontier Red Team published the result on October 22, 2026, with the verification company Theorem. Fifteen people are named on the work, including Nicholas Carlini and Nickolai Zeldovich. The post says the effort is, to the authors' knowledge, the first large-scale use of AI-driven formal verification on production software at the assembly level, and that attempting the proofs surfaced hundreds of bugs, which Claude then patched.",
+        "howItWorks": "A fuzz test asks whether any input crashes a program; a proof states that none exists. Claude wrote the proofs in Rocq against Theorem's formal model of RISC-V instructions and Linux process behaviour, so each proof covers the compiled binary rather than the source. The proofs total about 180 million lines of Rocq, a typical one runs to about 600,000 lines for a binary with a median of 18,000 RISC-V instructions, and the post says a proof can take hundreds of millions of tokens to produce. The authors flag a reward-hacking risk, that Claude could make a theorem provable by rewriting code so it never crashes, and say they penalized patches and audited them.",
+        "whoIsAffected": "No product is exposed by the finding. The proofs hold only under stated conditions: a single-threaded static binary on RISC-V and Linux, linked against musl libc, a fixed memory budget, and inputs under 64 MB. Anthropic states plainly that formally verified does not mean bug-free, that not every entry point of each library was covered, and that caller misuse is out of scope. The trusted base includes the RISC-V and operating system models, the theorem statements and the Rocq checker.",
+        "whatToDo": "Maintainers of widely shared dependencies can enrol a project with Theorem's free OSS Verify service, which needs static riscv64 builds and reports bugs privately with no disclosure deadline. Theorem states that AI models generate the findings and patches and that it does not promise a person reviews them first, so treat incoming reports as unreviewed. A subset of the proofs and the trusted components are published, listed below."
+      },
+      "quickFacts": [
+        {
+          "label": "Proven",
+          "value": "239 fuzz-test entry points across 123 OSS-Fuzz libraries"
+        },
+        {
+          "label": "Property",
+          "value": "The program always exits normally, with no memory-safety error or failing assertion, on inputs under 64 MB"
+        },
+        {
+          "label": "Proof system",
+          "value": "Rocq, against Theorem's RISC-V and Linux process semantics, about 180 million lines in total"
+        },
+        {
+          "label": "Published subset",
+          "value": "Proofs for 60 entry points in 25 libraries, checked with Rocq 9.2.0, plus 20,164 theorem statements across 427 projects of which 138 are proved"
+        },
+        {
+          "label": "Example bug",
+          "value": "A rediscovered flaw in libexpat tracked as CVE-2026-56132"
+        },
+        {
+          "label": "Model efficiency",
+          "value": "On 36 small tasks, Anthropic reports Opus 5.5 proves half of them with about 40% fewer tokens than Opus 5"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does Anthropic's formal verification work mean the 123 libraries are bug-free?",
+          "a": "Anthropic states that formally verified does not mean bug-free. The proofs cover 239 specific fuzz-test entry points, not whole libraries, and hold only for inputs under 64 MB on a single-threaded static RISC-V binary running on Linux against musl libc. Callers misusing a library are out of scope, and the result depends on trusting the RISC-V model, the theorem statements and the Rocq checker."
+        },
+        {
+          "q": "Can maintainers get their own project verified this way?",
+          "a": "Theorem runs a free OSS Verify service for qualifying open-source projects, enrolled through a pull request that adds a project directory with a build file, much as OSS-Fuzz works. Static riscv64 binaries are required and proofs can take several days. Theorem says AI models generate the findings and patches and that it does not promise a person reviews them before they are sent."
+        },
+        {
+          "q": "How does this compare with Anthropic's earlier bug-finding work?",
+          "a": "Anthropic's earlier posts reported Claude finding issues, such as 493 attack surface problems across 25 projects. Formal verification inverts that: instead of searching for a crashing input, Claude proves that none exists within stated limits. The authors argue attempting a proof is useful on its own, because it surfaces real bugs, including ones fuzzers rarely reach, and proofs can be reused across programs."
+        }
+      ],
+      "links": [
+        {
+          "label": "Anthropic Research Post",
+          "url": "https://www.anthropic.com/research/formal-verification"
+        },
+        {
+          "label": "Published Proofs",
+          "url": "https://github.com/theorem-labs/oss-verify-proofs"
+        },
+        {
+          "label": "Theorem OSS Verify",
+          "url": "https://theorem.dev/oss-verify/"
+        }
+      ],
+      "image": {
+        "url": "https://www-cdn.anthropic.com/images/4zrzovbb/website/80cf520cb540989c3643907f004b2514ec4d01f1-1200x630.jpg",
+        "alt": "LLMs are making formal software verification feasible at a much larger scale",
+        "credit": "Anthropic"
+      },
+      "publishDate": "2026-10-23T06:51:17.283Z"
+    },
+    {
+      "id": "arxiv-compaction-laundering",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Compaction Laundering: a forged user turn survives agent summarization",
+      "org": "arXiv",
+      "date": "2026-10-21",
+      "url": "https://arxiv.org/abs/2610.29869",
+      "summary": "Compaction Laundering forges a user approval that survives context compaction in five coding agents that flatten their conversation history into plain text. Pixee reports the forged turn entered agent memory 87 to 100% of the time.",
+      "severity": "high",
+      "tags": [
+        "indirect-prompt-injection",
+        "coding-agents",
+        "approval-bypass",
+        "agent-memory"
+      ],
+      "affected": [
+        "pi",
+        "opencode",
+        "Cline",
+        "Aider",
+        "OpenHands"
+      ],
+      "credits": [
+        {
+          "name": "Arshan Dabirsiaghi",
+          "org": "Pixee"
+        }
+      ],
+      "explainer": {
+        "tagline": "Coding agents that flatten their chat history into one string before summarizing it cannot tell a forged user approval from a real one.",
+        "whatHappened": "Arshan Dabirsiaghi of Pixee published Compaction Laundering on arXiv on October 21, 2026, after privately notifying the affected maintainers on August 22, 2026. The paper tests nine coding agent harnesses and reports that five of them carried a forged user instruction through context compaction. Pixee says no project had released a fix when the paper went out.",
+        "howItWorks": "Context compaction summarizes a long conversation and keeps the summary as the agent's memory. Harnesses that serialize typed messages into a single plain string, using text labels such as [User]:, lose the record of who said what before the summarizer ever runs. An attacker who controls anything the agent reads can write those same labels into that content, so the summarizer treats the planted line as a real user turn. Pixee calls the root cause provenance destruction: once the labels are gone, no prompt-level instruction can restore them.",
+        "whoIsAffected": "The five flattening harnesses Pixee measured are pi, opencode, Cline, Aider and OpenHands. Codex, Gemini CLI, Qwen Code and Continue keep typed roles through compaction and resisted the same attack in every run. A sixth tool, goose, was filed as a source-level finding and left out of the measured set.",
+        "whatToDo": "Treat a standing approval recovered from a compacted session as untrusted, and re-confirm destructive actions after a compaction instead of relying on remembered consent. Pixee's suggested code-level fix is to escape role labels in the serializer before flattening, and it reports a provenance check that caught 77% of laundering while demoting 2% of legitimate summary content. Watch the per-project advisories listed below for fixes."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "pi, opencode, Cline, Aider, OpenHands (flattening harnesses)"
+        },
+        {
+          "label": "Not affected",
+          "value": "Codex, Gemini CLI, Qwen Code, Continue (role-typed harnesses, 0% success)"
+        },
+        {
+          "label": "Attack type",
+          "value": "Indirect prompt injection that forges a user turn through context compaction"
+        },
+        {
+          "label": "Success rate",
+          "value": "Forged approval reached agent memory 87 to 100% of the time, in context windows up to about 908,000 tokens"
+        },
+        {
+          "label": "Found by",
+          "value": "Arshan Dabirsiaghi, Pixee"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Maintainers notified 2026-08-22, paper published 2026-10-21"
+        },
+        {
+          "label": "Status",
+          "value": "No project had released a fix at publication time, per Pixee"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Claude Code affected by Compaction Laundering?",
+          "a": "Claude Code is not among the nine harnesses Pixee tested. The paper measures five flattening harnesses, pi, opencode, Cline, Aider and OpenHands, and four role-typed ones, Codex, Gemini CLI, Qwen Code and Continue. Pixee's result turns on whether a harness keeps typed message roles through compaction, so any harness outside that list needs its own check against the paper's method."
+        },
+        {
+          "q": "Which coding agents resisted Compaction Laundering?",
+          "a": "Codex, Gemini CLI, Qwen Code and Continue resisted the attack, with a 0% success rate in Pixee's runs. These four keep each message's role as typed data through compaction, so a forged role label inside fetched content stays content instead of becoming an instruction. Pixee presents them as the control group showing the defect lives in harness serialization code, not in the model."
+        },
+        {
+          "q": "Has Compaction Laundering been fixed?",
+          "a": "Pixee reports that no affected project had released a fix when the paper was published on October 21, 2026, two months after it notified maintainers on August 22, 2026. Advisories were filed for pi, opencode, Cline, OpenHands and Aider, with goose recorded separately as a source-level finding. Pixee notes the status lines in its advisory files reflect submission time, not the current state."
+        },
+        {
+          "q": "How do I check whether my coding agent launders a forged approval?",
+          "a": "Pixee published the experiment code, the raw data behind its tables and a recorded demonstration in a public repository under the MIT license, linked below. Defenders can read how their harness serializes conversation history before summarizing, and look for a single flattened string that uses text role labels. A harness that keeps typed roles through compaction did not fail Pixee's tests."
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.29869"
+        },
+        {
+          "label": "Code And Data",
+          "url": "https://github.com/pixee/compaction-laundering"
+        },
+        {
+          "label": "Disclosure Status",
+          "url": "https://github.com/pixee/compaction-laundering/tree/main/disclosure"
+        }
+      ],
+      "publishDate": "2026-10-23T06:51:17.283Z"
+    },
     {
       "id": "wiz-artex-storm-0940-vendor-campaign",
       "categories": [
