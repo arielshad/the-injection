@@ -1,7 +1,114 @@
 {
-  "generatedAt": "2026-10-24T15:02:59.998Z",
+  "generatedAt": "2026-10-24T17:56:10.239Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "crewai-tools-selenium-scraping-ssrf",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "crewai-tools: a scraping tool skips the SSRF check on agent URLs",
+      "org": "VulnCheck",
+      "date": "2026-10-19",
+      "url": "https://www.vulncheck.com/advisories/crewai-tools-through-1.15.28-ssrf-via-seleniumscrapingtool",
+      "summary": "CVE-2026-112308 is a server-side request forgery flaw in the SeleniumScrapingTool of crewai-tools, which skips the private-address check the package applies in its other scraping tools. VulnCheck lists no fixed version.",
+      "severity": "medium",
+      "cve": "CVE-2026-112308",
+      "cvss": 8.3,
+      "tags": [
+        "prompt-injection",
+        "credential-theft",
+        "agent-security",
+        "crewai"
+      ],
+      "affected": [
+        "crewAI",
+        "crewai-tools (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "SashaMIT"
+        },
+        {
+          "name": "Zachariah Mithani"
+        }
+      ],
+      "explainer": {
+        "tagline": "SeleniumScrapingTool hands an agent-supplied URL to headless Chrome without the private-address check its sibling tools apply.",
+        "whatHappened": "VulnCheck published CVE-2026-112308 on October 19, 2026, crediting SashaMIT and Zachariah Mithani. The advisory covers crewai-tools through version 1.15.28, the tool library for the crewAI agent framework. GitHub's advisory database carries the same report as GHSA-5595-9g9c-5cc4.",
+        "howItWorks": "SeleniumScrapingTool never calls validate_url, the helper that the Firecrawl and Scrapfly tools in the same package use to block private addresses. An attacker who gets instructions into the agent's tool input can therefore set website_url to a loopback, RFC1918 or cloud metadata address, and the headless Chrome browser fetches it. VulnCheck says the result can expose internal data and cloud credentials.",
+        "whoIsAffected": "Crews that register SeleniumScrapingTool are the exposed configuration, and VulnCheck lists crewai-tools releases up to and including 1.15.28. The tool's source on the project's main branch checks only that the URL starts with http or https and contains no whitespace, with no host resolution.",
+        "whatToDo": "Remove SeleniumScrapingTool from crews that scrape pages an attacker can influence, or put it behind a tool that resolves the host and rejects loopback, link-local and private ranges. Block the agent host's access to cloud metadata endpoints at the network layer."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "crewai-tools through 1.15.28, SeleniumScrapingTool"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-112308"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.3, CVSS v4.0, per VulnCheck and GitHub"
+        },
+        {
+          "label": "Attack type",
+          "value": "Prompt injection into tool input, then SSRF"
+        },
+        {
+          "label": "Found by",
+          "value": "SashaMIT and Zachariah Mithani"
+        },
+        {
+          "label": "Disclosed",
+          "value": "19 October 2026"
+        },
+        {
+          "label": "Status",
+          "value": "No fixed version listed, fix pull request closed unmerged"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is crewai-tools patched against CVE-2026-112308?",
+          "a": "VulnCheck lists no fixed version for CVE-2026-112308. The pull request that adds the private-address check to SeleniumScrapingTool, crewAI 6870, was opened on August 8, 2026 and closed on September 17, 2026 without being merged, after a bot flagged that first-time contributor pull requests must reference an open issue. The tool's current source on main still carries only a scheme check."
+        },
+        {
+          "q": "Which crewAI deployments are exposed to this SSRF?",
+          "a": "Crews that register SeleniumScrapingTool from crewai-tools are exposed, and VulnCheck's advisory lists releases up to and including 1.15.28. Crews built only from the package's other scraping tools, such as the Firecrawl and Scrapfly tools, call validate_url instead. Checking which tools a crew registers is the fastest way to tell whether the flaw applies."
+        },
+        {
+          "q": "What can an attacker read through this crewai-tools flaw?",
+          "a": "VulnCheck says a successful request can expose internal data and cloud credentials, because headless Chrome will fetch loopback, RFC1918 and cloud metadata addresses. The advisory scores the flaw 8.3 on CVSS v4.0, with high confidentiality impact on both the vulnerable system and subsequent systems, and no integrity or availability impact."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/crewai-tools-through-1.15.28-ssrf-via-seleniumscrapingtool"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-5595-9g9c-5cc4"
+        },
+        {
+          "label": "Closed Fix PR",
+          "url": "https://github.com/crewAIInc/crewAI/pull/6870"
+        },
+        {
+          "label": "Tool Source",
+          "url": "https://github.com/crewAIInc/crewAI-tools/blob/main/crewai_tools/tools/selenium_scraping_tool/selenium_scraping_tool.py"
+        }
+      ],
+      "image": {
+        "url": "https://www.vulncheck.com/_og/d/c_Advisory,icon_i-mdi-comment-alert,title_crewai-tools+through+1.15.28+SSRF+via+SeleniumScrapingTool,date_2026-10-19,headline_Advisories,cves_CVE-2026-112308,props_eyJhZmZlY3RpbmciOlsiY3Jld2FpLXRvb2xzIDw9IDEuMTUuMjgiXX0,severity_HIGH,cvss_8.3,p_Ii9hZHZpc29yaWVzL2NyZXdhaS10b29scy10aHJvdWdoLTEuMTUuMjgtc3NyZi12aWEtc2VsZW5pdW1zY3JhcGluZ3Rvb2wi,s_bpDB3aBGNOfESdE8.png",
+        "alt": "Advisory card reading crewai-tools through 1.15.28 SSRF via SeleniumScrapingTool",
+        "credit": "VulnCheck"
+      },
+      "publishDate": "2026-10-24T17:56:10.239Z"
+    },
     {
       "id": "straiker-carliy0s",
       "categories": [

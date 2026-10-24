@@ -11305,6 +11305,79 @@
         "lesswrong.com"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261024t175610z",
+      "timestamp": "2026-10-24T17:56:10.239Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (MCP, agent and prompt-injection queries), VulnCheck, ZDI, Lasso, Embrace The Red, AIR, Zenity, Wiz, Unit 42, Socket, HiddenLayer, JFrog, Snyk, Lakera, Check Point, CrowdStrike, Trail of Bits, NCC Group, Anthropic, alignment.openai.com, UK AISI, CAISI, OWASP GenAI, MSRC, Hugging Face, Hacker News front page and Show HN, GitHub trending, repo-scan (13 queries, 2 candidates), paper-scan (58 papers in window, none with two scanned signals) and talk-scan (42 videos); added one item, an unfixed SSRF in crewai-tools reachable through the agent's tool input. Left out on purpose: OpenAI's October 23 report on securing its frontier model training environment, a real story we could not ship because openai.com returns 403 to the fetcher and no mirror of it loads on alignment.openai.com; obsidian-tc (three CVEs), CrewAI ZDI-26-706, HKUDS Vibe-Trading, agent-router and IBM ContextForge, whose original advisories were published between July and September and only reached the GitHub database inside the window; the five MCP TypeScript SDK CVEs, whose repository advisories are dated October 2 to 15; LangAlpha CVE-2026-109440 and OpenSRE CVE-2026-109444, already covered by the existing Lasso agent-platform item; Socket's LiteLLM 11-day timeline and the UK AISI alignment investigation, both already cited in existing items; Agent Zero CVE-2026-97635 and the @rog0x MCP package CVEs, which name no researcher; and the GitHub trending candidates cloudflare/security-audit-skill (created June 2026) and NVIDIA/OpenShell (created February 2026), both old repos under the repo dating rule. r/netsec could not be fetched and koi.security now redirects to a Palo Alto product page, so neither is listed as checked.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "crewai-tools-selenium-scraping-ssrf",
+          "title": "crewai-tools: a scraping tool skips the SSRF check on agent URLs",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A widely used agent tool library ships a scraping tool that an injected instruction can point at cloud metadata, the finders are named, and VulnCheck lists no fixed version."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Zero Day Initiative",
+        "Lasso Security vulnerability database",
+        "IBM Security Bulletins",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "socket.dev/blog",
+        "hiddenlayer.com research",
+        "jfrog.com/blog",
+        "snyk.io/blog",
+        "lakera.ai/blog",
+        "research.checkpoint.com",
+        "crowdstrike.com/blog",
+        "straiker.ai/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com research",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "aisi.gov.uk/blog",
+        "nist.gov/caisi",
+        "genai.owasp.org",
+        "microsoft.com/msrc/blog",
+        "blog.google/security",
+        "huggingface.co/blog",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "PyPI"
+      ],
+      "windowDays": 7
     }
   ]
 }
