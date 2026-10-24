@@ -11378,6 +11378,93 @@
         "PyPI"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261024t201102z",
+      "timestamp": "2026-10-24T20:11:02.710Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (MCP and agent queries), Microsoft Security blog and MSRC, Anthropic news and the Frontier Red Team, Google Cloud security, Unit 42, Wiz, Socket, JFrog, ReversingLabs, Elastic Security Labs, Datadog Security Labs, Check Point, CrowdStrike, SentinelOne, HiddenLayer, Trail of Bits, NCC Group, VulnCheck, Straiker, Pillar, Noma, Oasis, Tenable, Lakera, Invariant Labs, Mindgard, AIR Security, Zenity, Embrace The Red, Simon Willison, UK AISI, OWASP GenAI, Hugging Face blog and models, Hacker News front page and Show HN, GitHub trending, repo-scan (13 queries, 2 candidates), paper-scan (56 papers in the window, 1 with two scanned signals) and talk-scan (42 videos). Added two measurement items on the security of AI-generated code: Datadog's test of Project CodeGuard rules across three coding agents, and Hirundo's single-variable study of Qwen3-Coder. Left out as older than the window despite coverage this week: Mindgard's BRANCH guardrail bypass (October 13), CoreBreak in Bedrock AgentCore, Google ADK and the Vercel AI SDK (Black Hat USA 2026, CVEs patched in July), Elastic's Apex Accelerator npm campaign (October 12), Tencent Zhuque Lab's Vghost kernel flaw (October 12), XBOW's Chrome exploit chain (built in August), NVIDIA AIStore ShadowForge CVE-2026-65162 (disclosed October 15), Glow's PixelLeak screenshot leak (September 30) and the obsidian-tc advisory batch, whose repository advisories are dated September 26 and July 3. Also left out: Andromeda's October 20 credential incident, which names no researcher, no product and no defender action beyond contacting a representative; Sunil Tripathy's ChatGPT GitHub connector chain, whose write-up page still shows only an embargo notice, so nothing could be verified; and the repo candidates morluto/rea, NVIDIA/SkillSpector, uber/ADR and cloudflare/security-audit-skill, all created before the window with only minor releases inside it. No paper cleared the two-signal bar and no talk cleared the talk bar. openai.com/news returned 403 to the fetcher and reddit.com could not be fetched, so neither is listed as checked.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "datadog-codeguard-security-rules",
+          "title": "Datadog: CodeGuard rules left an access flaw in agent-built apps",
+          "category": "research",
+          "severity": "info",
+          "note": "Measured test of whether pre-written security rules fix agent-generated code, with per-agent results a defender adopting CodeGuard needs before trusting it."
+        },
+        {
+          "id": "hirundo-qwen3-coder-client-identity",
+          "title": "Hirundo: Qwen3-Coder wrote more hackable code for a US client",
+          "category": "research",
+          "severity": "info",
+          "note": "Single-variable, significance-tested measurement that a widely adopted open-weight coding model writes more exploitable code for some named customers."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Microsoft Security blog",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "Google Cloud security blog",
+        "Unit 42",
+        "Wiz Research",
+        "Socket",
+        "JFrog",
+        "ReversingLabs",
+        "Elastic Security Labs",
+        "Datadog Security Labs",
+        "Check Point Research",
+        "CrowdStrike",
+        "SentinelOne Labs",
+        "HiddenLayer",
+        "Trail of Bits",
+        "NCC Group",
+        "VulnCheck",
+        "Straiker",
+        "Pillar Security",
+        "Noma Security",
+        "Oasis Security",
+        "Tenable",
+        "Lakera",
+        "Invariant Labs",
+        "Mindgard",
+        "AIR Security",
+        "Zenity Labs",
+        "embracethered.com",
+        "simonwillison.net",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "Hugging Face blog",
+        "Hugging Face models",
+        "Hacker News",
+        "Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts",
+        "arXiv cs.CR",
+        "The Hacker News"
+      ],
+      "windowDays": 7
     }
   ]
 }
