@@ -11162,6 +11162,87 @@
         "unit42.paloaltonetworks.com"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261024t114923z",
+      "timestamp": "2026-10-24T11:49:23.561Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Zero Day Initiative, Anthropic, DeepMind, MSRC and the Microsoft Security blog, UK AISI, NIST CAISI, AIR Security, Zenity Labs, Embrace The Red, Simon Willison, Check Point, Unit 42, Wiz, Socket, JFrog, ReversingLabs, HiddenLayer, Trail of Bits, NCC Group, VulnCheck, Straiker, Pillar, Noma, Oasis, Lakera, Snyk, OWASP GenAI, Hugging Face blog and models, Hacker News, GitHub trending, repo-scan (13 queries, 2 candidates), paper-scan (59 arXiv papers in the window) and talk-scan: one item met the bar, Straiker's CARLIY0S threat report, plus one update adding Check Point Research's independent analysis of the Aoki infostealer already in the feed. openai.com returned 403, so OpenAI's October 23 post on securing its frontier training environment could not be fetched and is not cited; r/netsec was unreachable from this run. Left out as older than the window despite coverage this week: GitSpawn (September 1), DuneSlide (July 1), PromptFiction (July), BragJack (September 16), Deadbugz (August), CrewAI CVE-2026-92206 (ZDI advisory September 16), and the obsidian-tc and Storybook MCP advisory batches, whose original advisories are dated July 3 and October 12; DB-GPT CVE-2026-77932 is already covered by the Lasso Security item, and no repo, paper, talk or guard model cleared its bar.",
+      "counts": {
+        "added": 1,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "straiker-carliy0s",
+          "title": "CARLIY0S: CyberCartel's AI pipeline hit 400-plus financial targets",
+          "category": "incident",
+          "severity": "info",
+          "note": "A named, dated threat report with victim, tooling and data-theft specifics on a criminal multi-model agent campaign, distinct from the BUGSTER, CrowdStrike, ARTEX and Wiz CIRT campaigns already in the feed."
+        }
+      ],
+      "updated": [
+        {
+          "id": "symantec-aoki-ai-coding-credentials",
+          "title": "Aoki: an infostealer now takes AI coding assistant credentials",
+          "note": "Check Point Research published an independent analysis of the same infostealer on 2026-10-23 as Aokigahara, matching the /gate command-and-control pattern and the AI target files. Adds its credit, its two write-ups, the Windsurf, Amazon Q and Visual Studio Code targets, the AES-256-GCM upload path and the availability of a YARA rule."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Zero Day Initiative",
+        "anthropic.com/news",
+        "deepmind.google/discover/blog",
+        "Microsoft MSRC blog",
+        "Microsoft Security blog",
+        "aisi.gov.uk",
+        "NIST CAISI",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "research.checkpoint.com",
+        "blog.checkpoint.com",
+        "unit42.paloaltonetworks.com",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "vulncheck.com/blog",
+        "straiker.ai/blog",
+        "pillar.security/blog",
+        "noma.security/blog",
+        "oasis.security",
+        "lakera.ai/blog",
+        "snyk.io/blog",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "Hacker News",
+        "github.com/trending",
+        "arXiv cs.CR (paper-scan)",
+        "Hugging Face Daily Papers (paper-scan)",
+        "repo-scan.json",
+        "talk-scan (YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
