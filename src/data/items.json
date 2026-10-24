@@ -1,7 +1,209 @@
 {
-  "generatedAt": "2026-10-24T02:09:22.098Z",
+  "generatedAt": "2026-10-24T06:52:13.204Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "goose-term-shell-history-llm-leak",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "goose: terminal integration sends shell history to the model provider",
+      "org": "Red Hat",
+      "date": "2026-10-22",
+      "url": "https://access.redhat.com/security/cve/CVE-2026-111079",
+      "summary": "goose's opt-in terminal integration logs every command typed in the shell and sends it unsanitized to the configured model provider, so tokens and passwords leave the machine. Red Hat assigned CVE-2026-111079 and lists no fix.",
+      "severity": "medium",
+      "cve": "CVE-2026-111079",
+      "cvss": 7.4,
+      "tags": [
+        "agent-security",
+        "coding-agents",
+        "data-exfiltration",
+        "goose"
+      ],
+      "affected": [
+        "goose"
+      ],
+      "credits": [
+        {
+          "name": "Manuel Moran",
+          "org": "Red Hat"
+        },
+        {
+          "name": "Rodolfo Olivieri",
+          "org": "Red Hat"
+        },
+        {
+          "name": "Theofanis Petkos",
+          "org": "Red Hat",
+          "url": "https://github.com/thepetk"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-111079 carries tokens and passwords typed in a shell into every later request goose makes to its model provider.",
+        "whatHappened": "Red Hat published CVE-2026-111079 on October 22, 2026, after three of its own engineers reported a data leak in goose, the open-source AI agent now hosted by the Agentic AI Foundation at the Linux Foundation. The report was filed in Red Hat's bug tracker on October 16 and is still open. Red Hat rates the flaw Important.",
+        "howItWorks": "The terminal integration installs a shell preexec hook that logs each command the user types. On the next call to the agent, every command recorded since the last assistant response is sent to the configured model provider endpoint with no sanitization. Secrets passed as command arguments or set with export travel with that history, and the whole batch goes out even when the question asked has nothing to do with it.",
+        "whoIsAffected": "Only goose sessions with the terminal integration enabled are exposed, because the leak depends on the shell preexec hook that integration installs. Red Hat states that ordinary non-interactive command-line use, and sessions without that hook, are not affected. The affected release range is listed below.",
+        "whatToDo": "Disable the terminal integration and remove its shell preexec hook, then rotate every token, password and exported variable typed in a terminal while the hook was active. Treat the provider's logs as a place those secrets may now sit, and check the bug report below before assuming a later release closes it."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "goose v1.16.0 through v1.54.0, per Red Hat"
+        },
+        {
+          "label": "Component",
+          "value": "Terminal integration shell preexec hook, introduced in commit 5f50198"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-111079"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.4, published by Red Hat as the assigning CNA"
+        },
+        {
+          "label": "Found by",
+          "value": "Manuel Moran, Rodolfo Olivieri and Theofanis Petkos, Red Hat"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Reported 2026-10-16, CVE published 2026-10-22"
+        },
+        {
+          "label": "Status",
+          "value": "No fix identified; Red Hat bug report still open"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a fix for CVE-2026-111079 in goose?",
+          "a": "No fix is identified for CVE-2026-111079. Red Hat's bug report, filed on October 16, 2026, remains open, and the release notes for goose v1.55.0 and v1.56.0 do not mention the terminal integration, shell history or this CVE. Defenders should disable the terminal integration rather than wait for a version number to upgrade to."
+        },
+        {
+          "q": "Which goose versions does Red Hat list as affected?",
+          "a": "Red Hat's report lists goose releases v1.16.0 through v1.54.0, and traces the behavior to commit 5f50198, which introduced the terminal integration. Versions released after that range, v1.55.0 and v1.56.0, fall outside what the report covers, and no release note for either states that shell history handling changed."
+        },
+        {
+          "q": "Does CVE-2026-111079 affect goose users who never enabled terminal integration?",
+          "a": "Users who never enabled the terminal integration are not exposed. Red Hat states that ordinary non-interactive command-line use, and sessions without the shell preexec hook installed, are unaffected. The leak depends on that hook recording each typed command, so that goose can send the accumulated history to the model provider on a later request."
+        }
+      ],
+      "links": [
+        {
+          "label": "Red Hat Advisory",
+          "url": "https://access.redhat.com/security/cve/CVE-2026-111079"
+        },
+        {
+          "label": "Red Hat Bug Report",
+          "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2554025"
+        },
+        {
+          "label": "goose Releases",
+          "url": "https://github.com/aaif-goose/goose/releases"
+        }
+      ],
+      "publishDate": "2026-10-24T06:52:13.204Z"
+    },
+    {
+      "id": "arxiv-autoredclaw",
+      "categories": [
+        "research",
+        "benchmark"
+      ],
+      "title": "AutoRedClaw: auto-generated attacks beat hand-built agent benchmarks",
+      "org": "arXiv",
+      "date": "2026-10-19",
+      "url": "https://arxiv.org/abs/2610.27244",
+      "summary": "AutoRedClaw generates agent attacks and the environments to run them, validated by execution. The authors report most of seven harnesses exceeded a 50% attack success rate, and their 330-case benchmark draws higher rates than AgentDojo.",
+      "severity": "info",
+      "tags": [
+        "red-team",
+        "evals",
+        "agent-memory",
+        "agent-security",
+        "openclaw"
+      ],
+      "affected": [
+        "OpenClaw",
+        "Claude Code",
+        "OpenAI Codex",
+        "nanobot",
+        "nemoclaw",
+        "seclaw",
+        "zeroclaw"
+      ],
+      "credits": [
+        {
+          "name": "Hao Li"
+        },
+        {
+          "name": "Tongyan Hu"
+        },
+        {
+          "name": "Weidi Luo"
+        },
+        {
+          "name": "Shanghao Shi"
+        },
+        {
+          "name": "Xiaogeng Liu"
+        },
+        {
+          "name": "SaFoLab",
+          "url": "https://github.com/SaFo-Lab"
+        }
+      ],
+      "explainer": {
+        "tagline": "AutoRedClaw writes both the attack and the environment it needs, so a red team does not have to hand-build every agent test case.",
+        "whatHappened": "AutoRedClaw went up on arXiv on October 19, 2026, from Hao Li and colleagues at SaFoLab and collaborating groups. The paper targets what the authors call claw-style agents: persistent assistants such as OpenClaw that keep config files, long-term memory and reusable skills between sessions. The authors release the framework and a benchmark built from its output, RedClaw-Bench, as code.",
+        "howItWorks": "The framework generates end-to-end attacks together with the environment each one needs, then confirms success by running them rather than by asking a model to judge. Generation is organized along four axes, risk category, attack strategy, attack stage and attack surface, and an experience-guided search steers toward combinations it has not covered yet. Because the poisoned state lives in files, memory and skills the agent reloads, one successful write keeps firing on later tasks and sessions.",
+        "whoIsAffected": "The repository names seven harnesses the framework drives, listed below. Its defaults use DeepSeek-V4-Pro-0423 to generate and probe and gpt-5-mini to evaluate, and a figure in the paper names GPT-5.4, Claude-Sonnet-4.5 and Gemini-3.1-Pro among the models tested. The authors say existing evaluations rely on hand-built cases that go stale as agents change.",
+        "whatToDo": "Treat an agent's saved config, memory and skill files as untrusted input that is re-read at the start of every session, not as settings a user wrote once. Teams that currently measure agent robustness with hand-built suites should retest against the released benchmark, which the authors report draws higher attack success rates than the suites it replaces."
+      },
+      "quickFacts": [
+        {
+          "label": "Harnesses tested",
+          "value": "OpenClaw, nanobot, nemoclaw, seclaw, zeroclaw, Codex and Claude Code"
+        },
+        {
+          "label": "Reported result",
+          "value": "Most agent systems above 50% attack success across seven harnesses and four frontier models"
+        },
+        {
+          "label": "Generation cost",
+          "value": "Effective attack rate above 30%, at under $0.10 per successful sample"
+        },
+        {
+          "label": "Benchmark",
+          "value": "RedClaw-Bench, 330 cases, reported above AgentDojo, AgentDyn and DTap"
+        },
+        {
+          "label": "Attack type",
+          "value": "Poisoning of persistent agent config, memory and skills"
+        },
+        {
+          "label": "Found by",
+          "value": "Hao Li and colleagues, SaFoLab"
+        },
+        {
+          "label": "Published",
+          "value": "2026-10-19, arXiv v1"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.27244"
+        },
+        {
+          "label": "Code And Benchmark",
+          "url": "https://github.com/SaFo-Lab/AutoRedClaw"
+        }
+      ],
+      "publishDate": "2026-10-24T06:52:13.204Z"
+    },
     {
       "id": "aws-mcp-server-run-script-validator-bypass",
       "categories": [

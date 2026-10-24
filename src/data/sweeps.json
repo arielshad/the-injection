@@ -11084,6 +11084,84 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261024t065213z",
+      "timestamp": "2026-10-24T06:52:13.204Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, Red Hat's CVE database, Anthropic, UK AISI, CAISI, Microsoft, Wiz, Socket, JFrog, ReversingLabs, Check Point, Trail of Bits, NCC Group, AIR, Zenity, Embrace The Red, Hugging Face, OWASP GenAI, arXiv via paper-scan (61 papers in window, 1 with two scanned signals), repo-scan (2 candidates), GitHub trending, talk-scan (47 videos) and Hacker News, and added two items: the goose terminal-integration secrets leak and the AutoRedClaw paper. Dropped on dating because GitHub only ingested the advisory this week while original disclosure predates the window: Storybook CVE-2026-114125 and CVE-2026-114126 (advisory 2026-10-12), CrewAI CVE-2026-92206 (ZDI release 2026-09-16), vLLM CVE-2026-114055 and CVE-2026-114050 (2026-10-06), the MCP TypeScript SDK batch including CVE-2026-111768 (2026-10-15), obsidian-tc's seven advisories (2026-07-03) and Envoy AI Gateway GHSA-953h-535j-jg2v (2026-10-07); openai.com/news returned 403 to the fetcher and r/netsec was unreachable.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "goose-term-shell-history-llm-leak",
+          "title": "goose: terminal integration sends shell history to the model provider",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Red Hat published the CVE on 2026-10-22 inside the window, named three reporters, and the leak sends live credentials to a third-party provider with no fix identified."
+        },
+        {
+          "id": "arxiv-autoredclaw",
+          "title": "AutoRedClaw: auto-generated attacks beat hand-built agent benchmarks",
+          "category": "research",
+          "severity": "info",
+          "note": "Paper bar met with two signals checked in this run: released code and benchmark at a repository that loads, and real named agent harnesses attacked, including OpenClaw, Claude Code and Codex."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Red Hat CVE database",
+        "Red Hat Bugzilla",
+        "CVE Program records (cveawg)",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "arXiv cs.CR (paper-scan)",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan (YouTube channels)",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "Microsoft Security blog",
+        "MSRC blog",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "hiddenlayer.com",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "huggingface.co/blog",
+        "blog.google/security",
+        "genai.owasp.org",
+        "unit42.paloaltonetworks.com"
+      ],
+      "windowDays": 7
     }
   ]
 }
