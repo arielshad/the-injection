@@ -11243,6 +11243,68 @@
         "talk-scan (YouTube channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261024t150259z",
+      "timestamp": "2026-10-24T15:02:59.998Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, VulnCheck, Anthropic, OpenAI, UK AISI, AIR Security, Zenity, Embrace The Red, Wiz, Socket, JFrog, Trail of Bits, Microsoft, Hugging Face, OWASP GenAI, Simon Willison, Hacker News, GitHub trending, repo-scan (13 queries, 2 candidates), paper-scan (59 papers) and talk-scan (43 videos); no new AI-security item inside the 7-day window met the bar. The large GitHub Advisory Database batch of 19 to 23 October was a backlog republication: the Google ADK, CrewAI, A2A Java SDK, obsidian-tc, Storybook and envoyproxy ai-gateway advisories all have original disclosure dates from July to 12 October, outside the window.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "brotli-node2shell-decoder-oob-write",
+          "title": "Node2Shell: OpenAI's Codex Security team found a Brotli decoder RCE",
+          "note": "Aikido's October 23 analysis widens the blast radius of CVE-2026-111497 beyond Node.js and PyPI to curl, Bun, Envoy, Istio and the Python HTTP clients that decode Brotli automatically, and reports that advisory databases had not yet mapped the CVE to the PyPI packages, so dependency scanners do not flag vulnerable versions. The story reached the Hacker News front page on October 24 as HTTP2Shell."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Zero Day Initiative",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "alignment.openai.com",
+        "aisi.gov.uk",
+        "air.security",
+        "labs.zenity.io",
+        "embracethered.com",
+        "hiddenlayer.com/research",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "blog.trailofbits.com",
+        "microsoft.com/security/blog",
+        "aikido.dev",
+        "huggingface.co/blog",
+        "genai.owasp.org",
+        "simonwillison.net",
+        "Hacker News front page",
+        "github.com/trending",
+        "repo-scan.json",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers via paper-scan",
+        "talk-scan (YouTube conference and security channels)",
+        "lesswrong.com"
+      ],
+      "windowDays": 7
     }
   ]
 }
