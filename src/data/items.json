@@ -1,7 +1,331 @@
 {
-  "generatedAt": "2026-10-24T00:16:23.157Z",
+  "generatedAt": "2026-10-24T02:09:22.098Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "aws-mcp-server-run-script-validator-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AWS MCP Server: a crafted script got past the run_script validator",
+      "org": "Amazon Web Services",
+      "date": "2026-10-23",
+      "url": "https://aws.amazon.com/security/security-bulletins/2026-149-aws/",
+      "summary": "AWS MCP Server's run_script tool shipped an incomplete list of disallowed Python inputs, so an authenticated user could run arbitrary code inside their own sandboxed session. AWS says the fix is server-side.",
+      "severity": "low",
+      "tags": [
+        "mcp",
+        "guardrail-bypass",
+        "agent-security",
+        "aws"
+      ],
+      "affected": [
+        "AWS MCP Server"
+      ],
+      "cve": "CVE-2026-115845",
+      "cvss": 5.3,
+      "credits": [
+        {
+          "name": "Manash Saikia"
+        }
+      ],
+      "explainer": {
+        "tagline": "AWS MCP Server's Python code validator missed inputs that let an authenticated caller run arbitrary code in their own session.",
+        "whatHappened": "AWS published bulletin 2026-149 on October 23, 2026, assigning CVE-2026-115845 to a flaw in the run_script tool of AWS MCP Server. Manash Saikia reported it through the coordinated vulnerability disclosure process, AWS states. The advisory reached the GitHub Advisory Database the same day with a CVSS v4 base score of 5.3.",
+        "howItWorks": "run_script exists to execute Python inside a sandboxed environment, and a validator decides which inputs are allowed through. That validator's list of disallowed inputs was incomplete, the weakness class recorded as CWE-184, so a crafted script could reach code execution the validator was meant to block. Execution stayed inside the caller's own isolated session environment, which bounds the result.",
+        "whoIsAffected": "Authenticated users of AWS MCP Server are the only population in scope, and AWS describes the product as an exclusively hosted managed service, so there are no customer-run versions to match against. AWS adds that no workaround is needed for the tool's intended use, running Python scripts that make AWS API calls.",
+        "whatToDo": "No customer action is required, AWS states, because the issue was addressed service-side."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "AWS MCP Server, the run_script tool"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-115845"
+        },
+        {
+          "label": "CVSS",
+          "value": "5.3, CVSS v4, per the GitHub Advisory Database"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-184, incomplete list of disallowed inputs"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed service-side, no customer action required"
+        },
+        {
+          "label": "Found by",
+          "value": "Manash Saikia, via coordinated disclosure"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 23, 2026, in AWS bulletin 2026-149"
+        }
+      ],
+      "links": [
+        {
+          "label": "AWS Bulletin",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-149-aws/"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-jmwp-36mq-x645"
+        }
+      ],
+      "publishDate": "2026-10-24T02:09:22.098Z"
+    },
+    {
+      "id": "vulncheck-ai-vulnerability-discovery-risks",
+      "categories": [
+        "research"
+      ],
+      "title": "VulnCheck: 51% of vulnerability reporters say AI found the flaw",
+      "org": "VulnCheck",
+      "date": "2026-10-22",
+      "url": "https://www.vulncheck.com/blog/vulnerability-and-exploitation-risks-of-ai",
+      "summary": "VulnCheck's Patrick Garrity reports that 51% of researchers submitting to its disclosure service say AI found the bug, with submissions up tenfold in a year. The share of CVEs exploited in the wild has not risen.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "threat-intel",
+        "ai-enabled-offense",
+        "vulncheck"
+      ],
+      "affected": [
+        "MCP servers",
+        "Langflow",
+        "AI agent platforms"
+      ],
+      "credits": [
+        {
+          "name": "Patrick Garrity",
+          "org": "VulnCheck"
+        }
+      ],
+      "explainer": {
+        "tagline": "VulnCheck sorts AI's effect on vulnerability work into five categories and finds most of the risk is old risk arriving faster.",
+        "whatHappened": "VulnCheck published Patrick Garrity's analysis of AI's effect on vulnerability discovery and exploitation on October 22, 2026. Garrity groups the risk into five categories: discovery, exploitation, attack orchestration, attack surface and categorical risk. He draws on VulnCheck's own disclosure service, its KEV tracking and published incident reports.",
+        "howItWorks": "Discovery is where the measured change is largest. Submissions to VulnCheck's Report a Vulnerability service rose tenfold over the past year, and 51% of submitters said AI found the vulnerability. CVE volume grew 100% year over year, which Garrity attributes to AI tooling and to expanded CNA capacity. Exploitation timelines shortened while the proportion of CVEs ever exploited stayed flat, so the result is more candidates rather than a higher hit rate.",
+        "whoIsAffected": "Exposed AI infrastructure is the attack surface Garrity singles out: routers, MCP servers and agent platforms that sit on the internet while holding privileged access to data. He notes that Langflow alone had 15 vulnerabilities targeted this year. Teams running internet-facing AI tooling carry the new exposure, rather than teams whose AI use stays internal.",
+        "whatToDo": "Rank vulnerabilities by exploitation evidence rather than by volume, and automate patching where you can. Inventory which AI tools face the internet and treat them as exposed systems, with monitoring and containment built around models and agents."
+      },
+      "quickFacts": [
+        {
+          "label": "Submission growth",
+          "value": "10x more researcher submissions to VulnCheck in the past year"
+        },
+        {
+          "label": "AI-found",
+          "value": "51% of submitters said AI found the vulnerability"
+        },
+        {
+          "label": "CVE growth",
+          "value": "100% year over year"
+        },
+        {
+          "label": "Time to KEV",
+          "value": "Median 80 days in 1H 2026, down from 120 days in 2025"
+        },
+        {
+          "label": "Exploited share",
+          "value": "About 1.5 to 2% of CVEs historically, with 2026 tracking similarly"
+        },
+        {
+          "label": "Written by",
+          "value": "Patrick Garrity, VulnCheck"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does AI actually make more vulnerabilities get exploited?",
+          "a": "VulnCheck reports no rise in the exploited share: historically about 1.5 to 2% of CVEs are exploited in the wild, and the 2026 cohort tracks similarly to earlier years. Patrick Garrity frames the problem as more needles in a bigger haystack, because CVE volume grew 100% year over year while the exploitation rate held steady."
+        },
+        {
+          "q": "How fast do vulnerabilities reach CISA's KEV catalog now?",
+          "a": "Median time from CVE publication to a KEV listing fell from 120 days in 2025 to 80 days in the first half of 2026, VulnCheck reports in its 1H 2026 exploitation review. The advice Garrity draws from that: plan for shorter response windows, and apply mitigating controls wherever patching lags behind the pace."
+        },
+        {
+          "q": "Which AI systems does VulnCheck say are most exposed?",
+          "a": "Internet-facing AI infrastructure is VulnCheck's answer: routers, MCP servers and agent platforms that hold privileged access to data. Garrity points to Langflow, which had 15 vulnerabilities targeted this year, and recommends inventorying which AI tools face the internet, then treating each one like any other exposed system."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Median days from CVE publication to KEV listing",
+          "unit": "days",
+          "max": 120,
+          "note": "Lower means attackers reach exploitation sooner",
+          "results": [
+            {
+              "name": "2025",
+              "score": 120
+            },
+            {
+              "name": "1H 2026",
+              "score": 80,
+              "highlight": true
+            }
+          ],
+          "source": "https://www.vulncheck.com/blog/vulnerability-and-exploitation-risks-of-ai"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Analysis",
+          "url": "https://www.vulncheck.com/blog/vulnerability-and-exploitation-risks-of-ai"
+        },
+        {
+          "label": "1H 2026 Exploitation",
+          "url": "https://www.vulncheck.com/blog/state-of-exploitation-1h-2026"
+        }
+      ],
+      "image": {
+        "url": "https://www.vulncheck.com/_og/d/c_TitleIcon,title_Exploring+the+Risks+and+Impacts+of+AI+on+Vulnerability+Discovery+and+Exploitation,headline_Blog,description_We+take+a+look+at+how+AI+makes+the+capabilities+behind+each+one+more+accessible+and+accelerates+how+quickly+attackers+can+use+them.,date_~T2N0b2JlciAyMiwgMjAyNg,icon_i-mdi-newspaper-variant-outline,p_Ii9ibG9nL3Z1bG5lcmFiaWxpdHktYW5kLWV4cGxvaXRhdGlvbi1yaXNrcy1vZi1haSI,s_Vo7tD8uft6K3VvKU.png",
+        "alt": "Title card for VulnCheck's analysis of AI in vulnerability discovery and exploitation",
+        "credit": "VulnCheck"
+      },
+      "publishDate": "2026-10-24T02:09:22.098Z"
+    },
+    {
+      "id": "arxiv-carryoverbench",
+      "categories": [
+        "research",
+        "benchmark"
+      ],
+      "title": "CarryoverBench: a planted order fires again after the attacker leaves",
+      "org": "arXiv",
+      "date": "2026-10-20",
+      "url": "https://arxiv.org/abs/2610.28425",
+      "summary": "CarryoverBench measures prompt injections that survive the session where they were planted and re-fire through an agent's scheduled heartbeat or long-term memory. The authors report no decay over five later rounds.",
+      "severity": "info",
+      "tags": [
+        "indirect-prompt-injection",
+        "agent-memory",
+        "evals",
+        "agent-security"
+      ],
+      "affected": [
+        "GPT-5.4",
+        "Claude Sonnet 4.6",
+        "Gemini 3.1 Pro",
+        "GLM-5",
+        "Qwen3-235B-A22B",
+        "Hermes"
+      ],
+      "credits": [
+        {
+          "name": "Zhiyue Xu"
+        },
+        {
+          "name": "Xukai Wang"
+        },
+        {
+          "name": "Zhiyuan Huang"
+        },
+        {
+          "name": "Mingjie Zhan"
+        },
+        {
+          "name": "Jian Zhao"
+        },
+        {
+          "name": "Xu-Yao Zhang"
+        }
+      ],
+      "explainer": {
+        "tagline": "A one-time injection planted in an agent's memory or schedule keeps firing in later sessions, the CarryoverBench authors report.",
+        "whatHappened": "CarryoverBench reached arXiv on October 20, 2026, from Zhiyue Xu and five co-authors, with code on GitHub and a note that the paper is accepted to the EMNLP 2026 main conference. The benchmark holds 12 personal-assistant scenarios and 101 attack tasks. Existing injection benchmarks test only the session in which malicious content first appears, which is the gap the authors set out to close.",
+        "howItWorks": "Carryover uses two kinds of agent state: long-lived memory files that get appended to the system prompt, and scheduled tasks that wake the agent with no user present. The benchmark separates three trigger channels, named Instant, Autonomous and Latent, and scores planting and triggering as two stages with a rule-based verifier. In the published repository the Autonomous channel writes to HEARTBEAT.md and the Latent channel to MEMORY.md.",
+        "whoIsAffected": "Five frontier models were measured and the spread is wide, from 11.9% overall attack success on GPT-5.4 to 63.4% on Qwen3-235B-A22B, with the per-model figures below. Plant rates drive most of that difference, because a planted payload usually fires once it is in place. Agents that keep memory files or run scheduled tasks are the exposed configuration.",
+        "whatToDo": "Treat agent memory files and scheduled-task files as untrusted input that needs review before it reaches the system prompt. The authors ported the Latent channel to the Hermes runtime and saw success rates fall without reaching zero, which they read as evidence that prompt-level defenses need runtime controls alongside them."
+      },
+      "quickFacts": [
+        {
+          "label": "Benchmark",
+          "value": "12 personal-assistant scenarios, 101 attack tasks"
+        },
+        {
+          "label": "Channels",
+          "value": "Instant, Autonomous via HEARTBEAT.md, Latent via MEMORY.md"
+        },
+        {
+          "label": "Models tested",
+          "value": "GPT-5.4, Claude-Sonnet-4.6, Gemini-3.1-Pro, GLM-5, Qwen3-235B-A22B"
+        },
+        {
+          "label": "Persistence",
+          "value": "No monotonic decay in trigger rates across five later rounds"
+        },
+        {
+          "label": "Venue",
+          "value": "Accepted to the EMNLP 2026 main conference"
+        },
+        {
+          "label": "Code",
+          "value": "Released at github.com/igloomatics/CarryoverBench"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which model resisted carryover attacks best in CarryoverBench?",
+          "a": "GPT-5.4 scored lowest in the benchmark at 11.9% overall attack success, followed by Claude-Sonnet-4.6 at 18.8%, GLM-5 at 27.7%, Gemini-3.1-Pro at 51.5% and Qwen3-235B-A22B at 63.4%. The authors attribute most of the gap to the planting stage, because once a payload is planted the trigger stage adds little protection."
+        },
+        {
+          "q": "Does a carryover payload weaken over later sessions?",
+          "a": "Trigger rates showed no monotonic decay across five follow-up rounds, the CarryoverBench authors report. Autonomous trigger rates for Qwen3 stayed around 70 to 77%, and Latent rates for Gemini held near 31 to 36% after the first round. GLM-5 was the exception, with a lower trigger rate than the other four models."
+        },
+        {
+          "q": "Does switching the agent runtime stop a carryover injection?",
+          "a": "Switching runtime reduced the effect without removing it. The authors re-ran the 36 Latent variants on Hermes, an open-source agent runtime from Nous Research, using the same models and the same verifier. Attack success fell for every model, with Qwen3 dropping from 52.8% to 27.8%, yet no model was fully protected."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Overall attack success rate, CarryoverBench",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders",
+          "results": [
+            {
+              "name": "GPT-5.4",
+              "score": 11.9
+            },
+            {
+              "name": "Claude-Sonnet-4.6",
+              "score": 18.8
+            },
+            {
+              "name": "Gemini-3.1-Pro",
+              "score": 51.5
+            },
+            {
+              "name": "GLM-5",
+              "score": 27.7
+            },
+            {
+              "name": "Qwen3-235B-A22B",
+              "score": 63.4
+            }
+          ],
+          "source": "https://arxiv.org/abs/2610.28425"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.28425"
+        },
+        {
+          "label": "CarryoverBench Code",
+          "url": "https://github.com/igloomatics/CarryoverBench"
+        }
+      ],
+      "publishDate": "2026-10-24T02:09:22.098Z"
+    },
     {
       "id": "mlflow-scorer-kwargs-ssrf",
       "categories": [
