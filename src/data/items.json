@@ -1,7 +1,300 @@
 {
-  "generatedAt": "2026-10-23T23:36:25.769Z",
+  "generatedAt": "2026-10-24T00:16:23.157Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "mlflow-scorer-kwargs-ssrf",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "MLflow: an unauthenticated scorer call makes the server fetch any URL",
+      "org": "MLflow",
+      "date": "2026-10-22",
+      "url": "https://github.com/mlflow/mlflow/security/advisories/GHSA-2wqp-q3c6-ccj5",
+      "summary": "MLflow's scorer invoke endpoint built an attacker-named class with unconstrained arguments and no authentication, letting an unauthenticated caller make the tracking server request any host with chosen headers. Fixed in 3.17.0.",
+      "severity": "medium",
+      "cve": "CVE-2026-115886",
+      "cvss": 6.5,
+      "tags": [
+        "evals",
+        "mlflow",
+        "ssrf"
+      ],
+      "affected": [
+        "MLflow",
+        "mlflow (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "Adam Jordan",
+          "url": "https://github.com/adamyordan"
+        }
+      ],
+      "explainer": {
+        "tagline": "MLflow's unauthenticated scorer endpoint built an attacker-named class with attacker-supplied arguments, then sent an outbound request.",
+        "whatHappened": "MLflow maintainers published advisory GHSA-2wqp-q3c6-ccj5 on 22 October 2026 for CVE-2026-115886, a server-side request forgery flaw in the tracking server. Adam Jordan is credited as the reporter. GitHub added the advisory to its database on 23 October, and the fix ships in MLflow 3.17.0.",
+        "howItWorks": "Scorer deserialization reads a class name and constructor arguments from JSON, and the allowlist checks only the import module path, not the class attribute or the arguments. For the trulens scorer, a model URI outside MLflow's native provider registry routes to a LiteLLM fallback branch that forwards raw arguments, including api_base and api_key, into litellm.completion(). An attacker therefore picks the destination host, headers and body of a request the server itself makes. The advisory notes the deserialization runs before any tracking-store lookup, and the route carries error-handling and artifacts-only decorators but no authentication decorator.",
+        "whoIsAffected": "Tracking servers running mlflow from 3.12.0rc0 up to 3.17.0 are exposed, but only where the optional trulens and trulens-providers-litellm packages are installed, which the advisory describes as a documented but not bundled setup. Servers reachable from untrusted networks are the practical concern, because the endpoint needs no authentication. The advisory rates confidentiality and integrity impact Low.",
+        "whatToDo": "Upgrade MLflow to 3.17.0, whose release notes describe the change as rejecting egress-steering kwargs in third-party scorer payloads. Where an upgrade has to wait, the advisory names the optional trulens and trulens-providers-litellm packages as the precondition, so removing them closes the described path."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "mlflow 3.12.0rc0 up to 3.17.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "MLflow 3.17.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-115886"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.5 (v3.1), Moderate"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unsafe reflection and SSRF, CWE-470 and CWE-918"
+        },
+        {
+          "label": "Precondition",
+          "value": "The optional trulens and trulens-providers-litellm packages installed"
+        },
+        {
+          "label": "Found by",
+          "value": "Adam Jordan, reported to the maintainers"
+        }
+      ],
+      "links": [
+        {
+          "label": "MLflow Advisory",
+          "url": "https://github.com/mlflow/mlflow/security/advisories/GHSA-2wqp-q3c6-ccj5"
+        },
+        {
+          "label": "GitHub Advisory DB",
+          "url": "https://github.com/advisories/GHSA-2wqp-q3c6-ccj5"
+        },
+        {
+          "label": "MLflow 3.17.0 Release",
+          "url": "https://github.com/mlflow/mlflow/releases/tag/v3.17.0"
+        }
+      ],
+      "publishDate": "2026-10-24T00:16:23.157Z"
+    },
+    {
+      "id": "brotli-node2shell-decoder-oob-write",
+      "categories": [
+        "vulnerability",
+        "research"
+      ],
+      "title": "Node2Shell: OpenAI's Codex Security team found a Brotli decoder RCE",
+      "org": "Node.js",
+      "date": "2026-10-21",
+      "url": "https://nodejs.org/en/blog/vulnerability/october-2026-security-releases",
+      "summary": "Node2Shell is an out-of-bounds write in the Brotli decoder that a crafted compressed stream can turn into remote code execution. OpenAI's Codex Security team reported it. Brotli, Node.js and the PyPI brotli packages are patched.",
+      "severity": "high",
+      "cve": "CVE-2026-111497",
+      "cvss": 9.2,
+      "tags": [
+        "cyber-capability",
+        "rce",
+        "openai",
+        "nodejs",
+        "brotli"
+      ],
+      "affected": [
+        "Brotli",
+        "Node.js",
+        "brotli (PyPI)",
+        "brotlicffi (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "Khai Tran",
+          "org": "OpenAI Codex Security"
+        },
+        {
+          "name": "Sylvie Mayer",
+          "org": "OpenAI Codex Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "Node2Shell is an out-of-bounds write in the Brotli decoder, reported by OpenAI's Codex Security team and patched across Brotli and Node.js.",
+        "whatHappened": "Node.js published a security release on 21 October 2026 that fixed CVE-2026-111497, an out-of-bounds write in the Brotli decoder. The advisory credits OpenAI Codex Security, naming Khai Tran and Sylvie Mayer, for reporting the flaw, and Node.js contributors mcollina and aduh95 for fixing it. Google released patched Brotli versions the same day, and the GitHub advisory covering the Brotli libraries followed on 22 October.",
+        "howItWorks": "An invalid block switch in a Brotli stream was reported as a temporary need for more input rather than a permanent format error. The streaming decoder therefore kept appending input bytes into an eight-byte internal buffer, writing past it and corrupting adjacent decoder state. Google's record classes the bug as CWE-787 and CWE-252, an out-of-bounds write following an unchecked return value. A remote, unauthenticated attacker reaches the path with a crafted compressed stream.",
+        "whoIsAffected": "Brotli 1.0.3 through 1.2.0 are affected, which pulls in Node.js 22.x, 24.x and 26.x and the brotli and brotlicffi packages on PyPI. Any application that decompresses untrusted Brotli input is in scope, which for Node.js means anything passing attacker-supplied data to node:zlib. Jan Schaumann wrote on the oss-security list that other Brotli consumers are affected too, citing an Envoy security advisory.",
+        "whatToDo": "Upgrade Brotli to 1.0.10, 1.1.1 or 1.2.1, and Node.js to 22.23.4, 24.22.1 or 26.12.1. Rebuild or repackage anything that bundles Brotli statically, and update brotli or brotlicffi on PyPI. Node.js publishes no workaround, so patching is the only remedy."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Brotli 1.0.3 to 1.2.0, Node.js 22.x, 24.x and 26.x, brotli and brotlicffi on PyPI"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Brotli 1.0.10, 1.1.1 and 1.2.1; Node.js 22.23.4, 24.22.1 and 26.12.1"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-111497"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.2 (v4.0), Critical, assigned by Google"
+        },
+        {
+          "label": "Attack type",
+          "value": "Out-of-bounds write, CWE-787 and CWE-252"
+        },
+        {
+          "label": "Found by",
+          "value": "Khai Tran and Sylvie Mayer, OpenAI Codex Security"
+        },
+        {
+          "label": "Disclosed",
+          "value": "21 October 2026, in the Node.js security release"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Node.js patched against the Brotli decoder flaw?",
+          "a": "Node.js shipped fixes on 21 October 2026 in versions 22.23.4, 24.22.1 and 26.12.1, covering CVE-2026-111497 in all three supported release lines. The Node.js advisory lists no workaround, so upgrading is the only remedy. End-of-life lines are always affected by a security release, so unsupported branches stay exposed."
+        },
+        {
+          "q": "Which Brotli versions are affected by CVE-2026-111497?",
+          "a": "Google Brotli 1.0.3 through 1.2.0 are affected, and the fixed releases are 1.0.10, 1.1.1 and 1.2.1. On PyPI the brotli package is affected below 1.2.1 and brotlicffi below 1.2.1.0. Google is the assigning CNA and rates the flaw 9.2 on CVSS v4.0, while the Node.js advisory rates its own exposure High."
+        },
+        {
+          "q": "How did OpenAI find the Brotli vulnerability?",
+          "a": "Node.js credits OpenAI Codex Security, naming Khai Tran and Sylvie Mayer, for reporting the flaw. The Node.js advisory does not describe the method they used, and OpenAI's own write-up could not be retrieved for this item, so no discovery detail is claimed here. Google's Brotli 1.2.1 release notes list the CVE without naming a reporter."
+        },
+        {
+          "q": "Am I exposed if my application does not use Node.js?",
+          "a": "Any software that decompresses untrusted Brotli data with a vulnerable Brotli build is exposed, not only Node.js. On the oss-security list, Jan Schaumann noted that other Brotli consumers are affected, cited an Envoy security advisory, and suggested OpenSSL could be affected where it processes Brotli-compressed certificates. Schaumann also warned that some distributions rated the flaw only medium priority."
+        },
+        {
+          "q": "What does the Brotli decoder flaw actually corrupt?",
+          "a": "The Brotli decoder treated an invalid block switch as a temporary need for more input instead of a permanent format error, per the Node.js advisory. The streaming decoder then kept appending input bytes to an eight-byte internal buffer, corrupting adjacent decoder state. Outcomes named by the advisories are a crash, disclosure of process memory, and remote code execution."
+        }
+      ],
+      "links": [
+        {
+          "label": "Node.js Advisory",
+          "url": "https://nodejs.org/en/blog/vulnerability/october-2026-security-releases"
+        },
+        {
+          "label": "Brotli Advisory",
+          "url": "https://github.com/advisories/GHSA-9v8h-qqgm-4m35"
+        },
+        {
+          "label": "Brotli 1.2.1 Release",
+          "url": "https://github.com/google/brotli/releases/tag/v1.2.1"
+        },
+        {
+          "label": "OSS-Security Thread",
+          "url": "https://www.openwall.com/lists/oss-security/2026/10/23/25"
+        }
+      ],
+      "publishDate": "2026-10-24T00:16:23.157Z"
+    },
+    {
+      "id": "fastmcp-m2m-oauth-issuer-binding",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "FastMCP: an MCP server could redirect a client's OAuth secret",
+      "org": "FastMCP",
+      "date": "2026-10-20",
+      "url": "https://github.com/PrefectHQ/fastmcp/security/advisories/GHSA-vqqp-x5qm-5qp4",
+      "summary": "FastMCP's machine-to-machine OAuth providers did not pin the issuer that owns their credentials, so an untrusted MCP server could advertise its own authorization server and receive the client secret. Fixed in 4.1.2.",
+      "severity": "medium",
+      "cvss": 5.9,
+      "tags": [
+        "mcp",
+        "credential-theft",
+        "fastmcp",
+        "oauth"
+      ],
+      "affected": [
+        "FastMCP",
+        "fastmcp (PyPI)",
+        "fastmcp-slim (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "Leroy H. Mason",
+          "url": "https://github.com/LHMisme420"
+        }
+      ],
+      "explainer": {
+        "tagline": "FastMCP's machine-to-machine OAuth providers never pinned the issuer, so a hostile MCP server could choose who receives the client secret.",
+        "whatHappened": "FastMCP maintainers published advisory GHSA-vqqp-x5qm-5qp4 on 20 October 2026, reporting that two client-side OAuth providers would send pre-registered credentials to whichever authorization server an MCP server advertised. The reporter, credited on the advisory as LHMisme420, built a proof of concept using an attacker MCP server whose RFC 9728 metadata pointed at an attacker-controlled token endpoint. GitHub added the advisory to its database on 23 October, and no CVE is assigned.",
+        "howItWorks": "ClientCredentialsOAuthProvider and PrivateKeyJWTOAuthProvider accepted a client id and secret but exposed no issuer, so a provider bound only to the MCP server URL and then trusted that server's OAuth metadata discovery. A malicious or compromised MCP server could advertise its own authorization server, and the client would post the secret there in a Basic auth header. The reporter notes the underlying MCP SDK extension already supported an issuer parameter that FastMCP's wrappers neither accepted nor forwarded. Signing keys stay local, so for the private-key provider the exposure is a signed assertion rather than the key itself.",
+        "whoIsAffected": "Applications on fastmcp or fastmcp-slim 4.0.0a1 through 4.1.1 that use the two machine-to-machine OAuth providers to reach MCP server URLs they do not fully control. FastMCP 3.x never shipped these wrappers and is not affected. The advisory lists misconfigured MCP URLs in Prefect agent configuration, unvalidated user-supplied URLs, and a compromised legitimate or SaaS MCP provider as the exposed cases.",
+        "whatToDo": "Upgrade to FastMCP 4.1.2, then set the new issuer parameter to the authorization server that issued the credentials: the advisory and the release notes both state that upgrading alone is insufficient. Rotate any client secret or reusable credential that may have reached an untrusted endpoint. Omitting issuer still works but now emits MCPDeprecationWarning."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "fastmcp and fastmcp-slim 4.0.0a1 up to 4.1.2, covering stable 4.0.0 to 4.1.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "FastMCP 4.1.2, released 20 October 2026, which also requires MCP SDK 2.2.0"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        },
+        {
+          "label": "CVSS",
+          "value": "5.9 (v3.1), Moderate"
+        },
+        {
+          "label": "Attack type",
+          "value": "Improper authentication, CWE-287 and CWE-522"
+        },
+        {
+          "label": "Extra step",
+          "value": "Upgrading alone is not enough: set the issuer parameter"
+        },
+        {
+          "label": "Found by",
+          "value": "Reported to the maintainers, credited as LHMisme420"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which FastMCP versions are affected by the OAuth issuer flaw?",
+          "a": "FastMCP and fastmcp-slim from 4.0.0a1 up to 4.1.2 are affected, which covers stable releases 4.0.0 through 4.1.1. The wrappers were introduced in 4.0.0a1, so FastMCP 3.x does not include them and is not affected. Only the ClientCredentialsOAuthProvider and PrivateKeyJWTOAuthProvider machine-to-machine providers are in scope, not FastMCP servers."
+        },
+        {
+          "q": "Is upgrading FastMCP to 4.1.2 enough to fix the OAuth flaw?",
+          "a": "Upgrading to FastMCP 4.1.2 is not sufficient on its own. The advisory and the 4.1.2 release notes both say users of the two machine-to-machine providers must set the new issuer parameter to the identifier of the authorization server that issued their credentials. Omitting issuer remains supported for compatibility but emits an MCPDeprecationWarning instead of enforcing the binding."
+        },
+        {
+          "q": "Should I rotate credentials after the FastMCP OAuth advisory?",
+          "a": "Rotate any client secret or reusable credential that may have reached an untrusted endpoint, as the FastMCP advisory advises. Release 4.1.2 also discards refresh credentials from reloaded tokens, which could otherwise be sent before issuer discovery, and isolates cached tokens by configured issuer. Valid cached access tokens for the same issuer stay usable until they expire."
+        }
+      ],
+      "links": [
+        {
+          "label": "FastMCP Advisory",
+          "url": "https://github.com/PrefectHQ/fastmcp/security/advisories/GHSA-vqqp-x5qm-5qp4"
+        },
+        {
+          "label": "GitHub Advisory DB",
+          "url": "https://github.com/advisories/GHSA-vqqp-x5qm-5qp4"
+        },
+        {
+          "label": "FastMCP 4.1.2 Release",
+          "url": "https://github.com/PrefectHQ/fastmcp/releases/tag/v4.1.2"
+        }
+      ],
+      "publishDate": "2026-10-24T00:16:23.157Z"
+    },
     {
       "id": "strands-agents-a2a-session-crossover",
       "categories": [
@@ -2227,7 +2520,7 @@
       "org": "Socket",
       "date": "2026-10-21",
       "url": "https://socket.dev/blog/litellm-compromise",
-      "summary": "LiteLLM 1.107.0 on PyPI shipped a credential stealer in all seven wheels and in the v1.107.0 container images, Socket and JFrog report. PyPI quarantined the release; anyone who installed it should rotate every reachable secret.",
+      "summary": "LiteLLM 1.107.0 on PyPI shipped a credential stealer in all seven wheels and in the v1.107.0 container images, Socket and JFrog report. Socket now dates the intrusion to October 10, 11 days before the release.",
       "severity": "critical",
       "tags": [
         "malicious-package",
@@ -2319,6 +2612,10 @@
         {
           "label": "Socket Analysis",
           "url": "https://socket.dev/blog/litellm-compromise"
+        },
+        {
+          "label": "Socket Timeline",
+          "url": "https://socket.dev/blog/litellm-attack-timeline"
         },
         {
           "label": "JFrog Analysis",

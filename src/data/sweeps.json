@@ -10926,6 +10926,86 @@
         "msrc.microsoft.com"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261024t001623z",
+      "timestamp": "2026-10-24T00:16:23.157Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, Node.js security releases, the Brotli and MLflow and FastMCP advisories, embracethered.com, Simon Willison, AIR Security, Anthropic, Zenity Labs, OWASP GenAI, UK AISI, MSRC, Hugging Face, Socket, Unit 42, GitHub trending, repo-scan (2 candidates, both out of scope) and Hacker News. Added three disclosures inside the window: the Brotli decoder out-of-bounds write reported by OpenAI Codex Security, an unauthenticated SSRF in MLflow's scorer endpoint, and a missing OAuth issuer binding in FastMCP's machine-to-machine client providers. paper-scan was rate-limited by arXiv (2 of 9 queries ran) and its 3 candidates showed no second signal, so no paper qualified; talk-scan found no AI security conference talk above the view bar. The vLLM mm_processor_kwargs advisory was left out because its original disclosure date is 6 October, outside the window, and the AISI alignment-failure post is already a link on the existing Anthropic and AISI item.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "brotli-node2shell-decoder-oob-write",
+          "title": "Node2Shell: OpenAI's Codex Security team found a Brotli decoder RCE",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "A critical out-of-bounds write in a library almost every stack ships, disclosed inside the window, and found by an AI lab's security team: the same AI-assisted discovery beat the feed already tracks for Wiz, XBOW and Anthropic."
+        },
+        {
+          "id": "mlflow-scorer-kwargs-ssrf",
+          "title": "MLflow: an unauthenticated scorer call makes the server fetch any URL",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Unauthenticated SSRF reaching internal services and cloud metadata from a GenAI eval server, with an official CVE and CVSS and a named reporter."
+        },
+        {
+          "id": "fastmcp-m2m-oauth-issuer-binding",
+          "title": "FastMCP: an MCP server could redirect a client's OAuth secret",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A distinct flaw from the FastMCP transform bypass already in the feed: client-side credential disclosure, different CWEs, and a fix that needs a config change beyond the upgrade."
+        }
+      ],
+      "updated": [
+        {
+          "id": "socket-litellm-1-107-0-compromise",
+          "title": "LiteLLM 1.107.0: backdoored wheels steal cloud and AI keys",
+          "note": "Socket published new evidence on 23 October 2026: secret-stealing workflows ran in the BerriAI/litellm repository on 10 and 12 October, 11 days before the malicious release, so the access window is far wider than the original report showed."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "nodejs.org security releases",
+        "google/brotli releases",
+        "OpenCVE",
+        "oss-security (openwall.com)",
+        "mlflow/mlflow security advisories",
+        "PrefectHQ/fastmcp security advisories",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "anthropic.com/news",
+        "labs.zenity.io",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "microsoft.com/msrc blog",
+        "huggingface.co/blog",
+        "socket.dev/blog",
+        "unit42.paloaltonetworks.com",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv, Hugging Face Daily Papers)",
+        "talk-scan (YouTube channels)",
+        "Hacker News"
+      ],
+      "windowDays": 7
     }
   ]
 }
