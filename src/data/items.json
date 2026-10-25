@@ -1,7 +1,104 @@
 {
-  "generatedAt": "2026-10-25T05:20:54.949Z",
+  "generatedAt": "2026-10-25T10:01:10.869Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "sekoia-flowise-honeypot",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "Sekoia honeypot: an attacker turned an exposed Flowise agent into a recon tool",
+      "org": "Sekoia",
+      "date": "2026-10-19",
+      "url": "https://www.sekoia.com/blog/a-honeypots-tale-deconstructing-an-attack-on-genai-infrastructure",
+      "summary": "An attacker found Sekoia's unauthenticated Flowise honeypot, took the stored OpenAI, Anthropic and Postgres credentials, then used the agent itself to plan attacks on a gambling network, Sekoia's threat research team reports.",
+      "severity": "info",
+      "tags": [
+        "threat-intel",
+        "ai-enabled-offense",
+        "credential-theft",
+        "prompt-injection",
+        "flowise"
+      ],
+      "affected": [
+        "Flowise",
+        "LLM agent platforms"
+      ],
+      "credits": [
+        {
+          "name": "Jérémy Scion",
+          "org": "Sekoia"
+        },
+        {
+          "name": "Sekoia TDR Team",
+          "org": "Sekoia"
+        }
+      ],
+      "explainer": {
+        "tagline": "Sekoia's Flowise honeypot shows an attacker treating an exposed AI agent platform as both a credential store and an offensive assistant.",
+        "whatHappened": "Sekoia's Threat Detection and Research team ran a honeypot that emulated Flowise, an open-source visual builder for LLM agents. An actor found the unauthenticated instance in late August 2026 and worked through six phases, from a three-minute burst of fingerprinting and credential theft to polling the instance every 10 minutes. Jérémy Scion and the TDR team published the analysis on October 19, 2026, after first sending it to customers as a private report on September 7, 2026.",
+        "howItWorks": "No software flaw was exploited. The instance asked for no authentication, so the actor called Flowise's own REST API to enumerate chatflows and read stored credentials, then built a chatflow holding an HTTP Request node that made the server call back to attacker infrastructure. Sekoia classes that callback as abuse of a legitimate outbound-request feature rather than server-side request forgery. Against the agent itself the actor tried system prompt extraction, multi-turn memory poisoning with a planted access code, and a system message override, and fed it real reconnaissance data to generate exploitation playbooks.",
+        "whoIsAffected": "Any internet-facing Flowise instance that runs without authentication is exposed, and so is everything the platform holds. Sekoia warns that protecting API keys alone is not enough, because a platform wired into a retrieval pipeline also exposes the data behind it.",
+        "whatToDo": "Require strong authentication and strict permission boundaries on any Flowise or comparable agent builder, monitor its outbound connections, and give each agent only the credentials it needs. Instances on flowise 3.0.13 or earlier should also move to 3.1.0, which fixes the critical CSV Agent prompt-injection code execution flaw listed below."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Internet-facing Flowise instances that run without authentication"
+        },
+        {
+          "label": "Honeypot",
+          "value": "Emulated Flowise 2.2.8 REST API, seeded with canary credentials"
+        },
+        {
+          "label": "Credentials taken",
+          "value": "OpenAI and Anthropic API keys, plus simulated production Postgres details"
+        },
+        {
+          "label": "Callback",
+          "value": "154.217.251[.]226:19999/flowise-hb, from a chatflow named System Status"
+        },
+        {
+          "label": "Attack type",
+          "value": "Credential theft from the platform, then LLM abuse for reconnaissance"
+        },
+        {
+          "label": "Found by",
+          "value": "Jérémy Scion and the Sekoia TDR team"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Was a Flowise vulnerability exploited in the Sekoia honeypot attack?",
+          "a": "Sekoia reports no software exploitation. The honeypot asked for no authentication, so the actor used Flowise's own REST API and node types to read credentials and create a callback chatflow. Sekoia notes the behaviour resembles CVE-2024-31621 but says that flaw was fixed in Flowise 1.6.6 and does not affect the emulated version, so it is cited only to describe what was observed."
+        },
+        {
+          "q": "How can I tell whether my Flowise instance was probed the same way?",
+          "a": "Sekoia publishes indicators defenders can search for: a chatflow named System Status, outbound requests to the callback address listed above, an injected session ID of tame-session-001, and a planted access code of TAME-2026-SECRET-7F3A. Reviewing access logs for enumeration of the chatflows and credentials API endpoints is the other practical check."
+        },
+        {
+          "q": "Who was behind the Flowise honeypot activity?",
+          "a": "Sekoia assesses with high confidence that the operator is a fluent, likely native Chinese speaker familiar with gambling slang, acting for opportunistic cybercrime rather than as a bespoke state actor. Sekoia does not attribute the activity to a named group, though it notes sector overlap with Earth Berberoka and Operation Dragon Castling. The targets named were a Nightingale monitoring server and an iGaming cluster."
+        }
+      ],
+      "links": [
+        {
+          "label": "Sekoia Analysis",
+          "url": "https://www.sekoia.com/blog/a-honeypots-tale-deconstructing-an-attack-on-genai-infrastructure"
+        },
+        {
+          "label": "Flowise CSV Agent RCE",
+          "url": "https://github.com/advisories/GHSA-3hjv-c53m-58jj"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/69b190e7f47e4c44b0ee07d8/6acf8f61fcffd41c1d7c8ef2_blog-a-honeypots-tale-deconstructing-an-attack-on-genai-infrastructure-img-cover%20(1).webp",
+        "alt": "Cover image for Sekoia's analysis of an attack on GenAI infrastructure",
+        "credit": "Sekoia"
+      },
+      "publishDate": "2026-10-25T10:01:10.869Z"
+    },
     {
       "id": "microsoft-azure-ai-foundry-ssrf",
       "categories": [
