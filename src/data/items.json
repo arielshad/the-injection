@@ -1,7 +1,101 @@
 {
-  "generatedAt": "2026-10-25T10:01:10.869Z",
+  "generatedAt": "2026-10-25T14:13:10.645Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "firecrawl-playwright-ssrf-dns-rebinding",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Firecrawl: a DNS rebinding bypass sends its scraper to internal services",
+      "org": "Firecrawl",
+      "date": "2026-10-20",
+      "url": "https://github.com/firecrawl/firecrawl/issues/5256",
+      "summary": "Firecrawl before 2.11.586 let an authenticated API caller reach internal services and cloud metadata, because its Playwright SSRF proxy checked a hostname's address and then resolved the hostname again at connect time.",
+      "severity": "high",
+      "tags": [
+        "data-exfiltration",
+        "agent-security",
+        "firecrawl"
+      ],
+      "affected": [
+        "Firecrawl"
+      ],
+      "cve": "CVE-2026-116066",
+      "cvss": 7,
+      "credits": [
+        {
+          "name": "carfeii",
+          "url": "https://github.com/carfeii"
+        }
+      ],
+      "explainer": {
+        "tagline": "Firecrawl's scraper could be pointed at a deployment's internal network with a DNS record that changed between the check and the connection.",
+        "whatHappened": "Server-side request forgery in Firecrawl's Playwright service was reported by the GitHub user carfeii on October 20, 2026, in issue 5256 on the project's repository. Firecrawl merged a fix into its main branch the next day, and NVD and the GitHub Advisory Database published the flaw as CVE-2026-116066 on October 25. The reporter's GitHub profile describes the account as a machine account maintained by a human, exploring how vulnerability discovery and disclosure will work in future.",
+        "howItWorks": "DNS rebinding is the technique. Firecrawl's SSRF proxy resolved a target hostname once in isInternalHost to decide whether the address was internal, and the proxy-chain library then resolved the same hostname again when it opened the connection. An attacker who controls DNS for a submitted hostname can answer the first lookup with a public address and the second with a private one, which the reporter says a record with a time to live of zero achieves. Firecrawl's separate safeFetch helper avoids the gap by checking the socket's remote address at connect time.",
+        "whoIsAffected": "Deployments running a Firecrawl version before 2.11.586 are affected, and the advisory records the flaw against the project rather than a published package. Any authenticated API caller, including a free-tier account, could reach loopback addresses, cloud metadata endpoints and other services on the deployment's network, and read the responses. Firecrawl describes itself in its README as the context API for AI agents, and can be self-hosted.",
+        "whatToDo": "Update Firecrawl to 2.11.586 or later, the first version the advisory lists as fixed. Operators who set PROXY_SERVER should note that the fix pins no lookup on that path, so the upstream proxy has to enforce its own egress policy. Review scrape logs for submitted hostnames that resolved to internal or metadata addresses."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Firecrawl before 2.11.586"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.11.586 per the advisory, merged as commit 5e74ff3 on October 21, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-116066, CVSS 7.0 high (NVD)"
+        },
+        {
+          "label": "Attack type",
+          "value": "SSRF protection bypass by DNS rebinding (CWE-918)"
+        },
+        {
+          "label": "Found by",
+          "value": "carfeii, reported October 20, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed in main; CVE published October 25, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my Firecrawl deployment affected by CVE-2026-116066?",
+          "a": "Firecrawl deployments running a version before 2.11.586 are affected. The flaw sits in the Playwright service that renders pages for the scrape API, so a deployment that uses that service is exposed. The reporter wrote that any authenticated API caller, including a free-tier account, could use the bypass to reach internal addresses on the deployment's network and read the responses."
+        },
+        {
+          "q": "How do I fix the Firecrawl SSRF bypass?",
+          "a": "Updating to Firecrawl 2.11.586, the first version the advisory lists as fixed, closes the bypass. The merged fix resolves a target hostname once, rejects non-unicast addresses and pins the connection to the address it checked. Operators who set PROXY_SERVER get no pinned lookup on that path, so the upstream proxy must enforce its own egress policy."
+        },
+        {
+          "q": "What could an attacker reach through the Firecrawl flaw?",
+          "a": "Cloud metadata endpoints, loopback addresses and other services on the Firecrawl deployment's network were reachable, and the responses came back through the scrape API. The GitHub Advisory Database describes the impact as retrieval of cloud metadata and internal resources. Reaching any of it required the attacker to control DNS for a hostname submitted to the scrape API."
+        },
+        {
+          "q": "Did Firecrawl's existing SSRF protection not stop this?",
+          "a": "Firecrawl had already hardened the Playwright service against SSRF, and the reported issue is titled as a bypass of that hardening. The proxy checked whether a hostname resolved to an internal address, but did not hold the connection to the address it had checked. A separate helper in the same codebase, safeFetch, already validated the socket's remote address at connect time."
+        }
+      ],
+      "links": [
+        {
+          "url": "https://github.com/firecrawl/firecrawl/issues/5256",
+          "label": "Issue Report"
+        },
+        {
+          "url": "https://github.com/advisories/GHSA-xmmq-vp8j-m5qf",
+          "label": "GitHub Advisory"
+        },
+        {
+          "url": "https://github.com/firecrawl/firecrawl/pull/5261",
+          "label": "Fix Pull Request"
+        }
+      ],
+      "publishDate": "2026-10-25T14:13:10.645Z"
+    },
     {
       "id": "sekoia-flowise-honeypot",
       "categories": [
