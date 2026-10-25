@@ -11599,6 +11599,62 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261025t052054z",
+      "timestamp": "2026-10-25T05:20:54.949Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (including an MCP-filtered search), github.com/trending, Hacker News and Show HN, Socket, Aikido, AIR Security, Zenity Labs, Wiz, Unit 42, Trail of Bits, JFrog, ReversingLabs, Check Point, HiddenLayer, Embrace The Red, Simon Willison, Anthropic news, Hugging Face blog, UK AISI, MSRC, the Google security blog, paper-scan (52 arXiv candidates), talk-scan (46 videos) and repo-scan (13 queries, 0 candidates); nothing inside the 7-day window met the bar. Four advisory-database entries that looked new were ingestion dates over original disclosures outside the window (obsidian-tc CVE-2026-77363 from July 3, Storybook CVE-2026-114125 from October 12, the MCP TypeScript SDK set from October 15, envoyproxy/ai-gateway from October 7), the in-window MCP advisories that remained (Trigger.dev CVE-2026-114090, IBM ContextForge CVE-2026-8355, mcp-from-openapi CVE-2026-115751, Zylon PrivateGPT CVE-2026-116000) name no researcher anywhere I could fetch, and the Socket LiteLLM timeline and Aikido HTTP2Shell analyses are already cited in the existing items.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "GitHub advisories MCP search",
+        "github.com/trending",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "socket.dev/blog",
+        "aikido.dev/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "blog.trailofbits.com",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com/innovation-hub",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "huggingface.co/blog",
+        "aisi.gov.uk/work",
+        "msrc.microsoft.com/blog",
+        "blog.google/security",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers via paper-scan",
+        "YouTube channels via talk-scan",
+        "repo-scan.json"
+      ],
+      "windowDays": 7
     }
   ]
 }
