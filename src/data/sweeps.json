@@ -11516,6 +11516,89 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261025t002006z",
+      "timestamp": "2026-10-25T00:20:06.026Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (AI, MCP and agent queries), Red Hat, MSRC, Anthropic news and Frontier Red Team, UK AISI, CAISI, OWASP GenAI, Embrace The Red, Simon Willison, AIR Security, Wiz, Socket, JFrog, Trail of Bits, HiddenLayer, CrowdStrike, Check Point, ReversingLabs, Datadog, Pillar, Straiker, NCC Group, Lakera, Invariant Labs, ZDI, VulnCheck, OSV, Hacker News, github.com/trending, Hugging Face papers and blog, repo-scan (13 queries, 0 candidates) and talk-scan (22 channels, 42 videos); added two vendor advisories first made public inside the window. Most CVE records published to NVD and the GitHub Advisory Database this week were backfill of older disclosures (Storybook 12 Oct, MCP TypeScript SDK 2 and 5 Oct, envoyproxy ai-gateway 7 Oct, CrewAI 16 Sep, obsidian-tc 26 Sep, IBM ContextForge 31 Aug, Agent Zero 22 Jan) and were left out under the original-disclosure-date rule, DB-GPT CVE-2026-77932 is already covered by the existing Lasso item, no repo or paper met its bar (6 of 9 arXiv paper-scan queries hit HTTP 429, and no Hugging Face paper reached 20 upvotes), and the only high-view talks retell the PHP2Shell story the feed already carries.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "redhat-openshift-ai-eval-job-credential-ssrf",
+          "title": "Red Hat OpenShift AI: an eval job's model URL leaks the tenant's API key",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Red Hat made the CVE public on 21 October 2026 and credits its own Product Security audit, and the flaw hands a tenant's model provider key to an attacker-named URL with no fix for the 3.4 line."
+        },
+        {
+          "id": "microsoft-azure-ai-foundry-ssrf",
+          "title": "Azure AI Foundry: Microsoft fixes a request forgery flaw server side",
+          "category": "vulnerability",
+          "severity": "low",
+          "note": "Microsoft first disclosed the flaw in a named AI platform on 22 October 2026, which is inside the window, and rated low here because Microsoft states it is already fully mitigated with no customer action."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Red Hat Customer Portal",
+        "Red Hat Bugzilla",
+        "Microsoft Security Response Center",
+        "Microsoft Security Blog",
+        "Zero Day Initiative",
+        "VulnCheck advisories",
+        "OSV",
+        "Lasso Security vulnerability database",
+        "IBM support bulletins",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "UK AI Security Institute",
+        "US CAISI",
+        "OWASP GenAI Security Project",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "Wiz Research",
+        "Socket",
+        "JFrog Security Research",
+        "Trail of Bits",
+        "HiddenLayer",
+        "CrowdStrike",
+        "Check Point Research",
+        "ReversingLabs",
+        "Datadog Security Labs",
+        "Pillar Security",
+        "Straiker STAR Labs",
+        "NCC Group",
+        "Lakera",
+        "Invariant Labs",
+        "Hacker News",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "huggingface.co/papers",
+        "huggingface.co/blog",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

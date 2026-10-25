@@ -1,7 +1,161 @@
 {
-  "generatedAt": "2026-10-24T22:13:37.463Z",
+  "generatedAt": "2026-10-25T00:20:06.026Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "microsoft-azure-ai-foundry-ssrf",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Azure AI Foundry: Microsoft fixes a request forgery flaw server side",
+      "org": "Microsoft",
+      "date": "2026-10-22",
+      "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108456",
+      "summary": "Microsoft published CVE-2026-108456 on 22 October 2026, a server-side request forgery flaw in Azure AI Foundry that it scores 7.7. Microsoft states the hosted service is already fully mitigated and that customers need take no action.",
+      "severity": "low",
+      "cve": "CVE-2026-108456",
+      "cvss": 7.7,
+      "tags": [
+        "privilege-escalation",
+        "azure-ai-foundry",
+        "microsoft"
+      ],
+      "affected": [
+        "Azure AI Foundry"
+      ],
+      "credits": [
+        {
+          "name": "Microsoft Security Response Center",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-108456 is a server-side request forgery flaw in Azure AI Foundry that Microsoft says it has already fixed in the service.",
+        "whatHappened": "Microsoft disclosed CVE-2026-108456 in its 2026-Oct security update release on 22 October 2026, naming Azure AI Foundry, its platform for building and hosting AI applications. Microsoft is the assigning authority for the record and reports that the flaw was neither publicly disclosed nor exploited before the advisory. No outside researcher is named.",
+        "howItWorks": "Microsoft classes the weakness as CWE-918, server-side request forgery, and describes the effect as allowing an authorized attacker to elevate privileges over a network. The published vector, AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N, describes a caller who already holds low privileges and needs no user interaction, with high impact on confidentiality, none on integrity or availability, and a change of scope. Microsoft publishes no further technical detail, so the request path and the endpoints it could reach are not described.",
+        "whoIsAffected": "Azure AI Foundry is the only product named, and the advisory lists no affected or patched version numbers because the service is hosted by Microsoft. Microsoft's own severity label on the record reads Critical even though the CVSS base score it publishes is 7.7, with a temporal score of 6.7.",
+        "whatToDo": "No customer action is required, because the advisory's FAQ states the flaw has already been fully mitigated by Microsoft. Treat this record as an inventory note for teams that track Azure AI Foundry, not as patching work."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Azure AI Foundry, the hosted service; no versions listed"
+        },
+        {
+          "label": "Status",
+          "value": "Microsoft states it is already fully mitigated, with no customer action required"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-108456"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.7 (v3.1) base and 6.7 temporal, assigned by Microsoft, which labels the record Critical"
+        },
+        {
+          "label": "Attack type",
+          "value": "Server-side request forgery leading to elevation of privilege, CWE-918"
+        },
+        {
+          "label": "Disclosed",
+          "value": "22 October 2026, in the 2026-Oct release; Microsoft reports no prior public disclosure or exploitation"
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Advisory",
+          "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108456"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-8v83-jpwp-qqr9"
+        }
+      ],
+      "publishDate": "2026-10-25T00:20:06.026Z"
+    },
+    {
+      "id": "redhat-openshift-ai-eval-job-credential-ssrf",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Red Hat OpenShift AI: an eval job's model URL leaks the tenant's API key",
+      "org": "Red Hat",
+      "date": "2026-10-21",
+      "url": "https://access.redhat.com/security/cve/CVE-2026-17557",
+      "summary": "Red Hat OpenShift AI 3.4 lets any user who can submit an evaluation job send the tenant's model API key to a server the user names. The lm-evaluation-harness adapter never checked the job's model URL. Red Hat fixed it in RHOAI 3.5.",
+      "severity": "medium",
+      "cve": "CVE-2026-17557",
+      "cvss": 6.5,
+      "tags": [
+        "credential-theft",
+        "evals",
+        "red-hat",
+        "openshift-ai"
+      ],
+      "affected": [
+        "Red Hat OpenShift AI",
+        "lm-evaluation-harness"
+      ],
+      "credits": [
+        {
+          "name": "Red Hat Product Security",
+          "org": "Red Hat"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-17557 lets an OpenShift AI evaluation job send the tenant's model API key to any URL the submitter names.",
+        "whatHappened": "Red Hat made CVE-2026-17557 public on 21 October 2026, a flaw in the lm-evaluation-harness component of Red Hat OpenShift AI. A Red Hat Product Security audit found it during an internal review tracked as Glasswing and filed it in the product's bug tracker on 27 July 2026. Red Hat rates the flaw Moderate, with a CVSS base score of 6.5.",
+        "howItWorks": "The EvalHub adapter builds the completions URL from the model.url field of the evaluation job spec, with no allow-list for the host or scheme and no block on internal addresses. Red Hat's job exports the tenant's model API key as OPENAI_API_KEY and sends it to that URL as a Bearer token. A user who can submit a job can therefore point the request at a listener they control and collect the credential, or aim it at internal and link-local endpoints reachable from the evaluation pod for blind server-side request forgery.",
+        "whoIsAffected": "Red Hat states the flaw is specific to Red Hat OpenShift AI 3.4 and its odh-ta-lmes-job-rhel9 package, used with eval-hub. Exploitation needs an authenticated account that is allowed to submit an evaluation job, so the exposure sits with tenants and insiders rather than anonymous callers. Red Hat's record lists the fix state for the 3.4 package itself as deferred.",
+        "whatToDo": "Move to Red Hat OpenShift AI 3.5, which Red Hat says addresses the issue through an architectural change, because its record names no fix for 3.4 and no mitigation. Until that upgrade lands, restrict who may submit evaluation jobs and rotate any model provider key that a 3.4 evaluation job could read."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Red Hat OpenShift AI 3.4, lm-evaluation-harness EvalHub adapter, package odh-ta-lmes-job-rhel9"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Red Hat OpenShift AI 3.5, by an architectural change; fix deferred for the 3.4 package"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-17557"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.5 (v3.1), Moderate, assigned by Red Hat and marked draft"
+        },
+        {
+          "label": "Attack type",
+          "value": "Server-side request forgery with Bearer credential forwarding, CWE-918"
+        },
+        {
+          "label": "Found by",
+          "value": "A Red Hat Product Security audit, tracked internally as Glasswing"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Filed 27 July 2026, made public 21 October 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "Red Hat Advisory",
+          "url": "https://access.redhat.com/security/cve/CVE-2026-17557"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-xphj-jg67-vf2w"
+        },
+        {
+          "label": "Red Hat Bugzilla",
+          "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2507452"
+        }
+      ],
+      "publishDate": "2026-10-25T00:20:06.026Z"
+    },
     {
       "id": "hirundo-qwen3-coder-client-identity",
       "categories": [
