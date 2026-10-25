@@ -1,7 +1,89 @@
 {
-  "generatedAt": "2026-10-25T17:50:44.755Z",
+  "generatedAt": "2026-10-25T20:18:50.692Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "leon-download-model-path-traversal",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Leon: a crafted model URL writes files outside the assistant's folder",
+      "org": "VulnCheck",
+      "date": "2026-10-25",
+      "url": "https://www.vulncheck.com/advisories/leon-before-commit-50df142-path-traversal-via-download-model-command",
+      "summary": "Leon's /download model command decoded percent-encoded separators after stripping the path, so a crafted link wrote files outside the models folder. VulnCheck published CVE-2026-116073 on 25 October, two days after the fix merged.",
+      "severity": "medium",
+      "cve": "CVE-2026-116073",
+      "cvss": 6.9,
+      "tags": [
+        "agent-security",
+        "leon"
+      ],
+      "affected": [
+        "Leon"
+      ],
+      "credits": [
+        {
+          "name": "George Chen"
+        }
+      ],
+      "explainer": {
+        "tagline": "Leon's built-in model download command could write attacker-supplied files anywhere the assistant can write, fixed on 23 October 2026.",
+        "whatHappened": "A public issue in the leon-ai/leon repository on 17 October 2026 reported that Leon's /download model command could write files outside its models directory. A contributor reproduced the flaw on the develop branch the same day and opened a fix, which the maintainer merged on 23 October 2026. VulnCheck published CVE-2026-116073 for it on 25 October 2026 and credits George Chen.",
+        "howItWorks": "The download command built its destination name by calling path.basename() on the still-encoded URL path, then ran decodeURIComponent() on the result. Encoded separators such as %2f survived basename() and turned back into real separators afterwards, so the finished name escaped the models directory. Leon also created any missing parent directories, so the write could land on a path that did not exist before.",
+        "whoIsAffected": "Self-hosted Leon installs running the 2.0 Developer Preview on the develop branch are the exposed case, over the commit range listed below. Exploitation needs a user to run /download model with a URL the attacker supplied, so an operator who pastes links from other people is the realistic victim.",
+        "whatToDo": "Update Leon to commit 50df142 or later, since the fix is a merged commit on the develop branch rather than a tagged release. Until then do not pass URLs from other people to /download model, and check the models directory and its parents for files that arrived through a download."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "leon from commit a3afdef81c8dd085b922f5a4e6b68bb9b9d802e4 up to, not including, 50df142a89a0859e5b7283d87afdab7b01e712a2"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Commit 50df142a89a0859e5b7283d87afdab7b01e712a2, merged 23 October 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-116073"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.9 (v4.0), Medium, assigned by VulnCheck"
+        },
+        {
+          "label": "Attack type",
+          "value": "Path traversal to arbitrary file write, CWE-22"
+        },
+        {
+          "label": "Found by",
+          "value": "George Chen, per VulnCheck, in issue 593"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Issue filed 17 October 2026, CVE published 25 October 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/leon-before-commit-50df142-path-traversal-via-download-model-command"
+        },
+        {
+          "label": "GitHub Issue 593",
+          "url": "https://github.com/leon-ai/leon/issues/593"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/leon-ai/leon/pull/594"
+        },
+        {
+          "label": "Fix Commit",
+          "url": "https://github.com/leon-ai/leon/commit/50df142a89a0859e5b7283d87afdab7b01e712a2"
+        }
+      ],
+      "publishDate": "2026-10-25T20:18:50.692Z"
+    },
     {
       "id": "firecrawl-playwright-ssrf-dns-rebinding",
       "categories": [

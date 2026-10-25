@@ -11855,6 +11855,77 @@
         "lakera.ai/blog"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261025t201850z",
+      "timestamp": "2026-10-25T20:18:50.692Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research-group blogs, GitHub and VulnCheck advisories, arXiv and Hugging Face papers, new GitHub repos, trending, Hacker News and the conference and security-voice YouTube channels for the 7 days to 25 October 2026. One item qualified: CVE-2026-116073, a path traversal in the Leon AI assistant's model download command, published by VulnCheck today. openai.com/index returned 403 to scripts, so OpenAI was covered through alignment.openai.com, and reddit.com could not be fetched, so r/netsec was not read this run.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "leon-download-model-path-traversal",
+          "title": "Leon: a crafted model URL writes files outside the assistant's folder",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A named finder, an official CNA advisory with a CVE and CVSS, and a shipped fix for an arbitrary file write in a widely forked open-source AI assistant; dated to the CVE publication because the fix merged on 23 October and the CVE was assigned on 25 October, both inside the window, while the original issue was filed one day before it."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "paper-scan (arXiv cs.CR plus Hugging Face Daily Papers)",
+        "repo-scan.json",
+        "github.com/trending (daily and weekly)",
+        "talk-scan (22 YouTube channels)",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "HN Algolia search",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "Microsoft MSRC blog",
+        "AIR Security blog",
+        "Zenity Labs",
+        "Wiz blog",
+        "Socket blog",
+        "Unit 42",
+        "JFrog Security Research",
+        "ReversingLabs blog",
+        "Trail of Bits blog",
+        "HiddenLayer research",
+        "Lakera blog",
+        "Check Point Research",
+        "NCC Group research",
+        "Datadog Security Labs",
+        "Snyk security research",
+        "OWASP GenAI Security Project news",
+        "UK AI Security Institute",
+        "US CAISI (nist.gov)",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, by created)",
+        "simonwillison.net",
+        "embracethered.com",
+        "Trend Micro threat encyclopedia"
+      ],
+      "windowDays": 7
     }
   ]
 }
