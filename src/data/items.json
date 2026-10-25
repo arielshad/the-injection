@@ -1,7 +1,205 @@
 {
-  "generatedAt": "2026-10-25T20:18:50.692Z",
+  "generatedAt": "2026-10-25T22:51:06.790Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "socradar-inc-gentlemen-ai-infrastructure",
+      "categories": [
+        "incident"
+      ],
+      "title": "INC and The Gentlemen: exposed servers held 133 OpenCode sessions",
+      "org": "SOCRadar",
+      "date": "2026-10-20",
+      "url": "https://socradar.io/blog/inc-gentlemen-ransomware-ai-infrastructure/",
+      "summary": "SOCRadar found seven exposed servers run by INC Ransom and The Gentlemen ransomware affiliates, holding 8,257 messages across 133 OpenCode sessions, a 32-server MCP toolset branded WormGPT, and a partner package offered to other operators.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "mcp",
+        "coding-agents",
+        "opencode",
+        "openrouter"
+      ],
+      "affected": [
+        "OpenCode",
+        "OpenRouter",
+        "Claude Opus 4.6",
+        "Kimi K3",
+        "MCP servers"
+      ],
+      "credits": [
+        {
+          "name": "SOCRadar Threat Research Unit",
+          "org": "SOCRadar"
+        }
+      ],
+      "explainer": {
+        "tagline": "SOCRadar recovered an AI-assisted intrusion workflow from seven exposed ransomware affiliate servers, including their agent session logs.",
+        "whatHappened": "SOCRadar's Threat Research Unit published its analysis on October 20, 2026, after finding a command-and-control server with open directories at 45.227.254[.]43. The directories held the operators' persistent knowledge base, their OpenCode session history, the source of a framework called Phantom, and per-victim workspaces. Those files, along with configs and credentials, led SOCRadar to six more servers tied to INC Ransom and The Gentlemen ransomware affiliates.",
+        "howItWorks": "Operators drove commercial models through OpenRouter inside OpenCode, with a set of 32 MCP servers named WormGPT-MCP connecting the model to tooling from reconnaissance through extortion. SOCRadar reports the WormGPT label was only a persona prompt rather than a custom model, and names the models as anthropic/claude-opus-4.6 and moonshotai/kimi-k3. When a model refused a request, the operator rewrote it using an Authorized Red Team Assessment Request template instead of switching providers. The model planned reconnaissance, generated commands and drafted reports, but waited for operator approval at each step.",
+        "whoIsAffected": "Targets were reached through exposed remote-access and gateway products, which SOCRadar names in its hardening advice, among them FortiClient EMS, Fortinet and SonicWall gateways, SimpleHelp, MeshCentral and N-central. The AI tooling itself was being prepared for resale: a README_PARTNER.md file on 45.227.254[.]45 advertised 35 MCP servers, more than 55 tools and more than 9,000 CVE proof-of-concepts for handover to outside operators.",
+        "whatToDo": "Block the seven IP addresses SOCRadar lists and pull the extended indicators from its platform. Patch FortiClient EMS and the Fortinet and SonicWall gateways, remove internet exposure from their management interfaces, then review EMS for unauthorized administrators and modified VPN scripts. Require MFA, IP allowlists and dedicated administrator accounts across MSP and RMM environments, including those operated by third parties."
+      },
+      "quickFacts": [
+        {
+          "label": "Actors",
+          "value": "INC Ransom and The Gentlemen ransomware affiliates"
+        },
+        {
+          "label": "Servers found",
+          "value": "Seven, mapped out from open directories on 45.227.254[.]43"
+        },
+        {
+          "label": "Agent activity",
+          "value": "8,257 messages across 133 OpenCode sessions, over three knowledge base iterations"
+        },
+        {
+          "label": "Models",
+          "value": "anthropic/claude-opus-4.6 and moonshotai/kimi-k3, both through OpenRouter"
+        },
+        {
+          "label": "Tooling",
+          "value": "WormGPT-MCP, a set of 32 MCP servers, plus Phantom, a framework with 18 skill modules"
+        },
+        {
+          "label": "Model spend",
+          "value": "$23,920 recorded on OpenRouter, with two paid accounts still active on October 5, 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "SOCRadar Threat Research Unit"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did the INC and Gentlemen operators use a custom malicious model?",
+          "a": "SOCRadar reports the WormGPT name was only a persona prompt applied to standard commercial models, not a purpose-built malicious one. The operators called anthropic/claude-opus-4.6 and moonshotai/kimi-k3 through OpenRouter. When a model refused, they rewrote the request as an authorized red team assessment rather than moving to another provider or an uncensored model."
+        },
+        {
+          "q": "How autonomous was the AI in these intrusions?",
+          "a": "SOCRadar describes an AI-executed but human-approved workflow. The model handled reconnaissance planning, command generation and report drafting, then waited for operator approval at each step. SOCRadar notes that the agent's memory and session logs became a full evidence trail, which is how its analysts reconstructed 133 sessions and 8,257 messages from the exposed server."
+        },
+        {
+          "q": "Was this AI tooling being sold on to other criminals?",
+          "a": "A file named README_PARTNER.md on 45.227.254[.]45 advertised 35 MCP servers, more than 55 tools and more than 9,000 CVE proof-of-concepts, which SOCRadar reads as the tooling being packaged for handover to outside operators. The advertised figure of 35 servers differs from the 32 servers SOCRadar actually recovered."
+        }
+      ],
+      "links": [
+        {
+          "label": "SOCRadar Analysis",
+          "url": "https://socradar.io/blog/inc-gentlemen-ransomware-ai-infrastructure/"
+        },
+        {
+          "label": "The Gentlemen Profile",
+          "url": "https://socradar.io/blog/dark-web-profile-the-gentlemen-ransomware/"
+        },
+        {
+          "label": "INC Ransom Profile",
+          "url": "https://socradar.io/blog/dark-web-profile-inc-ransom/"
+        }
+      ],
+      "image": {
+        "url": "https://socradar.io/wp-content/uploads/2026/10/socradar-maps-seven-exposed-servers-inc-ransomware-affiliates.jpg",
+        "alt": "SOCRadar's map of seven exposed servers used by INC ransomware affiliates",
+        "credit": "SOCRadar"
+      },
+      "publishDate": "2026-10-25T22:51:06.790Z"
+    },
+    {
+      "id": "claroc-ghostshares-muse-share-links",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "GhostShares: Muse share links are listed in public DNS by chat title",
+      "org": "Claroc",
+      "date": "2026-10-18",
+      "url": "https://blog.claroc.io/ghostshares-muse-passive-dns/",
+      "summary": "GhostShares are Meta Muse shared-chat pages that anyone can find in passive DNS records, because Muse puts the conversation title in the share hostname. Claroc listed more than 6,800 of them. Meta has paused the sharing feature.",
+      "severity": "medium",
+      "tags": [
+        "data-exfiltration",
+        "meta-muse",
+        "meta",
+        "passive-dns"
+      ],
+      "affected": [
+        "Meta Muse"
+      ],
+      "credits": [
+        {
+          "name": "Claroc Research Team",
+          "org": "Claroc"
+        }
+      ],
+      "explainer": {
+        "tagline": "GhostShares are Meta Muse shared conversations that third parties can locate through passive DNS, without ever being sent the link.",
+        "whatHappened": "Claroc published GhostShares on October 18, 2026, research showing that Meta Muse shared-conversation pages could be found by anyone with access to passive DNS data. Claroc reported the issue to Meta's bug bounty program on October 8, 2026. Meta told Ars Technica on October 20 that it was suspending the feature, and Claroc confirmed the same day that the shares it rechecked no longer opened.",
+        "howItWorks": "Muse builds each share address from the conversation's own title followed by a random ID, served under the content domain cf.metaaiusercontent.com. Public DNS resolvers log those lookups, so passive DNS services keep a searchable record of every share hostname, conversation title included. One query against a commercial passive DNS service returned the host list, which means a share link can be rebuilt without its owner ever sending it. Claroc says it did not guess or brute-force any address.",
+        "whoIsAffected": "Only Muse conversations whose owner created a share link were reachable; chats that were never shared are outside the finding. Claroc counted more than 6,800 share hostnames after filtering out wildcard DNS scanning noise, and opened only a few hundred, all of which loaded without an account. A public URL-scanning service also held more than 75 saved scans of Muse share pages.",
+        "whatToDo": "Ask whether staff have shared Muse conversations holding company data, and treat an AI share link as a public page rather than a private one. Claroc advises flagging public AI share links as outbound data transfers, and blocking metaaiusercontent.com at the proxy or DNS filter on managed devices where no tool can monitor the sharing. Searching passive DNS and URL-scan data for the content domains of your own AI tools shows comparable exposure."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Meta Muse shared-conversation pages, served under cf.metaaiusercontent.com"
+        },
+        {
+          "label": "Shares found",
+          "value": "More than 6,800 hostnames from a single passive DNS query; a few hundred opened"
+        },
+        {
+          "label": "Status",
+          "value": "Meta suspended the sharing feature on October 20, 2026"
+        },
+        {
+          "label": "Residual risk",
+          "value": "Share hostnames, conversation titles included, remain in passive DNS history"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Reported to Meta's bug bounty program October 8, 2026; published October 18, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Enumeration of share hostnames through passive DNS records"
+        },
+        {
+          "label": "Found by",
+          "value": "Claroc Research Team"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are private Meta Muse chats exposed by GhostShares?",
+          "a": "Only Muse conversations whose owner created a share link were reachable, according to Claroc. Private chats that were never shared are not part of the finding. Claroc opened a few hundred of the share pages and reports most held harmless material, with a minority containing sensitive personal or business content. Claroc says it found no evidence that anyone misused the data."
+        },
+        {
+          "q": "Has Meta fixed the Muse sharing problem?",
+          "a": "Meta told Ars Technica on October 20, 2026 that it was suspending the sharing feature while it reviews the report and considers changes to how the links can be discovered. Claroc rechecked 40 shares the same day and none of them opened. Claroc notes the repair is partial, because the share hostnames and their conversation titles stay in passive DNS history."
+        },
+        {
+          "q": "How do I check whether my own AI tools leak share links this way?",
+          "a": "Claroc advises searching passive DNS and URL-scanning datasets for the content domains used by the SaaS and AI tools your staff run. Any product that builds a share address out of user-supplied text will expose that text as a DNS name. Claroc also recommends treating public AI share links as outbound data transfers so that security tooling flags them."
+        }
+      ],
+      "links": [
+        {
+          "label": "Claroc Research",
+          "url": "https://blog.claroc.io/ghostshares-muse-passive-dns/"
+        },
+        {
+          "label": "Meta Sharing Help",
+          "url": "https://www.meta.com/help/artificial-intelligence/1382777929673771/"
+        }
+      ],
+      "image": {
+        "url": "https://blog.claroc.io/_astro/ghostshares-hero.Dc2xkfOU_5pbGh.jpg",
+        "alt": "GhostShares: Muse share links listed in public DNS",
+        "credit": "Claroc"
+      },
+      "publishDate": "2026-10-25T22:51:06.790Z"
+    },
     {
       "id": "leon-download-model-path-traversal",
       "categories": [

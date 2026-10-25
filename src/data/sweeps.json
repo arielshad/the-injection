@@ -11926,6 +11926,89 @@
         "Trend Micro threat encyclopedia"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261025t225106z",
+      "timestamp": "2026-10-25T22:51:06.790Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research blogs, GitHub Security Advisories (12 listing pages back to October 19), arXiv via paper-scan (51 papers, one with two scanned signals), repo-scan (13 queries, 4 candidates), GitHub trending, Hacker News front pages for October 19 to 25, Show HN, talk-scan (41 videos) and the security press. Added two items: Claroc's GhostShares research on Meta Muse share links listed in passive DNS, and SOCRadar's analysis of seven exposed INC Ransom and The Gentlemen servers holding the operators' OpenCode sessions and a 32-server MCP toolset. Most of the window was already in the feed. The large GitHub advisory batch dated October 20 to 23 was database backfill of repo advisories first published in June, July, August, early October and even February, so it failed the window on original-disclosure dating; the same applied to mem0ai CVE-2026-115324, reported publicly in February 2026 and fixed in March. OpenAI's Patch the Planet post was left out because openai.com returns 403 and no primary source could be fetched. NVIDIA OpenShell (499 points on Hacker News) and cloudflare/security-audit-skill (GitHub trending) are both old repos trending this week, so the repo dating rule excludes them. Note for maintainers: the embracethered.com blog index carries hidden Unicode instructions aimed at AI readers, which were ignored.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "claroc-ghostshares-muse-share-links",
+          "title": "GhostShares: Muse share links are listed in public DNS by chat title",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Claroc's own write-up, fetched in this run, documents a demonstrated exposure of a widely used AI assistant's share pages, with a named vendor response and concrete defender actions."
+        },
+        {
+          "id": "socradar-inc-gentlemen-ai-infrastructure",
+          "title": "INC and The Gentlemen: exposed servers held 133 OpenCode sessions",
+          "category": "incident",
+          "severity": "info",
+          "note": "First-hand threat research from exposed operator servers, with counted agent sessions, named models and an MCP toolset, and a distinct actor set from the other agentic campaigns already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "wiz.io/blog",
+        "research.jfrog.com",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com",
+        "unit42.paloaltonetworks.com",
+        "crowdstrike.com/blog",
+        "microsoft.com/security/blog",
+        "MSRC blog",
+        "securitylabs.datadoghq.com",
+        "vulncheck.com/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "lakera.ai/blog",
+        "pillar.security/blog",
+        "straiker.ai/blog",
+        "noma.security/blog",
+        "sekoia.com",
+        "projectdiscovery.io/research",
+        "socradar.io/blog",
+        "blog.claroc.io",
+        "Google Cloud Threat Intelligence",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "simonwillison.net",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }
