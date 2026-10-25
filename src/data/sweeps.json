@@ -11792,6 +11792,69 @@
         "og-image.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261025t175044z",
+      "timestamp": "2026-10-25T17:50:44.755Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, MSRC and the Microsoft security blog, Anthropic, OpenAI, UK AISI, Wiz, Unit 42, CrowdStrike, Socket, JFrog, ReversingLabs, Snyk, Check Point, HiddenLayer, Zenity Labs, Embrace The Red, AIR Security, Simon Willison, OWASP GenAI, Hugging Face blog and models, Hacker News, GitHub trending, repo-scan (13 queries, 3 candidates), paper-scan (51 arXiv candidates) and talk-scan; no new item met the bar inside the 7-day window. Everything that qualified on substance was already in the feed (LiteLLM 1.107.0, PHP2Shell, Node2Shell, the Anthropic and UK AISI Mythos 5 assessments, MLflow, LangGraph, FastMCP), and the rest failed on date or sourcing: the seven obsidian-tc CVEs and the CrewAI agent-loading RCE (CVE-2026-92206) only reached the GitHub and NVD databases this week but were first disclosed in July and September, Glow's PixelLeak research is from September 29, and OpenAI's October 23 post on sandbox escapes during frontier training could not be used because openai.com returns 403 to scripts and only secondary press carried the detail. One update: CrowdStrike's October 23 exploitation assessment of PHP2Shell.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "wiz-php2shell",
+          "title": "PHP2Shell: AI-assisted research found two critical PHP RCE flaws",
+          "note": "CrowdStrike Counter Adversary Operations published an exploitation assessment on October 23, 2026: Jaime Duque and Brenden Conrad report no successful exploitation in the wild, public proof-of-concept code that is mostly crash-only, and per-deployment tailoring as the obstacle to mass exploitation. Exploitation status is the fact a defender most wants on this item, so it is added as a quickFact and a link rather than a new item."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Microsoft Security Blog",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "aisi.gov.uk",
+        "wiz.io/blog",
+        "Unit 42",
+        "CrowdStrike blog",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "snyk.io/blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com",
+        "labs.zenity.io",
+        "embracethered.com",
+        "air.security/blog",
+        "simonwillison.net",
+        "OWASP GenAI Security Project",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "Hacker News front page",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts",
+        "Zero Day Initiative advisories",
+        "lakera.ai/blog"
+      ],
+      "windowDays": 7
     }
   ]
 }
