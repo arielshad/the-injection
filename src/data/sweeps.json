@@ -12075,6 +12075,67 @@
         "github.blog/changelog"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261026t053937z",
+      "timestamp": "2026-10-26T05:39:37.994Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (AI and MCP queries), Embrace The Red, Zenity, AIR, Adversa, Anthropic, UK AISI, Socket, Wiz, JFrog, Check Point, Trail of Bits, Hugging Face, OWASP GenAI, Hacker News, github.com/trending, repo-scan (13 queries, 3 candidates), paper-scan (55 papers) and talk-scan (45 videos). One item qualified: Pydantic's web_fetch_tool advisory; the rest of the week's AI-security material was already in the feed or failed the date rule.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "pydantic-ai-web-fetch-tool-resource-exhaustion",
+          "title": "Pydantic AI: attacker-controlled HTML stalls the agent's shared worker pool",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Vendor advisory inside the window with a named reporter, affecting a widely used agent framework, with a fix users must install; severity kept at medium because the only impact Pydantic records is availability."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "embracethered.com",
+        "simonwillison.net",
+        "adversa.ai",
+        "air.security",
+        "zenity.io",
+        "anthropic.com/news",
+        "aisi.gov.uk",
+        "socket.dev",
+        "wiz.io",
+        "jfrog.com",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "huggingface.co/blog",
+        "genai.owasp.org",
+        "Hacker News front page",
+        "Hacker News Algolia search",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "gh-repo-meta.ts",
+        "pydantic/pydantic-ai releases and advisories",
+        "zylon-ai/private-gpt issue tracker"
+      ],
+      "windowDays": 7
     }
   ]
 }

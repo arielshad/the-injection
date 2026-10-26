@@ -1,7 +1,105 @@
 {
-  "generatedAt": "2026-10-26T00:20:15.584Z",
+  "generatedAt": "2026-10-26T05:39:37.994Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "pydantic-ai-web-fetch-tool-resource-exhaustion",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Pydantic AI: attacker-controlled HTML stalls the agent's shared worker pool",
+      "org": "Pydantic",
+      "date": "2026-10-21",
+      "url": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-4whf-38hw-pxxh",
+      "summary": "Pydantic AI's web_fetch_tool can be tied up by a fetched page with very many HTML elements, delaying unrelated work in the same process. Pydantic rates it High and fixed it in 1.107.9 and 2.59.0. SounLabs reported the flaw.",
+      "severity": "medium",
+      "cvss": 7.5,
+      "tags": [
+        "agent-security",
+        "pydantic-ai",
+        "python"
+      ],
+      "affected": [
+        "Pydantic AI",
+        "pydantic-ai (PyPI)",
+        "pydantic-ai-slim (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "SounLabs"
+        }
+      ],
+      "explainer": {
+        "tagline": "Pydantic AI before 1.107.9 and 2.59.0 lets one fetched page tie up the worker pool that every request in the process shares.",
+        "whatHappened": "Pydantic published a security advisory for pydantic-ai on October 21, 2026 after SounLabs reported that the framework's web_fetch_tool could be slowed to a crawl by hostile HTML. Pydantic rates the issue High, with a CVSS base score of 7.5 covering availability only. Fixes are out in 1.107.9 and 2.59.0.",
+        "howItWorks": "Turning fetched HTML into text monopolizes a worker pool that the whole process shares, so one page with many elements keeps unrelated requests waiting. Pydantic's advisory adds that very large tags can make the conversion use many times the page's size in memory, which can exhaust process memory. Earlier affected versions ran the conversion on the event loop instead of a worker. Picking the URL the agent fetches is enough to trigger it.",
+        "whoIsAffected": "Applications built on pydantic-ai or pydantic-ai-slim in the version ranges listed below are exposed when an agent holds web_fetch_tool and can reach HTML an attacker influences. Pydantic's score assumes unauthenticated users can prompt such an agent and choose the URL.",
+        "whatToDo": "Upgrade to pydantic-ai 1.107.9 or 2.59.0, or a later release on the same major line. Until then Pydantic says to avoid fetching attacker-controlled HTML with web_fetch_tool."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "pydantic-ai and pydantic-ai-slim >=1.77.0 <1.107.9, and >=2.0.0 <2.59.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.107.9 and 2.59.0, or later on the same major line"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned, tracked as GHSA-4whf-38hw-pxxh"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.5 High, availability only (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)"
+        },
+        {
+          "label": "Attack type",
+          "value": "Resource exhaustion through fetched HTML (CWE-400, CWE-407)"
+        },
+        {
+          "label": "Found by",
+          "value": "SounLabs"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 21, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which pydantic-ai versions fix the web_fetch_tool stall?",
+          "a": "Pydantic ships the fix in pydantic-ai 1.107.9 and 2.59.0, in the matching pydantic-ai-slim releases, and in any later release on the same major line. Affected ranges run from 1.77.0 up to but not including 1.107.9, and from 2.0.0 up to but not including 2.59.0. Teams that cannot upgrade should stop pointing web_fetch_tool at HTML an attacker can influence."
+        },
+        {
+          "q": "Can the pydantic-ai web_fetch_tool flaw leak agent data?",
+          "a": "Pydantic's advisory records availability impact only, rating confidentiality and integrity none in its CVSS vector. The reported effect is a worker held for a long time, which delays other work in the same process, plus memory use several times the fetched page's size when single tags are very large. No data theft or code execution is described."
+        },
+        {
+          "q": "Does the pydantic-ai web_fetch_tool advisory have a CVE?",
+          "a": "No CVE is assigned to GHSA-4whf-38hw-pxxh, which Pydantic published on October 21, 2026 and rates High at CVSS 7.5, so internal tracking needs the GHSA identifier. A separate advisory published the same day, CVE-2026-114386 in pydantic-ai-harness before 0.59.0, covers an unrelated flaw where nested CodeMode calls skipped the operator's tool-call limit."
+        }
+      ],
+      "links": [
+        {
+          "label": "Pydantic Advisory",
+          "url": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-4whf-38hw-pxxh"
+        },
+        {
+          "label": "Release 1.107.9",
+          "url": "https://github.com/pydantic/pydantic-ai/releases/tag/v1.107.9"
+        },
+        {
+          "label": "Release 2.59.0",
+          "url": "https://github.com/pydantic/pydantic-ai/releases/tag/v2.59.0"
+        },
+        {
+          "label": "Harness Advisory",
+          "url": "https://github.com/advisories/GHSA-3589-pxp7-3gj8"
+        }
+      ],
+      "publishDate": "2026-10-26T05:39:37.994Z"
+    },
     {
       "id": "wiz-gheist-github-token-secret-dumping",
       "categories": [
