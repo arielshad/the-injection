@@ -12289,6 +12289,77 @@
         "huggingface.co/models (prompt-injection, created)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261026t220407z",
+      "timestamp": "2026-10-26T22:04:07.543Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Searched GitHub Security Advisories (41 MCP and 165 agent pages, newest first), NVD, VulnCheck, LiteLLM, Microsoft Security Blog, Socket, Imperva, Zscaler ThreatLabz, Zenity Labs, OWASP GenAI, Hacker News front pages for 24 to 26 October, github.com/trending, repo-scan (13 queries, 3 candidates), paper-scan (40 papers in window, none with a scanned code, venue or upvote signal) and talk-scan (38 videos). One new item: the OpenHands Software Agent SDK unauthenticated sandbox RCE disclosed on 26 October. Three updates carry genuinely new facts into stories already in the feed.",
+      "counts": {
+        "added": 1,
+        "updated": 3,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "openhands-agent-sdk-sandbox-server-unauth-rce",
+          "title": "OpenHands Agent SDK: the sandbox server listened on every interface",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "VulnCheck disclosed CVE-2026-112346 on 26 October with a named reporter, a confirmed mechanism in the Docker and Apptainer launchers, and a fix users must still install; OpenHands is a widely used coding agent SDK and the flaw needed no credentials."
+        }
+      ],
+      "updated": [
+        {
+          "id": "socket-litellm-1-107-0-compromise",
+          "title": "LiteLLM 1.107.0: backdoored wheels steal cloud and AI keys",
+          "note": "LiteLLM published its root cause analysis on 23 October 2026, which answers the two open questions this item recorded: how the payload reached PyPI, and who authorized the release override."
+        },
+        {
+          "id": "brotli-node2shell-decoder-oob-write",
+          "title": "Node2Shell: OpenAI's Codex Security team found a Brotli decoder RCE",
+          "note": "Imperva's Red Team published a validation on 22 October 2026 reporting code execution on an unpatched official Node.js image, which moves this flaw from described to demonstrated."
+        },
+        {
+          "id": "crowdstrike-artex-korean-finance",
+          "title": "ARTEX: attackers paired an agentic pentest tool with Claude Code",
+          "note": "Zscaler ThreatLabz published its own analysis of the same operator on 21 October 2026, sharing the 38.244.50.120 host with CrowdStrike's report and placing targets in 19 countries rather than South Korean finance alone."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "incident",
+        "research",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "VulnCheck advisories",
+        "docs.litellm.ai",
+        "Microsoft Security Blog",
+        "socket.dev",
+        "imperva.com",
+        "Zscaler ThreatLabz",
+        "CrowdStrike",
+        "Zenity Labs",
+        "OWASP GenAI Security Project",
+        "Hacker News front page",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv + Hugging Face Daily Papers)",
+        "talk-scan (YouTube conference and security channels)",
+        "Help Net Security",
+        "arrakis.security"
+      ],
+      "windowDays": 7
     }
   ]
 }

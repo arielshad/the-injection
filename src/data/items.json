@@ -1,7 +1,116 @@
 {
-  "generatedAt": "2026-10-26T17:51:49.062Z",
+  "generatedAt": "2026-10-26T22:04:07.543Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "openhands-agent-sdk-sandbox-server-unauth-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "OpenHands Agent SDK: the sandbox server listened on every interface",
+      "org": "VulnCheck",
+      "date": "2026-10-26",
+      "url": "https://www.vulncheck.com/advisories/openhands-software-agent-sdk-unauthenticated-sandbox-agent-server-rce",
+      "summary": "OpenHands Software Agent SDK before 1.52.0 published its sandbox agent server on every host interface with authentication turned off, VulnCheck reports, so anyone who could reach the port ran commands as root in the sandbox.",
+      "severity": "high",
+      "cve": "CVE-2026-112346",
+      "cvss": 9.3,
+      "tags": [
+        "rce",
+        "credential-theft",
+        "agent-security",
+        "coding-agents",
+        "openhands",
+        "docker"
+      ],
+      "affected": [
+        "OpenHands Software Agent SDK",
+        "OpenHands"
+      ],
+      "credits": [
+        {
+          "name": "mil4n"
+        },
+        {
+          "name": "VulnCheck",
+          "org": "VulnCheck"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-112346 let anyone who could reach an OpenHands sandbox port run commands as root and read its stored secrets.",
+        "whatHappened": "VulnCheck published an advisory for CVE-2026-112346 on 26 October 2026, and the GitHub Advisory Database and NVD listed the same flaw that day. VulnCheck credits mil4n for reporting it in the OpenHands Software Agent SDK. OpenHands had already shipped the fix in version 1.52.0 three weeks earlier.",
+        "howItWorks": "The DockerWorkspace and Apptainer workspace launchers published the sandbox agent server's container ports on every host interface, and started the server with an empty session_api_keys list, which turns authentication off. A reachable port therefore accepted unauthenticated HTTP and WebSocket requests. VulnCheck reports that those requests run shell commands as root inside the sandbox, reach the mounted workspace, and read the secrets store in plain text. GitHub classes the flaw as CWE-1327, binding to an unrestricted IP address.",
+        "whoIsAffected": "Releases of the OpenHands Software Agent SDK below 1.52.0 are affected when a workspace runs under the Docker or Apptainer launcher. Reachability decides real exposure, so hosts on shared or routable networks are the ones most at risk. Teams that updated the SDK since early October are already on a fixed release.",
+        "whatToDo": "Upgrade the OpenHands Software Agent SDK to 1.52.0 or later. Check whether any sandbox agent server answers on an address other than 127.0.0.1, and treat secrets held in an exposed workspace or secrets store as compromised."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "OpenHands Software Agent SDK before 1.52.0, Docker and Apptainer workspaces"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.52.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-112346"
+        },
+        {
+          "label": "Disclosed",
+          "value": "26 October 2026, by VulnCheck"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed before disclosure: the loopback change merged on 3 October 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unauthenticated remote code execution, CWE-1327"
+        },
+        {
+          "label": "Found by",
+          "value": "mil4n, credited by VulnCheck"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the OpenHands Agent SDK patched against CVE-2026-112346?",
+          "a": "OpenHands shipped the fix in Software Agent SDK 1.52.0, and the change that publishes DockerWorkspace ports on loopback merged on 3 October 2026, three weeks before VulnCheck published the advisory. Anyone running 1.52.0 or later is on a fixed release. Releases below 1.52.0 stay exposed, and VulnCheck gives no workaround other than upgrading."
+        },
+        {
+          "q": "How do I check whether my OpenHands sandbox was exposed?",
+          "a": "Inspect the published port mappings of your OpenHands sandbox containers. On a fixed release the host side of the mapping starts with 127.0.0.1, covering the agent server port and the VS Code port next to it. A mapping without that loopback address, or a sandbox server that answers on a routable address, means the port was reachable from outside the host."
+        },
+        {
+          "q": "What could an attacker reach through the OpenHands sandbox server?",
+          "a": "VulnCheck names three outcomes for an attacker who could reach the port: shell commands running as root inside the sandbox, access to the mounted workspace, and plaintext reads from the secrets store. Requests needed no credentials, because the launchers started the server with an empty session key list. Treat every secret stored in an exposed workspace as compromised."
+        },
+        {
+          "q": "Which OpenHands workspaces does the flaw affect?",
+          "a": "VulnCheck names the DockerWorkspace and Apptainer workspace launchers as the components that bound the sandbox agent server to all interfaces. The fix for the Docker path moves the host mapping to 127.0.0.1 and passes the configured session key through to the workspace client. Deployments that never published a sandbox port to an untrusted network were harder to reach."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/openhands-software-agent-sdk-unauthenticated-sandbox-agent-server-rce"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-rp7h-crm7-h5qj"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/OpenHands/software-agent-sdk/pull/5209"
+        },
+        {
+          "label": "Release 1.52.0",
+          "url": "https://github.com/OpenHands/software-agent-sdk/releases/tag/v1.52.0"
+        }
+      ],
+      "publishDate": "2026-10-26T22:04:07.543Z"
+    },
     {
       "id": "google-mcp-toolbox-cloud-storage-path-traversal",
       "categories": [
@@ -2308,7 +2417,7 @@
       "org": "Node.js",
       "date": "2026-10-21",
       "url": "https://nodejs.org/en/blog/vulnerability/october-2026-security-releases",
-      "summary": "Node2Shell is an out-of-bounds write in the Brotli decoder that a crafted compressed stream can turn into remote code execution. OpenAI's Codex Security team reported it. Brotli, Node.js and the PyPI brotli packages are patched.",
+      "summary": "Node2Shell is an out-of-bounds write in the Brotli decoder that a crafted compressed stream can turn into remote code execution. OpenAI's Codex Security team reported it. Imperva reports running code on an unpatched official Node.js build.",
       "severity": "high",
       "cve": "CVE-2026-111497",
       "cvss": 9.2,
@@ -2402,6 +2511,10 @@
         {
           "label": "Node.js Advisory",
           "url": "https://nodejs.org/en/blog/vulnerability/october-2026-security-releases"
+        },
+        {
+          "label": "Imperva Validation",
+          "url": "https://www.imperva.com/blog/node2shell-from-brotli-data-to-remote-code-execution/"
         },
         {
           "label": "Brotli Advisory",
@@ -4743,7 +4856,7 @@
       "org": "Socket",
       "date": "2026-10-21",
       "url": "https://socket.dev/blog/litellm-compromise",
-      "summary": "LiteLLM 1.107.0 on PyPI shipped a credential stealer in all seven wheels and in the v1.107.0 container images, Socket and JFrog report. Socket now dates the intrusion to October 10, 11 days before the release.",
+      "summary": "LiteLLM 1.107.0 shipped a credential stealer in all seven PyPI wheels and the v1.107.0 container images, Socket and JFrog report. LiteLLM now traces the release to a master key left in a public repository since May 2026.",
       "severity": "critical",
       "tags": [
         "malicious-package",
@@ -4828,13 +4941,17 @@
         },
         {
           "q": "How did the payload reach PyPI if the Git tag is clean?",
-          "a": "JFrog reports that the source tarball and Git tag do not contain the three payload files, while the sdist's pyproject.toml carries an added Maturin setting the tag lacks, and says the exact injection point is unknown. Socket found that the malicious container build's provenance names Berri-AI/litellm, one hyphen from the real BerriAI/litellm, and says the authorization behind that override remains unestablished."
+          "a": "LiteLLM's root cause analysis traces the release to an Agent Platform master key committed to the public LiteLLM-Labs/lite-harness repository on 27 May 2026 and never revoked. The attacker used that key on 10 October to read a GitHub CLI OAuth token belonging to an organization owner, harvested more maintainer tokens through workflows on throwaway branches, then disabled branch protection and repointed the release source to a lookalike Berri-AI fork."
         }
       ],
       "links": [
         {
           "label": "Socket Analysis",
           "url": "https://socket.dev/blog/litellm-compromise"
+        },
+        {
+          "label": "LiteLLM Root Cause",
+          "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026-attack-chain"
         },
         {
           "label": "Socket Timeline",
@@ -15578,7 +15695,7 @@
       "org": "CrowdStrike",
       "date": "2026-10-07",
       "url": "https://www.crowdstrike.com/en-us/blog/unknown-threat-actor-uses-artex-to-target-south-korean-finance/",
-      "summary": "ARTEX, an open-source agentic pentesting tool developed in China, was used alongside Claude Code and DeepSeek against South Korean financial organizations in late September 2026, CrowdStrike Intelligence reports.",
+      "summary": "ARTEX, an open-source agentic pentesting tool developed in China, was used with Claude Code and DeepSeek against South Korean financial organizations in late September 2026, CrowdStrike reports. Zscaler later found targets in 19 countries.",
       "severity": "info",
       "tags": [
         "ai-enabled-offense",
@@ -15653,6 +15770,10 @@
         {
           "label": "CrowdStrike Report",
           "url": "https://www.crowdstrike.com/en-us/blog/unknown-threat-actor-uses-artex-to-target-south-korean-finance/"
+        },
+        {
+          "label": "Zscaler Analysis",
+          "url": "https://www.zscaler.com/blogs/security-research/inside-global-ai-assisted-hacking-campaign"
         },
         {
           "label": "MITRE T1588.007",
