@@ -1,7 +1,195 @@
 {
-  "generatedAt": "2026-10-26T11:43:47.053Z",
+  "generatedAt": "2026-10-26T17:51:49.062Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "google-mcp-toolbox-cloud-storage-path-traversal",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Google MCP Toolbox: a storage tool copied host files out to any bucket",
+      "org": "GitHub Advisory Database",
+      "date": "2026-10-26",
+      "url": "https://github.com/advisories/GHSA-2gc9-c85v-5vwr",
+      "summary": "Google's MCP Toolbox for Databases had a path traversal and missing authorization flaw in its cloud-storage source: an unauthenticated remote caller could copy host files to outside buckets and overwrite local files, CVE-2026-93328 says.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "data-exfiltration",
+        "google",
+        "mcp-toolbox"
+      ],
+      "affected": [
+        "MCP Toolbox for Databases",
+        "googleapis/mcp-toolbox"
+      ],
+      "cve": "CVE-2026-93328",
+      "cvss": 9.3,
+      "credits": [
+        {
+          "name": "HE WEI（ギカク)"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-93328 was published on October 26, 2026, four months after the change that fixed it shipped in MCP Toolbox v1.5.0.",
+        "whatHappened": "CVE-2026-93328 was published for Google Cloud MCP Toolbox for Databases on October 26, 2026. HE WEI（ギカク) reported the flaw, according to the commit that fixed it, and that commit was merged in June 2026 as a feature rather than as a security fix, so the public record of the issue arrives months after the patch.",
+        "howItWorks": "The cloud-storage source took bucket names and local file paths straight from tool invocation parameters, with no allow-list and no authorization check. A caller could point a storage tool at a bucket outside the deployment and have the server copy host files into it, or walk a path back out of the intended directory and overwrite a local file. The fix adds allowedBuckets and allowedLocalRoots options, applied to the list, read, write, upload, download, copy, move and delete operations.",
+        "whoIsAffected": "Deployments running googleapis/mcp-toolbox 1.2.0 through 1.4.0 are the exposed ones, and the advisory describes the caller as unauthenticated and remote. Toolbox is Google's open-source MCP server for databases, written in Go and published under Apache-2.0.",
+        "whatToDo": "Update MCP Toolbox to v1.5.0 or later. Set allowedBuckets and allowedLocalRoots on every cloud-storage source after updating, because the commit that added those options records their default as allow all."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "googleapis/mcp-toolbox 1.2.0 through 1.4.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "v1.5.0, released 18 June 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-93328"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.3 critical, CVSS v4, GitHub Advisory Database"
+        },
+        {
+          "label": "Weaknesses",
+          "value": "CWE-22 path traversal, CWE-862 missing authorization"
+        },
+        {
+          "label": "Found by",
+          "value": "HE WEI（ギカク)"
+        },
+        {
+          "label": "Status",
+          "value": "Patched before the CVE was published"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which versions of MCP Toolbox for Databases are affected by CVE-2026-93328?",
+          "a": "Versions 1.2.0 through 1.4.0 of googleapis/mcp-toolbox carry the flaw, per the advisory, and v1.5.0 released on June 18, 2026 contains the fix. Anyone who has updated the Toolbox since that date is already past it. Deployments that pin an older tag are the ones still exposed, and upgrading is the action the advisory supports."
+        },
+        {
+          "q": "Does upgrading MCP Toolbox to v1.5.0 close the cloud-storage flaw by itself?",
+          "a": "Upgrading brings in the allowedBuckets and allowedLocalRoots options, but the commit that added them records the default as allow all, so the limits only apply once an operator sets them. Configuring both on every cloud-storage source is part of the work, even though the advisory marks only versions below 1.5.0 as affected."
+        },
+        {
+          "q": "What can an attacker reach through the MCP Toolbox cloud-storage flaw?",
+          "a": "An unauthenticated remote caller can make the server copy files from its host into Google Cloud Storage buckets outside the deployment, and can overwrite arbitrary files on the local filesystem, the advisory states. Both run through crafted tool invocation parameters, so files readable and writable by the Toolbox process are the exposure."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-2gc9-c85v-5vwr"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/googleapis/mcp-toolbox/pull/3454"
+        },
+        {
+          "label": "v1.5.0 Release Notes",
+          "url": "https://github.com/googleapis/mcp-toolbox/releases/tag/v1.5.0"
+        }
+      ],
+      "publishDate": "2026-10-26T17:51:49.062Z"
+    },
+    {
+      "id": "forever-agents-md-downloads-hijack",
+      "categories": [
+        "attack",
+        "supply-chain"
+      ],
+      "title": "Markdown in Downloads: a planted AGENTS.md hijacks Codex and Claude Code",
+      "org": "Forever Security",
+      "date": "2026-10-22",
+      "url": "https://forever.security/blog/hijacking-ai-agents-via-downloads-folder",
+      "summary": "A planted AGENTS.md file in a user's Downloads folder makes OpenAI Codex install malware, Forever Security reports, and a matching CLAUDE.md reroutes Claude Code's traffic to an attacker server that captures its OAuth token.",
+      "severity": "high",
+      "tags": [
+        "indirect-prompt-injection",
+        "coding-agents",
+        "credential-theft",
+        "malicious-package",
+        "claude-code",
+        "codex"
+      ],
+      "affected": [
+        "OpenAI Codex",
+        "Claude Code"
+      ],
+      "credits": [
+        {
+          "name": "Gal Weizman",
+          "org": "Forever Security"
+        },
+        {
+          "name": "Omer Samet",
+          "org": "Forever Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "Forever Security found a real AGENTS.md in a customer's Downloads folder that told a coding agent to install a malicious npm package.",
+        "whatHappened": "Forever Security published this research on October 22, 2026, after stopping a coding agent on a customer's machine that was trying to install the malicious npm package function-color. Gal Weizman and Omer Samet traced the attempt to an AGENTS.md file sitting in the customer's Downloads folder, which was also the folder the agent ran in. How that file reached the machine was never established.",
+        "howItWorks": "Coding agents treat the folder they start in as trusted and read its AGENTS.md or CLAUDE.md as instructions, while a web page can write a file into Downloads without a click. In the Codex tests the planted file added an MCP server entry to the machine-wide ~/.codex/config.toml and installed function-color. The Claude Code variant wrote ANTHROPIC_BASE_URL into .claude/settings.json, pointing the agent at a server the researchers owned on a domain with a valid certificate, which then captured the OAuth token and could answer in place of the model with a Bash tool call that set dangerouslyDisableSandbox to true.",
+        "whoIsAffected": "OpenAI Codex and Claude Code are the two agents Forever tested, on any machine where a developer starts one of them in the Downloads folder. Forever says about half of its customers do exactly that, and that roughly a quarter of agent sessions open a real browser. The payload failed every time in a folder full of security notes.",
+        "whatToDo": "Do not start coding agents in the Downloads folder, and read any AGENTS.md or CLAUDE.md you did not write before an agent reaches it. Check ~/.codex/config.toml for MCP server blocks or a changed base URL you did not add, and a project's .claude/settings.json for an ANTHROPIC_BASE_URL or proxy you did not set. Rotate credentials if either looks wrong, because a stolen token is a live session."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "OpenAI Codex, Claude Code"
+        },
+        {
+          "label": "Attack type",
+          "value": "Agent instruction file planted in the Downloads folder"
+        },
+        {
+          "label": "Codex result",
+          "value": "Malware ran in more than 90% of attempts"
+        },
+        {
+          "label": "Claude Code result",
+          "value": "Config write accepted about 50% of the time, same-session execution about a fifth of the time"
+        },
+        {
+          "label": "Indicator",
+          "value": "The npm package function-color among a machine's installs"
+        },
+        {
+          "label": "Status",
+          "value": "No patch. Forever says the agents behaved as designed"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Claude Code patched against the Downloads folder AGENTS.md attack?",
+          "a": "No patch exists for Claude Code against the Downloads folder attack. Forever Security argues there is nothing for Anthropic or OpenAI to fix, because an agent that reads the instruction file in its own working directory is doing what it was designed to do. Defence rests on where a developer starts the agent and on reviewing unfamiliar instruction files first."
+        },
+        {
+          "q": "How do I check whether my coding agent was hijacked this way?",
+          "a": "Open ~/.codex/config.toml and look for MCP server blocks or a changed base URL you did not add, Forever Security advises, then open the project's .claude/settings.json and look for an ANTHROPIC_BASE_URL or proxy you did not set. Finding the npm package function-color among your installs should be treated as a compromised machine."
+        },
+        {
+          "q": "What happens if an attacker captures Claude Code's OAuth token?",
+          "a": "Capturing the OAuth token gave Forever Security's researchers the victim's session. They replayed a captured token against the real API and were served as the victim, which they describe as account takeover with no code run on the machine. Rotating credentials is the response, because a stolen token stays live until it is revoked."
+        }
+      ],
+      "links": [
+        {
+          "label": "Forever Security",
+          "url": "https://forever.security/blog/hijacking-ai-agents-via-downloads-folder"
+        },
+        {
+          "label": "Checkmarx On MALFEX",
+          "url": "https://checkmarx.com/zero-post/malfex-npm-malware-campaign-three-payloads-and-an-adversary-that-signs-their-work/"
+        }
+      ],
+      "publishDate": "2026-10-26T17:51:49.062Z"
+    },
     {
       "id": "req-llm-websocket-tls-verification",
       "categories": [
