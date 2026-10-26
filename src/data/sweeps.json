@@ -12009,6 +12009,72 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261026t002015z",
+      "timestamp": "2026-10-26T00:20:15.584Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, NVD (LLM, MCP and prompt-injection keyword queries for the window), MSRC, Anthropic, OpenAI (403 to scripts), AIR Security, Zenity Labs, Embrace The Red, Simon Willison, Wiz, Trail of Bits, OWASP GenAI, Hugging Face, GitHub trending, repo-scan (13 queries, 3 candidates) and talk-scan (21 channels); added the Wiz Gheist campaign and the Royal MCP WordPress auth bypass. paper-scan failed on arXiv rate limits (1 of 9 queries ran), so arXiv was searched by hand: 23 in-window AI-security papers, none clearing the two-signal bar.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "wiz-gheist-github-token-secret-dumping",
+          "title": "Gheist: a planted workflow dumps repo secrets, including AI provider keys",
+          "category": "incident",
+          "severity": "high",
+          "note": "Named Wiz researchers, in-window primary write-up, and an active campaign that hunts Anthropic, Hugging Face, Groq and NVIDIA keys on self-hosted runners; Wiz states it is distinct from the GhostAction item already in the feed."
+        },
+        {
+          "id": "wpscan-royal-mcp-preview-token-auth-bypass",
+          "title": "Royal MCP: a preview link token signs the holder in as the site admin",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Named researcher, CVE from WPScan as CNA, in-window, and a concrete update path for a plugin with more than 10,000 installs whose whole purpose is to let AI assistants drive a WordPress site over MCP."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD CVE API",
+        "wiz.io/blog",
+        "wpscan.com",
+        "wordpress.org/plugins",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "openai.com/news",
+        "genai.owasp.org",
+        "blog.trailofbits.com",
+        "huggingface.co/blog",
+        "arXiv cs.CR",
+        "Hugging Face Daily Papers",
+        "github.com/trending",
+        "github.com/topics/prompt-injection",
+        "repo-scan.json",
+        "talk-scan",
+        "Hacker News",
+        "github.blog/changelog"
+      ],
+      "windowDays": 7
     }
   ]
 }

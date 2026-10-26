@@ -1,7 +1,188 @@
 {
-  "generatedAt": "2026-10-25T22:51:06.790Z",
+  "generatedAt": "2026-10-26T00:20:15.584Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "wiz-gheist-github-token-secret-dumping",
+      "categories": [
+        "incident",
+        "supply-chain"
+      ],
+      "title": "Gheist: a planted workflow dumps repo secrets, including AI provider keys",
+      "org": "Wiz",
+      "date": "2026-10-25",
+      "url": "https://www.wiz.io/blog/gheist-attempted-scaled-abuse-of-stolen-github-tokens-stumbles",
+      "summary": "Gheist is a credential-theft campaign that commits a sync-check workflow to every repository a stolen GitHub token can reach, printing the secrets into its own run log. Wiz recovered 13,500 planted branches from more than 850 accounts.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "threat-intel",
+        "github-actions",
+        "anthropic",
+        "hugging-face"
+      ],
+      "affected": [
+        "GitHub Actions",
+        "GitHub Enterprise Server",
+        "Anthropic API keys",
+        "Hugging Face API keys",
+        "Groq API keys",
+        "NVIDIA API keys"
+      ],
+      "credits": [
+        {
+          "name": "Rami McCarthy",
+          "org": "Wiz Research"
+        },
+        {
+          "name": "Hila Ramati",
+          "org": "Wiz Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Gheist plants a GitHub Actions workflow that prints repository secrets into its own run log, then deletes the run seconds later.",
+        "whatHappened": "Wiz Research published the Gheist campaign on 25 October 2026, after tracking it since 15 September. Rami McCarthy and Hila Ramati recovered more than 13,500 planted branches from more than 850 compromised GitHub accounts, ranging from personal projects to enterprise private repositories. Wiz says the campaign was still running and still changing on 24 October.",
+        "howItWorks": "The tool creates a branch named ci-sync- plus six random characters and commits a workflow file with the message ci: sync config. The payload base32-encodes the repository secrets so that GitHub's log masking does not catch them, and the operator then downloads the run log through the GitHub API and deletes the run. No command-and-control server is involved, because the secrets leave through GitHub's own API. A later variant adds a sync-host job that searches self-hosted runners for 31 token formats.",
+        "whoIsAffected": "Private repositories and GitHub Enterprise Server are where Wiz saw the attack succeed, because GitHub's automatic hold on suspicious workflow runs covers only public repositories on github.com. Organizations with self-hosted runners face the wider sweep, which hunts Anthropic, Hugging Face, Groq and NVIDIA keys alongside private keys, .env files, Terraform state and cloud metadata. Wiz states Gheist is distinct from GhostAction.",
+        "whatToDo": "Rotate every secret the affected repositories could reach, because deleting a run or a branch does not undo the exposure, and revoke the tokens that pushed the commits. Hunt for the branch pattern and the audit-log markers listed below, and treat any self-hosted runner that ran a ci-sync branch, along with its instance role, as compromised. Do not approve held sync-check runs."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "GitHub Actions in private repositories and GitHub Enterprise Server"
+        },
+        {
+          "label": "Scale",
+          "value": "More than 13,500 planted branches from more than 850 compromised accounts"
+        },
+        {
+          "label": "Tracked since",
+          "value": "15 September 2026"
+        },
+        {
+          "label": "Branch pattern",
+          "value": "ci-sync- followed by six random characters"
+        },
+        {
+          "label": "User agent",
+          "value": "gheist"
+        },
+        {
+          "label": "AI keys hunted",
+          "value": "Anthropic, Hugging Face, Groq, NVIDIA"
+        },
+        {
+          "label": "Status",
+          "value": "Ongoing and evolving as of 24 October 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected by Gheist if my repositories are public?",
+          "a": "Public repositories on github.com were protected during this campaign. GitHub has held workflow runs it flags as potentially malicious for collaborator approval since 28 July 2026, and Wiz found every public Gheist run sitting at action_required, so the payloads never ran. Private repositories and GitHub Enterprise Server do not get that hold, and Wiz observed successful exploitation there."
+        },
+        {
+          "q": "How do I check whether Gheist reached my repositories?",
+          "a": "Gheist leaves several markers a defender can search. Look for branches matching ci-sync- plus six characters that carry a .github/workflows/sync-check.yml file committed with the message ci: sync config. GitHub audit logs show runs deleted within a minute of completing, or API requests with the user agent gheist. Cloud audit logs showing a role assumed from a ci-sync branch work even without GitHub logs."
+        },
+        {
+          "q": "Does Gheist steal AI provider keys?",
+          "a": "Gheist hunts AI provider credentials on self-hosted runners. Wiz reports that the sync-host job, added for repositories with self-hosted runners, searches for 31 token formats, among them keys for Anthropic, Hugging Face, Groq and NVIDIA. The same job targets private keys, .env files, Terraform state, shell history, process environments, the Docker socket and cloud metadata. Wiz notes the job is buggy and does not collect GCP or Azure tokens."
+        },
+        {
+          "q": "How is Gheist different from GhostAction?",
+          "a": "Wiz states that Gheist is distinct from GhostAction, the earlier campaign that scraped AI provider keys from hundreds of repositories. Gheist uses no command-and-control server at all: the secrets leave through GitHub's own API when the operator downloads and then deletes the workflow run log. Wiz also links Gheist accounts to separate activity, including cracked-software malware lures on 6 October and three PolinRider infections on 19 and 20 October."
+        }
+      ],
+      "links": [
+        {
+          "label": "Wiz Research",
+          "url": "https://www.wiz.io/blog/gheist-attempted-scaled-abuse-of-stolen-github-tokens-stumbles"
+        },
+        {
+          "label": "GitHub Actions Hold",
+          "url": "https://github.blog/changelog/2026-07-28-github-actions-holds-potentially-malicious-workflows-for-approval"
+        }
+      ],
+      "publishDate": "2026-10-26T00:20:15.584Z"
+    },
+    {
+      "id": "wpscan-royal-mcp-preview-token-auth-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Royal MCP: a preview link token signs the holder in as the site admin",
+      "org": "WPScan",
+      "date": "2026-10-20",
+      "url": "https://wpscan.com/vulnerability/014f061c-54f3-491e-b4a0-85cfa6fb178b/",
+      "summary": "Royal MCP, a WordPress plugin that lets Claude and ChatGPT drive a site over MCP, did not tie a preview link token to one preview. Anyone holding a valid token is authenticated as its owner, which is an administrator by default.",
+      "severity": "medium",
+      "cve": "CVE-2026-111958",
+      "cvss": 7.5,
+      "tags": [
+        "mcp",
+        "plugins",
+        "privilege-escalation",
+        "wordpress"
+      ],
+      "affected": [
+        "Royal MCP",
+        "WordPress"
+      ],
+      "credits": [
+        {
+          "name": "Raphael P. Cigana"
+        }
+      ],
+      "explainer": {
+        "tagline": "Royal MCP preview tokens were not bound to a single preview, so holding one grants its owner's full REST API access.",
+        "whatHappened": "WPScan published CVE-2026-111958 against the Royal MCP WordPress plugin on 20 October 2026 and credits Raphael P. Cigana with the finding. Versions below 1.5.7 are affected. WPScan is withholding the proof of concept until 20 November 2026.",
+        "howItWorks": "The plugin issues a token alongside a preview link but does not limit that token to the single preview it was created for. A holder of a valid token is logged in as the token's owner across the whole REST API, and no nonce is required. Because that owner is an administrator by default, the bypass reaches every administrative REST route and can give an attacker complete control of the site.",
+        "whoIsAffected": "Royal MCP installations below 1.5.7 are exposed, and the plugin directory lists more than 10,000 active installations. Sites that share preview links outside the editing team carry the most risk, because the token travels with the link.",
+        "whatToDo": "Update Royal MCP to 1.5.7 or later; the current release is 1.5.11. After updating, revoke connected AI clients from the plugin's Connected Clients screen and rotate the API key with the plugin's WP-CLI command."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Royal MCP below 1.5.7"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.5.7, current release 1.5.11"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-111958"
+        },
+        {
+          "label": "Found by",
+          "value": "Raphael P. Cigana"
+        },
+        {
+          "label": "Disclosed",
+          "value": "20 October 2026"
+        },
+        {
+          "label": "Active installs",
+          "value": "More than 10,000"
+        },
+        {
+          "label": "Proof of concept",
+          "value": "Withheld until 20 November 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "WPScan Advisory",
+          "url": "https://wpscan.com/vulnerability/014f061c-54f3-491e-b4a0-85cfa6fb178b/"
+        },
+        {
+          "label": "Plugin Directory",
+          "url": "https://wordpress.org/plugins/royal-mcp/"
+        }
+      ],
+      "publishDate": "2026-10-26T00:20:15.584Z"
+    },
     {
       "id": "socradar-inc-gentlemen-ai-infrastructure",
       "categories": [
