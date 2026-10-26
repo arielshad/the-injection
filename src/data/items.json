@@ -1,7 +1,155 @@
 {
-  "generatedAt": "2026-10-26T05:39:37.994Z",
+  "generatedAt": "2026-10-26T11:43:47.053Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "req-llm-websocket-tls-verification",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "ReqLLM: WebSocket sessions accepted any TLS certificate",
+      "org": "ReqLLM",
+      "date": "2026-10-22",
+      "url": "https://github.com/agentjido/req_llm/security/advisories/GHSA-6vww-5m28-f26v",
+      "summary": "ReqLLM 1.9.0 through 1.28.0 did not verify TLS certificates on its OpenAI WebSocket sessions, so an on-path attacker could read the authorization header and the provider key it carries. Version 1.29.0 verifies peers.",
+      "severity": "medium",
+      "tags": [
+        "credential-theft",
+        "req-llm",
+        "elixir",
+        "openai"
+      ],
+      "affected": [
+        "ReqLLM",
+        "req_llm (Hex)"
+      ],
+      "cve": "CVE-2026-107685",
+      "cvss": 7.4,
+      "credits": [
+        {
+          "name": "Neil Berkman"
+        }
+      ],
+      "explainer": {
+        "tagline": "ReqLLM's OpenAI WebSocket client accepted any TLS certificate, exposing the provider key in its authorization header.",
+        "whatHappened": "ReqLLM published advisory GHSA-6vww-5m28-f26v on October 22, 2026 and shipped the fix in v1.29.0 the same day. Neil Berkman reported that secure WebSocket connections in versions 1.9.0 through 1.28.0 accept any certificate. The flaw is tracked as CVE-2026-107685.",
+        "howItWorks": "The WebSocket client called WebSockex.start/4 without TLS settings, and WebSockex 0.5.1 defaults to insecure: true, which disables certificate verification. An attacker positioned on the network path can present any certificate, impersonate the server, and read or modify the session. The authorization header travels over that connection, so the bearer token in it is readable.",
+        "whoIsAffected": "Elixir applications on req_llm 1.9.0 through 1.28.0 that use the OpenAI Responses, Realtime or Codex WebSocket paths are exposed. HTTP streaming through Finch and the HTTP/2 session through Mint verify certificates and are not affected.",
+        "whatToDo": "Upgrade to req_llm 1.29.0, which enables peer verification, uses the system CA store, checks hostnames and fails closed when no trust store is available. Rotate any OpenAI key or OAuth token that an affected version carried over an untrusted network. Where upgrading must wait, avoid the WebSocket paths and use HTTP streaming."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "req_llm 1.9.0 through 1.28.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.29.0, released October 22, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-107685"
+        },
+        {
+          "label": "Scores",
+          "value": "7.4 under CVSS 3.1 in the project advisory, 9.1 under CVSS 4.0 in the CVE record"
+        },
+        {
+          "label": "Affected paths",
+          "value": "OpenAI Responses, Realtime and Codex WebSocket sessions"
+        },
+        {
+          "label": "Found by",
+          "value": "Neil Berkman"
+        }
+      ],
+      "links": [
+        {
+          "label": "ReqLLM Advisory",
+          "url": "https://github.com/agentjido/req_llm/security/advisories/GHSA-6vww-5m28-f26v"
+        },
+        {
+          "label": "ReqLLM 1.29.0",
+          "url": "https://github.com/agentjido/req_llm/releases/tag/v1.29.0"
+        },
+        {
+          "label": "GitHub Advisory DB",
+          "url": "https://github.com/advisories/GHSA-w53j-6pxf-r2vw"
+        }
+      ],
+      "publishDate": "2026-10-26T11:43:47.053Z"
+    },
+    {
+      "id": "drupal-ai-file-to-text-access-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Drupal AI File to Text: a tool reads files the user cannot download",
+      "org": "Drupal Security Team",
+      "date": "2026-10-21",
+      "url": "https://www.drupal.org/sa-contrib-2026-251",
+      "summary": "Drupal's AI File to Text module did not check whether a user may view a file before extracting its text for AI agents, so a caller with AI tool permission could read private-filesystem files. Release 1.0.1 fixes it.",
+      "severity": "medium",
+      "tags": [
+        "agent-security",
+        "data-exfiltration",
+        "drupal"
+      ],
+      "affected": [
+        "Drupal",
+        "AI File to Text (Drupal module)"
+      ],
+      "cve": "CVE-2026-114554",
+      "credits": [
+        {
+          "name": "Marcus Johansson"
+        }
+      ],
+      "explainer": {
+        "tagline": "AI File to Text let a caller with AI tool access read the text of files they could not otherwise download.",
+        "whatHappened": "The Drupal Security Team published SA-CONTRIB-2026-251 on October 21, 2026 for the AI File to Text module and rated it moderately critical, 11 of 25 on Drupal's scale. Marcus Johansson reported the access bypass, and version 1.0.1 shipped the same day. The flaw is tracked as CVE-2026-114554.",
+        "howItWorks": "The module extracts text from uploaded Word, PDF, OpenDocument, CSV, Markdown and plain text files, and exposes that extraction to AI agents and automators as a tool. The tool does not adequately check whether the current user may view a file before it reads the contents. Pointing the agent at a file therefore returns text from files the caller has no permission to download, including files held in Drupal's private file system.",
+        "whoIsAffected": "Drupal sites running AI File to Text earlier than 1.0.1 are affected. Exploitation needs an account in a role that may invoke AI tools, through an agent or through the AI API Explorer, so exposure depends on which roles hold that permission.",
+        "whatToDo": "Upgrade to AI File to Text 1.0.1. Review which roles may invoke AI tools and remove the permission where a role does not need it."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "AI File to Text earlier than 1.0.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.0.1, released October 21, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-114554"
+        },
+        {
+          "label": "Risk score",
+          "value": "Moderately critical, 11 of 25 on Drupal's scale"
+        },
+        {
+          "label": "Attack type",
+          "value": "Access bypass through an AI agent tool"
+        },
+        {
+          "label": "Found by",
+          "value": "Marcus Johansson"
+        }
+      ],
+      "links": [
+        {
+          "label": "Drupal Advisory",
+          "url": "https://www.drupal.org/sa-contrib-2026-251"
+        },
+        {
+          "label": "Release 1.0.1",
+          "url": "https://www.drupal.org/project/ai_file_to_text/releases/1.0.1"
+        }
+      ],
+      "publishDate": "2026-10-26T11:43:47.053Z"
+    },
     {
       "id": "pydantic-ai-web-fetch-tool-resource-exhaustion",
       "categories": [

@@ -12136,6 +12136,84 @@
         "zylon-ai/private-gpt issue tracker"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261026t114347z",
+      "timestamp": "2026-10-26T11:43:47.053Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept GitHub Security Advisories (reviewed and unreviewed, by created date and by mcp, agent, llm, ai and skill queries), vendor and lab blogs (Anthropic, Microsoft Security and MSRC, Wiz, Socket, JFrog, VulnCheck, Trail of Bits, Pillar, AIR, Zenity, Embrace The Red, HiddenLayer, Check Point, Lakera, NCC Group, ReversingLabs, Straiker, Noma, Invariant), UK AISI, OWASP GenAI, Hugging Face blog and new prompt-injection models, paper-scan (51 arXiv candidates, 1 with two scanned signals and it is agent training infrastructure, not security), repo-scan (4 candidates), github.com/trending, talk-scan (no talk cleared the bar) and Hacker News. Two new disclosures met the bar: a TLS verification failure in ReqLLM's OpenAI WebSocket client and an access bypass in Drupal's AI File to Text module. Most other candidates were already in the feed or were old advisories that the GitHub Advisory Database only republished inside the window: Storybook addon-mcp (disclosed October 12), obsidian-tc's seven advisories (July 3 and September 26), both vLLM multimodal advisories (October 6), CrewAI CVE-2026-92206 (ZDI released it September 16) and SiYuan's MCP asset tool (October 9). cloudflare/security-audit-skill was the week's top trending security repo but was created on June 18, so it is an old repo with new stars. openai.com and reddit.com returned errors to the fetcher and are left out of sourcesChecked.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "req-llm-websocket-tls-verification",
+          "title": "ReqLLM: WebSocket sessions accepted any TLS certificate",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A named reporter, a maintainer advisory published inside the window and a same-day fix, and the exposed secret is the provider API key that an AI client library sends on every call."
+        },
+        {
+          "id": "drupal-ai-file-to-text-access-bypass",
+          "title": "Drupal AI File to Text: a tool reads files the user cannot download",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "An AI agent tool that skips the host application's file access check is the agent permission problem in a widely deployed CMS, with a CVE, a named reporter and a fixed release."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "drupal.org security advisories",
+        "Zero Day Initiative",
+        "anthropic.com/news",
+        "Microsoft Security blog",
+        "MSRC blog",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "vulncheck.com/blog",
+        "blog.trailofbits.com",
+        "pillar.security/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "hiddenlayer.com/innovation-hub",
+        "research.checkpoint.com",
+        "lakera.ai/blog",
+        "nccgroup.com/research-blog",
+        "reversinglabs.com/blog",
+        "straiker.ai/blog",
+        "noma.security/blog",
+        "invariantlabs.ai/blog",
+        "aisi.gov.uk",
+        "OWASP GenAI Security Project",
+        "Google Cloud threat intelligence blog",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, by created)",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan.ts",
+        "Hacker News front page and Algolia search"
+      ],
+      "windowDays": 7
     }
   ]
 }
