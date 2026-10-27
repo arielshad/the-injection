@@ -1,7 +1,187 @@
 {
-  "generatedAt": "2026-10-27T06:06:28.678Z",
+  "generatedAt": "2026-10-27T11:22:37.949Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "trailofbits-backporting-stable-releases",
+      "categories": [
+        "research"
+      ],
+      "title": "Trail of Bits: stable releases ship thousands of unfixed CVEs",
+      "org": "Trail of Bits",
+      "date": "2026-10-27",
+      "url": "https://blog.trailofbits.com/2026/10/27/backporting-security-fixes-to-stable-releases/",
+      "summary": "Stable releases carry many known, unfixed security bugs, Trail of Bits reports: 4,562 unique CVEs across 1,128 Debian 13 source packages, and 2,006 in the Linux 5.10.y kernel branch. Maintainers applied 142 of its backports.",
+      "severity": "info",
+      "tags": [
+        "coding-agents",
+        "codex",
+        "linux-kernel"
+      ],
+      "affected": [
+        "Linux kernel",
+        "Debian",
+        "Ubuntu"
+      ],
+      "credits": [
+        {
+          "name": "Artem Dinaburg",
+          "org": "Trail of Bits"
+        }
+      ],
+      "explainer": {
+        "tagline": "Trail of Bits counted how many known security bugs stay unfixed in stable Linux kernel branches and distribution releases.",
+        "whatHappened": "Artem Dinaburg of Trail of Bits published a measurement of unfixed CVEs in stable software on 27 October 2026. Using CVE data, the post counts known flaws whose fixes exist only in newer branches, across two Linux kernel stable branches, Debian 13 and Ubuntu 26.04. Trail of Bits also reports that maintainers have applied 142 of its backported fixes, covering 90 CVEs, to stable kernel trees.",
+        "howItWorks": "Security fixes usually land in the latest version, and backporting them to older stable branches is manual work that often does not happen, which leaves users choosing between stability and security. Trail of Bits used Codex with GPT-5.6 to find fixes that apply to a given stable branch and to prepare backported patches for maintainer review. The counts come from matching CVE records against the branch each fix reached, and Dinaburg describes them as measuring sticks rather than exact figures.",
+        "whoIsAffected": "Linux kernel branch 5.10.y and Debian 13 carry the largest counts in the post, with Ubuntu 26.04 and kernel branch 6.18.y lower; the per-target numbers are listed below. Anyone running a long-term stable distribution or kernel branch for stability reasons is in scope.",
+        "whatToDo": "Track which CVEs remain unfixed in the stable software you run, and update where updating is possible. Where it is not, Trail of Bits recommends containing bugs with mandatory access controls, code integrity checks, sandboxing and privilege separation. Maintainers can request backporting help through its Patch the Planet program."
+      },
+      "quickFacts": [
+        {
+          "label": "Linux 5.10.y",
+          "value": "2,006 unfixed CVEs, 213 high or critical"
+        },
+        {
+          "label": "Linux 6.18.y",
+          "value": "337 unfixed CVEs, 3 high or critical"
+        },
+        {
+          "label": "Debian 13",
+          "value": "4,562 unique CVEs across 1,128 source packages"
+        },
+        {
+          "label": "Ubuntu 26.04",
+          "value": "770 unique CVEs across 1,028 source packages"
+        },
+        {
+          "label": "Backports applied",
+          "value": "142 fixes covering 90 CVEs in stable kernel trees"
+        },
+        {
+          "label": "Tooling",
+          "value": "Codex with GPT-5.6"
+        }
+      ],
+      "image": {
+        "url": "https://blog.trailofbits.com/2026/10/27/backporting-security-fixes-to-stable-releases/backporting-security-fixes-socialbanner.png",
+        "alt": "Backporting security fixes to stable releases",
+        "credit": "Trail of Bits"
+      },
+      "links": [
+        {
+          "label": "Trail of Bits Post",
+          "url": "https://blog.trailofbits.com/2026/10/27/backporting-security-fixes-to-stable-releases/"
+        },
+        {
+          "label": "Patch The Planet",
+          "url": "https://trailofbits.com/patch-the-planet"
+        }
+      ],
+      "publishDate": "2026-10-27T11:22:37.949Z"
+    },
+    {
+      "id": "db-gpt-react-agent-unauth-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "DB-GPT: an unauthenticated request runs shell commands as root",
+      "org": "VulnCheck",
+      "date": "2026-10-20",
+      "url": "https://www.vulncheck.com/advisories/db-gpt-through-0.8.2-unauthenticated-rce-via-api-v1-chat-react-agent",
+      "summary": "DB-GPT through 0.8.2 lets anyone who can reach its web server run Python and bash as root, because the react-agent endpoint checks callers with a mock function that grants every request the admin role.",
+      "severity": "high",
+      "cve": "CVE-2026-77932",
+      "cvss": 9.3,
+      "tags": [
+        "rce",
+        "agent-security",
+        "db-gpt"
+      ],
+      "affected": [
+        "DB-GPT"
+      ],
+      "credits": [
+        {
+          "name": "Noy Pearl"
+        },
+        {
+          "name": "Michael Sromin"
+        },
+        {
+          "name": "Ophir Dror"
+        }
+      ],
+      "explainer": {
+        "tagline": "DB-GPT through 0.8.2 accepts unauthenticated prompts that make its ReAct agent run arbitrary code as root.",
+        "whatHappened": "VulnCheck published CVE-2026-77932 on 20 October 2026, acting as the CNA for an unauthenticated remote code execution flaw in DB-GPT. DB-GPT is an open-source agentic data assistant from eosphoros-ai that connects language models to databases. The GitHub Advisory Database and OSV carry the same record, and neither lists a fixed version.",
+        "howItWorks": "The /api/v1/chat/react-agent endpoint identifies callers with get_user_from_headers, a mock function that returns the admin role for every request. A caller can therefore send a prompt that drives the ReAct agent's code_interpreter and shell_interpreter tools, neither of which is sandboxed. Those tools run Python and bash as root inside the web server container, and the bundled database is reachable from there with its default credentials.",
+        "whoIsAffected": "Every DB-GPT release up to and including 0.8.2 is listed as affected, with commit 83609c4 recorded as the last affected code. Exposure depends on who can reach the web server: no account, token or user action is needed, so any network path to the endpoint is enough.",
+        "whatToDo": "No patched DB-GPT release exists, so block network access to the web server and to /api/v1/chat/react-agent until one ships. Replace the bundled database's default credentials, and review access logs on any instance that untrusted networks could reach."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "DB-GPT through 0.8.2"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed release listed"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-77932"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.3 (CVSS v4.0, VulnCheck)"
+        },
+        {
+          "label": "Found by",
+          "value": "Noy Pearl, Michael Sromin, Ophir Dror"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-10-20"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unauthenticated remote code execution"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patch for CVE-2026-77932 in DB-GPT?",
+          "a": "No patched DB-GPT release exists. The OSV record for CVE-2026-77932 lists no fixed version, and the newest tagged release, 0.8.2, sits inside the affected range. Until eosphoros-ai ships a fix, the practical control is network access: keep the DB-GPT web server off untrusted networks and block reachability to the react-agent endpoint."
+        },
+        {
+          "q": "Which DB-GPT versions are affected by the react-agent flaw?",
+          "a": "Every DB-GPT version up to and including 0.8.2 is affected. The OSV record lists the range as introduced at the first commit and last affected at 0.8.2, with commit 83609c4 named as the last affected code. Because that range covers all published releases, upgrading to a newer tag is not an option for DB-GPT operators today."
+        },
+        {
+          "q": "Does exploiting the DB-GPT flaw need a login or user interaction?",
+          "a": "Neither a login nor user interaction is required. The CVSS v4.0 vector VulnCheck published for CVE-2026-77932 records a network attack vector, low complexity, no privileges and no user interaction, scoring 9.3. The mock authentication function grants the admin role to every caller, so anyone able to send an HTTP request to the endpoint reaches the agent's interpreters."
+        },
+        {
+          "q": "How does the DB-GPT flaw differ from a prompt injection bug?",
+          "a": "Prompt injection needs attacker text to reach a model that already holds a trusted session. The DB-GPT flaw skips that step, because the react-agent endpoint never authenticates the caller, so an attacker addresses the ReAct agent directly. The damage then comes from the agent's unsandboxed code_interpreter and shell_interpreter tools, which run Python and bash as root."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/db-gpt-through-0.8.2-unauthenticated-rce-via-api-v1-chat-react-agent"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-5vjv-vw3m-qpqp"
+        },
+        {
+          "label": "OSV Record",
+          "url": "https://osv.dev/vulnerability/CVE-2026-77932"
+        }
+      ],
+      "publishDate": "2026-10-27T11:22:37.949Z"
+    },
     {
       "id": "arxiv-sema-auto",
       "categories": [
