@@ -1,7 +1,117 @@
 {
-  "generatedAt": "2026-10-27T11:22:37.949Z",
+  "generatedAt": "2026-10-27T16:49:34.688Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "cloudflare-glm-5-3-kv-cache-cross-request-exposure",
+      "categories": [
+        "incident",
+        "vulnerability"
+      ],
+      "title": "Cloudflare Workers AI: GLM-5.3 answered 155 prompts with other tenants' data",
+      "org": "Cloudflare",
+      "date": "2026-10-26",
+      "url": "https://blog.cloudflare.com/kv-cache-exposure-remediation/",
+      "summary": "Cloudflare's GLM-5.3 model on Workers AI returned data from other customers' requests in 155 responses between August 27 and September 9, after a KV cache pool smaller than the context window triggered an SGLang bug.",
+      "severity": "high",
+      "tags": [
+        "data-exfiltration",
+        "cloudflare",
+        "workers-ai",
+        "sglang",
+        "glm-5-3"
+      ],
+      "affected": [
+        "Cloudflare Workers AI",
+        "SGLang",
+        "GLM-5.3"
+      ],
+      "credits": [
+        {
+          "name": "Gadi Evron",
+          "org": "Knostic"
+        },
+        {
+          "name": "Michelle Chen",
+          "org": "Cloudflare"
+        }
+      ],
+      "explainer": {
+        "tagline": "A KV cache pool smaller than its context window let Cloudflare's GLM-5.3 return other customers' prompts and answers.",
+        "whatHappened": "Cloudflare disclosed on October 26 that its GLM-5.3 model on Workers AI returned content from other customers' requests in 155 responses. Gadi Evron of Knostic traced the anomaly through OpenRouter on September 7, 2026 and reported it through HackerOne the next day. Cloudflare published its post-incident report alongside Knostic's write-up and a coordinated fix in SGLang.",
+        "howItWorks": "Cloudflare launched GLM-5.3 with a context window of 1,048,576 tokens but a prefill KV cache pool that held only 681,280, so prompts above the pool size hit SGLang's rejection path, which replaces an over-length prompt with a single placeholder token. In disaggregated prefill and decode mode, SGLang's admission queues checked whether a request had finished rather than whether it had been rejected, so the rejected request was still admitted and transferred. The decode node reserved pages for the full prompt and then read stale KV cache pages left by earlier requests, returning HTTP 200 instead of an error. A developer using the name kevin-14 had reported the same engine bug as SGLang issue 30233 on July 6, 2026.",
+        "whoIsAffected": "GLM-5.3 on Cloudflare Workers AI was the only affected hosted model, and Cloudflare states that no other Workers AI model was involved. Self-hosted SGLang operators are exposed when they run disaggregated prefill and decode with a KV cache pool smaller than the configured context length. Cloudflare says a single-node deployment handled the same case correctly.",
+        "whatToDo": "Operators running SGLang in disaggregated mode should upgrade to v0.5.22 or later, or backport pull requests 36988 and 38935. Compare each prefill and decode node's KV pool size from its startup log against the context length after any change to weights, quantization, parallelism or memory settings, and lower the context length when the pool is smaller. Cloudflare customers need take no action, because the platform fix shipped on September 9."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "GLM-5.3 on Cloudflare Workers AI (@cf/zai-org/glm-5.3)"
+        },
+        {
+          "label": "Exposure window",
+          "value": "August 27 to September 9, 2026"
+        },
+        {
+          "label": "Responses affected",
+          "value": "155, all answering prompts over 681,280 tokens"
+        },
+        {
+          "label": "Found by",
+          "value": "Gadi Evron of Knostic, reported via HackerOne on September 8, 2026"
+        },
+        {
+          "label": "Fixed in",
+          "value": "SGLang v0.5.20 and v0.5.21; Cloudflare recommends v0.5.22 or later"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed on Workers AI on September 9, disclosed October 26"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Was my Cloudflare Workers AI data exposed in the GLM-5.3 leak?",
+          "a": "Cloudflare says 155 responses between August 27 and September 9, 2026 contained data from other customers' requests, and all of them answered prompts longer than 681,280 tokens. Accounts that never sent prompts of that length to GLM-5.3 were not affected. Cloudflare also states that no other model hosted on Workers AI was involved in the exposure."
+        },
+        {
+          "q": "Do I need to act if I self-host SGLang?",
+          "a": "Self-hosted SGLang deployments are exposed when they run disaggregated prefill and decode with a KV cache pool smaller than the configured context length. Cloudflare reports that a single-node deployment handled the same over-length request correctly. Operators should compare the KV pool size in each prefill and decode node's startup log against the context length, and lower the context length when the pool is smaller."
+        },
+        {
+          "q": "Which SGLang version fixes the cross-request KV cache bug?",
+          "a": "SGLang pull request 36988, which retires aborted prefill requests before their results reach decode, shipped in v0.5.20, and pull request 38935, which rejects over-length requests at admission, shipped in v0.5.21. Cloudflare recommends v0.5.22 or later for all operators, or backporting both patches. Cloudflare also advises enabling corruption detection with the KV checksum and canary flags where the model architecture supports them."
+        },
+        {
+          "q": "Was the GLM-5.3 exposure exploited deliberately?",
+          "a": "Cloudflare says that after excluding its own testing and the researcher's, the affected requests matched ordinary long-context use in timing and volume, and it found no evidence of deliberate exploitation. Knostic notes that triggering the leak needed only an ordinary paid account and an API token, with no victim credentials or user interaction, and that affected requests were still billed in full."
+        }
+      ],
+      "links": [
+        {
+          "label": "Cloudflare Report",
+          "url": "https://blog.cloudflare.com/kv-cache-exposure-remediation/"
+        },
+        {
+          "label": "Knostic Write-Up",
+          "url": "https://www.knostic.ai/blog/hallucination-or-cross-tenant-when-an-llm-answers-with-another-users-context"
+        },
+        {
+          "label": "SGLang Issue 30233",
+          "url": "https://github.com/sgl-project/sglang/issues/30233"
+        }
+      ],
+      "image": {
+        "url": "https://blog.cloudflare.com/_emdash/api/media/file/01M5X2YJT16K16BFFJGEMCAXRS.01M5X2YM62P3YQRBGRP96FS4P6.png",
+        "alt": "Cross-request KV cache exposure in the GLM-5.3 Workers AI model",
+        "credit": "Cloudflare"
+      },
+      "publishDate": "2026-10-27T16:49:34.688Z"
+    },
     {
       "id": "trailofbits-backporting-stable-releases",
       "categories": [
