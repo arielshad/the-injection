@@ -12360,6 +12360,76 @@
         "arrakis.security"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261027t001428z",
+      "timestamp": "2026-10-27T00:14:28.646Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research blogs, GitHub advisories, repo-scan, paper-scan and talk-scan for the 7-day window; everything that cleared the bar was already in the feed from the previous sweeps, so no new items. One update: JFrog's Brotli2Shell write-up of 25 October extends CVE-2026-111497 beyond HTTP and Node.js to .NET, FFmpeg, pyarrow and ClickHouse. paper-scan was degraded, with 8 of 9 arXiv queries failing on rate limits or timeouts.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "brotli-node2shell-decoder-oob-write",
+          "title": "Node2Shell: OpenAI's Codex Security team found a Brotli decoder RCE",
+          "note": "JFrog showed on 25 October that the same decoder flaw reaches file parsers and runtimes beyond HTTP and Node.js, with .NET, FFmpeg, pyarrow and ClickHouse demonstrated and two fixes not yet released."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "VulnCheck advisories",
+        "embracethered.com",
+        "simonwillison.net",
+        "Hacker News front page, newest and Show HN",
+        "air.security/blog",
+        "labs.zenity.io",
+        "anthropic.com/news",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com/innovation-hub",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "research.checkpoint.com",
+        "crowdstrike.com/blog",
+        "snyk.io/blog",
+        "lakera.ai/blog",
+        "straiker.ai/blog",
+        "pillar.security/blog",
+        "noma.security/blog",
+        "securitylabs.datadoghq.com",
+        "trendaisecurity.com",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, by created)",
+        "github.com/trending",
+        "arXiv cs.CR via paper-scan (partial)",
+        "Hugging Face Daily Papers via paper-scan",
+        "repo-scan.json (13 queries, 3 candidates)",
+        "talk-scan.ts (48 videos in window)"
+      ],
+      "windowDays": 7
     }
   ]
 }
