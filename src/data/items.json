@@ -1,7 +1,270 @@
 {
-  "generatedAt": "2026-10-27T16:49:34.688Z",
+  "generatedAt": "2026-10-27T21:08:27.339Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "anthropic-claude-browser-os-exploit-chains",
+      "categories": [
+        "research",
+        "lab-safety"
+      ],
+      "title": "Anthropic: Claude wrote exploit chains for Chrome, Safari, Android and Linux",
+      "org": "Anthropic",
+      "date": "2026-10-27",
+      "url": "https://www.anthropic.com/research/discovering-vulnerabilities-with-claude",
+      "summary": "Anthropic's Frontier Red Team says an unreleased Claude model found flaws in Chrome, Safari, Android, Windows and Linux and wrote working exploit chains for five, including a zero-click remote root bug in the Linux kernel.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "red-team",
+        "rce",
+        "claude",
+        "anthropic",
+        "google-chrome"
+      ],
+      "affected": [
+        "Google Chrome",
+        "Safari",
+        "Android",
+        "Windows",
+        "Linux kernel"
+      ],
+      "credits": [
+        {
+          "name": "Nicholas Carlini",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "David Dworken",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Xinyang Ge",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Ben Morris",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Milad Nasr",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Chris Rohlf",
+          "org": "Anthropic Frontier Red Team"
+        },
+        {
+          "name": "Luna Tong",
+          "org": "Anthropic Frontier Red Team"
+        }
+      ],
+      "explainer": {
+        "tagline": "Anthropic reports that an unreleased Claude model found and exploited real flaws in the browsers and operating systems most people run.",
+        "whatHappened": "Anthropic's Frontier Red Team published the work on October 27, 2026, naming Nicholas Carlini, David Dworken, Xinyang Ge, Ben Morris, Milad Nasr, Chris Rohlf and Luna Tong as contributors. The team says an unreleased internal research model found vulnerabilities in widely used browsers and operating systems, and that it wrote exploit chains for five of them. Anthropic says the findings went to vendors under its coordinated vulnerability disclosure policy.",
+        "howItWorks": "Many scanning agents run in parallel, each scored by how many unique vulnerabilities it adds and tracked by code coverage, across coverage-based, goal-based and threat-model-based strategies. Every confirmed finding then goes through automated variant analysis, which looks for the same mistake elsewhere, and through a verification and risk-rating pipeline. For the Windows bug, Anthropic says Claude reverse-engineered the binary with tools including Ghidra, wrote an annotated reimplementation, and checked it against the original.",
+        "whoIsAffected": "Chrome users were exposed until version 156, which Anthropic says carries fixes for 62 CVEs it reported, all rated critical or high, among them 13 sandbox escapes and 21 renderer compromise bugs. The kernel findings are tracked as CVE-2026-98432 on Linux and CVE-2026-33096 on Windows, and Anthropic estimates several million listening servers could be affected by the Windows one. Anthropic says Apple and Google have addressed the Safari and Android findings.",
+        "whatToDo": "Apply the vendor patches the report names, starting with Chrome 156 and the Linux stable kernels that carry the backported fix for CVE-2026-98432. Anthropic recommends scanning your own code at pull-request time rather than only working through an existing backlog. Security professionals with qualifying credentials can apply to Anthropic's Cyber Verification Program for access to its most capable models."
+      },
+      "quickFacts": [
+        {
+          "label": "Exploit chains",
+          "value": "Chrome on macOS, Safari, Android on a locked Pixel 9, the Windows kernel, the Linux kernel"
+        },
+        {
+          "label": "Chrome",
+          "value": "62 CVEs from Anthropic's reports, all critical or high, fixed as of Chrome 156, per Anthropic"
+        },
+        {
+          "label": "Linux",
+          "value": "CVE-2026-98432, which Anthropic describes as zero-click remote root in the kernel's multipath TCP code, patched upstream and backported"
+        },
+        {
+          "label": "Windows",
+          "value": "CVE-2026-33096, a remote denial of service in the kernel's HTTP/3 (QUIC) implementation"
+        },
+        {
+          "label": "Model",
+          "value": "An unreleased internal Anthropic research model"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Coordinated disclosure: 90 days to patch, then 45 days before further detail"
+        },
+        {
+          "label": "Found by",
+          "value": "Anthropic Frontier Red Team"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Chrome version fixes the vulnerabilities Anthropic reported?",
+          "a": "Chrome 156 carries the fixes, according to Anthropic's report. Anthropic says Google assigned 62 CVEs to its submissions, all rated critical or high, including 13 sandbox escapes and 21 renderer compromise bugs. Anthropic also describes a one-click chain on macOS that escaped the renderer and then the sandbox to reach code execution."
+        },
+        {
+          "q": "Did Anthropic use a public Claude model for this work?",
+          "a": "No. Anthropic says the vulnerabilities were found with an unreleased internal research model, not one available in the Claude apps or the Claude API. The Frontier Red Team ran many scanning agents in parallel against the targets, scored each agent by the unique vulnerabilities it added, and tracked code coverage across three scanning strategies."
+        },
+        {
+          "q": "Are the Linux and Windows kernel bugs patched?",
+          "a": "Yes for Linux: Anthropic says CVE-2026-98432, which it describes as a zero-click remote root code execution bug in the kernel's multipath TCP code, was patched upstream and backported to stable branches. For Windows, CVE-2026-33096 is a remote denial of service in the kernel's HTTP/3 implementation, and Anthropic estimates several million listening servers could be affected."
+        }
+      ],
+      "links": [
+        {
+          "label": "Frontier Red Team Post",
+          "url": "https://www.anthropic.com/research/discovering-vulnerabilities-with-claude"
+        },
+        {
+          "label": "Linux Kernel CVE",
+          "url": "https://www.tenable.com/cve/CVE-2026-98432"
+        },
+        {
+          "label": "Disclosure Policy",
+          "url": "https://www.anthropic.com/coordinated-vulnerability-disclosure"
+        }
+      ],
+      "image": {
+        "url": "https://www-cdn.anthropic.com/images/4zrzovbb/website/6d4a0d28992ade92d6fa63646fd9c9d318245c6c-2400x1260.jpg",
+        "alt": "Header image for Anthropic's post on discovering and exploiting vulnerabilities with Claude",
+        "credit": "Anthropic"
+      },
+      "publishDate": "2026-10-27T21:08:27.339Z"
+    },
+    {
+      "id": "mcp-inspector-oauth-callback-stdio-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "MCP Inspector: a malicious server's OAuth redirect runs local commands",
+      "org": "Model Context Protocol",
+      "date": "2026-10-21",
+      "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-4fc4-wcmh-4g86",
+      "summary": "MCP Inspector 1.0.2 and earlier let a malicious remote MCP server run local commands, two critical flaws among nine advisories the project published on October 21, 2026. Fixes ship in 1.0.3 and 2.12.0.",
+      "severity": "high",
+      "cvss": 9.6,
+      "tags": [
+        "mcp",
+        "rce",
+        "credential-theft",
+        "mcp-inspector"
+      ],
+      "affected": [
+        "MCP Inspector",
+        "@modelcontextprotocol/inspector",
+        "@modelcontextprotocol/inspector-client",
+        "@modelcontextprotocol/inspector-server"
+      ],
+      "credits": [
+        {
+          "name": "Bhavya Gupta",
+          "url": "https://github.com/bhavya32"
+        },
+        {
+          "name": "eilonc-pillar",
+          "url": "https://github.com/eilonc-pillar"
+        },
+        {
+          "name": "Lemohang Khaile"
+        },
+        {
+          "name": "Thai Son Dinh",
+          "org": "VinSOC Labs"
+        },
+        {
+          "name": "0xParth"
+        },
+        {
+          "name": "hackyhunter"
+        }
+      ],
+      "explainer": {
+        "tagline": "MCP Inspector, the official tool for testing MCP servers, could be made to run an attacker's command just by connecting to one.",
+        "whatHappened": "The Model Context Protocol project published nine security advisories for MCP Inspector on October 21, 2026, two of them critical at CVSS 9.6. Bhavya Gupta reported both critical flaws, and eilonc-pillar, Lemohang Khaile, Thai Son Dinh of VinSOC Labs, 0xParth and hackyhunter reported others in the batch. Releases 1.0.3 and 2.12.0 carry the fixes.",
+        "howItWorks": "In the first critical flaw, a malicious server returns an OAuth challenge pointing at an authorization server the attacker controls, which appends Inspector connection parameters to the callback URL. The callback page reads a transport type, a command and arguments out of that URL and reconnects, sending the command to Inspector's local stdio proxy endpoint, which launches it. The second critical flaw is a token theft chain: a sandboxed MCP App asks the top window to open a popup, the popup shares sessionStorage because it opens without noopener, and the leaked proxy auth token then authenticates a request to that same stdio endpoint. A separate high-severity flaw puts the OAuth authorization URL inside a PowerShell double-quoted string, so PowerShell evaluates a subexpression written into it.",
+        "whoIsAffected": "Both critical flaws cover @modelcontextprotocol/inspector and its client and server packages, from 0.13.0 and 0.20.0 up to 1.0.2. The v2 line is hit by a different set: the PowerShell injection and a DNS-rebinding token disclosure reach 2.0.0 through 2.11.0, and the PowerShell path only on Windows and the Windows Subsystem for Linux. Version ranges are listed below.",
+        "whatToDo": "Upgrade MCP Inspector to 1.0.3 on the v1 line or 2.12.0 on the v2 line. The DNS-rebinding advisory says an attacker holding the API token could read stored OAuth access and refresh tokens, server configs and local client-config files, so rotate the credentials any exposed Inspector held. The 2.12.0 notes add an MCP_INSPECTOR_ALLOWED_HOSTS setting for reverse proxies that rewrite the Host header."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "@modelcontextprotocol/inspector 0.13.0 to 1.0.2 for the critical flaws, 2.0.0 to 2.11.0 for the v2 flaws"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.0.3 on the v1 line and 2.12.0 on the v2 line, both released October 21, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.6 for GHSA-4fc4-wcmh-4g86 and GHSA-6x67-4w4w-9f3w, 8.8 for GHSA-q978-78c7-phqw, 7.5 for GHSA-wmjf-2m46-2352"
+        },
+        {
+          "label": "Found by",
+          "value": "Bhavya Gupta, eilonc-pillar, Lemohang Khaile, Thai Son Dinh of VinSOC Labs, 0xParth, hackyhunter"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 21, 2026, nine advisories at once"
+        },
+        {
+          "label": "Attack type",
+          "value": "Remote code execution reached through a malicious MCP server's OAuth flow"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which MCP Inspector versions are patched?",
+          "a": "MCP Inspector 1.0.3 patches seven advisories on the deprecated v1 line, including both CVSS 9.6 remote code execution flaws. MCP Inspector 2.12.0 patches three on the v2 line: the PowerShell injection on Windows and WSL, the DNS-rebinding token disclosure, and an uncapped fetch proxy. Both releases went out on October 21, 2026."
+        },
+        {
+          "q": "Am I affected if I only connect MCP Inspector to servers I trust?",
+          "a": "Both critical MCP Inspector flaws need a connection to a malicious remote MCP server, so an operator who connects only to servers they run is outside the described attack path. The advisories stress that connecting to an unknown server is enough on its own: no tool call, no model involvement and no further approval are needed once the connection starts."
+        },
+        {
+          "q": "Does the Windows PowerShell injection in MCP Inspector affect macOS and Linux?",
+          "a": "No. GHSA-q978-78c7-phqw affects Windows and the Windows Subsystem for Linux only, because the open package at version 10.2.0 places the OAuth authorization URL inside a PowerShell double-quoted string without escaping it. On macOS and Linux that package passes the URL as an argument vector, so no shell evaluates it. Inspector 2.12.0 moves to open version 11."
+        },
+        {
+          "q": "Were CVE ids assigned to the MCP Inspector advisories?",
+          "a": "No CVE ids were assigned to the nine MCP Inspector advisories published on October 21, 2026, and each is tracked only by a GHSA identifier. Two of them reference CVE-2025-49596, an earlier MCP Inspector flaw whose fix the project calls incomplete: GHSA-wmjf-2m46-2352 for the Origin check and GHSA-vcc9-3xgm-p9v4 for DNS rebinding."
+        }
+      ],
+      "links": [
+        {
+          "label": "OAuth Callback RCE",
+          "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-4fc4-wcmh-4g86"
+        },
+        {
+          "label": "Proxy Token RCE",
+          "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-6x67-4w4w-9f3w"
+        },
+        {
+          "label": "PowerShell Injection",
+          "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-q978-78c7-phqw"
+        },
+        {
+          "label": "DNS Rebinding Leak",
+          "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-vcc9-3xgm-p9v4"
+        },
+        {
+          "label": "Missing Proxy Auth",
+          "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-wmjf-2m46-2352"
+        },
+        {
+          "label": "Inspector 1.0.3",
+          "url": "https://github.com/modelcontextprotocol/inspector/releases/tag/1.0.3"
+        },
+        {
+          "label": "Inspector 2.12.0",
+          "url": "https://github.com/modelcontextprotocol/inspector/releases/tag/2.12.0"
+        }
+      ],
+      "publishDate": "2026-10-27T21:08:27.339Z"
+    },
     {
       "id": "cloudflare-glm-5-3-kv-cache-cross-request-exposure",
       "categories": [
