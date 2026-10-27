@@ -1,7 +1,301 @@
 {
-  "generatedAt": "2026-10-27T00:14:28.646Z",
+  "generatedAt": "2026-10-27T06:06:28.678Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "arxiv-sema-auto",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "SEMA-Auto: a multi-turn jailbreak that decides when to stop",
+      "org": "arXiv",
+      "date": "2026-10-26",
+      "url": "https://arxiv.org/abs/2610.35743",
+      "summary": "SEMA-Auto is a trained multi-turn attacker that reads each reply and decides on its own when to stop. The authors report 76.0% attack success at one attempt on DeepSeek-V4-Flash, in an average of three turns.",
+      "severity": "medium",
+      "tags": [
+        "jailbreak",
+        "red-team",
+        "guardrails",
+        "evals",
+        "deepseek",
+        "openai",
+        "anthropic"
+      ],
+      "affected": [
+        "DeepSeek-V4-Flash",
+        "GPT-oss-120B",
+        "GPT-5.4",
+        "Claude-Haiku-4.5",
+        "GPT-6-Astra"
+      ],
+      "credits": [
+        {
+          "name": "Mingqian Feng"
+        },
+        {
+          "name": "Xiaodong Liu"
+        },
+        {
+          "name": "Weiwei Yang"
+        },
+        {
+          "name": "Chenliang Xu"
+        },
+        {
+          "name": "Jialin Song"
+        },
+        {
+          "name": "Qiyao Ma"
+        }
+      ],
+      "explainer": {
+        "tagline": "SEMA-Auto makes multi-turn jailbreaking a trained policy that reads the victim's replies and stops once it has won.",
+        "whatHappened": "Mingqian Feng and nine co-authors posted SEMA-Auto to arXiv on October 26, 2026. The paper reports attack success rates against DeepSeek-V4-Flash, GPT-oss-120B, GPT-5.4, Claude-Haiku-4.5 and GPT-6-Astra, and points at the SEMA framework code, which sits under Microsoft's GitHub organization under an MIT license.",
+        "howItWorks": "Two training stages build the attacker: a synthetic bootstrap tuning pass, then decision-supervised reinforcement learning that teaches it when to press on and when to stop. The paper sorts earlier work into static planners, which fix the attack plan in advance and ignore what the victim says, and interactive generators, which read the replies but lean on an in-loop evaluator for the success signal. SEMA-Auto reads the replies and supplies its own stopping decision, which takes the evaluator out of the loop.",
+        "whoIsAffected": "Anyone treating a frontier model's own refusal behaviour as a control is the audience. On HarmBench the authors report an average 59.6% attack success at one attempt across GPT-oss-120B, GPT-5.4, Claude-Haiku-4.5 and GPT-6-Astra, which they state is 13.8% above the prior state of the art. The harm shown is policy-violating text, not access to a system.",
+        "whatToDo": "Score guardrails across a whole conversation rather than turn by turn, because the gain the authors claim comes from spending turns well and stopping early: three turns on average, where the best static baseline they measured used a fixed seven."
+      },
+      "quickFacts": [
+        {
+          "label": "Best result",
+          "value": "76.0% success at one attempt, AdvBench, DeepSeek-V4-Flash"
+        },
+        {
+          "label": "Turns used",
+          "value": "3.0 on average, against a fixed 7 for static baselines"
+        },
+        {
+          "label": "Across models",
+          "value": "59.6% success at one attempt on HarmBench"
+        },
+        {
+          "label": "Training",
+          "value": "Synthetic bootstrap tuning, then decision-supervised RL"
+        },
+        {
+          "label": "Code",
+          "value": "SEMA framework, MIT licensed"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Attack success at one attempt, AdvBench, DeepSeek-V4-Flash",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders",
+          "results": [
+            {
+              "name": "SEMA-Auto",
+              "score": 76,
+              "highlight": true
+            },
+            {
+              "name": "Best static planner",
+              "score": 54.8
+            },
+            {
+              "name": "Best interactive generator",
+              "score": 43.8
+            }
+          ],
+          "source": "https://arxiv.org/abs/2610.35743"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.35743"
+        },
+        {
+          "label": "SEMA Code",
+          "url": "https://github.com/microsoft/SEMA"
+        }
+      ],
+      "publishDate": "2026-10-27T06:06:28.678Z"
+    },
+    {
+      "id": "arxiv-secprbench",
+      "categories": [
+        "research",
+        "benchmark"
+      ],
+      "title": "SecPRBench: agent code review recall ranges from 32.5% to 78.1%",
+      "org": "arXiv",
+      "date": "2026-10-24",
+      "url": "https://arxiv.org/abs/2610.33509",
+      "summary": "SecPRBench measures whether LLM agents catch a security flaw in the commit that introduced it. Across eight frontier models the authors report recall from 32.5% to 78.1%, on 265 cases taken from nine C, C++ and Rust projects.",
+      "severity": "info",
+      "tags": [
+        "coding-agents",
+        "evals",
+        "detection",
+        "secprbench",
+        "code-review"
+      ],
+      "affected": [
+        "AI coding agents",
+        "OpenAI Codex Security",
+        "Anthropic Defending Code",
+        "Grok 4.6",
+        "GPT-6 sol"
+      ],
+      "credits": [
+        {
+          "name": "Yihan Yang"
+        },
+        {
+          "name": "Chenyuan Yang"
+        },
+        {
+          "name": "Zijie Zhao"
+        },
+        {
+          "name": "Anh Nguyen Hoang"
+        },
+        {
+          "name": "Ziqi Zhang"
+        },
+        {
+          "name": "Weidong Wang"
+        }
+      ],
+      "explainer": {
+        "tagline": "SecPRBench scores security code review on the real commits that introduced flaws in nine C, C++ and Rust projects.",
+        "whatHappened": "Yihan Yang, Chenyuan Yang and six co-authors posted SecPRBench to arXiv on October 24, 2026, along with the benchmark code, a review sandbox and a results site. The paper reports numbers for eight frontier models and for two vendor security harnesses.",
+        "howItWorks": "Each case is an upstream commit that introduced a real vulnerability, not the later fix, which is what earlier benchmarks used. The reviewer gets the diff, the commit message and a source snapshot with no usable git history, but no description of the flaw, and must name the flaw and explain its root cause. A paired task shows the repaired change, so a reviewer that flags everything scores badly. An LLM judge matches reported findings against the known vulnerability.",
+        "whoIsAffected": "Teams that gate merges on an AI reviewer are the audience. The repository counts 265 cases and 530 tasks drawn from curl, FFmpeg, Firefox, FreeType, OpenSSL, Redis, SQLite, V8 and Wasmtime. The authors report that the two vendor harnesses they tested move recall in opposite directions, listed below.",
+        "whatToDo": "Treat an agentic reviewer as a filter, not a gate: the strongest model in the paper reached 78.1% recall, so roughly a fifth of the planted flaws still went through. The harness is installable and ships frozen results, so a team can score its own reviewer configuration before trusting it."
+      },
+      "quickFacts": [
+        {
+          "label": "Benchmark",
+          "value": "265 cases, 530 tasks, nine projects"
+        },
+        {
+          "label": "Recall range",
+          "value": "32.5% to 78.1% across eight frontier models"
+        },
+        {
+          "label": "Top models",
+          "value": "Grok 4.6 and GPT-6 sol, per the paper"
+        },
+        {
+          "label": "Codex Security",
+          "value": "Recall 8.3 points lower, mostly by abstaining"
+        },
+        {
+          "label": "Defending Code",
+          "value": "Recall 7.7 points higher, at higher cost"
+        },
+        {
+          "label": "Near misses",
+          "value": "68% of misses name the right file, wrong mechanism"
+        },
+        {
+          "label": "Released",
+          "value": "Benchmark, review sandbox and judge"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.33509"
+        },
+        {
+          "label": "SecPRBench Code",
+          "url": "https://github.com/secprbench/secprbench"
+        },
+        {
+          "label": "Results Site",
+          "url": "https://secprbench.github.io/"
+        }
+      ],
+      "publishDate": "2026-10-27T06:06:28.678Z"
+    },
+    {
+      "id": "vllm-eps-ghostscript-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "vLLM: an EPS image labeled as PNG reaches the host's Ghostscript",
+      "org": "vLLM",
+      "date": "2026-10-20",
+      "url": "https://github.com/vllm-project/vllm/security/advisories/GHSA-h3rc-j82p-2c3h",
+      "summary": "vLLM passes uploaded image bytes to Pillow's format autodetection with no allowlist, so an EPS file labeled image/png reaches Ghostscript. On hosts with a Ghostscript build still open to CVE-2024-29510, that runs commands as the vLLM user.",
+      "severity": "medium",
+      "tags": [
+        "rce",
+        "vllm",
+        "ghostscript",
+        "pillow",
+        "inference-server"
+      ],
+      "affected": [
+        "vLLM",
+        "vllm (PyPI)"
+      ],
+      "cve": "CVE-2026-115915",
+      "cvss": 8.1,
+      "credits": [
+        {
+          "name": "LittlehamsterXu"
+        }
+      ],
+      "explainer": {
+        "tagline": "A crafted EPS upload to vLLM reaches the host's Ghostscript, chaining an old Ghostscript escape into command execution.",
+        "whatHappened": "The vLLM project published this advisory on October 20, 2026 and credits LittlehamsterXu as the reporter, with jperezdealgaba coordinating. The reporter reproduced command execution at the loader level using Debian Ghostscript 10.03.0 and the PyPI wheel, and traced the HTTP request path in source without testing it end to end. vLLM 0.32.0, released on October 18, 2026, restricts untrusted images to raster formats.",
+        "howItWorks": "vLLM's ImageMediaIO hands attacker-supplied bytes to Pillow's format autodetection without a format allowlist, and the declared MIME type does not restrict which decoder runs. An EPS file sent as image/png therefore reaches the Ghostscript executable installed on the host. The advisory describes the result as an N-day dependency chain rather than a new Ghostscript flaw: the escape it ends in is CVE-2024-29510, fixed upstream in Ghostscript 10.03.1.",
+        "whoIsAffected": "The advisory's package table lists vllm 0.30.0. Command execution needs a Ghostscript build on the host that is still open to CVE-2024-29510, so deployments with no Ghostscript, or a fixed build, sit outside the code-execution chain. A separate denial of service applies where Pillow 12.0.0 through 12.2.0 is installed, which vLLM's unpinned requirement allowed.",
+        "whatToDo": "Upgrade vLLM to 0.32.0, move Ghostscript to 10.03.1 or later, and require Pillow 12.3.0 or later, which the 0.32.0 requirements now pin."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "vllm 0.30.0, per the advisory's package table"
+        },
+        {
+          "label": "Fixed in",
+          "value": "vLLM 0.32.0, released October 18, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-115915"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.1, published by the vLLM project"
+        },
+        {
+          "label": "Chained flaw",
+          "value": "Ghostscript CVE-2024-29510, fixed upstream in 10.03.1"
+        },
+        {
+          "label": "Pillow",
+          "value": "12.0.0 to 12.2.0 carries the denial of service half"
+        },
+        {
+          "label": "Found by",
+          "value": "LittlehamsterXu, reported to the vLLM project"
+        }
+      ],
+      "links": [
+        {
+          "label": "vLLM Advisory",
+          "url": "https://github.com/vllm-project/vllm/security/advisories/GHSA-h3rc-j82p-2c3h"
+        },
+        {
+          "label": "vLLM 0.32.0 Release",
+          "url": "https://github.com/vllm-project/vllm/releases/tag/v0.32.0"
+        },
+        {
+          "label": "vLLM CORS Advisory",
+          "url": "https://github.com/vllm-project/vllm/security/advisories/GHSA-vvpg-rrww-wpmh"
+        }
+      ],
+      "publishDate": "2026-10-27T06:06:28.678Z"
+    },
     {
       "id": "openhands-agent-sdk-sandbox-server-unauth-rce",
       "categories": [

@@ -12430,6 +12430,85 @@
         "talk-scan.ts (48 videos in window)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261027t060628z",
+      "timestamp": "2026-10-27T06:06:28.678Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, the vLLM project advisories, MSRC, Anthropic, AIR, Wiz, Unit 42, Embrace The Red, Zenity, Socket, Trail of Bits, HiddenLayer, Check Point, JFrog, ReversingLabs, Lakera, UK AISI, OWASP GenAI, Hugging Face, Hacker News, GitHub trending, repo-scan (4 candidates, all below the signal bar), paper-scan (57 papers, 12 with a scanned signal) and talk-scan (46 uploads, no conference talk near 20k views). Three items qualified: a vLLM EPS-to-Ghostscript chain disclosed on October 20, and two papers. The GitHub Advisory Database back-filled large batches this week for vLLM, obsidian-tc, the MCP TypeScript SDK and Storybook, but those flaws were disclosed before the window and stayed out under the original-disclosure rule.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "vllm-eps-ghostscript-rce",
+          "title": "vLLM: an EPS image labeled as PNG reaches the host's Ghostscript",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A fresh October 20 disclosure in a very widely deployed inference server, with a named reporter, a CVE and CVSS from the project's own advisory, and a concrete three-part upgrade path."
+        },
+        {
+          "id": "arxiv-secprbench",
+          "title": "SecPRBench: agent code review recall ranges from 32.5% to 78.1%",
+          "category": "research",
+          "severity": "info",
+          "note": "Code and a results site released, and it measures two named production harnesses (Codex Security, Defending Code) on real bug-introducing commits in curl, Firefox, OpenSSL and V8: two paper signals, and directly useful to anyone gating merges on an AI reviewer."
+        },
+        {
+          "id": "arxiv-sema-auto",
+          "title": "SEMA-Auto: a multi-turn jailbreak that decides when to stop",
+          "category": "research",
+          "severity": "medium",
+          "note": "Code at a link that loads plus measured attack success against named production models (GPT-5.4, Claude-Haiku-4.5, GPT-6-Astra, DeepSeek-V4-Flash): two paper signals, and the efficiency claim matters for anyone scoring guardrails per turn."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "vLLM project security advisories",
+        "VulnCheck advisories",
+        "MSRC blog",
+        "anthropic.com/news",
+        "air.security/blog",
+        "wiz.io/blog",
+        "Unit 42",
+        "embracethered.com",
+        "simonwillison.net",
+        "zenity.io/blog",
+        "socket.dev/blog",
+        "blog.trailofbits.com",
+        "HiddenLayer research",
+        "Check Point Research",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "aisi.gov.uk",
+        "OWASP GenAI Security Project",
+        "huggingface.co/blog",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv + HF Daily Papers)",
+        "talk-scan (YouTube channels)",
+        "Google security blog"
+      ],
+      "windowDays": 7
     }
   ]
 }
