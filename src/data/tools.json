@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T11:02:28Z",
+  "generatedAt": "2026-10-28T11:44:01Z",
   "tools": [
     {
       "slug": "skillspector",
@@ -18,7 +18,7 @@
       ],
       "homepage": "https://docs.nvidia.com/skills/scanning-agent-skills",
       "added": "2026-10-09",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "tencent-ai-infra-guard",
@@ -36,7 +36,7 @@
       ],
       "homepage": "https://tencent.github.io/AI-Infra-Guard/",
       "added": "2026-10-09",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "snyk-agent-scan",
@@ -52,7 +52,7 @@
         "Coding agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "cisco-mcp-scanner",
@@ -66,7 +66,7 @@
         "MCP servers"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "splx-agentic-radar",
@@ -80,7 +80,7 @@
         "Agentic workflows"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "numbat",
@@ -96,7 +96,7 @@
         "OpenClaw"
       ],
       "added": "2026-10-11",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "protectai-modelscan",
@@ -110,7 +110,7 @@
         "Model files"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "picklescan",
@@ -125,7 +125,7 @@
         "Hugging Face models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "fickling",
@@ -140,7 +140,7 @@
         "PyTorch models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "api-relay-audit",
@@ -159,7 +159,7 @@
       ],
       "homepage": "https://toby-bridges.github.io/api-relay-audit/",
       "added": "2026-10-15",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "pantheon-medusa",
@@ -178,27 +178,7 @@
         "LLM applications"
       ],
       "added": "2026-10-17",
-      "checked": "2026-10-27"
-    },
-    {
-      "slug": "mcp-audit-tool",
-      "name": "mcp-audit-tool",
-      "repo": "graygnatconsole/mcp-audit-tool",
-      "kind": "scanner",
-      "description": "Security audit CLI for MCP servers. Checks the MCP client configs it finds against 12 rules for tool poisoning, rug pulls, secrets and command injection. Reports SARIF and can fail a CI build.",
-      "license": "MIT",
-      "maintainer": "GrayGnatConsole",
-      "covers": [
-        "MCP servers",
-        "Claude Desktop",
-        "Cursor",
-        "Windsurf",
-        "Cline",
-        "Zed",
-        "VS Code"
-      ],
-      "added": "2026-10-21",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "nemo-guardrails",
@@ -213,7 +193,7 @@
       ],
       "homepage": "https://docs.nvidia.com/nemo/guardrails",
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "guardrails-ai",
@@ -227,7 +207,7 @@
         "LLM applications"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "purple-llama",
@@ -242,7 +222,7 @@
         "Open-weight models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "hol-guard",
@@ -262,7 +242,7 @@
         "Agent skills"
       ],
       "added": "2026-10-12",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "pipelock",
@@ -282,7 +262,7 @@
       ],
       "homepage": "https://pipelab.org/learn",
       "added": "2026-10-12",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "adrian",
@@ -301,7 +281,7 @@
       ],
       "homepage": "https://docs.adrian.secureagentics.ai",
       "added": "2026-10-14",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "vestige",
@@ -321,7 +301,7 @@
         "OpenClaw"
       ],
       "added": "2026-10-15",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "superagent-sdk",
@@ -340,7 +320,7 @@
       ],
       "homepage": "https://docs.superagent.sh",
       "added": "2026-10-16",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "arcjet-js",
@@ -362,7 +342,7 @@
       ],
       "homepage": "https://docs.arcjet.com",
       "added": "2026-10-17",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "aegis",
@@ -382,7 +362,7 @@
         "LlamaIndex"
       ],
       "added": "2026-10-17",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "agentsafe",
@@ -402,7 +382,7 @@
         "Kubernetes"
       ],
       "added": "2026-10-23",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "emilia-protocol",
@@ -423,7 +403,49 @@
       ],
       "homepage": "https://www.emiliaprotocol.ai",
       "added": "2026-10-24",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
+    },
+    {
+      "slug": "prismor",
+      "name": "Prismor",
+      "repo": "PrismorSec/prismor",
+      "kind": "guardrail",
+      "description": "Self-hosted control plane for agent tool calls. Checks each call before it runs for egress, prompt injection in MCP responses, secret leaks and risky installs. Rules start in observe mode.",
+      "license": "Apache-2.0",
+      "maintainer": "Prismor",
+      "covers": [
+        "Claude Code",
+        "Codex CLI",
+        "Cursor",
+        "Gemini CLI",
+        "GitHub Copilot",
+        "MCP servers",
+        "LangChain",
+        "OpenAI Agents SDK"
+      ],
+      "homepage": "https://prismor.dev",
+      "added": "2026-10-28",
+      "checked": "2026-10-28"
+    },
+    {
+      "slug": "tracekit",
+      "name": "Tracekit",
+      "repo": "Cygnux-Labs/Tracekit",
+      "kind": "guardrail",
+      "description": "Signs each agent tool call and policy decision into a hash chain that can be verified offline. Gates a call before it runs: allow, deny or hold for a person. Parts beyond the core are experimental.",
+      "license": "MIT",
+      "maintainer": "Cygnux Labs",
+      "covers": [
+        "Claude Code",
+        "OpenAI Agents SDK",
+        "LangChain",
+        "LangGraph",
+        "Claude Agent SDK",
+        "MCP servers"
+      ],
+      "homepage": "https://github.com/Cygnux-Labs/Tracekit/wiki",
+      "added": "2026-10-28",
+      "checked": "2026-10-28"
     },
     {
       "slug": "praetorian-augustus",
@@ -443,7 +465,7 @@
         "REST API endpoints"
       ],
       "added": "2026-10-12",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "garak",
@@ -458,7 +480,7 @@
         "Chatbots"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "pyrit",
@@ -472,7 +494,7 @@
         "Generative AI systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "promptfoo",
@@ -487,7 +509,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "deepteam",
@@ -501,7 +523,7 @@
         "LLM systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "anamorpher",
@@ -519,7 +541,7 @@
         "Pillow"
       ],
       "added": "2026-10-09",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "agentic-security",
@@ -540,7 +562,7 @@
       ],
       "homepage": "https://agentic-security.vercel.app",
       "added": "2026-10-13",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "safelabs-eval",
@@ -561,7 +583,7 @@
         "Semantic Kernel"
       ],
       "added": "2026-10-13",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "agent-opfor",
@@ -578,7 +600,7 @@
       ],
       "homepage": "https://docs.agentopfor.ai",
       "added": "2026-10-14",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "agentdojo",
@@ -593,7 +615,7 @@
       ],
       "homepage": "https://agentdojo.spylab.ai/results/",
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "uber-adr",
@@ -612,7 +634,7 @@
         "MCP servers"
       ],
       "added": "2026-10-10",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "giskard",
@@ -630,7 +652,7 @@
       ],
       "homepage": "https://docs.giskard.ai/oss",
       "added": "2026-10-11",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "open-prompt-injection",
@@ -648,7 +670,7 @@
         "Mistral"
       ],
       "added": "2026-10-14",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "ifixai",
@@ -670,7 +692,7 @@
       ],
       "homepage": "https://www.ifixai.ai",
       "added": "2026-10-18",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "skillevaluator",
@@ -687,7 +709,7 @@
       ],
       "homepage": "https://docs.nvidia.com/skills/skillevaluator/",
       "added": "2026-10-24",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "sandbox-runtime",
@@ -703,7 +725,7 @@
         "Bash commands"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "e2b",
@@ -718,7 +740,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "toolhive",
@@ -738,7 +760,7 @@
       ],
       "homepage": "https://docs.stacklok.com/toolhive/",
       "added": "2026-10-10",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "agent-sandbox",
@@ -756,7 +778,7 @@
       ],
       "homepage": "https://agent-sandbox.sigs.k8s.io",
       "added": "2026-10-10",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "nono",
@@ -774,7 +796,7 @@
       ],
       "homepage": "https://docs.nono.sh",
       "added": "2026-10-11",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "gondolin",
@@ -793,7 +815,7 @@
       ],
       "homepage": "https://earendil-works.github.io/gondolin",
       "added": "2026-10-13",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "coi",
@@ -811,7 +833,7 @@
       ],
       "homepage": "https://github.com/coipond/coi/wiki",
       "added": "2026-10-15",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "sandlock",
@@ -830,7 +852,7 @@
       ],
       "homepage": "https://sandlock.io",
       "added": "2026-10-16",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "zerobox",
@@ -847,7 +869,7 @@
         "Linux"
       ],
       "added": "2026-10-16",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     },
     {
       "slug": "dormice",
@@ -864,7 +886,7 @@
         "gVisor"
       ],
       "added": "2026-10-18",
-      "checked": "2026-10-27"
+      "checked": "2026-10-28"
     }
   ]
 }
