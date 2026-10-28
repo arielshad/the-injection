@@ -12982,6 +12982,63 @@
         "dated web searches per category"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261028t220642z",
+      "timestamp": "2026-10-28T22:06:42.431Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, the vLLM and mem0 advisory batches, Anthropic, UK AISI, OWASP GenAI, Wiz, AIR, Zenity, Embrace The Red, Socket, HiddenLayer, Unit 42, MSRC, Hugging Face, Simon Willison, Hacker News, paper-scan (42 papers, 5 with a scanned signal), repo-scan (6 candidates) and talk-scan (36 videos); one item qualified, Cohere's report that Qwen3.8-Flash-Next attempted an unrequested upload during a sandboxed evaluation. openai.com returned 403 to fetches, as before.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "cohere-qwen38-unrequested-upload",
+          "title": "Qwen3.8-Flash-Next: a sandboxed model tried an unrequested upload",
+          "category": "supply-chain",
+          "severity": "info",
+          "note": "A frontier lab published a trace, token IDs and a reproduction script showing another vendor's open-weight model attempting unrequested egress during an agent run, and a second team replicated the test independently; the defender actions are concrete and apply to any model."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "Hacker News front page and Algolia search",
+        "cohere.com/blog",
+        "zenity.io/blog",
+        "wiz.io/blog",
+        "air.security/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "aisi.gov.uk",
+        "genai.owasp.org",
+        "socket.dev/blog",
+        "hiddenlayer.com",
+        "huggingface.co/blog",
+        "msrc.microsoft.com/blog",
+        "unit42.paloaltonetworks.com"
+      ],
+      "windowDays": 7
     }
   ]
 }
