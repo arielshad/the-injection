@@ -12709,6 +12709,80 @@
         "nvd.nist.gov"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261028t002508z",
+      "timestamp": "2026-10-28T00:25:08.079Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, NVD, Anthropic, OpenAI, Cloudflare, MSRC, Google, AIR Security, Zenity Labs, HiddenLayer, Wiz, Unit 42, Socket, JFrog, Check Point, Trail of Bits, Snyk Labs, Hugging Face, OWASP GenAI, UK AISI, CAISI, Hacker News, GitHub trending, repo-scan (13 queries, 5 candidates) and talk-scan (43 videos). One new item: Claude Code 2.1.309 fixed several sandbox and permission bypasses on October 22. The large October 27 GitHub Advisory Database batch (MLflow RCE and file read, MCP Python and TypeScript SDK, vLLM code_revision RCE, Strands Agents session storage) was a backlog flush: every one of those advisories was published to its own repository between September 28 and October 15, so all fall outside the 7-day window. paper-scan ran only 2 of 7 arXiv queries (five timeouts, one HTTP 429) and returned 9 papers, none with two signals; the OpenCode MCP OAuth RCE (Pillar Security, October 19) and Glow Labs PixelLeak also predate the window.",
+      "counts": {
+        "added": 1,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "claude-code-2-1-309-sandbox-permission-fixes",
+          "title": "Claude Code 2.1.309: sandbox and permission checks could be bypassed",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Dated, verifiable sandbox and permission bypass fixes in a widely used coding agent, released inside the window, with concrete defender action (update to 2.1.310) and no existing feed item covering them."
+        }
+      ],
+      "updated": [
+        {
+          "id": "wiz-php2shell",
+          "title": "PHP2Shell: AI-assisted research found two critical PHP RCE flaws",
+          "note": "CISA added both PHP2Shell CVEs to its KEV catalog on October 26, 2026 with action due October 29, and Wiz published exploitation and remediation telemetry on October 27 reporting no successful end-to-end exploitation in its own data."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "github.com/advisories",
+        "anthropic.com/news",
+        "github.com/anthropics/claude-code releases",
+        "blog.cloudflare.com",
+        "microsoft.com/msrc/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "hiddenlayer.com/innovation-hub",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "labs.snyk.io",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "huggingface.co/blog",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "cisa.gov/known-exploited-vulnerabilities-catalog",
+        "news.ycombinator.com",
+        "Hacker News Algolia search",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts",
+        "arXiv cs.CR",
+        "simonwillison.net"
+      ],
+      "windowDays": 7
     }
   ]
 }

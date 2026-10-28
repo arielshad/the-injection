@@ -1,7 +1,101 @@
 {
-  "generatedAt": "2026-10-27T21:08:27.339Z",
+  "generatedAt": "2026-10-28T00:25:08.079Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "claude-code-2-1-309-sandbox-permission-fixes",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Claude Code 2.1.309: sandbox and permission checks could be bypassed",
+      "org": "Anthropic",
+      "date": "2026-10-22",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.309",
+      "summary": "Claude Code 2.1.309 fixes several ways the agent's sandbox and permission rules could be bypassed, including sandboxed Bash commands running shell startup files outside the sandbox and an Edit deny rule that did not block a Bash redirect.",
+      "severity": "medium",
+      "tags": [
+        "sandbox-escape",
+        "approval-bypass",
+        "coding-agents",
+        "claude-code",
+        "anthropic"
+      ],
+      "affected": [
+        "Claude Code"
+      ],
+      "credits": [
+        {
+          "name": "Claude Code team",
+          "org": "Anthropic"
+        }
+      ],
+      "explainer": {
+        "tagline": "Claude Code 2.1.309 closes several gaps where sandboxed commands and permission deny rules did not hold as written.",
+        "whatHappened": "Anthropic released Claude Code 2.1.309 on October 22, 2026 with fixes for several ways the agent's sandbox and permission checks could be bypassed. A second release, 2.1.310, shipped on October 23 and fixed two more permission gaps, one on Windows and one in file-read prompts. The release notes describe each fix but name no outside reporter and assign no CVE.",
+        "howItWorks": "Most of these fixes remove a path where the check and the action did not resolve to the same target. Sandboxed Bash on macOS and Linux ran the shell's startup files outside the sandbox before each command, so a planted startup file ran unsandboxed. On macOS, denyWrite glob patterns did not apply at a path's real location when the pattern's folder was reached through a symlink, and an Edit(path) deny rule did not block a Bash redirect to that same path in some commands that also held a subshell. On Windows, PreToolUse and PermissionRequest hooks failed open when Git for Windows was not installed.",
+        "whoIsAffected": "Claude Code installs older than 2.1.309 are exposed, on macOS, Linux and Windows, with some fixes specific to a single platform. The users who lose protection are those who rely on the sandbox, on Edit or Bash deny rules, on worktree isolation, or on PreToolUse and PermissionRequest hooks as a control. Windows machines without Git for Windows installed are the ones where the hooks failed open.",
+        "whatToDo": "Update Claude Code to 2.1.310 or later, which carries the fixes from both releases. After updating, re-test any sandbox setting, deny rule or permission hook you depend on, because several of those controls did not hold as written in earlier versions."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Claude Code before 2.1.309"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.1.309, released October 22, 2026, plus two more permission fixes in 2.1.310 on October 23"
+        },
+        {
+          "label": "CVE",
+          "value": "None listed in the release notes"
+        },
+        {
+          "label": "Attack type",
+          "value": "Sandbox escape and permission check bypass"
+        },
+        {
+          "label": "Platforms",
+          "value": "macOS, Linux and Windows, varying by fix"
+        },
+        {
+          "label": "Found by",
+          "value": "Not named; published by Anthropic in the Claude Code release notes"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed, users must update"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Claude Code version fixes the sandbox bypasses?",
+          "a": "Claude Code 2.1.309, released on October 22, 2026, carries the sandbox and permission fixes, and 2.1.310 on October 23 adds two more, one for Windows hooks and one for file-read prompts. Anthropic's release notes list every change, so updating to 2.1.310 or later is the version that holds all of the fixes described here."
+        },
+        {
+          "q": "Is there a CVE for the Claude Code 2.1.309 sandbox fixes?",
+          "a": "Anthropic's release notes for Claude Code 2.1.309 and 2.1.310 assign no CVE and name no outside reporter, so there is no official identifier or base score to track. Defenders who need a reference should cite the release notes and the version number. The absence of a CVE does not mean the fixed checks held in earlier versions."
+        },
+        {
+          "q": "Do my Claude Code deny rules still work after updating?",
+          "a": "Deny rules behave as written in 2.1.309 and later, but several did not before. Anthropic fixed an Edit(path) deny rule that failed to block a Bash redirect to the same path, a Bash permission check that trusted a variable set by a command whose redirect can fail to open, and worktree isolation that accepted some locale-prefixed commands. Re-test the rules you depend on."
+        },
+        {
+          "q": "What failed on Windows specifically?",
+          "a": "Windows users saw two separate permission failures. PowerShell permission checks auto-approved some Set-Location and cd commands that target the current directory and carry extra arguments, and those now prompt. Separately, PreToolUse and PermissionRequest hooks let a tool call through when Git Bash was missing, which 2.1.309 and 2.1.310 both address for different command shapes."
+        }
+      ],
+      "links": [
+        {
+          "label": "Release 2.1.309",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.309"
+        },
+        {
+          "label": "Release 2.1.310",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.310"
+        }
+      ],
+      "publishDate": "2026-10-28T00:25:08.079Z"
+    },
     {
       "id": "anthropic-claude-browser-os-exploit-chains",
       "categories": [
@@ -5909,7 +6003,7 @@
         },
         {
           "label": "Exploitation",
-          "value": "No successful exploitation seen in the wild as of October 23, 2026, per CrowdStrike, which reports only probing and failed attempts"
+          "value": "In CISA's KEV catalog since October 26, 2026, action due October 29; Wiz reports no successful end-to-end exploitation in its own telemetry as of October 27"
         },
         {
           "label": "Found by",
@@ -5958,6 +6052,14 @@
         {
           "label": "CrowdStrike Assessment",
           "url": "https://www.crowdstrike.com/en-us/blog/obstacles-to-weaponizing-php2shell-likely-constrain-exploitation/"
+        },
+        {
+          "label": "Wiz Exploitation Data",
+          "url": "https://www.wiz.io/blog/php2shell-exploitation-so-far"
+        },
+        {
+          "label": "CISA KEV Catalog",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
         }
       ],
       "image": {
