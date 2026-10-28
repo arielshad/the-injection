@@ -1,7 +1,210 @@
 {
-  "generatedAt": "2026-10-28T05:51:58.667Z",
+  "generatedAt": "2026-10-28T11:58:09.687Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "nvidia-nemo-agent-toolkit-missing-auth",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "NVIDIA NeMo Agent Toolkit: missing authentication rated CVSS 10.0",
+      "org": "NVIDIA",
+      "date": "2026-10-27",
+      "url": "https://github.com/NVIDIA/product-security/blob/main/2026/5912/5912.md",
+      "summary": "NVIDIA disclosed two flaws in its NeMo Agent Toolkit on October 27, 2026. The critical one, CVE-2026-65145, is a missing authentication check rated CVSS 10.0 that affects versions 1.0 through 1.8.0 and is fixed in 1.9.0.",
+      "severity": "high",
+      "tags": [
+        "agent-security",
+        "privilege-escalation",
+        "rce",
+        "nvidia",
+        "nemo-agent-toolkit"
+      ],
+      "affected": [
+        "NVIDIA NeMo Agent Toolkit"
+      ],
+      "cve": "CVE-2026-65145",
+      "cvss": 10,
+      "credits": [
+        {
+          "name": "Colin McDonough",
+          "org": "50words.com"
+        },
+        {
+          "name": "YJK",
+          "org": "ZUSO ART"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-65145 is a missing authentication flaw in NVIDIA's NeMo Agent Toolkit that NVIDIA rates CVSS 10.0.",
+        "whatHappened": "NVIDIA published security bulletin 5912 for the NeMo Agent Toolkit on October 27, 2026, disclosing two separate flaws. Colin McDonough of 50words.com reported both, and YJK of ZUSO ART, working with the TrendAI Zero Day Initiative, is credited on the critical one. The toolkit is NVIDIA's open-source library for connecting teams of AI agents.",
+        "howItWorks": "Missing authentication for a critical function, classified CWE-306, is the mechanism behind CVE-2026-65145. NVIDIA's CVSS 3.1 vector, AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H, describes a network-reachable flaw that needs no privileges and no user interaction, and that changes scope beyond the vulnerable component. NVIDIA states exploitation might lead to code execution, escalation of privileges, data tampering, denial of service and information disclosure, and publishes no further technical detail.",
+        "whoIsAffected": "NeMo Agent Toolkit versions 1.0 through 1.8.0 carry CVE-2026-65145, on all platforms. The separate SQL injection, CVE-2026-65151, affects a narrower range, versions 1.4 to 1.6. Deployments already on 1.9.0, released September 10, 2026, are past the fixed version for both.",
+        "whatToDo": "Update the NeMo Agent Toolkit to version 1.9.0 or later from the NVIDIA GitHub repository, which is NVIDIA's recommended action for both CVEs. Check running agent deployments for their installed toolkit version, because 1.9.0 shipped on September 10, 2026, several weeks before this disclosure."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "NeMo Agent Toolkit 1.0 to 1.8.0 (CVE-2026-65145), all platforms"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.9.0, released September 10, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-65145, CVSS 3.1 10.0 Critical, CWE-306"
+        },
+        {
+          "label": "Second flaw",
+          "value": "CVE-2026-65151, SQL injection, CVSS 3.1 8.4, versions 1.4 to 1.6, fixed in 1.7.0"
+        },
+        {
+          "label": "Found by",
+          "value": "Colin McDonough (50words.com); YJK of ZUSO ART with TrendAI Zero Day Initiative"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 27, 2026, in NVIDIA bulletin 5912"
+        },
+        {
+          "label": "Status",
+          "value": "Patched releases available for both CVEs"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which NeMo Agent Toolkit versions are affected by CVE-2026-65145?",
+          "a": "NeMo Agent Toolkit versions 1.0 through 1.8.0 are affected by CVE-2026-65145 on all platforms, according to NVIDIA's bulletin. NVIDIA fixed the flaw in version 1.9.0. The second issue disclosed the same day, CVE-2026-65151, covers a narrower range of versions 1.4 to 1.6 and was fixed earlier, in release 1.7.0."
+        },
+        {
+          "q": "How do I fix CVE-2026-65145 in the NeMo Agent Toolkit?",
+          "a": "Updating to NeMo Agent Toolkit 1.9.0 or later from the NVIDIA GitHub repository is the action NVIDIA recommends, and that release also covers the SQL injection flaw. Version 1.9.0 shipped on September 10, 2026, so operators who have updated since then are already covered, while anyone pinned to 1.8.0 or earlier remains exposed."
+        },
+        {
+          "q": "Why is CVE-2026-65145 scored CVSS 10.0?",
+          "a": "NVIDIA's CVSS 3.1 vector for CVE-2026-65145 combines network reach, low attack complexity, no required privileges and no user interaction with high confidentiality, integrity and availability impact, plus a scope change. A scope change means the damage can extend past the vulnerable component, which pushes the base score to the 10.0 maximum."
+        },
+        {
+          "q": "Did NVIDIA say how CVE-2026-65145 can be exploited?",
+          "a": "NVIDIA's bulletin describes CVE-2026-65145 only as a missing authentication issue, classified CWE-306, and lists the possible impacts: code execution, escalation of privileges, data tampering, denial of service and information disclosure. NVIDIA publishes no proof of concept, no affected endpoint and no exploitation details, so the version ranges and the CVSS vector are the facts defenders have."
+        }
+      ],
+      "links": [
+        {
+          "label": "NVIDIA Bulletin 5912",
+          "url": "https://github.com/NVIDIA/product-security/blob/main/2026/5912/5912.md"
+        },
+        {
+          "label": "Critical CVE Advisory",
+          "url": "https://github.com/advisories/GHSA-8mjc-3v3w-78r7"
+        },
+        {
+          "label": "SQL Injection Advisory",
+          "url": "https://github.com/advisories/GHSA-j527-p23v-7mw6"
+        },
+        {
+          "label": "Toolkit 1.9.0 Release",
+          "url": "https://github.com/NVIDIA/NeMo-Agent-Toolkit/releases/tag/v1.9.0"
+        }
+      ],
+      "publishDate": "2026-10-28T11:58:09.687Z"
+    },
+    {
+      "id": "radware-github-ipi-in-the-wild",
+      "categories": [
+        "research"
+      ],
+      "title": "Radware: 47 attacks on coding agents hidden in GitHub issues and READMEs",
+      "org": "Radware",
+      "date": "2026-10-26",
+      "url": "https://github.com/rdwr-gabin/github-ipi-in-the-wild",
+      "summary": "Radware scanned 95.1 million GitHub issues and pull requests, 47.6 million archived items and 2 million top repository READMEs for instructions hidden from humans but visible to coding agents, finding 47 attack attempts.",
+      "severity": "info",
+      "tags": [
+        "indirect-prompt-injection",
+        "coding-agents",
+        "threat-intel",
+        "github",
+        "radware"
+      ],
+      "affected": [
+        "AI coding agents",
+        "GitHub"
+      ],
+      "credits": [
+        {
+          "name": "Gabi Nakibly",
+          "org": "Radware"
+        },
+        {
+          "name": "Zvika Babo",
+          "org": "Radware"
+        }
+      ],
+      "explainer": {
+        "tagline": "Radware's GitHub-scale scan found hidden agent-directed text to be common, while outright attacks on other people's agents are rare.",
+        "whatHappened": "Radware published a GitHub-scale measurement of indirect prompt injection against coding agents on October 26, 2026, releasing the findings data, the methodology and the scanning tool under an MIT license. Gabi Nakibly and Zvika Babo of Radware ran the study. The dataset covers every public issue and pull request created from June 1 to September 30, 2026, plus archived items reaching back to September 2025.",
+        "howItWorks": "Hidden text, not injection phrasing, is the detection signal. Radware reports that searching for typical injection wording produced mostly false positives, so the scanner looks for text a human reader does not see but that stays in the raw Markdown an agent reads: HTML comments in issues and pull requests, and also invisible Unicode, white LaTeX and CSS-hidden elements in READMEs. A two-stage LLM classifier narrowed 34,448 flagged items to 13,141, copied issue and pull request template text was removed, and the remaining 5,251 items were reviewed by hand.",
+        "whoIsAffected": "Any coding agent that reads GitHub issues, pull requests, comments or READMEs sits in the exposed position, because the hidden text lives in content the agent consumes rather than in the repository's code. Radware reports hidden text in 3.4% of issues, pull requests and comments overall, and real agent-directed text in 106 of the 2 million most-starred READMEs.",
+        "whatToDo": "Treat GitHub issue, pull request and comment text as untrusted input to coding agents, and strip or surface HTML comments and invisible characters before an agent reads them. Radware's ipi-scan tool and its published findings can be run against your own repositories, though the repository warns that the dataset carries live attack payloads."
+      },
+      "quickFacts": [
+        {
+          "label": "Items scanned",
+          "value": "95.1M issues and PRs (June to September 2026), 47.6M archived items, 2M top READMEs"
+        },
+        {
+          "label": "Attack attempts",
+          "value": "47 total: 43 in issues, PRs and comments, 4 in READMEs"
+        },
+        {
+          "label": "Agent-directed findings",
+          "value": "2,281 in issues, PRs and comments, about 16 per million items"
+        },
+        {
+          "label": "Breakdown",
+          "value": "1,519 first-party orchestration, 374 content override, 345 defensive, 43 attack"
+        },
+        {
+          "label": "Trend",
+          "value": "7.0 to 15.4 findings per million new issues and PRs, June to September 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "Gabi Nakibly and Zvika Babo (Radware)"
+        },
+        {
+          "label": "Caveat",
+          "value": "All figures are lower bounds, because only text hidden from humans was counted"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How common are prompt injection attacks on coding agents on GitHub?",
+          "a": "Radware found 43 attack attempts in issues, pull requests and comments, about one in every 3.3 million items scanned, plus 4 more in READMEs. Hidden agent-directed text is far more common than attacks: 2,281 findings, or roughly 16 per million items. Radware stresses every figure is a lower bound, because only text hidden from human readers was counted."
+        },
+        {
+          "q": "What are attackers trying to make coding agents do?",
+          "a": "Radware's attack category covers hidden text that tries to make another party's agent act against that party: leaking data, running commands, forging review verdicts, approving or merging changes, or misleading the user. Most hidden text Radware found was not an attack. The largest category, 1,519 findings across 178 projects, was projects leaving instructions for their own agents."
+        },
+        {
+          "q": "Is hidden agent-directed text on GitHub increasing?",
+          "a": "Radware measured growth from 7.0 to 15.4 findings per million new issues and pull requests between June and September 2026, a 2.2-fold rise across four months. Radware also counted coordination markers spreading from 11 projects to 69 over the same period. Both trends come from its crawl of 2026 items, which Radware treats as more complete than its archived data."
+        }
+      ],
+      "links": [
+        {
+          "label": "Research Repository",
+          "url": "https://github.com/rdwr-gabin/github-ipi-in-the-wild"
+        },
+        {
+          "label": "Methodology",
+          "url": "https://github.com/rdwr-gabin/github-ipi-in-the-wild/blob/main/docs/methodology.md"
+        }
+      ],
+      "publishDate": "2026-10-28T11:58:09.687Z"
+    },
     {
       "id": "claude-code-2-1-309-sandbox-permission-fixes",
       "categories": [

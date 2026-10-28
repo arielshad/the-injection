@@ -12842,6 +12842,78 @@
         "deploymentsafety.openai.com"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261028t115809z",
+      "timestamp": "2026-10-28T11:58:09.687Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research groups, GitHub Security Advisories, arXiv, GitHub repos and trending, Hacker News and conference channels for the 7-day window. Added two items: NVIDIA's October 27 bulletin for the NeMo Agent Toolkit, including a CVSS 10.0 missing authentication flaw, and Radware's GitHub-scale measurement of indirect prompt injection aimed at coding agents. Everything else in window was already in the feed or failed the bar.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "nvidia-nemo-agent-toolkit-missing-auth",
+          "title": "NVIDIA NeMo Agent Toolkit: missing authentication rated CVSS 10.0",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "NVIDIA's own bulletin, published inside the window, with a CVSS 10.0 missing authentication flaw in a widely used agent framework, named external reporters and a concrete fixed version."
+        },
+        {
+          "id": "radware-github-ipi-in-the-wild",
+          "title": "Radware: 47 attacks on coding agents hidden in GitHub issues and READMEs",
+          "category": "research",
+          "severity": "info",
+          "note": "First GitHub-scale measurement of real indirect prompt injection aimed at coding agents, published with data, methodology and tool by a named vendor research team, on the AI dev security beat."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVIDIA product-security bulletins",
+        "anthropic.com/news",
+        "Wiz Research blog",
+        "AIR Security blog",
+        "Zenity Labs",
+        "Unit 42",
+        "HiddenLayer Innovation Hub",
+        "Socket blog",
+        "JFrog blog",
+        "ReversingLabs blog",
+        "Trail of Bits blog",
+        "Check Point Research",
+        "Lakera blog",
+        "Snyk blog",
+        "Microsoft Security blog",
+        "Embrace The Red",
+        "simonwillison.net",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "alignment.openai.com misalignment reports",
+        "Hugging Face blog",
+        "Hacker News front page and Algolia search",
+        "github.com/trending",
+        "paper-scan (arXiv, 47 papers in window)",
+        "repo-scan.json (13 queries, 5 candidates)",
+        "talk-scan (22 channels, 37 videos)",
+        "arXiv abstract pages"
+      ],
+      "windowDays": 7
     }
   ]
 }
