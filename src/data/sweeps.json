@@ -12914,6 +12914,74 @@
         "arXiv abstract pages"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261028t174106z",
+      "timestamp": "2026-10-28T17:41:06.150Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Anthropic, AIR, Zenity, Embrace The Red, TrendAI, Pillar, JFrog, CSA Labs, arXiv and Hugging Face papers via paper-scan, repo-scan, GitHub trending, talk-scan and Hacker News. Added two items: the AWS API MCP Server OAuth audience advisory and TrendAI's report on AI-driven attacks against Japan; the Oct 27 pip advisory batch turned out to be database backfill of advisories first published Oct 5 to Oct 15, and r/netsec was unreachable.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "aws-api-mcp-server-oauth-audience-bypass",
+          "title": "AWS API MCP Server: a token for another app runs AWS commands",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "An in-window AWS advisory (published 27 October in the repo, not a database backfill) with a named reporter, a fix and a concrete upgrade action, distinct from the earlier run_script validator bypass already in the feed."
+        },
+        {
+          "id": "trendai-japan-ai-attack-levels",
+          "title": "TrendAI: 44 AI agents probed 19 organizations, 16 of them in Japan",
+          "category": "incident",
+          "severity": "info",
+          "note": "First-hand threat research rebuilt from attacker-side files, with measured targeting counts and a named tool, distinct from the ARTEX and CrowdStrike campaigns already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (github.com/advisories, pip and reviewed queries)",
+        "awslabs/mcp security advisories",
+        "mlflow/mlflow security advisories",
+        "modelcontextprotocol/python-sdk security advisories",
+        "vllm-project/vllm security advisories",
+        "strands-agents security advisories",
+        "anthropic.com/news",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "trendaisecurity.com deep research",
+        "pillar.security/blog",
+        "jfrog.com press room",
+        "labs.cloudsecurityalliance.org/research",
+        "arXiv cs.CR via paper-scan.ts",
+        "Hugging Face Daily Papers via paper-scan.ts",
+        "repo-scan.json (13 GitHub queries)",
+        "github.com/trending (weekly)",
+        "gh-repo-meta.ts (cloudflare/security-audit-skill, rudderlabs/devbox)",
+        "talk-scan.ts (22 YouTube channels)",
+        "Hacker News front page",
+        "Hacker News Algolia search",
+        "tailscale.com security update",
+        "dated web searches per category"
+      ],
+      "windowDays": 7
     }
   ]
 }

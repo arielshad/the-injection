@@ -1,7 +1,156 @@
 {
-  "generatedAt": "2026-10-28T11:58:09.687Z",
+  "generatedAt": "2026-10-28T17:41:06.150Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "aws-api-mcp-server-oauth-audience-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AWS API MCP Server: a token for another app runs AWS commands",
+      "org": "AWS",
+      "date": "2026-10-27",
+      "url": "https://github.com/awslabs/mcp/security/advisories/GHSA-4prq-p2x5-w9fh",
+      "summary": "AWS API MCP Server before 1.6.0 accepted OAuth bearer tokens issued to any other application in the same identity provider tenant, letting a local caller run AWS CLI commands with the credentials the server host configured.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "agent-security",
+        "privilege-escalation",
+        "aws"
+      ],
+      "affected": [
+        "AWS API MCP Server"
+      ],
+      "cve": "CVE-2026-115413",
+      "cvss": 7.3,
+      "credits": [
+        {
+          "name": "Yuval Elbar",
+          "url": "https://github.com/YuvalElbar6"
+        }
+      ],
+      "explainer": {
+        "tagline": "A missing audience check let the AWS API MCP Server accept OAuth tokens minted for a different application.",
+        "whatHappened": "AWS published advisory GHSA-4prq-p2x5-w9fh on 27 October 2026 for the AWS API MCP Server, the package that exposes AWS CLI commands to AI assistants. Yuval Elbar reported the flaw through coordinated disclosure, and AWS shipped the fix in version 1.6.0.",
+        "howItWorks": "Bearer token validation in affected versions covered the signature, the issuer and the expiry, but not the claim recording which application a token was issued to. When one identity provider serves several applications from a single tenant, for example a second app client in the same Amazon Cognito user pool, that provider mints tokens the MCP server also accepts. A local caller holding such a token reaches the server's tool surface and runs AWS API calls under the host's configured credentials, bounded only by what those credentials permit.",
+        "whoIsAffected": "Versions 1.3.0 up to 1.6.0 are exposed only where the server runs the streamable-http transport together with OAuth authentication. Deployments left on the default stdio transport are not affected. The server's README states that this package is superseded by the official AWS MCP server and links a migration guide.",
+        "whatToDo": "Upgrade to 1.6.0, which also requires OAuth users to configure an expected token audience or client ID. Where an upgrade has to wait, switch the server back to the default stdio transport."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "awslabs.aws-api-mcp-server 1.3.0 up to 1.6.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.6.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-115413"
+        },
+        {
+          "label": "Attack type",
+          "value": "OAuth token audience validation bypass (CWE-346)"
+        },
+        {
+          "label": "Precondition",
+          "value": "streamable-http transport plus OAuth, not the default"
+        },
+        {
+          "label": "Found by",
+          "value": "Yuval Elbar"
+        }
+      ],
+      "links": [
+        {
+          "label": "AWS Advisory",
+          "url": "https://github.com/awslabs/mcp/security/advisories/GHSA-4prq-p2x5-w9fh"
+        },
+        {
+          "label": "Server Readme",
+          "url": "https://github.com/awslabs/mcp/tree/main/src/aws-api-mcp-server"
+        }
+      ],
+      "publishDate": "2026-10-28T17:41:06.150Z"
+    },
+    {
+      "id": "trendai-japan-ai-attack-levels",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "TrendAI: 44 AI agents probed 19 organizations, 16 of them in Japan",
+      "org": "TrendAI",
+      "date": "2026-10-23",
+      "url": "https://www.trendaisecurity.com/en-us/resources-insights/deep-research/not-only-artex-the-different-levels-ai-is-used-in-attacks-targeting-japan",
+      "summary": "TrendAI rebuilt three attack infrastructures aimed at Japan from files the operators left in open server directories. One ran CyberStrikeAI, an open-source AI pentest tool, with 44 agents sharing the work across at least 19 organizations.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "cyberstrikeai"
+      ],
+      "affected": [
+        "CyberStrikeAI"
+      ],
+      "credits": [
+        {
+          "name": "Bakuei Matsukawa",
+          "org": "TrendAI"
+        },
+        {
+          "name": "Joseph C Chen",
+          "org": "TrendAI"
+        }
+      ],
+      "explainer": {
+        "tagline": "A 44-agent CyberStrikeAI workflow ran against legacy web systems at smaller Japanese businesses and local public bodies.",
+        "whatHappened": "TrendAI published this analysis of three attacker infrastructures in Japanese on 23 October 2026, with an English edition following on 27 October. Bakuei Matsukawa and Joseph C Chen rebuilt each operation from files the attackers had left in publicly reachable server directories. All three were active during 2026 and concentrated on Japan, and TrendAI says they are distinct from the infrastructures covered in earlier ARTEX reporting.",
+        "howItWorks": "CyberStrikeAI, an open-source penetration-testing tool built on AI agents, drove one of the three operations end to end as a single repeatable workflow: reconnaissance, vulnerability discovery and validation, exploitation, command and control, persistence, data exfiltration and automated reporting. Log entries such as 'credential-search agent 8/44' record 44 agents splitting the work, and the exposed management console used Simplified Chinese. The clearest intrusion chain began at an unauthenticated, publicly reachable administration page on a legacy web system, and TrendAI states that no novel vulnerability was involved. The platform throttled traffic to each target, which kept the activity faint in any single organization's logs.",
+        "whoIsAffected": "Targets were legacy web systems at smaller businesses and local public-sector organizations: at least 19 of them, at least 16 in Japan, with others in Taiwan and Hong Kong. Deep compromise reached a very small share, and for many targets the platform itself logged no session, no web shell and no exfiltration. TrendAI describes every figure as a lower bound.",
+        "whatToDo": "Inventory public-facing web systems, update or isolate legacy platforms, and check for externally exposed administration interfaces and default credentials. TrendAI also advises designing monitoring that can detect low-frequency, distributed attempts, because a single anomaly in one organization's logs may not be enough to judge the activity."
+      },
+      "quickFacts": [
+        {
+          "label": "Organizations probed",
+          "value": "At least 19, at least 16 of them in Japan"
+        },
+        {
+          "label": "Agents",
+          "value": "44, per the platform's own logs"
+        },
+        {
+          "label": "Tool abused",
+          "value": "CyberStrikeAI, an open-source AI pentest tool"
+        },
+        {
+          "label": "Entry point",
+          "value": "Unauthenticated admin page on a legacy web system"
+        },
+        {
+          "label": "Not established",
+          "value": "Success per attempt, total damage, attacker identity"
+        }
+      ],
+      "links": [
+        {
+          "label": "TrendAI Report",
+          "url": "https://www.trendaisecurity.com/en-us/resources-insights/deep-research/not-only-artex-the-different-levels-ai-is-used-in-attacks-targeting-japan"
+        },
+        {
+          "label": "Microsoft On ARTEX",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/ch6z6vqj/production/b2beaeb5a18aa4278ad51a3edc3998c5d3c37905-5000x3692.jpg?rect=0,534,5000,2625&w=1200&h=630&fm=webp",
+        "alt": "Cover image for the TrendAI report on AI use in attacks targeting Japan",
+        "credit": "TrendAI"
+      },
+      "publishDate": "2026-10-28T17:41:06.150Z"
+    },
     {
       "id": "nvidia-nemo-agent-toolkit-missing-auth",
       "categories": [
