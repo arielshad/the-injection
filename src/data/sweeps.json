@@ -13197,6 +13197,80 @@
         "The Hacker News"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261029t145655z",
+      "timestamp": "2026-10-29T14:56:55.796Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories and the mem0 repository advisories, VulnCheck, NVD-linked CVE records, Anthropic, OpenAI, UK AISI, OWASP GenAI, MSRC, AIR Security, Zenity Labs, Wiz, Embrace The Red, Pillar Security, HiddenLayer, Trail of Bits, Unit 42, Check Point, Socket, JFrog, Koi, Hugging Face, Simon Willison, Hacker News front page, Show HN and Algolia, GitHub trending (daily and weekly), repo-scan (13 queries, 5 candidates), paper-scan (35 arXiv papers in the window, 1 with two scanned signals) and talk-scan (22 channels, 37 uploads). Added two items published today: AIR Research Lab's SolanaCry, malware found in the wild that reaches developers through a poisoned Solana starter kit their coding agent picks from search results, and Wiz's seven fingerprints for telling agent-driven intrusions apart from legitimate automation, with three new case studies. Left out on purpose: Pillar Security's October 27 Unsloth model-loader write-up (CVE-2026-93348 was published by VulnCheck on September 28, outside the window, and the fix shipped in August); the Endor Labs AI orchestration platform research that press covered on October 28 (original write-up August 18, presented at DEF CON 34); the mem0, vLLM and ONNX advisory batch dated October 28 in the database (repository advisories published October 20); mem0ai's Databricks SQL injection, CVE-2026-115324, which names no reporter anywhere I could fetch; UK AISI's October 23 alignment-failure post and Anthropic's PyPI analysis, both the same story as the Anthropic and UK AISI item already in the feed; and JFrog's October 27 piece on AI and CVE volume, which covers the same ground as the VulnCheck item already in the feed. No repo cleared the bar: cloudflare/security-audit-skill is trending this week but was created on June 18, and rudderlabs/devbox and qybaihe/bla each showed only a star count, with no trending placement, Hacker News thread or write-up. No paper cleared the two-signal bar and no talk cleared the talk bar. reddit.com would not load for this run.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "air-solanacry-agent-starter-kit-rat",
+          "title": "SolanaCry: a poisoned starter kit turns coding agents into RAT installers",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "AIR Research Lab says it found this malware in the wild, the delivery path runs entirely through a coding agent's own web search and install step, and the post ships usable indicators of compromise and a payload hash."
+        },
+        {
+          "id": "wiz-agentic-attack-fingerprints",
+          "title": "Wiz: seven fingerprints that separate agentic attacks from automation",
+          "category": "incident",
+          "severity": "info",
+          "note": "A named incident responder publishes concrete detection criteria plus three previously unpublished case studies with step and timing counts, which is defender-usable detection guidance rather than a retelling of the ARTEX and Storm-0940 stories already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "github.com/mem0ai/mem0 security advisories",
+        "air.security/blog",
+        "wiz.io/blog",
+        "pillar.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "anthropic.com/news",
+        "aisi.gov.uk/blog",
+        "genai.owasp.org/news",
+        "microsoft.com/msrc/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "research.jfrog.com",
+        "socket.dev/blog",
+        "hiddenlayer.com/research",
+        "blog.trailofbits.com",
+        "koi.security",
+        "huggingface.co/blog",
+        "simonwillison.net",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "HN Algolia search",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv + Hugging Face Daily Papers)",
+        "talk-scan (YouTube channels)",
+        "esentire.com/blog",
+        "fortian.com.au/blog",
+        "endorlabs.com"
+      ],
+      "windowDays": 7
     }
   ]
 }

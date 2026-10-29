@@ -1,7 +1,212 @@
 {
-  "generatedAt": "2026-10-29T07:55:40.103Z",
+  "generatedAt": "2026-10-29T14:56:55.796Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "air-solanacry-agent-starter-kit-rat",
+      "categories": [
+        "supply-chain",
+        "attack"
+      ],
+      "title": "SolanaCry: a poisoned starter kit turns coding agents into RAT installers",
+      "org": "AIR Security",
+      "date": "2026-10-29",
+      "url": "https://air.security/blog-posts/solanacry",
+      "summary": "SolanaCry is malware AIR Research Lab found in the wild that reaches developers through their coding agents: the agent searches for a Solana starter kit, picks a poisoned GitHub repo, and runs the README's one-line PowerShell install.",
+      "severity": "high",
+      "tags": [
+        "coding-agents",
+        "malicious-package",
+        "credential-theft",
+        "threat-intel",
+        "solana"
+      ],
+      "affected": [
+        "AI coding agents",
+        "Windows",
+        "Crypto wallets"
+      ],
+      "credits": [
+        {
+          "name": "Eliad Mualem",
+          "org": "AIR Research Lab"
+        },
+        {
+          "name": "Dor Granat",
+          "org": "AIR Research Lab"
+        }
+      ],
+      "explainer": {
+        "tagline": "SolanaCry reaches developers through their coding agents: a poisoned Solana starter kit whose only install step drops a remote access trojan.",
+        "whatHappened": "AIR Research Lab published SolanaCry on October 29, 2026, describing malware it says it discovered in the wild targeting AI agents that build crypto wallet projects. Eliad Mualem and Dor Granat traced the lure to a GitHub repository, SolanaUpdateTools/solana-starter-kit, which AIR reports appeared as the top search result with 286 stars and a convincing description. AIR links the operator to the EVALUSION cluster that eSentire tracks, based on a shared RADIUS secret value.",
+        "howItWorks": "A coding agent asked to build a Solana project searches the web, picks the repository from the results, and reads a README whose only installation step is a one-line PowerShell command. That command downloads a payload and runs it in memory, so nothing is written to disk at that stage. The payload decodes 14 embedded files, 13 of them genuine NetSupport Manager v12.10 components plus one attacker-supplied configuration, into a hidden folder, adds a Run registry entry, and starts the client after a 10 second delay. The configuration points at a command server on port 443, accepts connections from any operator address, and disables the user-facing chat and disconnect controls.",
+        "whoIsAffected": "Any coding agent that can search the web and run shell commands can pick up the lure, AIR says, and the recovered payload runs on Windows. Developers who let an agent install dependencies without review are the exposed group, and the machines the operator wants are the ones holding crypto wallet keys.",
+        "whatToDo": "Treat everything an agent reads, including search results, READMEs and docs, as untrusted input, and do not let an agent run download-and-execute commands such as iwr | iex or curl | sh without review. Check for the indicators listed below. If any are present, disconnect the machine, remove the folder and the Run key, and rotate every credential, token and wallet key that was on it."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Any coding agent that can search the web and run shell commands"
+        },
+        {
+          "label": "Found by",
+          "value": "Eliad Mualem and Dor Granat, AIR Research Lab"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 29, 2026"
+        },
+        {
+          "label": "Payload",
+          "value": "NetSupport Manager v12.10 components repackaged as a remote access trojan"
+        },
+        {
+          "label": "Lure repo",
+          "value": "SolanaUpdateTools/solana-starter-kit, 286 stars, created November 2025"
+        },
+        {
+          "label": "Indicators",
+          "value": "Folder y2inwRnI6G under %LOCALAPPDATA%, SecureModule value under HKCU Run, client32.exe in that folder, traffic to maxwintodaybtc.com:443"
+        },
+        {
+          "label": "Status",
+          "value": "No fix: the lure is a malicious repository, not a product flaw"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my coding agent affected by SolanaCry?",
+          "a": "SolanaCry can reach any coding agent that searches the web and runs shell commands, according to AIR Research Lab. Exposure depends on configuration rather than on which agent you run: agents allowed to install dependencies without human review are the ones that will execute the README's PowerShell one-liner. The payload AIR recovered runs on Windows."
+        },
+        {
+          "q": "How do I check whether SolanaCry infected a developer machine?",
+          "a": "AIR lists four indicators for SolanaCry: a hidden folder named y2inwRnI6G under %LOCALAPPDATA%, a SecureModule value under the HKCU Run key, a client32.exe process running from that folder, and outbound connections to maxwintodaybtc.com on port 443. AIR also publishes the recovered payload's SHA-256. Any of these means the NetSupport-based trojan is installed and credentials need rotating."
+        },
+        {
+          "q": "Is there a patch for SolanaCry?",
+          "a": "No patch exists for SolanaCry, because the attack is a malicious GitHub repository and a download-and-execute install step, not a flaw in an agent product. AIR advises blocking agents from running commands such as iwr | iex or curl | sh unreviewed, and expects the operator to keep rotating lures, so new repositories and domains will follow the ones named in the report."
+        },
+        {
+          "q": "How does SolanaCry differ from AIR's earlier Web Hole research?",
+          "a": "Web Hole, which AIR published on October 23, 2026, showed that expired domains still rank in the search results agents read. SolanaCry is the live-malware case: a repository that AIR says ranked first for Solana starter kit searches and delivered a NetSupport-based remote access trojan. Both findings share one root cause, an agent trusting whatever a web search returns."
+        }
+      ],
+      "links": [
+        {
+          "label": "AIR Research Lab Post",
+          "url": "https://air.security/blog-posts/solanacry"
+        },
+        {
+          "label": "eSentire on EVALUSION",
+          "url": "https://www.esentire.com/blog/unpacking-netsupport-rat-loaders-delivered-via-clickfix"
+        },
+        {
+          "label": "Fortian TradingView Lure",
+          "url": "https://www.fortian.com.au/blog/the-indicator-you-didnt-backtest-fake-tradingview-videos-driving-infostealers.html"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a282d66e4248a84e0259ed9/6ae34d63fb1e39f88809fa9f_image%20(23).png",
+        "alt": "SolanaCry: agents searching the internet attacked by malware discovered in the wild, steals their crypto wallets",
+        "credit": "AIR Security"
+      },
+      "publishDate": "2026-10-29T14:56:55.796Z"
+    },
+    {
+      "id": "wiz-agentic-attack-fingerprints",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "Wiz: seven fingerprints that separate agentic attacks from automation",
+      "org": "Wiz",
+      "date": "2026-10-29",
+      "url": "https://www.wiz.io/blog/the-rise-of-agentic-attacks-what-they-look-like-and-where-theyre-headed",
+      "summary": "Wiz published seven criteria for recognizing agent-driven intrusions, drawn from three attacks its team investigated: an exposed Flowise instance, a Java operations gateway and an AI agent GraphQL backend with an MCP interface.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "detection",
+        "mcp",
+        "flowise"
+      ],
+      "affected": [
+        "Flowise",
+        "Kubernetes",
+        "ArgoCD",
+        "MCP servers"
+      ],
+      "credits": [
+        {
+          "name": "Avigayil Mechtinger",
+          "org": "Wiz"
+        }
+      ],
+      "explainer": {
+        "tagline": "Wiz distilled seven fingerprints of agent-driven intrusions, including machine-paced iteration and reasoning left inside the tooling.",
+        "whatHappened": "Avigayil Mechtinger published the criteria on the Wiz blog on October 29, 2026, drawn from three intrusions the company investigated and from public reports by Microsoft, CrowdStrike, Zscaler, Hunt.io and JPCERT/CC. Wiz presents the three as case studies of real attacks it handled, labeled Attack A, B and C. The closing section on where agentic attacks are headed is the authors' expectation rather than a measured finding, and they say so.",
+        "howItWorks": "The seven fingerprints are machine-paced sustained iteration, natural-language reasoning embedded in the tooling, self-correction and adaptive execution, a structured breadth-first methodology with near-complete technique coverage, verbosity in spraying many lateral-movement paths at once, probe-before-payload discipline with operations-security wrappers, and purpose-descriptive or disposable staging artifacts. Wiz argues the noise is itself the opening, because an operator that sprays hundreds of paths in an hour does not look like legitimate automation. In one case the attacker's own tooling comments referred to another agent instance, which the authors read as direct evidence of agent-driven work.",
+        "whoIsAffected": "Cloud and Kubernetes estates with internet-exposed AI tooling are the targets in all three cases Wiz describes. Attack A started at an exposed Flowise instance and became a staging node to mass-exploit dozens more; Attack C reached an AI agent GraphQL backend through its MCP interface and ended in bulk secret theft, including cloud credentials and a Kubernetes token.",
+        "whatToDo": "Build behavioral detections that can tell agent-driven activity apart from legitimate automation, then correlate single signals into one picture before acting. Wiz also advises cutting exposed attack surface first, and weighting attribution toward victimology, targeting and infrastructure rather than tool similarity, which agents now produce on demand."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "October 29, 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "Avigayil Mechtinger, Wiz"
+        },
+        {
+          "label": "Criteria",
+          "value": "Seven fingerprints of agentic activity"
+        },
+        {
+          "label": "Attack A",
+          "value": "Exposed Flowise: 99 scripts in about 24 hours, a new one every one to two minutes"
+        },
+        {
+          "label": "Attack B",
+          "value": "Java operations gateway: 602 unique steps across 12 technique families in about 4.5 hours"
+        },
+        {
+          "label": "Attack C",
+          "value": "AI agent GraphQL backend over MCP: 150-plus scripts over about 21 hours, about 25 target organizations"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How can a defender tell an agentic attack from normal automation?",
+          "a": "Wiz points to pace and breadth rather than tooling: agentic operators sustain machine-speed iteration for hours, cover nearly the whole technique catalog, self-correct after failures, and spray many lateral-movement paths at once. In one case Wiz counted 602 unique steps across 12 technique families in roughly 4.5 hours, a volume the authors say legitimate automation rarely produces."
+        },
+        {
+          "q": "Does this Wiz report cover the same intrusion as its earlier AI-driven cloud attack write-up?",
+          "a": "No. Wiz's October 19, 2026 post examined one multi-cloud intrusion that began at an exposed Kafka UI instance. The October 29 report presents three different cases and cites that earlier post, plus the Storm-0940 write-up, as separate in-depth examinations. Wiz does not state that any of the three new cases overlaps with them."
+        },
+        {
+          "q": "Why does Wiz say attribution gets harder against agentic attackers?",
+          "a": "Wiz argues that code and tool similarity lose value as evidence once agents generate tooling on demand for each operation, so two campaigns by one actor may share no artifacts. The authors advise weighting victimology, targeting patterns, infrastructure and objectives instead. Wiz presents this as an expectation about where agentic attacks are headed, not a measurement."
+        }
+      ],
+      "links": [
+        {
+          "label": "Wiz Research Post",
+          "url": "https://www.wiz.io/blog/the-rise-of-agentic-attacks-what-they-look-like-and-where-theyre-headed"
+        },
+        {
+          "label": "Wiz CIRT Case Study",
+          "url": "https://www.wiz.io/blog/anatomy-of-ai-driven-cloud-attacks"
+        }
+      ],
+      "image": {
+        "url": "https://www.datocms-assets.com/75231/1793281484-the-rise-of-agentic-attacks2-2.png?fm=webp",
+        "alt": "Cover image for Wiz's report on the rise of agentic attacks",
+        "credit": "Wiz"
+      },
+      "publishDate": "2026-10-29T14:56:55.796Z"
+    },
     {
       "id": "causalsecurity-epics-base-autonomous-discovery",
       "categories": [
