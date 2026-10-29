@@ -13333,6 +13333,68 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261029t235444z",
+      "timestamp": "2026-10-29T23:54:44.455Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (3 list pages, every candidate opened and date-checked), Anthropic news, OpenAI (403 to fetch), MSRC, Google Cloud security blog, Hugging Face blog and prompt-injection model search, AIR Security, Wiz, Zenity, Embrace The Red, Adversa, Trail of Bits, Lakera, Check Point, HiddenLayer, Unit 42, Socket, JFrog, ReversingLabs, Snyk, Pillar, Noma, Trend AI, OWASP GenAI, UK AISI, Hacker News (front pages and Algolia), r/netsec, paper-scan (31 arXiv candidates), repo-scan (7 candidates), GitHub trending daily and weekly, and talk-scan (40+ uploads). Nothing inside the 7-day window met the bar: the Oct 27 to Oct 29 advisory-database batch was backfill of June to mid-October disclosures (MCP Python SDK CVE-2026-116684/5/6 published Sep 28 to Oct 5, MCP TypeScript SDK body limits Oct 15, LiteLLM salt-key escalation CVE-2026-114612 Sep 30, PraisonAI and @sylphx/pdf-reader-mcp Jun 25, mcp-sanitizer Jun 25, SiYuan Aug 8), and the genuine in-window disclosures are already in the feed.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (github.com/advisories)",
+        "github.com/advisories MCP query",
+        "Anthropic news (anthropic.com/news)",
+        "Microsoft MSRC blog",
+        "Google Cloud security blog",
+        "Hugging Face blog",
+        "huggingface.co/models?search=prompt-injection",
+        "air.security/blog",
+        "wiz.io/blog",
+        "zenity.io/blog",
+        "embracethered.com/blog",
+        "adversa.ai/blog",
+        "blog.trailofbits.com",
+        "lakera.ai/blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com/innovation-hub/research",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "snyk.io/blog/category/security-research",
+        "pillar.security/blog",
+        "noma.security/blog",
+        "trendaisecurity.com",
+        "genai.owasp.org/news",
+        "aisi.gov.uk",
+        "Hacker News front page (Oct 27, Oct 28)",
+        "Hacker News Algolia search",
+        "r/netsec top of week",
+        "paper-scan.ts (arXiv + Hugging Face Daily Papers, 31 candidates)",
+        "repo-scan.json (13 queries, 7 candidates)",
+        "github.com/trending (daily and weekly)",
+        "gh-repo-meta.ts (4 repos)",
+        "talk-scan.ts (conference and security-voice channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
