@@ -1,7 +1,217 @@
 {
-  "generatedAt": "2026-10-29T14:56:55.796Z",
+  "generatedAt": "2026-10-29T20:10:21.998Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "jfrog-testmetest-armed-github-repos",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "testmetest: 42 armed repos run a payload when an agent opens them",
+      "org": "JFrog Security Research",
+      "date": "2026-10-26",
+      "url": "https://research.jfrog.com/post/beyond-testmetest-42-hijacked-github-repos/",
+      "summary": "JFrog found 42 armed GitHub repositories across 11 legitimate owners in the testmetest npm campaign. Each carries startup hooks for Claude Code, Gemini CLI, Cursor and VS Code, so opening the workspace starts a credential stealer.",
+      "severity": "high",
+      "tags": [
+        "malicious-package",
+        "credential-theft",
+        "coding-agents",
+        "threat-intel",
+        "npm",
+        "claude-code",
+        "cursor",
+        "gemini-cli"
+      ],
+      "affected": [
+        "Claude Code",
+        "Gemini CLI",
+        "Cursor",
+        "Visual Studio Code",
+        "npm",
+        "GitHub Actions"
+      ],
+      "credits": [
+        {
+          "name": "Guy Korolevski",
+          "org": "JFrog Security Research"
+        },
+        {
+          "name": "Yair Benamou",
+          "org": "JFrog Security Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "testmetest is an npm campaign whose armed GitHub repositories start a credential stealer when a coding agent or IDE opens the project.",
+        "whatHappened": "JFrog Security Research published its analysis of the testmetest campaign on October 26, 2026, written by Guy Korolevski and Yair Benamou. JFrog says it found 42 armed third-party GitHub repositories across 11 legitimate owners, and that its work followed SafeDep's October 22 report on the campaign's npm side. JFrog uses the name testmetest rather than Miasma, because it says the lineage to that worm family was never established.",
+        "howItWorks": "Startup hooks replace the package install script as the trigger. A Claude Code SessionStart hook in .claude/settings.json runs node .github/init.js, and equivalent triggers sit in .gemini/settings.json, .cursor/mcp.json, .cursor/rules/setup.mdc and .vscode/tasks.json, so opening the workspace in a supported tool is enough. The payload runs detached with output ignored, so the hook is never blocked. Newer npm packages hide the loader in a compiled addon.node that XORs an encrypted .napi_cache file with 0x96 and runs the result, skipping CI systems, containers, small VMs and debugged processes.",
+        "whoIsAffected": "Developers who open one of the armed repositories in Claude Code, Gemini CLI, Cursor or Visual Studio Code are exposed, as is anyone who installed one of the 25 package names JFrog inventoried. The owning accounts are legitimate, JFrog says, including the leamasuero account and the Crayon-Biz-LLP organization, so an armed repository does not look attacker-owned.",
+        "whatToDo": "Audit repositories you can reach for .github/init.js and for the agent and IDE hook files listed below, JFrog advises, and enumerate repository trees directly because the oversized wrappers defeat GitHub code search. Rotate GitHub, npm, cloud, SSH and AI provider credentials reachable from affected users or CI. Remove the net-health-checker and pkg-runtime persistence before revoking a GitHub token, because the worm ships a wiper that fires on revocation."
+      },
+      "quickFacts": [
+        {
+          "label": "Armed Repositories",
+          "value": "42, across 11 legitimate owners"
+        },
+        {
+          "label": "Agent And IDE Hooks",
+          "value": ".claude/settings.json, .gemini/settings.json, .cursor/mcp.json, .cursor/rules/setup.mdc, .vscode/tasks.json"
+        },
+        {
+          "label": "Packages",
+          "value": "25 package names and 82 known version records as of October 26, 2026"
+        },
+        {
+          "label": "Attacker Account",
+          "value": "CementBeetleSteeple, holding 17 campaign repositories and 16 polymorphic ci.js builds"
+        },
+        {
+          "label": "Tokens Captured",
+          "value": "29 artifacts holding three distinct real-format npm tokens, rotated across six repositories"
+        },
+        {
+          "label": "Found By",
+          "value": "Guy Korolevski and Yair Benamou, JFrog Security Research"
+        },
+        {
+          "label": "Status",
+          "value": "No patch. Remove malicious versions, rotate credentials and audit repositories"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if I cloned a testmetest repository but never opened it?",
+          "a": "Cloning alone does not fire the testmetest payload. JFrog reports that the hooks run when a supported tool loads the workspace: a Claude Code SessionStart hook, the Gemini CLI equivalent, a Cursor MCP entry or always-applied rule, or a Visual Studio Code folder-open task. A developer who cloned a repository and never opened it should still delete the copy and audit for those hook files first."
+        },
+        {
+          "q": "Which credentials should I rotate after a testmetest infection?",
+          "a": "JFrog's remediation list covers GitHub, GitLab, npm, PyPI, RubyGems, cloud, SSH, Vault, Kubernetes and AI provider credentials. JFrog also tells defenders to remove the net-health-checker and pkg-runtime persistence before revoking a GitHub token, because the worm includes a token-revocation wiper. Installing a full-worm package version should be treated as a host compromise, so rebuild the machine rather than cleaning it."
+        },
+        {
+          "q": "Is testmetest the same thing as the Miasma worm?",
+          "a": "JFrog deliberately avoids the Miasma name for this campaign. SafeDep described the payload as Miasma-family in its October 22 report without establishing lineage, so JFrog calls it the testmetest campaign instead. JFrog's own earlier research covered a Miasma variant that hijacked 96 package versions in the legitimate @redhat-cloud-services npm namespace in June 2026, a separate wave with a different delivery route."
+        },
+        {
+          "q": "How did the armed repositories avoid looking suspicious?",
+          "a": "Forged history did much of the work. JFrog says that on September 28 the operator ran scripted arming batches that copied old commit messages and author dates and appended skip-checks:true, pushing many repositories within minutes. The wrappers also carry 12.9 to 13.7 MB of polymorphic code, which defeats GitHub code search and the contents API, so JFrog advises enumerating repository trees directly."
+        }
+      ],
+      "links": [
+        {
+          "label": "JFrog Research",
+          "url": "https://research.jfrog.com/post/beyond-testmetest-42-hijacked-github-repos/"
+        },
+        {
+          "label": "Earlier Miasma Wave",
+          "url": "https://research.jfrog.com/post/shai-hulud-miasma-redhat-cloud-services/"
+        }
+      ],
+      "publishDate": "2026-10-29T20:10:21.998Z"
+    },
+    {
+      "id": "norforge-cairn-panel-takeover",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "Cairn: attackers turn exposed pentest agents against their own hosts",
+      "org": "NorForge",
+      "date": "2026-10-26",
+      "url": "https://norforge.com/blog/automated-subversion-attempted-takeover",
+      "summary": "Attackers inserted tasks into at least 17 exposed Cairn AI pentesting panels, making the owners' own agents plant an SSH key, hunt for API keys and, on one panel, fetch a Poseidon implant, NorForge reports.",
+      "severity": "medium",
+      "tags": [
+        "ai-enabled-offense",
+        "rogue-agents",
+        "credential-theft",
+        "threat-intel",
+        "cairn",
+        "poseidon"
+      ],
+      "affected": [
+        "Cairn",
+        "AI pentesting harnesses"
+      ],
+      "credits": [
+        {
+          "name": "Snorre Fagerland",
+          "org": "NorForge",
+          "url": "https://norforge.com/about"
+        }
+      ],
+      "explainer": {
+        "tagline": "Cairn panels left open to the internet are being subverted, with injected tasks turning the operators' own AI agents against their hosts.",
+        "whatHappened": "NorForge published Automated Subversion and Attempted Takeover of AI Pentesting Harnesses on October 26, 2026, written by founding researcher Snorre Fagerland. An earlier NorForge report catalogued exposed Cairn panels run by criminal operators; this one covers what happened to those panels next. At least 17 exposed panels received similar malicious tasks, and some belonged to red teams or capture-the-flag challenges rather than criminals.",
+        "howItWorks": "An exposed Cairn panel accepts new tasks without authentication, so an attacker writes a task and the victim's own agent workers carry it out. Injected tasks tried to install an attacker SSH key for the kali user, probed container capabilities, mounts and Docker sockets for a route out of the agent container, and searched workspaces for API keys, posting what they found into publicly readable notes. NorForge notes that access ends when a task finishes unless the attacker reaches the host.",
+        "whoIsAffected": "Anyone running a Cairn panel reachable from the internet is exposed, defenders included. NorForge tentatively tracks two clusters: AIA0009, which it says focused on persistence, access and malware deployment and tagged its probes cairnscan, and AIA0010, which explored internal services, credentials and agent infrastructure and used compromised agents to scan for further exposed panels. No conclusive overlap between them was found.",
+        "whatToDo": "Secure any Cairn panel you run now, NorForge says, because panels are being scanned and stripped of API keys. Audit the host for an unexpected SSH key on the kali user and for tasks you did not create, then rotate the model API keys and other secrets the panel could reach. Block the report's indicators, including the Poseidon implant hash and its Bunny.net command and control address."
+      },
+      "quickFacts": [
+        {
+          "label": "Panels Affected",
+          "value": "At least 17 with malicious tasks inserted, some run by red teams or CTF challenges"
+        },
+        {
+          "label": "Clusters",
+          "value": "AIA0009, persistence and malware; AIA0010, internal services and credentials"
+        },
+        {
+          "label": "Malware",
+          "value": "Poseidon, a Go ELF implant usually run through the open-source Mythic framework"
+        },
+        {
+          "label": "Entry Point",
+          "value": "Unauthenticated access to an exposed panel, not a software flaw"
+        },
+        {
+          "label": "CVE",
+          "value": "None, and there is nothing to patch"
+        },
+        {
+          "label": "Timeline",
+          "value": "Recon from October 10, 2026; campaigns in earnest from October 20; malware task October 21"
+        },
+        {
+          "label": "Found By",
+          "value": "Snorre Fagerland, NorForge"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does fixing the Cairn panel takeovers require a patch?",
+          "a": "No patch exists or is needed for the Cairn panel takeovers. NorForge attributes the compromises to panels exposed to the internet without authentication rather than to a software flaw, and no CVE applies. Operators should restrict network access to the panel, put authentication in front of it, and audit the host for injected tasks and planted SSH keys before trusting it again."
+        },
+        {
+          "q": "Were only criminal Cairn panels hijacked?",
+          "a": "Legitimate panels were hit too. NorForge says that among the at least 17 exposed panels which received similar malicious tasks, some belonged to red teams or capture-the-flag challenges, and that white-hat researchers' panels were stripped of API keys as well. Exposure on the internet, not the owner's intent, decided who ended up affected by this activity."
+        },
+        {
+          "q": "What malware reached the Cairn hosts?",
+          "a": "Poseidon, a Go-based ELF implant normally operated through the open-source Mythic framework, was fetched by a task on one panel on October 21, 2026. NorForge reports the implant was configured to use a Bunny.net CDN address for command and control, publishes its SHA-256 hash, and says both that address and the download server later stopped accepting connections."
+        }
+      ],
+      "links": [
+        {
+          "label": "NorForge Report",
+          "url": "https://norforge.com/blog/automated-subversion-attempted-takeover"
+        },
+        {
+          "label": "Inside Cairn",
+          "url": "https://norforge.com/blog/inside_cairn"
+        },
+        {
+          "label": "Cairn Project",
+          "url": "https://github.com/oritera/Cairn"
+        }
+      ],
+      "image": {
+        "url": "https://norforge.com/blog/automated-subversion-attempted-takeover/images/cover.webp",
+        "alt": "Cover image for NorForge's report on subverted AI pentesting harnesses",
+        "credit": "NorForge"
+      },
+      "publishDate": "2026-10-29T20:10:21.998Z"
+    },
     {
       "id": "air-solanacry-agent-starter-kit-rat",
       "categories": [
