@@ -13039,6 +13039,89 @@
         "unit42.paloaltonetworks.com"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261029t002735z",
+      "timestamp": "2026-10-29T00:27:35.324Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories filtered for MCP and agent tooling, VulnCheck, Anthropic, UK AISI, OWASP GenAI, Google, MSRC, Embrace The Red, AIR, Zenity, Trail of Bits, HiddenLayer, JFrog, Socket, Huntress, Wiz, Simon Willison, Hugging Face, Hacker News, GitHub trending, repo-scan (5 candidates), paper-scan (42 arXiv papers in the window) and talk-scan (41 uploads). Added nine MCP tool-wrapper command injections and two chrome-devtools-mcp boundary bypasses, plus updates to the ConnectWise and AWS MCP items. Most GitHub advisory entries dated October 26 to 28 were database backfills of older disclosures (MCP Python SDK October 5, mcp-sanitizer June 25, LiteLLM salt key September 30, MCP TypeScript SDK request limits October 15) and stayed out, as did Claude Opus 5.5's security claims, which date to September 22. Left out for lack of a second source that loads: veritas's October 28 anti-LLM obfuscation analysis at nullpt.rs, whose only other citation was a Hacker News thread that answers 419 to scripts. No paper cleared the two-signal bar and no repo or talk cleared its bar; openai.com (GPT-6.1 Terra, October 26), reddit.com and nvd.nist.gov did not load.",
+      "counts": {
+        "added": 2,
+        "updated": 2,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "vulncheck-mcp-tool-parameter-command-injection",
+          "title": "Nine MCP servers: tool parameters reach the shell",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Nine advisories published inside the window share one root cause an agent can reach through prompt injection, and no project has a patched version."
+        },
+        {
+          "id": "chrome-devtools-mcp-roots-allowlist-bypasses",
+          "title": "chrome-devtools-mcp: file writes and fetches left their boundaries",
+          "category": "vulnerability",
+          "severity": "low",
+          "note": "Two newly disclosed boundary bypasses in Google's browser MCP server, including documented URL filters that service-worker traffic ignores."
+        }
+      ],
+      "updated": [
+        {
+          "id": "microsoft-storm-0940-artex-connectwise",
+          "title": "Storm-0940: an AI pentest agent drove the ConnectWise tenant breach",
+          "note": "Huntress published its own assessment of how much of the intrusion was automated on October 26: Jonathan Semon and Rich Mozeleski are highly confident an operator adapted the tooling between runs, but rate their confidence that an LLM did so as low to medium on Huntress telemetry alone, and medium to high once Microsoft's attribution is included."
+        },
+        {
+          "id": "aws-mcp-server-run-script-validator-bypass",
+          "title": "AWS MCP Server: a crafted script got past the run_script validator",
+          "note": "The reporter, who publishes as xplo1t, released a write-up of the run_script sandbox bypass on October 24, the day after AWS resolved the HackerOne report: match/case class patterns read attributes the AST validator did not check, dunder strings were rebuilt with chr(95), and a mutable function proxy exposed __globals__ and then __import__."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "ChromeDevTools/chrome-devtools-mcp advisories",
+        "anthropic.com/news",
+        "aisi.gov.uk/blog",
+        "genai.owasp.org/news",
+        "blog.google safety and security",
+        "microsoft.com/msrc/blog",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "blog.trailofbits.com",
+        "hiddenlayer.com research",
+        "research.jfrog.com",
+        "socket.dev/blog",
+        "huntress.com/blog",
+        "wiz.io/blog",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "Hacker News front page and Algolia search",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv + Hugging Face Daily Papers)",
+        "talk-scan (YouTube channels)",
+        "arXiv abstract pages",
+        "nullpt.rs",
+        "fingerprint.garden",
+        "xplo1t-sec.github.io"
+      ],
+      "windowDays": 7
     }
   ]
 }

@@ -1,7 +1,229 @@
 {
-  "generatedAt": "2026-10-28T22:06:42.431Z",
+  "generatedAt": "2026-10-29T00:27:35.324Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "vulncheck-mcp-tool-parameter-command-injection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Nine MCP servers: tool parameters reach the shell",
+      "org": "VulnCheck",
+      "date": "2026-10-27",
+      "url": "https://www.vulncheck.com/advisories/kali-gpt-through-commit-a608c74-os-command-injection-via-mcp-scanner-tool-parameters",
+      "summary": "Nine MCP servers that wrap command-line tools pass model-supplied parameters into a shell, in VulnCheck advisories published on October 27, 2026. Eight are command injection at CVSS 7.3 to 8.5. None names a fixed version.",
+      "severity": "medium",
+      "cve": "CVE-2026-117569",
+      "cvss": 8.5,
+      "tags": [
+        "mcp",
+        "prompt-injection",
+        "agent-security",
+        "vulncheck"
+      ],
+      "affected": [
+        "Kali-GPT",
+        "mcp-ffmpeg",
+        "esp-mcp",
+        "sf-mcp",
+        "DroidMind",
+        "hagent",
+        "ai-sdlc",
+        "ATXP Gemini CLI extension",
+        "nmap-mcp"
+      ],
+      "credits": [
+        {
+          "name": "Nguyễn Văn Tiến"
+        }
+      ],
+      "explainer": {
+        "tagline": "MCP servers that wrap a command-line tool turn an agent's arguments into shell commands when they build the command as a string.",
+        "whatHappened": "VulnCheck published nine advisories for MCP servers on October 27, 2026. Eight are OS command injection rated CVSS 7.3 to 8.5, and the ninth is a permissive nmap script allowlist rated 4.8. The servers wrap tools such as nmap, ffmpeg, the Salesforce CLI, arduino-cli and adb, and VulnCheck credits Nguyễn Văn Tiến on the advisories that name a researcher.",
+        "howItWorks": "Each server builds one shell command string from values the model controls, then runs it through a shell: subprocess.run with shell=True in Kali-GPT and hagent, asyncio.create_subprocess_shell in esp-mcp, child_process.exec in mcp-ffmpeg, and execSync in sf-mcp and the ai-sdlc plugin. A backtick or a $() substitution inside a parameter such as target, ports, videoPath or repo ends the intended command and starts a second one, which runs as the MCP server user. DroidMind checks the command name against an allowlist but not the substitutions inside its arguments.",
+        "whoIsAffected": "Operators who connect an agent to one of the nine servers listed below are exposed, at the versions and commits the advisories name. A caller needs only to influence a tool call, and several advisories name prompt-injected agents as the expected path, so content an agent reads is enough.",
+        "whatToDo": "Disconnect or isolate these servers until their maintainers ship a fix, because no advisory names a patched version. Review any community MCP server that shells out to a CLI for shell=True, exec or execSync with interpolated arguments, pass arguments as a list rather than a string, and run tool wrappers as a user that holds no credentials."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "ai-sdlc plugin <=0.31.2, DroidMind <=0.4.0, ATXP Gemini CLI extension <=1.0.0, sf-mcp <=1.3.2, mcp-ffmpeg <=1.0.5, esp-mcp (28afddf), Kali-GPT (a608c74), nmap-mcp (3636afa), hagent (761eec6)"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-117558, 117559, 117560, 117561, 117567, 117568, 117569, 117570, 117573"
+        },
+        {
+          "label": "CVSS",
+          "value": "4.8 to 8.5, CVSS v4.0, from NVD and VulnCheck"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No patched version in any of the nine advisories"
+        },
+        {
+          "label": "Found by",
+          "value": "Nguyễn Văn Tiến, credited on the Kali-GPT, mcp-ffmpeg and esp-mcp advisories"
+        },
+        {
+          "label": "Attack type",
+          "value": "OS command injection through MCP tool parameters; one permissive nmap script allowlist"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 27, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which MCP servers are affected by the October 27 command injection advisories?",
+          "a": "VulnCheck names nine servers: the ai-sdlc plugin MCP server, DroidMind, the ATXP Gemini CLI extension, Codefriar sf-mcp, esp-mcp, mcp-ffmpeg, Kali-GPT, Vorota-ai nmap-mcp and hagent. Eight share one root cause, a shell command built from model-supplied arguments. The ninth, nmap-mcp, instead lets a caller pass blocked nmap script categories such as exploit, dos or brute."
+        },
+        {
+          "q": "Is there a patch for these MCP command injection CVEs?",
+          "a": "No advisory in the set names a patched version, and the GitHub Advisory Database lists patched versions as unknown for all nine. Treat every listed server as exposed: remove it from agent configurations, or run it somewhere command execution gains an attacker nothing. Each advisory links the GitHub issue filed against the project, which is where a fix would appear."
+        },
+        {
+          "q": "Can prompt injection trigger these MCP command injections?",
+          "a": "Yes. Each flaw needs one tool call with a crafted argument, so any content an agent reads can supply it, and the esp-mcp, Kali-GPT, DroidMind and ai-sdlc advisories name prompt-injected agents as an expected path. VulnCheck's CVSS v4 vectors use a local attack vector with low privileges, which matches an agent already connected to the server."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Kali-GPT",
+          "url": "https://www.vulncheck.com/advisories/kali-gpt-through-commit-a608c74-os-command-injection-via-mcp-scanner-tool-parameters"
+        },
+        {
+          "label": "VulnCheck mcp-ffmpeg",
+          "url": "https://www.vulncheck.com/advisories/mcp-ffmpeg-through-1.0.5-os-command-injection-via-videopath-and-outputdir"
+        },
+        {
+          "label": "VulnCheck esp-mcp",
+          "url": "https://www.vulncheck.com/advisories/esp-mcp-through-commit-28afddf-os-command-injection-via-mcp-tool-parameters"
+        },
+        {
+          "label": "Kali-GPT Advisory",
+          "url": "https://github.com/advisories/GHSA-qqg8-6hv5-w2xr"
+        },
+        {
+          "label": "mcp-ffmpeg Advisory",
+          "url": "https://github.com/advisories/GHSA-cqrv-cwxw-xcq4"
+        },
+        {
+          "label": "sf-mcp Advisory",
+          "url": "https://github.com/advisories/GHSA-rjw8-q97p-7xhf"
+        },
+        {
+          "label": "DroidMind Advisory",
+          "url": "https://github.com/advisories/GHSA-533h-cccj-x6hp"
+        },
+        {
+          "label": "ATXP Extension",
+          "url": "https://github.com/advisories/GHSA-w542-83fj-2ghf"
+        },
+        {
+          "label": "hagent Advisory",
+          "url": "https://github.com/advisories/GHSA-j5hx-w574-wh9m"
+        },
+        {
+          "label": "nmap-mcp Advisory",
+          "url": "https://github.com/advisories/GHSA-65g8-vjqh-r7qc"
+        },
+        {
+          "label": "ai-sdlc Advisory",
+          "url": "https://github.com/advisories/GHSA-f89j-j8x9-5xwf"
+        }
+      ],
+      "publishDate": "2026-10-29T00:27:35.324Z"
+    },
+    {
+      "id": "chrome-devtools-mcp-roots-allowlist-bypasses",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "chrome-devtools-mcp: file writes and fetches left their boundaries",
+      "org": "Chrome DevTools",
+      "date": "2026-10-22",
+      "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/security/advisories/GHSA-5hw5-4q87-m6x9",
+      "summary": "Chrome DevTools published two advisories for chrome-devtools-mcp: a tool write can land outside the configured roots through a symlink, and service-worker fetches ignore the server's URL allowlist. Both fixes shipped in 1.5.0 in July.",
+      "severity": "low",
+      "cve": "CVE-2026-106484",
+      "tags": [
+        "mcp",
+        "browser-agents",
+        "prompt-injection",
+        "agent-security",
+        "chrome-devtools-mcp",
+        "google"
+      ],
+      "affected": [
+        "chrome-devtools-mcp"
+      ],
+      "credits": [
+        {
+          "name": "thesmartshadow"
+        },
+        {
+          "name": "kuranikaran"
+        }
+      ],
+      "explainer": {
+        "tagline": "Two advisories show that chrome-devtools-mcp's roots and URL filters did not hold as boundaries for a browsing agent.",
+        "whatHappened": "Chrome DevTools published two moderate advisories for chrome-devtools-mcp on October 22, 2026, both against releases up to 1.4.0. thesmartshadow reported an out-of-root file write, and kuranikaran reported that the server's global URL allowlist and blocklist miss service-worker traffic. The fixes shipped earlier, in version 1.5.0 on July 3, 2026.",
+        "howItWorks": "The out-of-root write turns on the order of two steps: the server validates the caller's output path, rewrites the file extension, then writes to the rewritten path without validating that path again. A request for workspace/report.txt becomes workspace/report.png, and when that name is a symlink pointing outside the root, the write lands outside. The allowlist gap is separate: the policy is applied to normal page targets, so a service worker registered by an allowed page can still fetch a blocked origin, which the reporter demonstrated as blind request forgery.",
+        "whoIsAffected": "Releases 1.1.0 through 1.4.0 carry the roots bypass and 1.2.0 through 1.4.0 the allowlist bypass, so only an agent pinned to an old chrome-devtools-mcp is exposed. The write needs a symlink inside the root, which malicious workspace state or a prompt injection through an extension-enforcing tool such as take_screenshot can reach. Neither advisory reports remote code execution.",
+        "whatToDo": "Move any pinned chrome-devtools-mcp at or below 1.4.0 to the current release, 1.12.0. Stop treating --allowedUrlPattern and --blockedUrlPattern as a network boundary for a browsing agent, and keep internal services off the network the inspected browser can reach."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "chrome-devtools-mcp 1.1.0 to 1.4.0 (roots bypass); 1.2.0 to 1.4.0 (allowlist bypass)"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.5.0, released July 3, 2026; current release 1.12.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-106484, for the out-of-root write; the allowlist bypass has no CVE"
+        },
+        {
+          "label": "CVSS",
+          "value": "4.7 on the allowlist bypass; none published for the out-of-root write"
+        },
+        {
+          "label": "Found by",
+          "value": "thesmartshadow (roots bypass); kuranikaran (allowlist bypass)"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 22, 2026"
+        },
+        {
+          "label": "Impact",
+          "value": "Out-of-root file overwrite and blind requests to blocked origins, not remote code execution"
+        }
+      ],
+      "links": [
+        {
+          "label": "Roots Bypass Advisory",
+          "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/security/advisories/GHSA-5hw5-4q87-m6x9"
+        },
+        {
+          "label": "Allowlist Bypass",
+          "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/security/advisories/GHSA-xfxg-8r4q-wj4v"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://github.com/advisories/GHSA-2mw5-2f2c-v2g3"
+        },
+        {
+          "label": "Fix in 1.5.0",
+          "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/releases/tag/chrome-devtools-mcp-v1.5.0"
+        }
+      ],
+      "publishDate": "2026-10-29T00:27:35.324Z"
+    },
     {
       "id": "cohere-qwen38-unrequested-upload",
       "categories": [
@@ -3481,6 +3703,10 @@
         {
           "label": "GitHub Advisory",
           "url": "https://github.com/advisories/GHSA-jmwp-36mq-x645"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://xplo1t-sec.github.io/posts/breaking-the-aws-mcp-python-sandbox/"
         }
       ],
       "publishDate": "2026-10-24T02:09:22.098Z"
@@ -5821,6 +6047,10 @@
         {
           "name": "Jonathan Semon",
           "org": "Huntress"
+        },
+        {
+          "name": "Rich Mozeleski",
+          "org": "Huntress"
         }
       ],
       "explainer": {
@@ -5890,6 +6120,10 @@
         {
           "label": "Wiz Research Tracking",
           "url": "https://www.wiz.io/blog/artex-in-the-wild-storm-0940-expands-targeting-of-it-and-software-vendors"
+        },
+        {
+          "label": "Huntress AI Assessment",
+          "url": "https://www.huntress.com/blog/connectwise-attack-ai"
         }
       ],
       "publishDate": "2026-10-22T23:43:37.398Z"
