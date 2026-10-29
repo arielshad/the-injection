@@ -1,7 +1,205 @@
 {
-  "generatedAt": "2026-10-29T00:27:35.324Z",
+  "generatedAt": "2026-10-29T07:55:40.103Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "causalsecurity-epics-base-autonomous-discovery",
+      "categories": [
+        "research",
+        "vulnerability"
+      ],
+      "title": "Cipher: an AI agent found four EPICS Base flaws in under four hours",
+      "org": "Causal Security",
+      "date": "2026-10-27",
+      "url": "https://causalsecurity.com/research/epics-base-security-research",
+      "summary": "Cipher, an autonomous agent built by Causal Security, found four memory-safety flaws in EPICS Base and reproduced them in 3 hours and 49 minutes. CISA published them on October 27 as ICSA-26-300-01, one rated CVSS 9.8.",
+      "severity": "high",
+      "cve": "CVE-2026-114595",
+      "cvss": 9.8,
+      "tags": [
+        "cyber-capability",
+        "rce",
+        "epics",
+        "causal-security"
+      ],
+      "affected": [
+        "EPICS Base"
+      ],
+      "credits": [
+        {
+          "name": "Shubham Raj",
+          "org": "Causal Security"
+        },
+        {
+          "name": "Cipher Research",
+          "org": "Causal Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "Four EPICS Base vulnerabilities, one rated CVSS 9.8, were found and reproduced by an autonomous agent in under four hours.",
+        "whatHappened": "Causal Security reported four memory-safety flaws in EPICS Base to the project's security channel on June 9, 2026, then coordinated CVE assignment with CISA. CISA published advisory ICSA-26-300-01 on October 27, 2026, the same day EPICS Base 7.0.11 shipped and Causal Security published its write-up. CISA credits Shubham Raj of Cipher / Causal Security for the reports.",
+        "howItWorks": "Cipher traced wire-controlled counts, lengths and decoded types through unfamiliar C++ code to the points where they size allocations, index memory or are cast. Three of the flaws sit in the Channel Access protocol and one in classic pvAccess deserialization, where an integer overflow, an extended-header length overflow, an unchecked element count and a type confusion produce out-of-bounds writes and reads. Causal Security says the agent built the affected components in a sandbox and reproduced every bug under AddressSanitizer or a debugger, each checked against a negative control.",
+        "whoIsAffected": "EPICS Base release 7.0.10 and earlier are affected, in Channel Access and classic pvAccess servers. CISA lists the deployment as worldwide in the critical manufacturing sector; EPICS is an open-source toolkit for distributed control systems at research and industrial facilities. Vendor distributions and custom IOCs may carry the same parsing code.",
+        "whatToDo": "Upgrade EPICS Base 7 deployments to 7.0.11, or obtain a supported vendor backport. Restrict Channel Access and pvAccess services, and their discovery traffic, to the control hosts and networks that need them. Confirm whether packaged components include epics-base pull requests 934 and 937 and pvDataCPP pull request 109, which CISA lists as the fixes."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "EPICS Base release 7.0.10 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "EPICS Base 7.0.11, released October 27, 2026"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-114595 (CVSS 9.8), CVE-2026-114596 (8.2), CVE-2026-114597 (7.5), CVE-2026-114598 (7.5)"
+        },
+        {
+          "label": "Found by",
+          "value": "Cipher, an autonomous agent from Causal Security"
+        },
+        {
+          "label": "Time to find",
+          "value": "3 hours and 49 minutes for all four"
+        },
+        {
+          "label": "Advisory",
+          "value": "CISA ICSA-26-300-01, October 27, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "No known public exploitation reported to CISA"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which EPICS Base versions are affected by CVE-2026-114595?",
+          "a": "EPICS Base release 7.0.10 and all earlier releases are affected, according to CISA advisory ICSA-26-300-01. The fix is EPICS Base 7.0.11, published on October 27, 2026. Sites running vendor distributions or custom IOCs should confirm whether their packaged components include the upstream fixes, since a repackaged build may still carry the vulnerable parsing code."
+        },
+        {
+          "q": "Did Cipher demonstrate remote code execution in EPICS Base?",
+          "a": "Causal Security states that Cipher did not demonstrate remote code execution. The agent reproduced a heap buffer overflow write, a constrained out-of-bounds write and two out-of-bounds reads, each causing a crash. CISA's advisory says handling of attacker-supplied data may lead to memory corruption, denial of service or potential remote code execution, so the ceiling is CISA's assessment rather than a working exploit."
+        },
+        {
+          "q": "How much human help did Cipher need to find the EPICS flaws?",
+          "a": "Causal Security reports one human instruction across the whole investigation, authorizing deeper exploitability testing inside a secure sandbox. Everything else, from reading unfamiliar code to building the affected components and reproducing each bug under AddressSanitizer, ran without intervention. These timings and autonomy claims are Causal Security's own account of its agent, published alongside the CISA advisory, and no independent party has reproduced them."
+        },
+        {
+          "q": "Is there any sign EPICS Base is being attacked?",
+          "a": "CISA reports no known public exploitation specifically targeting these four EPICS Base vulnerabilities at the time its advisory was published. Causal Security disclosed privately in June 2026 and withheld reproduction payloads from its write-up. Operators still have an exposure window, because the fixes reached users only with 7.0.11 on October 27, three months after the first one was merged."
+        }
+      ],
+      "links": [
+        {
+          "label": "Causal Security Research",
+          "url": "https://causalsecurity.com/research/epics-base-security-research"
+        },
+        {
+          "label": "CISA Advisory",
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-300-01"
+        },
+        {
+          "label": "EPICS Base 7.0.11",
+          "url": "https://github.com/epics-base/epics-base/releases/tag/R7.0.11"
+        }
+      ],
+      "publishDate": "2026-10-29T07:55:40.103Z"
+    },
+    {
+      "id": "dream-php2shell-firewall-intrusion",
+      "categories": [
+        "incident"
+      ],
+      "title": "Dream: a chained PHP2Shell exploit rooted 25 servers",
+      "org": "Dream",
+      "date": "2026-10-26",
+      "url": "https://dreamgroup.com/blog/chained-php2shell-exploit-roots-25-servers",
+      "summary": "A suspected China-nexus operator chained PHP2Shell with the Fragnesia kernel flaw to root 25 internet-exposed firewalls and servers, Dream Research reports, including three in a US government-affiliated network.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "claude-code",
+        "php"
+      ],
+      "affected": [
+        "PHP",
+        "Linux kernel"
+      ],
+      "credits": [
+        {
+          "name": "Dream Research",
+          "org": "Dream"
+        }
+      ],
+      "explainer": {
+        "tagline": "Dream Research found an intrusion set that chained two patched flaws to root 25 hosts, with Claude Code and an LLM scanner in its toolkit.",
+        "whatHappened": "Dream Research published its analysis on October 26, 2026, a day after recovering the operator's own files. The activity started on October 8, the first government-affiliated firewall was rooted on October 23, and the internal firewall management server was reached through a tunnel on October 24. Dream names no threat actor and says the outcome of the follow-on Active Directory attacks is unknown.",
+        "howItWorks": "A custom, non-public PHP2Shell build (CVE-2026-109618 and CVE-2026-109619) gave unauthenticated code execution as the nobody user, then Fragnesia (CVE-2026-46300), an XFRM ESP-in-TCP kernel flaw, overwrote /etc/pam.d/su to reach root. A reverse SSH tunnel kept by a systemd service and an rc.local hook held access across reboots. Target selection ran through the FOFA search service, narrowing roughly 19,000 exposed firewall management interfaces down to 240 hosts on the exploitable PHP branch.",
+        "whoIsAffected": "Internet-exposed firewall management interfaces running the affected PHP branch were the entry point. Dream withholds the firewall vendor and versions and says the vendor has been notified, so there is no product name to match on yet. Targeting covered the United States, Japan, Taiwan and South Korea, and the confirmed victim environment was US government-affiliated, with Keycloak single sign-on, GitLab, VPN gateways and an Active Directory domain.",
+        "whatToDo": "Patch PHP, and the firewall product once its vendor publishes guidance, then take management interfaces off the public internet. Hunt for the artifacts Dream lists, including unexpected reverse SSH tunnels held by systemd or rc.local, changes to /etc/pam.d/su, a small PHP webshell in a web-readable directory, and LDAP enumeration or password spraying that starts from a firewall or management host."
+      },
+      "quickFacts": [
+        {
+          "label": "Chained CVEs",
+          "value": "CVE-2026-109618 and CVE-2026-109619 (PHP2Shell), CVE-2026-46300 (Fragnesia)"
+        },
+        {
+          "label": "Hosts rooted",
+          "value": "25, of which 22 were left with webshells only"
+        },
+        {
+          "label": "Targeting funnel",
+          "value": "19,000 exposed interfaces, 5,000 fingerprinted, 240 selected"
+        },
+        {
+          "label": "Activity window",
+          "value": "October 8 to October 24, 2026"
+        },
+        {
+          "label": "AI tooling found",
+          "value": "Claude Code, and aiscan configured with DeepSeek and Kimi"
+        },
+        {
+          "label": "Attribution",
+          "value": "Chinese nexus, no named actor, per Dream"
+        },
+        {
+          "label": "AI role",
+          "value": "Inferred from code style; Dream reports no direct evidence AI wrote the code"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Was the PHP2Shell firewall campaign carried out by AI?",
+          "a": "Dream Research says no direct evidence shows AI tools wrote the exploit or the post-exploitation scripts. The assessment rests on code structure, commenting style and consistency across about 40 scripts, plus a Claude Code install and an aiscan deployment found in the operator's infrastructure. Dream states the operation does not appear to be a fully autonomous nation-state attack, so treat the AI link as inference."
+        },
+        {
+          "q": "Which firewall product was rooted in the Dream PHP2Shell campaign?",
+          "a": "Dream Research withholds the firewall vendor and the affected versions, saying the vendor has been notified. Defenders therefore cannot match on a product name yet. The practical filter is exposure plus PHP version: Dream's operator used FOFA to find management interfaces reachable from the internet, then kept only hosts on the exploitable PHP 8.0.30 branch."
+        },
+        {
+          "q": "How does this differ from the earlier PHP2Shell disclosure?",
+          "a": "The October 21 disclosure covered the PHP flaws themselves, which Wiz found with AI assistance. Dream Research's report covers a separate event: a live intrusion set that chained those flaws with a Linux kernel privilege escalation against exposed firewalls. Wiz reported seeing exploitation attempts but no completed public exploit chain, while Dream documents 25 hosts rooted with a custom, non-public build."
+        }
+      ],
+      "links": [
+        {
+          "label": "Dream Research Report",
+          "url": "https://dreamgroup.com/blog/chained-php2shell-exploit-roots-25-servers"
+        },
+        {
+          "label": "Wiz Exploitation Data",
+          "url": "https://www.wiz.io/blog/php2shell-exploitation-so-far"
+        },
+        {
+          "label": "PHP Source Advisory",
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w"
+        }
+      ],
+      "publishDate": "2026-10-29T07:55:40.103Z"
+    },
     {
       "id": "vulncheck-mcp-tool-parameter-command-injection",
       "categories": [

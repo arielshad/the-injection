@@ -13122,6 +13122,81 @@
         "xplo1t-sec.github.io"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261029t075540z",
+      "timestamp": "2026-10-29T07:55:40.103Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, NVD, Anthropic, UK AISI, OpenAI, Wiz, AIR Security, Zenity Labs, Embrace The Red, HiddenLayer, Trail of Bits, Unit 42, Check Point, Socket, JFrog, ReversingLabs, Snyk, Lakera, Simon Willison, OWASP GenAI, CISA ICS advisories, Hugging Face, Hacker News, GitHub trending, repo-scan (13 queries, 5 candidates), paper-scan (37 papers in window) and talk-scan (22 channels, 35 uploads). Added two items: Causal Security's October 27 EPICS Base disclosure, where an autonomous agent found four flaws in 3 hours 49 minutes and CISA issued ICSA-26-300-01, and Dream Research's October 26 report on a chained PHP2Shell intrusion that rooted 25 hosts with Claude Code and an LLM scanner in the operator's toolkit. The large GitHub Advisory Database batch dated October 28 (Mem0 cross-tenant leak, vLLM shared-memory pickle, four ONNX flaws) was another backfill: those repository advisories were published on October 20, outside the window.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "causalsecurity-epics-base-autonomous-discovery",
+          "title": "Cipher: an AI agent found four EPICS Base flaws in under four hours",
+          "category": "research",
+          "severity": "high",
+          "note": "An autonomous agent found four real memory-safety flaws in unfamiliar control-system code in under four hours, with the outcome verifiable in a CISA advisory and a shipped release, which makes it a measured cyber-capability data point rather than a vendor claim."
+        },
+        {
+          "id": "dream-php2shell-firewall-intrusion",
+          "title": "Dream: a chained PHP2Shell exploit rooted 25 servers",
+          "category": "incident",
+          "severity": "info",
+          "note": "First-hand analysis of a live intrusion set recovered from the operator's own files, with dated steps, a counted targeting funnel and the attacker's AI tooling named, distinct from the PHP2Shell flaw disclosure and the AI-offense campaigns already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "GitHub Advisories API",
+        "CISA ICS advisories",
+        "causalsecurity.com",
+        "dreamgroup.com",
+        "anthropic.com/news",
+        "aisi.gov.uk",
+        "air.security/blog",
+        "labs.zenity.io",
+        "wiz.io/blog",
+        "embracethered.com",
+        "hiddenlayer.com",
+        "blog.trailofbits.com",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "snyk.io/blog",
+        "lakera.ai/blog",
+        "simonwillison.net",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "arXiv cs.CR (paper-scan)",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "HN Algolia search",
+        "talk-scan (22 YouTube channels)",
+        "The Register",
+        "The Hacker News"
+      ],
+      "windowDays": 7
     }
   ]
 }
