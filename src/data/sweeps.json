@@ -13630,6 +13630,75 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261030t212016z",
+      "timestamp": "2026-10-30T21:20:16.305Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, NVD, Anthropic, OpenAI, MSRC, Hugging Face blog and models, AIR Security, Zenity Labs, Embrace The Red, Koi, OWASP GenAI, VulnCheck, arXiv via paper-scan (51 papers in window), repo-scan (13 queries, 7 candidates), GitHub trending daily and weekly, Hacker News and talk-scan (33 videos). Added two research items and one update; most of the late-October GitHub advisory entries turned out to be database backfill of June to mid-October disclosures, which fall outside the 7-day window.",
+      "counts": {
+        "added": 2,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "snyk-vulnbench-2-sast-vs-ai-agents",
+          "title": "Snyk VulnBench 2.0: SAST and AI agents each miss what the other finds",
+          "category": "research",
+          "severity": "info",
+          "note": "Two paper signals checked in this run: code and data released at snyk-labs/snyk-vulnbench, and authorship by Snyk, a security company on the Sources list. Distinct from arxiv-secprbench: different team, different benchmark, and its own finding that the review harness policy, not the model, suppressed findings."
+        },
+        {
+          "id": "owasp-llm-exploit-generation-guide-2",
+          "title": "OWASP: autonomous AI attacks run noisy, human-guided ones stay quieter",
+          "category": "research",
+          "severity": "info",
+          "note": "OWASP GenAI Security Project is a listed standards source; Phase 2 of its exploit-generation research, published inside the window, with a detection angle a defender can use. Written only from the resource page, which carries no numbers: the linked download is a one-page cover image, so no success rates or costs are quoted."
+        }
+      ],
+      "updated": [
+        {
+          "id": "cursor-claude-code-extension-backdoor",
+          "title": "Cursor: a backdoored Claude Code extension opened SSH tunnels",
+          "note": "Phorion published an independent teardown on 2026-10-30 that adds network indicators (reverse SSH to 134.209.82.225, HTTP beacon on port 8099) and a Linux @reboot cron persistence path not in Cursor's notice."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "cve.org",
+        "anthropic.com/news",
+        "microsoft.com/msrc/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "koi.ai/blog",
+        "genai.owasp.org",
+        "vulncheck.com/advisories",
+        "huggingface.co/blog",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News",
+        "talk-scan",
+        "lmstudio.ai",
+        "phorion.io"
+      ],
+      "windowDays": 7
     }
   ]
 }

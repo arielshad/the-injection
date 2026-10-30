@@ -1,7 +1,210 @@
 {
-  "generatedAt": "2026-10-30T17:01:03.593Z",
+  "generatedAt": "2026-10-30T21:20:16.305Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "snyk-vulnbench-2-sast-vs-ai-agents",
+      "categories": [
+        "research",
+        "benchmark"
+      ],
+      "title": "Snyk VulnBench 2.0: SAST and AI agents each miss what the other finds",
+      "org": "Snyk",
+      "date": "2026-10-28",
+      "url": "https://arxiv.org/abs/2610.38617",
+      "summary": "Snyk Labs reports that Snyk Code found 82.4% of 108 attacker-reachable vulnerabilities and Claude Code's security review found 79.3%, and that the two together reached 101 of 108, the best result of any configuration tested.",
+      "severity": "info",
+      "tags": [
+        "evals",
+        "coding-agents",
+        "detection",
+        "snyk",
+        "claude-code",
+        "openai-codex"
+      ],
+      "affected": [
+        "Snyk Code",
+        "Claude Code",
+        "OpenAI Codex"
+      ],
+      "credits": [
+        {
+          "name": "Liran Tal",
+          "org": "Snyk"
+        },
+        {
+          "name": "Chris Liu",
+          "org": "Snyk"
+        },
+        {
+          "name": "Charlotte Fereday",
+          "org": "Snyk"
+        },
+        {
+          "name": "Sebastian Roth",
+          "org": "Snyk"
+        },
+        {
+          "name": "Brian Clark",
+          "org": "Snyk"
+        }
+      ],
+      "explainer": {
+        "tagline": "Snyk VulnBench 2.0 measures where deterministic scanners and AI security agents disagree, and finds the two are strongest together.",
+        "whatHappened": "Snyk Labs published VulnBench 2.0 on arXiv on October 28, 2026, a benchmark of 108 hand-curated, attacker-reachable vulnerabilities across 20 open-source web apps in Go, JavaScript and TypeScript, Python and Java. The authors ran nine productized configurations under one blind protocol, among them Snyk Code, Claude Code's security review, Codex Security and the DeepSec scanner.",
+        "howItWorks": "A finding counts only when the tool locates both the attacker-controlled source and the dangerous sink within two lines, which is a stricter test than naming the right file. Sixty-two of the 108 vulnerabilities span more than one file. The authors also ran Claude Code without its built-in review policy, isolating how much the harness, rather than the model, decides what gets reported.",
+        "whoIsAffected": "Teams that rely on a single scanner for pull request security review are the audience. The authors report that Snyk Code and Claude Code disagreed on 28 vulnerabilities, split 16 to 12, which they say is too few to separate the two tools on accuracy alone. Codex Security running GPT-5.6 Sol located 80 vulnerabilities at file level but only 34 at line level, and DeepSec's model-free file selection kept a relevant file for only 56 of the 108 flows.",
+        "whatToDo": "Run a deterministic scanner and an AI reviewer together rather than choosing between them, since the authors reach their ceiling of 101 of 108 only in combination. Check what your agent's review policy excludes: without Claude Code's built-in policy the same model found 16 of 20 vulnerabilities in the excluded classes instead of 9."
+      },
+      "quickFacts": [
+        {
+          "label": "Benchmark",
+          "value": "108 attacker-reachable vulnerabilities in 20 open-source web apps"
+        },
+        {
+          "label": "Languages",
+          "value": "Go, JavaScript and TypeScript, Python, Java"
+        },
+        {
+          "label": "Scoring",
+          "value": "Source and sink both located within two lines"
+        },
+        {
+          "label": "Configurations",
+          "value": "Nine productized setups under one blind protocol"
+        },
+        {
+          "label": "Best combined",
+          "value": "101 of 108, Snyk Code plus Claude Code"
+        },
+        {
+          "label": "Code and data",
+          "value": "Public at snyk-labs/snyk-vulnbench, Apache-2.0"
+        },
+        {
+          "label": "Published",
+          "value": "arXiv v1, October 28, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did Claude Code beat Snyk Code on VulnBench 2.0?",
+          "a": "No. Snyk Code reached 82.4% macro recall, 89 of 108, and Claude Code running Opus 5 at xhigh effort reached 79.3%, 85 of 108. The authors state the two disagreed on only 28 vulnerabilities, split 16 to 12, which is too small a margin to separate them. They present the pair as complementary rather than ranked."
+        },
+        {
+          "q": "How much does Claude Code's security review policy suppress?",
+          "a": "In a supplementary run across 19 of the 20 apps, removing Claude Code's built-in review policy raised results from 9 to 16 of the 20 vulnerabilities in the classes that policy excludes or restricts. Snyk Labs frames this as a harness effect rather than a model limit, meaning the review configuration, not the model's ability, decided what went unreported."
+        },
+        {
+          "q": "Can I reproduce the VulnBench 2.0 results myself?",
+          "a": "Yes. Snyk Labs published the benchmark harness, fixtures, reference sets and run data at github.com/snyk-labs/snyk-vulnbench under Apache-2.0. The repository README warns that the fixture projects contain deliberately vulnerable code and should not be deployed. The harness is written in TypeScript and built on the Claude Agent SDK."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Macro recall, Snyk VulnBench 2.0",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is better for defenders",
+          "results": [
+            {
+              "name": "Snyk Code",
+              "score": 82.4
+            },
+            {
+              "name": "Claude Code, Opus 5 xhigh",
+              "score": 79.3
+            }
+          ],
+          "source": "https://arxiv.org/abs/2610.38617"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.38617"
+        },
+        {
+          "label": "Benchmark Repo",
+          "url": "https://github.com/snyk-labs/snyk-vulnbench"
+        }
+      ],
+      "publishDate": "2026-10-30T21:20:16.305Z"
+    },
+    {
+      "id": "owasp-llm-exploit-generation-guide-2",
+      "categories": [
+        "research"
+      ],
+      "title": "OWASP: autonomous AI attacks run noisy, human-guided ones stay quieter",
+      "org": "OWASP GenAI Security Project",
+      "date": "2026-10-27",
+      "url": "https://genai.owasp.org/resource/llm-exploit-generation-guide-2-0/",
+      "summary": "The OWASP GenAI Security Project released LLM Exploit Generation Guide 2.0 on October 27, 2026. It compares human-guided and autonomous AI attacks on live targets and says both lower the expertise an attack needs, but neither removes it.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "ai-enabled-offense",
+        "red-team",
+        "detection"
+      ],
+      "credits": [
+        {
+          "name": "AI Threat Intelligence Initiative",
+          "org": "OWASP GenAI Security Project",
+          "url": "https://genai.owasp.org/initiative_name/ai-threat-intelligence/"
+        }
+      ],
+      "explainer": {
+        "tagline": "OWASP's second phase of exploit-generation research compares human-guided and autonomous AI attacks, and reports a difference defenders can detect.",
+        "whatHappened": "The OWASP GenAI Security Project published LLM Exploit Generation Guide 2.0 on October 27, 2026, the Phase 2 output of its AI Threat Intelligence Initiative. The guide pits human-guided AI approaches against fully autonomous ones on live cybersecurity targets and scores them on success, human effort, cost, guardrails and operational limits.",
+        "howItWorks": "Phase 2 treats the operating model, not the model weights, as the variable: the same offensive goal is pursued once with a human steering the language model and once by an agent running on its own. Alongside the attack results, the guide assesses how reliable the underlying benchmarks are, and turns the observed behaviour into threat intelligence and detection opportunities.",
+        "whoIsAffected": "Security teams planning for AI-assisted intrusions are the audience, rather than users of any one named product. The guide's headline judgement is that both approaches reduced the expertise an attack requires but neither eliminated it, which puts it against the stronger claim that autonomous agents can reliably compromise arbitrary systems.",
+        "whatToDo": "Treat operational noise as a detection signal: OWASP reports that autonomous agents often produced repetitive, noisy activity, while human-guided attacks could be quieter and are correspondingly harder to spot. Read the guide's detection section before sizing your own AI threat model, and download the report from the resource page."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "October 27, 2026"
+        },
+        {
+          "label": "Publisher",
+          "value": "OWASP GenAI Security Project, AI Threat Intelligence Initiative"
+        },
+        {
+          "label": "Scope",
+          "value": "Phase 2: human-guided versus autonomous AI attacks on live targets"
+        },
+        {
+          "label": "Measured",
+          "value": "Success, human effort, cost, guardrails, operational limits"
+        },
+        {
+          "label": "Headline finding",
+          "value": "Both approaches lower the expertise needed, neither removes it"
+        },
+        {
+          "label": "Detection angle",
+          "value": "Autonomous agents noisy and repetitive, human-guided attacks quieter"
+        }
+      ],
+      "image": {
+        "url": "https://genai.owasp.org/wp-content/uploads/2026/10/LLM_Exploit_Generation_Guide_Phase2_10.21.26.jpg",
+        "alt": "Cover page of the OWASP LLM Exploit Generation Guide 2.0",
+        "credit": "OWASP GenAI Security Project"
+      },
+      "links": [
+        {
+          "label": "OWASP Resource Page",
+          "url": "https://genai.owasp.org/resource/llm-exploit-generation-guide-2-0/"
+        },
+        {
+          "label": "Threat Intel Initiative",
+          "url": "https://genai.owasp.org/initiative_name/ai-threat-intelligence/"
+        }
+      ],
+      "publishDate": "2026-10-30T21:20:16.305Z"
+    },
     {
       "id": "cursor-claude-code-extension-backdoor",
       "categories": [
@@ -61,7 +264,11 @@
         },
         {
           "label": "Persistence",
-          "value": "macOS LaunchAgent com.apple.sysmond; Windows scheduled task SysMon"
+          "value": "macOS LaunchAgent com.apple.sysmond; Windows scheduled task SysMon; Linux @reboot cron, per Phorion"
+        },
+        {
+          "label": "Network indicators",
+          "value": "Reverse SSH tunnel to 134.209.82.225 and a one-time HTTP beacon to port 8099, per Phorion"
         },
         {
           "label": "Status",
@@ -98,6 +305,10 @@
         {
           "label": "Socket Analysis",
           "url": "https://socket.dev/blog/claude-code-extension-compromise"
+        },
+        {
+          "label": "Phorion Teardown",
+          "url": "https://phorion.io/blog/offical-claude-code-vsx-compromise/"
         }
       ],
       "publishDate": "2026-10-30T17:01:03.593Z"
