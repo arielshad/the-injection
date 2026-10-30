@@ -1,7 +1,325 @@
 {
-  "generatedAt": "2026-10-29T23:54:44.455Z",
+  "generatedAt": "2026-10-30T00:23:04.008Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "forever-embrace-embedded-browsers",
+      "categories": [
+        "vulnerability",
+        "attack"
+      ],
+      "title": "EMBRACE: embedded browsers in five AI assistants leak files and run code",
+      "org": "Forever Security",
+      "date": "2026-10-29",
+      "url": "https://forever.security/blog/embrace-hacking-5-ai-assistants-embedded-browsers-technical",
+      "summary": "EMBRACE is a class of flaws in the browsers embedded in Cursor, GitHub Copilot, Codex, VS Code and Claude Desktop. Forever Security says a page or local file can read files across the disk or run code. Codex and VS Code are unpatched.",
+      "severity": "high",
+      "tags": [
+        "data-exfiltration",
+        "indirect-prompt-injection",
+        "rce",
+        "coding-agents",
+        "cursor",
+        "github-copilot",
+        "codex",
+        "vscode",
+        "claude-desktop"
+      ],
+      "affected": [
+        "Cursor",
+        "GitHub Copilot",
+        "OpenAI Codex",
+        "Visual Studio Code",
+        "Claude Desktop"
+      ],
+      "credits": [
+        {
+          "name": "Gal Weizman",
+          "org": "Forever Security"
+        },
+        {
+          "name": "Forever Security Research team",
+          "org": "Forever Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "EMBRACE is a set of flaws in the browsers that five desktop AI assistants embed, letting a page read local files or reach the host.",
+        "whatHappened": "Forever Security published EMBRACE on October 29, 2026, naming a class of flaws in the browsers that Cursor, GitHub Copilot, OpenAI Codex, Visual Studio Code and Claude Desktop embed and control. Gal Weizman and the Forever Security research team report that each vendor loosened a browser security rule to make its assistant work. Reports went to the five vendors between July 23 and September 10, 2026, and the dates and responses are listed below.",
+        "howItWorks": "Three variants make up EMBRACE, which Forever Security reads as EMbedded BRowser. In Cursor, a page-accessible messaging call inserted forged chip content into the agent's input, splitting a command across attributes to get past filtering, and the proof of concept launched Calculator. In Claude Desktop, Codex and Visual Studio Code, the limit on reading files outside the project folder applied only to the top document, so a web worker read across the disk, and in Codex the page needed no worker at all. In GitHub Copilot, the app displayed any address a page claimed, so a page could show github.com/login while serving other content.",
+        "whoIsAffected": "Codex and Visual Studio Code are the exposed products: Forever Security states that both issues are unpatched at publication and that anyone using either tool is still exposed. GitHub Copilot 1.1.27 carried the address flaw and GitHub fixed it in 1.1.29 on October 13, 2026. Cursor shipped a silent patch on October 1, 2026, and Microsoft declined the Visual Studio Code report as a Workspace Trust boundary issue.",
+        "whatToDo": "Update Cursor and move GitHub Copilot to 1.1.29 or later. For Codex and Visual Studio Code, Forever Security advises taking an inventory of which assistants run on your endpoints, treating each embedded browser as an attack surface, and not relying on a user click as a safeguard, because the clicks in the demonstrations came from trusted tool prompts."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Cursor, GitHub Copilot 1.1.27, OpenAI Codex, Visual Studio Code, Claude Desktop"
+        },
+        {
+          "label": "Fixed in",
+          "value": "GitHub Copilot 1.1.29 on 13 October 2026; Cursor patched 1 October 2026"
+        },
+        {
+          "label": "Unpatched",
+          "value": "OpenAI Codex and Visual Studio Code, at publication"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        },
+        {
+          "label": "Found by",
+          "value": "Gal Weizman, Forever Security"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Reported 23 July to 10 September 2026, published 29 October 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Embedded browser boundary bypass leading to file read or code execution"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Visual Studio Code patched against the EMBRACE file read?",
+          "a": "Visual Studio Code has no fix for the EMBRACE file read. Microsoft declined Forever Security's September 10, 2026 report, treating the behaviour as a Workspace Trust boundary issue, and the flaw was still unpatched when Forever Security published on October 29, 2026. Microsoft's own documentation says Restricted Mode tries to prevent automatic code execution, rather than guaranteeing that it cannot happen."
+        },
+        {
+          "q": "Which version of GitHub Copilot fixes the address spoofing?",
+          "a": "GitHub Copilot 1.1.29, released on October 13, 2026, fixes the address spoofing that Forever Security found in version 1.1.27. GitHub shipped the fix on its own, before Forever Security filed a report. In the vulnerable build the app displayed whatever address a page claimed, so a page could present github.com/login to the user and to the agent while serving different content."
+        },
+        {
+          "q": "How does an attacker reach a developer's files through EMBRACE?",
+          "a": "An attacker publishes a project that looks ordinary, for example a page that presents itself as a financial report. Forever Security describes the assistant itself offering a clickable file:// link, and once the page loads inside the embedded browser a web worker reads files outside the project folder. The researchers mapped directories using macOS .DS_Store files and sent data to a local sink in their proof of concept."
+        },
+        {
+          "q": "Did Anthropic fix the Claude Desktop file read?",
+          "a": "Anthropic declined Forever Security's Claude Desktop report on July 23, 2026 and accepted an equivalent report from Noma Security the next day, according to Forever Security, which names only Codex and Visual Studio Code as unpatched. Forever Security's post does not state a Claude Desktop fix version, so Claude Desktop users should confirm their build with Anthropic."
+        },
+        {
+          "q": "How is EMBRACE different from the Downloads folder AGENTS.md attack?",
+          "a": "EMBRACE abuses the browser each assistant embeds, while the Downloads folder attack Forever Security published on October 22, 2026 plants an AGENTS.md instruction file that a coding agent then reads. EMBRACE needs no agent instruction file: the page or local file acts through the browser's own loosened security rules to read the disk or reach the host."
+        }
+      ],
+      "links": [
+        {
+          "label": "Technical Write-Up",
+          "url": "https://forever.security/blog/embrace-hacking-5-ai-assistants-embedded-browsers-technical"
+        },
+        {
+          "label": "EMBRACE Overview",
+          "url": "https://forever.security/blog/embrace-hacking-5-ai-assistants-embedded-browsers"
+        },
+        {
+          "label": "VS Code Workspace Trust",
+          "url": "https://code.visualstudio.com/docs/editing/workspaces/workspace-trust"
+        }
+      ],
+      "publishDate": "2026-10-30T00:23:04.008Z"
+    },
+    {
+      "id": "agno-pandastools-unsafe-reflection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Agno: a prompt can make the pandas tool run attacker code",
+      "org": "VulnCheck",
+      "date": "2026-10-29",
+      "url": "https://vulncheck.com/advisories/agno-through-3.1.11-code-execution-via-pandastools-unsafe-reflection",
+      "summary": "Agno's PandasTools picks a pandas function from model-controlled input, so a prompt injection can call read_pickle on an attacker's file and run code. VulnCheck published CVE-2026-119050 at 9.2 on October 29, 2026, and no fix has shipped.",
+      "severity": "high",
+      "tags": [
+        "prompt-injection",
+        "rce",
+        "agent-security",
+        "agno"
+      ],
+      "affected": [
+        "Agno"
+      ],
+      "cve": "CVE-2026-119050",
+      "cvss": 9.2,
+      "credits": [
+        {
+          "name": "Bogdan Cherniy",
+          "url": "https://github.com/bogdancherniy11-sudo"
+        },
+        {
+          "name": "mosafariuk"
+        }
+      ],
+      "explainer": {
+        "tagline": "Agno's PandasTools lets the model choose which pandas function to call, so injected text can reach code execution.",
+        "whatHappened": "VulnCheck published CVE-2026-119050 for Agno on October 29, 2026 and rated it 9.2, Critical. Bogdan Cherniy, who describes himself as a security researcher hunting bugs in open-source AI and ML tools, filed the flaw as a public GitHub issue on July 2, 2026 and opened a fix pull request the same day. VulnCheck credits Cherniy and mosafariuk.",
+        "howItWorks": "PandasTools passes a model-supplied function name to getattr() on the pandas module, so the agent can invoke any pandas function. VulnCheck describes a prompt injection that makes the agent call pandas.read_pickle on a path the attacker controls, which unpickles the file and runs code. Other pandas readers reached through the same dispatch return local file contents instead. VulnCheck classifies the weakness as CWE-470, unsafe reflection.",
+        "whoIsAffected": "VulnCheck lists Agno releases through 3.1.11 as affected, and exposure depends on whether an agent loads the PandasTools toolkit. Agents that read untrusted documents, web pages or support tickets are the ones an injected instruction can steer. The release notes for Agno 3.1.12, published on October 29, 2026, list no security change.",
+        "whatToDo": "Remove PandasTools from agents that handle untrusted input until a fix ships. Teams that need dataframe tools can wrap them in an allowlist of safe pandas constructors, which is what the open pull request does by leaving out read_pickle and read_hdf."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Agno through 3.1.11, when an agent loads PandasTools"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fix released; pull request 8713 is open"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-119050"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "9.2, Critical, per VulnCheck"
+        },
+        {
+          "label": "Found by",
+          "value": "Bogdan Cherniy"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Filed as GitHub issue 8699 on 2 July 2026; CVE published 29 October 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Prompt injection reaching unsafe reflection, CWE-470"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Agno patched against CVE-2026-119050?",
+          "a": "Agno has no released fix for CVE-2026-119050. Pull request 8713, opened by the reporter on July 2, 2026, was still open and carried no maintainer review, and the release notes for Agno 3.1.12, published on October 29, 2026, list no security change. VulnCheck records the affected range as Agno through 3.1.11, so teams should assume current installs are exposed."
+        },
+        {
+          "q": "Am I affected if my Agno agent does not use PandasTools?",
+          "a": "Agno agents without the PandasTools toolkit do not expose this path, because the flaw sits in that toolkit's dispatch of model-supplied pandas function names. Check each agent's tool list for PandasTools, and remember that an attacker only needs text the agent reads, such as a document, a web page or a support ticket, to steer the call."
+        },
+        {
+          "q": "How can a pandas function run attacker code?",
+          "a": "pandas.read_pickle deserializes a Python pickle file, and unpickling runs code that the file contains. VulnCheck describes the agent being steered to call read_pickle on an attacker-controlled path, which is enough for code execution in the process running the agent. Other readers in the same dispatch return local file contents rather than executing code."
+        },
+        {
+          "q": "What can I do if I need dataframe tools in Agno today?",
+          "a": "Restrict which pandas entry points the toolkit can reach. The open pull request limits creation to an allowlist of safe pandas constructors, leaves out read_pickle and read_hdf, and blocks private attributes along with query, eval, to_pickle and to_hdf. Applying the same restriction in your own wrapper keeps dataframe tools working while closing the code execution path."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://vulncheck.com/advisories/agno-through-3.1.11-code-execution-via-pandastools-unsafe-reflection"
+        },
+        {
+          "label": "GitHub Issue 8699",
+          "url": "https://github.com/agno-agi/agno/issues/8699"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/agno-agi/agno/pull/8713"
+        }
+      ],
+      "publishDate": "2026-10-30T00:23:04.008Z"
+    },
+    {
+      "id": "jfrog-ai-impact-on-cves",
+      "categories": [
+        "research"
+      ],
+      "title": "JFrog: 54 of 55 advisories from one account were fabricated",
+      "org": "JFrog",
+      "date": "2026-10-27",
+      "url": "https://jfrog.com/blog/the-impact-of-ai-on-cves-industry-challenges/",
+      "summary": "JFrog Security Research reports that AI is weakening the signals defenders use to triage CVEs: one new GitHub account published 55 advisories, 54 of them fabricated, with scores as high as 9.8 that CISA's ADP program agreed with.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "jfrog",
+        "nvd",
+        "cisa",
+        "curl",
+        "ffmpeg"
+      ],
+      "affected": [
+        "CVE ecosystem",
+        "NVD",
+        "Open-source software"
+      ],
+      "credits": [
+        {
+          "name": "Tamir Friedman",
+          "org": "JFrog Security Research"
+        },
+        {
+          "name": "Afek Berger",
+          "org": "JFrog Security Research"
+        },
+        {
+          "name": "Aviv Engelberg",
+          "org": "JFrog Security Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "JFrog argues that AI-written vulnerability reports and AI-found flaws are pulling CVE severity signals away from real risk.",
+        "whatHappened": "JFrog Security Research published the first part of a series on AI and CVEs on October 27, 2026. Tamir Friedman, Afek Berger and Aviv Engelberg set out five pressures they attribute to AI: a lower barrier to filing reports, convincing fakes, severity inflation, faster exploitation and a growing patch queue. The figures they cite are listed below.",
+        "howItWorks": "Fabrication is the clearest case. JFrog reviewed 55 advisories that a newly created GitHub account published in one batch and found 54 completely fabricated, with details the authors say appear to have been hallucinated by a language model: one advisory cited line 3555 of a file that has 2706 lines. The reports looked polished and authoritative, carried scores up to 9.8, and CISA's ADP program agreed with those scores.",
+        "whoIsAffected": "Teams that triage by CVSS base score are the ones this reaches, along with anyone relying on NVD enrichment. NIST moved CVEs published before March 1, 2026 into a not-scheduled queue when it began prioritising KEV entries, federal software and critical software in April 2026, so many records never receive NVD analysis.",
+        "whatToDo": "Treat a CVSS base score as a starting point rather than an urgency signal, and check whether a report comes with a working proof of concept before acting on it. JFrog argues that exploitability in your own configuration should drive the queue."
+      },
+      "quickFacts": [
+        {
+          "label": "Fabricated advisories",
+          "value": "54 of 55 from one GitHub account, per JFrog"
+        },
+        {
+          "label": "Severity mismatch",
+          "value": "27 curl CVEs rated Low to Medium by maintainers; CISA escalated nearly all, per JFrog"
+        },
+        {
+          "label": "AI-found volume",
+          "value": "21 FFmpeg zero-days from one agent; Oracle's July 2026 update carried 1,434 CVEs"
+        },
+        {
+          "label": "Remediation",
+          "value": "26% of KEV vulnerabilities fully remediated in 2025, down from 38%, per the Verizon 2026 DBIR as cited by CISA"
+        },
+        {
+          "label": "NVD",
+          "value": "Records published before 1 March 2026 moved to Not Scheduled"
+        },
+        {
+          "label": "Published",
+          "value": "27 October 2026, part 1 of a series"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How did JFrog find that 54 of 55 advisories were fabricated?",
+          "a": "JFrog Security Research checked each advisory that a newly created GitHub account published in one batch against the SQLite source. The authors report that 54 of the 55 were completely fabricated, citing functions that do not exist and impossible line numbers, including a reference to line 3555 in a file of 2706 lines. The reports carried scores as high as 9.8."
+        },
+        {
+          "q": "Should I still use CVSS base scores to prioritise patching?",
+          "a": "JFrog argues that a CVSS base score alone should not drive urgency, because scores built on worst-case assumptions overstate risk. The authors point to 27 curl CVEs that maintainers rated Low to Medium and that CISA escalated to High or Critical, and found some Critical ratings came from client-side bugs classified as network-based. Exploitability in your own configuration is the better signal."
+        },
+        {
+          "q": "Why are many CVEs missing NVD analysis?",
+          "a": "NIST changed NVD operations in April 2026 to handle record CVE growth, prioritising entries in CISA's KEV catalog, software used in the federal government and critical software under Executive Order 14028. Records published before March 1, 2026 moved to a category NIST labels lowest priority and not scheduled for immediate enrichment, so their details may stay unanalysed unless someone asks for them."
+        }
+      ],
+      "links": [
+        {
+          "label": "JFrog Analysis",
+          "url": "https://jfrog.com/blog/the-impact-of-ai-on-cves-industry-challenges/"
+        },
+        {
+          "label": "NIST NVD Update",
+          "url": "https://www.nist.gov/news-events/news/2026/04/nist-updates-nvd-operations-address-record-cve-growth"
+        },
+        {
+          "label": "FFmpeg Zero-Days",
+          "url": "https://depthfirst.com/research/21-zero-days-in-ffmpeg"
+        }
+      ],
+      "publishDate": "2026-10-30T00:23:04.008Z"
+    },
     {
       "id": "jfrog-testmetest-armed-github-repos",
       "categories": [
@@ -7785,7 +8103,7 @@
       "org": "Pillar Security",
       "date": "2026-10-19",
       "url": "https://www.pillar.security/blog/open-and-shut-remote-code-execution-in-opencode-via-mcp-oauth",
-      "summary": "opencode ran attacker-supplied commands on Windows when a remote MCP server returned a crafted OAuth authorization endpoint. Anomaly fixed the flaw in 1.18.33 without a CVE, so scanners will not flag older installs.",
+      "summary": "opencode ran attacker-supplied commands on Windows when a remote MCP server returned a crafted OAuth authorization endpoint. Anomaly fixed it in 1.18.33 without a CVE, and VulnCheck assigned CVE-2026-119025 on October 29, 2026.",
       "severity": "medium",
       "tags": [
         "mcp",
@@ -7794,7 +8112,9 @@
         "opencode"
       ],
       "affected": [
-        "opencode"
+        "opencode",
+        "open (npm)",
+        "MCP Inspector"
       ],
       "credits": [
         {
@@ -7804,23 +8124,27 @@
       ],
       "explainer": {
         "tagline": "opencode ran attacker code on Windows when it connected to a malicious remote MCP server, fixed in version 1.18.33.",
-        "whatHappened": "Pillar Security disclosed a command injection flaw in opencode, the open-source coding agent built by Anomaly. Researcher Eilon Cohen reported it privately on 2026-08-29 and published the write-up on 2026-10-19. Anomaly shipped the fix in version 1.18.33 on 2026-09-28 as a refactor, with no security advisory and no CVE.",
+        "whatHappened": "Pillar Security disclosed a command injection flaw in opencode, the open-source coding agent built by Anomaly. Researcher Eilon Cohen reported it privately on 2026-08-29 and published the write-up on 2026-10-19. Anomaly shipped the fix in version 1.18.33 on 2026-09-28 as a refactor, with no security advisory and no CVE. VulnCheck then published CVE-2026-119025 on 2026-10-29, rated 7.7, against the upstream open package, and listed MCP Inspector and opencode among the affected packages.",
         "howItWorks": "A remote MCP server controls its own OAuth discovery document, and opencode passed that document's authorization_endpoint value straight to the open() browser launcher. On Windows, open built a PowerShell command string without escaping the URL, and PowerShell expands $(...) inside double quotes. A URL such as https://evil.test/$(...) therefore ran as code, even though the browser launch itself then failed.",
-        "whoIsAffected": "Windows and WSL users of opencode-ai from 1.0.137 through 1.18.32 are exposed, and only when they add a remote MCP server an attacker controls. macOS and Linux installs are not affected, per Pillar Security's FAQ.",
-        "whatToDo": "Upgrade opencode to 1.18.33 or later. On Windows or WSL installs that cannot upgrade, remove remote MCP servers you have not vetted. Inventory opencode installs by hand, because no CVE was assigned and dependency scanners will not flag the old versions."
+        "whoIsAffected": "Windows and WSL users of opencode-ai from 1.0.137 through 1.18.32 are exposed, and only when they add a remote MCP server an attacker controls. macOS and Linux installs are not affected, per Pillar Security's FAQ. VulnCheck's advisory widens the affected set to the open package from 7.2.0 up to 11.0.0 and to MCP Inspector from 2.0.0 up to 2.12.0, so any project that passes an untrusted URL to open on Windows shares the flaw.",
+        "whatToDo": "Upgrade opencode to 1.18.33 or later, move MCP Inspector to 2.12.0 or later, and update any project that depends on the open package to 11.0.0 or later. Dependency scanners can now flag these versions, because VulnCheck assigned CVE-2026-119025 on 2026-10-29, so the manual version inventory the earlier advice called for is no longer the only option."
       },
       "quickFacts": [
         {
           "label": "Affected",
-          "value": "opencode-ai 1.0.137 through 1.18.32, Windows and WSL only"
+          "value": "opencode 1.0.137 to 1.18.32, open 7.2.0 up to 11.0.0, MCP Inspector 2.0.0 up to 2.12.0, Windows and WSL only"
         },
         {
           "label": "Fixed in",
-          "value": "1.18.33, published 2026-09-28"
+          "value": "opencode 1.18.33, open 11.0.0, MCP Inspector 2.12.0"
         },
         {
           "label": "CVE",
-          "value": "None assigned; Anomaly declined to request one"
+          "value": "CVE-2026-119025, published by VulnCheck on 29 October 2026"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "7.7, High, per VulnCheck"
         },
         {
           "label": "Found by",
@@ -7828,15 +8152,11 @@
         },
         {
           "label": "Disclosed",
-          "value": "Reported 2026-08-29, published 2026-10-19"
+          "value": "Reported 2026-08-29, published 2026-10-19, CVE assigned 2026-10-29"
         },
         {
           "label": "Attack type",
           "value": "OS command injection via an MCP OAuth discovery document"
-        },
-        {
-          "label": "Status",
-          "value": "Fixed, shipped as a refactor with no advisory"
         }
       ],
       "faq": [
@@ -7849,14 +8169,18 @@
           "a": "macOS and Linux installs of opencode are not affected, according to Pillar Security's FAQ. The flaw depends on the open package building a PowerShell command string on Windows, where $(...) inside double quotes is expanded as code. Windows and WSL users running opencode-ai 1.0.137 through 1.18.32 are the exposed group."
         },
         {
-          "q": "Why is there no CVE for the opencode MCP OAuth flaw?",
-          "a": "Anomaly did not publish a security advisory or request a CVE after Pillar Security asked for one, taking the position that a malicious MCP server sits outside the product's threat model. Pillar Security warns that without a CVE, dependency scanners and vulnerability feeds will not flag affected installs, so teams need to check opencode versions themselves."
+          "q": "Is there now a CVE for the opencode MCP OAuth flaw?",
+          "a": "VulnCheck published CVE-2026-119025 on October 29, 2026, rated it 7.7, and assigned it to the upstream open package rather than to opencode alone. Anomaly had declined to request a CVE, taking the position that a malicious MCP server sits outside the product's threat model. Dependency scanners can now flag open below 11.0.0, MCP Inspector below 2.12.0 and opencode below 1.18.33."
         }
       ],
       "links": [
         {
           "label": "Pillar Security Report",
           "url": "https://www.pillar.security/blog/open-and-shut-remote-code-execution-in-opencode-via-mcp-oauth"
+        },
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://vulncheck.com/advisories/open-7.2.0-before-11.0.0-os-command-injection-via-powershell-on-windows"
         },
         {
           "label": "Fix Pull Request",
@@ -7867,7 +8191,9 @@
           "url": "https://github.com/anomalyco/opencode/releases/tag/v1.18.33"
         }
       ],
-      "publishDate": "2026-10-19T08:16:56.608Z"
+      "publishDate": "2026-10-19T08:16:56.608Z",
+      "cve": "CVE-2026-119025",
+      "cvss": 7.7
     },
     {
       "id": "google-agent-mesh-enrollment-ingress-cves",

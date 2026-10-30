@@ -13395,6 +13395,92 @@
         "talk-scan.ts (conference and security-voice channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261030t002304z",
+      "timestamp": "2026-10-30T00:23:04.008Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, Forever Security, JFrog, Wiz, AIR, Pillar, Socket, Zenity, Check Point, Trail of Bits, Embrace The Red, Simon Willison, Anthropic, UK AISI, MSRC, OWASP GenAI, Hugging Face, Hacker News, GitHub trending, repo-scan (6 candidates), paper-scan (rate limited to 3 of 13 arXiv queries) and talk-scan (22 channels), and added EMBRACE, the Agno PandasTools CVE and JFrog's analysis of AI's effect on CVEs, plus the new CVE for the opencode MCP OAuth flaw. Left out as outside the window: the MCP Python SDK, MCP TypeScript SDK and LiteLLM advisories that GitHub's database re-published on 27 October but whose original disclosures were 5 October, 15 October and 30 September; Pillar's Unsloth model loader write-up, whose CVE was published 28 September; Mindgard's guardrail evasion post, built on a 2025 paper; and the AISI and Wiz follow-ups on the Mythos 5 incident, PHP2Shell exploitation and Brotli2Shell, which earlier sweeps already linked. No repo cleared the two-signal bar (cloudflare/security-audit-skill was created in June, devbox and agent-honeypot had one signal each), no paper cleared two signals, and no talk cleared the view or substance bar. openai.com returned 403 to the fetcher, so OpenAI's post on securing its frontier training environment could not be verified and was dropped.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "forever-embrace-embedded-browsers",
+          "title": "EMBRACE: embedded browsers in five AI assistants leak files and run code",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Five named AI assistants, a working demonstrated attack per product, and two of them unpatched at publication with Forever Security stating users are still exposed."
+        },
+        {
+          "id": "agno-pandastools-unsafe-reflection",
+          "title": "Agno: a prompt can make the pandas tool run attacker code",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "A CVE assigned inside the window at 9.2 for an unpatched prompt-injection path to code execution in a widely used agent framework."
+        },
+        {
+          "id": "jfrog-ai-impact-on-cves",
+          "title": "JFrog: 54 of 55 advisories from one account were fabricated",
+          "category": "research",
+          "severity": "info",
+          "note": "JFrog's own count of 54 fabricated advisories out of 55, plus the curl severity mismatch, changes how a defender should read CVE scores this week."
+        }
+      ],
+      "updated": [
+        {
+          "id": "pillar-opencode-mcp-oauth-rce",
+          "title": "opencode: a remote MCP server could run commands on Windows",
+          "note": "VulnCheck published CVE-2026-119025 on 2026-10-29 for the upstream open package, so the item's statement that no CVE exists and that scanners cannot flag affected installs is now wrong. The advisory also names MCP Inspector and gives fixed versions for all three packages."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "forever.security",
+        "research.jfrog.com",
+        "jfrog.com/blog",
+        "wiz.io/blog",
+        "air.security/blog",
+        "pillar.security/blog",
+        "socket.dev/blog",
+        "labs.zenity.io",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "embracethered.com",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "aisi.gov.uk",
+        "microsoft.com/msrc/blog",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "nist.gov",
+        "Hacker News front page and Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv and Hugging Face Daily Papers)",
+        "talk-scan (22 YouTube channels)",
+        "mindgard.ai",
+        "oasis.security",
+        "code.visualstudio.com docs"
+      ],
+      "windowDays": 7
     }
   ]
 }
