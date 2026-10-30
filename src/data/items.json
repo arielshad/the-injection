@@ -1,7 +1,264 @@
 {
-  "generatedAt": "2026-10-30T03:12:49.526Z",
+  "generatedAt": "2026-10-30T17:01:03.593Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "cursor-claude-code-extension-backdoor",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "Cursor: a backdoored Claude Code extension opened SSH tunnels",
+      "org": "Cursor",
+      "date": "2026-10-29",
+      "url": "https://cursor.com/blog/claude-code-extension-security-notice",
+      "summary": "Cursor served a tampered build of the Anthropic.claude-code extension, version 2.1.313, from its own extension marketplace for part of October 29, 2026. Cursor says at most 5,000 users were affected.",
+      "severity": "high",
+      "tags": [
+        "malicious-package",
+        "plugins",
+        "coding-agents",
+        "cursor",
+        "claude-code"
+      ],
+      "affected": [
+        "Cursor",
+        "Claude Code"
+      ],
+      "credits": [
+        {
+          "name": "Paul McCarty",
+          "org": "OpenSourceMalware"
+        },
+        {
+          "name": "Socket Research Team",
+          "org": "Socket"
+        }
+      ],
+      "explainer": {
+        "tagline": "A tampered Claude Code extension served by Cursor's own marketplace installed a persistent SSH backdoor on developer machines.",
+        "whatHappened": "Cursor published a security notice on October 29, 2026 about a malicious build of the Anthropic.claude-code extension, version 2.1.313, served from the Cursor extension marketplace. Cursor says the build was available from about 2:27am to 1:35pm Pacific time that day and was not developed by Anthropic. Socket reports that the first analysis came from Paul McCarty at OpenSourceMalware, and that Cursor later confirmed its own marketplace was the distribution channel.",
+        "howItWorks": "The malicious version shipped a modified extension.js inside the darwin-arm64 and win32-x64 folders of the 2.1.313 package. On execution it collected host and account details, including hostname, username, operating system, home directory, configured Git email and public IP. The code then tried to append an attacker-controlled SSH key to authorized_keys, enable the local SSH service and open a reverse SSH tunnel to the attacker's host. Cursor says the tunnel step usually failed because it needs administrator rights, but the key and the persistence were still installed.",
+        "whoIsAffected": "Developers who installed or updated the Claude Code extension through the Cursor extension marketplace during the October 29 window are exposed, on macOS and Windows. Cursor puts the number at no more than 5,000 users and says it audited marketplace access and found no other extension had been tampered with. Cursor states it has no evidence that other versions of the extension or Anthropic's official distribution are affected.",
+        "whatToDo": "Check affected machines for the indicators in Cursor's notice, starting with an SSH key commented svc-telemetry in authorized_keys, then run Cursor's remediation script for macOS or Windows. Isolate any host that shows the payload ran, and rotate credentials and sessions reachable from it from a trusted machine. Cursor warns that uninstalling the extension may not be enough and that the host may need to be rebuilt."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Anthropic.claude-code 2.1.313, served from the Cursor extension marketplace"
+        },
+        {
+          "label": "Window",
+          "value": "About 2:27am to 1:35pm Pacific time, October 29, 2026"
+        },
+        {
+          "label": "Scope",
+          "value": "At most 5,000 users, per Cursor"
+        },
+        {
+          "label": "Attack type",
+          "value": "Tampered extension build carrying an SSH backdoor and persistence"
+        },
+        {
+          "label": "Persistence",
+          "value": "macOS LaunchAgent com.apple.sysmond; Windows scheduled task SysMon"
+        },
+        {
+          "label": "Status",
+          "value": "Version removed, marketplace keys rotated and rebuilt, attacker server taken offline, per Cursor"
+        },
+        {
+          "label": "Found by",
+          "value": "Paul McCarty, OpenSourceMalware, per Socket"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if I installed the Claude Code extension from Cursor on October 29?",
+          "a": "Cursor says users who installed or updated the Claude Code extension through its marketplace between about 2:27am and 1:35pm Pacific time on October 29, 2026 may have received the tampered 2.1.313 build. Cursor puts the upper bound at 5,000 users and is contacting them directly. Checking for an SSH key commented svc-telemetry in authorized_keys is the fastest confirmation."
+        },
+        {
+          "q": "Is the official Claude Code extension from Anthropic safe?",
+          "a": "Cursor states the malicious 2.1.313 build was not developed by Anthropic and that it has no evidence that other versions of the extension or Anthropic's official distribution are affected. Cursor also audited marketplace access and found no other extension had been tampered with. Socket notes that npm and GitHub releases skip 2.1.313 and that the 2.1.314 changelog does not explain the gap."
+        },
+        {
+          "q": "Is uninstalling the extension enough to clean an affected machine?",
+          "a": "Cursor says uninstalling the Claude Code extension may not be enough, because the payload installs an SSH key and persistence that survive removal. Cursor publishes remediation scripts, remediate-macos.sh to run as the affected user and remediate-windows.ps1 to run as Administrator, and advises isolating hosts that show payload execution. Cursor adds that some machines may need to be rebuilt."
+        },
+        {
+          "q": "How does the Cursor marketplace incident compare with the LiteLLM package compromise?",
+          "a": "Both incidents put attacker code into a trusted distribution channel used by AI developers, but the reach differs. LiteLLM 1.107.0 shipped credential-stealing wheels to PyPI, which PyPI quarantined. The Cursor case involved one extension version served from a single vendor's own marketplace for part of October 29, with Cursor rebuilding the marketplace afterwards and capping exposure at 5,000 users."
+        }
+      ],
+      "links": [
+        {
+          "label": "Cursor Security Notice",
+          "url": "https://cursor.com/blog/claude-code-extension-security-notice"
+        },
+        {
+          "label": "Socket Analysis",
+          "url": "https://socket.dev/blog/claude-code-extension-compromise"
+        }
+      ],
+      "publishDate": "2026-10-30T17:01:03.593Z"
+    },
+    {
+      "id": "microsoft-north-korea-ai-tradecraft",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "Microsoft: eight North Korean groups use AI, two now run ARTEX",
+      "org": "Microsoft",
+      "date": "2026-10-29",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/29/tracking-ai-adoption-in-north-korean-threat-actor-tradecraft/",
+      "summary": "Microsoft Threat Intelligence rates North Korean threat actors' AI adoption as high, naming eight groups and placing each on a four-stage scale. Microsoft says the operations stay human-directed and are not fully autonomous.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "coding-agents",
+        "cursor",
+        "artex"
+      ],
+      "affected": [
+        "Cursor",
+        "ARTEX",
+        "GitHub"
+      ],
+      "credits": [
+        {
+          "name": "Microsoft Threat Intelligence",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "Microsoft Threat Intelligence rates eight North Korean threat groups on a four-stage AI adoption scale, with none at the earliest stage.",
+        "whatHappened": "Microsoft Threat Intelligence published its assessment of North Korean AI adoption on October 29, 2026, naming eight threat groups and sorting them into four adoption stages. Microsoft rates the overall level of adoption as high and says no group sits at the earliest stage. The report also states that these AI-enabled operations remain human-directed and have not become fully autonomous.",
+        "howItWorks": "The groups apply AI at the reconnaissance and content stages rather than for autonomous intrusion. Microsoft reports that Onyx Sleet produced more than 100 PDF lure files carrying target-specific details across August and September 2026, often dozens within minutes, and that Jade Sleet ran job-themed targeting through three front companies in a single week in June 2026. Coral Sleet has built a workflow to trojanize private GitHub repositories, which Microsoft says likely uses an AI development platform. Onyx Sleet and Pearl Sleet have both adopted ARTEX, the open-source agentic penetration testing framework, since late October 2026.",
+        "whoIsAffected": "Organizations in the sectors these groups already target are exposed, including software and technology firms whose developers are approached with job-themed lures, companies hiring remote IT workers, and telecommunications, oil and gas firms. Microsoft reports that Diamond Sleet returned to oil and gas targeting from August 2026 and created fake communications technology companies to approach telecom firms. Jasper Sleet builds fake personas and resume workflows, and has tooling to manage several worker personas at once.",
+        "whatToDo": "Verify remote-hire identities through video calls, phone numbers and digital footprints, and scrutinize resumes routed through staffing companies, which Microsoft lists first among its hiring recommendations. Enable Safe Links, Safe Attachments and zero-hour auto purge, and block device code flow where possible. Microsoft also lists two Defender for Cloud alerts for this activity, Possible AI Tools Reconnaissance Detected and Possible Secret Reconnaissance Detected."
+      },
+      "quickFacts": [
+        {
+          "label": "Groups named",
+          "value": "Jade, Jasper, Coral, Onyx, Pearl, Diamond, Sapphire and Emerald Sleet"
+        },
+        {
+          "label": "Adoption rating",
+          "value": "High overall, on a four-stage scale, with no group rated emerging"
+        },
+        {
+          "label": "AI tools observed",
+          "value": "Cursor for development, ARTEX for agentic penetration testing"
+        },
+        {
+          "label": "Lure volume",
+          "value": "More than 100 PDF lures from Onyx Sleet across August and September 2026"
+        },
+        {
+          "label": "Autonomy",
+          "value": "Human-directed, not fully autonomous, per Microsoft"
+        },
+        {
+          "label": "Found by",
+          "value": "Microsoft Threat Intelligence"
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Report",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/29/tracking-ai-adoption-in-north-korean-threat-actor-tradecraft/"
+        },
+        {
+          "label": "Microsoft on ARTEX",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+        }
+      ],
+      "image": {
+        "url": "https://www.microsoft.com/en-us/security/blog/wp-content/uploads/2026/10/North-Korean-use-of-AI-featured-1.png",
+        "alt": "Tracking AI adoption in North Korean threat actor tradecraft",
+        "credit": "Microsoft"
+      },
+      "publishDate": "2026-10-30T17:01:03.593Z"
+    },
+    {
+      "id": "rudderstack-devbox-agent-sandbox",
+      "categories": [
+        "tool"
+      ],
+      "title": "DevBox: an agent harness that keeps real secrets out of the sandbox",
+      "org": "RudderStack",
+      "date": "2026-10-27",
+      "url": "https://www.rudderstack.com/blog/open-sourcing-devbox/",
+      "summary": "DevBox is an open-source coding agent harness from RudderStack whose per-task sandboxes hold only placeholder credentials, with an egress proxy substituting the real values as requests leave.",
+      "severity": "info",
+      "tags": [
+        "agent-security",
+        "coding-agents",
+        "devbox",
+        "rudderstack"
+      ],
+      "affected": [
+        "AI coding agents",
+        "GitHub"
+      ],
+      "credits": [
+        {
+          "name": "Fotis Xenikoudakis",
+          "org": "RudderStack"
+        }
+      ],
+      "explainer": {
+        "tagline": "DevBox is an open-source agent harness whose sandboxes never hold real credentials, because an egress proxy swaps them in as requests leave.",
+        "whatHappened": "RudderStack open-sourced DevBox on October 27, 2026 under the MIT license, in a launch post by principal engineer Fotis Xenikoudakis. DevBox takes a ticket, works out which repositories need changes, edits the code, runs tests, reviews its own diff and opens a draft pull request. RudderStack says the harness has run on its own engineering work since April 2026.",
+        "howItWorks": "Each task runs in its own sandbox that receives dummy values for the GitHub token and the model API key. An egress proxy named iron-proxy is the sandbox's only route out and its only name resolver, and it substitutes the real credentials as requests leave while refusing hosts that are not on the allowlist. Write access is limited to listed repositories, and out-of-scope writes are refused at the proxy rather than discouraged in the prompt. Only designated organizations and users can steer the agent through pull request comments, and that trust list is empty by default.",
+        "whoIsAffected": "Teams that want to run coding agents on their own infrastructure are the audience, with tasks arriving from a CLI or Linear and changes landing on GitHub. DevBox needs Docker, Bun and an OpenAI or Anthropic API key, and RudderStack recommends Kubernetes with one pod per task for production, optionally running sandboxes as Kata Containers virtual machines. RudderStack lists GitHub-only support, with no GitLab or Bitbucket, and no stable extension interface yet.",
+        "whatToDo": "Read the launch post's five security properties before adopting DevBox, and leave the pull request trust list empty until the set of people allowed to steer the agent is settled. Prefer the Kubernetes deployment with network-policy egress for team use, because RudderStack presents Docker Compose as a laptop trial rather than a team setup."
+      },
+      "quickFacts": [
+        {
+          "label": "License",
+          "value": "MIT"
+        },
+        {
+          "label": "Secrets",
+          "value": "Sandboxes get dummy tokens; iron-proxy substitutes the real values on egress"
+        },
+        {
+          "label": "Isolation",
+          "value": "One sandbox per task, optionally as Kata Containers virtual machines"
+        },
+        {
+          "label": "Write scope",
+          "value": "Limited to listed repositories, refused at the proxy"
+        },
+        {
+          "label": "Reported use",
+          "value": "Over 1,500 pull requests since April 2026, with an 80% merge rate counted over pull requests merged or closed, per RudderStack"
+        },
+        {
+          "label": "Built by",
+          "value": "RudderStack"
+        }
+      ],
+      "links": [
+        {
+          "label": "Launch Post",
+          "url": "https://www.rudderstack.com/blog/open-sourcing-devbox/"
+        },
+        {
+          "label": "DevBox Repository",
+          "url": "https://github.com/rudderlabs/devbox"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/97bpcflt/production/4f1d8d776482d51be06f9a0557ac5e9694f7bf38-2400x1260.png",
+        "alt": "Open-sourcing DevBox, our autonomous engineering harness",
+        "credit": "RudderStack"
+      },
+      "publishDate": "2026-10-30T17:01:03.593Z"
+    },
     {
       "id": "arxiv-agentic-backdoors",
       "categories": [
