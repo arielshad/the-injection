@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T11:51:08Z",
+  "generatedAt": "2026-10-30T11:43:00Z",
   "tools": [
     {
       "slug": "skillspector",
@@ -18,7 +18,7 @@
       ],
       "homepage": "https://docs.nvidia.com/skills/scanning-agent-skills",
       "added": "2026-10-09",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "tencent-ai-infra-guard",
@@ -36,7 +36,7 @@
       ],
       "homepage": "https://tencent.github.io/AI-Infra-Guard/",
       "added": "2026-10-09",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "snyk-agent-scan",
@@ -52,7 +52,7 @@
         "Coding agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "cisco-mcp-scanner",
@@ -66,7 +66,7 @@
         "MCP servers"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "splx-agentic-radar",
@@ -80,7 +80,7 @@
         "Agentic workflows"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "numbat",
@@ -96,7 +96,7 @@
         "OpenClaw"
       ],
       "added": "2026-10-11",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "protectai-modelscan",
@@ -110,7 +110,7 @@
         "Model files"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "picklescan",
@@ -125,7 +125,7 @@
         "Hugging Face models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "fickling",
@@ -140,7 +140,7 @@
         "PyTorch models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "api-relay-audit",
@@ -159,7 +159,7 @@
       ],
       "homepage": "https://toby-bridges.github.io/api-relay-audit/",
       "added": "2026-10-15",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "pantheon-medusa",
@@ -178,7 +178,7 @@
         "LLM applications"
       ],
       "added": "2026-10-17",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "ship-safe",
@@ -199,7 +199,7 @@
       ],
       "homepage": "https://shipsafe.sh/docs",
       "added": "2026-10-29",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "nemo-guardrails",
@@ -214,7 +214,7 @@
       ],
       "homepage": "https://docs.nvidia.com/nemo/guardrails",
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "guardrails-ai",
@@ -228,7 +228,7 @@
         "LLM applications"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "purple-llama",
@@ -243,7 +243,7 @@
         "Open-weight models"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "hol-guard",
@@ -263,7 +263,7 @@
         "Agent skills"
       ],
       "added": "2026-10-12",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "pipelock",
@@ -283,7 +283,7 @@
       ],
       "homepage": "https://pipelab.org/learn",
       "added": "2026-10-12",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "adrian",
@@ -302,7 +302,7 @@
       ],
       "homepage": "https://docs.adrian.secureagentics.ai",
       "added": "2026-10-14",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "vestige",
@@ -322,7 +322,7 @@
         "OpenClaw"
       ],
       "added": "2026-10-15",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "superagent-sdk",
@@ -341,7 +341,7 @@
       ],
       "homepage": "https://docs.superagent.sh",
       "added": "2026-10-16",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "arcjet-js",
@@ -363,7 +363,7 @@
       ],
       "homepage": "https://docs.arcjet.com",
       "added": "2026-10-17",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "aegis",
@@ -383,7 +383,7 @@
         "LlamaIndex"
       ],
       "added": "2026-10-17",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "agentsafe",
@@ -403,7 +403,7 @@
         "Kubernetes"
       ],
       "added": "2026-10-23",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "emilia-protocol",
@@ -424,7 +424,7 @@
       ],
       "homepage": "https://www.emiliaprotocol.ai",
       "added": "2026-10-24",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "prismor",
@@ -446,7 +446,7 @@
       ],
       "homepage": "https://prismor.dev",
       "added": "2026-10-28",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "tracekit",
@@ -466,7 +466,7 @@
       ],
       "homepage": "https://github.com/Cygnux-Labs/Tracekit/wiki",
       "added": "2026-10-28",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "praetorian-augustus",
@@ -486,7 +486,7 @@
         "REST API endpoints"
       ],
       "added": "2026-10-12",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "garak",
@@ -501,7 +501,7 @@
         "Chatbots"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "pyrit",
@@ -515,7 +515,7 @@
         "Generative AI systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "promptfoo",
@@ -530,7 +530,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "deepteam",
@@ -544,7 +544,7 @@
         "LLM systems"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "anamorpher",
@@ -562,7 +562,7 @@
         "Pillow"
       ],
       "added": "2026-10-09",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "agentic-security",
@@ -583,7 +583,7 @@
       ],
       "homepage": "https://agentic-security.vercel.app",
       "added": "2026-10-13",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "safelabs-eval",
@@ -604,7 +604,7 @@
         "Semantic Kernel"
       ],
       "added": "2026-10-13",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "agent-opfor",
@@ -621,7 +621,7 @@
       ],
       "homepage": "https://docs.agentopfor.ai",
       "added": "2026-10-14",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "agentdojo",
@@ -636,7 +636,7 @@
       ],
       "homepage": "https://agentdojo.spylab.ai/results/",
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "uber-adr",
@@ -655,7 +655,7 @@
         "MCP servers"
       ],
       "added": "2026-10-10",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "giskard",
@@ -673,7 +673,7 @@
       ],
       "homepage": "https://docs.giskard.ai/oss",
       "added": "2026-10-11",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "open-prompt-injection",
@@ -691,7 +691,7 @@
         "Mistral"
       ],
       "added": "2026-10-14",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "ifixai",
@@ -713,7 +713,7 @@
       ],
       "homepage": "https://www.ifixai.ai",
       "added": "2026-10-18",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "skillevaluator",
@@ -730,7 +730,7 @@
       ],
       "homepage": "https://docs.nvidia.com/skills/skillevaluator/",
       "added": "2026-10-24",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "sandbox-runtime",
@@ -746,7 +746,7 @@
         "Bash commands"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "e2b",
@@ -761,7 +761,7 @@
         "Agents"
       ],
       "added": "2026-10-08",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "toolhive",
@@ -781,7 +781,7 @@
       ],
       "homepage": "https://docs.stacklok.com/toolhive/",
       "added": "2026-10-10",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "agent-sandbox",
@@ -799,7 +799,7 @@
       ],
       "homepage": "https://agent-sandbox.sigs.k8s.io",
       "added": "2026-10-10",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "nono",
@@ -817,7 +817,7 @@
       ],
       "homepage": "https://docs.nono.sh",
       "added": "2026-10-11",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "gondolin",
@@ -836,7 +836,7 @@
       ],
       "homepage": "https://earendil-works.github.io/gondolin",
       "added": "2026-10-13",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "coi",
@@ -854,7 +854,7 @@
       ],
       "homepage": "https://github.com/coipond/coi/wiki",
       "added": "2026-10-15",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "sandlock",
@@ -873,7 +873,7 @@
       ],
       "homepage": "https://sandlock.io",
       "added": "2026-10-16",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "zerobox",
@@ -890,7 +890,7 @@
         "Linux"
       ],
       "added": "2026-10-16",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "dormice",
@@ -907,7 +907,7 @@
         "gVisor"
       ],
       "added": "2026-10-18",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     },
     {
       "slug": "sandstorm",
@@ -925,7 +925,7 @@
         "OCI specs"
       ],
       "added": "2026-10-29",
-      "checked": "2026-10-29"
+      "checked": "2026-10-30"
     }
   ]
 }
