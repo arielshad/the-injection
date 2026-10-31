@@ -13950,6 +13950,78 @@
         "r/netsec"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261031t175808z",
+      "timestamp": "2026-10-31T17:58:08.620Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research blogs, the NVD API by keyword across the window, GitHub advisories, repo-scan (8 candidates), paper-scan (48 papers, none with two signals), talk-scan (33 videos), GitHub trending and Hacker News. One item qualified: a secret-masking bypass in AWS's Strands Agents Tools, disclosed October 28. Most in-window NVD records turned out to be late ingestions of advisories first published in June or early October, so they failed the 7-day window on their original disclosure date.",
+      "counts": {
+        "added": 1,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "strands-agents-tools-environment-secret-masking",
+          "title": "Strands Agents Tools: a prompt turns off the environment tool's masking",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "An official AWS bulletin and project advisory published inside the window for a prompt-reachable bypass of a credential-masking control in a widely used agent SDK, with a named fix version and concrete rotation advice."
+        }
+      ],
+      "updated": [
+        {
+          "id": "mcp-inspector-oauth-callback-stdio-rce",
+          "title": "MCP Inspector: a malicious server's OAuth redirect runs local commands",
+          "note": "CVE-2026-119025 was published October 29, 2026 against the upstream open npm package for the same unescaped PowerShell path this item already described, and names opencode 1.0.137 up to 1.18.33 as affected alongside MCP Inspector. Same flaw, so it is an update rather than a new item."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD API (keyword searches inside the window)",
+        "VulnCheck advisories",
+        "AWS security bulletins",
+        "repo-scan.json",
+        "paper-scan (arXiv and Hugging Face Daily Papers)",
+        "talk-scan (YouTube conference and security channels)",
+        "github.com/trending (daily and weekly)",
+        "Hacker News front page and newest",
+        "AIR Security blog",
+        "Zenity Labs",
+        "embracethered.com",
+        "simonwillison.net",
+        "Socket blog",
+        "Wiz Research blog",
+        "Unit 42",
+        "Check Point Research",
+        "JFrog blog",
+        "HiddenLayer research",
+        "Trail of Bits blog",
+        "ReversingLabs blog",
+        "Hugging Face blog",
+        "anthropic.com/news",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "Lakera blog",
+        "Microsoft MSRC blog",
+        "Invariant Labs",
+        "arXiv cs.CR"
+      ],
+      "windowDays": 7
     }
   ]
 }

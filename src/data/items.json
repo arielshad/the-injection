@@ -1,7 +1,97 @@
 {
-  "generatedAt": "2026-10-31T13:20:01.610Z",
+  "generatedAt": "2026-10-31T17:58:08.620Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "strands-agents-tools-environment-secret-masking",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Strands Agents Tools: a prompt turns off the environment tool's masking",
+      "org": "Strands Agents",
+      "date": "2026-10-28",
+      "url": "https://github.com/strands-agents/tools/security/advisories/GHSA-qjx4-hg6g-2f34",
+      "summary": "Strands Agents Tools exposed the agent host's environment variables, including cloud keys and API tokens, when a crafted prompt turned off the environment tool's secret masking. AWS fixed it in 0.8.6 and deprecated the tool.",
+      "severity": "medium",
+      "cve": "CVE-2026-115415",
+      "cvss": 6.5,
+      "tags": [
+        "indirect-prompt-injection",
+        "credential-theft",
+        "agent-security",
+        "strands-agents",
+        "aws"
+      ],
+      "affected": [
+        "Strands Agents Tools",
+        "strands-agents-tools (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "Strands Agents maintainers",
+          "org": "AWS",
+          "url": "https://github.com/strands-agents"
+        }
+      ],
+      "explainer": {
+        "tagline": "The environment tool in Strands Agents Tools took its masking switch from the model, so the model could be talked into unmasking secrets.",
+        "whatHappened": "The Strands Agents project published advisory GHSA-qjx4-hg6g-2f34 on October 28, 2026 for CVE-2026-115415, and AWS issued security bulletin 2026-154 the same day. Neither names an outside reporter. Release 0.8.6 carries the fix and also deprecates the environment tool.",
+        "howItWorks": "Masking is the control at issue: the environment tool hides values whose names contain KEY, TOKEN, SECRET or PASSWORD. The masked parameter sat in the tool's input schema, so the model itself could set it, and the list and get actions ran without the operator consent prompt that set and delete required. Instructions hidden in a web page, a file or another tool's output could therefore direct the model to call the tool with masking off, then hand the values to an attacker through a second loaded tool.",
+        "whoIsAffected": "Agents that load the environment tool from strands-agents-tools 0.1.0 up to 0.8.6 are exposed. AWS names cloud keys, model provider API keys, source control tokens and database connection strings among the values the tool could print. An agent that never loads the tool is not affected.",
+        "whatToDo": "Upgrade to strands-agents-tools 0.8.6, where masking is operator-controlled and the model cannot disable it, and rotate any credential that sat in the environment of an agent that loaded the tool. AWS also advises removing the tool, keeping long-lived credentials out of the process environment, and restricting outbound network access from agent hosts to trusted endpoints."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "strands-agents-tools 0.1.0 up to 0.8.6"
+        },
+        {
+          "label": "Fixed in",
+          "value": "strands-agents-tools 0.8.6, which also deprecates the environment tool"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-115415, CVSS 6.5 (v3.1), Moderate"
+        },
+        {
+          "label": "Attack type",
+          "value": "Insufficiently protected credentials, CWE-522, reached through LLM prompting, CWE-1427"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 28, 2026, by the project and in AWS bulletin 2026-154"
+        },
+        {
+          "label": "Status",
+          "value": "Patched, with credential rotation advised for agents that loaded the tool"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if my Strands agent never loads the environment tool?",
+          "a": "Agents that do not load the environment tool from strands-agents-tools are outside the described attack path, because the flaw lives in that tool's masking parameter. Exposure requires an agent to have the tool available and to process attacker-influenced content. AWS still advises upgrading to 0.8.6, since the release deprecates the tool and moves masking under operator control."
+        },
+        {
+          "q": "Which version of Strands Agents Tools fixes CVE-2026-115415?",
+          "a": "Version 0.8.6 of strands-agents-tools carries the fix for CVE-2026-115415, covering all releases from 0.1.0 onward. In that release the masking switch is controlled only by the operator, so the model can no longer request unmasked output, and the environment tool itself is deprecated. AWS bulletin 2026-154 adds that forks and derivative code need the same patch."
+        },
+        {
+          "q": "Do I need to rotate credentials after upgrading Strands Agents Tools?",
+          "a": "AWS advises rotating any credential that was present in the environment of an agent that loaded the environment tool, because upgrading does not undo a disclosure that already happened. The bulletin names cloud keys, model provider API keys, source control tokens and database connection strings as the kinds of values the tool could read in cleartext."
+        }
+      ],
+      "links": [
+        {
+          "label": "Project Advisory",
+          "url": "https://github.com/strands-agents/tools/security/advisories/GHSA-qjx4-hg6g-2f34"
+        },
+        {
+          "label": "AWS Bulletin 2026-154",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-154-aws/"
+        }
+      ],
+      "publishDate": "2026-10-31T17:58:08.620Z"
+    },
     {
       "id": "spycloud-intelstealers-ai-tokens",
       "categories": [
@@ -3337,7 +3427,9 @@
         "MCP Inspector",
         "@modelcontextprotocol/inspector",
         "@modelcontextprotocol/inspector-client",
-        "@modelcontextprotocol/inspector-server"
+        "@modelcontextprotocol/inspector-server",
+        "open (npm)",
+        "opencode"
       ],
       "credits": [
         {
@@ -3366,8 +3458,8 @@
         "tagline": "MCP Inspector, the official tool for testing MCP servers, could be made to run an attacker's command just by connecting to one.",
         "whatHappened": "The Model Context Protocol project published nine security advisories for MCP Inspector on October 21, 2026, two of them critical at CVSS 9.6. Bhavya Gupta reported both critical flaws, and eilonc-pillar, Lemohang Khaile, Thai Son Dinh of VinSOC Labs, 0xParth and hackyhunter reported others in the batch. Releases 1.0.3 and 2.12.0 carry the fixes.",
         "howItWorks": "In the first critical flaw, a malicious server returns an OAuth challenge pointing at an authorization server the attacker controls, which appends Inspector connection parameters to the callback URL. The callback page reads a transport type, a command and arguments out of that URL and reconnects, sending the command to Inspector's local stdio proxy endpoint, which launches it. The second critical flaw is a token theft chain: a sandboxed MCP App asks the top window to open a popup, the popup shares sessionStorage because it opens without noopener, and the leaked proxy auth token then authenticates a request to that same stdio endpoint. A separate high-severity flaw puts the OAuth authorization URL inside a PowerShell double-quoted string, so PowerShell evaluates a subexpression written into it.",
-        "whoIsAffected": "Both critical flaws cover @modelcontextprotocol/inspector and its client and server packages, from 0.13.0 and 0.20.0 up to 1.0.2. The v2 line is hit by a different set: the PowerShell injection and a DNS-rebinding token disclosure reach 2.0.0 through 2.11.0, and the PowerShell path only on Windows and the Windows Subsystem for Linux. Version ranges are listed below.",
-        "whatToDo": "Upgrade MCP Inspector to 1.0.3 on the v1 line or 2.12.0 on the v2 line. The DNS-rebinding advisory says an attacker holding the API token could read stored OAuth access and refresh tokens, server configs and local client-config files, so rotate the credentials any exposed Inspector held. The 2.12.0 notes add an MCP_INSPECTOR_ALLOWED_HOSTS setting for reverse proxies that rewrite the Host header."
+        "whoIsAffected": "Both critical flaws cover @modelcontextprotocol/inspector and its client and server packages, from 0.13.0 and 0.20.0 up to 1.0.2. The v2 line is hit by a different set: the PowerShell injection and a DNS-rebinding token disclosure reach 2.0.0 through 2.11.0, and the PowerShell path only on Windows and the Windows Subsystem for Linux. Version ranges are listed below. The same unescaped PowerShell path reaches other tools built on the open package: CVE-2026-119025, published October 29, 2026, names open 7.2.0 up to 11.0.0, MCP Inspector 2.0.0 up to 2.12.0 and opencode 1.0.137 up to 1.18.33.",
+        "whatToDo": "Upgrade MCP Inspector to 1.0.3 on the v1 line or 2.12.0 on the v2 line, and opencode to 1.18.33 if you run it on Windows or WSL. The DNS-rebinding advisory says an attacker holding the API token could read stored OAuth access and refresh tokens, server configs and local client-config files, so rotate the credentials any exposed Inspector held. The 2.12.0 notes add an MCP_INSPECTOR_ALLOWED_HOSTS setting for reverse proxies that rewrite the Host header."
       },
       "quickFacts": [
         {
@@ -3429,6 +3521,10 @@
         {
           "label": "PowerShell Injection",
           "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-q978-78c7-phqw"
+        },
+        {
+          "label": "Open Package CVE",
+          "url": "https://github.com/advisories/GHSA-jgwm-4pmq-r4w4"
         },
         {
           "label": "DNS Rebinding Leak",
