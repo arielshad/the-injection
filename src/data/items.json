@@ -1,7 +1,237 @@
 {
-  "generatedAt": "2026-10-31T17:58:08.620Z",
+  "generatedAt": "2026-10-31T21:00:31.764Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "ramparts-skill-bundle-pyc-scan-bypass",
+      "categories": [
+        "vulnerability",
+        "supply-chain"
+      ],
+      "title": "Ramparts: a .pyc file in a skill bundle slips past the scanner",
+      "org": "VulnCheck",
+      "date": "2026-10-30",
+      "url": "https://vulncheck.com/advisories/highflame-ramparts-0.8.1-through-0.8.10-skill-bundle-scan-bypass-via-nested-pyc",
+      "summary": "Ramparts, an open-source MCP and skill scanner, reports no findings on a skill bundle that hides Python bytecode in a nested __pycache__ directory, and CPython runs that bytecode when the skill runs. No fixed version is listed.",
+      "severity": "medium",
+      "cve": "CVE-2026-120202",
+      "cvss": 7.1,
+      "tags": [
+        "skills",
+        "detection",
+        "ramparts"
+      ],
+      "affected": [
+        "Ramparts"
+      ],
+      "credits": [
+        {
+          "name": "Liran Neduva",
+          "url": "https://github.com/nedlir"
+        }
+      ],
+      "explainer": {
+        "tagline": "Ramparts 0.8.1 through 0.8.10 marks a skill bundle as clean when its payload sits in a nested __pycache__ directory as Python bytecode.",
+        "whatHappened": "Liran Neduva reported on October 30, 2026 that Ramparts, the open-source MCP and skill scanner from Highflame, can be bypassed deterministically. VulnCheck published CVE-2026-120202 for the bypass the next day with a CVSS 4.0 score of 7.1. The project issue is still open and records no reply from the maintainers.",
+        "howItWorks": "Ramparts walks a bundle's sibling scripts but skips entries that are not plain files, so a subdirectory under scripts/ is never opened, and its script extension allowlist leaves out .pyc. A payload shipped as bytecode under scripts/<subdir>/__pycache__/ therefore reaches no analyzer and the scan returns zero findings. Neduva compiled the file with PEP 552 unchecked-hash invalidation, and VulnCheck says CPython executes it when the skill runs. The advisory classes the weakness as CWE-693, protection mechanism failure.",
+        "whoIsAffected": "Teams that vet third-party agent skills with Ramparts 0.8.1 through 0.8.10 get the false assurance; the advisory names no fixed release. Highflame describes Ramparts as a Rust scanner for MCP servers and skills, aligned with the OWASP MCP and SKILL Top 10 lists.",
+        "whatToDo": "Treat a clean Ramparts verdict as incomplete until a fix ships: unpack skill bundles yourself, look for .pyc files and __pycache__ directories including inside subdirectories, and reject any bundle that ships bytecode without matching source. Follow project issue 154 for a patched release."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Ramparts 0.8.1 through 0.8.10"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Not listed; the advisory names no fixed release"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-120202"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "7.1 (VulnCheck)"
+        },
+        {
+          "label": "Found by",
+          "value": "Liran Neduva, reporting as nedlir"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Issue opened October 30, 2026; CVE published October 31, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Skill bundle scan bypass via nested .pyc, CWE-693"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://vulncheck.com/advisories/highflame-ramparts-0.8.1-through-0.8.10-skill-bundle-scan-bypass-via-nested-pyc"
+        },
+        {
+          "label": "Project Issue 154",
+          "url": "https://github.com/highflame-ai/ramparts/issues/154"
+        },
+        {
+          "label": "Ramparts Repository",
+          "url": "https://github.com/highflame-ai/ramparts"
+        }
+      ],
+      "publishDate": "2026-10-31T21:00:31.764Z"
+    },
+    {
+      "id": "ai-engine-mcp-oauth-client-registration",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AI Engine: anyone could register an MCP OAuth client on a site",
+      "org": "Wordfence",
+      "date": "2026-10-29",
+      "url": "https://github.com/advisories/GHSA-22w7-p44p-2gq7",
+      "summary": "AI Engine, a WordPress plugin with 90,000-plus installs, let unauthenticated callers register an MCP OAuth client in versions up to 3.8.6. An administrator who approves the client hands the attacker an admin-bound MCP token. Fixed in 3.8.7.",
+      "severity": "medium",
+      "cve": "CVE-2026-110732",
+      "cvss": 7.5,
+      "tags": [
+        "mcp",
+        "privilege-escalation",
+        "wordpress",
+        "ai-engine"
+      ],
+      "affected": [
+        "AI Engine",
+        "WordPress"
+      ],
+      "credits": [
+        {
+          "name": "satoshigpt2021-sketch"
+        }
+      ],
+      "explainer": {
+        "tagline": "AI Engine's MCP module accepted OAuth client registrations from unauthenticated callers, up to and including version 3.8.6.",
+        "whatHappened": "Wordfence disclosed CVE-2026-110732 against the AI Engine plugin on October 29, 2026, and the CVE record was published a day later. The record credits the finder as satoshigpt2021-sketch and says the developer was notified on October 14. AI Engine turns a WordPress site into an MCP server that assistants such as Claude and ChatGPT connect to.",
+        "howItWorks": "The dynamic client registration route /wp-json/mcp/v1/oauth/register shipped with a permission callback of __return_true, so an unauthenticated request could register an active OAuth client with an attacker-controlled redirect URI. Once an administrator approved that client on the consent screen, the attacker held an administrator-bound MCP access token and could drive the plugin's MCP tools with admin rights. The consent page also set no X-Frame-Options or frame-ancestors headers, so the approval could be collected by clickjacking. Wordfence classes the weakness as CWE-862, missing authorization.",
+        "whoIsAffected": "Sites running AI Engine 3.8.6 or earlier are exposed, and the plugin's directory listing reports more than 90,000 active installations. An administrator still has to approve the registered client, which is why the record scores attack complexity high and user interaction required.",
+        "whatToDo": "Update AI Engine to 3.8.7 or later; its changelog says the MCP sign-in page can no longer be framed by other sites. On sites that ran an affected version, revoke MCP OAuth tokens and registered clients you cannot account for, and treat an unexpected MCP consent prompt as an attack rather than a glitch."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "AI Engine 3.8.6 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "3.8.7, released October 23, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-110732"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "7.5 (Wordfence)"
+        },
+        {
+          "label": "Found by",
+          "value": "satoshigpt2021-sketch"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Developer notified October 14, 2026; disclosed October 29, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unauthenticated MCP OAuth client registration, CWE-862"
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-22w7-p44p-2gq7"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-110732"
+        },
+        {
+          "label": "Plugin Page",
+          "url": "https://wordpress.org/plugins/ai-engine/"
+        }
+      ],
+      "publishDate": "2026-10-31T21:00:31.764Z"
+    },
+    {
+      "id": "crowdstrike-prompt-injection-taxonomy-agent-planning",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "CrowdStrike: two new injection techniques target how an agent plans",
+      "org": "CrowdStrike",
+      "date": "2026-10-29",
+      "url": "https://www.crowdstrike.com/en-us/blog/new-prompt-injection-techniques-cover-agent-planning-attacks/",
+      "summary": "CrowdStrike's public prompt injection taxonomy now lists 222 techniques, including two aimed at how an agent plans: one adds a malicious sub-task to the plan, the other blocks the normal route so the agent falls back to the attacker's path.",
+      "severity": "info",
+      "tags": [
+        "prompt-injection",
+        "agent-security",
+        "red-team",
+        "crowdstrike"
+      ],
+      "affected": [
+        "AI agents"
+      ],
+      "credits": [
+        {
+          "name": "Vanessa Villa",
+          "org": "CrowdStrike"
+        },
+        {
+          "name": "Jim Hoagland",
+          "org": "CrowdStrike"
+        }
+      ],
+      "explainer": {
+        "tagline": "CrowdStrike's taxonomy update names attacks that subvert an agent's plan rather than its prompt or its answer.",
+        "whatHappened": "Vanessa Villa and Jim Hoagland published a new version of CrowdStrike's prompt injection taxonomy on October 29, 2026, taking it to 222 techniques. Four techniques are new, two of them aimed at the planning stage of an agent, and the update also groups existing entries by the pipeline stage they hit.",
+        "howItWorks": "Goal Decomposition Exploitation, logged as PT0227, feeds an agent a sub-task that makes a restricted action such as file exfiltration look necessary to finish the job. Constraint-Driven Task Steering, PT0228, blocks the route the agent would normally take so the fallback plan the attacker wants becomes the one it picks. Session State Spoofing, PT0240, plants a fake compaction note or memory log that presents an approval the user never gave as verified history. Output Exclusion Prompting, PT0237, bans the refusal and hedging language that safety tuning leans on.",
+        "whoIsAffected": "Agents that split a goal into sub-tasks and read untrusted content are the subject, and the worked example is a developer's endpoint coding agent that pulls in a poisoned test utility. CrowdStrike reports no tests against named products and publishes no success rates for the new techniques.",
+        "whatToDo": "Check whether your agent defenses inspect the plan and the whole sequence of steps, not only the incoming prompt and the model's answer, because CrowdStrike says checks that look at each step alone can miss what a sequence achieves together. Keep records of what agents were asked to do and which tools and systems they touched, so an incident can be scoped later."
+      },
+      "quickFacts": [
+        {
+          "label": "Taxonomy size",
+          "value": "222 techniques after this update"
+        },
+        {
+          "label": "New entries",
+          "value": "PT0227, PT0228, PT0237, PT0240"
+        },
+        {
+          "label": "Published by",
+          "value": "Vanessa Villa and Jim Hoagland, CrowdStrike"
+        },
+        {
+          "label": "Evidence",
+          "value": "A worked example only; no named product tested and no success rates published"
+        }
+      ],
+      "links": [
+        {
+          "label": "CrowdStrike Research",
+          "url": "https://www.crowdstrike.com/en-us/blog/new-prompt-injection-techniques-cover-agent-planning-attacks/"
+        },
+        {
+          "label": "Interactive Taxonomy",
+          "url": "https://www.crowdstrike.com/explore/interactive-taxonomy"
+        }
+      ],
+      "publishDate": "2026-10-31T21:00:31.764Z"
+    },
     {
       "id": "strands-agents-tools-environment-secret-masking",
       "categories": [
@@ -1264,6 +1494,10 @@
         {
           "label": "Socket Analysis",
           "url": "https://socket.dev/blog/claude-code-extension-compromise"
+        },
+        {
+          "label": "Microsoft Teardown",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/"
         },
         {
           "label": "Phorion Teardown",

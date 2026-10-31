@@ -14022,6 +14022,96 @@
         "arXiv cs.CR"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261031t210031z",
+      "timestamp": "2026-10-31T21:00:31.764Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, GitHub Security Advisories, VulnCheck, research blogs, paper-scan (48 arXiv candidates, one with two scanned signals), repo-scan (13 queries, 8 candidates), GitHub trending, talk-scan (22 channels, 33 videos) and Hacker News for the 7 days to 2026-10-31. Three items qualified: the Ramparts skill scanner bypass published by VulnCheck, the unauthenticated MCP OAuth client registration flaw in the AI Engine WordPress plugin, and CrowdStrike's prompt injection taxonomy update covering agent-planning attacks. Left out on purpose: Pillar's Unsloth model loader RCE write-up (October 27, but CVE-2026-93348 was published September 28, outside the window); the Cathedral claim that its agents reached Anthropic business systems in under 12 hours (no public primary source, the report is a draft seen by one paywalled outlet and Anthropic disputes parts of it); Wiz's AI threat readiness survey (100 self-reported responses, vendor marketing); the Tencent AI-Infra-Guard bytecode scan bypass by the same researcher (published September 2); and the BLA anti-reverse-engineering repo (1,695 stars but only one repo-bar signal, and its own benchmark figures are internal estimates). Reddit r/netsec could not be fetched in this run.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "ramparts-skill-bundle-pyc-scan-bypass",
+          "title": "Ramparts: a .pyc file in a skill bundle slips past the scanner",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A CVE published inside the window for a deterministic bypass of a skill scanner that defenders run to vet third-party skills, with no fixed release and a named reporter."
+        },
+        {
+          "id": "ai-engine-mcp-oauth-client-registration",
+          "title": "AI Engine: anyone could register an MCP OAuth client on a site",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "An unauthenticated MCP OAuth registration path to admin-bound tokens in a plugin with more than 90,000 installs, with an official CNA record, a CVSS score and a named fix version."
+        },
+        {
+          "id": "crowdstrike-prompt-injection-taxonomy-agent-planning",
+          "title": "CrowdStrike: two new injection techniques target how an agent plans",
+          "category": "research",
+          "severity": "info",
+          "note": "New named technique classes for attacks on agent planning from a vendor research team, with a public taxonomy defenders can use for threat modeling; nothing in the feed covers plan-stage injection as a category."
+        }
+      ],
+      "updated": [
+        {
+          "id": "cursor-claude-code-extension-backdoor",
+          "title": "Cursor: a backdoored Claude Code extension opened SSH tunnels",
+          "note": "Microsoft Threat Intelligence published its own teardown on October 30 with the SSH key fingerprint and comment, file hashes, Defender detection names, advanced hunting queries and cleanup steps."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "vulncheck.com/advisories",
+        "cveawg.mitre.org CVE records",
+        "wordpress.org plugin directory",
+        "anthropic.com/news",
+        "anthropic.com Frontier Red Team",
+        "alignment.openai.com",
+        "microsoft.com/en-us/security/blog",
+        "crowdstrike.com/en-us/blog",
+        "wiz.io/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "pillar.security/blog",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "research.checkpoint.com",
+        "snyk.io security research",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "huggingface.co/blog",
+        "huggingface.co/models (guard and injection classifiers)",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "arXiv via paper-scan.ts",
+        "Hugging Face Daily Papers via paper-scan.ts",
+        "repo-scan.json",
+        "gh-repo-meta.ts",
+        "github.com/trending (daily and weekly)",
+        "talk-scan.ts",
+        "Hacker News front page and newest",
+        "og-image.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
