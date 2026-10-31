@@ -1,7 +1,253 @@
 {
-  "generatedAt": "2026-10-31T06:42:03.200Z",
+  "generatedAt": "2026-10-31T13:20:01.610Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "spycloud-intelstealers-ai-tokens",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "SpyCloud: commodity stealers now take Claude Code and Codex tokens",
+      "org": "SpyCloud",
+      "date": "2026-10-30",
+      "url": "https://spycloud.com/blog/infostealers-now-target-ai-tokens-and-api-keys/",
+      "summary": "Commodity infostealers have added modules that collect OAuth tokens, API keys and session files from local AI coding tools, SpyCloud reports. It has ingested more than 130,000 unique WardenStealer infections since August 3, 2026.",
+      "severity": "medium",
+      "tags": [
+        "credential-theft",
+        "coding-agents",
+        "threat-intel",
+        "mcp",
+        "claude-code",
+        "cursor"
+      ],
+      "affected": [
+        "Claude Code",
+        "OpenAI Codex",
+        "Cursor",
+        "GitHub Copilot",
+        "Claude Desktop",
+        "ChatGPT Desktop"
+      ],
+      "credits": [
+        {
+          "name": "Trevor Hilligoss",
+          "org": "SpyCloud Labs"
+        }
+      ],
+      "explainer": {
+        "tagline": "WardenStealer and Aoki collect the OAuth tokens and configuration files that Claude Code, Codex, Cursor and Copilot keep on disk.",
+        "whatHappened": "Trevor Hilligoss of SpyCloud Labs published an analysis of stealer logs on October 30, 2026. He reports that WardenStealer, a Rust infostealer sold as a service on the Russian-language Exploit and XSS forums, added AI-agent collection to its standard build in version 1.9, announced September 29, 2026. SpyCloud first saw the family on August 3, 2026 and has since ingested more than 130,000 unique infections attributed to it.",
+        "howItWorks": "The stealers copy files rather than break anything. In WardenStealer logs SpyCloud found the Claude Code OAuth credentials file, which holds access and refresh tokens together with tokens for connected MCP servers, the Claude Code account configuration file, a CLAUDE.md instruction file, and the Codex CLI authentication file carrying an OpenAI API key. Aoki, a Go-compiled stealer, sorts its output into top-level folders and keeps an AISessions folder with per-tool subfolders, including Netscape-format cookie files for the desktop Claude and ChatGPT builds.",
+        "whoIsAffected": "Developer machines on Windows running Claude Code, OpenAI Codex, Cursor, GitHub Copilot or the Claude and ChatGPT desktop apps are in scope. SpyCloud says the pattern is not limited to one family: Gen Digital has documented AI-agent collection in Remus and Amatera, and tracks WardenStealer as the malware it previously called CallbackBeaver. Symantec published the first vendor analysis of Aoki on October 15, 2026 and tied it to no known group.",
+        "whatToDo": "Treat AI tool credentials as in scope for every infostealer investigation on a developer machine. Rotate exposed API keys and OAuth tokens, then revoke active sessions, because stolen tokens and cookies survive a password reset and an MFA prompt. Watch the affected accounts for unusual API usage."
+      },
+      "quickFacts": [
+        {
+          "label": "Families",
+          "value": "WardenStealer, written in Rust, and Aoki, compiled in Go: both Windows"
+        },
+        {
+          "label": "First seen",
+          "value": "WardenStealer August 3, 2026; Aoki October 4, 2026, in SpyCloud data"
+        },
+        {
+          "label": "Infections",
+          "value": "More than 130,000 unique WardenStealer infections ingested"
+        },
+        {
+          "label": "AI module added",
+          "value": "WardenStealer version 1.9, announced September 29, 2026"
+        },
+        {
+          "label": "Artifacts taken",
+          "value": "OAuth and refresh tokens, API keys, session cookies, MCP server tokens, CLAUDE.md"
+        },
+        {
+          "label": "Resale price",
+          "value": "A one-month Codex API key with $100 of credit sold for $8.94"
+        },
+        {
+          "label": "Status",
+          "value": "Active: SpyCloud cannot confirm every listing came from stealer logs"
+        }
+      ],
+      "links": [
+        {
+          "label": "SpyCloud Labs Analysis",
+          "url": "https://spycloud.com/blog/infostealers-now-target-ai-tokens-and-api-keys/"
+        },
+        {
+          "label": "Symantec Aoki Analysis",
+          "url": "https://www.security.com/threat-intelligence/aoki-infostealer-ai-targeting"
+        },
+        {
+          "label": "Check Point Teardown",
+          "url": "https://research.checkpoint.com/2026/infostealer-riding-the-ai-train/"
+        }
+      ],
+      "image": {
+        "url": "https://spycloud.com/wp-content/uploads/2026/10/blog-featured-spycloud-labs-legacy-stealers.jpg",
+        "alt": "SpyCloud: commodity stealers now take Claude Code and Codex tokens",
+        "credit": "SpyCloud"
+      },
+      "publishDate": "2026-10-31T13:20:01.610Z"
+    },
+    {
+      "id": "crowdstrike-vapor-panda-artex",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "VAPOR PANDA: one ARTEX controller ran an 11-day espionage campaign",
+      "org": "CrowdStrike",
+      "date": "2026-10-29",
+      "url": "https://www.crowdstrike.com/en-us/blog/vapor-panda-uses-artex-to-scale-global-campaign/",
+      "summary": "VAPOR PANDA, a China-linked espionage actor, used the agentic ARTEX framework against more than 200 organizations in at least 14 countries in an 11-day window, CrowdStrike reports. Post-exploitation was confirmed at nine of them.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "artex",
+        "deepseek",
+        "vapor-panda"
+      ],
+      "affected": [
+        "ARTEX",
+        "DeepSeek"
+      ],
+      "credits": [
+        {
+          "name": "Counter Adversary Operations",
+          "org": "CrowdStrike"
+        }
+      ],
+      "explainer": {
+        "tagline": "VAPOR PANDA ran a global espionage campaign through ARTEX, an agentic framework that planned intrusions with light human steering.",
+        "whatHappened": "CrowdStrike's Counter Adversary Operations team published its analysis of VAPOR PANDA on October 29, 2026. The China-linked actor began the campaign on October 17, 2026 and reached entities in at least 14 countries from a single ARTEX controller. CrowdStrike says this activity is separate from the ARTEX campaigns that industry reports track under the Storm-0940 designation.",
+        "howItWorks": "ARTEX pairs a main agent with planner and worker agents that share a graph of facts, findings and goals. The agents pursued several routes at once across web applications, cloud accounts, containers, Active Directory and mail and VPN infrastructure, and changed route when one failed. A Chinese-speaking operator stepped in at decision points, for example to order web shell writes or the extraction of domain administrator passwords. CrowdStrike says the planning agents consumed on the order of 1.4 billion input tokens in one intrusion.",
+        "whoIsAffected": "Targets named by CrowdStrike include foreign ministries in Latin America, Europe, Asia and the Middle East, a European presidency and prime minister's office, and telecommunications providers in the United States, Belgium and the Philippines. One engagement targeted 19 United States organizations across semiconductors, defense, pharmaceuticals, nuclear, think tanks and finance.",
+        "whatToDo": "Hunt for the ARTEX markers CrowdStrike lists: command lines containing artx or artex, cloud roles with an artx prefix, administration-command comments beginning art18-, and the C:\\ProgramData\\artx5v\\ directory. Rotate signing keys, preauthentication keys and service credentials after suspected exposure, including copies held in backups and directory exports. Extend EDR coverage to servers that are not reachable from the internet, because at one pharmaceutical target the operator told the agents to look for hosts without a sensor."
+      },
+      "quickFacts": [
+        {
+          "label": "Actor",
+          "value": "VAPOR PANDA, China-linked, per CrowdStrike"
+        },
+        {
+          "label": "Framework",
+          "value": "ARTEX: a main agent directing planner and worker agents"
+        },
+        {
+          "label": "Models",
+          "value": "DeepSeek, plus a second commercial model CrowdStrike could not confirm"
+        },
+        {
+          "label": "Window",
+          "value": "11 days, from October 17, 2026"
+        },
+        {
+          "label": "Reach",
+          "value": "More than 200 organizations in at least 14 countries"
+        },
+        {
+          "label": "Confirmed intrusions",
+          "value": "Nine organizations, with 12 more hit by password spraying and credential scanning"
+        },
+        {
+          "label": "Malware",
+          "value": "BLOODALCHEMY, loaded by a renamed GameHook binary"
+        }
+      ],
+      "links": [
+        {
+          "label": "CrowdStrike Report",
+          "url": "https://www.crowdstrike.com/en-us/blog/vapor-panda-uses-artex-to-scale-global-campaign/"
+        },
+        {
+          "label": "Earlier ARTEX Campaigns",
+          "url": "https://www.crowdstrike.com/en-us/blog/crowdstrike-uncovers-new-agentic-ai-campaigns/"
+        }
+      ],
+      "publishDate": "2026-10-31T13:20:01.610Z"
+    },
+    {
+      "id": "crowdstrike-guardrail-vulnerability-discovery",
+      "categories": [
+        "research"
+      ],
+      "title": "CrowdStrike: a model's refusal to explain code points at the bug",
+      "org": "CrowdStrike",
+      "date": "2026-10-28",
+      "url": "https://www.crowdstrike.com/en-us/blog/when-ai-guardrails-expose-vulnerabilities/",
+      "summary": "A frontier model's refusal to explain a function can mark that function as vulnerable, CrowdStrike researchers report. Their guardrail-based method was correct in 73 of 86 test scenarios across five vulnerability classes.",
+      "severity": "info",
+      "tags": [
+        "guardrails",
+        "cyber-capability",
+        "red-team"
+      ],
+      "credits": [
+        {
+          "name": "Jonathan Bar Or",
+          "org": "CrowdStrike"
+        },
+        {
+          "name": "D'Angelo Gonzalez",
+          "org": "CrowdStrike"
+        }
+      ],
+      "explainer": {
+        "tagline": "Guardrail-based Vulnerability Discovery treats a model's refusal to discuss code as a signal that the code is flawed.",
+        "whatHappened": "Jonathan Bar Or and D'Angelo Gonzalez of CrowdStrike published Guardrail-based Vulnerability Discovery, or GbVD, on October 28, 2026. They asked a frontier model to explain each function in a small C codebase. The model explained every function except one, which it declined to explain after a one-token change turned a max into a min and created an out-of-bounds write.",
+        "howItWorks": "GbVD reads guardrail activations as diagnostic output rather than as dead ends. A harness repeats each prompt and counts a refusal only when at least three of five runs refuse, which absorbs the model's nondeterminism. A clean-code baseline run first filters out refusals that fire on safe code, and bisection then narrows the trigger down to the smallest unit of code. The authors also count model downgrading, output filtering and interrupted reasoning as usable signals.",
+        "whoIsAffected": "The case studies cover two kinds of defect: a memory-safety bug in C, shown on the open-source project tinyhttp, and a privilege escalation misconfiguration, shown on a planted SUID-root binary in a filesystem tree. CrowdStrike does not name the frontier model it tested, and cautions that guardrail behavior will change as models are updated.",
+        "whatToDo": "Treat refusals, latency spikes, token count changes and aborted tool calls as findings, and build harnesses that record them instead of only the answer text. Run a clean baseline before trusting any refusal, and expect attackers to read the same signal. CrowdStrike says findings in real open-source projects went through its coordinated vulnerability disclosure program."
+      },
+      "quickFacts": [
+        {
+          "label": "Method",
+          "value": "Guardrail-based Vulnerability Discovery (GbVD)"
+        },
+        {
+          "label": "Accuracy",
+          "value": "Correct in 73 of 86 test scenarios, per CrowdStrike"
+        },
+        {
+          "label": "Coverage",
+          "value": "Five vulnerability classes, which the post does not name"
+        },
+        {
+          "label": "Refusal threshold",
+          "value": "At least 3 of 5 repeated runs must refuse"
+        },
+        {
+          "label": "Case studies",
+          "value": "An out-of-bounds write in tinyhttp; a planted SUID-root binary"
+        },
+        {
+          "label": "Model tested",
+          "value": "An unnamed frontier model"
+        }
+      ],
+      "links": [
+        {
+          "label": "CrowdStrike Research",
+          "url": "https://www.crowdstrike.com/en-us/blog/when-ai-guardrails-expose-vulnerabilities/"
+        },
+        {
+          "label": "LLM Classifier Bypasses",
+          "url": "https://www.crowdstrike.com/en-us/blog/how-attackers-can-bypass-llm-safety-classifiers/"
+        },
+        {
+          "label": "tinyhttp Repository",
+          "url": "https://github.com/mendsley/tinyhttp/"
+        }
+      ],
+      "publishDate": "2026-10-31T13:20:01.610Z"
+    },
     {
       "id": "wiz-black-october-ai-platforms",
       "categories": [
@@ -838,7 +1084,7 @@
       "org": "Cursor",
       "date": "2026-10-29",
       "url": "https://cursor.com/blog/claude-code-extension-security-notice",
-      "summary": "Cursor served a tampered build of the Anthropic.claude-code extension, version 2.1.313, from its own extension marketplace for part of October 29, 2026. Cursor says at most 5,000 users were affected.",
+      "summary": "Cursor served tampered builds of the Anthropic.claude-code extension, versions 2.1.312 and 2.1.313, from its own extension marketplace for part of October 29, 2026. Cursor said at most 5,000 users were affected.",
       "severity": "high",
       "tags": [
         "malicious-package",
@@ -863,15 +1109,15 @@
       ],
       "explainer": {
         "tagline": "A tampered Claude Code extension served by Cursor's own marketplace installed a persistent SSH backdoor on developer machines.",
-        "whatHappened": "Cursor published a security notice on October 29, 2026 about a malicious build of the Anthropic.claude-code extension, version 2.1.313, served from the Cursor extension marketplace. Cursor says the build was available from about 2:27am to 1:35pm Pacific time that day and was not developed by Anthropic. Socket reports that the first analysis came from Paul McCarty at OpenSourceMalware, and that Cursor later confirmed its own marketplace was the distribution channel.",
-        "howItWorks": "The malicious version shipped a modified extension.js inside the darwin-arm64 and win32-x64 folders of the 2.1.313 package. On execution it collected host and account details, including hostname, username, operating system, home directory, configured Git email and public IP. The code then tried to append an attacker-controlled SSH key to authorized_keys, enable the local SSH service and open a reverse SSH tunnel to the attacker's host. Cursor says the tunnel step usually failed because it needs administrator rights, but the key and the persistence were still installed.",
-        "whoIsAffected": "Developers who installed or updated the Claude Code extension through the Cursor extension marketplace during the October 29 window are exposed, on macOS and Windows. Cursor puts the number at no more than 5,000 users and says it audited marketplace access and found no other extension had been tampered with. Cursor states it has no evidence that other versions of the extension or Anthropic's official distribution are affected.",
+        "whatHappened": "Cursor published a security notice on October 29, 2026 about malicious builds of the Anthropic.claude-code extension served from the Cursor extension marketplace. Cursor says the builds were available from about 2:27am to 1:35pm Pacific time that day and were not developed by Anthropic. Socket reports that the first analysis came from Paul McCarty at OpenSourceMalware, and that Cursor later confirmed its own marketplace was the distribution channel.",
+        "howItWorks": "The malicious version shipped a modified extension.js inside the darwin-arm64 and win32-x64 folders of the package. On execution it collected host and account details, including hostname, username, operating system, home directory, configured Git email and public IP. The code then tried to append an attacker-controlled SSH key to authorized_keys, enable the local SSH service and open a reverse SSH tunnel to the attacker's host. Cursor says the tunnel step usually failed because it needs administrator rights, but the key and the persistence were still installed.",
+        "whoIsAffected": "Developers who installed or updated the Claude Code extension through the Cursor extension marketplace during the October 29 window are exposed, on macOS and Windows. Cursor's notice now names two affected builds, 2.1.312 and 2.1.313, after listing only 2.1.313 when it was first published. Cursor states it has no evidence that other versions of the extension or Anthropic's official distribution are affected.",
         "whatToDo": "Check affected machines for the indicators in Cursor's notice, starting with an SSH key commented svc-telemetry in authorized_keys, then run Cursor's remediation script for macOS or Windows. Isolate any host that shows the payload ran, and rotate credentials and sessions reachable from it from a trusted machine. Cursor warns that uninstalling the extension may not be enough and that the host may need to be rebuilt."
       },
       "quickFacts": [
         {
           "label": "Affected",
-          "value": "Anthropic.claude-code 2.1.313, served from the Cursor extension marketplace"
+          "value": "Anthropic.claude-code 2.1.312 and 2.1.313, served from the Cursor extension marketplace"
         },
         {
           "label": "Window",
@@ -895,7 +1141,7 @@
         },
         {
           "label": "Status",
-          "value": "Version removed, marketplace keys rotated and rebuilt, attacker server taken offline, per Cursor"
+          "value": "Versions removed, marketplace keys rotated and rebuilt, attacker server offline; indicators updated October 30, per Cursor"
         },
         {
           "label": "Found by",

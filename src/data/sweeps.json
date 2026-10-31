@@ -13853,6 +13853,103 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261031t132001z",
+      "timestamp": "2026-10-31T13:20:01.610Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Searched vendor and lab advisories, GitHub Security Advisories, research blogs, arXiv, GitHub repo and trending scans, YouTube talk scan, OWASP, AISI, Hacker News and r/netsec for the 7 days to 2026-10-31. Added three items: CrowdStrike's VAPOR PANDA ARTEX espionage campaign, CrowdStrike's guardrail-based vulnerability discovery research, and SpyCloud's analysis of infostealers taking AI coding tool tokens; plus one update adding Cursor's second affected extension build.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "crowdstrike-vapor-panda-artex",
+          "title": "VAPOR PANDA: one ARTEX controller ran an 11-day espionage campaign",
+          "category": "incident",
+          "severity": "info",
+          "note": "A distinct actor and campaign: CrowdStrike states this ARTEX activity is separate from the Storm-0940 reporting already in the feed, and it adds hunting markers and IOCs defenders can use."
+        },
+        {
+          "id": "crowdstrike-guardrail-vulnerability-discovery",
+          "title": "CrowdStrike: a model's refusal to explain code points at the bug",
+          "category": "research",
+          "severity": "info",
+          "note": "Original research with a measured result (73 of 86 scenarios) on a new signal: using model refusals as a vulnerability oracle. Nothing in the feed covers guardrail activations as a discovery channel."
+        },
+        {
+          "id": "spycloud-intelstealers-ai-tokens",
+          "title": "SpyCloud: commodity stealers now take Claude Code and Codex tokens",
+          "category": "incident",
+          "severity": "medium",
+          "note": "First item in the feed on commodity malware collecting AI coding tool credentials, with named families, counts, and a concrete rotate-and-revoke action for developers."
+        }
+      ],
+      "updated": [
+        {
+          "id": "cursor-claude-code-extension-backdoor",
+          "title": "Cursor: a backdoored Claude Code extension opened SSH tunnels",
+          "note": "Cursor's notice now lists 2.1.312 as affected alongside 2.1.313, and updated its indicators on October 30; defenders checking only 2.1.313 would miss a build."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "CrowdStrike blog",
+        "SpyCloud Labs",
+        "GitHub Security Advisories",
+        "GitHub Advisory API",
+        "Anthropic news",
+        "Anthropic Frontier Red Team",
+        "AIR Security blog",
+        "Zenity Labs",
+        "Socket blog",
+        "Wiz blog",
+        "Unit 42",
+        "Trail of Bits blog",
+        "JFrog Security Research",
+        "HiddenLayer",
+        "Check Point Research",
+        "Symantec Threat Hunter Team",
+        "Embrace The Red",
+        "Simon Willison",
+        "Lakera blog",
+        "NCC Group research",
+        "Invariant Labs",
+        "ReversingLabs blog",
+        "Phorion",
+        "Cursor security notices",
+        "MSRC blog",
+        "Hugging Face blog",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "NVD",
+        "cve.org",
+        "WPScan",
+        "WordPress plugin changelogs",
+        "arXiv (paper-scan, 50 candidates)",
+        "Hugging Face Daily Papers",
+        "repo-scan.json (13 queries, 8 candidates)",
+        "github.com/trending (daily and weekly)",
+        "gh-repo-meta.ts",
+        "talk-scan.ts (33 videos)",
+        "Hacker News front page, Show HN and newest",
+        "r/netsec"
+      ],
+      "windowDays": 7
     }
   ]
 }
