@@ -13774,6 +13774,85 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261031t064203z",
+      "timestamp": "2026-10-31T06:42:03.200Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, VulnCheck, Anthropic, OpenAI alignment, MSRC, Google security blog, AIR, Embrace The Red, Zenity, Pillar, HiddenLayer, Wiz, Trail of Bits, JFrog, Check Point, Lakera, Hugging Face blog and guard models, OWASP GenAI, UK AISI, Hacker News front page and Show HN, github.com/trending, paper-scan (51 arXiv papers, one with two scanned signals), repo-scan (7 candidates) and talk-scan (21 channels, no uploads in window). Added Wiz's Black October platform-breach report, OpenAI's misalignment monitoring stack and the FlipJev decision-model attack. Most late-October advisory entries were database backfill again: the MCP Python SDK trio (published Oct 5, fixed Sep 7), mcp-sanitizer and pdf-reader-mcp (both Jun 25) and DBHub CVE-2026-61789 (Jun 24) all disclosed before the window.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "wiz-black-october-ai-platforms",
+          "title": "Black October: nine AI developer platforms disclosed credential breaches",
+          "category": "incident",
+          "severity": "medium",
+          "note": "Nine AI platform credential breaches in one month, with Wiz's own measured Bedrock abuse volumes and IOCs; no existing item covers Railway, Warp, Zeabur, Lightning AI, Northflank, Andromeda or CommandCode."
+        },
+        {
+          "id": "openai-frontier-misalignment-monitoring",
+          "title": "OpenAI: four layers of monitors watch every frontier RL run",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "First description of OpenAI's four-layer misalignment monitoring with published recall figures per monitor model, distinct from the October 20 incident report already in the feed."
+        },
+        {
+          "id": "arxiv-flipjev",
+          "title": "FlipJev: short suffixes flip a commercial decision model's answers",
+          "category": "research",
+          "severity": "medium",
+          "note": "Two paper signals checked in this run: working code at SaFo-Lab/FlipJev with install and usage steps, and a named commercial model attacked through its public API. Distinct from arxiv-decisionrobust: the authors report prompt injection failed on Jev and that adversarial suffixes succeeded instead."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "vulncheck.com/advisories",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "microsoft.com/en-us/msrc/blog",
+        "blog.google/security",
+        "air.security/blog",
+        "embracethered.com/blog",
+        "labs.zenity.io",
+        "pillar.security/blog",
+        "hiddenlayer.com/innovation-hub",
+        "wiz.io/blog",
+        "blog.trailofbits.com",
+        "research.jfrog.com",
+        "research.checkpoint.com",
+        "lakera.ai/blog",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "blog.railway.com",
+        "labs.cloudsecurityalliance.org",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "arXiv via paper-scan.ts",
+        "repo-scan.json",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
