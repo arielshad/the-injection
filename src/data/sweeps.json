@@ -13699,6 +13699,81 @@
         "phorion.io"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261031t002144z",
+      "timestamp": "2026-10-31T00:21:44.824Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, NVD, VulnCheck, IBM PSIRT, Anthropic, Wiz, Unit 42, Zenity Labs, Socket, Embrace The Red, AIR Security, Hugging Face, OWASP GenAI, Hacker News, repo-scan (6 candidates), github.com/trending, paper-scan (51 papers, 10 with a scanned signal) and talk-scan (37 videos). Added three disclosures: the LM Studio model downloader traversal, IBM's four Langflow CVEs and the Flowise custom function sandbox escape. Patched the LiteLLM item with Socket's earlier-access timeline.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "vulncheck-lm-studio-model-downloader-traversal",
+          "title": "LM Studio: a crafted model repository writes files outside the models folder",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "A crafted model repository reaches persistent code execution on a widely used local model runner, credited to a named researcher, with a fix users must install."
+        },
+        {
+          "id": "ibm-langflow-1-13-0-four-cves",
+          "title": "Langflow: four flaws, two scored 9.8, fixed in 1.13.0",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Four CVEs in a product with confirmed in-the-wild exploitation history, two needing no account, with IBM stating no workarounds exist."
+        },
+        {
+          "id": "vulncheck-flowise-custom-function-sandbox-escape",
+          "title": "Flowise: a custom function escapes the sandbox and runs OS commands",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A second escape from the same Flowise custom function sandbox, affecting versions past the 3.1.3 fix, with no fixed release listed."
+        }
+      ],
+      "updated": [
+        {
+          "id": "socket-litellm-1-107-0-compromise",
+          "title": "LiteLLM 1.107.0: backdoored wheels steal cloud and AI keys",
+          "note": "Socket's timeline analysis dates attacker access in the repository to October 10 and 12, eleven days before the malicious release, and names the 20 secrets the planted workflows referenced. That moves the credential rotation window back."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "VulnCheck advisories",
+        "IBM PSIRT security bulletins",
+        "anthropic.com/news",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "labs.zenity.io",
+        "socket.dev/blog",
+        "embracethered.com",
+        "air.security/blog",
+        "huggingface.co/blog",
+        "genai.owasp.org",
+        "Hacker News front page",
+        "repo-scan.json",
+        "github.com/trending",
+        "arXiv via paper-scan",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }

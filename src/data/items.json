@@ -1,7 +1,281 @@
 {
-  "generatedAt": "2026-10-30T21:20:16.305Z",
+  "generatedAt": "2026-10-31T00:21:44.824Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "vulncheck-lm-studio-model-downloader-traversal",
+      "categories": [
+        "vulnerability",
+        "supply-chain"
+      ],
+      "title": "LM Studio: a crafted model repository writes files outside the models folder",
+      "org": "VulnCheck",
+      "date": "2026-10-30",
+      "url": "https://www.vulncheck.com/advisories/lm-studio-before-0.4.22-1-path-traversal-via-model-downloader",
+      "summary": "LM Studio before 0.4.22+1 lets a crafted model repository write files outside the models directory, planting configuration that runs an attacker's Python payload on every launch. Ariel Fogel of Pillar Security found it.",
+      "severity": "high",
+      "tags": [
+        "model-supply-chain",
+        "rce",
+        "lm-studio"
+      ],
+      "affected": [
+        "LM Studio"
+      ],
+      "cve": "CVE-2026-119979",
+      "cvss": 8.7,
+      "credits": [
+        {
+          "name": "Ariel Fogel",
+          "org": "Pillar Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "LM Studio before 0.4.22+1 turns one downloaded model repository into persistent code execution on the host.",
+        "whatHappened": "VulnCheck published CVE-2026-119979 on October 30, 2026, as the CNA for a path traversal flaw in LM Studio's model downloader. Ariel Fogel of Pillar Security is credited with the finding. VulnCheck states the affected range as every build before 0.4.22+1.",
+        "howItWorks": "The downloader's resolveDownloadRequest function does not keep writes inside the models directory when a filename contains backslash-separated traversal sequences, so a repository can place files anywhere the app can write. VulnCheck describes a crafted model repository that plants a plugin manifest.json, an install-state.json and an mcp-bridge-config.json. Together those files make LM Studio execute an attacker-supplied Python payload each time it starts.",
+        "whoIsAffected": "Every LM Studio installation on a build earlier than 0.4.22+1 is exposed. Exploitation needs the user to download the attacker's model repository: VulnCheck's CVSS 4.0 vector records passive user interaction and no privileges.",
+        "whatToDo": "Upgrade LM Studio to 0.4.22+1, the first build outside the range VulnCheck lists as affected. Until that upgrade is in place, treat model repositories from publishers you do not know as untrusted, because downloading one is the only action the attack requires."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "LM Studio >= 0, < 0.4.22+1, per VulnCheck"
+        },
+        {
+          "label": "Fixed in",
+          "value": "0.4.22+1"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-119979"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.7 CVSS 4.0, and 8.8 CVSS 3.1, both published by VulnCheck"
+        },
+        {
+          "label": "Attack type",
+          "value": "Path traversal in the model downloader via backslash-separated filenames"
+        },
+        {
+          "label": "Persistence",
+          "value": "Plugin manifest.json, install-state.json and mcp-bridge-config.json run a Python payload at every launch"
+        },
+        {
+          "label": "Found by",
+          "value": "Ariel Fogel, Pillar Security"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 30, 2026, by VulnCheck"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which LM Studio versions are affected by CVE-2026-119979?",
+          "a": "LM Studio builds before 0.4.22+1 are affected. VulnCheck's advisory states the range as greater than or equal to 0 and less than 0.4.22+1, so every earlier release carries the model downloader flaw. The advisory lists no partial mitigation and no configuration that removes the exposure, which leaves upgrading as the only remedy it supports."
+        },
+        {
+          "q": "How does an attacker reach an LM Studio user with this flaw?",
+          "a": "The attack begins when a user downloads a crafted model repository, which VulnCheck describes as the required step. Backslash-separated traversal sequences in that repository's filenames then push file writes outside the models directory. VulnCheck's CVSS 4.0 vector records passive user interaction and no privileges, so the victim takes one normal action, fetching a model, and nothing more."
+        },
+        {
+          "q": "What makes this more serious than an ordinary path traversal bug?",
+          "a": "Writing outside the models directory lets the crafted repository plant a plugin manifest.json, an install-state.json and an mcp-bridge-config.json, according to VulnCheck. Those files make LM Studio run an attacker-supplied Python payload at every launch. One download therefore becomes persistent code execution on the host, rather than a single stray file write."
+        },
+        {
+          "q": "Does the LM Studio 0.4.22 changelog mention this security fix?",
+          "a": "No. The LM Studio 0.4.22 changelog lists Linux startup fixes, new assistant drafters and image support for tool results, and names no path traversal or model downloader fix. VulnCheck's advisory is what ties the fix to build 0.4.22+1, and its references point at that same changelog page. Defenders tracking this CVE should follow the advisory."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/lm-studio-before-0.4.22-1-path-traversal-via-model-downloader"
+        },
+        {
+          "label": "LM Studio 0.4.22 Notes",
+          "url": "https://lmstudio.ai/changelog/lmstudio/lmstudio-v0.4.22"
+        }
+      ],
+      "publishDate": "2026-10-31T00:21:44.824Z"
+    },
+    {
+      "id": "vulncheck-flowise-custom-function-sandbox-escape",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Flowise: a custom function escapes the sandbox and runs OS commands",
+      "org": "VulnCheck",
+      "date": "2026-10-30",
+      "url": "https://www.vulncheck.com/advisories/flowise-through-3.1.4-custom-function-sandbox-escape-rce-via-localfilestore",
+      "summary": "Flowise through 3.1.4 lets an authenticated user escape the vm2 sandbox and run OS commands, by writing a file into the allowlisted mammoth package and requiring it. Exploitation needs ALLOW_BUILTIN_DEP set to true, and no fix is listed.",
+      "severity": "medium",
+      "tags": [
+        "sandbox-escape",
+        "rce",
+        "flowise"
+      ],
+      "affected": [
+        "Flowise"
+      ],
+      "cve": "CVE-2026-119978",
+      "cvss": 9,
+      "credits": [
+        {
+          "name": "soovwv"
+        }
+      ],
+      "explainer": {
+        "tagline": "Flowise through 3.1.4 lets a logged-in user break out of the custom function sandbox and run commands on the server.",
+        "whatHappened": "VulnCheck published CVE-2026-119978 on October 30, 2026, crediting the reporter soovwv. The advisory covers Flowise releases up to and including 3.1.4 and lists no fixed version. It follows an earlier escape in the same custom function feature, CVE-2026-73483, which Flowise fixed in 3.1.3.",
+        "howItWorks": "The escape abuses two modules Flowise allowlists, langchain and mammoth. An authenticated caller submits JavaScript to the /api/v1/node-custom-function endpoint that uses LocalFileStore to write a file into the mammoth package directory, then requires that file. Loading attacker-written code through an allowlisted module takes execution outside the vm2 sandbox, where commands run as the Flowise process user.",
+        "whoIsAffected": "Flowise deployments on 3.1.4 or earlier are exposed when ALLOW_BUILTIN_DEP is set to true and an attacker holds an account that can reach the custom function endpoint. VulnCheck does not say what that setting defaults to, and names no release that resolves the flaw.",
+        "whatToDo": "Check whether ALLOW_BUILTIN_DEP is enabled on your Flowise instances and turn it off where the built-in dependency feature is not needed, since the advisory makes that setting a precondition. Limit which accounts can reach /api/v1/node-custom-function while no fixed release is listed."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Flowise <= 3.1.4, per VulnCheck"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed version listed"
+        },
+        {
+          "label": "Preconditions",
+          "value": "An authenticated account reaching /api/v1/node-custom-function, and ALLOW_BUILTIN_DEP=true"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-119978"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.0 CVSS 4.0, and 8.5 CVSS 3.1, both published by VulnCheck"
+        },
+        {
+          "label": "Earlier escape",
+          "value": "CVE-2026-73483 abused puppeteer.launch and was fixed in 3.1.3"
+        },
+        {
+          "label": "Found by",
+          "value": "soovwv, per VulnCheck"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/flowise-through-3.1.4-custom-function-sandbox-escape-rce-via-localfilestore"
+        },
+        {
+          "label": "Earlier Flowise Escape",
+          "url": "https://github.com/advisories/GHSA-9gvv-qjj3-2p6g"
+        },
+        {
+          "label": "Vulnerable Code",
+          "url": "https://github.com/FlowiseAI/Flowise/blob/a65f81bb43ef66d3ce734bf0dff4223ae8041c95/packages/components/src/utils.ts"
+        }
+      ],
+      "publishDate": "2026-10-31T00:21:44.824Z"
+    },
+    {
+      "id": "ibm-langflow-1-13-0-four-cves",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Langflow: four flaws, two scored 9.8, fixed in 1.13.0",
+      "org": "IBM",
+      "date": "2026-10-28",
+      "url": "https://www.ibm.com/support/pages/node/7294467",
+      "summary": "IBM's October 28 bulletin discloses four Langflow OSS flaws fixed in 1.13.0, two of them scored 9.8: an unauthenticated code execution and an authentication bypass. Versions 1.0.0 through 1.12.8 are affected, with no workarounds.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "privilege-escalation",
+        "agent-security",
+        "langflow",
+        "ibm"
+      ],
+      "affected": [
+        "Langflow"
+      ],
+      "cve": "CVE-2026-110186",
+      "cvss": 9.8,
+      "credits": [
+        {
+          "name": "IBM PSIRT",
+          "org": "IBM"
+        }
+      ],
+      "explainer": {
+        "tagline": "Langflow 1.0.0 through 1.12.8 carry four flaws that IBM says have no workaround, including unauthenticated code execution.",
+        "whatHappened": "IBM published a security bulletin for Langflow OSS on October 28, 2026 and updated it the next day, naming four flaws in versions 1.0.0 through 1.12.8. Langflow had already shipped the fixes in release 1.13.0 on October 22, whose notes mention disabling automatic login by default and blocking unsafe module reexports in assistant code scanning, without CVE ids. IBM's bulletin supplies the ids and the scores.",
+        "howItWorks": "Two of the four flaws need no account. CVE-2026-110186 is an improper control of code generation that IBM scores 9.8, and CVE-2026-93680 is an authentication bypass IBM describes as an incomplete fix for an auto-login control, also 9.8. The other two need a low-privileged account: CVE-2026-110193 lets the Agentic Assistant generate or submit component code using patterns that were not blocked, reaching OS command execution on the server, and CVE-2026-110192 exposes operator-injected API keys.",
+        "whoIsAffected": "Langflow OSS 1.0.0 through 1.12.8 on Windows, Linux and macOS are affected. IBM states that no workarounds or mitigations are available, so an instance stays exposed until it is upgraded. The bulletin also lists three Hono dependency flaws, fixed in Hono 4.13.5.",
+        "whatToDo": "Upgrade to Langflow OSS 1.13.0, which IBM strongly recommends and offers as the only remedy, using pip install --upgrade \"langflow==1.13.0\" or the langflowai/langflow:1.13.0 image. IBM says to back up the database, secret key and uploaded files first, and to prepare existing accounts for password sign-in if the instance used automatic login."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Langflow OSS 1.0.0 through 1.12.8, on Windows, Linux and macOS"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Langflow OSS 1.13.0, released October 22, 2026"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-110186 (9.8), CVE-2026-93680 (9.8), CVE-2026-110193 (8.8), CVE-2026-110192 (6.5), scores from IBM"
+        },
+        {
+          "label": "Workarounds",
+          "value": "None available, per IBM"
+        },
+        {
+          "label": "Dependency",
+          "value": "Three Hono flaws, fixed in Hono 4.13.5"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 28, 2026, updated October 29"
+        },
+        {
+          "label": "Found by",
+          "value": "Not named: IBM's acknowledgement section is blank"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Langflow versions are affected and which release fixes them?",
+          "a": "IBM's bulletin lists Langflow OSS 1.0.0 through 1.12.8 on Windows, Linux and macOS as affected, and directs users to upgrade to 1.13.0. IBM states that no workarounds or mitigations are available for the four flaws. Langflow published the 1.13.0 release on October 22, 2026, six days before IBM's bulletin appeared."
+        },
+        {
+          "q": "Does an attacker need a Langflow account to exploit these flaws?",
+          "a": "Not for all four. IBM scores CVE-2026-110186, an improper control of code generation, at 9.8 with no privileges required, and CVE-2026-93680, an authentication bypass tied to an incomplete auto-login fix, also at 9.8 with no privileges required. The Agentic Assistant code injection CVE-2026-110193 and the credential exposure CVE-2026-110192 both need a low-privileged account."
+        },
+        {
+          "q": "How do these compare with the Langflow MCP flaw exploited in the wild?",
+          "a": "The earlier Langflow issue was an authenticated command execution flaw in the MCP stdio transport, which attackers were seen using against exposed instances. IBM's October bulletin covers four different flaws, two of which need no account at all and score 9.8. Because Langflow has already attracted in-the-wild exploitation, upgrading exposed instances to 1.13.0 is the priority."
+        },
+        {
+          "q": "Who is credited with finding the Langflow flaws?",
+          "a": "Nobody is named. The acknowledgement section of IBM's security bulletin is blank, and the Langflow repository carries no GitHub Security Advisory for these four CVEs. IBM's Product Security Incident Response Team supplied the CVSS 3.1 scores that NVD records for them, which makes IBM's own security team the only identifiable party behind the disclosure."
+        }
+      ],
+      "links": [
+        {
+          "label": "IBM Security Bulletin",
+          "url": "https://www.ibm.com/support/pages/node/7294467"
+        },
+        {
+          "label": "Langflow 1.13.0 Release",
+          "url": "https://github.com/langflow-ai/langflow/releases/tag/v1.13.0"
+        }
+      ],
+      "publishDate": "2026-10-31T00:21:44.824Z"
+    },
     {
       "id": "snyk-vulnbench-2-sast-vs-ai-agents",
       "categories": [
@@ -8086,6 +8360,14 @@
         {
           "label": "Status",
           "value": "Quarantined by PyPI admins on October 21, 2026"
+        },
+        {
+          "label": "Earliest access",
+          "value": "Secret-stealing workflows ran on October 10 and 12, 2026, eleven days before the release, per Socket"
+        },
+        {
+          "label": "Secrets referenced",
+          "value": "20 distinct names across the two workflows, including a GitHub token and App private key, per Socket"
         },
         {
           "label": "Payload",
