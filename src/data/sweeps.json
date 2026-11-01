@@ -14176,6 +14176,75 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261101t025415z",
+      "timestamp": "2026-11-01T02:54:15.729Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Anthropic news, MSRC, UK AISI, OWASP GenAI, Embrace The Red, AIR Security, Zenity Labs, Wiz, Cisco Talos, Socket, JFrog, Trail of Bits, Check Point, Hugging Face blog, arXiv and HF Daily Papers via paper-scan (48 papers in window, one with two scanned signals), repo-scan (8 candidates), GitHub trending daily and weekly, talk-scan and Hacker News. Added two items: Parameter's ChatGPT share-link account takeover and Cisco Talos on VOLTA-AUTODOXER, a stealer that asks a hosted model to appraise its victims. openai.com returned 403 and reddit.com would not load for me; several MCP advisories that reached the GitHub Advisory Database this week (mcp pip CVE-2026-116684 and CVE-2026-116685, the MCP TypeScript SDK request-limit advisory, mcp-sanitizer, @sylphx/pdf-reader-mcp) were first published between June 25 and October 15 and so fall outside the window.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "parameter-chatgpt-share-link-takeover",
+          "title": "ChatGPT: a shared chat link could run code and read private chats",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A full chain from a public share link to script execution under the chatgpt.com origin and private conversation reads, on the HN front page at 304 points, with a named researcher and a vendor-confirmed fix inside the window."
+        },
+        {
+          "id": "talos-volta-autodoxer-llm-appraisal",
+          "title": "VOLTA-AUTODOXER: a stealer asks an LLM which victims are worth most",
+          "category": "incident",
+          "severity": "medium",
+          "note": "First Talos write-up of a commodity stealer that outsources victim triage to a hosted model, with named models, hashes and concrete endpoint countermeasures, published October 31 and distinct from the SpyCloud item about stealers taking AI tokens."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "github.com/advisories (MCP query)",
+        "anthropic.com/news",
+        "microsoft.com/msrc/blog",
+        "aisi.gov.uk/work",
+        "genai.owasp.org/news",
+        "embracethered.com/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "wiz.io/blog",
+        "blog.talosintelligence.com",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "blog.trailofbits.com",
+        "research.checkpoint.com",
+        "huggingface.co/blog",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "repo-scan.json",
+        "gh-repo-meta.ts",
+        "github.com/trending (daily and weekly)",
+        "talk-scan.ts",
+        "Hacker News front page",
+        "Hacker News newest",
+        "simonwillison.net",
+        "parameter.ai/labs"
+      ],
+      "windowDays": 7
     }
   ]
 }

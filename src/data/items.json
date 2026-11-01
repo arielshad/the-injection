@@ -1,7 +1,198 @@
 {
-  "generatedAt": "2026-11-01T00:01:55.628Z",
+  "generatedAt": "2026-11-01T02:54:15.729Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "talos-volta-autodoxer-llm-appraisal",
+      "categories": [
+        "incident"
+      ],
+      "title": "VOLTA-AUTODOXER: a stealer asks an LLM which victims are worth most",
+      "org": "Cisco Talos",
+      "date": "2026-10-31",
+      "url": "https://blog.talosintelligence.com/appraisal-by-ai-model-driven-victim-prioritization-in-the-volta-infostealer/",
+      "summary": "VOLTA-AUTODOXER, a Windows infostealer tracked by Cisco Talos, sends the data it steals to a hosted language model that ranks the victim's assets by resale value and rates their password habits.",
+      "severity": "medium",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "openrouter"
+      ],
+      "affected": [
+        "Windows",
+        "Google Chrome",
+        "Crypto wallets",
+        "OpenRouter"
+      ],
+      "credits": [
+        {
+          "name": "Ryan Fetterman",
+          "org": "Cisco Talos",
+          "url": "https://blog.talosintelligence.com/author/ryan-fetterman/"
+        }
+      ],
+      "explainer": {
+        "tagline": "A Windows stealer now pays a language model to say which stolen accounts and wallets its operator should chase first.",
+        "whatHappened": "Cisco Talos published its analysis of VOLTA-AUTODOXER on October 31, 2026, written by researcher Ryan Fetterman. Talos first saw the sample, a self-deleting 64-bit Windows binary, on October 11, 2026. Six swappable template slots filled at build time point to a builder sold to customers rather than one operator's private tool.",
+        "howItWorks": "After harvesting credentials, sessions and crypto wallets, the stealer writes an Identity_Report.txt holding geolocation, employer, inferred birth year, partial card numbers and Roblox account value. The malware enriches that file by reusing stolen sessions, searching Gmail for purchase receipts to confirm a home address, reading food delivery order history and valuing Roblox inventory through a live lookup. The bundle then goes to OpenRouter under a system prompt casting the model as a forensic intelligence analyst drafting a target assessment, which must return a low, medium and high ranking of valuables plus a judgement on the victim's password hygiene and security posture. The reply is saved as AI_Analysis.txt and shipped out inside volta_dox.zip.",
+        "whoIsAffected": "Windows users who run the stealer are exposed, along with any account whose session cookie, password or wallet file sat on that machine. The App-Bound Encryption bypass path works by launching Chrome with the --headless flag, so Chrome profiles on an infected host are in scope. Talos reports that every endpoint the malware touches is a third-party service, with no attacker-owned infrastructure.",
+        "whatToDo": "Use application control to restrict which processes may launch Chrome with --headless, and alert when headless Chrome starts from an unexpected parent process. Keep credentials in hardware-backed stores. After a suspected infection, preserve the harvest log, revoke exposed tokens, change passwords, and move funds from any wallet whose seed phrase sat in plaintext to a new wallet generated on an air-gapped device."
+      },
+      "quickFacts": [
+        {
+          "label": "Attack type",
+          "value": "Infostealer with an LLM appraisal stage"
+        },
+        {
+          "label": "Default model",
+          "value": "anthropic/claude-opus-4.6 via OpenRouter"
+        },
+        {
+          "label": "Fallbacks",
+          "value": "moonshotai/kimi-k2, then google/gemini-2.5-flash"
+        },
+        {
+          "label": "Exfiltration",
+          "value": "volta_log.zip, volta_dox.zip, volta_doxnet.zip"
+        },
+        {
+          "label": "Sample first seen",
+          "value": "October 11, 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "Ryan Fetterman, Cisco Talos"
+        },
+        {
+          "label": "Sample SHA256",
+          "value": "57ef4242666d78c50df145b34023df564f0fad38812d6a580e66433d427e2279"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which model does the VOLTA infostealer use to profile victims?",
+          "a": "VOLTA-AUTODOXER calls OpenRouter and asks for anthropic/claude-opus-4.6 by default, at a temperature of 0.2 for consistent output. When a reply contains a refusal phrase, the malware moves down a fallback chain to moonshotai/kimi-k2 and then google/gemini-2.5-flash, up to three models in all. Talos reads that design as the author expecting refusals and planning around them."
+        },
+        {
+          "q": "How is VOLTA-AUTODOXER different from a normal credential stealer?",
+          "a": "Ranking is the difference. Ordinary stealers dump everything and leave triage to the operator, while VOLTA-AUTODOXER sends a structured evidence bundle to a language model that sorts the victim's valuables into low, medium and high tiers and assesses their security habits. Talos also documents enrichment before that call, such as searching a victim's Gmail for receipts to confirm a home address."
+        },
+        {
+          "q": "What should a defender check after a suspected VOLTA infection?",
+          "a": "Preserve the volta_debug.txt harvest log in the user's roaming application data folder, because Talos says the file records what the malware collected and whether the model call succeeded. Review which browser profiles existed on the host, revoke tokens and change passwords for every account with a stored session, and treat a wallet as compromised if its seed phrase was saved in plaintext."
+        }
+      ],
+      "links": [
+        {
+          "label": "Talos Analysis",
+          "url": "https://blog.talosintelligence.com/appraisal-by-ai-model-driven-victim-prioritization-in-the-volta-infostealer/"
+        },
+        {
+          "label": "CAIRN AI Malware Watch",
+          "url": "https://blog.talosintelligence.com/introducing-cairn-frontier-tracking-for-ai-integrated-malware/"
+        },
+        {
+          "label": "CLOSEDQUORUM Implant",
+          "url": "https://blog.talosintelligence.com/the-closed-quorum-inside-the-first-reported-autonomous-ai-c2-implant/"
+        }
+      ],
+      "image": {
+        "url": "https://storage.ghost.io/c/af/a0/afa04ee3-414f-4481-8d23-7e7c146f192e/content/images/size/w1200/2026/10/VOLTA.jpg",
+        "alt": "Title card for the Cisco Talos report on the VOLTA infostealer",
+        "credit": "Cisco Talos"
+      },
+      "publishDate": "2026-11-01T02:54:15.729Z"
+    },
+    {
+      "id": "parameter-chatgpt-share-link-takeover",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "ChatGPT: a shared chat link could run code and read private chats",
+      "org": "Parameter",
+      "date": "2026-10-28",
+      "url": "https://www.parameter.ai/labs/we-found-a-gap-at-openai",
+      "summary": "A public ChatGPT share link could run attacker JavaScript as chatgpt.com in any signed-in visitor's session and read their private conversations. OpenAI fixed both web frontends on October 26, nine days after Parameter reported it.",
+      "severity": "medium",
+      "tags": [
+        "data-exfiltration",
+        "credential-theft",
+        "openai",
+        "chatgpt"
+      ],
+      "affected": [
+        "ChatGPT"
+      ],
+      "credits": [
+        {
+          "name": "Mukul Goyal",
+          "org": "Parameter"
+        }
+      ],
+      "explainer": {
+        "tagline": "Opening one ChatGPT share link was enough to leak a visitor's private conversations, because a math keyboard trusted messages from any frame.",
+        "whatHappened": "Parameter published the chain on October 28, 2026, two days after OpenAI resolved it. Mukul Goyal and the Parameter research team reported the issue to OpenAI's bug bounty program on October 18, 2026. OpenAI reproduced it, raised the rating from P2 to P1 on October 21, and paid a 5,000 dollar bounty.",
+        "howItWorks": "The chain abuses a postMessage listener that MathLive, the math keyboard library loaded by ChatGPT's interactive graphs, installs in the main page. MathLive checked neither the sender's origin nor the source window, and its createHTML helper passed input straight to innerHTML, so a later HTML Preview could replace the keyboard layout with attacker markup. That markup created an iframe with srcdoc and no sandbox attribute, which inherited the chatgpt.com identity. ChatGPT's content security policy blocked inline scripts but allowed YouTube, so a YouTube oEmbed JSONP callback supplied the code execution.",
+        "whoIsAffected": "The flaw sat in the ChatGPT web frontend, in the interaction between public conversation sharing, HTML Preview and the MathLive virtual keyboard. Any signed-in ChatGPT web user who opened an attacker's share link was exposed, across both frontend versions OpenAI was running at the time.",
+        "whatToDo": "No user action is needed, because OpenAI fixed the issue server side on October 26, 2026 and both web frontends now reject the cross-frame MathLive messages. Teams that treat a shared ChatGPT link as harmless should note that the link ran inside the visitor's own authenticated session."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "ChatGPT web frontend"
+        },
+        {
+          "label": "Attack type",
+          "value": "Share link to script execution as chatgpt.com"
+        },
+        {
+          "label": "Found by",
+          "value": "Mukul Goyal, Parameter"
+        },
+        {
+          "label": "Reported",
+          "value": "October 18, 2026"
+        },
+        {
+          "label": "Fixed",
+          "value": "October 26, 2026, server side"
+        },
+        {
+          "label": "OpenAI rating",
+          "value": "P1, raised from P2"
+        },
+        {
+          "label": "Bounty",
+          "value": "5,000 dollars"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do I need to update anything to be safe from the ChatGPT share link flaw?",
+          "a": "No update is needed, because OpenAI fixed the flaw inside its own web frontends on October 26, 2026. Both frontend versions now reject the cross-frame MathLive messages the exploit depended on. ChatGPT runs as a hosted service, so the change reached every user at once. Parameter describes the content security policy tightening as defense in depth rather than the root fix."
+        },
+        {
+          "q": "What could an attacker read with the ChatGPT share link exploit?",
+          "a": "Parameter reports that the injected script read the session token from the page, called ChatGPT's conversation APIs, and pulled content from a private chat the attacker had never been given access to. A small piece of that data was then sent to an external server through an image request. Parameter summarises the outcome as taking over the victim's account."
+        },
+        {
+          "q": "Was the ChatGPT share link flaw a prompt injection?",
+          "a": "Prompt injection played no part in this chain. Parameter describes a conventional web flaw: a postMessage listener in the MathLive keyboard library accepted messages from any frame, and its output reached innerHTML without sanitising. Treating an AI product as a web application, and not only as a model, is what exposed the path to running code under the chatgpt.com origin."
+        }
+      ],
+      "links": [
+        {
+          "label": "Parameter Write-Up",
+          "url": "https://www.parameter.ai/labs/we-found-a-gap-at-openai"
+        },
+        {
+          "label": "The Hacker News",
+          "url": "https://thehackernews.com/2026/10/a-shared-chatgpt-link-could-run.html"
+        }
+      ],
+      "publishDate": "2026-11-01T02:54:15.729Z"
+    },
     {
       "id": "nvidia-tensorrt-llm-october-2026-cves",
       "categories": [
