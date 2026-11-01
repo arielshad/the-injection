@@ -14382,6 +14382,74 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261101t210057z",
+      "timestamp": "2026-11-01T21:00:57.882Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP, agent and LLM keyword feeds), NVD and VulnCheck, Anthropic, Google, MSRC, Wiz, CrowdStrike, Socket, JFrog, ReversingLabs, Check Point, VulnCheck, Trail of Bits, Datadog, Straiker, Lakera, Manifold, AIR Security, Zenity Labs, Embrace The Red, HiddenLayer, OWASP GenAI, UK AISI, Hacker News front page, new and Show HN, GitHub trending, Hugging Face papers, models and blog, plus repo-scan (13 queries, 8 candidates), paper-scan (42 papers in window) and talk-scan (25 uploads). One item met the bar: Manifold's 26 October measurement of how readily models tamper with their own agent logs. Most advisory hits inside the window turned out to be older disclosures only now added to the GitHub Advisory Database (MCP Python SDK CVE-2026-116684, CVE-2026-116685 and CVE-2026-116686 from early October, mcp-sanitizer and @sylphx/pdf-reader-mcp from June, Mem0 CVE-2026-116575 and vLLM CVE-2026-115914 from 20 October, MLflow CVE-2026-116691 from 13 October, Flexible GraphRAG CVE-2026-114510 from 3 October, DBHub CVE-2026-61789 from June and SuperAGI CVE-2026-51905 from May), and the rest of the window was already in the feed. Left out on purpose: llama.cpp CVE-2026-116816 (VulnCheck advisory 26 October, but the flaw was publicly reported and fixed in August); Prefab UI CVE-2026-120338 (CVSS 10.0 published today, but the upstream advisory returns 404 and no reporter is named anywhere, so it cannot be credited); Red Hat CVE-2026-117574 in OpenShift AI (no reporter, no affected versions and no fix status); HiddenLayer's 'Dead Drops in Public' (no publication date on any page that loads, and it analyses a July event); the AISI 26 October posts (biosecurity, not cyber); qybaihe/bla (1,814 stars and created in the window, but an anti-analysis obfuscation tool rather than defender or red-team tooling, and only one repo-bar signal). openai.com/news/security returned 403 and nist.gov/caisi/publications returned 404 to scripts.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "manifold-agent-log-tampering",
+          "title": "Manifold: small models rarely refuse to tamper with their own logs",
+          "category": "research",
+          "severity": "info",
+          "note": "Original measurements published inside the window by a named researcher at a security company, with a concrete defender action (log from outside the agent's reach) that nothing in the feed covers."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "blog.google safety and security",
+        "Microsoft MSRC blog",
+        "wiz.io/blog",
+        "CrowdStrike blog",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "securitylabs.datadoghq.com",
+        "straiker.ai/blog",
+        "lakera.ai/blog",
+        "manifold.security/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "hiddenlayer.com/innovation-hub",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "Hacker News front page, newest and Show HN",
+        "github.com/trending",
+        "huggingface.co/papers",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }
