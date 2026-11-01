@@ -1,7 +1,107 @@
 {
-  "generatedAt": "2026-11-01T02:54:15.729Z",
+  "generatedAt": "2026-11-01T10:04:06.141Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "deepmind-gemini-4-carbon",
+      "categories": [
+        "lab-safety"
+      ],
+      "title": "Gemini 4 Carbon: Google restricts its most cyber-capable model to defenders",
+      "org": "Google DeepMind",
+      "date": "2026-10-28",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/",
+      "summary": "Gemini 4 Carbon is Google's new frontier model, which the company says leads on finding, exploiting and patching software flaws. Google reports 88.2% on SEC-bench Pro and is giving access first to a vetted subset of cyber defenders.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "evals",
+        "indirect-prompt-injection",
+        "gemini",
+        "google-deepmind"
+      ],
+      "affected": [
+        "Gemini 4 Carbon",
+        "Gemini 4 Argon"
+      ],
+      "credits": [
+        {
+          "name": "Koray Kavukcuoglu",
+          "org": "Google DeepMind"
+        }
+      ],
+      "explainer": {
+        "tagline": "Gemini 4 Carbon is Google's new frontier model, which the company says leads on finding, exploiting and patching software flaws.",
+        "whatHappened": "Google DeepMind announced Gemini 4 Carbon on October 28, 2026, in a post bylined by Koray Kavukcuoglu. Google calls Carbon its strongest model for cybersecurity and long-horizon work, and says the model is going first to a subset of cyber defenders instead of to general availability. Google states that Carbon is part of the US government's voluntary process for pre-release model testing.",
+        "howItWorks": "Three cyber benchmark scores reported for Carbon were measured without guardrails, according to Google: 88.2% on SEC-bench Pro for finding flaws, 54.8% on ExploitGym for exploitation and 71.0% on CWE-bench for patching. Deployment is gated instead through the Fairwind Program, which vets applicants and limits use to a partner's own defensive teams. Google says Carbon keeps the safeguard stack built for Gemini 4 Argon, combining model training, real-time misuse defenses, prompt-injection resilience and chain-of-thought monitoring.",
+        "whoIsAffected": "Access to Carbon is narrow: Google says it started with a subset of cyber defenders in the week of the announcement and widens gradually through the Fairwind Program. Google's Fairwind page gives priority to governments and national cyber authorities, critical infrastructure operators in healthcare, telecom, energy and finance, core technology platforms, and academic labs doing defensive benchmarking. Google says broader developer, business and consumer availability will follow, without giving a date.",
+        "whatToDo": "Defenders who fit the Fairwind criteria apply through their Google Cloud account team, per Google's program page, which also bars sharing or reselling access. Read the cyber scores as Google's own internal results, measured without guardrails, rather than as an independent evaluation."
+      },
+      "quickFacts": [
+        {
+          "label": "Announced",
+          "value": "October 28, 2026, by Google DeepMind"
+        },
+        {
+          "label": "Vulnerability finding",
+          "value": "88.2% on SEC-bench Pro, per Google"
+        },
+        {
+          "label": "Exploitation",
+          "value": "54.8% on ExploitGym, per Google"
+        },
+        {
+          "label": "Patching",
+          "value": "71.0% on CWE-bench, per Collinear's leaderboard, as cited by Google"
+        },
+        {
+          "label": "Prompt injection",
+          "value": "0.0% attack success on the Gray Swan indirect prompt injection benchmark, against 0.7% for Gemini 4 Argon, per Google"
+        },
+        {
+          "label": "Benchmark conditions",
+          "value": "Cyber scores evaluated without guardrails, per Google"
+        },
+        {
+          "label": "Availability",
+          "value": "A subset of cyber defenders first, widening through the Fairwind Program"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can I get access to Gemini 4 Carbon?",
+          "a": "Gemini 4 Carbon is not broadly available. Google says access began with a subset of cyber defenders in the week of October 28, 2026 and expands through the Fairwind Program, which vets applicants including background checks. Google's Fairwind page routes applications through a Google Cloud account team and gives priority to governments, critical infrastructure operators and core technology platforms. Wider availability is planned without a date."
+        },
+        {
+          "q": "Is Gemini 4 Carbon more resistant to prompt injection than Gemini 4 Argon?",
+          "a": "Google reports a 0.0% attack success rate for Gemini 4 Carbon on Gray Swan's indirect prompt injection benchmark, against 0.7% for Gemini 4 Argon. Google describes the same four-part safeguard stack behind both models: training, real-time misuse defenses, prompt-injection resilience and chain-of-thought monitoring. Both numbers are Google's own measurements, and Google has not published a model card for Carbon."
+        },
+        {
+          "q": "Were Gemini 4 Carbon's cyber benchmark scores measured with safety guardrails on?",
+          "a": "Google states that Carbon's cybersecurity figures, including 88.2% on SEC-bench Pro and 54.8% on ExploitGym, were evaluated without guardrails. Controls apply instead at deployment, through Fairwind vetting and usage limits. Anyone comparing these scores against another vendor's published numbers should check whether those ran under the same conditions, because guardrails change what a model will attempt."
+        },
+        {
+          "q": "What does the Fairwind Program let partners do with the model?",
+          "a": "Fairwind permits authorized threat simulation, reverse engineering and malware analysis for defensive and academic research, according to Google's program page. Google limits access to a partner's internal cybersecurity, incident response or penetration testing teams, and forbids sharing or reselling it. Applicants undergo vetting that includes background checks. The page describes Fairwind access to Gemini 4 Argon, pairable with Google's CodeMender agent."
+        }
+      ],
+      "links": [
+        {
+          "label": "Google Announcement",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/"
+        },
+        {
+          "label": "Fairwind Program",
+          "url": "https://deepmind.google/fairwind-program/"
+        }
+      ],
+      "image": {
+        "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini_carbon_102726_social_share.width-1300.png",
+        "alt": "Gemini 4 Carbon title card from Google's announcement",
+        "credit": "Google"
+      },
+      "publishDate": "2026-11-01T10:04:06.141Z"
+    },
     {
       "id": "talos-volta-autodoxer-llm-appraisal",
       "categories": [

@@ -14245,6 +14245,76 @@
         "parameter.ai/labs"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261101t100406z",
+      "timestamp": "2026-11-01T10:04:06.141Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (GitHub Security Advisories, VulnCheck, NVD, MSRC, Microsoft Security, Anthropic, Anthropic Frontier Red Team, OpenAI, Google DeepMind, UK AISI, CAISI), research and vendor blogs (Wiz, Zenity, AIR Security, Socket, JFrog, ReversingLabs, Trail of Bits, NCC Group, Check Point, HiddenLayer, Lakera, Invariant Labs, Talos, CrowdStrike, Simon Willison, Embrace The Red), paper-scan (46 arXiv candidates in window, none with two signals), repo-scan (13 queries, 8 candidates), github.com/trending, Hacker News front page and Show HN, and talk-scan (29 videos, 22 channels). One item qualified: Google's Gemini 4 Carbon release and its cyber capability claims. Everything else in the window was already in the feed or failed the bar.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "deepmind-gemini-4-carbon",
+          "title": "Gemini 4 Carbon: Google restricts its most cyber-capable model to defenders",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A frontier lab publishing specific cyber capability numbers and gating the model to vetted defenders is a lab-safety claim defenders track, and it is a different model from the Gemini 4 Argon item already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "blog.google (Google DeepMind models and safety)",
+        "deepmind.google Fairwind Program",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Microsoft Security Blog",
+        "MSRC blog",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com research blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com Innovation Hub",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "air.security/blog",
+        "zenity.io/blog",
+        "blog.talosintelligence.com",
+        "crowdstrike.com/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "genai.owasp.org/news",
+        "huggingface.co/blog",
+        "Hacker News front page and Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
