@@ -1,7 +1,109 @@
 {
-  "generatedAt": "2026-10-31T21:00:31.764Z",
+  "generatedAt": "2026-11-01T00:01:55.628Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "nvidia-tensorrt-llm-october-2026-cves",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "NVIDIA TensorRT-LLM: three flaws fixed in 1.3.0rc25",
+      "org": "NVIDIA",
+      "date": "2026-10-27",
+      "url": "https://github.com/NVIDIA/product-security/blob/main/2026/5883/5883.md",
+      "summary": "NVIDIA fixed three externally reported flaws in TensorRT-LLM 1.3.0rc24 on October 27, 2026. The highest, CVE-2026-65119, scores 8.4 and sits in KvCacheAwareRouter tokenizer loading. The fix is 1.3.0rc25.",
+      "severity": "medium",
+      "tags": [
+        "model-supply-chain",
+        "rce",
+        "nvidia",
+        "tensorrt-llm"
+      ],
+      "affected": [
+        "NVIDIA TensorRT-LLM"
+      ],
+      "cve": "CVE-2026-65119",
+      "cvss": 8.4,
+      "credits": [
+        {
+          "name": "Aaron Portnoy",
+          "org": "Mindgard"
+        },
+        {
+          "name": "Mohammed"
+        }
+      ],
+      "explainer": {
+        "tagline": "NVIDIA TensorRT-LLM 1.3.0rc24 carries three externally reported flaws, two of them server-side request forgery, fixed in 1.3.0rc25.",
+        "whatHappened": "NVIDIA published security bulletin 5883 for TensorRT-LLM on October 27, 2026. The bulletin lists three CVEs and states that all were found externally. Aaron Portnoy of Mindgard reported CVE-2026-24269, and a researcher NVIDIA names as Mohammed reported CVE-2026-65119 and CVE-2026-65120.",
+        "howItWorks": "The highest-scored flaw, CVE-2026-65119, sits in KvCacheAwareRouter tokenizer loading. NVIDIA classes it as CWE-829, inclusion of functionality from an untrusted control sphere, meaning a tokenizer loaded from a source the operator does not control can bring code with it. NVIDIA says possible impacts include code execution, information disclosure, data tampering and denial of service. The other two are server-side request forgery, CWE-918, where an attacker steers a request that the server makes on its own behalf.",
+        "whoIsAffected": "TensorRT-LLM 1.3.0rc24 on all platforms is the only version NVIDIA lists as affected by the three CVEs. Deployments on a stable release or on a different release candidate fall outside the range NVIDIA published.",
+        "whatToDo": "Update TensorRT-LLM to 1.3.0rc25. NVIDIA recommends cloning or updating the software from the NVIDIA/TensorRT-LLM GitHub repository."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "TensorRT-LLM 1.3.0rc24, all platforms"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.3.0rc25"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-65119 (CVSS 8.4), CVE-2026-65120 (CVSS 7.1), CVE-2026-24269 (CVSS 7.1)"
+        },
+        {
+          "label": "Attack type",
+          "value": "Untrusted tokenizer loading (CWE-829) and server-side request forgery (CWE-918)"
+        },
+        {
+          "label": "Found by",
+          "value": "Aaron Portnoy of Mindgard; a researcher NVIDIA names as Mohammed"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 27, 2026, NVIDIA bulletin 5883"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed, users must update"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which TensorRT-LLM version fixes CVE-2026-65119?",
+          "a": "TensorRT-LLM 1.3.0rc25 fixes CVE-2026-65119, together with CVE-2026-65120 and CVE-2026-24269. NVIDIA lists 1.3.0rc24 as the only affected version and recommends cloning or updating from the NVIDIA/TensorRT-LLM GitHub repository. NVIDIA scored CVE-2026-65119 at 8.4, the highest of the three in bulletin 5883."
+        },
+        {
+          "q": "Is NVIDIA TensorRT-LLM 1.3.0rc24 being exploited?",
+          "a": "NVIDIA's bulletin 5883 gives no indication of exploitation for any of the three TensorRT-LLM CVEs. The bulletin says the issues were found externally and describes possible impacts rather than observed attacks. NVIDIA also notes that its risk assessment is an average across many systems and may not reflect the risk to a specific installation."
+        },
+        {
+          "q": "What does the KvCacheAwareRouter flaw allow?",
+          "a": "CVE-2026-65119 affects tokenizer loading in the KvCacheAwareRouter component of NVIDIA TensorRT-LLM. NVIDIA describes the weakness as CWE-829, inclusion of functionality from an untrusted control sphere, and says possible impacts include code execution, information disclosure, data tampering and denial of service. NVIDIA publishes no proof of concept for the flaw."
+        }
+      ],
+      "links": [
+        {
+          "label": "NVIDIA Bulletin 5883",
+          "url": "https://github.com/NVIDIA/product-security/blob/main/2026/5883/5883.md"
+        },
+        {
+          "label": "GHSA CVE-2026-65119",
+          "url": "https://github.com/advisories/GHSA-8wpc-qj5h-77gc"
+        },
+        {
+          "label": "GHSA CVE-2026-65120",
+          "url": "https://github.com/advisories/GHSA-4fm3-85vf-fh23"
+        },
+        {
+          "label": "GHSA CVE-2026-24269",
+          "url": "https://github.com/advisories/GHSA-mx93-gv2q-hr6f"
+        }
+      ],
+      "publishDate": "2026-11-01T00:01:55.628Z"
+    },
     {
       "id": "ramparts-skill-bundle-pyc-scan-bypass",
       "categories": [
