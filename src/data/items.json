@@ -1,7 +1,127 @@
 {
-  "generatedAt": "2026-11-01T10:04:06.141Z",
+  "generatedAt": "2026-11-01T16:44:27.151Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "kubeflow-pipelines-2-18-0-multi-tenant-advisories",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Kubeflow Pipelines: 16 flaws in one batch, all fixed in 2.18.0",
+      "org": "Kubeflow",
+      "date": "2026-10-28",
+      "url": "https://github.com/kubeflow/pipelines/security/advisories/GHSA-rjr3-43j3-4q8g",
+      "summary": "Kubeflow Pipelines published 16 security advisories on 28 and 29 October 2026, all fixed in release 2.18.0. The most severe, CVE-2026-77596, lets a low-privilege tenant plant code that runs in another tenant's namespace.",
+      "severity": "high",
+      "tags": [
+        "privilege-escalation",
+        "credential-theft",
+        "rce",
+        "kubeflow",
+        "kubernetes"
+      ],
+      "affected": [
+        "Kubeflow Pipelines"
+      ],
+      "cve": "CVE-2026-77596",
+      "cvss": 9.6,
+      "credits": [
+        {
+          "name": "Herik Webb"
+        },
+        {
+          "name": "Vito Carolillo"
+        },
+        {
+          "name": "bugbunny.ai"
+        },
+        {
+          "name": "johanwahyudi"
+        }
+      ],
+      "explainer": {
+        "tagline": "Kubeflow Pipelines fixed 16 reported flaws in release 2.18.0, most of them breaks in the wall between tenants.",
+        "whatHappened": "Kubeflow Pipelines maintainers published 16 security advisories on 28 and 29 October 2026, rating one critical, seven high and eight moderate. The reports came from several researchers, among them Herik Webb, Vito Carolillo, bugbunny.ai and johanwahyudi. Release 2.18.0, published on 28 October, carries the fixes.",
+        "howItWorks": "Missing authorization checks account for most of the batch. The upload endpoints behind CVE-2026-77596 skipped their permission check when a request named an empty namespace, which is how shared cluster-wide pipelines are addressed, so a low-privilege tenant could add an attacker-controlled version to a shared pipeline and have it execute in the namespace of whichever run picked it up. A separate profile-controller webhook minted SeaweedFS object-store credentials for any namespace named in the request without authenticating the caller. Two unauthenticated request forgery flaws in the frontend let a caller aim the artifact endpoints at internal, loopback or cloud metadata hosts and read the replies.",
+        "whoIsAffected": "Versions 2.17.3 and earlier are affected, and the profile-controller flaw starts at 2.15.0. Multi-user installs carry the cross-tenant flaws, since those depend on namespace boundaries holding. Standalone installs ship with authentication disabled by default, which is what leaves the two frontend request forgery flaws open to an unauthenticated caller.",
+        "whatToDo": "Upgrade to Kubeflow Pipelines 2.18.0. Operators who cannot upgrade at once can set REQUIRE_NAMESPACE_FOR_PIPELINES to true to reject empty-namespace uploads, and should confirm that a NetworkPolicy keeps untrusted workloads off the profile-controller webhook on port 8080. Review shared pipeline versions and recurring runs for unauthorized changes, because the fix does not remove versions that were already uploaded."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Kubeflow Pipelines 2.17.3 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.18.0, released 28 October 2026"
+        },
+        {
+          "label": "Advisories",
+          "value": "16, published 28 and 29 October 2026: 1 critical, 7 high, 8 moderate"
+        },
+        {
+          "label": "Worst flaw",
+          "value": "CVE-2026-77596, CVSS 9.6, cross-tenant code execution through shared pipeline uploads"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-77596, CVE-2026-88980, CVE-2026-88981, CVE-2026-118758, CVE-2026-118759, CVE-2026-118761"
+        },
+        {
+          "label": "Found by",
+          "value": "Herik Webb, Vito Carolillo, bugbunny.ai, johanwahyudi"
+        },
+        {
+          "label": "Status",
+          "value": "Patched, upgrade required"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Kubeflow Pipelines versions are affected by CVE-2026-77596?",
+          "a": "Kubeflow Pipelines 2.17.3 and earlier are affected by CVE-2026-77596, and release 2.18.0 contains the fix. The advisory scores the flaw 9.6 and traces it to the API server upload endpoints, which skipped their authorization check when a request named an empty namespace. Operators who cannot upgrade can set REQUIRE_NAMESPACE_FOR_PIPELINES to true, accepting the compatibility cost for shared uploads."
+        },
+        {
+          "q": "Is a standalone Kubeflow Pipelines install exposed to these flaws?",
+          "a": "Standalone Kubeflow Pipelines installs are exposed to the two unauthenticated request forgery flaws, CVE-2026-88980 and CVE-2026-88981, because standalone deployments ship with authentication disabled by default. The advisories say an attacker can make the shared ml-pipeline-ui pod fetch internal, loopback or cloud metadata addresses and return the response, which on AWS with IMDSv1 reachable can expose the node role's temporary credentials."
+        },
+        {
+          "q": "How do I check whether a shared Kubeflow pipeline was tampered with?",
+          "a": "Reviewing shared pipeline versions and recurring runs is the check the Kubeflow advisory asks for, because upgrading to 2.18.0 does not remove malicious versions that were already uploaded. An unpinned recurring run follows the latest version of its pipeline, so pinning each recurring run to a reviewed version stops an attacker-supplied version from running on the next schedule."
+        },
+        {
+          "q": "Who reported the Kubeflow Pipelines flaws fixed in 2.18.0?",
+          "a": "Several researchers reported the batch. Herik Webb reported the cross-tenant credential minting, the artifact request forgery and the ScheduledWorkflow destination confusion. Vito Carolillo reported the shared-upload authorization flaw and the decimal-IP bypass. bugbunny.ai reported the run-log exposure and the archive decompression bomb, and johanwahyudi reported the volume artifact path traversal. Kubeflow maintainer Jeff Spahr published most of the advisories."
+        },
+        {
+          "q": "Does Kubeflow Pipelines 2.18.0 close every multi-tenant gap?",
+          "a": "Kubeflow Pipelines 2.18.0 fixes the 16 reported flaws but leaves known gaps, which the release notes state plainly. Artifact ownership is not fully enforced, so shared or overly broad storage credentials can still expose another tenant's artifacts. The notes add that some Python 3.9 dependencies and upstream images carry accepted vulnerabilities, and they link an open security tracker issue."
+        }
+      ],
+      "links": [
+        {
+          "label": "Shared Upload Advisory",
+          "url": "https://github.com/kubeflow/pipelines/security/advisories/GHSA-rjr3-43j3-4q8g"
+        },
+        {
+          "label": "Credential Minting",
+          "url": "https://github.com/kubeflow/pipelines/security/advisories/GHSA-c53j-pv7w-x95q"
+        },
+        {
+          "label": "Artifact SSRF Advisory",
+          "url": "https://github.com/kubeflow/pipelines/security/advisories/GHSA-3pcj-8j5w-jmxq"
+        },
+        {
+          "label": "Run Log Advisory",
+          "url": "https://github.com/advisories/GHSA-wg5q-x4j9-qm54"
+        },
+        {
+          "label": "2.18.0 Release Notes",
+          "url": "https://github.com/kubeflow/pipelines/releases/tag/2.18.0"
+        }
+      ],
+      "publishDate": "2026-11-01T16:44:27.151Z"
+    },
     {
       "id": "deepmind-gemini-4-carbon",
       "categories": [
