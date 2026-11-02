@@ -14589,6 +14589,82 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261102t160338z",
+      "timestamp": "2026-11-02T16:03:38.787Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories and NVD-fed CVEs, repo-scan (5 candidates), github.com/trending daily and weekly, paper-scan (57 arXiv papers in window), talk-scan (22 channels), Hacker News and Show HN, Hugging Face blog and models, and the vendor, lab and research blogs listed; added Kaspersky's CyberStrikeAI in-the-wild report and the Chainalysis agentic intrusion disclosure. Most in-window advisory-database entries (MCP Python and TypeScript SDKs, Strands Agents, LiteLLM, Chainlit, DBHub, Paperclip, SuperAGI, Agent Zero, MoLing, chrome-devtools-mcp) traced to repository advisories published before the window and stayed out, no paper cleared the two-signal bar and no talk cleared the view or voice bar; openai.com/index, security.googleblog.com and r/netsec did not load for this run and are left out of sourcesChecked.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "kaspersky-cyberstrikeai-education-intrusions",
+          "title": "CyberStrikeAI: an LLM chose the commands in a 3 day domain takeover",
+          "category": "incident",
+          "severity": "info",
+          "note": "First victim-side account of a CyberStrikeAI intrusion, with a full kill chain, timings and indicators, published today and distinct from TrendAI's October 23 report on a different campaign in Japan."
+        },
+        {
+          "id": "chainalysis-agentic-intrusion",
+          "title": "Chainalysis: an agentic intrusion reached customer names and emails",
+          "category": "incident",
+          "severity": "medium",
+          "note": "A named company disclosing, in its own notice inside the window, that an attacker used agentic techniques to reach internal tools and customer identity data, with concrete customer actions."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "repo-scan.json",
+        "github.com/trending",
+        "paper-scan (arXiv)",
+        "arxiv.org",
+        "talk-scan (YouTube)",
+        "Hacker News",
+        "Securelist",
+        "chainalysis.com",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "labs.zenity.io",
+        "blog.trailofbits.com",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "unit42.paloaltonetworks.com",
+        "wiz.io/blog",
+        "vulncheck.com/blog",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com",
+        "research.checkpoint.com",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "anthropic.com/news",
+        "microsoft.com/msrc/blog",
+        "aisi.gov.uk",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "trendaisecurity.com",
+        "thehackernews.com"
+      ],
+      "windowDays": 7
     }
   ]
 }

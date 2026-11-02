@@ -1,7 +1,183 @@
 {
-  "generatedAt": "2026-11-02T06:11:26.936Z",
+  "generatedAt": "2026-11-02T16:03:38.787Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "kaspersky-cyberstrikeai-education-intrusions",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "CyberStrikeAI: an LLM chose the commands in a 3 day domain takeover",
+      "org": "Kaspersky",
+      "date": "2026-11-02",
+      "url": "https://securelist.com/cyberstrikeai-attacks/121715/",
+      "summary": "Kaspersky found CyberStrikeAI, an open-source AI pentest framework, in attacks on education organizations in Africa and Latin America. A server-side model chose each command, and the chain reached domain administrator in 3 to 4 days.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "mcp",
+        "cyberstrikeai"
+      ],
+      "affected": [
+        "CyberStrikeAI",
+        "Microsoft SQL Server",
+        "Windows",
+        "Active Directory"
+      ],
+      "credits": [
+        {
+          "name": "Kirill Antonov",
+          "org": "Kaspersky"
+        },
+        {
+          "name": "Vladislav Vlasov",
+          "org": "Kaspersky"
+        },
+        {
+          "name": "Dmitry Chizhmak",
+          "org": "Kaspersky"
+        }
+      ],
+      "explainer": {
+        "tagline": "CyberStrikeAI is an open-source AI pentest framework that Kaspersky now reports in real intrusions against schools.",
+        "whatHappened": "Kaspersky published the case on November 2, 2026, written by Kirill Antonov, Vladislav Vlasov and Dmitry Chizhmak. Confirmed victims were education sector organizations in several countries across Africa and Latin America. Kaspersky calls the case one of the first public descriptions of a compromise involving a language model in the wild.",
+        "howItWorks": "CyberStrikeAI puts a language model, a command and control server and its agents in one Go process. The model reaches the command and control functions as MCP tools, so it runs recon utilities, assigns tasks to agents and reads the results back. The implant holds no model, no API keys and no decision logic: it polls a listener over HTTP, TCP or WebSocket, runs shell commands and returns files and screenshots. Kaspersky says the model, not the operator, picked the persistence method.",
+        "whoIsAffected": "Education sector organizations in Africa and Latin America are the confirmed victims, reached through a compromised Microsoft SQL Server. Post-exploitation targeted the Windows domain, and the implant also runs on Linux. Kaspersky could not tie the activity to a known group.",
+        "whatToDo": "Alert on remote scheduled task creation with the schtasks /s argument, on comsvcs.dll MiniDump access to LSASS, and on shell processes spawned by sqlservr.exe. Kaspersky lists hashes, paths, network indicators and the Windows and Linux audit events its detections rely on."
+      },
+      "quickFacts": [
+        {
+          "label": "Victims",
+          "value": "Education sector, several countries in Africa and Latin America"
+        },
+        {
+          "label": "Tool abused",
+          "value": "CyberStrikeAI, an open-source AI pentest framework written in Go"
+        },
+        {
+          "label": "Entry point",
+          "value": "Compromised Microsoft SQL Server, followed by manual recon"
+        },
+        {
+          "label": "Time to domain admin",
+          "value": "3 to 4 days from agent deployment"
+        },
+        {
+          "label": "Where the AI runs",
+          "value": "Server side only, the implant carries no model or API keys"
+        },
+        {
+          "label": "Attribution",
+          "value": "None established; Chinese-language comments and UTC+8 timing only"
+        },
+        {
+          "label": "Technique novelty",
+          "value": "Kaspersky calls the techniques well documented, not new"
+        }
+      ],
+      "links": [
+        {
+          "label": "Securelist Report",
+          "url": "https://securelist.com/cyberstrikeai-attacks/121715/"
+        },
+        {
+          "label": "TrendAI On CyberStrikeAI",
+          "url": "https://www.trendaisecurity.com/en-us/resources-insights/deep-research/not-only-artex-the-different-levels-ai-is-used-in-attacks-targeting-japan"
+        }
+      ],
+      "image": {
+        "url": "https://media.kasperskycontenthub.com/wp-content/uploads/sites/43/2026/10/31142432/cyberstrikeai-1_securelist-featured_1200x600.jpg",
+        "alt": "Title card for the Kaspersky report on CyberStrikeAI used in real attacks",
+        "credit": "Kaspersky"
+      },
+      "publishDate": "2026-11-02T16:03:38.787Z"
+    },
+    {
+      "id": "chainalysis-agentic-intrusion",
+      "categories": [
+        "incident"
+      ],
+      "title": "Chainalysis: an agentic intrusion reached customer names and emails",
+      "org": "Chainalysis",
+      "date": "2026-10-30",
+      "url": "https://www.chainalysis.com/blog/security-incident-october-30/",
+      "summary": "Chainalysis says an external actor used offensive agentic techniques to reach its internal tools. User IDs, names, email addresses and role labels were accessed. Chainalysis reports no access to investigation content or credentials.",
+      "severity": "medium",
+      "tags": [
+        "ai-enabled-offense",
+        "chainalysis"
+      ],
+      "affected": [
+        "Chainalysis"
+      ],
+      "credits": [
+        {
+          "name": "Chainalysis Team",
+          "org": "Chainalysis"
+        }
+      ],
+      "explainer": {
+        "tagline": "Chainalysis disclosed that an outside party used offensive agentic techniques to reach its internal tools in October 2026.",
+        "whatHappened": "Chainalysis published a security incident notice on October 30, 2026, under the byline Chainalysis Team. The blockchain analysis company says it detected an external actor in its systems and internal tools during October. Chainalysis states the incident is not related to the recent crypto theft at Binance.",
+        "howItWorks": "Offensive agentic techniques is the only description Chainalysis gives of the method, and the notice names no entry point, no vulnerability and no actor. The company says it has patched the vulnerabilities the attacker exploited and is running a company-wide security review with third-party experts and large language models. Chainalysis frames the case as part of an industry-wide rise in AI-driven cyberattacks, which is its own characterization rather than a published finding.",
+        "whoIsAffected": "Users provisioned on the Chainalysis platform had user IDs, full names, email addresses and organization role labels accessed. Investigation content such as graphs, notes and cases, plus transaction and query results, clear-text passwords, MFA secrets and session tokens were not reached, the company reports. Chainalysis is still working out which records belong to each customer organization.",
+        "whatToDo": "Turn on two-factor authentication for your Chainalysis organization through your account manager if it is not already enabled. Watch for unexpected password reset requests, unexpected authentication prompts and impersonation attempts aimed at your users."
+      },
+      "quickFacts": [
+        {
+          "label": "Disclosed",
+          "value": "October 30, 2026, by Chainalysis"
+        },
+        {
+          "label": "Accessed",
+          "value": "User IDs, full names, email addresses, organization role labels"
+        },
+        {
+          "label": "Not accessed",
+          "value": "Investigation content, query results, passwords, MFA secrets, session tokens"
+        },
+        {
+          "label": "Attacker method",
+          "value": "Offensive agentic techniques, no further detail published"
+        },
+        {
+          "label": "Status",
+          "value": "Exploited vulnerabilities patched, investigation ongoing"
+        },
+        {
+          "label": "Customer action",
+          "value": "Enable 2FA, watch for password reset and impersonation attempts"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Were Chainalysis investigation files exposed in the October 2026 incident?",
+          "a": "Chainalysis reports no evidence that investigation content was accessed, naming graphs, notes and cases, along with transaction and query results, as untouched in its October 30 notice. The accessed data was limited to user IDs, full names, email addresses and organization role labels for provisioned users. Chainalysis says the investigation continues, so the scope could still change."
+        },
+        {
+          "q": "Do Chainalysis customers need to change their passwords?",
+          "a": "Chainalysis does not ask customers to reset passwords, because the company reports no access to clear-text passwords, MFA secrets or user session tokens. The notice asks organizations to enable two-factor authentication if they have not already, with help from their account manager, and to watch for unexpected password reset requests, authentication prompts and impersonation attempts."
+        },
+        {
+          "q": "Is the Chainalysis incident connected to the Binance crypto theft?",
+          "a": "Chainalysis states directly that the incident is not related to the recent crypto theft at Binance. The company gives no attacker identity, no entry point and no named vulnerability in its notice, describing only offensive agentic techniques. Readers should treat the AI framing as the company's own characterization, since Chainalysis published no technical evidence about the tooling used."
+        }
+      ],
+      "links": [
+        {
+          "label": "Chainalysis Notice",
+          "url": "https://www.chainalysis.com/blog/security-incident-october-30/"
+        },
+        {
+          "label": "The Hacker News",
+          "url": "https://thehackernews.com/2026/10/chainalysis-confirms-intrusion-into.html"
+        }
+      ],
+      "publishDate": "2026-11-02T16:03:38.787Z"
+    },
     {
       "id": "arxiv-agentshield",
       "categories": [
