@@ -1,7 +1,121 @@
 {
-  "generatedAt": "2026-11-01T21:00:57.882Z",
+  "generatedAt": "2026-11-02T00:17:46.780Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "jfrog-prefab-ui-sandbox-escape",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Prefab UI: generated code escapes the sandbox and runs on the host",
+      "org": "JFrog",
+      "date": "2026-11-01",
+      "url": "https://github.com/advisories/GHSA-3g72-rrqc-f76c",
+      "summary": "Prefab UI's Generative UI sandbox ran model-written Python with unrestricted Deno read, write and network permissions, so generated code could reach host files. JFrog scores it CVSS 10.0 on an unauthenticated server. Fixed in 0.21.0.",
+      "severity": "high",
+      "tags": [
+        "sandbox-escape",
+        "rce",
+        "mcp",
+        "fastmcp",
+        "prefab-ui"
+      ],
+      "affected": [
+        "Prefab UI",
+        "prefab-ui (PyPI)",
+        "FastMCP"
+      ],
+      "cve": "CVE-2026-120338",
+      "cvss": 10,
+      "credits": [
+        {
+          "name": "Yuval Moravchick",
+          "org": "JFrog Security Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Prefab UI's sandbox for model-written Python left Deno's file and network permissions open, so generated code could read and write host files.",
+        "whatHappened": "JFrog Security Research disclosed CVE-2026-120338 in prefab-ui on November 1, 2026, crediting Yuval Moravchick as the finder. The flaw sits in Prefab UI's Generative UI sandbox, the component that runs Python a model wrote. PrefectHQ shipped the fix in version 0.21.0 on October 26, 2026, before the advisory was published.",
+        "howItWorks": "The sandbox runs generated Python in Pyodide inside a Deno subprocess, but the launcher started Deno with unrestricted read, write and network permissions. The runner also left Deno's API reachable from the Python side, so generated code could call functions such as Deno.readTextFileSync directly. File access then runs as the server's own operating system user. Writing a .pth file into the virtualenv's site-packages makes the code run again every time Python starts.",
+        "whoIsAffected": "Versions 0.14.0 through 0.20.2 of prefab-ui are affected, and 0.21.0 and later are not. Exposure needs the Generative UI feature switched on, which is opt-in: a FastMCP server reaches it by adding the GenerativeUI provider, which registers the generate_prefab_ui tool. JFrog scores a server with no authentication at CVSS 10.0 and a server that authenticates tool callers at 9.9.",
+        "whatToDo": "Upgrade prefab-ui to 0.21.0 or later, the package that fastmcp[apps] pulls in. Until then, remove the GenerativeUI provider from any FastMCP server that does not need it, and require authentication on servers that keep it. Check exposed hosts for unexpected .pth files in the virtualenv's site-packages."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "prefab-ui 0.14.0 through 0.20.2, by PrefectHQ"
+        },
+        {
+          "label": "Fixed in",
+          "value": "0.21.0, released October 26, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-120338, assigned by JFrog"
+        },
+        {
+          "label": "CVSS",
+          "value": "10.0 unauthenticated, 9.9 authenticated, per JFrog"
+        },
+        {
+          "label": "Found by",
+          "value": "Yuval Moravchick, JFrog Security Research"
+        },
+        {
+          "label": "Attack type",
+          "value": "Sandbox escape to host file access through an MCP tool"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed before the advisory appeared; confirmed on 0.20.2"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if my FastMCP server never enabled Generative UI?",
+          "a": "FastMCP servers that never added the GenerativeUI provider do not expose the vulnerable path, because the flaw is reached through the generate_prefab_ui tool that the provider registers. Prefab UI can sit installed as a dependency of fastmcp[apps] without being reachable. JFrog confirmed the issue on prefab-ui 0.20.2, so upgrading to 0.21.0 is still the safe step."
+        },
+        {
+          "q": "Which prefab-ui versions fix CVE-2026-120338?",
+          "a": "Version 0.21.0 of prefab-ui fixes CVE-2026-120338, and PrefectHQ released it on October 26, 2026. The fix revokes Deno's read, write and network permissions after the runtime loads but before any generated code runs, starts Deno with the no-prompt flag so permissions cannot be granted again, and limits bootstrap network access to one CDN host. Versions 0.14.0 through 0.20.2 stay exposed."
+        },
+        {
+          "q": "How do I check whether the Prefab UI flaw was used against my server?",
+          "a": "Unexpected .pth files in the virtualenv's site-packages are the persistence marker JFrog describes, because generated code could write one there to run on every later Python start. File reads or writes by the server's operating system user that no feature explains are a second signal. Neither JFrog's CVE record nor the GitHub advisory mentions exploitation in the wild."
+        },
+        {
+          "q": "Does requiring authentication on the MCP server stop the Prefab UI escape?",
+          "a": "Authentication lowers the score from CVSS 10.0 to 9.9 in JFrog's record but does not remove the flaw, because any client already allowed to call tools can reach generate_prefab_ui and hand it code. PrefectHQ's 0.21.0 release is the real boundary. Treat authentication as a way to shrink who can attack prefab-ui, not as a replacement for upgrading."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-3g72-rrqc-f76c"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://www.cve.org/CVERecord?id=CVE-2026-120338"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/PrefectHQ/prefab/pull/538"
+        },
+        {
+          "label": "Prefab UI 0.21.0",
+          "url": "https://github.com/PrefectHQ/prefab/releases/tag/v0.21.0"
+        },
+        {
+          "label": "FastMCP Generative UI",
+          "url": "https://gofastmcp.com/apps/generative"
+        },
+        {
+          "label": "Prefab UI On PyPI",
+          "url": "https://pypi.org/project/prefab-ui/"
+        }
+      ],
+      "publishDate": "2026-11-02T00:17:46.780Z"
+    },
     {
       "id": "manifold-agent-log-tampering",
       "categories": [
