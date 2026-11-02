@@ -1,7 +1,104 @@
 {
-  "generatedAt": "2026-11-02T16:03:38.787Z",
+  "generatedAt": "2026-11-02T23:31:27.911Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "vulncheck-chainlit-mcp-allowlist-semicolon-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Chainlit: a semicolon in an MCP URL escapes the allowlist's path scope",
+      "org": "VulnCheck",
+      "date": "2026-11-02",
+      "url": "https://www.vulncheck.com/advisories/chainlit-2.12.0-ssrf-via-semicolon-path-segment-in-mcp-allowed-urls",
+      "summary": "Chainlit 2.12.0 does not reject semicolons when it checks an MCP URL against its allowlist, so a \"..;\" segment reaches paths the operator never granted. VulnCheck published CVE-2026-120492 on November 2 and lists no fixed version.",
+      "severity": "medium",
+      "cve": "CVE-2026-120492",
+      "cvss": 6.3,
+      "tags": [
+        "mcp",
+        "agent-security",
+        "chainlit"
+      ],
+      "affected": [
+        "Chainlit"
+      ],
+      "credits": [
+        {
+          "name": "Gavin Blacklock"
+        }
+      ],
+      "explainer": {
+        "tagline": "Chainlit 2.12.0 lets unauthenticated requests reach paths outside the operator's MCP allowlist, because its URL check ignores semicolons.",
+        "whatHappened": "VulnCheck published CVE-2026-120492 on November 2, 2026, a server-side request forgery flaw in Chainlit 2.12.0, and credits Gavin Blacklock with the finding. The flaw defeats the path-scoped allowed_urls allowlist that Chainlit added in version 2.12.0 to close an earlier MCP request forgery issue, CVE-2026-45019.",
+        "howItWorks": "Chainlit's validate_mcp_url function rejects dot segments, encoded separators, backslashes and non-ASCII characters in an MCP URL's path, then matches the path against the operator's allowlist entry as a prefix. The semicolon is not on that reject list, so a path segment written as \"..;\" is not read as a traversal segment and passes validation. VulnCheck reports that origins which strip semicolon path parameters then treat the segment as \"..\", which walks above the granted subtree. The request goes to the /mcp endpoint and needs no authentication.",
+        "whoIsAffected": "Chainlit 2.12.0 is the only version VulnCheck lists as affected, and the project's GitHub releases page shows 2.12.0 as its latest release. Reaching the flaw needs an operator to enable the MCP feature, allow user-provided MCP servers and set a path-scoped allowed_urls entry, none of which are Chainlit defaults. Whether the bypass resolves also depends on the target origin treating a semicolon as a path parameter separator.",
+        "whatToDo": "Grant only hosts you would allow in full, because the host, scheme and port checks still hold while the path scope does not. Set features.mcp.enabled = false where the MCP feature is not needed, require authentication on the /mcp endpoint so anonymous callers cannot reach it, and restrict outbound network egress from the Chainlit host, as the project's earlier advisory recommends."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Chainlit 2.12.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed version listed; 2.12.0 is the latest release"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-120492, assigned by VulnCheck"
+        },
+        {
+          "label": "Found by",
+          "value": "Gavin Blacklock, per VulnCheck"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 2, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unauthenticated server-side request forgery via an allowlist path bypass"
+        },
+        {
+          "label": "Precondition",
+          "value": "MCP enabled, user servers allowed, and a path-scoped allowed_urls entry"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Chainlit patched against CVE-2026-120492?",
+          "a": "Chainlit has no fixed release for CVE-2026-120492 as of November 2, 2026. VulnCheck lists 2.12.0 as affected and states no fixed version, and the project's GitHub releases page shows 2.12.0 as the latest version. Operators should disable the MCP feature where it is not needed, require authentication on the /mcp endpoint, and limit outbound network access from the Chainlit host."
+        },
+        {
+          "q": "Which Chainlit configurations are exposed to the MCP allowlist bypass?",
+          "a": "Exposure requires an operator to enable Chainlit's MCP feature, allow user-provided MCP servers, and list at least one allowed_urls entry scoped to a path rather than a whole host. Chainlit ships with MCP disabled and the allowlist denying everything, so default installations are not affected. The bypass also needs the target origin to strip semicolon path parameters."
+        },
+        {
+          "q": "How does CVE-2026-120492 differ from Chainlit's earlier MCP request forgery flaw?",
+          "a": "CVE-2026-45019, published in August 2026, let an unauthenticated caller send Chainlit to any URL at all, and was fixed in 2.12.0 by an opt-in allowlist. CVE-2026-120492 attacks that fix rather than replacing it: host, scheme and port matching still hold, but a semicolon segment escapes the path scope an operator granted. VulnCheck rates the newer flaw medium, at CVSS 6.3."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/chainlit-2.12.0-ssrf-via-semicolon-path-segment-in-mcp-allowed-urls"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-xhx7-9vjr-p2h8"
+        },
+        {
+          "label": "Chainlit 2.12.0 Fix",
+          "url": "https://github.com/Chainlit/chainlit/security/advisories/GHSA-hvfh-5mj3-5f3j"
+        },
+        {
+          "label": "Validation Code",
+          "url": "https://github.com/Chainlit/chainlit/blob/2.12.0/backend/chainlit/mcp.py#L199-L208"
+        }
+      ],
+      "publishDate": "2026-11-02T23:31:27.911Z"
+    },
     {
       "id": "kaspersky-cyberstrikeai-education-intrusions",
       "categories": [
@@ -4962,8 +5059,8 @@
       "title": "Trail of Bits: stable releases ship thousands of unfixed CVEs",
       "org": "Trail of Bits",
       "date": "2026-10-27",
-      "url": "https://blog.trailofbits.com/2026/10/27/backporting-security-fixes-to-stable-releases/",
-      "summary": "Stable releases carry many known, unfixed security bugs, Trail of Bits reports: 4,562 unique CVEs across 1,128 Debian 13 source packages, and 2,006 in the Linux 5.10.y kernel branch. Maintainers applied 142 of its backports.",
+      "url": "https://blog.trailofbits.com/2026/11/02/backporting-security-fixes-at-scale-with-codex/",
+      "summary": "Stable releases carry many known, unfixed security bugs, Trail of Bits reports: 4,562 unique CVEs across 1,128 Debian 13 source packages, and 2,006 in Linux 5.10.y. Its Codex-assisted program has delivered fixes for 149 CVEs.",
       "severity": "info",
       "tags": [
         "coding-agents",
@@ -4983,10 +5080,10 @@
       ],
       "explainer": {
         "tagline": "Trail of Bits counted how many known security bugs stay unfixed in stable Linux kernel branches and distribution releases.",
-        "whatHappened": "Artem Dinaburg of Trail of Bits published a measurement of unfixed CVEs in stable software on 27 October 2026. Using CVE data, the post counts known flaws whose fixes exist only in newer branches, across two Linux kernel stable branches, Debian 13 and Ubuntu 26.04. Trail of Bits also reports that maintainers have applied 142 of its backported fixes, covering 90 CVEs, to stable kernel trees.",
-        "howItWorks": "Security fixes usually land in the latest version, and backporting them to older stable branches is manual work that often does not happen, which leaves users choosing between stability and security. Trail of Bits used Codex with GPT-5.6 to find fixes that apply to a given stable branch and to prepare backported patches for maintainer review. The counts come from matching CVE records against the branch each fix reached, and Dinaburg describes them as measuring sticks rather than exact figures.",
+        "whatHappened": "Artem Dinaburg of Trail of Bits published a measurement of unfixed CVEs in stable software, counting known flaws whose fixes exist only in newer branches across six Linux kernel stable branches, Debian 13 and Ubuntu 26.04. The kernel figures were measured on 18 September 2026. Trail of Bits reports that by 29 October 2026 its project had helped deliver fixes for 149 distinct CVEs into stable Linux kernel releases, plus fixes for Fedora and Ubuntu packages.",
+        "howItWorks": "Security fixes usually land in the latest version, and backporting them to older stable branches is manual work that often does not happen, which leaves users choosing between stability and security. Trail of Bits used Codex with GPT-5.6 to find fixes that apply to a given stable branch, adapt the patches, assemble validation evidence, run tests and prepare submission packets for maintainer review. The counts come from matching CVE records against the branch each fix reached, and Dinaburg describes them as measuring sticks rather than exact bug counts or a sign of exploitability.",
         "whoIsAffected": "Linux kernel branch 5.10.y and Debian 13 carry the largest counts in the post, with Ubuntu 26.04 and kernel branch 6.18.y lower; the per-target numbers are listed below. Anyone running a long-term stable distribution or kernel branch for stability reasons is in scope.",
-        "whatToDo": "Track which CVEs remain unfixed in the stable software you run, and update where updating is possible. Where it is not, Trail of Bits recommends containing bugs with mandatory access controls, code integrity checks, sandboxing and privilege separation. Maintainers can request backporting help through its Patch the Planet program."
+        "whatToDo": "Track which CVEs remain unfixed in the stable software you run, and update where updating is possible. Trail of Bits reports that a straightforward backport still needs about 30 minutes of human review and an involved one about three hours, and that regression testing and maintainer acceptance are still required. Maintainers can request backporting help through its Patch the Planet program."
       },
       "quickFacts": [
         {
@@ -4999,15 +5096,19 @@
         },
         {
           "label": "Debian 13",
-          "value": "4,562 unique CVEs across 1,128 source packages"
+          "value": "4,562 unique CVEs across 1,128 source packages, 1,822 high or critical"
         },
         {
           "label": "Ubuntu 26.04",
-          "value": "770 unique CVEs across 1,028 source packages"
+          "value": "770 unique CVEs across 1,028 source packages, 335 high or critical"
         },
         {
-          "label": "Backports applied",
-          "value": "142 fixes covering 90 CVEs in stable kernel trees"
+          "label": "Fixes delivered",
+          "value": "149 distinct CVEs into stable kernel releases, as of October 29, 2026"
+        },
+        {
+          "label": "Measured",
+          "value": "Kernel branch data as of September 18, 2026"
         },
         {
           "label": "Tooling",
@@ -5015,14 +5116,14 @@
         }
       ],
       "image": {
-        "url": "https://blog.trailofbits.com/2026/10/27/backporting-security-fixes-to-stable-releases/backporting-security-fixes-socialbanner.png",
-        "alt": "Backporting security fixes to stable releases",
+        "url": "https://blog.trailofbits.com/2026/11/02/backporting-security-fixes-at-scale-with-codex/backporting_socialbanner.png",
+        "alt": "Backporting security fixes at scale with Codex",
         "credit": "Trail of Bits"
       },
       "links": [
         {
           "label": "Trail of Bits Post",
-          "url": "https://blog.trailofbits.com/2026/10/27/backporting-security-fixes-to-stable-releases/"
+          "url": "https://blog.trailofbits.com/2026/11/02/backporting-security-fixes-at-scale-with-codex/"
         },
         {
           "label": "Patch The Planet",

@@ -14665,6 +14665,80 @@
         "thehackernews.com"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261102t233127z",
+      "timestamp": "2026-11-02T23:31:27.911Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research-group blogs, GitHub and NVD advisories, arXiv (51 papers in window, 1 with two scanned signals), repo-scan (13 queries, 6 candidates), GitHub trending, talk-scan (22 channels, 25 videos) and Hacker News. One new disclosure met the bar: VulnCheck's CVE-2026-120492 in Chainlit, a semicolon path bypass of the MCP allowed_urls allowlist. Dropped as out of window: the DBHub read-only bypass (CVE-2026-61789, disclosed 2026-06-24, only newly listed in the advisory databases), the SANDWORM_MODE npm worm (July 2026) and the Glow Labs agent screenshot leak (September 2026). Dropped for no fetchable primary source: the Cathedral and Anthropic 12-hour access claim, which rests on an unpublished draft report and a Washington Post story that returns 403, with the two parties disputing the facts. Trail of Bits' November 2 Codex backporting post is the same story as an existing item and is linked there instead.",
+      "counts": {
+        "added": 1,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "vulncheck-chainlit-mcp-allowlist-semicolon-bypass",
+          "title": "Chainlit: a semicolon in an MCP URL escapes the allowlist's path scope",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A new CVE published inside the window that breaks the allowlist Chainlit shipped to fix its previous MCP request forgery flaw, with no fixed version available and the affected release still the project's latest."
+        }
+      ],
+      "updated": [
+        {
+          "id": "trailofbits-backporting-stable-releases",
+          "title": "Trail of Bits: stable releases ship thousands of unfixed CVEs",
+          "note": "The item's cited URL, the 2026-10-27 Trail of Bits post, now returns 404, and its cover image under that path is gone with it. Trail of Bits has the same work live at a 2026-11-02 URL by the same author, with the same measurement tables and an updated delivery count of 149 distinct CVEs as of October 29. Same story under Hard Rule 5, so this repoints url, links and image at the live page and retypes every figure from it rather than adding a new item. Date left at 2026-10-27, the original disclosure date a previous sweep verified."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "VulnCheck advisories",
+        "GitHub Security Advisories",
+        "NVD (CVE API)",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "AIR Security blog",
+        "Wiz blog",
+        "Zenity blog",
+        "Embrace The Red",
+        "Trail of Bits blog",
+        "JFrog blog",
+        "Check Point Research",
+        "CrowdStrike blog",
+        "Socket blog",
+        "ReversingLabs blog",
+        "Lakera blog",
+        "HiddenLayer Innovation Hub",
+        "Snyk security research",
+        "Microsoft Security threat intelligence blog",
+        "MSRC blog",
+        "Unit 42",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project news",
+        "Google security blog (RSS)",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face blog",
+        "repo-scan.json",
+        "github.com/trending (daily and weekly)",
+        "Hacker News (front, newest, Show HN)",
+        "talk-scan (22 YouTube channels)",
+        "Chainlit GitHub advisories and releases"
+      ],
+      "windowDays": 7
     }
   ]
 }
