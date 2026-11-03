@@ -1,7 +1,172 @@
 {
-  "generatedAt": "2026-11-03T11:42:45.736Z",
+  "generatedAt": "2026-11-03T18:55:51.908Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "dynatrace-mcp-tool-poisoning",
+      "categories": [
+        "research",
+        "attack",
+        "benchmark"
+      ],
+      "title": "mcpvenom: poisoned MCP tools worked against every framework tested",
+      "org": "Dynatrace",
+      "date": "2026-11-02",
+      "url": "https://arxiv.org/abs/2611.03555",
+      "summary": "Poisoned MCP tool descriptions made agents carry out the attacker's action in 22.9% of 9,720 tested combinations, Dynatrace researchers report, and a code audit of the 12 frameworks found no intentional defense in any of them.",
+      "severity": "medium",
+      "tags": [
+        "tool-poisoning",
+        "mcp",
+        "data-exfiltration",
+        "langchain",
+        "crewai"
+      ],
+      "affected": [
+        "LangChain",
+        "CrewAI",
+        "LlamaIndex",
+        "Pydantic AI",
+        "Semantic Kernel",
+        "Google ADK",
+        "Haystack",
+        "smolagents",
+        "DSPy",
+        "Agno",
+        "AG2"
+      ],
+      "credits": [
+        {
+          "name": "Farooq Shaikh",
+          "org": "Dynatrace"
+        },
+        {
+          "name": "Biagio Montaruli",
+          "org": "Dynatrace"
+        }
+      ],
+      "explainer": {
+        "tagline": "MCP tool descriptions are attacker-controlled text, and agent frameworks pass them to the model without validation.",
+        "whatHappened": "Dynatrace researchers Farooq Shaikh and Biagio Montaruli published a cross-framework measurement of MCP tool poisoning on arXiv on 2 November 2026. Their harness, mcpvenom, ran 45 attack scenarios across 12 frameworks and 18 models, 9,720 combinations in all, and confirmed each hit by checking whether a secret actually reached an attacker-controlled endpoint. The paper is accepted at the AISec workshop at ACM CCS 2026.",
+        "howItWorks": "Tool poisoning hides instructions in the parts of an MCP server that the protocol treats as metadata: tool descriptions, schema field names and tool responses. Frameworks splice that text into the model's context with no validation, so the model reads an attacker's instruction as if the operator had written it. A canary HTTP endpoint and a tripwire file let the authors separate a model that merely complies from one that finishes the theft. The paper sorts the root causes into 25 classes.",
+        "whoIsAffected": "Every framework in the study showed vulnerable combinations, from AG2 at 4.6% to smolagents at 34.4%, with nine of them clustered between 23% and 26%. Resistance tracked the model instead: the authors report attack success rates from 0.4% for Claude Fable 5 to 49.7% for Amazon Nova Pro. Anyone whose agent connects to an MCP server they do not control is in scope.",
+        "whatToDo": "Treat MCP tool descriptions and responses as untrusted input, and gate privileged tool calls behind host-side approval, which is the control the MCP SDK maintainers pointed to when they declined the authors' report. Do not rely on description scanning alone: the regex scanner the authors tested rejected 20 of the 45 scenarios and flagged 7.2% of benign tools."
+      },
+      "quickFacts": [
+        {
+          "label": "Attack type",
+          "value": "MCP tool poisoning via tool descriptions, schema fields and responses"
+        },
+        {
+          "label": "Scope tested",
+          "value": "11 agent frameworks plus a raw OpenAI API baseline, 18 models, 45 scenarios"
+        },
+        {
+          "label": "Combinations",
+          "value": "9,720 tested, 2,113 vulnerable"
+        },
+        {
+          "label": "Attack success rate",
+          "value": "22.9% overall, 0.4% to 49.7% by model"
+        },
+        {
+          "label": "Verified exfiltration",
+          "value": "12.1% of vulnerable combinations sent a secret to the attacker's endpoint"
+        },
+        {
+          "label": "Found by",
+          "value": "Farooq Shaikh and Biagio Montaruli, Dynatrace"
+        },
+        {
+          "label": "Status",
+          "value": "Five reports to four vendors, all rejected, no framework fix"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does switching agent framework protect me from MCP tool poisoning?",
+          "a": "Switching frameworks did not help in the Dynatrace study. Nine of the frameworks clustered between 23% and 26% attack success, and the authors report a chi-squared value of 3.30 with p = 0.91, which they read as resistance being a property of the model rather than the framework. A code-level audit found no intentional tool-poisoning defense in any framework tested."
+        },
+        {
+          "q": "Which models resisted MCP tool poisoning best in the Dynatrace tests?",
+          "a": "Claude Fable 5 had the lowest attack success rate at 0.4%, followed by Claude Opus 4.8 at 1.5% and Claude Sonnet 5 at 1.9%. Amazon Nova Pro was highest at 49.7%, with Llama 4 Maverick at 44.1% and DeepSeek-V3.2 at 44.0%. Claude Opus 4.8 was vulnerable in 8 of its 530 combinations and refused outright 223 times."
+        },
+        {
+          "q": "Did any vendor fix the MCP tool poisoning this paper reports?",
+          "a": "No vendor shipped a fix. The authors filed five coordinated disclosures with four organizations, and all five were rejected. LangChain said the library should pass information through as specified, Microsoft said AutoGen documents MCP servers as trusted, the MCP SDK maintainers pointed to host-side review of tool calls, and deepset called the Haystack behavior trusted-configuration behavior while agreeing to clarify its documentation."
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2611.03555"
+        },
+        {
+          "label": "mcpvenom Repository",
+          "url": "https://github.com/dynatrace-research/mcpvenom"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Attack success rate by framework, mcpvenom",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders",
+          "results": [
+            {
+              "name": "AG2",
+              "score": 4.6
+            },
+            {
+              "name": "Pydantic AI",
+              "score": 16.6
+            },
+            {
+              "name": "Haystack",
+              "score": 23.4
+            },
+            {
+              "name": "Google ADK",
+              "score": 23.4
+            },
+            {
+              "name": "Semantic Kernel",
+              "score": 23.7
+            },
+            {
+              "name": "LlamaIndex",
+              "score": 24.1
+            },
+            {
+              "name": "LangChain",
+              "score": 24.2
+            },
+            {
+              "name": "DSPy",
+              "score": 25.2
+            },
+            {
+              "name": "OpenAI API",
+              "score": 25.3
+            },
+            {
+              "name": "Agno",
+              "score": 25.6
+            },
+            {
+              "name": "CrewAI",
+              "score": 26.1
+            },
+            {
+              "name": "smolagents",
+              "score": 34.4
+            }
+          ],
+          "source": "https://arxiv.org/abs/2611.03555"
+        }
+      ],
+      "publishDate": "2026-11-03T18:55:51.908Z"
+    },
     {
       "id": "anthropic-flashprove",
       "categories": [
