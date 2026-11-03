@@ -1,7 +1,237 @@
 {
-  "generatedAt": "2026-11-03T00:17:56.959Z",
+  "generatedAt": "2026-11-03T04:12:20.252Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "gtig-llmjacking-mixers",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "LLMjacking: stolen AI keys cost one victim nearly $1 million in 8 hours",
+      "org": "Google Threat Intelligence Group",
+      "date": "2026-11-02",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/",
+      "summary": "LLMjacking cost one organization nearly $1 million in under 8 hours, Google Threat Intelligence Group reports. An illicit gateway called Jet Night ran more than 500,000 model calls on stolen keys and resold the access for about $60 a month.",
+      "severity": "medium",
+      "tags": [
+        "credential-theft",
+        "threat-intel",
+        "amazon-bedrock",
+        "ollama",
+        "litellm"
+      ],
+      "affected": [
+        "Amazon Bedrock",
+        "Azure AI services",
+        "Gemini API",
+        "Ollama",
+        "LiteLLM"
+      ],
+      "credits": [
+        {
+          "name": "Christopher Romano",
+          "org": "Google Threat Intelligence Group"
+        },
+        {
+          "name": "Codi Starks",
+          "org": "Google Threat Intelligence Group"
+        },
+        {
+          "name": "Garrett Mahoney",
+          "org": "Google Threat Intelligence Group"
+        },
+        {
+          "name": "John Wolfram",
+          "org": "Google Threat Intelligence Group"
+        },
+        {
+          "name": "Josh Murchie",
+          "org": "Google Threat Intelligence Group"
+        },
+        {
+          "name": "Mandiant",
+          "org": "Google Cloud"
+        }
+      ],
+      "explainer": {
+        "tagline": "LLMjacking is the theft of an organization's paid access to language models, resold to subscribers through illicit routing gateways.",
+        "whatHappened": "Google Threat Intelligence Group and Mandiant published a report on November 2, 2026 on LLMjacking incidents they responded to across North America, South America and Asia Pacific. Victims include financial services, retail, technology and transportation organizations. In individual incidents, fraudulent inference charges passed $100,000 in a single day.",
+        "howItWorks": "Attackers begin from exposed or stolen cloud identity material: IAM credentials, service account keys, GitHub personal access tokens and session tokens. A stolen key is confirmed with tiny requests, such as a call capped at one output token, which stays below volume alerting in EDR and SIEM tools. GTIG describes a division of labor in which initial access operators hand off to LLM Mixers, routing gateways that pool stolen keys and resell the access to underground subscribers. One actor also kept access by creating and deleting short-lived service accounts, a pattern GTIG calls burn and rotate.",
+        "whoIsAffected": "Organizations using Amazon Bedrock, Azure AI services, the Gemini API and publicly exposed Ollama endpoints are the reported targets. GTIG says that in several incidents the LLM service was not enabled before the compromise, and attackers switched it on with an abused access key.",
+        "whatToDo": "Treat unauthorized enabling of an LLM service as a critical alert, and hunt the per-cloud invocation, reconnaissance and logging-tampering calls GTIG lists. Turn on Google Cloud Data Access logs and Amazon Bedrock model invocation logging, which are both off by default. Scope API keys per model and environment, and set per-model quotas and spending caps."
+      },
+      "quickFacts": [
+        {
+          "label": "Attack type",
+          "value": "LLMjacking: theft and resale of an organization's paid model access"
+        },
+        {
+          "label": "Largest single victim cost",
+          "value": "Nearly $1 million in token charges, from over 500,000 calls in under 8 hours"
+        },
+        {
+          "label": "Named actor",
+          "value": "UNC6993, which ran up over $100,000 in charges after acquiring LLM API keys"
+        },
+        {
+          "label": "Resale gateways",
+          "value": "jet-night.com and newapi.pro, which GTIG calls LLM Mixers"
+        },
+        {
+          "label": "Mixer price",
+          "value": "About $60 a month unlimited, against $100 to $250 for comparable legitimate service, per GTIG"
+        },
+        {
+          "label": "Exploited flaw",
+          "value": "CVE-2026-40217 in LiteLLM, used to turn a Virtual Key into a PROXY_ADMIN credential, per GTIG"
+        },
+        {
+          "label": "Found by",
+          "value": "Google Threat Intelligence Group and Mandiant incident response"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I exposed to LLMjacking if I never enabled a model API?",
+          "a": "LLMjacking victims in the GTIG report often had no LLM service enabled before the intrusion. Attackers used stolen cloud credentials to turn the service on themselves, then ran paid inference against it. Google Threat Intelligence Group advises treating unauthorized enablement of an LLM service as a critical security event, because in several incidents that action was the first sign of compromise."
+        },
+        {
+          "q": "How do I detect LLMjacking in cloud audit logs?",
+          "a": "Detection rests on logs that are off by default. GTIG points to CloudTrail events such as InvokeModel and PutUseCaseForModelAccess on AWS, deployment writes under Microsoft.CognitiveServices on Azure, and EnableService plus GenerateContent on Google Cloud. Inference calls on Google Cloud need Data Access logs enabled, and Amazon Bedrock needs model invocation logging turned on, so neither records attacker activity until an administrator configures it."
+        },
+        {
+          "q": "Why is stolen model access resold so cheaply?",
+          "a": "Resale gateways that GTIG calls LLM Mixers pool stolen API keys and sell shared access to subscribers. Jet Night advertised an unlimited plan at about $60 a month, below the $100 to $250 GTIG estimates for comparable legitimate service. GTIG assesses that the margin depends on stolen keys, because the operator pays nothing for the tokens the victim is billed for."
+        },
+        {
+          "q": "How does LLMjacking compare with cryptojacking?",
+          "a": "Cryptojacking accrues cost slowly while mining runs. LLMjacking concentrates it: GTIG recorded more than $100,000 of charges in a single day at individual victims and nearly $1 million in under 8 hours at one organization. GTIG expects LLMjacking to displace cryptojacking on margin, and predicts more automated hunting for exposed API tokens and more attacks on model routing middleware."
+        }
+      ],
+      "links": [
+        {
+          "label": "GTIG Report",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/"
+        },
+        {
+          "label": "Bedrock Invocation Logs",
+          "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html"
+        },
+        {
+          "label": "GCP Data Access Logs",
+          "url": "https://docs.cloud.google.com/logging/docs/audit/configure-data-access"
+        }
+      ],
+      "publishDate": "2026-11-03T04:12:20.252Z"
+    },
+    {
+      "id": "jfrog-beta9-sandbox-escapes",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Beta9: three critical escapes from the sandbox that runs AI-written code",
+      "org": "JFrog",
+      "date": "2026-11-01",
+      "url": "https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/",
+      "summary": "Beta9, the open-source runtime behind Beam that runs LLM-generated code in sandboxes, had three flaws that let any tenant reach the host worker as root. JFrog scores all three CVSS 9.9. Fixed in worker 0.1.756 and gateway 0.1.776.",
+      "severity": "high",
+      "cve": "CVE-2026-120307",
+      "cvss": 9.9,
+      "tags": [
+        "sandbox-escape",
+        "privilege-escalation",
+        "beta9",
+        "kubernetes"
+      ],
+      "affected": [
+        "Beta9"
+      ],
+      "credits": [
+        {
+          "name": "Natan Nehorai",
+          "org": "JFrog Security Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Beta9's sandbox boundary failed three ways, letting a tenant with one workspace token read and write the host worker's filesystem as root.",
+        "whatHappened": "JFrog Security Research published three critical advisories for Beta9 on November 1, 2026, all found by Natan Nehorai. Beta9 is beam-cloud's open-source runtime for serverless GPU inference, background jobs and sandboxes that run LLM-generated code. The fixes shipped ahead of the advisories, in worker 0.1.756 and gateway 0.1.776 on September 15, 2026.",
+        "howItWorks": "Two of the three are path handling failures. The worker's sandbox file API joined a tenant-supplied path to a mount source before cleaning parent-directory segments, so a long run of those segments reached any absolute path on the worker, and absolute symlinks inside the container resolved against the worker's root. The gateway separately built volume mount paths from a tenant-supplied identifier without checking that the workspace owned it, so parent-directory segments collapsed the path to the worker root, which was then bind-mounted read-write. The third flaw is isolation: image build steps ran under Buildah with chroot isolation only, keeping the worker pod's PID, IPC and network namespaces, so /proc/1/root exposed the worker's own writable filesystem.",
+        "whoIsAffected": "Self-hosted Beta9 deployments running worker versions below 0.1.756 or gateway versions below 0.1.776 are affected. JFrog says a valid workspace token and one running sandbox are enough, which is what a normal tenant already holds, and that Beta9's shipped remote-node manifests bind the worker's service account to cluster-admin.",
+        "whatToDo": "Upgrade both components, the gateway to 0.1.776 or later and the worker to 0.1.756 or later: JFrog notes that an old worker still mounts whatever path an old gateway sends, so a partial upgrade leaves the volume flaw open. Each advisory includes a read-only proof-of-concept check that reports whether a worker is vulnerable."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Beta9 worker below 0.1.756 and gateway below 0.1.776, by beam-cloud"
+        },
+        {
+          "label": "Fixed in",
+          "value": "worker 0.1.756 and gateway 0.1.776, released September 15, 2026"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-120306, CVE-2026-120307 and CVE-2026-120308, all CVSS 9.9 per JFrog"
+        },
+        {
+          "label": "Attack prerequisite",
+          "value": "A valid workspace token and one running sandbox"
+        },
+        {
+          "label": "Demonstrated impact",
+          "value": "Read of the worker pod's Kubernetes service account token through the sandbox file API"
+        },
+        {
+          "label": "Privilege reached",
+          "value": "root on the worker, with the shipped remote-node service account bound to cluster-admin"
+        },
+        {
+          "label": "Found by",
+          "value": "Natan Nehorai, JFrog Security Research"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Beta9 patched against the three sandbox escapes?",
+          "a": "Beta9 shipped the fixes before JFrog published, in worker 0.1.756 and gateway 0.1.776 on September 15, 2026, through pull request 1897. The patched code opens sandbox paths with os.OpenRoot so parent-directory and symlink lookups stay inside the container root, validates volume ownership at the gateway, and runs Buildah build steps with private PID, IPC and network namespaces instead of chroot."
+        },
+        {
+          "q": "Do I need to upgrade both the Beta9 gateway and the worker?",
+          "a": "Upgrading both components is necessary. JFrog states that the volume path traversal is fixed at the gateway, which now rejects identifiers containing a slash or parent-directory segments and volumes the workspace does not own, but an old worker still mounts whatever path an old gateway sends. A partial upgrade therefore leaves the host filesystem exposure open."
+        },
+        {
+          "q": "What can a Beta9 tenant reach after escaping the sandbox?",
+          "a": "Escape gives read, write, list and delete access to the host worker's filesystem as root, including other tenants' files on the same machine. Natan Nehorai's read-only proof retrieved the worker pod's Kubernetes service account token through the sandbox file API. JFrog notes that Beta9's shipped remote-node manifests bind that service account to cluster-admin, so the token is highly privileged."
+        },
+        {
+          "q": "Which Beta9 operations were affected by the path flaw?",
+          "a": "Upload, download, stat, list, find-in-files, replace-in-files and delete-file all ran through the same helper, getHostPathFromContainerPath, in the worker's container server, so any of them accepted a tenant path that escaped the container root. The build worker escape is separate and needed only one submitted image build, because Clip v2 layered builds are Beta9's default."
+        }
+      ],
+      "links": [
+        {
+          "label": "Container Escape",
+          "url": "https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-container-escape-via-unvalidated-sandbox-file-paths-cve-2026-120307/"
+        },
+        {
+          "label": "Volume Path Traversal",
+          "url": "https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-host-filesystem-exposure-via-volume-path-traversal-cve-2026-120308/"
+        },
+        {
+          "label": "Build Worker Escape",
+          "url": "https://research.jfrog.com/vulnerabilities/beta9-is-vulnerable-to-a-build-worker-sandbox-escape-via-chroot-only-buildah-isolation-cve-2026-120306/"
+        },
+        {
+          "label": "Beta9 Fix PR 1897",
+          "url": "https://github.com/beam-cloud/beta9/pull/1897"
+        },
+        {
+          "label": "Worker 0.1.756 Release",
+          "url": "https://github.com/beam-cloud/beta9/releases/tag/worker-0.1.756"
+        }
+      ],
+      "publishDate": "2026-11-03T04:12:20.252Z"
+    },
     {
       "id": "csghub-resolve-route-private-file-read",
       "categories": [
@@ -5289,7 +5519,7 @@
       ],
       "title": "Trail of Bits: stable releases ship thousands of unfixed CVEs",
       "org": "Trail of Bits",
-      "date": "2026-10-27",
+      "date": "2026-11-02",
       "url": "https://blog.trailofbits.com/2026/11/02/backporting-security-fixes-at-scale-with-codex/",
       "summary": "Stable releases carry many known, unfixed security bugs, Trail of Bits reports: 4,562 unique CVEs across 1,128 Debian 13 source packages, and 2,006 in Linux 5.10.y. Its Codex-assisted program has delivered fixes for 149 CVEs.",
       "severity": "info",

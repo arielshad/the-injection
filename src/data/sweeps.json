@@ -14816,6 +14816,87 @@
         "Hacker News front page, newest and Show HN"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261103t041220z",
+      "timestamp": "2026-11-03T04:12:20.252Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (GitHub Security Advisories, VulnCheck, NVD and OpenCVE, Microsoft, Anthropic, UK AISI, NIST CAISI), research teams (JFrog, Wiz, CrowdStrike, Check Point, Trail of Bits, AIR Security, Zenity Labs, Embrace The Red, Socket, ReversingLabs, Snyk, HiddenLayer, Lakera, Simon Willison), Google Threat Intelligence, Hugging Face, OWASP GenAI, Hacker News front pages for October 30 to November 3 plus Show HN, github.com/trending, repo-scan (13 queries, 6 candidates), paper-scan (56 arXiv papers in the window) and talk-scan (19 uploads); shipped the GTIG LLMjacking report and JFrog's three Beta9 sandbox escapes, and corrected one stored date. Left out: a DBHub read-only bypass whose CVE is new but whose advisory and fix are from June 2026; the Brazilian court prompt-injection ruling (HN front page on November 1, write-up dated July 1, 2026); Glow Labs PixelLeak and the Cathedral intrusion into Anthropic's third-party software (both disclosed before the window); two coding-agent papers that each cleared only one of the two required signals. openai.com returned 403 to scripts again, reddit.com was unfetchable, and koi.security now redirects to Palo Alto Networks.",
+      "counts": {
+        "added": 2,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "gtig-llmjacking-mixers",
+          "title": "LLMjacking: stolen AI keys cost one victim nearly $1 million in 8 hours",
+          "category": "incident",
+          "severity": "medium",
+          "note": "First incident-response data on the LLMjacking resale economy, with named actors, a priced mixer service and per-cloud detection queries, distinct from the Wiz phishing-to-billing and Symantec Skynet items already in the feed."
+        },
+        {
+          "id": "jfrog-beta9-sandbox-escapes",
+          "title": "Beta9: three critical escapes from the sandbox that runs AI-written code",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Three CVSS 9.9 escapes from the sandbox an AI runtime uses to execute model-written code, reachable with credentials any tenant already holds, and needing a two-component upgrade that defenders can get wrong."
+        }
+      ],
+      "updated": [
+        {
+          "id": "trailofbits-backporting-stable-releases",
+          "title": "Trail of Bits: stable releases ship thousands of unfixed CVEs",
+          "note": "Date correction. The cited Trail of Bits post is dated November 2, 2026 on its own page and URL path, and it reports fixes delivered as of October 29, 2026, so the stored date of 2026-10-27 cannot be the original publication date."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "OpenCVE",
+        "Google Threat Intelligence Group",
+        "JFrog Security Research",
+        "Wiz Research",
+        "Microsoft Security Blog",
+        "CrowdStrike blog",
+        "Check Point Research",
+        "blog.trailofbits.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "snyk.io/blog",
+        "hiddenlayer.com",
+        "lakera.ai/blog",
+        "anthropic.com/news",
+        "aisi.gov.uk",
+        "nist.gov CAISI",
+        "OWASP GenAI Security Project",
+        "huggingface.co/blog",
+        "Hacker News front page and Show HN",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan YouTube channels",
+        "docs.litellm.ai security blog",
+        "bytebase/dbhub advisories"
+      ],
+      "windowDays": 7
     }
   ]
 }
