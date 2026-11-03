@@ -1,7 +1,238 @@
 {
-  "generatedAt": "2026-11-02T23:31:27.911Z",
+  "generatedAt": "2026-11-03T00:17:56.959Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "csghub-resolve-route-private-file-read",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "CSGHub: an encoded parameter in a file path reads private model files",
+      "org": "VulnCheck",
+      "date": "2026-10-31",
+      "url": "https://www.vulncheck.com/advisories/opencsg-csghub-through-2.6.0-ce-unauthenticated-private-repository-file-read-via-resolve-route",
+      "summary": "CSGHub v2.6.0-ce and earlier let an unauthenticated caller read files from private model, code and space repositories, VulnCheck says. An encoded parameter inside the file path overrides the acting user. No fixed version is listed.",
+      "severity": "medium",
+      "cve": "CVE-2026-120426",
+      "cvss": 8.7,
+      "tags": [
+        "model-supply-chain",
+        "privilege-escalation",
+        "csghub",
+        "opencsg"
+      ],
+      "affected": [
+        "CSGHub",
+        "csghub-server"
+      ],
+      "credits": [
+        {
+          "name": "hieuPenguinnn"
+        }
+      ],
+      "explainer": {
+        "tagline": "CSGHub v2.6.0-ce exposes files in private model, code and space repositories to callers who never log in, the researcher reports.",
+        "whatHappened": "hieuPenguinnn reported an unauthenticated private repository file read in OpenCSG's CSGHub on October 31, 2026, in a public issue on the project's GitHub repository, with a write-up on HackMD. VulnCheck published the finding as CVE-2026-120426 on November 2 and scored it 8.7. A CSGHub collaborator replied on November 1 that the team is reviewing the report and can neither confirm nor deny it yet.",
+        "howItWorks": "Authorization bypass through a user-controlled key is the mechanism. The CSGHub portal serves the file resolve route with no authentication guard, and for an anonymous request it fetches the file using the server-wide API key instead of a user token. On that backend call the acting identity travels as a current_user query parameter, and the portal inserts the URL's file path into the request without encoding it. A path carrying a percent-encoded query separator can therefore append its own current_user value, and the backend, seeing the service key, treats that value as the acting user.",
+        "whoIsAffected": "CSGHub v2.6.0-ce and earlier are the versions VulnCheck lists, and the report describes split deployments in which the portal holds a service API key. Private model, code and space repositories are reachable; dataset routes are not, because the backend requires a login for them. The researcher reviewed source code at that release tag and states that no request was executed against a live deployment.",
+        "whatToDo": "Require authentication in front of the portal's resolve route for non-public content until OpenCSG ships a fix, and keep CSGHub instances that hold private repositories off untrusted networks. The write-up also asks the project to stop using the service API key for user-facing file reads, to percent-encode path segments before building the backend query, and to treat a service-key current_user value as a signed assertion."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "CSGHub v2.6.0-ce and earlier, portal and csghub-server"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed version listed; v2.6.0-ce is the latest release"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-120426, assigned by VulnCheck"
+        },
+        {
+          "label": "Found by",
+          "value": "hieuPenguinnn, per VulnCheck"
+        },
+        {
+          "label": "Disclosed",
+          "value": "October 31, 2026 in a public GitHub issue; VulnCheck advisory November 2"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unauthenticated authorization bypass through a user-controlled current_user parameter"
+        },
+        {
+          "label": "Vendor status",
+          "value": "OpenCSG acknowledged the report on November 1 and says it cannot yet confirm or deny it"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is CSGHub patched against CVE-2026-120426?",
+          "a": "CSGHub has no fixed release for CVE-2026-120426 as of November 3, 2026. VulnCheck lists v2.6.0-ce and earlier as affected and names no fixed version, and the project's releases page shows v2.6.0-ce as the latest. OpenCSG acknowledged the report on November 1 and said it was still reviewing it, so operators have to gate the resolve route themselves."
+        },
+        {
+          "q": "Which CSGHub repositories can an anonymous caller read?",
+          "a": "Private model, code and space repositories are the ones the report covers. The researcher writes that dataset routes are not affected, because the CSGHub backend requires a login for them. Exposure applies to split deployments where the portal holds a server-wide API key, and the loss is confidentiality only: the write-up claims no write access and no code execution."
+        },
+        {
+          "q": "How was the CSGHub flaw found and tested?",
+          "a": "Static source review found the flaw. hieuPenguinnn read the portal's resolve handler, its download helper and the backend authenticator at tag v2.6.0-ce, and states that no request was executed against a live deployment. VulnCheck assigned CVE-2026-120426 with a CVSS v4.0 score of 8.7, while OpenCSG has not yet confirmed the behaviour on a running instance."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/opencsg-csghub-through-2.6.0-ce-unauthenticated-private-repository-file-read-via-resolve-route"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://hackmd.io/@hieund/cve-2026-120426-csghub-private-repo-file-read-idor"
+        },
+        {
+          "label": "GitHub Issue",
+          "url": "https://github.com/OpenCSGs/csghub/issues/1586"
+        },
+        {
+          "label": "CSGHub Releases",
+          "url": "https://github.com/OpenCSGs/csghub/releases"
+        }
+      ],
+      "publishDate": "2026-11-03T00:17:56.959Z"
+    },
+    {
+      "id": "arxiv-secpo",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "SecPO: adaptive prompt injections still break Meta-SecAlign",
+      "org": "UC Berkeley",
+      "date": "2026-10-30",
+      "url": "https://arxiv.org/abs/2610.41998",
+      "summary": "SecPO is a prompt-injection training method from UC Berkeley. The authors report that Meta-SecAlign, the best prior defended model, reaches 78.8% attack success on AgentDojo under an adaptive search attack, against 8.8% for their model.",
+      "severity": "medium",
+      "tags": [
+        "prompt-injection",
+        "guardrail-bypass",
+        "guardrails",
+        "meta-secalign",
+        "agentdojo"
+      ],
+      "affected": [
+        "Meta-SecAlign",
+        "Llama-3.1-8B-Instruct",
+        "Qwen3.6-27B"
+      ],
+      "credits": [
+        {
+          "name": "Sizhe Chen"
+        },
+        {
+          "name": "Yibo Peng"
+        },
+        {
+          "name": "Jaewon Chang"
+        },
+        {
+          "name": "Chawin Sitawarin"
+        },
+        {
+          "name": "David Wagner"
+        }
+      ],
+      "explainer": {
+        "tagline": "SecPO reports that adaptive prompt injections still reach 78.8% attack success against Meta-SecAlign on AgentDojo.",
+        "whatHappened": "Five researchers published SecPO on arXiv on October 30, 2026, a training method meant to make a language model refuse instructions hidden in untrusted data. The paper lists UC Berkeley and Anthropic as affiliations, with a note that the Anthropic author's work was done at Google DeepMind. The team first measures how Meta-SecAlign, the best-defended published model, holds up when an attacker searches for a working injection, then trains its own models to beat that result.",
+        "howItWorks": "Adversarial training plus a new preference-optimization loss is the method. The authors argue that DPO anchors a defended model to an undefended reference model, which caps how secure training can make it, and they derive SecPO from an injection-invariant, utility-preserving reference instead. Their pipeline optimizes each training injection to best@240 rather than reusing fixed templates. Three adaptive attacks are held out from training: Genetic search with MAP-Elites, TAP tree search, and PISmith, an attacker trained with reinforcement learning.",
+        "whoIsAffected": "Teams that treat an injection-hardened model as a security boundary are the audience for this result, and Meta-SecAlign is the control the paper measures. Llama-3.1-8B-Instruct and Qwen3.6-27B are the models the authors train, with thinking disabled, and they report that benign utility holds across nine benchmarks. Scores for the undefended model, Meta-SecAlign and SecPO are in the table on this page.",
+        "whatToDo": "Test any injection-hardened model with a search-based attack rather than fixed injection templates before relying on it: the paper's static and adaptive scores differ by more than an order of magnitude. The code is published under Apache-2.0, and both trained models and their training sets are on Hugging Face under separate terms, so the numbers can be reproduced."
+      },
+      "quickFacts": [
+        {
+          "label": "Baseline",
+          "value": "Meta-SecAlign, trained with DPO"
+        },
+        {
+          "label": "Models trained",
+          "value": "Llama-3.1-8B-Instruct (online) and Qwen3.6-27B (offline adversarial training)"
+        },
+        {
+          "label": "Adaptive attacks",
+          "value": "Genetic search with MAP-Elites, TAP and PISmith, all held out from training"
+        },
+        {
+          "label": "Benchmarks",
+          "value": "AgentDojo, SEP and DTaP for security, plus nine benign utility benchmarks"
+        },
+        {
+          "label": "Code",
+          "value": "github.com/Sizhe-Chen/SecPO under Apache-2.0; models and training sets on Hugging Face"
+        },
+        {
+          "label": "arXiv v1",
+          "value": "2026-10-30"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does Meta-SecAlign stop prompt injection in the SecPO tests?",
+          "a": "Meta-SecAlign stops the fixed injection templates but not the search-based ones. In the paper's main results the authors measure 2.2% attack success for Meta-SecAlign on AgentDojo under static attacks and 78.8% under adaptive Genetic search with 800 victim calls. The same gap appears on SEP, where Meta-SecAlign moves from 2.9% under static attacks to 93.7% under that search."
+        },
+        {
+          "q": "What does SecPO change compared with DPO training?",
+          "a": "SecPO replaces the reference model that DPO optimizes against. The authors say anchoring training to an undefended reference model limits how secure the result can be, and use an injection-invariant, utility-preserving reference instead. Over DPO they report a further 2.4 to 4.6 times reduction in attack success, while adversarial training with stronger optimized injections accounts for a 1.5 to 14.5 times reduction against Meta-SecAlign."
+        },
+        {
+          "q": "Can defenders reproduce the SecPO results?",
+          "a": "Code, training data and trained models are public. The SecPO repository carries the training and evaluation code under Apache-2.0, and Hugging Face hosts the SecPO versions of Llama-3.1-8B-Instruct and Qwen3.6-27B together with their training sets. The repository notes that model, dataset and benchmark terms are separate from the code license, and that redistribution review for the Qwen training set is still pending."
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2610.41998"
+        },
+        {
+          "label": "Full Text",
+          "url": "https://arxiv.org/html/2610.41998v1"
+        },
+        {
+          "label": "SecPO Code",
+          "url": "https://github.com/Sizhe-Chen/SecPO"
+        },
+        {
+          "label": "SecPO Qwen Model",
+          "url": "https://huggingface.co/Sizhe-Chen/Qwen3.6-27B-Instruct-SecPO"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Attack success rate, AgentDojo under adaptive Genetic search at 800 calls",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders. Under static attacks the same three score 26.9%, 2.2% and 0.0%.",
+          "results": [
+            {
+              "name": "Undefended Qwen3.6-27B",
+              "score": 81.3
+            },
+            {
+              "name": "Meta-SecAlign",
+              "score": 78.8
+            },
+            {
+              "name": "SecPO with adversarial training",
+              "score": 8.8,
+              "highlight": true
+            }
+          ],
+          "source": "https://arxiv.org/html/2610.41998v1"
+        }
+      ],
+      "publishDate": "2026-11-03T00:17:56.959Z"
+    },
     {
       "id": "vulncheck-chainlit-mcp-allowlist-semicolon-bypass",
       "categories": [

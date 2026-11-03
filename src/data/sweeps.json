@@ -14739,6 +14739,83 @@
         "Chainlit GitHub advisories and releases"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261103t001756z",
+      "timestamp": "2026-11-03T00:17:56.959Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Searched vendor and lab advisories (GitHub, VulnCheck, Anthropic, Microsoft, Unit 42, Wiz, Socket, JFrog, ReversingLabs, Pillar, AIR, Zenity, HiddenLayer, Datadog, NCC Group, OWASP GenAI, UK AISI), arXiv cs.CR by hand, Hugging Face papers, models and community posts, repo-scan (6 candidates), GitHub trending, talk-scan (24 videos) and Hacker News. Shipped two items: an unauthenticated private file read in CSGHub and the SecPO prompt-injection paper; paper-scan completed only 2 of 9 arXiv queries (HTTP 429) and openai.com/index returned 403.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "csghub-resolve-route-private-file-read",
+          "title": "CSGHub: an encoded parameter in a file path reads private model files",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Unauthenticated read of private model and code repositories in an AI model hub, with a CVE and CVSS from VulnCheck and no fix available."
+        },
+        {
+          "id": "arxiv-secpo",
+          "title": "SecPO: adaptive prompt injections still break Meta-SecAlign",
+          "category": "research",
+          "severity": "medium",
+          "note": "Two paper signals: code, training sets and models released at links that load, and a named released model, Meta-SecAlign, shown failing at 78.8% attack success under adaptive injections."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "VulnCheck blog",
+        "Anthropic news",
+        "Microsoft Security blog",
+        "MSRC blog",
+        "Unit 42",
+        "Wiz blog",
+        "Socket blog",
+        "JFrog blog",
+        "ReversingLabs blog",
+        "Pillar Security blog",
+        "AIR Security blog",
+        "Zenity Labs",
+        "HiddenLayer research",
+        "Lakera blog",
+        "Check Point Research",
+        "NCC Group research blog",
+        "Invariant Labs blog",
+        "Datadog Security Labs",
+        "embracethered.com",
+        "simonwillison.net",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "arXiv cs.CR recent",
+        "paper-scan",
+        "Hugging Face Daily Papers",
+        "Hugging Face blog and community articles",
+        "Hugging Face model search (prompt-injection)",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan",
+        "Hacker News front page, newest and Show HN"
+      ],
+      "windowDays": 7
     }
   ]
 }
