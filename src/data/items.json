@@ -1,7 +1,128 @@
 {
-  "generatedAt": "2026-11-03T04:12:20.252Z",
+  "generatedAt": "2026-11-03T11:42:45.736Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "anthropic-flashprove",
+      "categories": [
+        "tool",
+        "research"
+      ],
+      "title": "FlashProve: Anthropic proves which model answered a request",
+      "org": "Anthropic",
+      "date": "2026-11-02",
+      "url": "https://www.anthropic.com/research/provable-inference",
+      "summary": "FlashProve is an open-source prototype from Anthropic that uses zero-knowledge proofs to show a reply came from a committed set of model weights, without revealing them. Anthropic measures proving at about 72 times the cost of vLLM.",
+      "severity": "info",
+      "tags": [
+        "model-supply-chain",
+        "detection",
+        "anthropic",
+        "llama-4-maverick"
+      ],
+      "affected": [
+        "LLM inference providers",
+        "LLM routers",
+        "Llama 4 Maverick"
+      ],
+      "credits": [
+        {
+          "name": "Roy Rinberg",
+          "org": "Anthropic"
+        },
+        {
+          "name": "Alex Allain",
+          "org": "Anthropic"
+        },
+        {
+          "name": "Alessandro Chiesa",
+          "org": "EPFL, StarkWare"
+        },
+        {
+          "name": "Miranda Christ",
+          "org": "MIT, RESI"
+        },
+        {
+          "name": "Rahul Dalal",
+          "org": "Anthropic STEM Fellows Program, Succinct"
+        },
+        {
+          "name": "Anthropic Frontier Red Team",
+          "org": "Anthropic"
+        }
+      ],
+      "explainer": {
+        "tagline": "Anthropic released FlashProve, a research prototype that proves a model's reply came from the weights its provider committed to.",
+        "whatHappened": "Anthropic's Frontier Red Team published FlashProve on November 2, 2026, with a technical report, a protocol paper and Lean 4 proofs of its top-level security statements. Roy Rinberg, Alex Allain and six co-authors from EPFL, MIT, StarkWare and Succinct built the prototype. Anthropic calls it a research artifact and states in the repository that it is not maintained.",
+        "howItWorks": "Zero-knowledge succinct proofs, or zkSNARKs, carry the guarantee. A provider first publishes a commitment id that binds it to one set of weights, then returns a proof with each reply showing that the reply is the committed model's output. Anyone can check that proof on a CPU with the cp_verify tool, without holding the weights. Anthropic states a cheating provider is caught except with probability about q/2^124 plus 2^-101 after q hash queries.",
+        "whoIsAffected": "One configuration is supported: Llama 4 Maverick at 4-bit weights, contexts up to 1,024 tokens, proved on a single NVIDIA H100 with CUDA 13.2 on x86-64 Linux. Verifying needs only a Linux CPU and under 2 GB of RAM. The threats Anthropic names are a provider or third-party router that serves a cheaper model than the one it advertises, and a compromised server that alters the token stream.",
+        "whatToDo": "Treat a proof as an identity check only when the commitment id comes from a party other than the server being tested, which Anthropic states is required. Read the repository's limits and what-is-not-hidden documents first: the proof assumes greedy decoding over an integer copy of the weights, the model architecture stays visible, and side channels such as timing are out of scope."
+      },
+      "quickFacts": [
+        {
+          "label": "Released",
+          "value": "November 2, 2026, as an unmaintained research prototype"
+        },
+        {
+          "label": "Model proved",
+          "value": "Llama 4 Maverick, 400B mixture of experts, 4-bit weights"
+        },
+        {
+          "label": "Throughput",
+          "value": "About 110 tokens per second on one NVIDIA H100"
+        },
+        {
+          "label": "Proof size",
+          "value": "18.78 MB per 1,024-token request"
+        },
+        {
+          "label": "Proving overhead",
+          "value": "About 72 times a vLLM batch of 24 requests, up to 94 times at the highest vLLM load tested"
+        },
+        {
+          "label": "Verification",
+          "value": "17 seconds on 24 CPU threads"
+        },
+        {
+          "label": "License",
+          "value": "Apache 2.0"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can FlashProve verify Claude or GPT responses today?",
+          "a": "FlashProve proves inference for Llama 4 Maverick only, at 4-bit weights and contexts up to 1,024 tokens, and Anthropic ships it as an unmaintained research prototype rather than a service. No Anthropic production model is covered. A provider would have to publish a weight commitment and run the prover itself before any customer could check a reply this way."
+        },
+        {
+          "q": "What does FlashProve cost compared with normal serving?",
+          "a": "Anthropic measures proving at roughly 72 times the GPU time vLLM needs for the same batch of 24 requests, rising to about 94 times at the highest vLLM load tested. Each proof runs 18.78 MB per 1,024-token request, and an offline commitment phase takes about 39 minutes. Verification stays cheap, at 17 seconds on 24 CPU threads."
+        },
+        {
+          "q": "Does FlashProve stop a compromised inference server from tampering with replies?",
+          "a": "Anthropic argues an attacker who altered the token stream could not produce a valid proof for the committed weights, so tampering becomes detectable rather than silent. Detection depends on obtaining the commitment id from a party other than the server under test. Side channels such as timing measurements are out of scope, and the fast C++ prover code carries no formal guarantee."
+        }
+      ],
+      "links": [
+        {
+          "label": "Anthropic Research Post",
+          "url": "https://www.anthropic.com/research/provable-inference"
+        },
+        {
+          "label": "FlashProve Repo",
+          "url": "https://github.com/anthropics/FlashProve"
+        },
+        {
+          "label": "Technical Report",
+          "url": "https://www.anthropic.com/document/flashprove-technical-report"
+        }
+      ],
+      "image": {
+        "url": "https://www-cdn.anthropic.com/images/4zrzovbb/website/2eba335a28661a8253187053fa36add230af728b-2000x1125.jpg",
+        "alt": "Progress on provable inference for large language models",
+        "credit": "Anthropic"
+      },
+      "publishDate": "2026-11-03T11:42:45.736Z"
+    },
     {
       "id": "gtig-llmjacking-mixers",
       "categories": [

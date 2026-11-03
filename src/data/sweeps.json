@@ -14897,6 +14897,76 @@
         "bytebase/dbhub advisories"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261103t114245z",
+      "timestamp": "2026-11-03T11:42:45.736Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, the MCP Python SDK advisories, VulnCheck, Anthropic news and Frontier Red Team, Google Safety and Security, MSRC, Embrace The Red, AIR, Zenity, Wiz, Socket, Unit 42, JFrog, CrowdStrike, ReversingLabs, HiddenLayer, Check Point, Lakera, Invariant Labs, NCC Group, Trail of Bits, OWASP GenAI, UK AISI, Hugging Face, Hacker News, GitHub trending, arXiv and Hugging Face Daily Papers (74 paper candidates), repo-scan (13 queries, 7 repo candidates) and talk-scan (22 channels, 25 videos). One item met the bar: Anthropic's FlashProve release on November 2. Left out on purpose: many MCP advisories imported into the GitHub Advisory Database in the last week are older disclosures (DBHub GHSA-j656-3hf2-fvjc and CVE-2026-61789, mcp-sanitizer and @sylphx/pdf-reader-mcp from June 25, the three MCP Python SDK advisories from late September and early October, the MCP TypeScript SDK batch-limit flaw from October 15), so their original dates fall outside the window; Glow's PixelLeak screenshot-leak research dates to September 29; the Cathedral claim about reaching Anthropic's business systems has no public report or vendor post to cite, only press accounts of a draft, and Anthropic disputes its framing; p-e-w/heretic shipped v2.0.0 inside the window but is a ready-to-use jailbreak tool, which the repo bar excludes; cloudflare/security-audit-skill trended this week but was created in June; CrowdStrike's November 3 posts and Wiz's November 2 post are product launches; no arXiv paper showed a second signal, and the only in-window talk candidates were retellings or had no technical substance. openai.com returned 403 to scripts and r/netsec could not be fetched, so neither is listed as checked.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "anthropic-flashprove",
+          "title": "FlashProve: Anthropic proves which model answered a request",
+          "category": "tool",
+          "severity": "info",
+          "note": "First zero-knowledge inference prover released by a frontier lab with code, a technical report and Lean proofs, created inside the window and clearing the repo bar on stars, a Sources-list team and a measured write-up."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "MCP Python SDK security advisories",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "blog.google Safety and Security",
+        "Microsoft MSRC blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "AIR Security blog",
+        "Zenity blog",
+        "Wiz blog",
+        "Socket blog",
+        "Unit 42",
+        "JFrog Research",
+        "CrowdStrike blog",
+        "ReversingLabs blog",
+        "HiddenLayer Innovation Hub",
+        "Check Point Research",
+        "Lakera blog",
+        "Invariant Labs blog",
+        "NCC Group research blog",
+        "Trail of Bits blog",
+        "OWASP GenAI news",
+        "UK AISI research",
+        "huggingface.co/blog",
+        "Hacker News front page",
+        "github.com/trending",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers via paper-scan",
+        "repo-scan.json",
+        "talk-scan YouTube channels",
+        "NVD"
+      ],
+      "windowDays": 7
     }
   ]
 }
