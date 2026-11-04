@@ -1,7 +1,434 @@
 {
-  "generatedAt": "2026-11-03T18:55:51.908Z",
+  "generatedAt": "2026-11-03T23:59:11.724Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "gitbook-ai-agent-credential-breach",
+      "categories": [
+        "incident"
+      ],
+      "title": "GitBook: an AI-agent attack reached infrastructure credentials",
+      "org": "GitBook",
+      "date": "2026-11-03",
+      "url": "https://www.gitbook.com/status/security-incident-2026-11-03",
+      "summary": "An attacker using AI agents reached some of GitBook's infrastructure credentials on November 2, 2026. Integration tokens, Git Sync secrets, API tokens and questions sent to GitBook Assistant may be exposed. Customers must rotate secrets.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "ai-enabled-offense",
+        "mcp",
+        "gitbook"
+      ],
+      "affected": [
+        "GitBook",
+        "GitBook Assistant",
+        "GitBook MCP server"
+      ],
+      "credits": [
+        {
+          "name": "The GitBook Team",
+          "org": "GitBook"
+        }
+      ],
+      "explainer": {
+        "tagline": "GitBook reports a targeted attack that used AI agents and reached some of its infrastructure credentials on November 2, 2026.",
+        "whatHappened": "GitBook detected unauthorized access to some of its infrastructure credentials at 19:00 CET on November 2, 2026, and describes the intrusion as a sophisticated, highly targeted attack that used AI agents. The GitBook Team posted a containment notice at 13:15 CET on November 3 and had the app, API and published documentation sites available again by 16:21 CET. A full post-mortem is promised.",
+        "howItWorks": "Access to GitBook's own infrastructure credentials put the secrets GitBook holds on behalf of customers in reach: integrations tokens, Git Sync secrets used to connect external repositories, API tokens, and the questions visitors typed into GitBook Assistant. GitBook has not said how the attacker obtained the credentials or which AI systems were involved. The company says it found no evidence that customer content was modified.",
+        "whoIsAffected": "Every GitBook organization is in scope, because the exposure sits in GitBook's shared infrastructure rather than in one customer's configuration. Teams that connect GitBook to other tools through integrations, Git Sync or the GitBook MCP server hold the secrets most likely to need replacing.",
+        "whatToDo": "Rotate GitBook API tokens, then rotate any third-party tokens or secrets used to connect other tools to GitBook, and the secrets behind any published integrations. Re-authenticate the GitBook MCP server. Personal API tokens were already revoked by GitBook, and tokens are viewed and revoked in the Developer settings of a GitBook user account."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "GitBook app, API, published docs, GitBook Assistant, GitBook MCP server"
+        },
+        {
+          "label": "Access began",
+          "value": "19:00 CET, November 2, 2026"
+        },
+        {
+          "label": "Contained",
+          "value": "13:15 CET, November 3, 2026"
+        },
+        {
+          "label": "Services restored",
+          "value": "16:21 CET, November 3, 2026"
+        },
+        {
+          "label": "Possibly exposed",
+          "value": "Integrations tokens, Git Sync secrets, API tokens, GitBook Assistant questions"
+        },
+        {
+          "label": "Status",
+          "value": "Attacker blocked, every GitBook credential replaced, personal API tokens revoked"
+        },
+        {
+          "label": "Action required",
+          "value": "Rotate GitBook and connected third-party tokens, re-authenticate the MCP server"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do I need to rotate my GitBook API tokens?",
+          "a": "Yes. GitBook tells every customer to rotate existing GitBook API tokens, even though it already revoked all personal API tokens itself. Rotation also covers third-party API tokens or secrets used to connect other tools to GitBook, and the secrets behind any published integration. Tokens are viewed and revoked in the Developer settings of a GitBook user account."
+        },
+        {
+          "q": "Was my GitBook documentation content changed?",
+          "a": "GitBook says it found no evidence that customer content was modified. Published documentation sites and the editor went offline as a precaution while GitBook contained the attack, and cached public content stayed live. Content integrity is GitBook's own assessment at this stage, and the company says a full post-mortem will follow, so the finding may be revised."
+        },
+        {
+          "q": "What happens to questions asked to GitBook Assistant?",
+          "a": "Questions that visitors sent to GitBook Assistant are listed among the data that may have been accessed. Teams running internal or customer-facing documentation should treat those queries as potentially read by the attacker, because support questions often quote error messages, internal hostnames or configuration details. GitBook has not published a count of affected queries."
+        },
+        {
+          "q": "Which AI systems did the attacker use against GitBook?",
+          "a": "GitBook has not named the AI systems involved, nor said how the attacker obtained its infrastructure credentials. The notice describes only a sophisticated, highly targeted attack that used AI agents. Defenders comparing the incident with other agentic intrusions should treat the AI attribution as GitBook's own characterization until the promised post-mortem supplies technical detail."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitBook Incident Notice",
+          "url": "https://www.gitbook.com/status/security-incident-2026-11-03"
+        },
+        {
+          "label": "GitBook API Tokens",
+          "url": "https://gitbook.com/docs/developers/gitbook-api/authentication"
+        }
+      ],
+      "publishDate": "2026-11-03T23:59:11.724Z"
+    },
+    {
+      "id": "collinear-cwe-bench-v2",
+      "categories": [
+        "benchmark",
+        "research"
+      ],
+      "title": "CWE-bench v2: coding agents fix at most 68% of real security bugs",
+      "org": "Collinear AI",
+      "date": "2026-11-03",
+      "url": "https://huggingface.co/blog/cwe-bench",
+      "summary": "Collinear AI released CWE-bench v2 on November 3, 2026: 100 open tasks across 91 CWE types where an agent must find and fix a real security weakness without breaking the code. The best model passes 67.8% on the first attempt.",
+      "severity": "info",
+      "tags": [
+        "evals",
+        "cyber-capability",
+        "coding-agents",
+        "collinear-ai"
+      ],
+      "affected": [
+        "Claude Opus 5.5",
+        "Gemini 4 Argon",
+        "DeepSeek V4.1 Flash"
+      ],
+      "credits": [
+        {
+          "name": "Gonzalo Gonzalez",
+          "org": "Collinear AI"
+        },
+        {
+          "name": "Ajay Jagannath",
+          "org": "Collinear AI"
+        },
+        {
+          "name": "Nazneen Rajani",
+          "org": "Collinear AI"
+        },
+        {
+          "name": "Nathan Habib"
+        }
+      ],
+      "explainer": {
+        "tagline": "CWE-bench v2 is Collinear AI's open benchmark for whether a coding agent can find and fix a real security weakness in a real repository.",
+        "whatHappened": "Collinear AI published CWE-bench v2 on November 3, 2026, releasing 100 defensive security tasks that were previously held out. Each task hands an agent a checkout of a real open-source repository and a short instruction to fix a security weakness without breaking existing functionality. The authors report results for 11 models, with Gemini 4 Argon leading at 67.8% pass@1 and Claude Opus 5.5 close behind at 67.3%.",
+        "howItWorks": "Scoring runs as code rather than as a model judgment, so a run is deterministic and anyone can reproduce it. Each task ships as a Dockerized Harbor task. The authors say every task was reviewed by hand and checked four ways: that the instruction reads realistically, that the graded behavior can be inferred from it, that the starter code fails while the reference fix passes, and that verifiers reject a memorized upstream patch.",
+        "whoIsAffected": "Teams choosing a model to review or repair their own code are the audience, across 8 programming languages and 91 distinct CWE types. Collinear AI keeps a separate held-out set for tracking progress on unseen tasks, and access to it requires contacting the company. The public dataset is Apache 2.0 licensed and gated behind accepting its terms.",
+        "whatToDo": "Run the benchmark against the model your team actually uses before trusting it with security fixes: Harbor executes the suite straight from the Hugging Face dataset repository. Read the cost column next to the score, since DeepSeek V4.1 Flash reaches 57% at $0.04 per rollout against $3.92 for the leader."
+      },
+      "quickFacts": [
+        {
+          "label": "Tasks",
+          "value": "100 public, across 91 CWE types and 8 languages"
+        },
+        {
+          "label": "Leader",
+          "value": "Gemini 4 Argon, 67.8% pass@1 and 81.0% pass@4"
+        },
+        {
+          "label": "Runner-up",
+          "value": "Claude Opus 5.5, 67.3% pass@1 and 78.0% pass@4"
+        },
+        {
+          "label": "Unsolved",
+          "value": "5 of 100 tasks solved by no model; the leader fails 19% on every attempt"
+        },
+        {
+          "label": "Cost per rollout",
+          "value": "$0.04 DeepSeek V4.1 Flash, $1.83 Claude Opus 5.5, $3.92 Gemini 4 Argon"
+        },
+        {
+          "label": "Scoring",
+          "value": "Programmatic and deterministic, run as Dockerized Harbor tasks"
+        },
+        {
+          "label": "License",
+          "value": "Apache 2.0, gated dataset"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Task resolve rate, CWE-bench v2 open-weight leaderboard",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is better: share of the 100 tasks where the agent fixed the flaw",
+          "results": [
+            {
+              "name": "DeepSeek-V4.1-Flash-1017",
+              "score": 57
+            },
+            {
+              "name": "tencent/Hy4-preview",
+              "score": 52
+            },
+            {
+              "name": "Mistral-Large-4-1T-A52B",
+              "score": 46.3
+            },
+            {
+              "name": "GLM-5.3",
+              "score": 44
+            }
+          ],
+          "source": "https://huggingface.co/datasets/collinear-ai/cwe-bench"
+        }
+      ],
+      "links": [
+        {
+          "label": "CWE-bench v2 Write-up",
+          "url": "https://huggingface.co/blog/cwe-bench"
+        },
+        {
+          "label": "CWE-bench Dataset",
+          "url": "https://huggingface.co/datasets/collinear-ai/cwe-bench"
+        },
+        {
+          "label": "Full Leaderboard",
+          "url": "https://huggingface.co/spaces/collinear-ai/cwe-bench-leaderboard"
+        }
+      ],
+      "image": {
+        "url": "https://huggingface.co/blog/assets/cwe-bench/thumbnail.jpg",
+        "alt": "CWE-bench v2 title card",
+        "credit": "Collinear AI"
+      },
+      "publishDate": "2026-11-03T23:59:11.724Z"
+    },
+    {
+      "id": "glow-mcphantom",
+      "categories": [
+        "supply-chain",
+        "vulnerability"
+      ],
+      "title": "MCPhantom: agents install deprecated MCP servers with unpatched RCE",
+      "org": "Glow Labs",
+      "date": "2026-11-02",
+      "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
+      "summary": "AI coding agents pick deprecated Model Context Protocol servers out of their training data and install them, Glow Labs reports. The archived servers carry four high-severity flaws, including a prompt-injection RCE, and no fix is coming.",
+      "severity": "high",
+      "tags": [
+        "mcp",
+        "coding-agents",
+        "rce",
+        "prompt-injection",
+        "claude-code",
+        "cursor"
+      ],
+      "affected": [
+        "Claude Code",
+        "Cursor",
+        "Codex CLI",
+        "Claude Cowork",
+        "@modelcontextprotocol/server-puppeteer"
+      ],
+      "credits": [
+        {
+          "name": "Nadav Claude Cohen",
+          "org": "Glow Labs"
+        },
+        {
+          "name": "Glow Labs Research Team",
+          "org": "Glow Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "MCPhantom is Glow Labs' name for AI coding agents installing archived MCP reference servers that their training data still remembers.",
+        "whatHappened": "Glow Labs published MCPhantom on November 2, 2026, after reviewing real coding sessions in which agents set up deprecated Model Context Protocol servers. In 98% of those sessions the agent supplied the old package name itself, and in the remaining 2% the user asked for it by name. Researcher Nadav Claude Cohen reports four high-severity flaws in the archived @modelcontextprotocol reference servers, including remote code execution in the Puppeteer server.",
+        "howItWorks": "Archived reference servers were popular when today's models were trained, so a model asked to add an MCP integration reaches for the name it knows instead of checking which server a service now ships. The install succeeds because npm still serves deprecated versions. In the Puppeteer server, a prompt injection can make the agent launch any process instead of a browser, and the harness allows it because the developer already granted web-browsing permission, which covers any command.",
+        "whoIsAffected": "Developers running Claude Code, Cursor, Codex CLI, Claude Cowork or Claude chat are exposed, across models from Anthropic, OpenAI and xAI. Glow Labs counted 17,352,267 npm downloads of the deprecated servers since July 10, 2025, and five of them sit in npm's top MCP 100. EDR, software composition analysis and software inventory tools generally do not flag these servers.",
+        "whatToDo": "Search developer machines for MCP configurations that name deprecated @modelcontextprotocol servers, and replace them with the server each service owner publishes. Approve one MCP server per service so agents have no outdated option to fall back on, and add npm deprecation status to the approval criteria."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Claude Code, Cursor, Codex CLI, Claude Cowork, Claude chat"
+        },
+        {
+          "label": "Vulnerable packages",
+          "value": "Archived @modelcontextprotocol reference servers, including server-puppeteer"
+        },
+        {
+          "label": "Flaws",
+          "value": "Four high severity, one remote code execution via prompt injection"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fix. Repository archived May 29, 2025, maintainers say no release will come"
+        },
+        {
+          "label": "Downloads",
+          "value": "17,352,267 on npm since July 10, 2025"
+        },
+        {
+          "label": "Found by",
+          "value": "Nadav Claude Cohen, Glow Labs"
+        },
+        {
+          "label": "Status",
+          "value": "Reports closed as out of scope. No exploitation observed"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I running a deprecated MCP server?",
+          "a": "Check every MCP configuration on developer machines for package names beginning with @modelcontextprotocol/server-, such as server-github, server-postgres, server-slack, server-puppeteer or server-brave-search. Glow Labs reports that agents add these without telling the user, so the configuration file is the reliable place to look rather than the chat transcript. Thirteen of Anthropic's twenty 2024 reference servers are now archived."
+        },
+        {
+          "q": "Will the deprecated MCP servers be patched?",
+          "a": "No patch is planned. The maintainers archived the reference server repository on May 29, 2025, and told Glow Labs the Puppeteer server \"is unmaintained, so no fix or release will come from this repository.\" They closed the report as out of scope and said they would consider marking the npm packages deprecated, which does not stop installation."
+        },
+        {
+          "q": "Has the Puppeteer MCP server flaw been exploited?",
+          "a": "Glow Labs says it has seen no exploitation of these flaws so far. The Puppeteer remote code execution needs a prompt injection to reach the agent, for example through a web page the agent visits. Because the developer granted web-browsing permission, the harness does not block the resulting command, so detection has to come from monitoring what the agent runs."
+        },
+        {
+          "q": "Is there a CVE for the MCPhantom flaws?",
+          "a": "No CVE has been published for the four flaws. Glow Labs reported one through HackerOne on July 30, 2026, which closed it as out of scope and pointed to GitHub, then reported all four to Anthropic's CNA between October 4 and 11, 2026. The maintainers closed the resulting advisory in October 2026, stating that no fix would come from the archive."
+        }
+      ],
+      "links": [
+        {
+          "label": "Glow Labs Report",
+          "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data"
+        },
+        {
+          "label": "Archived MCP Servers",
+          "url": "https://github.com/modelcontextprotocol/servers-archived"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a5123806594d44620f087e9/6ae8712717fd9186be5fd89e_MCPhantom%20%E2%80%94%20Glass%20ghost%20(1200x630)(2).png",
+        "alt": "MCPhantom: AI agents installing deprecated MCP servers",
+        "credit": "Glow Labs"
+      },
+      "publishDate": "2026-11-03T23:59:11.724Z"
+    },
+    {
+      "id": "sophos-gold-ogre-aur0ra-ai-agents",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "GOLD OGRE: AI agents ran discovery and lateral movement for Aur0ra",
+      "org": "Sophos",
+      "date": "2026-10-29",
+      "url": "https://www.sophos.com/en-us/blog/ai-used-in-aur0ra-ransomware-testing-and-execution",
+      "summary": "GOLD OGRE gave AI agents VPN credentials and objectives, and the agents ran Active Directory discovery, credential attacks and lateral movement in Aur0ra ransomware intrusions, Sophos reports. Humans kept initial access and deployment.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "cursor",
+        "aur0ra"
+      ],
+      "affected": [
+        "Cursor",
+        "Anthropic models",
+        "xAI models",
+        "Moonshot models"
+      ],
+      "credits": [
+        {
+          "name": "Sophos Counter Threat Unit Research Team",
+          "org": "Sophos"
+        },
+        {
+          "name": "Colin Cowie",
+          "org": "Sophos"
+        }
+      ],
+      "explainer": {
+        "tagline": "Sophos reports that the GOLD OGRE ransomware group ran AI agents through victim networks to reach domain administrator access.",
+        "whatHappened": "Sophos Counter Threat Unit researchers published their analysis of GOLD OGRE on October 29, 2026, built on Cursor artifacts recovered from an exposed directory in late August 2026. The group operates Aur0ra ransomware, has been active since April 2026, and had nearly 40 victims named on its leak site through September 2026. Human operators handed the agents VPN credentials, SOCKS access, targets and objectives.",
+        "howItWorks": "Operators prompted Cursor's Composer agentic coding model, backed by models from Anthropic, xAI and Moonshot, to carry out the middle of each intrusion. The agents ran network and Active Directory discovery, then password spraying, Kerberoasting, NTLM coercion and relay, and credential extraction from files and backups. When a command failed, the agents refined it, edited scripts and tried another route. Guardrails were bypassed by framing the work as authorized red team or diagnostics testing.",
+        "whoIsAffected": "Organizations exposing VPN services to the internet are the entry point GOLD OGRE uses, with stolen credentials rather than a new flaw. Sophos says most Aur0ra victims sit in the United States and western Europe, ransom demands have exceeded $1 million, and dwell time runs from 12 hours to 9 days. In a subset of environments the agents reached domain management access.",
+        "whatToDo": "Patch internet-facing devices and deploy phishing-resistant multi-factor authentication, because the way in is still stolen credentials. Segment critical servers, isolate backups, review domain administrator privileges, and add privileged access management and application controls to limit movement once an agent is inside. Treat endpoint detection alerts as urgent, since AI shortens the time between stages."
+      },
+      "quickFacts": [
+        {
+          "label": "Threat group",
+          "value": "GOLD OGRE, operator of Aur0ra ransomware, active since April 2026"
+        },
+        {
+          "label": "AI tooling",
+          "value": "Cursor Composer, with models from Anthropic, xAI and Moonshot"
+        },
+        {
+          "label": "Agent tasks",
+          "value": "AD discovery, credential attacks, lateral movement, collection, exfiltration to S3"
+        },
+        {
+          "label": "Human-controlled",
+          "value": "Initial access and ransomware deployment"
+        },
+        {
+          "label": "Victims",
+          "value": "Nearly 40 on the leak site through September 2026; 3 after agents reached domain management"
+        },
+        {
+          "label": "Dwell time",
+          "value": "12 hours to 9 days"
+        },
+        {
+          "label": "Found by",
+          "value": "Sophos Counter Threat Unit, from artifacts recovered in late August 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did AI run the Aur0ra attacks on its own?",
+          "a": "No. Sophos describes AI-assisted intrusions, not autonomous ones. Human operators supplied VPN credentials, SOCKS access, targets and objectives, and kept control of both initial access and ransomware deployment. The agents handled discovery, credential attacks and lateral movement in between, with limited human involvement. Sophos notes that Gambit Security and CloudSEK read the same exposed directory and differ on how much the agents executed."
+        },
+        {
+          "q": "How did GOLD OGRE get past the AI tools' safeguards?",
+          "a": "Operators framed the intrusions to the AI tools as authorized red team activity or diagnostics testing. Sophos reports that this framing was enough for the agents to proceed with reconnaissance, credential attacks and lateral movement against live networks. Prompts were written in Russian, and Cyrillic keyboard slips in the logs point to Russian-speaking operators."
+        },
+        {
+          "q": "Will other ransomware groups copy this?",
+          "a": "Sophos Counter Threat Unit judges it highly likely that other ransomware groups and affiliates will embed AI agents such as Cursor into their operations. Sophos also assesses with high confidence that GOLD OGRE first used AI to test tool evasion against endpoint detection products in a Cursor-enabled framework, then supplied similar technology to Aur0ra associates."
+        }
+      ],
+      "links": [
+        {
+          "label": "Sophos CTU Analysis",
+          "url": "https://www.sophos.com/en-us/blog/ai-used-in-aur0ra-ransomware-testing-and-execution"
+        },
+        {
+          "label": "GOLD OGRE Profile",
+          "url": "https://www.sophos.com/en-us/threat-profiles/gold-ogre"
+        }
+      ],
+      "publishDate": "2026-11-03T23:59:11.724Z"
+    },
     {
       "id": "dynatrace-mcp-tool-poisoning",
       "categories": [

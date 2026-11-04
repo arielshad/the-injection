@@ -15033,6 +15033,88 @@
         "promptinjection.wtf"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261103t235911z",
+      "timestamp": "2026-11-03T23:59:11.724Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, GitHub Security Advisories, VulnCheck, Embrace The Red, Zenity, AIR, Wiz, Socket, Sophos, Check Point, Simon Willison, OWASP GenAI, Hugging Face, Hacker News, github.com/trending and the repo, paper and talk scans. Added four items inside the window: Glow Labs' MCPhantom research on agents installing archived MCP reference servers, GitBook's AI-agent credential breach, Sophos CTU on GOLD OGRE running AI agents in Aur0ra intrusions, and Collinear AI's CWE-bench v2. paper-scan returned 70 arXiv candidates but none showed two confirmed signals; talk-scan's 18 videos had no conference talk clearing the view or speaker bar.",
+      "counts": {
+        "added": 4,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "glow-mcphantom",
+          "title": "MCPhantom: agents install deprecated MCP servers with unpatched RCE",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "First research naming the pattern of agents choosing archived MCP reference servers from training data, with four high-severity flaws and the maintainers confirming no fix will ship."
+        },
+        {
+          "id": "gitbook-ai-agent-credential-breach",
+          "title": "GitBook: an AI-agent attack reached infrastructure credentials",
+          "category": "incident",
+          "severity": "high",
+          "note": "A confirmed credential breach at a widely used docs platform, disclosed by the vendor, with named action required from every customer including GitBook MCP server users."
+        },
+        {
+          "id": "sophos-gold-ogre-aur0ra-ai-agents",
+          "title": "GOLD OGRE: AI agents ran discovery and lateral movement for Aur0ra",
+          "category": "incident",
+          "severity": "info",
+          "note": "Sophos CTU attributes agent-driven discovery and lateral movement to a named ransomware group, with the division of labour between operator and agent documented from recovered artifacts."
+        },
+        {
+          "id": "collinear-cwe-bench-v2",
+          "title": "CWE-bench v2: coding agents fix at most 68% of real security bugs",
+          "category": "benchmark",
+          "severity": "info",
+          "note": "A reproducible, programmatically scored defensive security benchmark released in full, with per-model scores and cost that a team can run against its own model."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "Microsoft MSRC blog",
+        "embracethered.com",
+        "Zenity Labs",
+        "AIR Security blog",
+        "Wiz blog",
+        "Socket blog",
+        "Sophos News",
+        "Sophos threat profiles",
+        "Check Point Research",
+        "SecurityWeek",
+        "Help Net Security",
+        "simonwillison.net",
+        "OWASP GenAI Security Project",
+        "huggingface.co/blog",
+        "Hacker News front page and newest",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + HF Daily Papers)",
+        "talk-scan.ts",
+        "glow.io",
+        "gitbook.com status"
+      ],
+      "windowDays": 7
     }
   ]
 }
