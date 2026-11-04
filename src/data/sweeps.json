@@ -15115,6 +15115,72 @@
         "gitbook.com status"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261104t001639z",
+      "timestamp": "2026-11-04T00:16:39.505Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub and SurrealDB advisories, VulnCheck, JFrog, Wiz, Unit 42, Socket, Trail of Bits, ReversingLabs, Check Point, Lakera, HiddenLayer, Snyk, AIR, Zenity, Embrace The Red, Simon Willison, Anthropic, Hugging Face, OWASP GenAI, UK AISI, repo-scan (6 candidates), GitHub trending, Hacker News and talk-scan (18 videos), and added one item: a statement injection in SurrealDB's MCP server disclosed on November 3. paper-scan.ts failed on every arXiv query, so arXiv cs.CR was searched by hand (42 papers with a v1 inside the window, none cleared the two-signal paper bar); openai.com returned 403, security.googleblog.com was rate limited and r/netsec would not load.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "surrealdb-mcp-backtick-statement-injection",
+          "title": "SurrealDB: an escaped backtick in an MCP tool call runs any query",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "SurrealDB's own advisory, published inside the window, with a named reporter, a clear interpretation-conflict mechanism and a patched version that defenders must install."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "SurrealDB security advisories",
+        "VulnCheck advisories",
+        "JFrog Research",
+        "Socket blog",
+        "Trail of Bits blog",
+        "ReversingLabs blog",
+        "Wiz blog",
+        "Unit 42",
+        "Check Point Research",
+        "Lakera blog",
+        "HiddenLayer research",
+        "Snyk blog",
+        "AIR Security blog",
+        "Zenity Labs",
+        "embracethered.com",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "Microsoft MSRC blog",
+        "huggingface.co/blog",
+        "Hugging Face Daily Papers",
+        "arXiv cs.CR (manual)",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page",
+        "Show HN",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "talk-scan (22 YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }

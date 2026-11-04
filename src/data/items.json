@@ -1,7 +1,99 @@
 {
-  "generatedAt": "2026-11-03T23:59:11.724Z",
+  "generatedAt": "2026-11-04T00:16:39.505Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "surrealdb-mcp-backtick-statement-injection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "SurrealDB: an escaped backtick in an MCP tool call runs any query",
+      "org": "SurrealDB",
+      "date": "2026-11-03",
+      "url": "https://github.com/surrealdb/surrealdb/security/advisories/GHSA-cr79-9p8r-p5wx",
+      "summary": "SurrealDB's MCP server accepted a backslash-escaped backtick as the end of an identifier, letting attacker input run as raw SurrealQL through MCP tool calls. SurrealDB fixed the flaw in version 4.0.0 and credits ARSB.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "agent-security",
+        "surrealdb"
+      ],
+      "affected": [
+        "SurrealDB",
+        "SurrealDB MCP server"
+      ],
+      "credits": [
+        {
+          "name": "ARSB"
+        }
+      ],
+      "explainer": {
+        "tagline": "SurrealDB's MCP server let a backslash-escaped backtick in a tool argument close an identifier early and run attacker SurrealQL.",
+        "whatHappened": "SurrealDB published advisory GHSA-cr79-9p8r-p5wx on November 3, 2026, describing a statement injection flaw in its Model Context Protocol server integration. SurrealDB credits ARSB with reporting the issue and lists 4.0.0 as the patched version. The advisory arrived in a batch of SurrealDB advisories published the same day.",
+        "howItWorks": "The MCP server validates tool identifiers with its own parser, which treats the first backtick it sees as the closing delimiter even when a backslash precedes it. SurrealQL's lexer instead reads a backslash-escaped backtick as a literal character inside the identifier. Because the two components disagree, an identifier carrying an escaped backtick looks closed to the validator but not to the database, and the rest of the input is read as raw SurrealQL. SurrealDB places the defect in consume_backtick_ident and validate_identifier in surrealdb/mcp/src/tools/mod.rs.",
+        "whoIsAffected": "Deployments running SurrealDB's MCP server below version 4.0.0 are exposed, as the advisory states. Exploiting the flaw needs the ability to supply an identifier in a SurrealDB MCP tool call. SurrealDB installations that do not expose the MCP server integration fall outside this advisory.",
+        "whatToDo": "Upgrade SurrealDB to 4.0.0 or later, the version the advisory names as patched. For anyone maintaining a similar tool layer, SurrealDB recommends aligning identifier parsing with the core SurrealQL lexer, or building queries from parameterized AST nodes instead of string interpolation."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "SurrealDB MCP server below 4.0.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "4.0.0"
+        },
+        {
+          "label": "CVE",
+          "value": "None in the advisory"
+        },
+        {
+          "label": "Vendor severity",
+          "value": "High, per SurrealDB"
+        },
+        {
+          "label": "Found by",
+          "value": "ARSB"
+        },
+        {
+          "label": "Attack type",
+          "value": "Statement injection through MCP tool identifiers"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-03"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is SurrealDB's MCP server patched against the backtick statement injection?",
+          "a": "SurrealDB patched the MCP identifier flaw in version 4.0.0, the only release line the advisory lists as unaffected. The fix, commit ec41ae8f15, rewrites consume_backtick_ident so the validator scans identifiers the way the SurrealQL lexer does and treats a backslash as escaping the next byte. Every version below 4.0.0 remains affected, so upgrading is the action."
+        },
+        {
+          "q": "Which SurrealDB versions are affected by GHSA-cr79-9p8r-p5wx?",
+          "a": "GHSA-cr79-9p8r-p5wx affects every SurrealDB release below 4.0.0, according to SurrealDB's advisory, which names the vulnerable package as surrealdb on Cargo. SurrealDB does not record a backported fix for the 3.x line in the advisory. Operators who cannot move to the 4.0.0 major release should weigh whether the MCP server integration needs to be reachable at all."
+        },
+        {
+          "q": "How does an attacker reach the SurrealDB MCP injection flaw?",
+          "a": "Reaching the flaw requires supplying an identifier that contains a backslash-escaped backtick through an MCP tool call, as SurrealDB's advisory describes. The advisory states the result is arbitrary SQL execution through MCP tool invocation and a bypass of the tool's argument constraints. SurrealDB places the defect in the MCP server's identifier validation rather than in the SurrealQL parser."
+        }
+      ],
+      "links": [
+        {
+          "label": "SurrealDB Advisory",
+          "url": "https://github.com/surrealdb/surrealdb/security/advisories/GHSA-cr79-9p8r-p5wx"
+        },
+        {
+          "label": "Fix Commit",
+          "url": "https://github.com/surrealdb/surrealdb/commit/ec41ae8f15"
+        },
+        {
+          "label": "SurrealDB 4.0.0 Release",
+          "url": "https://github.com/surrealdb/surrealdb/releases/tag/v4.0.0"
+        }
+      ],
+      "publishDate": "2026-11-04T00:16:39.505Z"
+    },
     {
       "id": "gitbook-ai-agent-credential-breach",
       "categories": [
