@@ -15333,6 +15333,76 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261104t185938z",
+      "timestamp": "2026-11-04T18:59:38.888Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories and their API, VulnCheck, the Microsoft security blog, Anthropic, Zenity, Wiz, JFrog, ReversingLabs, HiddenLayer, Socket, Trail of Bits, Unit 42, NCC, Check Point, AIR, Pillar, Straiker, Snyk, Lakera, Embrace The Red, Simon Willison, OWASP GenAI, UK AISI, Hugging Face blog and papers, Hacker News, github.com/trending, repo-scan (6 candidates), paper-scan (82 papers in window) and talk-scan (29 videos); added one item, Check Point's prompt adware analysis. Dropped as older than the window: the mcp-sanitizer, DBHub, praktor, Mem0 and vLLM advisories, which the GitHub database only ingested this week but whose own advisories and fixes published in June or on October 20, plus AIR's render-openai skill finding, Straiker's session inception, NCC's agent sandbox piece and Glow's PixelLeak.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "checkpoint-prompt-adware-haiou",
+          "title": "Prompt adware: a Codex jailbreak bundle rewrites the agent's instructions",
+          "category": "supply-chain",
+          "severity": "medium",
+          "note": "First look at adware as a payload for agent instruction files: a third-party Codex configuration package that persistently rewrites the agent's trusted instructions, from a security company on the sources list, published inside the window."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "GitHub advisories API",
+        "VulnCheck advisories",
+        "Microsoft Security Blog",
+        "anthropic.com/news",
+        "research.checkpoint.com",
+        "blog.checkpoint.com",
+        "air.security",
+        "zenity.io",
+        "wiz.io",
+        "jfrog.com/blog",
+        "reversinglabs.com",
+        "hiddenlayer.com",
+        "socket.dev",
+        "blog.trailofbits.com",
+        "unit42.paloaltonetworks.com",
+        "nccgroup.com/research",
+        "pillar.security",
+        "straiker.ai",
+        "snyk.io",
+        "lakera.ai",
+        "embracethered.com",
+        "simonwillison.net",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "huggingface.co/blog",
+        "huggingface.co/papers",
+        "Hacker News",
+        "github.com/trending",
+        "npm registry",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }

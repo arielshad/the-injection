@@ -1,7 +1,90 @@
 {
-  "generatedAt": "2026-11-04T11:45:56.353Z",
+  "generatedAt": "2026-11-04T18:59:38.888Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "checkpoint-prompt-adware-haiou",
+      "categories": [
+        "supply-chain",
+        "attack"
+      ],
+      "title": "Prompt adware: a Codex jailbreak bundle rewrites the agent's instructions",
+      "org": "Check Point Research",
+      "date": "2026-11-03",
+      "url": "https://research.checkpoint.com/2026/free-the-model-sell-the-gateway-prompt-adware-hidden-in-jailbreak-bundles/",
+      "summary": "Haiou is a jailbreak bundle for OpenAI Codex that rewrites the agent's global instructions so that greetings return an advertisement for an opaque LLM gateway. Check Point Research found no sign the gateway itself is malicious.",
+      "severity": "medium",
+      "tags": [
+        "jailbreak",
+        "prompt-injection",
+        "skills",
+        "coding-agents",
+        "openai-codex"
+      ],
+      "affected": [
+        "OpenAI Codex",
+        "Claude Code"
+      ],
+      "credits": [
+        {
+          "name": "Pedro Drimel Neto",
+          "org": "Check Point Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Haiou, a free jailbreak bundle for OpenAI Codex, plants a paid gateway's advertisement inside the agent's trusted instruction file.",
+        "whatHappened": "Check Point Research published an analysis on November 3, 2026 of Haiou, a Chinese jailbreak bundle for OpenAI Codex that the team classifies as prompt adware. Check Point analysed version 4.5.0 and traced its distribution to GitHub, a Bilibili video and Codex-X, an open-source GUI tool for configuring Codex. Check Point also found a copy of the bundle on the misconfigured web server of a threat actor running Cobalt Strike, and states there is no evidence that the bundle's author is linked to cybercrime.",
+        "howItWorks": "Haiou ships about 31 prompt modules inside an encrypted payload.pkg, verified with Ed25519 signatures and SHA-256 hashes and decrypted with an AES-256-GCM key embedded in the launcher script. Its 00-identity.md module is injected into Codex's global agent instructions and carries the advertisement, and a CLAUDE.md file in the same package holds the same text. Greetings and activation words, listed below, make the model answer with a fixed catchphrase and promote a third-party gateway. The jailbreak itself combines role-playing, refusal suppression, response priming, pretexting that reframes requests as Capture The Flag tasks, and instruction override.",
+        "whoIsAffected": "Codex users who install the haiou-codex bundle are exposed. Check Point says only the Codex version of the bundle is actively maintained, and that the Claude Code version carries no ad injection. The bundle also installs six skills, listed below, that cover penetration testing, license cracking, reverse engineering and game anti-cheat bypasses.",
+        "whatToDo": "Review the prompt modules, skills and configuration files that shape an agent's behaviour, not only the model, and watch trusted agent instruction files for persistent changes. Check Point recommends keeping an inventory of which AI agents and third-party components are in use, and setting governance rules for approved tools, skills and gateways. Haiou ships an uninstaller that reverts its changes and removes the advertisement."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "OpenAI Codex configured with the haiou-codex bundle, version 4.5.0 analysed"
+        },
+        {
+          "label": "Attack type",
+          "value": "Advertisement injected into the agent's global instruction file, surviving across sessions"
+        },
+        {
+          "label": "Gateway advertised",
+          "value": "zz.aiapi2025.top, an opaque OpenAI-compatible LLM gateway"
+        },
+        {
+          "label": "Trigger words",
+          "value": "start, Seagull, hi, hello, hey, yo, ctf, coach, plus Chinese phrases meaning are you there and are you online"
+        },
+        {
+          "label": "Skills installed",
+          "value": "seagull-game-security, seagull-lab, seagull-license-security, seagull-memory, seagull-pentest, seagull-reverse"
+        },
+        {
+          "label": "Claude Code result",
+          "value": "Sonnet 5 flagged the payload as a prompt-injection attempt and did not comply, per Check Point"
+        },
+        {
+          "label": "Status",
+          "value": "Check Point reports no evidence the advertised gateway is malicious and no link between the author and cybercrime"
+        }
+      ],
+      "links": [
+        {
+          "label": "Check Point Research",
+          "url": "https://research.checkpoint.com/2026/free-the-model-sell-the-gateway-prompt-adware-hidden-in-jailbreak-bundles/"
+        },
+        {
+          "label": "Check Point Blog",
+          "url": "https://blog.checkpoint.com/security/prompt-adware-how-hidden-ai-instructions-could-create-a-new-enterprise-security-risk"
+        }
+      ],
+      "image": {
+        "url": "https://research.checkpoint.com/wp-content/uploads/2026/10/a6126edd-87b5-4d34-9ec5-02b4ddc01b0c.png",
+        "alt": "Free the Model, Sell the Gateway: Prompt Adware hidden in Jailbreak Bundles",
+        "credit": "Check Point Research"
+      },
+      "publishDate": "2026-11-04T18:59:38.888Z"
+    },
     {
       "id": "jfrog-reachy-mini-daemon-hijack",
       "categories": [
