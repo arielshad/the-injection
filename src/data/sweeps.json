@@ -15256,6 +15256,83 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261104t114556z",
+      "timestamp": "2026-11-04T11:45:56.353Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (MCP filter, 17 entries since Oct 28), NVD and VulnCheck, Anthropic, OpenAI, MSRC, AIR Security, Zenity Labs, Embrace The Red, Simon Willison, Wiz, JFrog, Socket, Check Point, HiddenLayer, Trail of Bits, Symantec, CERT-EU, Unit 42, OWASP GenAI, UK AISI, Hugging Face blog, Hacker News, repo-scan (13 queries, 6 candidates), github.com/trending daily and weekly, paper-scan (79 arXiv candidates) and talk-scan (22 channels). Added three items: JFrog's Reachy Mini chain, Symantec's unauthorized Codex and Claude Code relays, and CERT-EU's agent harness backdoor experiment.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "jfrog-reachy-mini-daemon-hijack",
+          "title": "Reachy Mini: one HTTP request runs code on Hugging Face's robot",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "JFrog's first write-up of the chain, published inside the window, shows unauthenticated network code execution to root on a shipping Hugging Face robot plus a Hugging Face Spaces propagation path."
+        },
+        {
+          "id": "symantec-unauthorized-ai-relays",
+          "title": "AI relays: a setup script points Codex and Claude Code at a proxy",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "A grey market service reconfigures genuine Codex and Claude Code installs to proxy prompts and credentials and disables the Codex sandbox, with about a dozen organizations affected."
+        },
+        {
+          "id": "certeu-agent-harness-backdoors",
+          "title": "CERT-EU: a backdoored agent plugin never touches the model",
+          "category": "research",
+          "severity": "info",
+          "note": "An official CERT reproduced a harness-layer backdoor in Claude Code and pi that bypasses agent approval prompts entirely, and publishes concrete hardening steps."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD via OpenCVE",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "msrc.microsoft.com/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "wiz.io/blog",
+        "research.jfrog.com",
+        "socket.dev/blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com/innovation-hub",
+        "blog.trailofbits.com",
+        "security.com threat intelligence",
+        "cert.europa.eu",
+        "unit42.paloaltonetworks.com",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/blog",
+        "huggingface.co/blog",
+        "Hacker News front page",
+        "repo-scan.json",
+        "github.com/trending",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

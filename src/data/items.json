@@ -1,7 +1,288 @@
 {
-  "generatedAt": "2026-11-04T03:38:03.744Z",
+  "generatedAt": "2026-11-04T11:45:56.353Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "jfrog-reachy-mini-daemon-hijack",
+      "categories": [
+        "vulnerability",
+        "supply-chain"
+      ],
+      "title": "Reachy Mini: one HTTP request runs code on Hugging Face's robot",
+      "org": "JFrog",
+      "date": "2026-11-03",
+      "url": "https://jfrog.com/blog/reachy-http-request-hijacks-ai-robot/",
+      "summary": "Reachy Mini, the open-source robot from Pollen Robotics and Hugging Face, exposes an unauthenticated install endpoint that runs attacker code as root. JFrog published the full chain on November 3 and recommends blocking port 8000.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "credential-theft",
+        "model-supply-chain",
+        "reachy-mini",
+        "hugging-face"
+      ],
+      "affected": [
+        "Reachy Mini",
+        "reachy-mini-daemon",
+        "Hugging Face Spaces"
+      ],
+      "cve": "CVE-2026-96455",
+      "cvss": 8.8,
+      "credits": [
+        {
+          "name": "Yuval Moravchick",
+          "org": "JFrog"
+        },
+        {
+          "name": "Natan Nehorai",
+          "org": "JFrog"
+        }
+      ],
+      "explainer": {
+        "tagline": "Reachy Mini's daemon takes app installs from any host on the network without a password, and the installed package runs code as root.",
+        "whatHappened": "JFrog researchers Yuval Moravchick and Natan Nehorai published their Reachy Mini research on November 3, 2026, covering five CVEs they reported to Pollen Robotics in May and June 2026. The CVE records went public between June and September; the write-up that chains them into working attacks is new.",
+        "howItWorks": "The reachy-mini-daemon is a FastAPI service that binds to 0.0.0.0 on port 8000 in every mode, including the USB-tethered Lite unit and simulation. Its POST /apps/install endpoint takes a local path or a Hugging Face Space name and hands it to uv pip install, which runs the package's own setup code. Broad passwordless sudo rights for the pollen user turn that execution into root. A separate Bluetooth chain defeats a global authentication flag and uses absolute-path traversal to run an uploaded file as root.",
+        "whoIsAffected": "Owners of Reachy Mini Lite and Wireless units are exposed to any host on the same network, because the daemon binds to every interface and the --localhost-only flag does not change the bind address. Developers who keep a Hugging Face token on the robot are exposed further: JFrog says an attacker can use it to take over a published Space, which other robots are then offered as an update.",
+        "whatToDo": "Block port 8000 on the robot's network interface, for example with sudo ufw deny in on wlan0 to any port 8000, and do not install untrusted apps. JFrog says to update the daemon to v1.11.0 and to replace the blanket NOPASSWD sudo rule for the pollen user with only the commands the daemon needs."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Reachy Mini Lite and Wireless, reachy-mini-daemon on port 8000"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-96455, CVE-2026-96456, CVE-2026-62661, CVE-2026-55419, CVE-2026-53605"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.8 for CVE-2026-96455, published by JFrog as CNA"
+        },
+        {
+          "label": "Fix status",
+          "value": "Privilege escalation fixed in 0.2.7; wildcard CORS fixed in pull request 1207, merged June 12, 2026; JFrog points to v1.11.0 and maps no release to each remaining CVE"
+        },
+        {
+          "label": "Found by",
+          "value": "Yuval Moravchick and Natan Nehorai, JFrog"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 3, 2026, the research write-up; CVEs published June to September 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unauthenticated app install to root, plus browser CORS and Bluetooth chains"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is a Reachy Mini Lite affected, or only the wireless model?",
+          "a": "Reachy Mini Lite units are affected too. JFrog reports that the reachy-mini-daemon binds to 0.0.0.0 port 8000 in wireless, Lite and simulation modes alike, so even the USB-tethered unit is reachable from any host on the same network. The --localhost-only flag does not change the bind address, so passing it is not a mitigation."
+        },
+        {
+          "q": "Which Reachy Mini release fixes the unauthenticated install endpoint?",
+          "a": "JFrog recommends updating to Reachy Mini v1.11.0 but does not state which release fixes each remaining CVE, and the pull request that closed the wildcard CORS hole describes the daemon API as still unauthenticated. Treat the firewall rule on port 8000 as the control that matters today, and read the v1.11.0 release notes before relying on a version number alone."
+        },
+        {
+          "q": "Can a web page I visit attack a Reachy Mini on my network?",
+          "a": "A visited web page could, until the CORS change. JFrog describes a chain in which the daemon's wildcard CORS policy let any site send install requests to the robot using the operator's stored Hugging Face token. Pull request 1207 restricted CORS to localhost origins in June 2026, which closes the browser route but leaves direct network requests unaffected."
+        },
+        {
+          "q": "What happens to my Hugging Face token if the robot is compromised?",
+          "a": "A compromised Reachy Mini puts the operator's Hugging Face token at risk, because the daemon keeps it at ~/.cache/huggingface/token for Space installs. JFrog says an attacker who reads that token can take over a published Space and turn it into a malicious app, which other robots are then offered as an update. Rotate the token after any suspected compromise."
+        }
+      ],
+      "links": [
+        {
+          "label": "JFrog Research",
+          "url": "https://jfrog.com/blog/reachy-http-request-hijacks-ai-robot/"
+        },
+        {
+          "label": "Reachy Mini v1.11.0",
+          "url": "https://github.com/pollen-robotics/reachy_mini/releases/tag/v1.11.0"
+        },
+        {
+          "label": "CORS Fix Pull Request",
+          "url": "https://github.com/pollen-robotics/reachy_mini/pull/1207"
+        }
+      ],
+      "image": {
+        "url": "https://speedmedia2.jfrog.com/08612fe1-9391-4cf3-ac1a-6dd49c36b276/jfrog.com/wp-content/uploads/2026/11/bREACHY-Social-with-CTA.png",
+        "alt": "JFrog research card for bREACHYing the Perimeter",
+        "credit": "JFrog"
+      },
+      "publishDate": "2026-11-04T11:45:56.353Z"
+    },
+    {
+      "id": "certeu-agent-harness-backdoors",
+      "categories": [
+        "research",
+        "supply-chain"
+      ],
+      "title": "CERT-EU: a backdoored agent plugin never touches the model",
+      "org": "CERT-EU",
+      "date": "2026-10-30",
+      "url": "https://cert.europa.eu/blog/beyond-the-model-backdoors-in-ai-agent-harnesses",
+      "summary": "CERT-EU modified plugins for Claude Code and pi so that a trigger phrase in user input sent host data to a collection endpoint. No tool call appeared, the conversation looked normal, and the agents' approval prompts never saw it.",
+      "severity": "info",
+      "tags": [
+        "plugins",
+        "coding-agents",
+        "credential-theft",
+        "agent-security"
+      ],
+      "affected": [
+        "Claude Code",
+        "pi"
+      ],
+      "credits": [
+        {
+          "name": "CERT-EU AI team",
+          "org": "CERT-EU"
+        }
+      ],
+      "explainer": {
+        "tagline": "Extensions run beside the model with the developer's permissions, so a backdoored plugin needs no prompt injection to steal credentials.",
+        "whatHappened": "CERT-EU's AI team published the experiment on October 30, 2026, separating two attack surfaces for AI coding agents: the model layer, where weights are backdoored, and the harness layer, where the code that executes an agent's tool calls is tampered with. The team modified local copies of two legitimate third-party packages used with Claude Code and pi. No public release was altered, and the post does not name the packages.",
+        "howItWorks": "Harness extensions register event hooks that the agent runs itself, outside the model's tool call path. CERT-EU changed those hooks so that a payload fired when a configured trigger phrase appeared in user input, gathering host credentials and sending them to a collection endpoint. Both harnesses loaded and ran the modified handlers through their normal install mechanism, with no runtime override. On ordinary prompts the plugins worked as expected and nothing reached the collector.",
+        "whoIsAffected": "Teams running AI coding agents with third-party plugins, extensions or skills are in scope, because those components execute with the developer's permissions. CERT-EU argues that tool permissions and approval prompts govern what the model does, not code running next to it, which can give a false sense of containment.",
+        "whatToDo": "Keep an inventory of agent plugins, pin their versions and review changes before updating, treating each as privileged executable software whatever its popularity or source. CERT-EU also recommends running agents in dedicated VMs, containers or restricted accounts away from SSH agents, browser profiles and credential stores, using short-lived narrowly scoped credentials instead of long-lived keys in environment variables, restricting outbound traffic, and monitoring extension installs and sensitive file access rather than tool calls alone."
+      },
+      "quickFacts": [
+        {
+          "label": "Harnesses tested",
+          "value": "Claude Code and pi"
+        },
+        {
+          "label": "Method",
+          "value": "Event hooks in modified local copies of two legitimate third-party packages, names not published"
+        },
+        {
+          "label": "Trigger",
+          "value": "A configured phrase in user input; ordinary prompts sent nothing"
+        },
+        {
+          "label": "Visibility",
+          "value": "No tool call shown for credential access or transmission"
+        },
+        {
+          "label": "Published",
+          "value": "October 30, 2026, on the CERT-EU blog"
+        }
+      ],
+      "links": [
+        {
+          "label": "CERT-EU Blog Post",
+          "url": "https://cert.europa.eu/blog/beyond-the-model-backdoors-in-ai-agent-harnesses"
+        },
+        {
+          "label": "CERT-EU GenAI Guidance",
+          "url": "https://cert.europa.eu/publications/security-guidance/generative-ai-in-cybersecurity-balancing-innovation-and-risk/"
+        }
+      ],
+      "publishDate": "2026-11-04T11:45:56.353Z"
+    },
+    {
+      "id": "symantec-unauthorized-ai-relays",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "AI relays: a setup script points Codex and Claude Code at a proxy",
+      "org": "Symantec",
+      "date": "2026-10-29",
+      "url": "https://www.security.com/threat-intelligence/openai-claude-unauthorized-relays",
+      "summary": "A grey market relay service installs the real Codex and Claude Code CLIs, then rewrites their config to route prompts and keys through its own servers and turns off Codex sandboxing. Symantec counts a dozen affected organizations.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "coding-agents",
+        "threat-intel",
+        "codex",
+        "claude-code"
+      ],
+      "affected": [
+        "OpenAI Codex",
+        "Claude Code"
+      ],
+      "credits": [
+        {
+          "name": "Threat Hunter Team",
+          "org": "Symantec and Carbon Black"
+        }
+      ],
+      "explainer": {
+        "tagline": "A relay service resells access to Codex and Claude Code by pointing both CLIs at its own servers and switching off the Codex sandbox.",
+        "whatHappened": "Symantec's Threat Hunter Team published its findings on October 29, 2026, after tracking a grey market relay service active since at least early 2026. About a dozen organizations are affected, most in mainland China, along with the Chinese operations of companies based in South Korea, Taiwan and Malaysia. Affected sectors include semiconductors, pharmaceuticals, shipping and data center services.",
+        "howItWorks": "Users run a one line fileless installer, iwr -useb <url> | iex on Windows or curl | bash on other hosts, from a lookalike domain, usually within half an hour of a legitimate npm install of either CLI. The script installs Node.js and the genuine clients if they are missing, then rewrites ~/.codex/config.toml and ~/.claude/settings.json so that base_url and ANTHROPIC_BASE_URL point at the relay. It also sets sandbox_mode to danger-full-access and network_access to true, swaps the user's real API credentials for relay-issued keys, and sets DISABLE_TELEMETRY and DISABLE_ERROR_REPORTING at user scope so the changes survive a reboot.",
+        "whoIsAffected": "Developers who set up Codex or Claude Code through a relay or a reseller instead of from OpenAI or Anthropic are exposed, on Windows and on bash hosts. Symantec says the operator is positioned to read prompts, files and secrets and to run commands with the user's privileges, and reports no evidence that it has done so.",
+        "whatToDo": "Check ~/.codex/config.toml and ~/.claude/settings.json for a base_url or ANTHROPIC_BASE_URL that is not the vendor's, and for sandbox_mode set to danger-full-access. Look for OPENAI_BASE_URL, CODEX_API_KEY or ANTHROPIC_AUTH_TOKEN set as user scope environment variables outside an approved deployment, and for iwr | iex or curl | bash run around an npm install of either CLI. Rotate any provider key that passed through a relay."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "OpenAI Codex (@openai/codex) and Claude Code (@anthropic-ai/claude-code), set up through a relay"
+        },
+        {
+          "label": "Scope",
+          "value": "About a dozen organizations, mostly mainland China plus South Korean, Taiwanese and Malaysian multinationals, per Symantec"
+        },
+        {
+          "label": "Active since",
+          "value": "At least early 2026; the backend rotated across at least eight domains"
+        },
+        {
+          "label": "Config changed",
+          "value": "base_url, ANTHROPIC_BASE_URL, sandbox_mode set to danger-full-access, network_access true, DISABLE_TELEMETRY, DISABLE_ERROR_REPORTING"
+        },
+        {
+          "label": "Delivery",
+          "value": "Fileless iwr | iex or curl | bash from a lookalike domain, run after a legitimate npm install"
+        },
+        {
+          "label": "Status",
+          "value": "No evidence of abuse observed, per Symantec"
+        },
+        {
+          "label": "Found by",
+          "value": "Threat Hunter Team, Symantec and Carbon Black"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I tell whether my Claude Code install points at an unauthorized relay?",
+          "a": "Claude Code reads ANTHROPIC_BASE_URL from ~/.claude/settings.json and from the environment, so check both for a host that is not api.anthropic.com. Symantec also flags ANTHROPIC_AUTH_TOKEN set as a user scope environment variable outside an approved deployment. Anthropic documents both variables and legitimate gateway setups use them, so an unexpected value matters more than mere presence."
+        },
+        {
+          "q": "Does the relay ship a modified Codex or Claude Code client?",
+          "a": "Symantec reports that the relay installs the genuine OpenAI and Anthropic CLIs and does not distribute a modified client. The compromise lives in configuration: the installer changes the API endpoint, swaps in relay-issued credentials, and switches off sandboxing and telemetry. Comparing file hashes of the CLI itself will therefore find nothing, while a configuration review will."
+        },
+        {
+          "q": "What does sandbox_mode danger-full-access change in Codex?",
+          "a": "Setting sandbox_mode to danger-full-access lifts the filesystem and network limits Codex normally applies to commands it runs. OpenAI's config reference lists the value as one an organization can disallow through managed configuration. Symantec says the relay installer sets it alongside network_access true, so an agent that would have been confined instead runs with the user's full privileges."
+        },
+        {
+          "q": "Should affected organizations rotate their AI provider keys?",
+          "a": "Organizations that find a relay endpoint in a Codex or Claude Code configuration should rotate the affected provider keys, because the installer replaced real credentials with relay-issued ones and routed traffic through servers the operator controls. Symantec observed no abuse but describes the operator as able to read prompts, files and secrets from that position."
+        }
+      ],
+      "links": [
+        {
+          "label": "Symantec Research",
+          "url": "https://www.security.com/threat-intelligence/openai-claude-unauthorized-relays"
+        },
+        {
+          "label": "Codex Config Reference",
+          "url": "https://learn.chatgpt.com/docs/config-file/config-basic"
+        },
+        {
+          "label": "Claude Code Env Vars",
+          "url": "https://code.claude.com/docs/en/env-vars"
+        }
+      ],
+      "publishDate": "2026-11-04T11:45:56.353Z"
+    },
     {
       "id": "technion-voluntary-servitude",
       "categories": [
