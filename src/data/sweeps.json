@@ -15181,6 +15181,81 @@
         "talk-scan (22 YouTube channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261104t033803z",
+      "timestamp": "2026-11-04T03:38:03.744Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (17 MCP-tagged entries since Oct 28), NVD, Anthropic, Google, MSRC, AISI, CAISI, OWASP, Embrace The Red, Zenity, AIR, Wiz, Unit 42, CrowdStrike, Socket, JFrog, ReversingLabs, Trail of Bits, Snyk, Check Point, Lakera, HiddenLayer, Hugging Face, Hacker News, GitHub trending, repo-scan (6 candidates), paper-scan (79 papers, 14 with one signal) and talk-scan (17 videos). Two items made the bar: the NeurIPS-accepted Voluntary Servitude paper and the Instatic MCP authorization bypass. Many late-October advisory-database entries turned out to be old upstream disclosures and were dropped on the date rule.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "technion-voluntary-servitude",
+          "title": "Voluntary Servitude: a fake safety warning steers agents past injection filters",
+          "category": "research",
+          "severity": "medium",
+          "note": "A new injection class that carries no instruction, so both tested detectors pass it, demonstrated at 100% success against two named production browser agents, with a cheap measured defense; clears the paper bar on NeurIPS acceptance, named products attacked and a Zenity co-author."
+        },
+        {
+          "id": "instatic-mcp-read-tools-authorization-bypass",
+          "title": "Instatic: MCP read tools skip the checks the HTTP API enforces",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A fresh, credited, fixed advisory published inside the window showing the recurring pattern where an MCP tool surface re-implements data access and drops the authorization checks the HTTP API enforces."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "blog.google safety and security",
+        "Microsoft MSRC blog",
+        "aisi.gov.uk/blog",
+        "nist.gov/caisi",
+        "genai.owasp.org",
+        "embracethered.com",
+        "simonwillison.net",
+        "labs.zenity.io",
+        "air.security/blog",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "crowdstrike.com/blog",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "snyk.io/blog",
+        "research.checkpoint.com",
+        "lakera.ai/blog",
+        "hiddenlayer.com",
+        "huggingface.co/blog",
+        "arXiv cs.CR",
+        "Hacker News front page and new",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

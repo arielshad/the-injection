@@ -1,7 +1,229 @@
 {
-  "generatedAt": "2026-11-04T00:16:39.505Z",
+  "generatedAt": "2026-11-04T03:38:03.744Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "technion-voluntary-servitude",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Voluntary Servitude: a fake safety warning steers agents past injection filters",
+      "org": "Technion",
+      "date": "2026-11-03",
+      "url": "https://arxiv.org/abs/2611.04393",
+      "summary": "Voluntary Servitude is an injection that carries no instructions: a fabricated safety warning in content an agent reads makes the agent rule out the safe option on its own. Two detectors scored the payloads benign, the authors report.",
+      "severity": "medium",
+      "tags": [
+        "indirect-prompt-injection",
+        "guardrail-bypass",
+        "browser-agents",
+        "perplexity-comet"
+      ],
+      "affected": [
+        "Microsoft Edge with Copilot",
+        "Perplexity Comet",
+        "Brave assistant",
+        "OpenAI Codex browser",
+        "Lakera Guard",
+        "ProtectAI DeBERTa-v3 prompt-injection classifier"
+      ],
+      "credits": [
+        {
+          "name": "Ilan Zendel",
+          "org": "Technion"
+        },
+        {
+          "name": "Matan Levy",
+          "org": "Technion"
+        },
+        {
+          "name": "Stav Cohen",
+          "org": "Technion and Zenity"
+        },
+        {
+          "name": "Avi Mendelson",
+          "org": "Technion"
+        },
+        {
+          "name": "Amit LeVi",
+          "org": "Technion"
+        }
+      ],
+      "explainer": {
+        "tagline": "Voluntary Servitude is an injection with no commands in it, so prompt-injection filters pass it and the agent narrows its own options.",
+        "whatHappened": "Researchers at the Technion and Zenity published Voluntary Servitude on arXiv on November 3, 2026, and the paper's comments state it is accepted at NeurIPS 2026's main track. Ilan Zendel, Matan Levy, Stav Cohen, Avi Mendelson and Amit LeVi measured the technique across six models, ten consumer-service domains and four production browser agents.",
+        "howItWorks": "The payload is a fabricated hazard warning planted in content the agent retrieves, such as an ordinary-looking review that claims one option is unsafe. Because the text issues no instruction, it reads as information rather than a command, and the agent's own harm-avoidance then rules out the legitimate option and leaves the attacker's target standing. The authors call this steering: the attacker never tells the agent what to do, so there is no imperative for a filter to match.",
+        "whoIsAffected": "Four production browser agents were tested on a live page, 20 trials each, with success rates listed below. Any agent that reads attacker-controlled text and then picks between options is in scope, including retrieval pipelines, where the authors measured end-to-end success from 1.0% to 57.0% depending on the retriever.",
+        "whatToDo": "Require an agent to corroborate a hazard claim against a second source before acting on it: the authors report that this one instruction change removed roughly 95% of the exposure without retraining. Do not rely on a prompt-injection classifier to catch these payloads, because both detectors tested passed most of them."
+      },
+      "quickFacts": [
+        {
+          "label": "Attack type",
+          "value": "Steering through a fabricated safety warning, no instruction in the payload"
+        },
+        {
+          "label": "Tested on",
+          "value": "6 models, 4 production browser agents, 10 consumer-service domains"
+        },
+        {
+          "label": "Venue",
+          "value": "Accepted at NeurIPS 2026, main track, per the paper"
+        },
+        {
+          "label": "Detector evasion",
+          "value": "1.7x to 4.4x more effective behind a filter, per the authors"
+        },
+        {
+          "label": "Defense measured",
+          "value": "Corroboration requirement cut pooled attack success from 68.4% to 3.6%"
+        },
+        {
+          "label": "Found by",
+          "value": "Technion and Zenity researchers"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-03"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does a prompt injection filter stop Voluntary Servitude attacks?",
+          "a": "Prompt-injection filters largely do not stop Voluntary Servitude payloads. The authors report that ProtectAI's DeBERTa-v3 classifier passed 100% of the safety-warning payloads and Lakera Guard passed 78%, against 54% and 16% for ordinary instruction injection. Because the payload contains no command, detectors that look for command-like text score it as benign, which makes the attack more effective behind a filter than in front of one."
+        },
+        {
+          "q": "Which browser agents did the Voluntary Servitude paper test?",
+          "a": "The paper tested four production browser agents on a live web page, with 20 trials each. Microsoft Edge with Copilot and Brave's assistant followed the fabricated safety warning in all 20 trials. Perplexity Comet followed it in 60% of trials, and the OpenAI Codex browser in 20%. On three of the four agents, the safety payload beat ordinary instruction injection."
+        },
+        {
+          "q": "How can defenders reduce exposure to safety-warning steering?",
+          "a": "Adding a corroboration requirement to the agent's instructions is the mitigation the authors measured: the agent must confirm a hazard claim against a second source before acting. Pooled attack success fell from 68.4% to 3.6% against a non-adaptive attacker, with no retraining. Gemini 3.1 Flash Lite stayed weakest at 8.7% after the change, so the authors do not present corroboration as a complete fix."
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2611.04393"
+        },
+        {
+          "label": "Full Text (HTML)",
+          "url": "https://arxiv.org/html/2611.04393v1"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Safety-warning payload success, production browser agents",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders; 20 trials per agent",
+          "results": [
+            {
+              "name": "Microsoft Edge with Copilot",
+              "score": 100
+            },
+            {
+              "name": "Perplexity Comet",
+              "score": 60
+            },
+            {
+              "name": "Brave assistant",
+              "score": 100
+            },
+            {
+              "name": "OpenAI Codex browser",
+              "score": 20
+            }
+          ],
+          "source": "https://arxiv.org/html/2611.04393v1"
+        }
+      ],
+      "publishDate": "2026-11-04T03:38:03.744Z"
+    },
+    {
+      "id": "instatic-mcp-read-tools-authorization-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Instatic: MCP read tools skip the checks the HTTP API enforces",
+      "org": "Instatic",
+      "date": "2026-11-03",
+      "url": "https://github.com/CoreBunch/Instatic/security/advisories/GHSA-x5cc-8486-8qqx",
+      "summary": "Instatic's AI and MCP content read tools skipped the object-level authorization checks its HTTP API applies, letting any user with chat and own-content rights read other users' private drafts. Fixed in 0.0.21; found by Sriman Aluvala.",
+      "severity": "medium",
+      "cve": "CVE-2026-121458",
+      "cvss": 6.5,
+      "tags": [
+        "mcp",
+        "privilege-escalation",
+        "instatic"
+      ],
+      "affected": [
+        "Instatic"
+      ],
+      "credits": [
+        {
+          "name": "Sriman Aluvala",
+          "url": "https://github.com/sriman0707"
+        }
+      ],
+      "explainer": {
+        "tagline": "Instatic's MCP content tools returned any user's private drafts, because they skipped the ownership checks its HTTP API applies.",
+        "whatHappened": "Sriman Aluvala reported an authorization bypass in Instatic's AI and MCP content read tools, and the CoreBunch/Instatic project published the advisory on November 3, 2026 with the fix in version 0.0.21. The reporter tested version 0.0.20 and traced the behaviour back to Instatic 0.0.5.",
+        "howItWorks": "The content_get_document, content_list_documents and content_search_documents tools reach the data layer without running the object-level checks that Instatic's HTTP data-row endpoint applies. content_get_document returns a row with no ownership test, and the list tool omits the ownership filter an own-only user needs. The capability gate asks only whether the caller holds a capability at all, not whether that caller may read the specific table or row.",
+        "whoIsAffected": "Instatic releases before 0.0.21 are affected on any deployment where a user holds the ai.chat and content.edit.own capabilities. No elevated capability such as content.edit.any or data.system.tables.read is needed, and the MCP endpoint can be called directly with no LLM provider configured.",
+        "whatToDo": "Upgrade Instatic to 0.0.21, which applies the HTTP row-access rules to the MCP relay and the AI read tools. Review who holds ai.chat on sites with more than one author, and treat private and unpublished drafts as already read by those users until the upgrade is done."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Instatic before 0.0.21; reporter says the behaviour dates to 0.0.5"
+        },
+        {
+          "label": "Fixed in",
+          "value": "0.0.21"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-121458"
+        },
+        {
+          "label": "Vendor CVSS",
+          "value": "6.5, CVSS 3.1, per the Instatic advisory"
+        },
+        {
+          "label": "NVD CVSS",
+          "value": "7.1, CVSS 4.0"
+        },
+        {
+          "label": "Found by",
+          "value": "Sriman Aluvala"
+        },
+        {
+          "label": "Precondition",
+          "value": "An authenticated user with ai.chat and content.edit.own"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-03"
+        }
+      ],
+      "links": [
+        {
+          "label": "Instatic Advisory",
+          "url": "https://github.com/CoreBunch/Instatic/security/advisories/GHSA-x5cc-8486-8qqx"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-wq53-554h-vq3f"
+        },
+        {
+          "label": "Instatic 0.0.21",
+          "url": "https://github.com/CoreBunch/Instatic/releases/tag/v0.0.21"
+        }
+      ],
+      "publishDate": "2026-11-04T03:38:03.744Z"
+    },
     {
       "id": "surrealdb-mcp-backtick-statement-injection",
       "categories": [
