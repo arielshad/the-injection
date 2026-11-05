@@ -15403,6 +15403,81 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261105t001126z",
+      "timestamp": "2026-11-05T00:11:26.369Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (the full database list for 29 Oct to 5 Nov), NVD-sourced CVE records, VulnCheck advisories, Anthropic, OpenAI (openai.com returned 403 to fetches), MSRC, UK AISI, OWASP GenAI, AIR Security, Zenity Labs, Wiz, Unit 42, Check Point, JFrog, Trail of Bits, HiddenLayer, Socket, Embrace The Red, Simon Willison, Hugging Face blog, GitHub trending (daily and weekly), repo-scan (6 candidates), paper-scan (75 arXiv papers in the window), talk-scan and Hacker News. Added three fixed agent-harness disclosures: three repository-triggered code execution flaws in Mistral Vibe, an unauthenticated local web control plane in DeepSeek Harness, and a dangling-symlink workspace escape in Jan.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "mistral-vibe-repo-startup-rce",
+          "title": "Mistral Vibe: a crafted repo runs code before the trust prompt",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Three CVEs disclosed on 4 November for Mistral's official CLI coding assistant: opening someone else's repository runs their code before the trust prompt, and all three are fixed."
+        },
+        {
+          "id": "deepseek-harness-unauth-web-rpc-tool-execution",
+          "title": "DeepSeek Harness: any local process could drive the agent's tools",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A vendor agent harness whose local web RPC plane had no authentication at all, which also let an attacker answer the human tool-approval prompts."
+        },
+        {
+          "id": "jan-dangling-symlink-workspace-escape",
+          "title": "Jan: a dangling symlink writes outside the agent's workspace",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A workspace guard that fails on dangling symlinks, with an approval prompt that showed the wrong destination: a defender-relevant failure mode in agent file tools."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "GitHub Advisories API (2026-10-29..2026-11-05)",
+        "vulncheck.com/advisories",
+        "anthropic.com/news",
+        "msrc.microsoft.com/blog",
+        "aisi.gov.uk",
+        "genai.owasp.org",
+        "air.security/blog",
+        "labs.zenity.io",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "jfrog.com/blog",
+        "blog.trailofbits.com",
+        "hiddenlayer.com/innovation-hub",
+        "socket.dev/blog",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "huggingface.co/blog",
+        "github.com/trending",
+        "Hacker News front page",
+        "repo-scan.json",
+        "paper-scan (arXiv + Hugging Face Daily Papers)",
+        "talk-scan (YouTube conference and security channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }

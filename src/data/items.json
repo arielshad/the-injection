@@ -1,7 +1,277 @@
 {
-  "generatedAt": "2026-11-04T18:59:38.888Z",
+  "generatedAt": "2026-11-05T00:11:26.369Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "mistral-vibe-repo-startup-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Mistral Vibe: a crafted repo runs code before the trust prompt",
+      "org": "VulnCheck",
+      "date": "2026-11-04",
+      "url": "https://www.vulncheck.com/advisories/mistral-vibe-before-3.0.3-rce-via-repository-configured-gpg-program",
+      "summary": "Mistral Vibe ran commands from a repository's own Git configuration at session start, before the trust prompt appeared. Francisco Rosales of Manifold Security found three such flaws, all fixed by version 3.0.3.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "coding-agents",
+        "approval-bypass",
+        "mistral"
+      ],
+      "affected": [
+        "Mistral Vibe",
+        "mistral-vibe (PyPI)"
+      ],
+      "cve": "CVE-2026-122135",
+      "cvss": 8.6,
+      "credits": [
+        {
+          "name": "Francisco Rosales",
+          "org": "Manifold Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "Three flaws let a crafted Git repository run commands in Mistral Vibe at session start, before the trust prompt appears.",
+        "whatHappened": "VulnCheck published three advisories for Mistral Vibe, Mistral's open-source CLI coding assistant, on 4 November 2026. Francisco Rosales of Manifold Security found all three. Each one lets a repository the user did not write run commands as soon as a Vibe session starts.",
+        "howItWorks": "Mistral Vibe builds its project context by shelling out to Git, and a repository can control what Git does. Setting gpg.program together with log.showSignature makes git log run the attacker's program on a signed commit. Git clean or process filter drivers defined in the repository are invoked when git status runs. On Windows, Vibe picked up a git.exe placed in the repository root instead of the system one.",
+        "whoIsAffected": "Anyone who starts a Mistral Vibe session inside a repository from an untrusted source. The gpg.program flaw affects every version below 3.0.3 on all platforms. The filter-driver flaw was fixed in 2.25.7, and the git.exe search-path flaw affects Windows only and was fixed in 2.25.5.",
+        "whatToDo": "Update Mistral Vibe to 3.0.3 or later, which carries all three fixes. Until the update is in place, do not open a Vibe session in a repository you did not write or review."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Mistral Vibe below 3.0.3"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.25.5, 2.25.7 and 3.0.3"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-122133, CVE-2026-122134, CVE-2026-122135"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.6 high, all three (VulnCheck)"
+        },
+        {
+          "label": "Found by",
+          "value": "Francisco Rosales, Manifold Security"
+        },
+        {
+          "label": "Disclosed",
+          "value": "4 November 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Code execution from repository Git settings"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Mistral Vibe version fixes all three flaws?",
+          "a": "Mistral Vibe 3.0.3 carries all three fixes. VulnCheck lists 2.25.5 as the fix for the Windows git.exe search-path flaw, 2.25.7 for the Git filter-driver flaw, and 3.0.3 for the gpg.program flaw. Because the fixes are cumulative, updating straight to 3.0.3 or later closes every one of them in a single step."
+        },
+        {
+          "q": "Does Vibe's trusted-folder prompt stop these attacks?",
+          "a": "The trusted-folder prompt does not stop them. All three VulnCheck advisories state that the attacker's code runs at session start, before any trust prompt is shown. Mistral Vibe gathers project context and writes session logs by calling Git first, so a repository's own Git settings take effect while the user is still deciding whether to trust the folder."
+        },
+        {
+          "q": "Am I exposed if I only open repositories I wrote myself?",
+          "a": "Repositories you wrote yourself carry no attacker-controlled Git configuration, so the risk is low. Exposure comes from opening someone else's checkout: a cloned pull request branch, a bug report reproduction, a dependency vendored into a working tree, or any archive a third party sent you. Reviewing a repository's .git/config and .gitattributes before starting Vibe reduces the risk further."
+        },
+        {
+          "q": "Is the Windows git.exe flaw different from the other two?",
+          "a": "The Windows flaw, CVE-2026-122133, abuses a search path rather than a Git setting. A malicious git.exe sitting in the repository root is executed by Vibe's SessionLogger and ProjectContextProvider instead of the real Git binary. VulnCheck classes it as CWE-427, uncontrolled search path element, while the other two are CWE-829, inclusion of functionality from an untrusted control sphere."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/mistral-vibe-before-3.0.3-rce-via-repository-configured-gpg-program"
+        },
+        {
+          "label": "Git Filter Drivers",
+          "url": "https://www.vulncheck.com/advisories/mistral-vibe-before-2.25.7-code-execution-via-git-filter-drivers"
+        },
+        {
+          "label": "Windows git.exe RCE",
+          "url": "https://www.vulncheck.com/advisories/mistral-vibe-before-2.25.5-on-windows-untrusted-search-path-rce-via-git-exe"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-qx7j-gch3-gv7c"
+        },
+        {
+          "label": "Vibe 3.0.3 Release",
+          "url": "https://github.com/mistralai/mistral-vibe/releases/tag/v3.0.3"
+        }
+      ],
+      "publishDate": "2026-11-05T00:11:26.369Z"
+    },
+    {
+      "id": "deepseek-harness-unauth-web-rpc-tool-execution",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "DeepSeek Harness: any local process could drive the agent's tools",
+      "org": "VulnCheck",
+      "date": "2026-11-04",
+      "url": "https://www.vulncheck.com/advisories/deepseek-harness-unauthenticated-rpc-command-execution",
+      "summary": "DeepSeek Harness left its local web control plane unauthenticated, so any process on the machine could start a session, run the agent's bash and filesystem tools, and answer the human approval prompts itself.",
+      "severity": "medium",
+      "tags": [
+        "rce",
+        "approval-bypass",
+        "agent-security",
+        "deepseek"
+      ],
+      "affected": [
+        "DeepSeek Harness",
+        "@deepseek-ai/dsh (npm)"
+      ],
+      "cve": "CVE-2026-82033",
+      "cvss": 8.6,
+      "credits": [
+        {
+          "name": "Opr4"
+        }
+      ],
+      "explainer": {
+        "tagline": "The web interface of DeepSeek's agent harness accepted RPC calls from any local process, with no authentication at all.",
+        "whatHappened": "VulnCheck disclosed a missing-authentication flaw in DeepSeek Harness, DeepSeek AI's open-source agent harness, on 4 November 2026, crediting the researcher Opr4. The harness serves a web interface on the loopback address when started with the dsh web command.",
+        "howItWorks": "The HTTP and WebSocket RPC control plane behind that web interface checked no credentials. Any local process, including one running as a different operating system user, could call session methods such as session.create and session.prompt, then use the agent's bash and filesystem tools with the victim's configured model credentials. The same ungated event stream broadcast the rpcId, approvalId and sessionId values needed to answer a pending tool-approval prompt through POST /api/respond, and it exposed live session traffic and logs.",
+        "whoIsAffected": "Developers running the dsh web interface from a version VulnCheck lists as earlier than 0.1.2-alpha.2. Exposure requires an attacker to already run code on the same machine, such as a malicious dependency install script or a second account on a shared host. DeepSeek describes the project as a developer preview.",
+        "whatToDo": "Update DeepSeek Harness to the 0.1.2-alpha.2 release or later, which adds a host and origin fence plus browser token authentication to the web API. Rotate any model provider keys the harness held while an untrusted process could have reached it."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "DeepSeek Harness before 0.1.2-alpha.2"
+        },
+        {
+          "label": "Fixed in",
+          "value": "0.1.2-alpha.2 (commit 3e24087)"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-82033"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.6 high (VulnCheck)"
+        },
+        {
+          "label": "Found by",
+          "value": "Opr4"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authentication on local RPC control plane"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/deepseek-harness-unauthenticated-rpc-command-execution"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-h3m7-c9pq-7995"
+        },
+        {
+          "label": "Fix Commit",
+          "url": "https://github.com/deepseek-ai/deepseek-harness/commit/3e24087bfaeabe40b58ba2f7b936895b8f93fe27"
+        },
+        {
+          "label": "Fixed Release",
+          "url": "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.1.2-alpha.2"
+        }
+      ],
+      "publishDate": "2026-11-05T00:11:26.369Z"
+    },
+    {
+      "id": "jan-dangling-symlink-workspace-escape",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Jan: a dangling symlink writes outside the agent's workspace",
+      "org": "Jan",
+      "date": "2026-10-29",
+      "url": "https://github.com/janhq/jan/security/advisories/GHSA-7j4g-mj5j-p842",
+      "summary": "Jan's write and edit tools did not resolve symlinks pointing at files that do not exist yet, so a planted link let an agent write into SSH or shell startup files while the approval prompt showed an in-workspace path.",
+      "severity": "medium",
+      "tags": [
+        "indirect-prompt-injection",
+        "approval-bypass",
+        "agent-security",
+        "jan"
+      ],
+      "affected": [
+        "Jan"
+      ],
+      "cve": "CVE-2026-122235",
+      "cvss": 4.7,
+      "credits": [
+        {
+          "name": "Zachariah Mithani",
+          "org": "AploSec"
+        }
+      ],
+      "explainer": {
+        "tagline": "A symlink pointing at a file that does not exist yet let Jan's agent tools write outside the workspace they were meant to guard.",
+        "whatHappened": "The Jan project published an advisory on 29 October 2026 for a workspace guard bypass in its agent write and edit tools, reported by Zachariah Mithani of AploSec. Versions 0.8.5 through 0.8.7 are affected and 0.8.8 carries the fix.",
+        "howItWorks": "Jan's guard resolved a target path only as far as its deepest existing ancestor, then treated the rest as plain text. A dangling symlink, one whose target does not exist yet, therefore passed the check: a link sitting inside the workspace but pointing outside it looked like an ordinary workspace write. Malicious repository contents or prompt injection supply the instruction, and the write lands wherever the link points, such as an SSH authorized_keys or a shell startup file.",
+        "whoIsAffected": "Jan users on 0.8.5 through 0.8.7 who open an untrusted workspace and then allow write or edit operations, either by approving them or through auto-approval. The approval prompt is part of the problem: Jan showed only the in-workspace file name, not the real destination the link resolved to.",
+        "whatToDo": "Update Jan to 0.8.8, which resolves every link along a target path, including dangling ones, and opens files without following a trailing symlink. Check SSH and shell startup files on any machine where Jan ran against a repository you did not write."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Jan 0.8.5 through 0.8.7"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Jan 0.8.8"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-122235"
+        },
+        {
+          "label": "CVSS",
+          "value": "4.7 moderate (Jan project)"
+        },
+        {
+          "label": "Found by",
+          "value": "Zachariah Mithani, AploSec"
+        },
+        {
+          "label": "Attack type",
+          "value": "Dangling symlink bypasses the workspace guard"
+        }
+      ],
+      "links": [
+        {
+          "label": "Jan Advisory",
+          "url": "https://github.com/janhq/jan/security/advisories/GHSA-7j4g-mj5j-p842"
+        },
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/jan-0.8.5-before-0.8.8-workspace-guard-bypass-via-dangling-symlink"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/janhq/jan/pull/9424"
+        },
+        {
+          "label": "Jan 0.8.8 Release",
+          "url": "https://github.com/janhq/jan/releases/tag/v0.8.8"
+        }
+      ],
+      "publishDate": "2026-11-05T00:11:26.369Z"
+    },
     {
       "id": "checkpoint-prompt-adware-haiou",
       "categories": [
