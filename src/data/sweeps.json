@@ -15567,6 +15567,95 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261105t151423z",
+      "timestamp": "2026-11-05T15:14:23.988Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, JFrog, Wiz, CrowdStrike, Microsoft Security and MSRC, Anthropic, Elastic, Talos, Securelist, Symantec, Google GTIG, Socket, Snyk, Trail of Bits, Datadog, Pillar, Noma, Straiker, Lakera, NCC Group, Check Point, AIR, Zenity, Embrace The Red, Simon Willison, OWASP GenAI, UK AISI, NIST, Hugging Face, GitHub trending, Show HN and HN front page, plus repo-scan (5 candidates), paper-scan (70 papers) and talk-scan (32 videos). Two items made the bar: Cisco Talos on the NIK C2 framework and Google GTIG and Mandiant on agentic pentest frameworks in incident response.",
+      "counts": {
+        "added": 2,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "talos-nik-c2-openai-client",
+          "title": "NIK C2: malware that calls the OpenAI API with the victim's own key",
+          "category": "incident",
+          "severity": "medium",
+          "note": "A command-and-control framework seen in the wild whose implant calls the OpenAI Chat Completions API from the victim host and falls back to the victim's own OPENAI_API_KEY, which gives defenders a concrete egress and key-rotation action; no existing item covers NIK C2."
+        },
+        {
+          "id": "gtig-artex-and-friends-agentic-frameworks",
+          "title": "GTIG: agent pentest frameworks ran intrusion steps in 2 to 25 seconds",
+          "category": "incident",
+          "severity": "info",
+          "note": "GTIG and Mandiant report across frameworks and actors, not one campaign: new incident response telemetry (2 to 25 second bursts, 110,000 AD objects, 491 webhook.site URLs), a new cluster name UNC7228, and a seven-stage maturity forecast. The existing ARTEX items are each a single vendor's campaign write-up."
+        }
+      ],
+      "updated": [
+        {
+          "id": "wiz-artex-storm-0940-vendor-campaign",
+          "title": "ARTEX: Storm-0940's agent campaign widens to IT and software vendors",
+          "note": "GTIG's October 30 report gives this campaign its own cluster name, UNC7228, and ties it to STORM-0940."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "blog.talosintelligence.com",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "github.com/advisories",
+        "vulncheck.com/advisories",
+        "vulncheck.com/blog",
+        "research.jfrog.com",
+        "wiz.io/blog",
+        "crowdstrike.com/blog",
+        "microsoft.com/security/blog",
+        "msrc.microsoft.com/blog",
+        "anthropic.com/news",
+        "elastic.co/security-labs",
+        "securelist.com",
+        "security.com/threat-intelligence",
+        "socket.dev/blog",
+        "snyk.io/blog",
+        "blog.trailofbits.com",
+        "securitylabs.datadoghq.com",
+        "pillar.security/blog",
+        "noma.security/blog",
+        "straiker.ai/blog",
+        "lakera.ai/blog",
+        "nccgroup.com/research-blog",
+        "research.checkpoint.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/blog",
+        "nist.gov/news-events/news",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, by created)",
+        "github.com/trending (daily and weekly)",
+        "news.ycombinator.com/front",
+        "news.ycombinator.com/show",
+        "repo-scan.json (13 queries, 5 candidates)",
+        "paper-scan.json (9 queries, 70 papers)",
+        "talk-scan.json (22 channels, 32 videos)"
+      ],
+      "windowDays": 7
     }
   ]
 }

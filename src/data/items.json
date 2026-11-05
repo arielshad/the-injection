@@ -1,7 +1,233 @@
 {
-  "generatedAt": "2026-11-05T06:59:13.411Z",
+  "generatedAt": "2026-11-05T15:14:23.988Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "gtig-artex-and-friends-agentic-frameworks",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "GTIG: agent pentest frameworks ran intrusion steps in 2 to 25 seconds",
+      "org": "Google Threat Intelligence Group",
+      "date": "2026-10-30",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/artex-and-friends-enter-agentic-offensive-frameworks",
+      "summary": "Google Threat Intelligence Group and Mandiant have seen attackers run the open-source agentic pentest frameworks ARTEX, PentAGI, Hexstrike and CAIRN in incident response cases since late August 2026, in bursts of 2 to 25 seconds.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "rogue-agents",
+        "detection",
+        "artex",
+        "pentagi"
+      ],
+      "affected": [
+        "ARTEX",
+        "PentAGI",
+        "Hexstrike",
+        "CAIRN",
+        "Amazon Web Services",
+        "Microsoft Azure",
+        "Active Directory"
+      ],
+      "credits": [
+        {
+          "name": "Aurora Blum"
+        },
+        {
+          "name": "David Mainor"
+        },
+        {
+          "name": "Rohit Nambiar"
+        },
+        {
+          "name": "Omar ElAhdan"
+        },
+        {
+          "name": "Matthew McWhirt"
+        },
+        {
+          "name": "Mandiant",
+          "org": "Google Cloud"
+        }
+      ],
+      "explainer": {
+        "tagline": "ARTEX and Friends is Google's report on attackers running open-source agentic pentest frameworks through real intrusions at machine speed.",
+        "whatHappened": "Google Threat Intelligence Group and Mandiant published ARTEX and Friends on October 30, 2026, describing threat actors operating open-source agentic pentest frameworks inside Mandiant incident response engagements since late August 2026. GTIG tracks the main ARTEX campaign as UNC7228, which it says overlaps with the PRC-nexus actor Microsoft calls STORM-0940. ARTEX's original author, a GitHub user known as Autumn-27, removed the repository in October 2026, but forks including ScopeWeaver and a commercial ARTEX PRO keep circulating.",
+        "howItWorks": "ARTEX splits the attack lifecycle across six specialized sub-agents that turn a high-level goal into machine commands through frontier and open-source model APIs. The pace shows up in the logs: 27 events in 23 seconds while probing AWS permissions, an 8-second Azure deployment validation sweep across 11 resource types, and enumeration of more than 110,000 Active Directory objects, with results posted out to 491 rotating webhook.site URLs. GTIG writes that the frameworks compress attack timelines to machine speed but currently trade stealth for velocity, leaving 240 log events on one web server and probe files named with five-digit counters.",
+        "whoIsAffected": "Cloud and identity estates are the ground these frameworks cover: AWS, Azure, Active Directory, AD CS and Kudu administrative APIs all appear in GTIG's cases. Wiz identified UNC7228 targeting and data theft in the United States and Europe across enterprise software, industrial automation, semiconductor manufacturing and design, and telecommunications. GTIG says the cluster usually reached deep system access about four hours after the first compromised account, and in one case in 15 minutes.",
+        "whatToDo": "Work through the five layers Mandiant sets out: restrict administrative control planes to managed devices with phishing-resistant MFA, replace static cloud keys with short-lived workload credentials, segment application tiers from identity systems, rate-limit high-impact APIs such as bulk messaging and user creation, and alert on identity velocity rather than on single actions. Baseline known-good automation first, then watch server egress to webhook services and to external AI platforms the workload does not need."
+      },
+      "quickFacts": [
+        {
+          "label": "Frameworks",
+          "value": "ARTEX, PentAGI, Hexstrike and CAIRN in IR cases; AgentZero and ZeroHollow under actor experimentation"
+        },
+        {
+          "label": "Named cluster",
+          "value": "UNC7228, which GTIG says overlaps with Microsoft's STORM-0940"
+        },
+        {
+          "label": "First seen",
+          "value": "Late August 2026, in Mandiant incident response engagements"
+        },
+        {
+          "label": "Time to deep access",
+          "value": "About four hours from the first compromised account, 15 minutes in one case"
+        },
+        {
+          "label": "Execution bursts",
+          "value": "Roughly 2 to 25 seconds per sequence"
+        },
+        {
+          "label": "Exfiltration",
+          "value": "491 rotating webhook.site URLs; over 110,000 Active Directory objects enumerated"
+        },
+        {
+          "label": "What GTIG expects next",
+          "value": "Stage 6 of its seven-stage scale in 1 to 3 months, stage 7 in 3 to 6 months"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is fully autonomous hacking happening yet?",
+          "a": "Google Threat Intelligence Group places the current state at stage 5 of its seven-stage maturity scale: language models driving individual lifecycle stages in the wild. GTIG expects stage 6, multi-agent operations with little human interaction, within one to three months, and stage 7, sophisticated fully autonomous intrusions using self-hosted or obscured models, within three to six months."
+        },
+        {
+          "q": "Does ARTEX make an intrusion harder to spot?",
+          "a": "ARTEX is noisier than a human operator, according to the GTIG and Mandiant report, which says these frameworks compress attack timelines to machine speed but trade stealth for velocity. One ARTEX run generated 240 log events against a single Weaver OA web server, sub-agents overwrote one another's work, and access probing left files named artex-probe with five-digit incremental counters."
+        },
+        {
+          "q": "How is UNC7228 related to STORM-0940?",
+          "a": "UNC7228 is the name Google Threat Intelligence Group gives the ARTEX campaign that Wiz also tracks, and GTIG says the cluster overlaps with STORM-0940, a PRC-nexus actor named by Microsoft. Activity dates to at least August 2026. Wiz reported targeting and data theft across enterprise software, industrial automation, semiconductor manufacturing and telecommunications in the United States and Europe."
+        },
+        {
+          "q": "Which detections does Google publish for this activity?",
+          "a": "Google SecOps rules in the Mandiant Frontline Threats and Mandiant Hunting Rules packs cover the activity, including Suspicious Webhook.Site Interaction, Suspicious Curl Invocation, Cmd Launching Curl, and AWS Cloud Accounts Getcalleridentity. GTIG warns that rules overlapping legitimate automation depend on identity, origin, volume and sequence rather than the action itself, so teams should baseline known-good automation first."
+        }
+      ],
+      "links": [
+        {
+          "label": "GTIG Report",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/artex-and-friends-enter-agentic-offensive-frameworks"
+        },
+        {
+          "label": "Prompting To Autonomy",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/from-prompting-to-autonomy-the-evolution-of-adversarial-ai"
+        },
+        {
+          "label": "Microsoft On Storm-0940",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+        }
+      ],
+      "publishDate": "2026-11-05T15:14:23.988Z"
+    },
+    {
+      "id": "talos-nik-c2-openai-client",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "NIK C2: malware that calls the OpenAI API with the victim's own key",
+      "org": "Cisco Talos",
+      "date": "2026-10-29",
+      "url": "https://blog.talosintelligence.com/nik-c2-new-ai-enabled-framework/",
+      "summary": "NIK C2 is a Go-based Windows command-and-control framework, found in the wild by Cisco Talos, whose ai_generate command sends operator prompts to the OpenAI Chat Completions API from the victim host and bills the victim's own key.",
+      "severity": "medium",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "detection",
+        "openai"
+      ],
+      "affected": [
+        "Windows",
+        "OpenAI API",
+        "Google Chrome",
+        "Microsoft Edge",
+        "Mozilla Firefox",
+        "Discord"
+      ],
+      "credits": [
+        {
+          "name": "Chetan Raghuprasad",
+          "org": "Cisco Talos"
+        }
+      ],
+      "explainer": {
+        "tagline": "NIK C2 is an AI-integrated command-and-control framework whose Windows implant queries OpenAI models from the machine it has compromised.",
+        "whatHappened": "Cisco Talos published its analysis of NIK C2 on October 29, 2026, after observing the framework in the wild. Researcher Chetan Raghuprasad identified at least three distinct versions of the Go-based 64-bit Windows implant, all compiled with Go 1.23.4. Talos assesses with moderate confidence that NIK C2 is a fully functional framework and not a proof of concept.",
+        "howItWorks": "The implant's ai_generate command reads three fields from the command-and-control payload: prompt, api_key and model. It then posts to api.openai.com/v1/chat/completions from the victim machine, pairing a 68-byte hardcoded system message with the operator's prompt and waiting up to 60 seconds for a reply. When the operator supplies no key, the implant falls back to the victim's OPENAI_API_KEY environment variable, so the victim's account pays for the request and the victim's key appears in OpenAI's logs. Talos decoded gpt-4 as the model used when none is named.",
+        "whoIsAffected": "Windows hosts are the target. Saved credentials are taken from Chrome, Edge, Brave, Opera and Firefox, decrypted locally with DPAPI or exfiltrated as raw databases, alongside Wi-Fi passwords collected through netsh, Discord tokens, cookies and crypto wallet files. Any compromised host that keeps an OPENAI_API_KEY in its environment also hands the operator inference on the victim's account.",
+        "whatToDo": "Alert on requests to api.openai.com from Windows binaries that have no reason to make them, and treat a 250 millisecond HTTP polling pattern to an unknown host on port 443 as suspicious. Block the indicators Talos published and deploy its ClamAV signature. Rotate any OPENAI_API_KEY held in the environment of a host you suspect."
+      },
+      "quickFacts": [
+        {
+          "label": "Attack type",
+          "value": "AI-integrated command-and-control framework with a Go-based Windows implant"
+        },
+        {
+          "label": "AI call",
+          "value": "ai_generate posts to api.openai.com/v1/chat/completions from the victim host"
+        },
+        {
+          "label": "Default model",
+          "value": "gpt-4, decoded from the binary, used when the operator names none"
+        },
+        {
+          "label": "Commands",
+          "value": "Over 52, dispatched over TLS WebSockets on port 443 with 250 ms HTTP polling"
+        },
+        {
+          "label": "Modules",
+          "value": "Credential theft, keylogger capped at 10,000 entries, screen-locker ransomware, self-heal watchdog"
+        },
+        {
+          "label": "Found by",
+          "value": "Chetan Raghuprasad, Cisco Talos"
+        },
+        {
+          "label": "Detection",
+          "value": "ClamAV signature Win.Trojan.GoDiscorder-10060526-0, plus 18 published indicators"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does NIK C2 use the victim's own OpenAI API key?",
+          "a": "NIK C2 reads the OPENAI_API_KEY environment variable on the compromised Windows host whenever the operator does not supply a key, according to Cisco Talos. The victim's account is then billed for the operator's requests, and the victim's key appears in OpenAI's own logs. Rotating that key belongs in the cleanup for any host where the implant ran."
+        },
+        {
+          "q": "Is NIK C2 a proof of concept or working malware?",
+          "a": "Cisco Talos assesses with moderate confidence that NIK C2 is a fully functional AI-integrated command-and-control framework rather than a proof of concept. Talos found at least three distinct versions of the implant and says the pace of development points to a technically proficient team with earlier malware experience. Talos observed the framework in the wild."
+        },
+        {
+          "q": "How can defenders detect NIK C2 on a Windows host?",
+          "a": "Cisco Talos published a ClamAV signature, Win.Trojan.GoDiscorder-10060526-0, and 18 indicators covering eight file hashes, one domain, two IP addresses and six command-and-control URL paths. Behavioral signals in the Talos analysis include a 250 millisecond HTTP polling interval, TLS WebSocket traffic on port 443, and a registry Run key named SystemLock left by the screen-locker module."
+        },
+        {
+          "q": "Does the ransomware module encrypt files?",
+          "a": "The NIK C2 ransomware module is a screen locker, not a file encryptor, Cisco Talos reports. It backs up the master boot record to mbr_backup.bin, writes lock_screen.html and displays it through mshta.exe, then keeps the lock screen alive with a goroutine that relaunches it every five seconds. Ransom demands are made in Bitcoin or USDT."
+        }
+      ],
+      "links": [
+        {
+          "label": "Talos Analysis",
+          "url": "https://blog.talosintelligence.com/nik-c2-new-ai-enabled-framework/"
+        },
+        {
+          "label": "Talos IOCs",
+          "url": "https://github.com/Cisco-Talos/IOCs/blob/main/2026/10/nik-c2-new-ai-enabled-framework.txt"
+        }
+      ],
+      "image": {
+        "url": "https://storage.ghost.io/c/af/a0/afa04ee3-414f-4481-8d23-7e7c146f192e/content/images/2026/10/NIKC2-Header.jpg",
+        "alt": "NIK C2: The new AI-enabled command-and-control framework",
+        "credit": "Cisco Talos"
+      },
+      "publishDate": "2026-11-05T15:14:23.988Z"
+    },
     {
       "id": "openai-thousand-fewer-paths-to-root",
       "categories": [
@@ -11933,6 +12159,10 @@
         {
           "label": "Microsoft Report",
           "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+        },
+        {
+          "label": "GTIG Report",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/artex-and-friends-enter-agentic-offensive-frameworks"
         }
       ],
       "publishDate": "2026-10-23T02:10:29.365Z"
