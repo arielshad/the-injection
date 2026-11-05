@@ -1,7 +1,405 @@
 {
-  "generatedAt": "2026-11-05T00:11:26.369Z",
+  "generatedAt": "2026-11-05T06:59:13.411Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "openai-thousand-fewer-paths-to-root",
+      "categories": [
+        "research",
+        "lab-safety"
+      ],
+      "title": "OpenAI: an agent pipeline built 948 Linux root exploits in one run",
+      "org": "OpenAI",
+      "date": "2026-11-04",
+      "url": "https://openai.com/index/a-thousand-fewer-paths-to-root/",
+      "summary": "OpenAI says an autonomous pipeline running an unreleased cyber model produced 948 working Linux kernel privilege escalation exploits in one mid-October run for $1,213,430 in API credits, with a candidate patch for each.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "evals",
+        "openai",
+        "linux-kernel"
+      ],
+      "affected": [
+        "Linux kernel",
+        "QEMU"
+      ],
+      "credits": [
+        {
+          "name": "OpenAI Cyber team",
+          "org": "OpenAI"
+        }
+      ],
+      "explainer": {
+        "tagline": "OpenAI's autonomous vulnerability pipeline turned 2,308 candidate Linux kernel findings into 948 working root exploits.",
+        "whatHappened": "OpenAI published \"A thousand fewer paths to root\" on 4 November 2026, describing a prototype pipeline it ran against the Linux kernel inside a controlled research environment. In a mid-October 2026 run, the pipeline analyzed 2,308 candidate findings, reproduced 1,724 vulnerabilities and produced 291 information leak proofs of concept alongside 948 local privilege escalation exploits. OpenAI says it has already sent hundreds of reports and patches for critical vulnerabilities to maintainers.",
+        "howItWorks": "Five stages run in sequence: Scout agents choose security-relevant audit targets, Analyst agents scan them for candidate findings, a triage stage reproduces each candidate in an isolated environment, ExploitDev agents try to reach a root shell, and a patch stage writes a fix before a human researcher reviews the result. Scout agents narrowed the search to 5,034 audit targets, about 2.8 million lines or roughly 7% of the kernel, which OpenAI says cut the cost of the audit.",
+        "whoIsAffected": "Linux kernel users are the subject of the run, which targeted the latest kernel on stock desktop virtual machines rather than a weakened target. OpenAI also reports that the pipeline found and exploited a QEMU TCG flaw during a separate kernelCTF campaign, already fixed upstream but not in the build it used. No individual vulnerability or CVE is named in the post.",
+        "whatToDo": "Keep operating systems patched: OpenAI writes that a low-privileged account on a system that is not up to date should be treated as functionally equivalent to root access for a well-resourced threat actor. The post recommends defense in depth through sandboxes and isolation such as Firecracker and gVisor, rescanning code already audited as models improve, and adversarial review of both human and AI-written patches."
+      },
+      "quickFacts": [
+        {
+          "label": "Run date",
+          "value": "Mid-October 2026, against the latest Linux kernel"
+        },
+        {
+          "label": "Candidate findings",
+          "value": "2,308 after deduplication, within 12 hours"
+        },
+        {
+          "label": "Reproduced",
+          "value": "1,724 vulnerabilities"
+        },
+        {
+          "label": "Exploits produced",
+          "value": "948 local privilege escalation, 291 information leak PoCs"
+        },
+        {
+          "label": "Cost",
+          "value": "$1,213,430 in API credits, $1,279 per LPE exploit"
+        },
+        {
+          "label": "Patch status after 10 days",
+          "value": "61 LPEs patched upstream, 43 with staging patches, 299 discussed publicly"
+        },
+        {
+          "label": "Novel techniques",
+          "value": "10 in a 166-exploit sample, per OpenAI"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does OpenAI name the 948 Linux kernel vulnerabilities it exploited?",
+          "a": "OpenAI's post names no individual vulnerability and assigns no CVE. The company says it used the exploit evidence to prioritize reports, began with critical vulnerabilities on the Linux kernel community's advice, and is working with Patch the Planet partners to send the remaining reports and patches gradually. Full technical details of the 10 new exploitation techniques are withheld for safety reasons."
+        },
+        {
+          "q": "Which model produced the 948 exploits?",
+          "a": "An upcoming cyber model that OpenAI has not released powered the mid-October 2026 run. For comparison, OpenAI reports that GPT-5.6 Sol found and exploited 166 unique local privilege escalation vulnerabilities in late July 2026 for $513,690, and that the October pipeline discovered more than five times as many novel local privilege escalations despite three months of hardening in between."
+        },
+        {
+          "q": "How reliable were the pipeline's own exploitation results?",
+          "a": "Validation turned out to matter. OpenAI reports that an early run claimed 200 successful local privilege escalations, but human review found 20 of those had reached root through a different zero-day than the one assigned. OpenAI tightened the task constraints and added an independent check that each final exploit used its assigned vulnerability, concluding that agent output needs the path verified, not only the outcome."
+        }
+      ],
+      "links": [
+        {
+          "label": "OpenAI Research Post",
+          "url": "https://openai.com/index/a-thousand-fewer-paths-to-root/"
+        },
+        {
+          "label": "Patch the Planet",
+          "url": "https://openai.com/index/patch-the-planet/"
+        },
+        {
+          "label": "Google kernelCTF Rules",
+          "url": "https://google.github.io/security-research/kernelctf/rules.html"
+        }
+      ],
+      "image": {
+        "url": "https://images.ctfassets.net/kftzwdyauwt9/400PQ4WTCOvXwwvk1OMOHv/03970ddeafd22fdbc9832669deacc59c/a-thousand-fewer-paths-to-root-social.png?w=1600&h=900&fit=fill",
+        "alt": "A thousand fewer paths to root",
+        "credit": "OpenAI"
+      },
+      "benchmarks": [
+        {
+          "name": "Unique Linux kernel LPE exploits produced",
+          "unit": " exploits",
+          "max": 1000,
+          "note": "Higher means the model found more ways to reach root",
+          "results": [
+            {
+              "name": "GPT-5.6 Sol, late July 2026",
+              "score": 166
+            },
+            {
+              "name": "Upcoming cyber model, mid-October 2026",
+              "score": 948,
+              "highlight": true
+            }
+          ],
+          "source": "https://openai.com/index/a-thousand-fewer-paths-to-root/"
+        }
+      ],
+      "publishDate": "2026-11-05T06:59:13.411Z"
+    },
+    {
+      "id": "elastic-threats-etc-trusted-ai-tools",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "Elastic: intruders ran whole operations inside signed AI assistants",
+      "org": "Elastic Security Labs",
+      "date": "2026-11-04",
+      "url": "https://www.elastic.co/security-labs/reports/threats-etc-report-november-2026-trouble-with-trust",
+      "summary": "Elastic reports that attackers ran complete intrusions inside signed AI coding assistants, remote monitoring agents and Microsoft first-party clients, using approved software for persistent interactive access instead of malware.",
+      "severity": "info",
+      "tags": [
+        "threat-intel",
+        "ai-enabled-offense",
+        "coding-agents",
+        "screenconnect"
+      ],
+      "affected": [
+        "AI coding assistants",
+        "ScreenConnect",
+        "Microsoft first-party clients"
+      ],
+      "credits": [
+        {
+          "name": "Terrance DeJesus",
+          "org": "Elastic Security Labs"
+        },
+        {
+          "name": "Jason Pappalexis",
+          "org": "Elastic Security Labs"
+        },
+        {
+          "name": "Andrew Pease",
+          "org": "Elastic Security Labs"
+        }
+      ],
+      "explainer": {
+        "tagline": "Elastic's November 2026 threats, etc report finds attackers abusing the trust placed in approved AI and IT tools.",
+        "whatHappened": "Elastic Security Threat Command published the November 2026 edition of its quarterly threats, etc report on 4 November 2026, drawn from confirmed customer intrusions and first-party research between April and September 2026. Authors Terrance DeJesus, Jason Pappalexis and Andrew Pease report that adversaries are moving away from traditional malware and operating inside signed, legitimate products instead. One AI agent-driven attack produced roughly 17,600 reconstructed actions compressed into four days.",
+        "howItWorks": "Trust is the payload. Because remote monitoring agents, AI coding assistants and Microsoft first-party clients are signed and already on the approved list, their execution does not trip controls that identify software rather than behavior, and attackers use them for persistent interactive access on contested endpoints. Elastic also describes victim consent as a repeatable route in, with adversary-in-the-middle phishing kits and gaps in legacy authentication carrying attackers past multifactor authentication and into cloud and SaaS tenants.",
+        "whoIsAffected": "Organizations that approve AI assistants and remote management software are in scope. Elastic counted 23 confirmed remote monitoring and management abuse findings this quarter, naming ScreenConnect most often, and reports that in one healthcare case the path from a paste-and-run lure to installer delivery with DLL sideloading took roughly 16 seconds.",
+        "whatToDo": "Baseline normal activity with user and entity behavior analytics, and hunt for abuse of trust relationships instead of relying on signatures to catch signed software. Elastic recommends monitoring low-level behaviors such as memory tampering and proxy tunneling regardless of which application starts them, correlating activity across cloud, endpoint and identity, and automating alert triage to keep pace with attack speed."
+      },
+      "quickFacts": [
+        {
+          "label": "Reporting period",
+          "value": "April to September 2026"
+        },
+        {
+          "label": "Published",
+          "value": "4 November 2026"
+        },
+        {
+          "label": "RMM abuse findings",
+          "value": "23 confirmed, ScreenConnect named most often"
+        },
+        {
+          "label": "AI agent-driven attack",
+          "value": "About 17,600 reconstructed actions in four days"
+        },
+        {
+          "label": "Infostealer to login",
+          "value": "About eight minutes on average in some cases"
+        },
+        {
+          "label": "Fastest chain observed",
+          "value": "About 16 seconds from paste-and-run lure to DLL sideloading"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does Elastic name which AI assistants the attackers used?",
+          "a": "Elastic's published summary of the November 2026 threats, etc report names no specific AI product. The blog post describes the category as signed AI coding assistants, alongside remote monitoring agents and Microsoft first-party clients, and points readers to the full report for technical breakdowns and attacker timelines. ScreenConnect is the only product named in the summary, and that is for remote management abuse."
+        },
+        {
+          "q": "How fast were the intrusions Elastic observed?",
+          "a": "Speed is a central finding of the report. Elastic measured about 16 seconds in one healthcare case, from a paste-and-run lure to installer delivery with DLL sideloading, and about eight minutes on average in some cases between an infostealer infection and the attacker logging in with the same credentials. One AI agent-driven attack compressed roughly 17,600 reconstructed actions into four days."
+        },
+        {
+          "q": "Why does signature-based detection miss this activity?",
+          "a": "Signatures identify software, not behavior, so they do not fire when an approved and signed application is the thing being misused. Elastic argues defenders should watch system-level outcomes such as memory tampering and proxy tunneling regardless of which application initiates them, baseline normal activity with behavior analytics, and accept that the resulting alert volume needs automated triage."
+        }
+      ],
+      "links": [
+        {
+          "label": "Elastic Security Labs",
+          "url": "https://www.elastic.co/security-labs/reports/threats-etc-report-november-2026-trouble-with-trust"
+        },
+        {
+          "label": "Full Report",
+          "url": "https://www.elastic.co/resources/security/report/threat-command-cybersecurity-report"
+        }
+      ],
+      "image": {
+        "url": "https://static-www.elastic.co/v3/assets/bltefdd0b53724fa2ce/blt4c092f75c0b7ceea/6aeaf928f321be7ff38f7e67/threats-etc-report.jpg",
+        "alt": "Cover of Elastic's November 2026 threats, etc report",
+        "credit": "Elastic"
+      },
+      "publishDate": "2026-11-05T06:59:13.411Z"
+    },
+    {
+      "id": "bitdefender-3am-hybrid-ai-ransomware",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "3AM: Bitdefender reads an agentic loop in a school ransomware attack",
+      "org": "Bitdefender",
+      "date": "2026-11-03",
+      "url": "https://www.bitdefender.com/en-us/blog/businessinsights/3am-ransomware-hybrid-ai-attack",
+      "summary": "Bitdefender says a 3AM ransomware affiliate that encrypted about 37 systems at a UK school estate ran part of the intrusion as an agentic loop, while stating it cannot rule out a person pasting commands between a shell and a chat window.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "3am",
+        "ransomware"
+      ],
+      "affected": [
+        "Windows",
+        "Active Directory",
+        "Veeam"
+      ],
+      "credits": [
+        {
+          "name": "Marius Baciu",
+          "org": "Bitdefender"
+        }
+      ],
+      "explainer": {
+        "tagline": "Bitdefender's analysis of a 3AM ransomware intrusion separates what its evidence supports from what it only suggests about AI.",
+        "whatHappened": "Bitdefender published an analysis on 3 November 2026 of a 3AM ransomware affiliate's intrusion into a UK school estate of 47 systems, written by security researcher Marius Baciu. Hands-on activity ran from 10 to 19 September 2026 and ended with about 37 machines encrypted. Bitdefender calls the operation hybrid: parts look like a human operator at the keyboard, and parts look like a language model reading each result and choosing the next command.",
+        "howItWorks": "Built-in Windows tools did most of the work, joined by Mimikatz, an Impacket-style remote execution tool, a published Veeam credential script and a Rust-based ThreeAM encryptor. The attacker stole backup-server credentials, created two backdoor domain-admin accounts, then built two-way trusts across three previously separate Active Directory domains to reach other schools in the estate. Bitdefender's signals for model involvement include API mistakes typical of recalled rather than documented syntax, Unix habits inside Windows commands, output that labeled itself, numbered script revisions, and nine retries spaced a steady 40 to 101 seconds apart.",
+        "whoIsAffected": "Multi-domain Windows estates with shared administrative accounts and reachable backup servers match the conditions in this report. The estate held about 21 servers including eight domain controllers, ten Windows 10 workstations and one Windows Server 2012 R2 domain controller. Bitdefender notes that the host it believes drove any automation carried no endpoint agent and sat outside its visibility.",
+        "whatToDo": "Separate domain-admin accounts across domains, put trusts and admin accounts under change control, and alert on any new domain trust or netdom trust execution. Bitdefender also recommends isolating backup servers with per-domain accounts and immutable copies, limiting WMI, remote registry, scheduled-task creation and ADMIN$ access to known management hosts, blocking Python and PowerShell on workstations that never use them, and putting an endpoint agent on every machine."
+      },
+      "quickFacts": [
+        {
+          "label": "Victim",
+          "value": "A UK school estate, 47 systems"
+        },
+        {
+          "label": "Encrypted",
+          "value": "About 37 machines, encryptor ran 05:07 to 05:33 on 19 September 2026"
+        },
+        {
+          "label": "Hands-on window",
+          "value": "10 to 19 September 2026, 60 distinct steps analyzed"
+        },
+        {
+          "label": "AI evidence",
+          "value": "Bitdefender's working model, not established fact"
+        },
+        {
+          "label": "Loop signal",
+          "value": "Nine retries spaced 40 to 101 seconds apart"
+        },
+        {
+          "label": "Encryptor",
+          "value": "ThreeAM host.exe, Rust-based"
+        },
+        {
+          "label": "Found by",
+          "value": "Marius Baciu, Bitdefender"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did Bitdefender confirm that an AI agent ran the 3AM attack?",
+          "a": "Bitdefender confirmed nothing of the kind. The analysis separates three claims: that a language model wrote the commands, which Bitdefender calls strongly supported by their content; that an agentic loop chose each next action, which it says behaves like one but cannot be distinguished from a person copying between a shell and a chat window; and that no human was involved, which its own telemetry does not support."
+        },
+        {
+          "q": "What made the commands look model-generated?",
+          "a": "Several habits stood out to Bitdefender: Veeam API calls carrying mistakes typical of recalled rather than documented syntax, Unix-style conventions inside Windows commands, output that labeled itself, numbered script revisions, and retries at a steady 40 to 101 second cadence. Counter-signals included the conventional encryptor, the publicly available tooling, and the absence of self-narrating comments in bespoke payloads."
+        },
+        {
+          "q": "How did the attacker reach other schools in the estate?",
+          "a": "Domain trusts were the bridge. Bitdefender reports the environment began as several separate, unconnected Active Directory domains, and that on 18 September the attacker built two-way trusts across three of them between 15:39 and 18:37 UTC, then pushed access to about 40 machines. Searches of SYSVOL for other schools' names had preceded that step by several days."
+        }
+      ],
+      "links": [
+        {
+          "label": "Bitdefender Analysis",
+          "url": "https://www.bitdefender.com/en-us/blog/businessinsights/3am-ransomware-hybrid-ai-attack"
+        },
+        {
+          "label": "Indicators Of Compromise",
+          "url": "https://github.com/bitdefender/malware-ioc/blob/master/2026_11-3am-iocs.csv"
+        }
+      ],
+      "image": {
+        "url": "https://businessresources.bitdefender.com/hubfs/Human-AI%20Cyber%20Operations%20Split.png",
+        "alt": "Split illustration of human and AI cyber operations",
+        "credit": "Bitdefender"
+      },
+      "publishDate": "2026-11-05T06:59:13.411Z"
+    },
+    {
+      "id": "trawl-mcp-mapped-ipv6-ssrf",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Trawl: a hex IPv6 address sends its MCP scraper to loopback",
+      "org": "Trawl",
+      "date": "2026-11-03",
+      "url": "https://github.com/germondai/trawl/security/advisories/GHSA-mj45-84p2-v77q",
+      "summary": "Trawl's optional MCP interface classified IPv4-mapped IPv6 addresses written in hex as public, so a caller who supplied a scrape URL could reach loopback and private-range services. Fixed in 1.10.0; 1.5.0 through 1.9.3 are affected.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "agent-security",
+        "trawl"
+      ],
+      "affected": [
+        "Trawl"
+      ],
+      "cve": "CVE-2026-122140",
+      "cvss": 6.3,
+      "credits": [
+        {
+          "name": "Leardian"
+        }
+      ],
+      "explainer": {
+        "tagline": "Trawl's private-address filter missed hex IPv4-mapped IPv6 addresses, so every spelling of a loopback literal passed it.",
+        "whatHappened": "Trawl, a self-hosted web scraper for applications and AI agents, published advisory GHSA-mj45-84p2-v77q on 3 November 2026 for a server-side request forgery flaw in its optional MCP interface. Leardian reported the issue and is credited on the advisory, and the fix shipped in version 1.10.0. The GitHub Advisory Database assigned CVE-2026-122140 the following day.",
+        "howItWorks": "Trawl's outbound URL policy recognized IPv4-mapped IPv6 addresses only in dotted-quad form, so a hex literal such as ::ffff:7f00:1 fell through to the default \"not private\" answer. The WHATWG URL parser normalizes the dotted form into hex before the filter runs, which means a caller never needed to know the trick: every spelling of a mapped loopback address bypassed the check. Anyone who could supply a scrape target, or make an allowed page redirect, then reached the blocked destination through Trawl's MCP tools.",
+        "whoIsAffected": "Operators running Trawl 1.5.0 through 1.9.3 with the MCP interface turned on are affected, and MCP stays off unless MCP_ENABLED is set to an opt-in value. Trawl says its native /scrape API does not install this validator by default, so the report is scoped to the MCP interface. Trawl reproduced the bypass against a loopback listener it owned, and states it did not test real cloud metadata endpoints or third-party hosts.",
+        "whatToDo": "Update to Trawl 1.10.0, which replaces the textual IPv6 classification with numeric subnet checks using node:net.BlockList and adds connection-time public egress enforcement. Because the advisory scopes the flaw to the opt-in MCP interface, operators who cannot update yet can leave MCP_ENABLED unset."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Trawl 1.5.0 through 1.9.3, MCP interface only"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.10.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-122140"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.3 (CVSS v4.0, GitHub Advisory Database)"
+        },
+        {
+          "label": "Found by",
+          "value": "Leardian"
+        },
+        {
+          "label": "Disclosed",
+          "value": "3 November 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Server-side request forgery, CWE-918"
+        }
+      ],
+      "links": [
+        {
+          "label": "Trawl Advisory",
+          "url": "https://github.com/germondai/trawl/security/advisories/GHSA-mj45-84p2-v77q"
+        },
+        {
+          "label": "GitHub Advisory DB",
+          "url": "https://github.com/advisories/GHSA-42jx-rr99-g8v2"
+        },
+        {
+          "label": "Fix PR 263",
+          "url": "https://github.com/germondai/trawl/pull/263"
+        }
+      ],
+      "publishDate": "2026-11-05T06:59:13.411Z"
+    },
     {
       "id": "mistral-vibe-repo-startup-rce",
       "categories": [
