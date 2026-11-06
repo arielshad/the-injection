@@ -1,7 +1,178 @@
 {
-  "generatedAt": "2026-11-06T00:16:22.291Z",
+  "generatedAt": "2026-11-06T01:56:59.058Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "checkpoint-chatgpt-lockdown-mode-popup-escape",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "ChatGPT: a popup escaped the preview sandbox and bypassed Lockdown Mode",
+      "org": "Check Point Research",
+      "date": "2026-11-05",
+      "url": "https://research.checkpoint.com/2026/chatgpt-lockdown-mode-bypass-phishing-malware-delivery-and-silent-data-exfiltration/",
+      "summary": "ChatGPT's HTML preview sandbox could be escaped through a popup, letting a malicious page steal chat history, phish for credentials and push malware. Check Point says Lockdown Mode did not stop it. OpenAI fixed it on September 18.",
+      "severity": "medium",
+      "tags": [
+        "sandbox-escape",
+        "data-exfiltration",
+        "zero-click",
+        "openai",
+        "chatgpt"
+      ],
+      "affected": [
+        "ChatGPT",
+        "ChatGPT Classic"
+      ],
+      "credits": [
+        {
+          "name": "Alexey Bukhteyev",
+          "org": "Check Point Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Check Point Research escaped ChatGPT's HTML preview sandbox with a nested frame, reaching data that Lockdown Mode is meant to protect.",
+        "whatHappened": "Alexey Bukhteyev of Check Point Research published the ChatGPT Lockdown Mode bypass on November 5, 2026, after reporting it to OpenAI privately. Check Point retested after OpenAI's fix and confirmed that the technique no longer works.",
+        "howItWorks": "ChatGPT renders HTML previews inside two nested sandboxed iframes, and a script overrides window.open so that outbound navigation needs user approval. The outer iframe kept the allow-popups and allow-popups-to-escape-sandbox tokens, and the override did not cover the iframe's own popup permission. Bukhteyev created a further nested iframe inside the sandboxed page and called open on that frame's contentWindow, which reached an unmodified popup function. Content opened that way ran outside the sandbox.",
+        "whoIsAffected": "ChatGPT in the browser and ChatGPT Classic, the Electron desktop app, were both exposed before the fix. Check Point reports that window.open worked in ChatGPT Classic without a user gesture, which made zero-click exfiltration possible there. The article does not mention the mobile apps.",
+        "whatToDo": "No user action is needed, because OpenAI's fix is server side and already deployed. Check Point advises limiting the sensitive data employees can share with AI services, and treating the app, runtime and connectors around a model as part of its attack surface."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "ChatGPT in the browser, ChatGPT Classic desktop app"
+        },
+        {
+          "label": "Attack type",
+          "value": "Sandbox escape from the HTML preview iframe"
+        },
+        {
+          "label": "Found by",
+          "value": "Alexey Bukhteyev, Check Point Research"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 5, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed by OpenAI on September 18, 2026"
+        },
+        {
+          "label": "Fix",
+          "value": "allow-popups and allow-popups-to-escape-sandbox removed from the outer preview iframe"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is ChatGPT still vulnerable to the Lockdown Mode popup bypass?",
+          "a": "No. Check Point Research reports that OpenAI removed the allow-popups and allow-popups-to-escape-sandbox tokens from the outer HTML preview iframe on September 18, 2026, and that a retest confirmed the technique no longer works. The fix is server side, so ChatGPT users and ChatGPT Classic desktop users do not need to install anything or change a setting."
+        },
+        {
+          "q": "Does Lockdown Mode stop data exfiltration from ChatGPT?",
+          "a": "Lockdown Mode is OpenAI's optional setting that limits outbound channels prompt injection could use, including live web access, network requests from Canvas, Deep Research, agent mode, connectors and file downloads. Check Point Research showed that it did not cover the HTML preview sandbox, where an escaped popup could still carry chat content to an attacker server. OpenAI has since closed that path."
+        },
+        {
+          "q": "How did the ChatGPT desktop app allow zero-click exfiltration?",
+          "a": "ChatGPT Classic, the Electron desktop app, let window.open run without a user gesture, which removed the click the browser version needed. Check Point Research says that simply holding a conversation with a malicious GPT could therefore leak chat messages to an attacker's server. In the browser, Check Point reports that a shared chat holding a malicious page could be enough, even for a reader without an account."
+        }
+      ],
+      "links": [
+        {
+          "label": "Check Point Research",
+          "url": "https://research.checkpoint.com/2026/chatgpt-lockdown-mode-bypass-phishing-malware-delivery-and-silent-data-exfiltration/"
+        },
+        {
+          "label": "Check Point Blog Post",
+          "url": "https://blog.checkpoint.com/security/chatgpt-lockdown-mode-bypass-reveals-a-wider-challenge-in-ai-security"
+        },
+        {
+          "label": "Earlier ChatGPT Leak",
+          "url": "https://research.checkpoint.com/2026/the-shared-clipboard-inside-the-sandbox-cross-account-data-leakage-in-chatgpt/"
+        }
+      ],
+      "image": {
+        "url": "https://research.checkpoint.com/wp-content/uploads/2026/10/chatgpt_lockdown_background-1024x512.png",
+        "alt": "Check Point Research title card for the ChatGPT Lockdown Mode bypass",
+        "credit": "Check Point Research"
+      },
+      "publishDate": "2026-11-06T01:56:59.058Z"
+    },
+    {
+      "id": "claude-code-user-agent-email-leak",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Claude Code: the agent put the user's email in User-Agent headers",
+      "org": "Anthropic",
+      "date": "2026-11-05",
+      "url": "https://github.com/anthropics/claude-code/issues/107757",
+      "summary": "Claude Code added the signed-in account's email address to the User-Agent header on web requests it made, sending it to third-party sites. Version 2.1.317 added a built-in check on shell calls that carry the address.",
+      "severity": "low",
+      "tags": [
+        "coding-agents",
+        "agent-security",
+        "claude-code",
+        "anthropic"
+      ],
+      "affected": [
+        "Claude Code"
+      ],
+      "credits": [
+        {
+          "name": "Taylor Edwards",
+          "url": "https://github.com/taylor-edwards"
+        }
+      ],
+      "explainer": {
+        "tagline": "Claude Code sent the signed-in account's email address to websites in the User-Agent header, with no prompt and no setting to stop it.",
+        "whatHappened": "Taylor Edwards reported on November 5, 2026 that Claude Code had put their email address into the User-Agent header of web requests the agent made, in issue 107757 on the anthropics/claude-code repository. A Claude Code maintainer replied that nobody had implemented this as a feature and described it as model behavior.",
+        "howItWorks": "Claude Code builds its own web requests through shell tools such as curl, and the model chooses the headers. Some sites, Wikipedia among them, ask scripted clients to identify themselves with a contact email, and the model can read the signed-in account's address, so it filled the User-Agent with it. No code path was written to do this, which is why the maintainer shipped a deterministic check around the model rather than removing a feature.",
+        "whoIsAffected": "Claude Code users signed in with an account whose address the model can read are exposed, and the report lists version 2.1.318 on macOS. The privacy mod's README says it matches only Bash, PowerShell and Monitor calls that name a User-Agent, so the paths listed below stay uncovered.",
+        "whatToDo": "Update Claude Code to 2.1.317 or later and leave the cc-plugin-privacy mod enabled, since it can be turned off through /plugins or settings. For the paths it does not cover, a commenter in the thread adds a CLAUDE.md rule that allows the address in a User-Agent only for named, approved sites."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Claude Code before 2.1.317"
+        },
+        {
+          "label": "Reported by",
+          "value": "Taylor Edwards, in issue 107757"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 5, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Mitigated by the built-in cc-plugin-privacy mod in 2.1.317"
+        },
+        {
+          "label": "Mitigation covers",
+          "value": "Bash, PowerShell and Monitor calls that name a User-Agent"
+        },
+        {
+          "label": "Not covered",
+          "value": "WebFetch, WebSearch, MCP tools, the address in a URL or request body"
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Issue 107757",
+          "url": "https://github.com/anthropics/claude-code/issues/107757"
+        },
+        {
+          "label": "Privacy Mod Source",
+          "url": "https://github.com/anthropics/claude-code/tree/main/mods/privacy"
+        },
+        {
+          "label": "Claude Code Changelog",
+          "url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
+        }
+      ],
+      "publishDate": "2026-11-06T01:56:59.058Z"
+    },
     {
       "id": "acronis-bossai-agent-mesh",
       "categories": [
