@@ -1,7 +1,208 @@
 {
-  "generatedAt": "2026-11-06T16:27:35.483Z",
+  "generatedAt": "2026-11-06T21:44:51.397Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "socket-strutil-core-ruby-gem-worm",
+      "categories": [
+        "supply-chain"
+      ],
+      "title": "strutil-core: a RubyGems worm writes itself into AI agent configs",
+      "org": "Socket",
+      "date": "2026-11-06",
+      "url": "https://socket.dev/blog/shai-hulud-descendant-malicious-ruby-gem",
+      "summary": "strutil-core 1.0.1 is a malicious RubyGems package that steals credentials during install and edits AI coding tool config files so agents run it again. Socket reports RubyGems removed both published versions.",
+      "severity": "medium",
+      "tags": [
+        "malicious-package",
+        "credential-theft",
+        "coding-agents",
+        "mcp",
+        "rubygems"
+      ],
+      "affected": [
+        "RubyGems",
+        "Claude Code",
+        "Cursor",
+        "OpenAI Codex",
+        "Aider",
+        "Visual Studio Code"
+      ],
+      "credits": [
+        {
+          "name": "Kush Pandya",
+          "org": "Socket"
+        },
+        {
+          "name": "Socket Threat Research Team",
+          "org": "Socket"
+        }
+      ],
+      "explainer": {
+        "tagline": "strutil-core is a malicious RubyGems package whose install-time payload steals credentials and plants itself in AI coding agent config files.",
+        "whatHappened": "Socket published an analysis of the RubyGems package strutil-core on November 6, 2026, whose gemspec advertises string manipulation helpers. The account jamnajiea published a clean 1.0.0 on November 1, 2026 and pushed the malicious 1.0.1 less than two hours later. Socket identifies the payload as a new build of the testmetest worm, part of the Miasma family that grew from the public Shai-Hulud toolkit.",
+        "howItWorks": "A native extension script runs during gem install or bundle install, downloads the Bun JavaScript runtime and executes a 5.48 MB bundle, so no application needs to require the gem. The payload collects cloud, CI, package registry, SSH, AI coding tool and wallet credentials and sends them to paleasbest[.]top, with GitHub and GitLab fallbacks. It then searches the home directory for writable settings.json, config.json, mcp.json and .aider.conf.yml files, adds an MCP server named workspace-tools that runs the payload with node, and adds SessionStart hooks. With stolen Git credentials it commits agent config files into repositories, including a generated AGENTS.md that tells coding agents to run a setup script before their first command.",
+        "whoIsAffected": "Only strutil-core 1.0.1 carries the payload, and Socket cites Bitbison for RubyGems removing both versions about five hours after the malicious release. Socket says it has confirmed no victims and does not know how many systems installed 1.0.1; the figures in the table below are download counts, which Socket says are not victim counts and likely came from mirrors and scanners. Repositories that received the worm's committed config files can run it again when a coding agent or editor opens them, depending on each tool's workspace trust setting.",
+        "whatToDo": "Search developer machines and repositories for the artifacts Socket lists: an MCP server named workspace-tools, SessionStart hooks in agent config files, and generated AGENTS.md, CLAUDE.md or .vscode/tasks.json entries that run a setup script. Contain an affected host and preserve its data before revoking credentials, because Socket reports a monitor that wipes the user's home directory once a stolen GitHub token stops working. Removing the gem is not enough, since the payload writes outside the gem directory."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "strutil-core 1.0.1 on RubyGems"
+        },
+        {
+          "label": "Timeline",
+          "value": "Clean 1.0.0 published 2026-11-01, malicious 1.0.1 under two hours later"
+        },
+        {
+          "label": "Status",
+          "value": "Both versions removed from RubyGems, per Socket"
+        },
+        {
+          "label": "Downloads",
+          "value": "89 recorded across both versions, 0 for 1.0.1"
+        },
+        {
+          "label": "Exfiltration",
+          "value": "paleasbest[.]top, with GitHub and GitLab fallbacks"
+        },
+        {
+          "label": "Persistence",
+          "value": "Python backdoor pkg-runtime, driven by signed GitHub commit messages"
+        },
+        {
+          "label": "Wiper trigger",
+          "value": "net-health-checker deletes the home directory on HTTP 401 or 403 from a stolen GitHub token"
+        },
+        {
+          "label": "Found by",
+          "value": "Socket Threat Research Team"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Was anyone compromised by strutil-core 1.0.1?",
+          "a": "Socket reports no confirmed victims of strutil-core 1.0.1 and says it does not know how many systems installed the malicious version. A public RubyGems metadata tracker recorded 89 total downloads across both versions and 0 for 1.0.1, which Socket attributes to mirrors and automated scanners rather than real installs. Download counts are not victim counts."
+        },
+        {
+          "q": "Does uninstalling the strutil-core gem remove the infection?",
+          "a": "Uninstalling strutil-core does not undo an infection, because the payload writes outside the gem directory. Socket describes a Python backdoor named pkg-runtime that takes commands from signed GitHub commit messages, plus edits to AI coding tool configuration files in the home directory and in reachable repositories. Cleanup means finding those artifacts and rotating every credential the machine held."
+        },
+        {
+          "q": "Which AI coding tools does strutil-core target?",
+          "a": "Socket names Claude, Cursor, Gemini, Codex, Aider and Visual Studio Code among the tools whose configuration files the payload edits. The worm looks for writable settings.json, config.json, mcp.json and .aider.conf.yml files, registers an MCP server called workspace-tools, and commits files such as CLAUDE.md, AGENTS.md and .vscode/tasks.json into repositories it can reach with stolen Git credentials."
+        },
+        {
+          "q": "Why does revoking a stolen GitHub token trigger the strutil-core wiper?",
+          "a": "Socket describes a monitor component named net-health-checker that watches a stolen GitHub token. Once that token starts returning HTTP 401 or 403, the monitor deletes the user's home directory, so ordinary revocation is what sets off the destructive step. Responders should therefore isolate the host and copy off anything they need before rotating credentials."
+        }
+      ],
+      "links": [
+        {
+          "label": "Socket Analysis",
+          "url": "https://socket.dev/blog/shai-hulud-descendant-malicious-ruby-gem"
+        },
+        {
+          "label": "OpenSSF Report",
+          "url": "https://github.com/ossf/malicious-packages/pull/1701"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/cgdhsj6q/production/865f8c13ef984a4b58f3643dc4a67f782fdef5dc-1670x941.png?w=1000&q=95&fit=max&auto=format",
+        "alt": "Socket cover image for the strutil-core Ruby gem analysis",
+        "credit": "Socket"
+      },
+      "publishDate": "2026-11-06T21:44:51.397Z"
+    },
+    {
+      "id": "fmf-jailbreak-rating-framework",
+      "categories": [
+        "lab-safety"
+      ],
+      "title": "Frontier Model Forum: a shared scale for rating cyber jailbreaks",
+      "org": "Frontier Model Forum",
+      "date": "2026-11-05",
+      "url": "https://www.frontiermodelforum.org/updates/introducing-the-fmf-jailbreak-rating-framework-for-frontier-cyber-threats/",
+      "summary": "The Frontier Model Forum published version 1.0 of a framework that rates a cyber jailbreak on four 0 to 3 scores and maps them onto five risk bands, from Negligible to Critical. Comments are open until December 21, 2026.",
+      "severity": "info",
+      "tags": [
+        "jailbreak",
+        "guardrail-bypass",
+        "cyber-capability",
+        "evals"
+      ],
+      "affected": [
+        "Frontier AI models"
+      ],
+      "credits": [
+        {
+          "name": "Frontier Model Forum",
+          "url": "https://www.frontiermodelforum.org/"
+        }
+      ],
+      "explainer": {
+        "tagline": "The FMF Jailbreak Rating Framework scores a cyber jailbreak on capability gain, capability scope, ease of deployment and ease of discovery.",
+        "whatHappened": "The Frontier Model Forum released version 1.0 of its Jailbreak Rating Framework for Frontier Cyber Threats on November 5, 2026, and opened a public comment period that runs to December 21, 2026. The FMF presents it as a preliminary, structured method for rating the comparative risk of reproducible jailbreaks that get past AI safeguards to unlock restricted cyber capabilities. Its acknowledgements thank experts from NIST CAISSI, NSA SISC, UK AISI and UK NCSC for feedback, and state that this does not imply endorsement.",
+        "howItWorks": "Capability gain and capability scope each score 0 to 3 and add up to a severity score; ease of deployment and ease of discovery do the same for a likelihood score. A capability gain of 0 ends the assessment at Negligible. The two sums are read off a published risk matrix to give a provisional band, which capability gain then caps or raises. Scope is measured in held-out items, so a jailbreak must unlock at least 5 of them to score above the narrow level.",
+        "whoIsAffected": "AI developers, security researchers and policymakers are the audiences the FMF names. Ratings are tied to one reproducible jailbreak against a specified model version, and the baseline is the most cyber-capable widely available models as of October 2026, so the same jailbreak can score differently once that baseline moves. The framework rates relative risk and does not estimate actual harm.",
+        "whatToDo": "Score jailbreak findings against the four published categories before deciding what to fix first, and record the model version and baseline used, since the FMF ties a rating to both. Comments on version 1.0 go to the address on the FMF announcement page until December 21, 2026."
+      },
+      "quickFacts": [
+        {
+          "label": "Version",
+          "value": "1.0, preliminary"
+        },
+        {
+          "label": "Scoring",
+          "value": "Four categories, each 0 to 3"
+        },
+        {
+          "label": "Bands",
+          "value": "Negligible, Low, Medium, High, Critical"
+        },
+        {
+          "label": "Baseline",
+          "value": "Most cyber-capable widely available models as of October 2026"
+        },
+        {
+          "label": "Suggested screens",
+          "value": "ExploitBench and ExploitGym"
+        },
+        {
+          "label": "Comments close",
+          "value": "2026-12-21"
+        },
+        {
+          "label": "Feedback from",
+          "value": "NIST CAISSI, NSA SISC, UK AISI and UK NCSC"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How does the FMF framework turn four scores into one risk band?",
+          "a": "The FMF framework adds capability gain and capability scope into a severity score of 1 to 6, then adds ease of deployment and ease of discovery into a likelihood score of 0 to 6. Those two sums are read off a published risk matrix to get a provisional band, which capability gain can then cap or raise. A capability gain of 0 stops scoring at Negligible."
+        },
+        {
+          "q": "Which jailbreaks fall outside the FMF framework?",
+          "a": "Jailbreaks that score 0 on a frontier-risk dimension sit below what the FMF calls the frontier bar, and the framework says traditional risk management covers those. The unit of assessment is one reproducible jailbreak against a specified model version, so a narrow or unreliable bypass that works on a single case scores 0 on capability scope. Harm estimation is out of scope."
+        },
+        {
+          "q": "Is the FMF Jailbreak Rating Framework final?",
+          "a": "Version 1.0 is preliminary and open for public comment until December 21, 2026. The FMF says it will test the framework against a range of jailbreaks to check whether different assessors reach similar ratings and whether those ratings reflect real differences in risk. The FMF also expects ExploitBench and ExploitGym to be replaced as they saturate."
+        }
+      ],
+      "links": [
+        {
+          "label": "FMF Announcement",
+          "url": "https://www.frontiermodelforum.org/updates/introducing-the-fmf-jailbreak-rating-framework-for-frontier-cyber-threats/"
+        },
+        {
+          "label": "Framework Spec",
+          "url": "https://www.frontiermodelforum.org/specifications/jailbreak-rating-framework-for-frontier-cyber-threats/"
+        }
+      ],
+      "publishDate": "2026-11-06T21:44:51.397Z"
+    },
     {
       "id": "mcp-inspector-2-14-0-app-frame-escape",
       "categories": [
@@ -11662,6 +11863,10 @@
           "value": "9.2 (v4.0), Critical, assigned by Google"
         },
         {
+          "label": "Exploitation",
+          "value": "In CISA's KEV catalog since 2026-10-27, federal remediation date 2026-11-10"
+        },
+        {
           "label": "Attack type",
           "value": "Out-of-bounds write, CWE-787 and CWE-252"
         },
@@ -11724,6 +11929,10 @@
         {
           "label": "Aikido Analysis",
           "url": "https://www.aikido.dev/blog/python-packages-vulnerable-node2shell-brotli-cve-2026-111497"
+        },
+        {
+          "label": "Sophos Exploitation",
+          "url": "https://www.sophos.com/en-us/blog/node2shell-cve-2026-111497-in-active-exploitation"
         }
       ],
       "publishDate": "2026-10-24T00:16:23.157Z"

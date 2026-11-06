@@ -16022,6 +16022,94 @@
         "msrc.microsoft.com/blog"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261106t214451z",
+      "timestamp": "2026-11-06T21:44:51.397Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP, agent and LLM queries), VulnCheck, CISA KEV, Microsoft, Anthropic, Google Threat Intelligence, Trail of Bits, AIR, Zenity, Pillar, Socket, ReversingLabs, Snyk Labs, Elastic, Sophos, Check Point, HiddenLayer, Straiker, Glow, Forever, OWASP GenAI, UK AISI, NIST CAISI, Hugging Face, GitHub trending, Show HN and HN, plus paper-scan (60 arXiv candidates), talk-scan (48 videos) and repo-scan (3 candidates). Added a malicious RubyGems package that poisons AI coding agent configs and the Frontier Model Forum's new jailbreak rating framework, and recorded CISA KEV exploitation on the existing Node2Shell item.",
+      "counts": {
+        "added": 2,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "socket-strutil-core-ruby-gem-worm",
+          "title": "strutil-core: a RubyGems worm writes itself into AI agent configs",
+          "category": "supply-chain",
+          "severity": "medium",
+          "note": "A credential-stealing worm published to RubyGems inside the window that edits MCP and agent config files so coding agents re-run it, with a destructive step triggered by token revocation."
+        },
+        {
+          "id": "fmf-jailbreak-rating-framework",
+          "title": "Frontier Model Forum: a shared scale for rating cyber jailbreaks",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A new, specific severity rubric for cyber jailbreaks from the body that includes Anthropic, Google DeepMind, Microsoft, OpenAI and AWS, published inside the window with the full scoring method readable."
+        }
+      ],
+      "updated": [
+        {
+          "id": "brotli-node2shell-decoder-oob-write",
+          "title": "Node2Shell: OpenAI's Codex Security team found a Brotli decoder RCE",
+          "note": "CISA added CVE-2026-111497 to the Known Exploited Vulnerabilities catalog on 2026-10-27 with a 2026-11-10 federal remediation date, a fact the item did not carry."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "CISA Known Exploited Vulnerabilities catalog",
+        "Microsoft Security Blog",
+        "anthropic.com/news",
+        "Google Cloud Threat Intelligence blog",
+        "blog.trailofbits.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "pillar.security/blog",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "labs.snyk.io",
+        "elastic.co/security-labs",
+        "sophos.com/blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com research",
+        "straiker.ai/blog",
+        "glow.io/blogs",
+        "forever.security/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "frontiermodelforum.org",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, sorted by created)",
+        "github.com/trending (daily and weekly)",
+        "Hacker News front page, newest and Show HN",
+        "arXiv via paper-scan.ts",
+        "YouTube channels via talk-scan.ts",
+        "GitHub repo search via repo-scan.json",
+        "johnsoncontrols.com security advisories",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "trendmicro.com/research",
+        "jfrog.com security research"
+      ],
+      "windowDays": 7
     }
   ]
 }
