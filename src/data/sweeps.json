@@ -15861,6 +15861,95 @@
         "The Hacker News (pointer only)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261106t085720z",
+      "timestamp": "2026-11-06T08:57:20.096Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Microsoft, Google Cloud threat intelligence, Talos, Unit 42, Wiz, Check Point, Trail of Bits, CrowdStrike, Pillar, Forever Security, Zenity Labs, Datadog, HiddenLayer, NCC Group, AIR, Embrace The Red, Simon Willison, Socket, Hugging Face, Hacker News, github.com/trending, repo-scan (2 candidates), paper-scan (65 arXiv papers) and talk-scan (42 videos). Added Microsoft's November 5 report on agentic secret hunting, Forever Security's Claude Dispatch escape and the AgentScope CVE batch; most other leads this week were already in the feed or dated before the window, no paper showed two signals, no repo or talk met its bar, GTIG's newest AI threat tracker could not be read by the fetch tool, and openai.com returned 403.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "microsoft-artex-github-secret-abuse",
+          "title": "ARTEX: an agent went from GitHub secrets to Azure Key Vault in 5 minutes",
+          "category": "incident",
+          "severity": "high",
+          "note": "Microsoft Threat Intelligence documents an active campaign where an agentic framework finds leaked OAuth secrets and uses them across Azure tenants, with indicators, timings and hunting guidance a defender can act on today."
+        },
+        {
+          "id": "forever-thisbash-claude-dispatch-escape",
+          "title": "ThisBash Escape: a browser extension drives Claude Desktop into running code",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "First published account of a browser extension reaching OS code execution through Claude Dispatch, including cross-device reach into corporate endpoints, with no patch beyond the feature's retirement."
+        },
+        {
+          "id": "agentscope-agent-service-november-cves",
+          "title": "AgentScope: three CVEs land, and the MCP workspace flaw is unpatched",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "CVE assignment on November 5 is the new event: two of the three AgentScope flaws, including unauthenticated process execution, have no fixed release and the exploit details are public."
+        }
+      ],
+      "updated": [
+        {
+          "id": "mcp-inspector-oauth-callback-stdio-rce",
+          "title": "MCP Inspector: a malicious server's OAuth redirect runs local commands",
+          "note": "Pillar Security published its write-up of the PowerShell chain in MCP Inspector on November 5, 2026, naming Inspector 2.12.0, open 11.0.0 and opencode 1.18.33 as the fixed versions. Same flaw as this item, so the link is added here rather than filed as a new story."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "Microsoft Security Blog",
+        "Google Cloud threat intelligence blog",
+        "Cisco Talos blog",
+        "Unit 42",
+        "Wiz blog",
+        "Check Point Research",
+        "Trail of Bits blog",
+        "CrowdStrike blog",
+        "Pillar Security blog",
+        "Forever Security blog",
+        "Zenity Labs",
+        "Datadog Security Labs",
+        "HiddenLayer research",
+        "NCC Group research",
+        "Signals Corps",
+        "AIR Security blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "Socket blog",
+        "JFrog security research",
+        "Straiker blog",
+        "anthropic.com/news",
+        "OWASP GenAI newsroom",
+        "Hugging Face blog",
+        "Hacker News front page",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv and Hugging Face Daily Papers)",
+        "talk-scan (conference and security channels)",
+        "Adversa AI digests (discovery only)"
+      ],
+      "windowDays": 7
     }
   ]
 }

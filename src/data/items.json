@@ -1,7 +1,317 @@
 {
-  "generatedAt": "2026-11-06T01:56:59.058Z",
+  "generatedAt": "2026-11-06T08:57:20.096Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "microsoft-artex-github-secret-abuse",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "ARTEX: an agent went from GitHub secrets to Azure Key Vault in 5 minutes",
+      "org": "Microsoft",
+      "date": "2026-11-05",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+      "summary": "Microsoft Threat Intelligence reports threat actors driving the ARTEX agentic offensive framework to search GitHub for cloud and AI service secrets, then sign in as OAuth service principals across Azure tenants.",
+      "severity": "high",
+      "tags": [
+        "ai-enabled-offense",
+        "credential-theft",
+        "threat-intel",
+        "artex",
+        "azure",
+        "entra-id"
+      ],
+      "affected": [
+        "Microsoft Entra ID",
+        "Azure Key Vault",
+        "Azure SQL",
+        "Azure DevOps",
+        "Microsoft 365"
+      ],
+      "credits": [
+        {
+          "name": "Microsoft Threat Intelligence",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Microsoft Security Research",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "Microsoft says attackers let an agentic framework find exposed secrets and use them, moving from GitHub search to cloud theft in minutes.",
+        "whatHappened": "Microsoft Threat Intelligence and Microsoft Security Research published this campaign on November 5, 2026. Starting in August 2026, they observed threat actors using an agentic AI offensive framework to submit large volumes of GitHub queries for secrets, often pairing a target organization's name with cloud or AI service keywords. Microsoft does not attribute the activity to a named group.",
+        "howItWorks": "ARTEX is an agentic offensive framework whose default tools include Nmap, curl, wget, Python HTTP clients, Norma SDK WebFetch and headless Chromium through Playwright. Once a client secret was found, the agent signed in as that application's service principal, enumerated resources through Azure Resource Manager and read whatever the role allowed. The agent also corrected its own mistakes: a Key Vault secret-enumeration batch that returned HTTP 400 for using a data-plane API version was rerun about 28 seconds later with ARM version 2023-07-01 and returned HTTP 200.",
+        "whoIsAffected": "Organizations whose OAuth application secrets, certificates or tokens ever reached a public repository are in scope, as are tenants that trust a vendor-owned multitenant application: Microsoft says one such credential was used to reach downstream tenants. Service principal sign-ins were seen across dozens of applications in multiple tenants from October 28, 2026, with separate reconnaissance against AI workloads on Azure AI services.",
+        "whatToDo": "Treat any credential that reached a public repository as compromised, rotate it, review its historical use, and rotate everything in any Key Vault the affected applications could read. Remove client secrets, certificates and federated credentials from affected app registrations, revoke Entra sessions and Azure DevOps personal access tokens, and move OAuth applications to managed identities."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Entra ID service principals, Azure Key Vault, Storage, App Service, AKS, Azure SQL, Application Insights, Azure DevOps, Microsoft 365"
+        },
+        {
+          "label": "Attack type",
+          "value": "Agentic credential hunting in public repositories, then OAuth service principal sign-in"
+        },
+        {
+          "label": "Speed",
+          "value": "Five minutes from searching GitHub for secrets to exfiltrating Azure Key Vault data, in one observed case"
+        },
+        {
+          "label": "Timeline",
+          "value": "GitHub secret queries from August 2026; successful service principal sign-ins from October 28, 2026"
+        },
+        {
+          "label": "Indicators",
+          "value": "Sign-ins from 199.19.77[.]84 and 199.19.77[.]18; exploitation from 65.87.223[.]26; recon from 157.22.126[.]128"
+        },
+        {
+          "label": "Found by",
+          "value": "Microsoft Threat Intelligence and Microsoft Security Research"
+        },
+        {
+          "label": "Status",
+          "value": "Active, with no patch to apply: exposure follows the leaked credential"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I check whether an attack agent used my leaked OAuth secret?",
+          "a": "Microsoft advises reviewing service principal and other non-interactive sign-in logs for failures followed quickly by successes, and for one address authenticating to three or more service principals with mixed results. Sign-in errors AADSTS7000215 and AADSTS7000222 show invalid or expired secrets being tried. Microsoft's hunting queries start at 2026-10-28T00:00:00Z and also cover Azure Activity, Key Vault, Entra audit and Azure DevOps logs."
+        },
+        {
+          "q": "Does deleting a secret from a public repository make it safe again?",
+          "a": "Microsoft states that publicly exposed credentials should be treated as compromised even after removal, because an agent may already hold them. Rotate the credential, review its historical use, and rotate everything in any Key Vault the affected application could read. Microsoft also recommends migrating OAuth applications from secret-based authentication to managed identities and restricting who may register applications."
+        },
+        {
+          "q": "Which Azure services did the agents reach after signing in?",
+          "a": "Microsoft observed the agents reading Azure Key Vault and Storage accounts, enumerating App Service, Azure Kubernetes Service, Azure SQL and Application Insights, searching Azure DevOps for further secrets, and running commands on virtual machines through Run Command. SharePoint, OneDrive and mailbox items were reached through Microsoft Graph. The agents repeatedly sought API keys for major AI providers."
+        },
+        {
+          "q": "Do honeypots help against an autonomous attack agent?",
+          "a": "Microsoft reports that honeypots, decoys, tarpits and fake wins reduced attack traffic reaching real assets in its own testing, and produced high-confidence signal. Decoys hand the agent worthless targets, tarpits spend its time and budget, and a false success can make it stop early. Microsoft presents these as additions to least privilege and secret hygiene, not replacements."
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Analysis",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/"
+        },
+        {
+          "label": "Earlier ARTEX Campaign",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+        }
+      ],
+      "image": {
+        "url": "https://www.microsoft.com/en-us/security/blog/wp-content/uploads/2026/11/AI-tooling-scanning-secrets-featured.png",
+        "alt": "Microsoft Security Blog header for the report on agentic AI tooling scanning for exposed secrets",
+        "credit": "Microsoft"
+      },
+      "publishDate": "2026-11-06T08:57:20.096Z"
+    },
+    {
+      "id": "agentscope-agent-service-november-cves",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AgentScope: three CVEs land, and the MCP workspace flaw is unpatched",
+      "org": "GitHub Advisory Database",
+      "date": "2026-11-05",
+      "url": "https://github.com/advisories/GHSA-m997-8g56-6phf",
+      "summary": "AgentScope received three CVEs on November 5, 2026 for flaws Yongbo Yu reported in October, including unauthenticated command execution through the agent service's MCP workspace endpoint, which still has no fix.",
+      "severity": "medium",
+      "cve": "CVE-2026-123022",
+      "cvss": 5.5,
+      "tags": [
+        "mcp",
+        "rce",
+        "agent-security",
+        "agentscope"
+      ],
+      "affected": [
+        "AgentScope",
+        "agentscope (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "Yongbo Yu",
+          "url": "https://github.com/ybyu-ieu/agent-security-advisories"
+        }
+      ],
+      "explainer": {
+        "tagline": "AgentScope's agent service accepts an MCP configuration from any caller and spawns the command it names, with no release to upgrade to.",
+        "whatHappened": "Three CVEs for AgentScope were published on November 5, 2026: CVE-2026-123022 for command injection through the MCP workspace endpoint, CVE-2026-123024 for the agent service's missing authentication, and CVE-2026-123023 for an authorization error in the bash tool. Independent researcher Yongbo Yu reported them in public issues 3312, 3313 and 3314; the MCP workspace issue was filed on October 14, 2026, after a private report on July 8, 2026 drew no maintainer response.",
+        "howItWorks": "The POST /workspace/mcp endpoint accepts a stdio MCP configuration whose command field is a free-form string with no allowlist, passes it into stdio_client() and spawns the process when the configuration is saved. Spawning happens before the MCP handshake, so the command runs even when the request returns an error or times out. Authentication on the service is an X-User-ID header that only has to be non-empty, which is the separate CVE-2026-123024, and the bash tool flaw sits in check_permissions in _bash.py, where manipulation causes incorrect authorization.",
+        "whoIsAffected": "AgentScope versions up to 2.0.11 whose agent service API is reachable over a network are exposed to the first two flaws; Yu verified the MCP workspace flaw on 2.0.4 with the API bound to 0.0.0.0:8000 and the default local workspace. Docker and E2B backends keep the spawned process inside the sandbox, where it still executes. The bash tool flaw covers versions up to 2.0.8.",
+        "whatToDo": "Upgrade to AgentScope 2.0.9 or later to pick up the bash tool fix. For the other two, the advisory's operator workarounds are to bind the service to 127.0.0.1 instead of 0.0.0.0, or to block POST /workspace/mcp at the network or proxy layer, until a fix ships."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "AgentScope up to 2.0.11 for CVE-2026-123022 and CVE-2026-123024, up to 2.0.8 for CVE-2026-123023"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.0.9 for the bash tool flaw; no fixed release for the other two"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-123022, CVE-2026-123023 and CVE-2026-123024, all published November 5, 2026"
+        },
+        {
+          "label": "CVSS",
+          "value": "5.5 under CVSS 4.0 for each advisory; Yu's own advisory scores the MCP workspace flaw 9.8 under CVSS 3.1"
+        },
+        {
+          "label": "Found by",
+          "value": "Yongbo Yu, independent researcher"
+        },
+        {
+          "label": "Status",
+          "value": "Exploit details public; pull request 3448, a partial opt-in allowlist, awaits maintainer review"
+        },
+        {
+          "label": "Attack type",
+          "value": "Unauthenticated process execution through an MCP configuration endpoint"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which AgentScope release fixes the November 2026 CVEs?",
+          "a": "AgentScope 2.0.9 fixes CVE-2026-123023, the bash tool authorization error, in commit 6b43b13. No release fixes CVE-2026-123022 or CVE-2026-123024: both advisories list affected versions up to 2.0.11 and say the fix pull request awaits acceptance. Operators have to mitigate at the network layer until maintainers ship a release."
+        },
+        {
+          "q": "Is an AgentScope instance on localhost affected by CVE-2026-123022?",
+          "a": "Yongbo Yu's advisory treats network reachability as the condition, and the proof of concept ran against the agent service bound to 0.0.0.0:8000. Binding to 127.0.0.1, or blocking POST /workspace/mcp at a proxy, are the operator workarounds the advisory lists. Container backends such as Docker and E2B confine the spawned process without preventing it from running."
+        },
+        {
+          "q": "Why do the advisories and the researcher disagree on AgentScope's severity?",
+          "a": "The published advisories score each AgentScope flaw 5.5 under CVSS 4.0, with low impact on confidentiality, integrity and availability, while Yu's own advisory scores the MCP workspace flaw 9.8 under CVSS 3.1 with high impact on all three. The numbers come from different CVSS versions and different impact judgements, so compare the vectors rather than the scores."
+        }
+      ],
+      "links": [
+        {
+          "label": "MCP Workspace CVE",
+          "url": "https://github.com/advisories/GHSA-m997-8g56-6phf"
+        },
+        {
+          "label": "Missing Auth CVE",
+          "url": "https://github.com/advisories/GHSA-62xg-m469-57vg"
+        },
+        {
+          "label": "Bash Tool CVE",
+          "url": "https://github.com/advisories/GHSA-fh34-mp6h-q3xc"
+        },
+        {
+          "label": "Researcher Advisory",
+          "url": "https://github.com/ybyu-ieu/agent-security-advisories/blob/main/agentscope/agentscope-mcp-stdio-workspace-unauthenticated-process-execution.md"
+        },
+        {
+          "label": "AgentScope Issue 3312",
+          "url": "https://github.com/agentscope-ai/agentscope/issues/3312"
+        },
+        {
+          "label": "Mitigation Pull Request",
+          "url": "https://github.com/agentscope-ai/agentscope/pull/3448"
+        }
+      ],
+      "publishDate": "2026-11-06T08:57:20.096Z"
+    },
+    {
+      "id": "forever-thisbash-claude-dispatch-escape",
+      "categories": [
+        "vulnerability",
+        "attack"
+      ],
+      "title": "ThisBash Escape: a browser extension drives Claude Desktop into running code",
+      "org": "Forever Security",
+      "date": "2026-11-04",
+      "url": "https://forever.security/blog/thisbash-claude-dispatch-browser-extension-rce",
+      "summary": "Claude Dispatch let a browser extension with access to a claude.ai session send instructions to Claude Desktop, approve them and run code on the computer, Forever Security reports. Anthropic is retiring Dispatch.",
+      "severity": "medium",
+      "tags": [
+        "sandbox-escape",
+        "approval-bypass",
+        "rce",
+        "agent-security",
+        "claude-desktop",
+        "claude-dispatch"
+      ],
+      "affected": [
+        "Claude Dispatch",
+        "Claude Desktop"
+      ],
+      "credits": [
+        {
+          "name": "Gal Weizman",
+          "org": "Forever Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "Claude Dispatch turned an ordinary browser extension into local code execution on the machine running Claude Desktop.",
+        "whatHappened": "Forever Security published ThisBash Escape on November 4, 2026, research by Gal Weizman into Claude Dispatch, the feature that lets a phone or browser send instructions to Claude Desktop. Weizman reported it to Anthropic on May 14, 2026. Anthropic called the findings valid on May 19, 2026 and closed the report as a duplicate of an issue it had already found internally, and on October 13, 2026 said Dispatch would be retired, targeting the end of October 2026.",
+        "howItWorks": "Dispatch's interface and API were not linked from claude.ai but were reachable from a logged-in session, and the researchers found the URL inside the desktop app. An extension holding permission to act on claude.ai could use the user's own session to locate the paired Claude Desktop and send it messages that arrive as though the user wrote them, then click the approval buttons itself. Where Claude hesitated, the extension read the reply and sent follow-up messages, a technique Weizman calls prompt forcing. In the proof of concept Claude installed a package that opened Calculator.",
+        "whoIsAffected": "Users running Claude Desktop, an Electron app, with Dispatch enabled and a browser extension that may act on claude.ai. Cross-device dispatch widens the reach: Forever Security says a personal Claude account signed in on a work laptop lets a compromised personal browser reach a corporate endpoint, which the team reports observing in customer environments.",
+        "whatToDo": "Disable cross-device dispatch where it is not needed, and review how devices are paired, authorized and revoked where it is. Treat browser extensions as endpoint software whose permissions and updates deserve review, and stop treating an approval prompt rendered inside an attacker-reachable interface as proof of user consent."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Claude Dispatch with Claude Desktop, where a browser extension can act on claude.ai"
+        },
+        {
+          "label": "Attack type",
+          "value": "Extension to agent control through a shared session, then code execution via approved tool use"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        },
+        {
+          "label": "Found by",
+          "value": "Gal Weizman, Forever Security"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Reported May 14, 2026; published November 4, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "No separate patch: Anthropic is retiring Claude Dispatch, targeted for the end of October 2026"
+        },
+        {
+          "label": "Also noted",
+          "value": "Forever Security says the same design reaches Claude Code Remote Control and Claude Cowork sessions"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Claude Desktop exposed if no extension can touch claude.ai?",
+          "a": "ThisBash Escape starts with a browser extension that holds permission to act on claude.ai, so a browser without one cannot drive this chain. Forever Security places the risk in an extension's permissions rather than its appearance, and notes that an extension's access can grow through an update, which is why the team advises reviewing extension permissions as endpoint software."
+        },
+        {
+          "q": "Did Anthropic fix the Claude Dispatch flaw?",
+          "a": "Anthropic acknowledged Weizman's findings as valid on May 19, 2026 and closed the report as a duplicate of an issue it had already found internally. On October 13, 2026 it said Claude Dispatch would be retired, targeting the end of October 2026. Forever Security describes no separate patch and says the flaw remains exploitable until retirement completes."
+        },
+        {
+          "q": "How does prompt forcing differ from prompt injection?",
+          "a": "Prompt forcing, as Gal Weizman defines it, makes an agent treat a lower-trust component's messages as the user's own, so the attacker can steer a sequence of actions and talk the agent past its hesitation. Prompt injection plants one instruction inside content the agent reads. In ThisBash Escape the extension held the user's session, so its messages carried the user's authority."
+        }
+      ],
+      "links": [
+        {
+          "label": "Forever Research",
+          "url": "https://forever.security/blog/thisbash-claude-dispatch-browser-extension-rce"
+        },
+        {
+          "label": "Prompt Forcing",
+          "url": "https://forever.security/blog/prompt-forcing"
+        }
+      ],
+      "publishDate": "2026-11-06T08:57:20.096Z"
+    },
     {
       "id": "checkpoint-chatgpt-lockdown-mode-popup-escape",
       "categories": [
@@ -8052,6 +8362,10 @@
         {
           "label": "PowerShell Injection",
           "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-q978-78c7-phqw"
+        },
+        {
+          "label": "Pillar Write-Up",
+          "url": "https://www.pillar.security/blog/inspecting-the-inspector-rce-in-mcps-official-debugging-tool"
         },
         {
           "label": "Open Package CVE",
