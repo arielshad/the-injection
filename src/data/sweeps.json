@@ -15950,6 +15950,78 @@
         "Adversa AI digests (discovery only)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261106t162735z",
+      "timestamp": "2026-11-06T16:27:35.483Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research blogs, arXiv, GitHub trending, repo-scan, talk-scan and HN for the 7 days to 2026-11-06. Added two MCP tooling disclosures: a new November batch of MCP Inspector advisories fixed in 2.14.0, and CVE-2026-116635 in the AWS Serverless MCP Server. Everything else in the window was already in the feed or dated outside it.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "mcp-inspector-2-14-0-app-frame-escape",
+          "title": "MCP Inspector: an MCP App escapes the CSP meant to contain it",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Three advisories published November 4 and 5, 2026 and fixed in 2.14.0 and 1.0.4, distinct from the October 21 batch already in the feed: different flaws, reporters and fix releases."
+        },
+        {
+          "id": "aws-serverless-mcp-deployment-status-traversal",
+          "title": "AWS Serverless MCP Server: a project name reads files outside its directory",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Official AWS CNA record and vendor bulletin dated November 2, 2026 for a different awslabs MCP server than the two AWS MCP items already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (github.com/advisories)",
+        "modelcontextprotocol/inspector security advisories",
+        "awslabs/mcp security advisories",
+        "AWS security bulletins",
+        "NVD and cveawg.mitre.org CVE records",
+        "anthropic.com/news",
+        "embracethered.com",
+        "simonwillison.net November 2026",
+        "air.security/blog",
+        "labs.zenity.io",
+        "unit42.paloaltonetworks.com",
+        "socket.dev/blog",
+        "wiz.io/blog",
+        "research.checkpoint.com",
+        "jfrog.com/blog",
+        "blog.trailofbits.com",
+        "hiddenlayer.com research",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "aisi.gov.uk/work",
+        "genai.owasp.org/news",
+        "huggingface.co/blog",
+        "arXiv via paper-scan.ts (62 candidates)",
+        "repo-scan.json (13 queries, 3 candidates)",
+        "github.com/trending daily and weekly",
+        "talk-scan.ts (45 videos)",
+        "Hacker News front page",
+        "msrc.microsoft.com/blog"
+      ],
+      "windowDays": 7
     }
   ]
 }

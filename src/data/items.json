@@ -1,7 +1,212 @@
 {
-  "generatedAt": "2026-11-06T08:57:20.096Z",
+  "generatedAt": "2026-11-06T16:27:35.483Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "mcp-inspector-2-14-0-app-frame-escape",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "MCP Inspector: an MCP App escapes the CSP meant to contain it",
+      "org": "Model Context Protocol",
+      "date": "2026-11-04",
+      "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-h9j8-vj8g-v3gg",
+      "summary": "MCP Inspector 2.13.0 and earlier let a malicious MCP App leave its sandbox frame and keep the bridge to the host, one of three advisories the project published on November 4 and 5, 2026. Fixes ship in 2.14.0 and 1.0.4.",
+      "severity": "medium",
+      "cvss": 6.1,
+      "tags": [
+        "mcp",
+        "sandbox-escape",
+        "data-exfiltration",
+        "mcp-inspector"
+      ],
+      "affected": [
+        "MCP Inspector",
+        "@modelcontextprotocol/inspector"
+      ],
+      "credits": [
+        {
+          "name": "CloneOfAlex",
+          "url": "https://github.com/CloneOfAlex"
+        },
+        {
+          "name": "KillerX345",
+          "url": "https://github.com/KillerX345"
+        },
+        {
+          "name": "MCP Inspector maintainers",
+          "org": "Model Context Protocol"
+        }
+      ],
+      "explainer": {
+        "tagline": "MCP Inspector, the official tool for testing MCP servers, let a malicious app read private tool results and call tools in the user's name.",
+        "whatHappened": "The Model Context Protocol project fixed three moderate flaws in MCP Inspector on November 4 and 5, 2026, shipping releases 2.14.0 and 1.0.4. CloneOfAlex reported the frame escape and KillerX345 reported a stall in tool output validation. The third advisory, covering input validation in server.json imports, names no reporter.",
+        "howItWorks": "The frame escape abuses the web client's opaque-origin sandbox for MCP Apps. An app navigates its own inner frame to an attacker-controlled origin, and because the sandbox flags survive that navigation, the attacker's page still has a null origin and still passes the proxy's source check. The proxy keeps relaying host messages to it with a wildcard target origin, so tool results flow out to the attacker and a posted tools/call request flows back in as though the app had sent it.",
+        "whoIsAffected": "Versions 2.0.0 through 2.13.0 of @modelcontextprotocol/inspector carry the frame escape and the server.json validation flaw, and the schema regex flaw also reaches the deprecated 1.x line up to 1.0.3. Only the web client's MCP Apps tab is exposed to the frame escape: the advisory states that CLI and TUI users are not affected, nor are apps loaded from a dedicated origin.",
+        "whatToDo": "Upgrade to MCP Inspector 2.14.0, or to 1.0.4 on the deprecated 1.x line. On affected versions, treat the per-app connectDomains allowlist as an unreliable egress boundary and do not use the web client to review third-party MCP Apps."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "@modelcontextprotocol/inspector 2.0.0 to 2.13.0; 1.x up to 1.0.3"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.14.0, and 1.0.4 on the 1.x line"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        },
+        {
+          "label": "Found by",
+          "value": "CloneOfAlex, KillerX345"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 4 and 5, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Malicious MCP server or app"
+        },
+        {
+          "label": "Status",
+          "value": "Patched"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which MCP Inspector versions are patched against the MCP App frame escape?",
+          "a": "MCP Inspector 2.14.0 contains the fix for all three November 2026 advisories, and the deprecated 1.x line is fixed in 1.0.4 for the tool output schema flaw only. Versions 2.0.0 through 2.13.0 are affected by the frame escape and the server.json validation issue. Upgrade with npx @modelcontextprotocol/inspector@latest, as the release notes instruct."
+        },
+        {
+          "q": "Am I affected if I only use the MCP Inspector CLI?",
+          "a": "MCP Inspector CLI and TUI users are not exposed to the frame escape, according to advisory GHSA-h9j8-vj8g-v3gg, which limits that flaw to the web client's MCP Apps tab. Apps loaded from a dedicated origin are also unaffected. The tool output schema flaw, however, can stall any Inspector that connects to a malicious server, so upgrading is still the right move."
+        },
+        {
+          "q": "How does this differ from the MCP Inspector advisories published in October 2026?",
+          "a": "The October 21, 2026 batch included two critical flaws that let a malicious MCP server or app run local commands on the machine running Inspector. The three November advisories are all rated moderate and none gives code execution. They cover an egress and bridge takeover in the web client, weak validation of imported server.json files, and a regex that can stall tool result validation."
+        }
+      ],
+      "links": [
+        {
+          "label": "Frame Escape Advisory",
+          "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-h9j8-vj8g-v3gg"
+        },
+        {
+          "label": "Server.json Advisory",
+          "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-rwv7-mh2c-ff2p"
+        },
+        {
+          "label": "Schema Regex Advisory",
+          "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-2fw8-7jmw-r937"
+        },
+        {
+          "label": "Inspector 2.14.0",
+          "url": "https://github.com/modelcontextprotocol/inspector/releases/tag/2.14.0"
+        }
+      ],
+      "publishDate": "2026-11-06T16:27:35.483Z"
+    },
+    {
+      "id": "aws-serverless-mcp-deployment-status-traversal",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AWS Serverless MCP Server: a project name reads files outside its directory",
+      "org": "Amazon Web Services",
+      "date": "2026-11-02",
+      "url": "https://aws.amazon.com/security/security-bulletins/2026-164-aws/",
+      "summary": "AWS Serverless MCP Server before 0.2.1 let an actor who can influence the MCP agent read JSON files outside its deployment status directory, and overwrite them when write access is enabled. AWS shipped the fix on November 2, 2026.",
+      "severity": "medium",
+      "cve": "CVE-2026-116635",
+      "cvss": 6.1,
+      "tags": [
+        "mcp",
+        "agent-security",
+        "aws",
+        "aws-serverless-mcp-server"
+      ],
+      "affected": [
+        "AWS Serverless MCP Server",
+        "awslabs.aws-serverless-mcp-server (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "Se Hoon"
+        },
+        {
+          "name": "Syed Anas Mohiuddin"
+        }
+      ],
+      "explainer": {
+        "tagline": "AWS Serverless MCP Server could be steered into reading JSON files from outside the directory it was supposed to stay in.",
+        "whatHappened": "Amazon Web Services published security bulletin 2026-164-AWS and advisory GHSA-r6mm-377j-qg8m on November 2, 2026 for CVE-2026-116635, a path traversal flaw in the AWS Serverless MCP Server. The GitHub advisory credits Se Hoon (bebold6133) as the reporter, while the AWS bulletin thanks Syed Anas Mohiuddin. Version 0.2.1 fixes it.",
+        "howItWorks": "The deployment status component builds a file path from the project name input without restricting it to the intended directory. Directory traversal sequences or an absolute path in that input move the read elsewhere, and a path that ends at a valid JSON file returns that file's contents into the agent's context. With the write flag set, the same input can create or overwrite JSON files outside the directory, replacing serverless deployment metadata.",
+        "whoIsAffected": "Versions of awslabs.aws-serverless-mcp-server earlier than 0.2.1 are affected, and AWS says forks and derivative code need the same patch. Reading needs only an actor who can influence the MCP agent. Writing additionally needs the server to run with the --enable-write flag, which is not on by default.",
+        "whatToDo": "Upgrade awslabs.aws-serverless-mcp-server to 0.2.1 and patch any forked or derivative code. AWS lists no workarounds for earlier versions."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "awslabs.aws-serverless-mcp-server before 0.2.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "0.2.1"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-116635"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.1 (CVSS 3.1), 6.9 (CVSS 4.0), both medium"
+        },
+        {
+          "label": "Found by",
+          "value": "Se Hoon (bebold6133), per the GitHub advisory"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 2, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Patched, no workarounds"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the AWS Serverless MCP Server path traversal patched?",
+          "a": "AWS fixed CVE-2026-116635 in awslabs.aws-serverless-mcp-server 0.2.1, published to PyPI and announced in security bulletin 2026-164-AWS on November 2, 2026. AWS lists no workarounds for earlier versions, so upgrading is the only remedy. Anyone running a fork or derivative of the deployment status component has to apply the same path restriction themselves."
+        },
+        {
+          "q": "Can this flaw let an attacker write files on the host?",
+          "a": "Writing requires the AWS Serverless MCP Server to run with the --enable-write flag, which is off by default. With it set, the advisory says an existing JSON file outside the deployment status directory can be created or overwritten, and the data replaced is serverless deployment metadata. Without that flag the impact is limited to reading JSON files into the agent's context."
+        },
+        {
+          "q": "Who can trigger the AWS Serverless MCP Server traversal?",
+          "a": "AWS describes the attacker as an actor who can influence the MCP agent, meaning anyone whose content reaches the agent's project name input. The CVSS 3.1 vector records a local attack vector with user interaction required, so a user has to drive the agent into calling the deployment status tool. No authentication is needed beyond that influence."
+        }
+      ],
+      "links": [
+        {
+          "label": "AWS Bulletin 2026-164",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-164-aws/"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/awslabs/mcp/security/advisories/GHSA-r6mm-377j-qg8m"
+        },
+        {
+          "label": "PyPI 0.2.1 Release",
+          "url": "https://pypi.org/project/awslabs.aws-serverless-mcp-server/0.2.1/"
+        }
+      ],
+      "publishDate": "2026-11-06T16:27:35.483Z"
+    },
     {
       "id": "microsoft-artex-github-secret-abuse",
       "categories": [
