@@ -1,7 +1,304 @@
 {
-  "generatedAt": "2026-11-07T07:25:22.016Z",
+  "generatedAt": "2026-11-07T14:20:07.040Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "cyera-breaking-local-ai-runtimes",
+      "categories": [
+        "talk",
+        "vulnerability"
+      ],
+      "title": "Breaking Local AI Runtimes: 10 llama.cpp flaws, five unpatched",
+      "org": "DEF CON",
+      "date": "2026-11-06",
+      "url": "https://www.youtube.com/watch?v=_FKX5hDwgVE",
+      "summary": "Breaking Local AI Runtimes is a DEF CON 34 talk by Cyera's Vladimir Tokarev and Ofek Itach on 10 llama.cpp vulnerabilities. Five were still unpatched at their June 2026 re-check. DEF CON published the video on November 6.",
+      "severity": "medium",
+      "tags": [
+        "rce",
+        "open-weights",
+        "llama-cpp",
+        "ollama",
+        "cyera"
+      ],
+      "affected": [
+        "llama.cpp",
+        "llama-server"
+      ],
+      "cve": "CVE-2026-43631",
+      "cvss": 9.2,
+      "credits": [
+        {
+          "name": "Vladimir Tokarev",
+          "org": "Cyera",
+          "url": "https://github.com/Vladimir-tokarev-cyera"
+        },
+        {
+          "name": "Ofek Itach",
+          "org": "Cyera"
+        }
+      ],
+      "video": {
+        "youtubeId": "_FKX5hDwgVE",
+        "channel": "DEF CON",
+        "channelUrl": "https://www.youtube.com/@DEFCONConference",
+        "event": "DEF CON 34"
+      },
+      "image": {
+        "url": "https://i.ytimg.com/vi/_FKX5hDwgVE/hqdefault.jpg",
+        "alt": "Title card for the DEF CON 34 talk Breaking Local AI Runtimes",
+        "credit": "DEF CON"
+      },
+      "explainer": {
+        "tagline": "Five of the ten llama.cpp flaws Cyera reported were still unpatched when the researchers re-checked in June 2026.",
+        "whatHappened": "DEF CON published the video of Breaking Local AI Runtimes on November 6, 2026. Vladimir Tokarev and Ofek Itach of Cyera Research presented 10 llama.cpp vulnerabilities at DEF CON 34 and released a companion white paper on August 7, 2026. Cyera says it could not complete coordinated disclosure with the maintainers, so VulnCheck assigned the CVE ids.",
+        "howItWorks": "The sharpest flaw is a use-after-free on llama-server's cached vocabulary pointer. When the idle-sleep feature calls destroy(), that pointer is left dangling, and a request that already passed the sleep check then tokenizes through freed memory an attacker can reclaim with controlled data. A second flaw is a race in the Android JNI wrapper: process-global native pointers are shared across JNI calls, so freeing the context while a background thread runs inference frees memory still in use.",
+        "whoIsAffected": "Operators who run llama-server with the idle-sleep feature turned on face the unauthenticated use-after-free, and Android apps built on an older llama-android.cpp wrapper face the JNI race. Build ranges are listed below. Cyera describes llama.cpp as the engine behind Ollama, LM Studio, Jan and GPT4All, so a downstream tool can ship the vulnerable code.",
+        "whatToDo": "Do not enable --sleep-idle-seconds on a llama-server host that accepts untrusted HTTP, and do not expose the API on 0.0.0.0 without an authenticating reverse proxy. Replace any llama-android.cpp wrapper older than build b7446. Do not restore slot or state blobs from untrusted sources, because Cyera reports CVE-2026-43629 is still open."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "llama.cpp builds b7492 to b9060 for the llama-server sleep use-after-free; builds b1886 to b7445 for the Android JNI race"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-43622 to CVE-2026-43632, excluding CVE-2026-43625, which Cyera says was not used"
+        },
+        {
+          "label": "Fixed in",
+          "value": "gguf-v0.19.0 fixes CVE-2026-43630; Cyera reports five of the ten still unpatched at its June 1, 2026 re-check"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.2 CVSS v4.0 and 8.1 CVSS v3.1 for CVE-2026-43631, assigned by VulnCheck"
+        },
+        {
+          "label": "Found by",
+          "value": "Vladimir Tokarev and Ofek Itach, Cyera Research"
+        },
+        {
+          "label": "Talk",
+          "value": "DEF CON 34, video published November 6, 2026"
+        },
+        {
+          "label": "Mitigation",
+          "value": "Cyera published patches for the five findings the maintainers left open"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is llama.cpp patched against the llama-server use-after-free?",
+          "a": "No. Cyera reports that CVE-2026-43631 remained unpatched when the researchers re-checked llama.cpp at build b9445 on June 1, 2026, and the advisory lists no fixed release. Only CVE-2026-43630 has a fix, in gguf-v0.19.0. Cyera published its own patches for the five findings the maintainers left open, so operators can apply those or avoid the idle-sleep feature."
+        },
+        {
+          "q": "Am I affected if I run Ollama or LM Studio instead of llama.cpp directly?",
+          "a": "Cyera describes llama.cpp as the inference engine behind Ollama, LM Studio, Jan and GPT4All, so a downstream tool can ship the vulnerable code. The white paper measures the flaws against llama.cpp builds, not against each downstream product, so check which llama.cpp build your tool bundles rather than assuming a packaged release carries the fix."
+        },
+        {
+          "q": "How do I tell whether a llama-server crash is the sleep use-after-free?",
+          "a": "Cyera advises treating repeated worker crashes at low memory addresses after idle periods as a possible sleep use-after-free signal. The bug only fires when the --sleep-idle-seconds flag is set, so check the server's launch arguments first. Cyera also notes llama-server runs without authentication by default and binds to 0.0.0.0:8080, which decides who can reach the endpoint at all."
+        }
+      ],
+      "links": [
+        {
+          "label": "Watch The Talk",
+          "url": "https://www.youtube.com/watch?v=_FKX5hDwgVE"
+        },
+        {
+          "label": "Cyera White Paper",
+          "url": "https://www.cyera.com/research/breaking-local-ai-runtimes-10-vulnerabilities-in-the-engine-behind-your-open-source-models"
+        },
+        {
+          "label": "CVE-2026-43631",
+          "url": "https://www.cve.org/CVERecord?id=CVE-2026-43631"
+        },
+        {
+          "label": "Cyera Patches",
+          "url": "https://github.com/Vladimir-tokarev-cyera/llama-cpp-security-patches"
+        }
+      ],
+      "publishDate": "2026-11-07T14:20:07.040Z"
+    },
+    {
+      "id": "openbmb-ioa-november-cves",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Internet of Agents: five CVEs, no fix, no vendor reply",
+      "org": "VulDB",
+      "date": "2026-11-06",
+      "url": "https://github.com/advisories/GHSA-w43h-qvhf-jh65",
+      "summary": "Five CVEs published November 5 to 7, 2026 cover code injection, missing authentication and query injection in OpenBMB's Internet of Agents. No patched version exists and the project has not answered the reports.",
+      "severity": "medium",
+      "tags": [
+        "agent-security",
+        "rce",
+        "openbmb",
+        "vuldb"
+      ],
+      "affected": [
+        "Internet of Agents"
+      ],
+      "cve": "CVE-2026-123675",
+      "cvss": 5.5,
+      "credits": [
+        {
+          "name": "Se4n957",
+          "url": "https://github.com/Se4n957"
+        }
+      ],
+      "explainer": {
+        "tagline": "Internet of Agents has five published CVEs, no patched version, and no code change since October 2025.",
+        "whatHappened": "VulDB published five CVEs for OpenBMB's Internet of Agents between November 5 and 7, 2026, covering the code executor, the agent registry, the WebSocket connection manager and the chat store. GitHub user Se4n957 filed six security reports on the project's issue tracker on October 14, 2026, and the project has not replied to any of them. VulDB credits its user Evo1ution for the submissions.",
+        "howItWorks": "Code injection is the sharpest of the five: execute_code in im_client/agents/tools/code_executor.py takes a filename and a language argument from the caller and passes them to a downstream component without neutralizing them. The other four are missing or misplaced checks. ConnectionManager.connect accepts any agent_name on the WebSocket endpoint without authenticating it, register takes a name and description with no authentication, fetch_chat_record returns the whole chat database when comm_id is absent, and agent names are concatenated into Milvus query expressions unsanitized.",
+        "whoIsAffected": "Anyone running OpenBMB's Internet of Agents is exposed, up to the commit listed below. The project publishes no releases and no version numbers, so there is no safe version to pin to. VulDB records a public exploit for each of the five flaws and rates them all remotely reachable with no privileges or user interaction.",
+        "whatToDo": "Treat an Internet of Agents deployment as unpatchable: take it off any reachable network, or remove it. If the framework must keep running, block its server endpoints at the network layer and do not let it hold credentials or data you care about."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "OpenBMB Internet of Agents up to commit 9d78e88e47160eb42ee1ee8538c05e1c2c47877a, which has no tagged releases"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-123032, CVE-2026-123675, CVE-2026-123791, CVE-2026-123881 and CVE-2026-123963"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No patched version; the project has not responded to the reports"
+        },
+        {
+          "label": "CVSS",
+          "value": "5.5 CVSS v4.0 for four of the five and 6.9 for CVE-2026-123963, all from VulDB"
+        },
+        {
+          "label": "Found by",
+          "value": "Se4n957, in issues 17 to 22 on the project's tracker"
+        },
+        {
+          "label": "Last code change",
+          "value": "October 4, 2025"
+        },
+        {
+          "label": "Status",
+          "value": "Unpatched, with a public exploit recorded for each CVE"
+        }
+      ],
+      "links": [
+        {
+          "label": "Code Injection CVE",
+          "url": "https://github.com/advisories/GHSA-w43h-qvhf-jh65"
+        },
+        {
+          "label": "WebSocket Auth CVE",
+          "url": "https://github.com/advisories/GHSA-2w86-3j6h-v867"
+        },
+        {
+          "label": "Query Injection CVE",
+          "url": "https://github.com/advisories/GHSA-v6cp-c9hv-m87w"
+        },
+        {
+          "label": "Chat Record CVE",
+          "url": "https://github.com/advisories/GHSA-7gvr-jhhp-xg9c"
+        },
+        {
+          "label": "Registry CVE Record",
+          "url": "https://www.cve.org/CVERecord?id=CVE-2026-123963"
+        },
+        {
+          "label": "Reporter's Issues",
+          "url": "https://github.com/OpenBMB/IoA/issues/18"
+        }
+      ],
+      "publishDate": "2026-11-07T14:20:07.040Z"
+    },
+    {
+      "id": "mcp-go-oauth-resource-validation",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "mcp-go: a hostile MCP server can claim another server's token",
+      "org": "mark3labs",
+      "date": "2026-11-05",
+      "url": "https://github.com/mark3labs/mcp-go/security/advisories/GHSA-xf6j-693p-wqxx",
+      "summary": "mcp-go before v1.2.1 let a malicious MCP server declare another server as the OAuth resource, so the client asked for a token scoped to that server and handed it over. VulnCheck published CVE-2026-123272 on November 5.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "credential-theft",
+        "mcp-go",
+        "vulncheck"
+      ],
+      "affected": [
+        "mcp-go",
+        "github.com/mark3labs/mcp-go"
+      ],
+      "cve": "CVE-2026-123272",
+      "cvss": 5.1,
+      "credits": [
+        {
+          "name": "Theodoros Lampropoulos",
+          "url": "https://github.com/GimmyDatBeeR"
+        }
+      ],
+      "explainer": {
+        "tagline": "mcp-go's OAuth client trusted the resource an MCP server declared at its well-known path, letting a hostile server claim another's token.",
+        "whatHappened": "VulnCheck published CVE-2026-123272 for mcp-go on November 5, 2026, with official severity scores for a flaw the project had already fixed on October 9. Theodoros Lampropoulos reported the OAuth issue privately, and maintainer Ed Zynda shipped the fix in v1.2.1. The release notes describe it only as an OAuth fix and do not mark it as security, so anyone reading the changelog alone could have missed it.",
+        "howItWorks": "The OAuth client fetches Protected Resource Metadata from an MCP server's well-known path, as RFC 9728 describes. mcp-go checked that the declared resource matched the server actually addressed only when the metadata arrived through the WWW-Authenticate header, not when it came from the well-known path. The unvalidated resource then flowed into dynamic client registration, the authorization request, the token exchange and token refresh, so the authorization server minted a token scoped to whatever server the attacker named.",
+        "whoIsAffected": "Go programs that act as MCP clients and use mcp-go's OAuth handler are exposed. Exposure needs the client to connect to an MCP server the attacker runs or has compromised, and the affected version range is listed below. Servers built with mcp-go are not the target of this flaw.",
+        "whatToDo": "Upgrade to mcp-go v1.2.1, which rejects metadata whose declared resource does not bind to the server being addressed. Review which MCP servers your Go clients connect to, and rotate any OAuth token issued while a client was talking to a server you do not control."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "mcp-go v0.48.0 through v1.2.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "v1.2.1, released October 9, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-123272, assigned by VulnCheck and published November 5, 2026"
+        },
+        {
+          "label": "CVSS",
+          "value": "5.1 CVSS v4.0 and 8.0 CVSS v3.1, both published by VulnCheck"
+        },
+        {
+          "label": "Attack type",
+          "value": "CWE-346, origin validation error"
+        },
+        {
+          "label": "Found by",
+          "value": "Theodoros Lampropoulos"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed; CISA's Vulnrichment entry records no known exploitation"
+        }
+      ],
+      "links": [
+        {
+          "label": "mcp-go Advisory",
+          "url": "https://github.com/mark3labs/mcp-go/security/advisories/GHSA-xf6j-693p-wqxx"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://www.cve.org/CVERecord?id=CVE-2026-123272"
+        },
+        {
+          "label": "v1.2.1 Release",
+          "url": "https://github.com/mark3labs/mcp-go/releases/tag/v1.2.1"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/mark3labs/mcp-go/pull/1053"
+        }
+      ],
+      "publishDate": "2026-11-07T14:20:07.040Z"
+    },
     {
       "id": "microsoft-storm-3358-artex-finance",
       "categories": [
@@ -8336,6 +8633,10 @@
         {
           "label": "Cohere Report",
           "url": "https://cohere.com/blog/concerning-behaviour-popular-open-weight-ai-model"
+        },
+        {
+          "label": "Check Point Replay",
+          "url": "https://research.checkpoint.com/2026/coheres-qwen-story-looks-more-like-model-jaggedness/"
         },
         {
           "label": "Zenity Labs Analysis",

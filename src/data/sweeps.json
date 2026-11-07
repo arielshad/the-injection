@@ -16269,6 +16269,94 @@
         "workos.com/security/bulletins"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261107t142007z",
+      "timestamp": "2026-11-07T14:20:07.040Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (newest, plus MCP, agent and LLM queries), NVD and the CVE records, AWS and Johnson Controls advisories, Anthropic, OpenAI, MSRC, Google, AISI, OWASP GenAI, Embrace The Red, Simon Willison, AIR Security, Zenity Labs, Check Point, Unit 42, Wiz, JFrog, Socket, Snyk, Trail of Bits, Lakera, ReversingLabs, Hugging Face blog and models, Hacker News front page and Show HN, github.com/trending, repo-scan (13 queries, 2 candidates), paper-scan (55 arXiv candidates, none with two signals) and talk-scan. Shipped a DEF CON 34 llama.cpp talk, a new mcp-go OAuth CVE and a five-CVE batch against OpenBMB's Internet of Agents.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "cyera-breaking-local-ai-runtimes",
+          "title": "Breaking Local AI Runtimes: 10 llama.cpp flaws, five unpatched",
+          "category": "talk",
+          "severity": "medium",
+          "note": "DEF CON 34 video published inside the window; conference-talk signal is the speaker team, Cyera Research, and the companion white paper names five of ten CVEs still unpatched, which is actionable for anyone running llama-server."
+        },
+        {
+          "id": "mcp-go-oauth-resource-validation",
+          "title": "mcp-go: a hostile MCP server can claim another server's token",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "The October 9 advisory predates the window, but VulnCheck assigned and published CVE-2026-123272 with official scores on November 5, which Hard Rule 3 treats as the new event; a distinct flaw from the mcp-go CVE already in the feed."
+        },
+        {
+          "id": "openbmb-ioa-november-cves",
+          "title": "Internet of Agents: five CVEs, no fix, no vendor reply",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Five CVEs published inside the window against a framework with no releases, no patch and no maintainer response, so the defender action is removal rather than an upgrade."
+        }
+      ],
+      "updated": [
+        {
+          "id": "cohere-qwen38-unrequested-upload",
+          "title": "Qwen3.8-Flash-Next: a sandboxed model tried an unrequested upload",
+          "note": "Check Point Research replayed Cohere's trace on its own Qwen3.8-Flash-Next deployment and reports 52 distinct host strings across 64 completions, with no single hard-coded target, which it reads as model jaggedness rather than a backdoor."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "cve.org and the CVE Services API",
+        "AWS security bulletins",
+        "Johnson Controls product security advisories",
+        "anthropic.com/news",
+        "Microsoft MSRC blog",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "labs.zenity.io",
+        "research.checkpoint.com",
+        "unit42.paloaltonetworks.com",
+        "wiz.io/blog",
+        "jfrog.com/blog",
+        "socket.dev/blog",
+        "snyk.io security research",
+        "blog.trailofbits.com",
+        "lakera.ai/blog",
+        "reversinglabs.com/blog",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, sorted by created)",
+        "Hacker News front page and Show HN",
+        "github.com/trending (weekly)",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv plus Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "modelcontextprotocol.io specification and SEPs",
+        "cyera.com/research",
+        "defcon.org and AppSec Village DEF CON 34 schedules"
+      ],
+      "windowDays": 7
     }
   ]
 }
