@@ -16357,6 +16357,92 @@
         "defcon.org and AppSec Village DEF CON 34 schedules"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261107t190217z",
+      "timestamp": "2026-11-07T19:02:17.581Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research blogs, GitHub advisories, arXiv (55 in-window papers, none with two signals), repo-scan (3 candidates), GitHub trending, Hacker News and talk-scan (no talk above 20k views); added two OpenAI alignment posts on safety-eval validity and on deployed activation probes. Left out the EasyIO Neo prompt-injection CVE (vendor advisory is password protected, the CVE text contradicts itself and nobody is credited), the Socket LiteLLM timeline (published October 23, outside the window), cloudflare/security-audit-skill (created June 2026, trending on new stars) and JFrog's AI robot research (already in the feed as Reachy Mini). openai.com/index returned 403 and r/netsec could not be fetched.",
+      "counts": {
+        "added": 2,
+        "updated": 2,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "openai-eval-production-behavior-gap",
+          "title": "OpenAI: models scored worse in safety evals than in matched production",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "OpenAI measures that its own safety eval scores do not transfer to matched production decisions, in the direction that makes models look worse in testing, and names the mechanism: what the model guesses the test is for."
+        },
+        {
+          "id": "openai-activation-classifier-probes",
+          "title": "OpenAI: activation probes can halt a reply and block tool calls",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A safeguard that is already live on GPT-5.6 traffic and can interrupt a reply or hold a tool call, which agent builders calling the API will see in practice."
+        }
+      ],
+      "updated": [
+        {
+          "id": "mcp-go-oauth-resource-validation",
+          "title": "mcp-go: a hostile MCP server can claim another server's token",
+          "note": "CVE-2026-123271 was published on November 5, 2026 for the same validation gap in ChatCLI, reported by the same researcher and fixed in 1.215.2. Same flaw, second MCP client, so it belongs here rather than in a separate item."
+        },
+        {
+          "id": "openbmb-ioa-november-cves",
+          "title": "Internet of Agents: six CVEs, no fix, no vendor reply",
+          "note": "A sixth CVE, CVE-2026-123964, was published on November 7, 2026 for an infinite loop in launch_goal, so the title's count and the CVE and CVSS rows were stale. Score taken from the VulnCheck CNA record, which reads 5.3 CVSS v4.0."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "cveawg.mitre.org CVE records",
+        "alignment.openai.com",
+        "deploymentsafety.openai.com",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "embracethered.com",
+        "simonwillison.net",
+        "Zenity Labs blog",
+        "AIR Security blog",
+        "Wiz blog",
+        "JFrog blog",
+        "Trail of Bits blog",
+        "HiddenLayer Innovation Hub",
+        "ReversingLabs blog",
+        "Lakera blog",
+        "Invariant Labs blog",
+        "NCC Group research blog",
+        "Socket blog",
+        "Johnson Controls security advisories",
+        "MSRC blog",
+        "OWASP GenAI Security Project news",
+        "UK AI Security Institute",
+        "NIST CAISI",
+        "Hugging Face blog",
+        "Hugging Face Daily Papers",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and newest",
+        "talk-scan YouTube channels"
+      ],
+      "windowDays": 7
     }
   ]
 }
