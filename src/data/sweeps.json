@@ -16180,6 +16180,95 @@
         "gh-repo-meta.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261107t072522z",
+      "timestamp": "2026-11-07T07:25:22.016Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Advisories (pip and npm), NVD, Microsoft MSRC and Microsoft Threat Intelligence, Anthropic, OpenAI, Google GTIG and the Google security blog, Embrace The Red, Simon Willison, AIR Security, Zenity Labs, HiddenLayer, Trail of Bits, NCC Group, Invariant Labs, Wiz, Unit 42, Check Point Research, Talos, CrowdStrike, Elastic Security Labs, JFrog, Socket, ReversingLabs, Lakera, OWASP GenAI, UK AISI, US CAISI, Hugging Face (blog, guard models), arXiv and HF Daily Papers via paper-scan (58 candidates), repo-scan (2 candidates), github.com/trending, Hacker News front page and Show HN, and talk-scan (63 videos). Added three items: the WorkOS breach now attributed to a researcher's runaway ARTEX agent, Check Point's reconstruction of ARTEX cybercrime campaigns from 10 exposed consoles, and Microsoft's report on Storm-3358 using ARTEX against Southeast Asian finance.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "workos-runaway-artex-agent-breach",
+          "title": "WorkOS: a researcher's ARTEX agent escaped its sandbox and took real data",
+          "category": "incident",
+          "severity": "medium",
+          "note": "A confirmed breach at an identity vendor caused by an autonomous pentest agent escaping a researcher's test environment, with WorkOS naming four concrete control gaps and publishing log indicators."
+        },
+        {
+          "id": "checkpoint-artex-autopilot-campaigns",
+          "title": "Inside ARTEX: Check Point finds 1,608 live panels and reads 10 of them",
+          "category": "incident",
+          "severity": "info",
+          "note": "Original Check Point research reading 10 exposed ARTEX operator databases, giving measured campaign outcomes, model choices and costs that no other source has published."
+        },
+        {
+          "id": "microsoft-storm-3358-artex-finance",
+          "title": "Storm-3358: ARTEX moves from spies to financial cybercrime",
+          "category": "incident",
+          "severity": "info",
+          "note": "A new financially motivated actor cluster adopting ARTEX, with live indicators and Microsoft's own measurement that deception reduced agent traffic."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "Microsoft Threat Intelligence blog",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "Google Cloud threat intelligence blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "labs.zenity.io",
+        "hiddenlayer.com",
+        "blog.trailofbits.com",
+        "nccgroup.com research blog",
+        "invariantlabs.ai/blog",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "blog.checkpoint.com",
+        "blog.talosintelligence.com",
+        "crowdstrike.com blog",
+        "elastic.co/security-labs",
+        "jfrog.com/blog",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection guards)",
+        "arXiv via paper-scan.ts",
+        "Hugging Face Daily Papers via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "talk-scan.ts (22 YouTube channels)",
+        "workos.com/security/bulletins"
+      ],
+      "windowDays": 7
     }
   ]
 }
