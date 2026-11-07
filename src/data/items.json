@@ -1,7 +1,118 @@
 {
-  "generatedAt": "2026-11-07T19:02:17.581Z",
+  "generatedAt": "2026-11-07T22:36:17.730Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "portswigger-http-terminator-defcon",
+      "categories": [
+        "talk",
+        "research"
+      ],
+      "title": "HTTP Terminator: an AI system proposed a new desync attack class",
+      "org": "DEF CON",
+      "date": "2026-11-06",
+      "url": "https://www.youtube.com/watch?v=sM8ChiHVW24",
+      "summary": "DEF CON 34 released James Kettle's talk on the HTTP Terminator, an autonomous system he built to invent HTTP desync techniques. Kettle says it proposed Shared-Parser Confusion, which he then validated himself.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "red-team",
+        "evals",
+        "portswigger",
+        "apache-traffic-server"
+      ],
+      "affected": [
+        "Apache Traffic Server"
+      ],
+      "credits": [
+        {
+          "name": "James Kettle",
+          "org": "PortSwigger Research",
+          "url": "https://jameskettle.com/"
+        }
+      ],
+      "explainer": {
+        "tagline": "The HTTP Terminator is an autonomous system that generated new HTTP desync attacks, with a human validating the best one.",
+        "whatHappened": "DEF CON published James Kettle's talk \"Can AI do novel security research? Meet the HTTP Terminator\" on November 6, 2026. Kettle, Director of Research at PortSwigger, first presented the work at Black Hat USA 2026 and DEF CON 34, and published the full write-up on August 5, 2026. He built a system that proposes HTTP desync techniques and tests them against live sites, then measured what it could and could not find on its own.",
+        "howItWorks": "The HTTP Terminator runs in four phases: ideation, evaluation, weaponization and cascade. Kettle split 138 HTTP and SMTP RFCs into 15,000 micro-fragments of one to three sentences, because large prompts caused what he calls context-contamination, and the system turned those fragments into desync vectors. Evaluation sends a probe beside a normal request on a separate connection and watches whether the normal response changes; weaponization uses a modified Turbo Intruder to attempt Response Queue Poisoning, with deterministic code validating each result. The cascade phase feeds every finding back as new hypotheses and flags unusual responses.",
+        "whoIsAffected": "Web servers and proxies that disagree about request boundaries are the targets, not AI products. Kettle reports a zero-day in Apache Traffic Server, now patched, and says one multipart/byteranges trigger exposed over 200 of the 30,000 sites he was authorized to test. He names banks, security products and government infrastructure among the systems compromised during the research.",
+        "whatToDo": "Treat the published desync triggers as live test cases against your own edge: Kettle released the HTTP Terminator source and updates to HTTP Request Smuggler, Turbo Intruder and Param Miner. Apply Apache Traffic Server patches if you run it as a proxy."
+      },
+      "quickFacts": [
+        {
+          "label": "Speaker",
+          "value": "James Kettle, Director of Research, PortSwigger Research"
+        },
+        {
+          "label": "Event",
+          "value": "DEF CON 34, video published November 6, 2026; also presented at Black Hat USA 2026"
+        },
+        {
+          "label": "Scale",
+          "value": "138 RFCs into 15,000 micro-fragments, 30,000 unique desync vectors, 30,000 target sites, roughly 700 flagged vulnerable"
+        },
+        {
+          "label": "New techniques",
+          "value": "Shared-Parser Confusion, the dangling-byte Response Queue Poisoning enhancement, and dual-matching Content-Length headers"
+        },
+        {
+          "label": "Zero-day",
+          "value": "Kettle reports CVE-2026-63078 in Apache Traffic Server, found through a cascade and since patched"
+        },
+        {
+          "label": "AI alone",
+          "value": "Kettle's rediscovery benchmark on GPT 5.6-sol reached 30% with his final inspiration method, and 0% to 5% with earlier prompting"
+        },
+        {
+          "label": "Status",
+          "value": "HTTP Terminator source code published on GitHub"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did the AI find Shared-Parser Confusion on its own?",
+          "a": "No. Kettle states the HTTP Terminator proposed Shared-Parser Confusion and that he validated it himself, writing that the discovery was not fully autonomous. He chose HTTP desync as the topic, designed the architecture, built the evaluation harness and anomaly detection, and added deterministic validation gates. He describes human researchers as a strong amplifier for AI research systems, not a step the system replaced."
+        },
+        {
+          "q": "What is Shared-Parser Confusion?",
+          "a": "Shared-Parser Confusion is an attack concept in which a server uses the same code to parse both requests and responses, so features meant for response processing can be triggered by a request instead. Kettle calls it one of the most significant discoveries of this research. He also reports a separate novel pattern, dual-matching Content-Length headers, and a suspected new desync class he calls response forking."
+        },
+        {
+          "q": "How well did the AI do without Kettle's method?",
+          "a": "Poorly, by Kettle's own measure. His benchmark asked whether the system could rediscover known desync techniques: the initial prompt scored 0%, a refined prompt 5%, and an inspiration-based approach 0%, before his final micro-fragment method reached 30% on GPT 5.6-sol. Kettle also records agents misreading ordinary HTTP pipelining as a vulnerability during weaponization."
+        },
+        {
+          "q": "Is the HTTP Terminator available to defenders?",
+          "a": "Yes. Kettle says the full HTTP Terminator source code is published on GitHub, alongside updated releases of HTTP Request Smuggler, Turbo Intruder with an MCP interface, and Param Miner. He notes the HTTP Terminator is not part of Burp AT, which he describes as unsuitable for commercial deployment. Defenders can run the released desync vectors against their own infrastructure."
+        }
+      ],
+      "links": [
+        {
+          "label": "DEF CON 34 Talk",
+          "url": "https://www.youtube.com/watch?v=sM8ChiHVW24"
+        },
+        {
+          "label": "PortSwigger Write-Up",
+          "url": "https://portswigger.net/research/can-ai-do-novel-security-research"
+        },
+        {
+          "label": "Executive Summary",
+          "url": "https://portswigger.net/kb/papers/gkaicuremal/http-terminator-executive-summary.pdf"
+        }
+      ],
+      "image": {
+        "url": "https://i.ytimg.com/vi/sM8ChiHVW24/hqdefault.jpg",
+        "alt": "Title card for the DEF CON 34 talk Can AI do novel security research? Meet the HTTP Terminator",
+        "credit": "DEF CON"
+      },
+      "video": {
+        "youtubeId": "sM8ChiHVW24",
+        "channel": "DEF CON",
+        "channelUrl": "https://www.youtube.com/@DEFCONConference",
+        "event": "DEF CON 34"
+      },
+      "publishDate": "2026-11-07T22:36:17.730Z"
+    },
     {
       "id": "openai-eval-production-behavior-gap",
       "categories": [

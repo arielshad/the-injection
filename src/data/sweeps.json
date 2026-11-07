@@ -16443,6 +16443,75 @@
         "talk-scan YouTube channels"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261107t223617z",
+      "timestamp": "2026-11-07T22:36:17.730Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP, agent and LLM queries), MSRC, Anthropic, OpenAI, DeepMind, Google security blog, JFrog, Socket, Wiz, Trail of Bits, Elastic, Snyk, Lakera, HiddenLayer, Embrace The Red, Simon Willison, Zenity, AIR, OWASP GenAI, UK AISI, NIST CAISI, Hugging Face blog and guard models, Hacker News and Show HN, arXiv via paper-scan (55 papers), repo-scan (13 queries, 3 candidates), GitHub trending and talk-scan (64 videos). Added one item: DEF CON 34's release of James Kettle's HTTP Terminator talk. Everything else in the window was already in the feed, out of window, or short of the bar.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "portswigger-http-terminator-defcon",
+          "title": "HTTP Terminator: an AI system proposed a new desync attack class",
+          "category": "talk",
+          "severity": "info",
+          "note": "DEF CON 34 published the talk video on 2026-11-06 (talk-scan, ageDays 0); the speaker is PortSwigger's Director of Research, which is the conference-talk signal, and the full write-up supplied every number. Original research with new desync techniques and a measured answer on what AI could not find alone, not a retelling of anything in existing[]."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv)",
+        "talk-scan (YouTube)",
+        "anthropic.com/news",
+        "deepmind.google/discover/blog",
+        "msrc.microsoft.com/blog",
+        "research.jfrog.com",
+        "socket.dev/blog",
+        "wiz.io/blog",
+        "blog.trailofbits.com",
+        "elastic.co/security-labs",
+        "snyk.io/blog",
+        "lakera.ai/blog",
+        "hiddenlayer.com/research",
+        "embracethered.com",
+        "simonwillison.net",
+        "zenity.io/blog",
+        "air.security/blog",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, created)",
+        "Hacker News front page and Algolia",
+        "Show HN",
+        "cisa.gov advisories",
+        "johnsoncontrols.com security advisories",
+        "pluto.security/blog",
+        "portswigger.net/research",
+        "jameskettle.com"
+      ],
+      "windowDays": 7
     }
   ]
 }
