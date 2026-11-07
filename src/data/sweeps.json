@@ -16110,6 +16110,76 @@
         "jfrog.com security research"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261107t001446z",
+      "timestamp": "2026-11-07T00:14:46.607Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (global and the modelcontextprotocol/inspector repo), VulnCheck, Pillar, JFrog, Wiz, Zenity, AIR, Socket, Embrace The Red, Simon Willison, Unit 42, Talos, CrowdStrike, Microsoft Security, Google Cloud threat intelligence, Elastic, Datadog, ReversingLabs, Snyk Labs, HiddenLayer, Lakera, Check Point, Trail of Bits, Anthropic, OWASP GenAI, UK AISI, Hugging Face blog and models, plus repo-scan (13 queries, 2 candidates), paper-scan (59 arXiv papers in the window, none with two signals), talk-scan (63 videos), github.com/trending and Show HN. No new item met the bar: the leads inside the window were already in the feed, and the rest were dated outside it. Added one link to the existing opencode item for Pillar's 2026-11-05 MCP Inspector write-up of the same CVE. Left out on purpose: the DEF CON 34 video batch uploaded today, whose AI talks (Cyera on llama.cpp and Ollama, Simcha Kosman on the ChatGPT sandbox) present research first published in August 2026 and show no talk-bar signal, with 27 and 35 views; cloudflare/security-audit-skill and AGGIB/Stroq, trending and on Show HN but created in June and September, so old repos with new stars; the Zenity AgentCorruption AWS AgentCore chain and GTIG's \"From Prompting to Autonomy\" tracker, both dated before the window; CVE-2026-61536 in the banks prompt library, first published 2026-06-26 and only re-listed on 2026-11-05; the Cathedral claim about reaching Anthropic business systems, dated 2026-10-26 and disputed; and the Dify and OpenBMB Internet of Agents advisories, which carry no named reporter and CVSS 2.1 and 5.5. Could not load: reddit.com/r/netsec, the NVD search page, the Hacker News front page (429) and openai.com.",
+      "counts": {
+        "added": 0,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [
+        {
+          "id": "pillar-opencode-mcp-oauth-rce",
+          "title": "opencode: a remote MCP server could run commands on Windows",
+          "note": "Eilon Cohen of Pillar Security published a second write-up on 2026-11-05 covering the MCP Inspector side of the same open package chain, CVE-2026-119025. Same flaw and same CVE as this item, so it is a link, not a new item."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "modelcontextprotocol/inspector security advisories",
+        "vulncheck.com/blog",
+        "pillar.security/blog",
+        "jfrog.com/blog",
+        "wiz.io/blog",
+        "labs.zenity.io",
+        "air.security/blog",
+        "socket.dev/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "unit42.paloaltonetworks.com",
+        "blog.talosintelligence.com",
+        "crowdstrike.com/blog",
+        "microsoft.com/security/blog",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "elastic.co/security-labs",
+        "securitylabs.datadoghq.com",
+        "reversinglabs.com/blog",
+        "labs.snyk.io",
+        "hiddenlayer.com/innovation-hub",
+        "lakera.ai/blog",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "anthropic.com/news",
+        "OWASP GenAI Security Project",
+        "aisi.gov.uk",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "github.com/trending",
+        "Hacker News new and Show HN",
+        "gh-repo-meta.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
