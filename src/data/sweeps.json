@@ -16585,6 +16585,69 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261108t195156z",
+      "timestamp": "2026-11-08T19:51:56.054Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Advisories (newest, MCP and pip queries), the Anthropic news and Alignment blogs, OpenAI Alignment, Google Threat Intelligence, Microsoft Security, Trail of Bits, JFrog, Socket, Wiz, Zenity, AIR, Elastic Security Labs, ReversingLabs, Snyk, Lakera, Invariant Labs, BeyondTrust Phantom Labs, Embrace The Red, Simon Willison, OWASP GenAI, UK AISI, NIST CAISI, Hugging Face (blog and prompt-injection models), Hacker News (front page, newest, Show HN), github.com/trending (daily and weekly), repo-scan (13 queries, 3 candidates), paper-scan (49 in-window arXiv papers, none with two signals) and talk-scan (no conference talk above 20,000 views). Nothing inside the 7-day window met the bar: November 7 and 8 were a weekend with no new disclosures, and everything from November 1 to 6 is already in the feed. Left out on purpose: Apiiro's research on Claude Code \"don't ask again\" permissions writing secrets into public .claude/settings.local.json files, the one substantial new story in the window, because apiiro.com returns 403 to every fetcher, so no claim could be verified and no citable primary source loads; the IBM ContextForge MCP Gateway tool-slug denial of service (CVE-2026-18484, GHSA published November 8, but IBM's own bulletin is dated October 27, outside the window); the banks prompt-template RCE (CVE-2026-61536, added to the GitHub database November 5 but disclosed by the maintainer on June 26); AGGIB/Stroq, a coding-agent secret scanner that reached Show HN with 93 points but was created on September 4, so it is an old repo with new attention; onlyreadai/onlyread, a read-only guard for browser agents created November 5 with 22 stars, one signal short of the repo bar, with no write-up, measurements or named maintainers; a VIDRAFT post on Hugging Face reproducing the agentic-backdoor paper already in the feed, which is a product demo for its own action gate; the SecTor 2026 talk \"Using Claude or Codex? We Can Hack Your App?\" (5,255 views, and neither the watch page nor the SecTor schedule would load, so the speakers and substance could not be checked); ReversingLabs on agent-exposed developer screenshots (published October 13 about September 29 research); and an Amazon Science indirect-prompt-injection benchmark with code but no second paper signal.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "anthropic.com/news",
+        "alignment.anthropic.com",
+        "alignment.openai.com",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "Microsoft Security blog",
+        "blog.trailofbits.com",
+        "research.jfrog.com",
+        "socket.dev/blog",
+        "wiz.io/blog",
+        "labs.zenity.io",
+        "air.security/blog",
+        "elastic.co/security-labs",
+        "reversinglabs.com/blog",
+        "snyk.io/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "beyondtrust.com Phantom Labs",
+        "embracethered.com",
+        "simonwillison.net",
+        "research.checkpoint.com",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "Hacker News front page",
+        "Hacker News newest",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + Hugging Face Daily Papers)",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
