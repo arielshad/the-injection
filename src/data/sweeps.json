@@ -16512,6 +16512,79 @@
         "jameskettle.com"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261108t152319z",
+      "timestamp": "2026-11-08T15:23:19.282Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Advisories (newest, plus pip, npm and MCP queries), NVD, cve.org, AWS security bulletins, Microsoft Security blog, Anthropic, OpenAI Alignment, Google threat intelligence, Trail of Bits, JFrog, Socket, Wiz, CrowdStrike, Talos, Elastic Security Labs, ReversingLabs, Lakera, Snyk, Invariant Labs, Embrace The Red, Simon Willison, AIR Security, Zenity Labs, HiddenLayer, Check Point, Unit 42, Koi, Hugging Face (blog and guard models), OWASP GenAI, UK AISI, NIST CAISI, Hacker News front page and Show HN, github.com/trending, repo-scan (13 queries, 3 candidates), paper-scan (50 in-window arXiv papers, none with two signals) and talk-scan (no conference talk above 20k views). Added one item: a GluonTS tar extraction flaw that AWS disclosed as CVE-2026-119083 on November 5. Everything else in the window was already in the feed, out of window or short of the bar.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "aws-gluonts-archive-extraction-traversal",
+          "title": "GluonTS: a tar archive's links write files outside the target directory",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "First public advisory and CVE for a link-based tar traversal in an AWS machine learning library, published inside the window with a named reporter and a shipped fix."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "AWS security bulletins",
+        "cve.org",
+        "microsoft.com/en-us/security/blog",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "blog.trailofbits.com",
+        "research.jfrog.com",
+        "socket.dev/blog",
+        "wiz.io/blog",
+        "crowdstrike.com/en-us/blog",
+        "blog.talosintelligence.com",
+        "elastic.co/security-labs",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "snyk.io/blog",
+        "invariantlabs.ai/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "zenity.io/blog",
+        "hiddenlayer.com/research",
+        "research.checkpoint.com",
+        "unit42.paloaltonetworks.com",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "Hacker News front page and Show HN",
+        "github.com/trending",
+        "pypi.org",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and HF Daily Papers)",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
