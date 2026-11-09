@@ -16739,6 +16739,84 @@
         "securityweek.com"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261109t104428z",
+      "timestamp": "2026-11-09T10:44:28.021Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research blogs, GitHub advisories, repo-scan (3 candidates), paper-scan (53 candidates, 1 with two scanned signals), talk-scan (64 videos) and HN for the 7 days to 2026-11-09. Added Okta Threat Intelligence's advisory on agent-driven identity reconnaissance and the GuardrailAgent jailbreak-defense paper; most candidates failed the window, because the November roundups at Adversa, ReversingLabs and Socket cover October work.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "okta-artex-identity-reconnaissance",
+          "title": "Okta: agent-driven signups and probes hit hundreds of identity tenants",
+          "category": "incident",
+          "severity": "info",
+          "note": "First identity-provider-side telemetry on the ARTEX campaigns: Okta's own counts, IOCs and tenant hardening steps, distinct from the Microsoft, Wiz and Check Point items already in the feed."
+        },
+        {
+          "id": "cispa-guardrailagent",
+          "title": "GuardrailAgent: a jailbreak filter that learns from past attacks",
+          "category": "research",
+          "severity": "info",
+          "note": "Two checked paper signals, code released under MIT and accepted to EMNLP 2026 Findings, plus a head-to-head detection table against PromptGuard, OpenAI Moderation and Llama Guard 4 that a team picking a guardrail can use."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "Okta Threat Intelligence",
+        "GitHub Security Advisories",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "Microsoft Security Blog",
+        "JFrog Security Research",
+        "Trail of Bits blog",
+        "Zenity Labs",
+        "Wiz blog",
+        "Socket blog",
+        "ReversingLabs blog",
+        "Check Point Research",
+        "Datadog Security Labs",
+        "Embrace The Red",
+        "AIR Security blog",
+        "Forever Security blog",
+        "Pillar Security",
+        "Straiker blog",
+        "Snyk blog",
+        "Lakera blog",
+        "NCC Group research",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "simonwillison.net",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "repo-scan.json",
+        "github.com/trending",
+        "github.com/topics/prompt-injection",
+        "Hacker News front page and Show HN",
+        "talk-scan (22 YouTube channels)",
+        "DEF CON 34 creator talk listings"
+      ],
+      "windowDays": 7
     }
   ]
 }

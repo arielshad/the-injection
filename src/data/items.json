@@ -1,7 +1,258 @@
 {
-  "generatedAt": "2026-11-09T02:59:33.392Z",
+  "generatedAt": "2026-11-09T10:44:28.021Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "okta-artex-identity-reconnaissance",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "Okta: agent-driven signups and probes hit hundreds of identity tenants",
+      "org": "Okta",
+      "date": "2026-11-06",
+      "url": "https://www.okta.com/blog/threat-intelligence/agentic-attack-tools-used-to-accelerate-reconnaissance-of-identi/",
+      "summary": "Okta Threat Intelligence reports reconnaissance, fraudulent signups and intrusion attempts across hundreds of Auth0 and Okta tenants. Okta assesses agentic frameworks, probably ARTEX, drove the rise through October 2026.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "detection",
+        "artex",
+        "okta",
+        "auth0"
+      ],
+      "affected": [
+        "Auth0",
+        "Okta Workforce Identity",
+        "Okta Customer Identity"
+      ],
+      "credits": [
+        {
+          "name": "Grayson Schermerhorn",
+          "org": "Okta Threat Intelligence"
+        },
+        {
+          "name": "Okta Threat Intelligence",
+          "org": "Okta"
+        }
+      ],
+      "image": {
+        "url": "https://www.okta.com/content/dam/okta-www/en_us/blog/threat-intelligence/204_artex.png",
+        "alt": "Okta Threat Intelligence advisory on agentic attack tools and identity flows",
+        "credit": "Okta"
+      },
+      "explainer": {
+        "tagline": "Agentic tooling made the attempts fast and broad rather than novel: Okta says it saw no identity-platform flaw exploited.",
+        "whatHappened": "Okta Threat Intelligence published an advisory on November 6, 2026 covering reconnaissance, fraudulent registration and intrusion attempts across hundreds of Auth0 and Okta tenants. The activity grew sharply during October and early November 2026, appearing first against cryptocurrency providers' customer identity tenants before spreading to other organizations. Okta assesses that multiple actors tasked agentic frameworks, probably ARTEX, with the work, but cannot confirm ARTEX in every case.",
+        "howItWorks": "The agents chained ordinary identity attacks at machine speed and scale. Okta reports OAuth redirect and scope testing, PKCE, DPoP and JWT signature checks, credential stuffing and password spraying routed through residential proxy pools so that per-IP lockouts never trigger. Where self-service sign-up is open, accounts were registered in bulk with disposable addresses from mail.tm, which issues them on maxxspace.com without an API key. One cluster aimed at crypto exchanges favored shared-mailbox names such as admin@, support@ and security@.",
+        "whoIsAffected": "Auth0 tenants using Universal Login and cross-origin authentication carry the most exposure, along with Okta Workforce Identity and Customer Identity tenants that allow self-service registration. Okta counted thousands of fraudulent accounts across several hundred such tenants. Okta adds that third parties reported similar activity against Amazon Cognito and Microsoft Entra.",
+        "whatToDo": "Disable or restrict self-service registration, block API signups where Universal Login signups are allowed, and block disposable email domains at registration. Move users to passkeys, disable the ROPC grant, block breached credentials and set ThreatInsight to enforce mode. Run CheckMate for Auth0 to find risky tenant settings, then delete fraudulent accounts and revoke their sessions and tokens."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Auth0 Universal Login and cross-origin authentication; Okta Workforce Identity and Customer Identity tenants with self-service registration"
+        },
+        {
+          "label": "Scale",
+          "value": "Thousands of fraudulent accounts across several hundred tenants that allow self-service sign-up"
+        },
+        {
+          "label": "Framework",
+          "value": "ARTEX, a multi-agent autonomous penetration testing framework, assessed as probable but not confirmed for all activity"
+        },
+        {
+          "label": "Platform flaws",
+          "value": "None observed. Okta says it saw no exploitation of misconfigurations or vulnerabilities specific to any identity platform"
+        },
+        {
+          "label": "Overlapping infrastructure",
+          "value": "144.172.64.60, 144.172.64.99 and 144.172.64.128, seen October 9 to 23, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Under investigation. Okta reports no confirmed account takeover or data loss in the activity it observed"
+        },
+        {
+          "label": "Found by",
+          "value": "Okta Threat Intelligence"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my Auth0 tenant affected by the ARTEX identity reconnaissance?",
+          "a": "Auth0 tenants that allow self-service sign-up are the ones Okta saw affected most, because the agents registered accounts in bulk. Okta says it found no exploitation of Auth0-specific vulnerabilities, so exposure comes from tenant configuration rather than a platform flaw. Check whether Universal Login signups and API signups are both open, and review recent registrations for disposable email domains."
+        },
+        {
+          "q": "Did Okta confirm any accounts were taken over?",
+          "a": "Okta reports no confirmed account takeover or data loss from the activity it observed, describing reconnaissance, fraudulent registration and intrusion attempts instead. Okta does warn that fraudulent accounts can enable later compromise in federated or linked environments, and it cites third-party reports of attackers reaching privileged access elsewhere that Okta did not observe directly."
+        },
+        {
+          "q": "How does this differ from Microsoft's Storm-0940 ARTEX reporting?",
+          "a": "Microsoft's October 21 report attributes a supply chain compromise at ConnectWise to Storm-0940 using ARTEX. Okta's advisory covers identity-provider telemetry instead: fraudulent registration and credential attacks across Auth0 and Okta tenants, with infrastructure overlapping the ConnectWise and Microsoft reporting between October 9 and 23, 2026. Okta assesses Storm-0940 as one of several operators running ARTEX forks."
+        }
+      ],
+      "links": [
+        {
+          "label": "Okta Advisory",
+          "url": "https://www.okta.com/blog/threat-intelligence/agentic-attack-tools-used-to-accelerate-reconnaissance-of-identi/"
+        },
+        {
+          "label": "Microsoft On ARTEX",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+        },
+        {
+          "label": "Wiz On ARTEX",
+          "url": "https://www.wiz.io/blog/artex-in-the-wild-storm-0940-expands-targeting-of-it-and-software-vendors"
+        },
+        {
+          "label": "Auth0 CheckMate",
+          "url": "https://github.com/auth0/auth0-checkmate"
+        }
+      ],
+      "publishDate": "2026-11-09T10:44:28.021Z"
+    },
+    {
+      "id": "cispa-guardrailagent",
+      "categories": [
+        "research"
+      ],
+      "title": "GuardrailAgent: a jailbreak filter that learns from past attacks",
+      "org": "CISPA Helmholtz Center for Information Security",
+      "date": "2026-11-06",
+      "url": "https://arxiv.org/abs/2611.09734",
+      "summary": "GuardrailAgent is a multi-agent jailbreak filter from CISPA that scores prompts and replies against knowledge bases of known attacks. The authors report 93.1% input-side detection on ChatGLM3-6B, against 67.6% for Llama Guard 4.",
+      "severity": "info",
+      "tags": [
+        "jailbreak",
+        "guardrails",
+        "detection",
+        "llama-guard",
+        "cispa"
+      ],
+      "affected": [
+        "ChatGLM3-6B",
+        "Vicuna-7B",
+        "GPT-3.5-turbo"
+      ],
+      "credits": [
+        {
+          "name": "Tianze Chang",
+          "org": "CISPA Helmholtz Center for Information Security"
+        },
+        {
+          "name": "Junjie Chu",
+          "org": "CISPA Helmholtz Center for Information Security"
+        },
+        {
+          "name": "Yixin Wu",
+          "org": "CISPA Helmholtz Center for Information Security"
+        },
+        {
+          "name": "Michael Backes",
+          "org": "CISPA Helmholtz Center for Information Security"
+        },
+        {
+          "name": "Yang Zhang",
+          "org": "CISPA Helmholtz Center for Information Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "GuardrailAgent checks both the prompt and the reply, and the authors report it beat three deployed guardrails on all three target models.",
+        "whatHappened": "GuardrailAgent appeared on arXiv on November 6, 2026, from Tianze Chang, Junjie Chu, Yixin Wu, Michael Backes and Yang Zhang at CISPA Helmholtz Center for Information Security. The paper is accepted to EMNLP 2026 Findings, and the authors released the detection code under the MIT license. The work targets a gap the authors describe in static guardrails, which adapt poorly to attack strategies they have not seen.",
+        "howItWorks": "Two agents sit on either side of the model. An InputAgent scores a prompt against a Prompt knowledge base of known jailbreak text and a Material knowledge base of documented attack strategies: a high-confidence hit from either flags the prompt, and otherwise the two scores are summed, with a total of 2 or more counted as a jailbreak. An OutputAgent then runs a refusal check and compares the reply against a Response knowledge base. A feedback module is meant to return misclassified cases so the knowledge bases keep growing.",
+        "whoIsAffected": "Teams choosing a jailbreak guardrail are the audience, not operators of a specific product, because GuardrailAgent is a research prototype rather than a deployed service. The evaluation uses older target models, ChatGLM3-6B, Vicuna-7B and GPT-3.5-turbo, so the numbers do not speak to current frontier models. The released repository also leaves out the code for automatic knowledge base construction and for the feedback loop, which is the part that makes the design adaptive.",
+        "whatToDo": "Read the comparison below before trusting a single input-side classifier, and measure any guardrail you run against the attack families the paper lists rather than against one jailbreak. Weigh GuardrailAgent's 1.6% false positive rate on benign prompts against the 0.1% the authors measured for Llama Guard 4."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "arXiv v1 on November 6, 2026; accepted to EMNLP 2026 Findings"
+        },
+        {
+          "label": "Attacks tested",
+          "value": "WildJailbreak, AIM, Base64, DevMode v2 and Combination, plus AutoDAN, GCG, GPTFuzz, TAP and PAIR"
+        },
+        {
+          "label": "Target models",
+          "value": "ChatGLM3-6B, Vicuna-7B and GPT-3.5-turbo"
+        },
+        {
+          "label": "Best reported result",
+          "value": "93.9% overall detection rate and 0.958 F1 on ChatGLM3-6B"
+        },
+        {
+          "label": "False positives",
+          "value": "1.6% on benign prompts, against 0.6% for PromptGuard, 2.2% for OpenAI Moderation and 0.1% for Llama Guard 4"
+        },
+        {
+          "label": "Code",
+          "value": "MIT licensed; knowledge base construction and feedback code not released"
+        },
+        {
+          "label": "Found by",
+          "value": "CISPA Helmholtz Center for Information Security"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does GuardrailAgent beat Llama Guard 4?",
+          "a": "GuardrailAgent scored higher than Llama Guard 4 on every detection number the paper reports: 93.1% against 67.6% input-side detection on ChatGLM3-6B, and 93.9% against 72.0% overall. Llama Guard 4 produced fewer false alarms, at 0.1% on benign prompts against GuardrailAgent's 1.6%. All figures come from the authors' own evaluation, not an independent test."
+        },
+        {
+          "q": "Can I run GuardrailAgent in production today?",
+          "a": "GuardrailAgent ships as research code under the MIT license, needing an OpenAI API key and a locally downloaded e5-base-v2 embedding model. The authors say the code for building knowledge bases automatically and for the feedback loop is not released yet, so the adaptive part of the design cannot be reproduced. Treat the repository as a baseline to measure against."
+        },
+        {
+          "q": "Which jailbreaks did the GuardrailAgent evaluation cover?",
+          "a": "The evaluation covers ten attacks in two groups. Model-independent ones are WildJailbreak, AIM, Base64, DevMode v2 and Combination; model-dependent ones are AutoDAN, GCG, GPTFuzz, TAP and PAIR. Each ran against ChatGLM3-6B, Vicuna-7B and GPT-3.5-turbo. The paper reports no results against newer frontier models, so coverage of current jailbreak families is untested."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Input-side jailbreak detection rate, ChatGLM3-6B",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is better for defenders",
+          "results": [
+            {
+              "name": "PromptGuard",
+              "score": 53.5
+            },
+            {
+              "name": "OpenAI Moderation",
+              "score": 39.5
+            },
+            {
+              "name": "Llama Guard 4",
+              "score": 67.6
+            },
+            {
+              "name": "GuardrailAgent",
+              "score": 93.1,
+              "highlight": true
+            }
+          ],
+          "source": "https://arxiv.org/html/2611.09734v1"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2611.09734"
+        },
+        {
+          "label": "Full Text",
+          "url": "https://arxiv.org/html/2611.09734v1"
+        },
+        {
+          "label": "GuardrailAgent Code",
+          "url": "https://github.com/TrustAIRLab/GuardrailAgent"
+        }
+      ],
+      "publishDate": "2026-11-09T10:44:28.021Z"
+    },
     {
       "id": "openai-gpt-6-cyber-system-card",
       "categories": [
