@@ -16817,6 +16817,97 @@
         "DEF CON 34 creator talk listings"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261109t211722z",
+      "timestamp": "2026-11-09T21:17:22.021Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (newest, plus MCP and agent queries), oss-security, Patchstack, the wordpress.org plugin directory, Anthropic news, OpenAI Alignment, Microsoft Security Blog, Google Cloud threat intelligence, AIR Security, Wiz, JFrog, Socket, Trail of Bits, Elastic Security Labs, Unit 42, Check Point Research, CrowdStrike, Cisco Talos, Lakera, HiddenLayer, ReversingLabs, Zenity, Embrace The Red, Simon Willison, OWASP GenAI, UK AISI, Hugging Face blog, Hacker News (newest and front page), github.com/trending (daily and weekly), repo-scan (13 queries, 3 candidates), paper-scan (46 in-window arXiv papers, one with two signals, already in the feed) and talk-scan (59 videos, no conference talk above 20,000 views). Added four items: AIR Security's unfixed code execution flaw in Anthropic's Office skills, five Apache CVEs whose credited finder is Claude-based scanning, Microsoft FORGE Lab's Rust standard library report, and an MCP privilege escalation CVE in a WordPress plugin.",
+      "counts": {
+        "added": 4,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "air-office-party",
+          "title": "Office Party: a planted temp file runs code in Anthropic's Office skills",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "An unfixed code execution path in Anthropic's own official skills, where the vendor has acknowledged the report and declined to treat it as in scope, and the fixed shim path is verifiable in the public repo."
+        },
+        {
+          "id": "apache-claude-security-scans-cves",
+          "title": "Apache: Claude security scans are the credited finder on five CVEs",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "First Apache advisories that name Claude-based scanning as the finder, five of 20 published in one day, each with an affected range and a shipped fix a defender must install."
+        },
+        {
+          "id": "microsoft-forge-lab-rust-memory-safety",
+          "title": "Microsoft FORGE Lab: AI scanning helped find Rust standard library bugs",
+          "category": "research",
+          "severity": "info",
+          "note": "A second frontier vendor reporting real standard library memory-safety bugs partly found by an AI scanner, with named issues, affected releases and concrete guidance for unsafe-code authors."
+        },
+        {
+          "id": "atlasmcp-wordpress-role-escalation",
+          "title": "AtlasMCP: a subscriber could promote themselves to WordPress admin",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A CVE'd MCP authorization failure where the AI tool surface skipped the capability checks the site enforces elsewhere, with a named reporter and a vendor fix published inside the window."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "oss-security mailing list",
+        "Patchstack database",
+        "wordpress.org plugin directory",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "Microsoft Security Blog",
+        "cloud.google.com threat intelligence",
+        "air.security/blog",
+        "wiz.io/blog",
+        "jfrog.com/blog",
+        "socket.dev/blog",
+        "blog.trailofbits.com",
+        "elastic.co/security-labs",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "crowdstrike.com/blog",
+        "blog.talosintelligence.com",
+        "lakera.ai/blog",
+        "hiddenlayer.com/innovation-hub",
+        "reversinglabs.com/blog",
+        "zenity.io/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "huggingface.co/blog",
+        "Hacker News",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan",
+        "talk-scan",
+        "arXiv cs.CR"
+      ],
+      "windowDays": 7
     }
   ]
 }

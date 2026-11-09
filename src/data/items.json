@@ -1,7 +1,385 @@
 {
-  "generatedAt": "2026-11-09T10:44:28.021Z",
+  "generatedAt": "2026-11-09T21:17:22.021Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "apache-claude-security-scans-cves",
+      "categories": [
+        "vulnerability",
+        "research"
+      ],
+      "title": "Apache: Claude security scans are the credited finder on five CVEs",
+      "org": "The Apache Software Foundation",
+      "date": "2026-11-09",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/09/1",
+      "summary": "The Apache Software Foundation published 20 advisories on November 9, and five credit an AI scan as the finder: two Apache Storm CVEs name Claude Agents, and three Apache Airflow CVEs name Claude Security Scans.",
+      "severity": "medium",
+      "tags": [
+        "cyber-capability",
+        "rce",
+        "claude",
+        "apache-airflow",
+        "apache-storm"
+      ],
+      "affected": [
+        "Apache Airflow",
+        "Apache Storm"
+      ],
+      "cve": "CVE-2026-82436",
+      "credits": [
+        {
+          "name": "Richard Zowalla",
+          "org": "Apache Storm"
+        },
+        {
+          "name": "Rahul Vats",
+          "org": "Apache Airflow"
+        },
+        {
+          "name": "Jarek Potiuk",
+          "org": "Apache Airflow"
+        },
+        {
+          "name": "Pierre Jeambrun",
+          "org": "Apache Airflow"
+        }
+      ],
+      "explainer": {
+        "tagline": "Apache advisories now name Claude-based scanning as the finder, next to the human researchers credited in the same batch.",
+        "whatHappened": "The Apache Software Foundation posted 20 security advisories to the oss-security list on November 9, 2026: two for Apache Storm from Richard Zowalla and 18 for Apache Airflow from Rahul Vats. Five of the 20 name AI tooling as the finder. The Storm pair credits \"The ASF using Claude Agents\", and three Airflow advisories credit \"Claude Security Scans\" as a tool. The other 15 Airflow advisories credit named human researchers.",
+        "howItWorks": "Four of the five AI-found flaws involve untrusted class instantiation or deserialization. In Storm, DefaultStateSerializer configured Kryo with class registration disabled and an instantiation strategy that skips constructors, so bytes from the state store could rebuild an object graph that runs code in the worker JVM. Storm's Nimbus instantiated any no-argument class on its classpath when the scheduler strategy allowlist was unset. Airflow's scheduler deserialized task-controlled XCom values during dependency evaluation and rebuilt DeadlineAlert fields through generic deserialization.",
+        "whoIsAffected": "Apache Storm 3.0.0 before 3.1.0 carries both Storm flaws, though the state store flaw reaches only clusters using the Redis-backed state provider, which the advisory says is not the default. All three AI-found Airflow flaws affect versions before 3.4.0. The Airflow deadline-alert flaw is an incomplete fix of CVE-2026-45360, so deployments that applied that earlier patch stay exposed through the callback and interval fields.",
+        "whatToDo": "Upgrade Apache Airflow to 3.4.0 and Apache Storm to 3.1.0. On Storm, set nimbus.scheduler.strategy.class.whitelist explicitly if you cannot upgrade yet, and plan a checkpoint migration, because 3.1.0 may fail to restore checkpoints written by 3.0.x. On Airflow, review which accounts can author DAGs."
+      },
+      "quickFacts": [
+        {
+          "label": "AI-found CVEs",
+          "value": "CVE-2026-82436, CVE-2026-82440, CVE-2026-82337, CVE-2026-86829, CVE-2026-113508"
+        },
+        {
+          "label": "Advisories in batch",
+          "value": "20: two Apache Storm, 18 Apache Airflow"
+        },
+        {
+          "label": "Finder credit",
+          "value": "The ASF using Claude Agents; Claude Security Scans"
+        },
+        {
+          "label": "Highest severity",
+          "value": "Important, on the ASF's own scale"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Apache Airflow 3.4.0, Apache Storm 3.1.0"
+        },
+        {
+          "label": "Airflow 3.4.0 released",
+          "value": "2026-11-06"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-09"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Apache CVEs did Claude-based scanning find?",
+          "a": "Five of the 20 advisories the Apache Software Foundation published on November 9, 2026 credit AI scanning. Apache Storm CVE-2026-82436 and CVE-2026-82440 name \"The ASF using Claude Agents\" as finder. Apache Airflow CVE-2026-82337, CVE-2026-86829 and CVE-2026-113508 name \"Claude Security Scans\" as a tool, with Apache committers credited for writing the fixes."
+        },
+        {
+          "q": "Do I need to upgrade Airflow because of these AI-found CVEs?",
+          "a": "Apache Airflow deployments on versions before 3.4.0 should upgrade. Airflow 3.4.0, released November 6, 2026, carries the fixes for all three AI-found CVEs plus 15 more credited to human researchers. The most serious of the three, CVE-2026-86829, is rated Important and lets task-controlled XCom values reach deserialization inside the scheduler."
+        },
+        {
+          "q": "Does the Apache Storm state store flaw affect a default install?",
+          "a": "No. Apache Storm CVE-2026-82436 reaches only clusters that use the Redis-backed state provider, which the advisory states is not the default. Exploiting it also needs write access to the topology's keyspace in the state store. Storm 3.1.0 fixes the flaw by requiring registered classes, but checkpoints written by affected versions may fail to restore afterward."
+        }
+      ],
+      "links": [
+        {
+          "label": "Storm State Store CVE",
+          "url": "https://www.openwall.com/lists/oss-security/2026/11/09/1"
+        },
+        {
+          "label": "Storm Nimbus CVE",
+          "url": "https://www.openwall.com/lists/oss-security/2026/11/09/2"
+        },
+        {
+          "label": "Airflow XCom CVE",
+          "url": "https://www.openwall.com/lists/oss-security/2026/11/09/9"
+        },
+        {
+          "label": "Airflow Deadline CVE",
+          "url": "https://www.openwall.com/lists/oss-security/2026/11/09/7"
+        },
+        {
+          "label": "Airflow Release Notes",
+          "url": "https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html"
+        }
+      ],
+      "publishDate": "2026-11-09T21:17:22.021Z"
+    },
+    {
+      "id": "microsoft-forge-lab-rust-memory-safety",
+      "categories": [
+        "research"
+      ],
+      "title": "Microsoft FORGE Lab: AI scanning helped find Rust standard library bugs",
+      "org": "Microsoft",
+      "date": "2026-11-09",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/09/forge-lab-uses-agentic-tools-to-identify-memory-safety-issues-in-rust/",
+      "summary": "Microsoft's FORGE Lab published the memory-safety bugs it reported in Rust's core and std libraries, several of which let safe code reach undefined behavior. Microsoft says some were found with Hyenas, its AI vulnerability scanner.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "microsoft",
+        "rust"
+      ],
+      "affected": [
+        "Rust standard library"
+      ],
+      "credits": [
+        {
+          "name": "Yechan Bae",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Microsoft FORGE Lab",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "Microsoft's FORGE Lab reported soundness bugs in Rust's standard library, some found with an AI scanning system it calls Hyenas.",
+        "whatHappened": "Microsoft published a FORGE Lab write-up on November 9, 2026 covering memory-safety issues the team reported to Rust maintainers through 2026. Yechan Bae and the FORGE Lab team describe bugs in core and std where safe Rust can reach undefined behavior. Microsoft says some of them were found with help from Hyenas, which it calls the frontier research version of a system codenamed MDASH, and the post does not say which bugs the system found.",
+        "howItWorks": "Most of the reported bugs break an invariant that unsafe code relies on when user-supplied code runs in the middle of an operation. MapWindows::clone dropped a partly initialized buffer when a user's clone panicked. A custom Pattern passed to str::replace could build a String that is not valid UTF-8. Custom allocators that unwind could corrupt BTreeMap::insert, so the Allocator API was stabilized with a rule that implementors must not unwind.",
+        "whoIsAffected": "Named affected releases include Rust 1.96.0 for the str::replace pattern bug, 1.97.0 for MapWindows::clone, 1.98.0 for the process::exit signal-stack issue and 1.99.0 for the CommandExt::exec environment race. Microsoft states that a standard library soundness bug is not automatically a vulnerability in an application, because the real risk depends on whether the program reaches the API in the triggering way.",
+        "whatToDo": "Authors of unsafe Rust should treat any call into code they do not control, including clone, drop, comparisons and closures, as a possible early exit, and finish risky work before breaking invariants. Allocator implementors should never unwind from allocator trait methods or from drop."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Rust core and std, releases named from 1.96.0 to 1.99.0"
+        },
+        {
+          "label": "Found by",
+          "value": "Yechan Bae and the Microsoft FORGE Lab team"
+        },
+        {
+          "label": "AI tooling",
+          "value": "Hyenas, Microsoft's research version of codename MDASH"
+        },
+        {
+          "label": "Status",
+          "value": "Several fixes shipped or merged; two reported issues still open"
+        },
+        {
+          "label": "Allocator rule ships",
+          "value": "Rust 1.100, on 2026-11-12"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned for this research"
+        }
+      ],
+      "links": [
+        {
+          "label": "FORGE Lab Write-Up",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/09/forge-lab-uses-agentic-tools-to-identify-memory-safety-issues-in-rust/"
+        },
+        {
+          "label": "Rust Issue 156501",
+          "url": "https://github.com/rust-lang/rust/issues/156501"
+        }
+      ],
+      "publishDate": "2026-11-09T21:17:22.021Z"
+    },
+    {
+      "id": "atlasmcp-wordpress-role-escalation",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AtlasMCP: a subscriber could promote themselves to WordPress admin",
+      "org": "Patchstack",
+      "date": "2026-11-07",
+      "url": "https://patchstack.com/database/wordpress/plugin/ai-workflow-automation-ai-agent-hub/vulnerability/wordpress-mcp-server-for-wordpress-plugin-2-0-1-privilege-escalation-vulnerability",
+      "summary": "AtlasMCP, a WordPress plugin that lets Claude, ChatGPT and Gemini drive a site over MCP, let a signed-in subscriber change their own role through an AI app in versions up to 2.0.1. Patchstack scores it CVSS 8.8. Fixed in 2.0.2.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "privilege-escalation",
+        "wordpress",
+        "claude",
+        "chatgpt"
+      ],
+      "affected": [
+        "AtlasMCP",
+        "WordPress"
+      ],
+      "cve": "CVE-2026-121576",
+      "cvss": 8.8,
+      "credits": [
+        {
+          "name": "myhappyhoon"
+        }
+      ],
+      "explainer": {
+        "tagline": "A low-privilege WordPress account could reach administrator through AtlasMCP's AI tools, fixed in version 2.0.2.",
+        "whatHappened": "Patchstack published CVE-2026-121576 on November 7, 2026 against AtlasMCP, a plugin that exposes a WordPress site to Claude, ChatGPT and Gemini over MCP. The researcher myhappyhoon reported it on November 3. Azizul Hasan, the plugin author, shipped 2.0.2 the same day with four security fixes.",
+        "howItWorks": "Incorrect privilege assignment is the root cause, filed as CWE-266. AtlasMCP's own 2.0.2 changelog states that a signed-in low-role user, such as a Subscriber, could change their own role through an AI app, so the MCP tool surface did not re-check what the calling account was allowed to do. Patchstack scores the result CVSS 8.8, with low privileges required and no user interaction.",
+        "whoIsAffected": "Sites running AtlasMCP 2.0.1 or earlier are affected, and the plugin directory reports 300-plus active installations. Any such site that allows self-registration or keeps subscriber accounts is exposed, because an attacker needs only one signed-in low-role account. Version 2.0.2 closed three further issues, listed in the table.",
+        "whatToDo": "Update AtlasMCP to 2.0.2 or later; 2.0.3 is the current release. Then audit the site's user roles for accounts that gained privileges, and revoke MCP tokens created with an application password that has since been deleted."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-121576"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.8, CVSS v3.1, from Patchstack"
+        },
+        {
+          "label": "Affected",
+          "value": "AtlasMCP 2.0.1 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.0.2, released 2026-11-03"
+        },
+        {
+          "label": "Found by",
+          "value": "myhappyhoon, reported through Patchstack"
+        },
+        {
+          "label": "Active installs",
+          "value": "300-plus, per wordpress.org"
+        },
+        {
+          "label": "Also fixed in 2.0.2",
+          "value": "Multisite cross-site database reads, a content search leak, and app-password token revocation"
+        }
+      ],
+      "links": [
+        {
+          "label": "Patchstack Advisory",
+          "url": "https://patchstack.com/database/wordpress/plugin/ai-workflow-automation-ai-agent-hub/vulnerability/wordpress-mcp-server-for-wordpress-plugin-2-0-1-privilege-escalation-vulnerability"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-qfxj-2x5m-gvvg"
+        },
+        {
+          "label": "Plugin Page",
+          "url": "https://wordpress.org/plugins/ai-workflow-automation-ai-agent-hub/"
+        }
+      ],
+      "publishDate": "2026-11-09T21:17:22.021Z"
+    },
+    {
+      "id": "air-office-party",
+      "categories": [
+        "vulnerability",
+        "supply-chain"
+      ],
+      "title": "Office Party: a planted temp file runs code in Anthropic's Office skills",
+      "org": "AIR Security",
+      "date": "2026-11-05",
+      "url": "https://www.air.security/blog-posts/office-party",
+      "summary": "Office Party is a code execution flaw in Anthropic's docx, pptx and xlsx skills. Their LibreOffice helper preloads a shim library from a fixed temp path without checking who wrote it. Anthropic calls the flaw out of scope.",
+      "severity": "medium",
+      "tags": [
+        "skills",
+        "agent-security",
+        "claude-code",
+        "anthropic",
+        "libreoffice"
+      ],
+      "affected": [
+        "Claude Code",
+        "Anthropic document skills"
+      ],
+      "credits": [
+        {
+          "name": "Omri Saxena",
+          "org": "AIR Security"
+        },
+        {
+          "name": "Or Nevo",
+          "org": "AIR Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "AIR Security found that Anthropic's Office skills will load a shim library any local writer can plant first.",
+        "whatHappened": "AIR Security published Office Party on November 5, 2026, a code execution flaw in the docx, pptx and xlsx skills that Anthropic ships. Researchers Omri Saxena and Or Nevo reported it to Anthropic in May 2026. Anthropic acknowledged the report and says the code runs only inside a sandbox, so the flaw sits outside the boundary it defends.",
+        "howItWorks": "The three skills share a helper script, scripts/office/soffice.py, that drives LibreOffice. When the helper cannot open a Unix socket, it compiles a small C shim and preloads it into LibreOffice through LD_PRELOAD. The shim path is fixed: lo_socket_shim.so in the system temp directory. AIR reports the helper reuses any file already sitting at that path without checking who created it, so whoever writes it first decides what LibreOffice runs.",
+        "whoIsAffected": "Linux hosts are exposed, and only when something blocks Unix socket creation: a container seccomp profile, a hardened systemd unit, or Claude Code's own sandbox. macOS ignores LD_PRELOAD and is not affected. AIR tested Anthropic's document-skills plugin directly.",
+        "whatToDo": "Inventory the skills each agent can load, and review their helper scripts as code you execute rather than trusted vendor content. On Linux hosts, stop agents from sharing a temp directory with other users and processes."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Anthropic docx, pptx and xlsx skills, on Linux"
+        },
+        {
+          "label": "Attack type",
+          "value": "Local code execution through a preloaded library"
+        },
+        {
+          "label": "Found by",
+          "value": "Omri Saxena and Or Nevo, AIR Security"
+        },
+        {
+          "label": "Reported",
+          "value": "May 2026"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-05"
+        },
+        {
+          "label": "Status",
+          "value": "Unfixed. Anthropic calls it outside its security boundary"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patch for the Office Party flaw in Anthropic's Office skills?",
+          "a": "No patch existed as of November 5, 2026. AIR Security reports that soffice.py on the main branch of anthropics/skills had not changed since July 17 and still builds its shim at a fixed temp path. Anthropic acknowledged the report but treats the code as sandbox-internal, so the flaw falls outside the boundary Anthropic defends."
+        },
+        {
+          "q": "Does Office Party affect macOS or only Linux?",
+          "a": "Office Party affects Linux only. The attack depends on LD_PRELOAD, which macOS ignores, so Macs running the same docx, pptx and xlsx skills are not exposed. On Linux the flaw needs a second condition as well: something must block Unix socket creation, such as a container seccomp profile, a hardened systemd unit, or Claude Code's sandbox."
+        },
+        {
+          "q": "Which Anthropic skills ship the vulnerable LibreOffice helper?",
+          "a": "Anthropic's docx, pptx and xlsx skills all ship the same scripts/office/soffice.py helper, and AIR Security tested the document-skills plugin directly. The docx skill uses the helper to render documents to PDF. Any agent that loads one of these three skills on a Linux host where socket creation is blocked will reach the preload path."
+        }
+      ],
+      "links": [
+        {
+          "label": "AIR Research",
+          "url": "https://www.air.security/blog-posts/office-party"
+        },
+        {
+          "label": "Skill Helper Script",
+          "url": "https://github.com/anthropics/skills/blob/main/skills/docx/scripts/office/soffice.py"
+        },
+        {
+          "label": "Anthropic Skills Repo",
+          "url": "https://github.com/anthropics/skills"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a282d66e4248a84e0259ed9/6af0468f7934ba396fa197dc_office%20party%201.jpg",
+        "alt": "Office Party, AIR Security's research on Anthropic's Office skills",
+        "credit": "AIR Security"
+      },
+      "publishDate": "2026-11-09T21:17:22.021Z"
+    },
     {
       "id": "okta-artex-identity-reconnaissance",
       "categories": [
