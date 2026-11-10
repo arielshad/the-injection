@@ -1,7 +1,195 @@
 {
-  "generatedAt": "2026-11-10T00:20:20.330Z",
+  "generatedAt": "2026-11-10T03:54:15.305Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "vulncheck-omniagent-find-execdir-approval-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "OmniAgent: find -execdir runs commands past the approval gate",
+      "org": "VulnCheck",
+      "date": "2026-11-09",
+      "url": "https://www.vulncheck.com/advisories/omniagent-bash-approval-gate-bypass-via-find-execdir-in-safe-command-allowlist",
+      "summary": "OmniAgent treats any shell command starting with find as safe, so a prompt-injected agent can use find -execdir to run binaries with no human approval. VulnCheck published the advisory, credited to George Chen, on November 9.",
+      "severity": "medium",
+      "cve": "CVE-2026-125368",
+      "cvss": 7.7,
+      "tags": [
+        "approval-bypass",
+        "indirect-prompt-injection",
+        "agent-security",
+        "omniagent",
+        "vulncheck"
+      ],
+      "affected": [
+        "OmniAgent"
+      ],
+      "credits": [
+        {
+          "name": "George Chen"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-125368 lets a steered OmniAgent run arbitrary binaries, because its safe-command check never reads find's -execdir flag.",
+        "whatHappened": "VulnCheck published an advisory for CVE-2026-125368 in OmniAgent on November 9, 2026, crediting the finding to George Chen. OmniAgent is an open-source agent framework whose ReflexionAgent asks for human approval before it runs shell commands. VulnCheck rates the flaw high, with a CVSS 4.0 base score of 7.7.",
+        "howItWorks": "ReflexionAgent's _is_safe_bash_command check classifies any command beginning with find as safe and never inspects the arguments that follow. Because find's -execdir flag runs a program of the caller's choosing, such a command reaches an unsandboxed shell with no approval prompt. VulnCheck says an agent under prompt injection can use it to run binaries including dd, nc, perl and openssl, overwriting files or executing code.",
+        "whoIsAffected": "OmniAgent through commit 12b98c520959eff88a6cfa3dd233497084360ab0 is affected, and VulnCheck's advisory states no fixed version. The weakness is classed as CWE-184, an incomplete list of disallowed inputs, and the CVSS vector records no privileges required and passive user interaction.",
+        "whatToDo": "Treat OmniAgent's bash approval prompt as an advisory control rather than a boundary until a fix ships, and do not let the agent read untrusted content while it can run shell commands. Where an allowlist decides what runs without a prompt, match the whole command including flags such as -exec and -execdir, not the leading program name."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "OmniAgent through commit 12b98c5"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-125368"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.7, high, CVSS 4.0, per VulnCheck"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-184, incomplete list of disallowed inputs"
+        },
+        {
+          "label": "Found by",
+          "value": "George Chen"
+        },
+        {
+          "label": "Fix",
+          "value": "No fixed version stated in the advisory"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 9, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a fix for CVE-2026-125368 in OmniAgent?",
+          "a": "VulnCheck's advisory for CVE-2026-125368 lists OmniAgent as affected through commit 12b98c5 and states no fixed version. Until the project ships one, treat the ReflexionAgent approval prompt as an advisory control rather than a boundary, and avoid pointing the agent at content an attacker can write, such as issues, pull requests or fetched pages."
+        },
+        {
+          "q": "Why does find -execdir bypass OmniAgent's approval check?",
+          "a": "OmniAgent's _is_safe_bash_command decides a command is safe from its leading program name, so anything starting with find passes. The find utility's -execdir flag then runs a program the caller names, which means the approval gate waves through a command that executes an arbitrary binary. VulnCheck names dd, nc, perl and openssl as examples."
+        },
+        {
+          "q": "Which OmniAgent component holds the vulnerable check?",
+          "a": "The check lives in ReflexionAgent._is_safe_bash_command, and its only caller is the agent's bash approval path. VulnCheck's advisory points at the vulnerable source line at commit 12b98c5 and at upstream GitHub issue 67 on the OmniAgent repository. Reaching the flaw needs something able to steer the agent, which VulnCheck describes as prompt injection."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/omniagent-bash-approval-gate-bypass-via-find-execdir-in-safe-command-allowlist"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-3ph8-93x7-786r"
+        }
+      ],
+      "image": {
+        "url": "https://www.vulncheck.com/_og/d/c_Advisory,icon_i-mdi-comment-alert,title_OmniAgent+Bash+Approval+Gate+Bypass+via+find+-execdir+in+Safe-Command+Allowlist,date_2026-11-09,headline_Advisories,cves_CVE-2026-125368,props_eyJhZmZlY3RpbmciOlsiT21uaUFnZW50IDw9IDEyYjk4YzUyMDk1OWVmZjg4YTZjZmEzZGQyMzM0OTcwODQzNjBhYjAiXX0,severity_HIGH,cvss_7.7,p_Ii9hZHZpc29yaWVzL29tbmlhZ2VudC1iYXNoLWFwcHJvdmFsLWdhdGUtYnlwYXNzLXZpYS1maW5kLWV4ZWNkaXItaW4tc2FmZS1jb21tYW5kLWFsbG93bGlzdCI,s_9x3AU0X8iiGbjKkl.png",
+        "alt": "OmniAgent Bash Approval Gate Bypass via find -execdir in Safe-Command Allowlist",
+        "credit": "VulnCheck"
+      },
+      "publishDate": "2026-11-10T03:54:15.305Z"
+    },
+    {
+      "id": "certin-crafty-falcon-bfsi",
+      "categories": [
+        "incident"
+      ],
+      "title": "Crafty Falcon: CERT-In warns of AI-assisted attacks on Indian BFSI",
+      "org": "CERT-In",
+      "date": "2026-11-04",
+      "url": "https://cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0058",
+      "summary": "Crafty Falcon is an AI-assisted threat actor that CERT-In says attacks Indian lenders, fintechs and crypto exchanges by invoking their own payment and disbursement APIs. CERT-In rates the advisory critical and calls the threat ongoing.",
+      "severity": "medium",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "cert-in",
+        "india"
+      ],
+      "affected": [
+        "Indian BFSI entities",
+        "AWS Systems Manager",
+        "AWS Lambda"
+      ],
+      "credits": [
+        {
+          "name": "CSIRT-Fin",
+          "org": "CERT-In"
+        }
+      ],
+      "explainer": {
+        "tagline": "CERT-In advisory CIAD-2026-0058 names Crafty Falcon, an actor that pairs AI offensive tooling with a victim's own payment APIs.",
+        "whatHappened": "CERT-In issued advisory CIAD-2026-0058 on November 4, 2026, rated critical, and states that the threat is active and ongoing. CSIRT-Fin, the financial-sector team under CERT-In, designated the actor CRAFTY FALCON. The advisory updates CIAD-2026-0046 of October 9, 2026, which covered attacks on payment and disbursement APIs.",
+        "howItWorks": "Crafty Falcon surveys targets with machine intelligence and then invokes the victim's own payment and disbursement APIs with valid credentials, per CERT-In. The advisory names four AI offensive platforms in use, listed below. Entry comes through internet-exposed UAT, staging and test environments and moves to production over shared credentials or network paths, and the actor abuses cloud management services such as AWS Systems Manager and Lambda to run commands and deploy files. CERT-In says the actor sends micro-value test transactions, for example one rupee, before attempting large transfers, and bypasses IP allow-lists by routing traffic through whitelisted third-party fetcher IP pools.",
+        "whoIsAffected": "Indian banking, financial services and insurance entities are the stated targets, including NBFCs, digital lending platforms, fintech firms, payment aggregators, payment service providers, and cryptocurrency exchanges and virtual digital asset service providers. CERT-In adds that the actor re-targets organizations after incomplete remediation and times attacks for holidays, weekends and low-monitoring windows.",
+        "whatToDo": "Separate UAT and staging from production with no shared credentials or network paths, and alert on non-production access to production. Replace IP allow-listing of shared third-party fetchers with mutual TLS, signed requests or scoped API keys. Flag micro-value test transactions followed by large transfers, require maker-checker approval for merchant settlements, and report detections to incident@cert-in.org.in."
+      },
+      "quickFacts": [
+        {
+          "label": "Advisory",
+          "value": "CIAD-2026-0058, issued November 4, 2026"
+        },
+        {
+          "label": "CERT-In rating",
+          "value": "Critical, active and ongoing"
+        },
+        {
+          "label": "Actor",
+          "value": "CRAFTY FALCON, designated by CSIRT-Fin"
+        },
+        {
+          "label": "Targets",
+          "value": "Indian NBFCs, fintechs, payment aggregators, crypto exchanges"
+        },
+        {
+          "label": "AI tooling named",
+          "value": "ARTEX family, PentAGI, Cairn, CyberStrikeAI"
+        },
+        {
+          "label": "Supersedes",
+          "value": "Updates CIAD-2026-0046 of October 9, 2026"
+        },
+        {
+          "label": "Reporting",
+          "value": "incident@cert-in.org.in, fraud to I4C via CFCFRMS"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does CERT-In name the AI tools Crafty Falcon uses?",
+          "a": "CERT-In advisory CIAD-2026-0058 names four AI offensive platforms: the ARTEX family of LLM-based tools, PentAGI, described as an autonomous multi-agent AI penetration testing system, the Cairn attack search engine, and CyberStrikeAI. CERT-In also advises organizations to prohibit offensive AI tools on corporate infrastructure, monitor LLM API usage, and require written authorization and scope for penetration tests."
+        },
+        {
+          "q": "Who is in scope for the Crafty Falcon advisory?",
+          "a": "CERT-In directs CIAD-2026-0058 at Indian banking, financial services and insurance entities. The advisory lists NBFCs, digital lending platforms, fintech firms, payment aggregators, payment service providers, and cryptocurrency exchanges and virtual digital asset service providers. CERT-In adds that the actor re-targets organizations whose earlier remediation was incomplete, so a closed incident is not evidence the actor has gone."
+        },
+        {
+          "q": "How does CIAD-2026-0058 differ from CERT-In's October advisory?",
+          "a": "CIAD-2026-0058 updates CIAD-2026-0046, which CERT-In issued on October 9, 2026 about attacks on payment and disbursement APIs. The November advisory names the actor CRAFTY FALCON, describes escalation, and adds tactics including abuse of AWS Systems Manager and Lambda, entry through internet-exposed test environments, web shells from file-upload and deserialization flaws, and theft of cryptocurrency wallet keys."
+        }
+      ],
+      "links": [
+        {
+          "label": "CERT-In Advisory",
+          "url": "https://cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0058"
+        },
+        {
+          "label": "The Hacker News",
+          "url": "https://thehackernews.com/2026/11/backdoored-docker-image-for-artex-ai.html"
+        }
+      ],
+      "publishDate": "2026-11-10T03:54:15.305Z"
+    },
     {
       "id": "anthropic-mythos-5-2-cyber-capability",
       "categories": [

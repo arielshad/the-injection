@@ -16972,6 +16972,79 @@
         "og-image.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261110t035415z",
+      "timestamp": "2026-11-10T03:54:15.305Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, NVD, VulnCheck, Anthropic, OpenAI (403 to scripts), MSRC, Google, AIR Security, Zenity Labs, Embrace The Red, Simon Willison, Wiz, Unit 42, JFrog, Trail of Bits, NCC Group, HiddenLayer, Lakera, ReversingLabs, Check Point, Socket, Snyk, Hugging Face, OWASP GenAI, UK AISI, CERT-In, Hacker News, r/netsec, paper-scan (56 arXiv candidates, 1 with two signals), repo-scan (3 candidates), GitHub trending and talk-scan (0 uploads in window). Added CERT-In's CRAFTY FALCON advisory and a VulnCheck approval-gate bypass in OmniAgent. Left out on purpose: BadByte's backdoored ARTEX Docker image analysis, verified by fetching it twice but dropped because badbyte.io returns 403 to scripts and the only other write-up is press; the seven MCP advisories added to the GitHub database on November 9 (Code Graph RAG, fast-agent, tsParticles, ezBookkeeping), whose maintainers published them in July and August, outside the window; Zenity Labs' activation-probe post, a write-up of arXiv 2610.02413 whose v1 is October 1; Trellix's November report, which covers April to September data and Gambit Security's September research; the Cloudflare security-audit-skill repo, trending but created June 18; onlyread and silentguard, new in the window but one repo-bar signal each; the Amazon Science task-tampering prompt-injection benchmark, code released but one paper-bar signal; a NocoBase plugin-ai authorization bypass with no finder named anywhere; and an openai/codex SSH agent issue on the Hacker News front page that the reporter says they have not reproduced.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "certin-crafty-falcon-bfsi",
+          "title": "Crafty Falcon: CERT-In warns of AI-assisted attacks on Indian BFSI",
+          "category": "incident",
+          "severity": "medium",
+          "note": "A national CERT naming an AI-assisted actor, the offensive AI platforms it uses, and the payment-API tactics, with specific controls to apply."
+        },
+        {
+          "id": "vulncheck-omniagent-find-execdir-approval-bypass",
+          "title": "OmniAgent: find -execdir runs commands past the approval gate",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A CNA-published approval-gate bypass with a named finder, showing how a safe-command allowlist that matches on the program name alone fails on find -execdir."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "github.com/advisories",
+        "vulncheck.com/advisories",
+        "badbyte.io",
+        "cert-in.org.in",
+        "anthropic.com/news",
+        "msrc.microsoft.com/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.jfrog.com",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "hiddenlayer.com/innovation-hub",
+        "lakera.ai/blog",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "snyk.io/blog",
+        "huggingface.co/blog",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "news.ycombinator.com (front page and Show HN)",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
