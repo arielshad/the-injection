@@ -17045,6 +17045,84 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261110t115418z",
+      "timestamp": "2026-11-10T11:54:18.965Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Anthropic, OpenAI alignment, MSRC, Google security blog, AIR, Embrace The Red, Zenity, Check Point, JFrog, Wiz, HiddenLayer, Trail of Bits, Lakera, OWASP GenAI, AISI, Socket, VulnCheck, Hugging Face papers and blog, Hacker News, github.com/trending, repo-scan (3 candidates), paper-scan (66 papers in window) and talk-scan (22 channels). Added VulnCheck's seven-month Glasswing review and two papers that clear the two-signal bar: Google DeepMind's agent-swarm prompt injection attack and Amazon's task-tampering injection benchmark.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "vulncheck-glasswing-seven-month-review",
+          "title": "VulnCheck: 442 CVEs from Anthropic's Glasswing, two exploited",
+          "category": "research",
+          "severity": "info",
+          "note": "First independent seven-month audit of Anthropic's Glasswing output, with ledger and curl triage numbers a maintainer can act on; distinct from the October OSS Scanner launch item and VulnCheck's October survey."
+        },
+        {
+          "id": "deepmind-agent-swarm-prompt-injection",
+          "title": "Agent Swarms: DeepMind automates adaptive prompt injection",
+          "category": "research",
+          "severity": "medium",
+          "note": "Clears the paper bar on two signals: a frontier lab team (Google DeepMind) and named production models attacked, with a printed per-model results table."
+        },
+        {
+          "id": "amazon-task-tampering-prompt-injection",
+          "title": "Task tampering: injections that change a decision, not the task",
+          "category": "research",
+          "severity": "info",
+          "note": "Clears the paper bar on three signals: released code and data, named production models attacked, and an Amazon research team; shows published injection defenses leave decision-tampering attacks largely intact."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "github.com/advisories (npm, AI packages)",
+        "anthropic.com/news",
+        "red.anthropic.com disclosure ledger",
+        "alignment.openai.com",
+        "microsoft.com/msrc/blog",
+        "air.security/blog",
+        "embracethered.com/blog",
+        "zenity.io/blog",
+        "research.checkpoint.com",
+        "jfrog.com security research",
+        "wiz.io/blog",
+        "hiddenlayer.com/innovation-hub",
+        "blog.trailofbits.com",
+        "lakera.ai/blog",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "socket.dev/blog",
+        "vulncheck.com/blog",
+        "huggingface.co/papers",
+        "huggingface.co/blog",
+        "news.ycombinator.com (front, newest)",
+        "github.com/trending (daily)",
+        "repo-scan.json",
+        "scripts/paper-scan.ts (arXiv + HF Daily Papers)",
+        "scripts/talk-scan.ts",
+        "arxiv.org cs.CR"
+      ],
+      "windowDays": 7
     }
   ]
 }

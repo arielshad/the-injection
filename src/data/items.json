@@ -1,7 +1,386 @@
 {
-  "generatedAt": "2026-11-10T03:54:15.305Z",
+  "generatedAt": "2026-11-10T11:54:18.965Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "vulncheck-glasswing-seven-month-review",
+      "categories": [
+        "research",
+        "lab-safety"
+      ],
+      "title": "VulnCheck: 442 CVEs from Anthropic's Glasswing, two exploited",
+      "org": "VulnCheck",
+      "date": "2026-11-09",
+      "url": "https://www.vulncheck.com/blog/anthropic-glasswing-november-update",
+      "summary": "VulnCheck counts 442 CVEs credited to Anthropic's Glasswing effort in seven months and says two are known to be exploited. Anthropic's ledger shows 217 findings fixed, against 1,654 duplicates and 419 withdrawn.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "evals",
+        "anthropic",
+        "claude",
+        "vulncheck",
+        "curl"
+      ],
+      "affected": [
+        "Project Glasswing",
+        "Anthropic OSS Scanner",
+        "curl"
+      ],
+      "credits": [
+        {
+          "name": "Patrick Garrity",
+          "org": "VulnCheck"
+        }
+      ],
+      "explainer": {
+        "tagline": "Anthropic's AI vulnerability finder has produced 442 CVEs in seven months, and VulnCheck says maintainers absorb the triage cost.",
+        "whatHappened": "Patrick Garrity of VulnCheck published a seven-month review of Project Glasswing, Anthropic's AI vulnerability-finding effort, on November 9, 2026. The review tracks 442 CVEs credited to Anthropic, about 63 a month, which Garrity puts at roughly 0.5% of the 93,450 CVEs published this year. VulnCheck lists two of those CVEs as known to be exploited.",
+        "howItWorks": "Glasswing findings reach maintainers through Anthropic's self-service OSS Scanner, which Anthropic says sends model-generated reports without human review. Triage therefore lands on the receiving project rather than on Anthropic. Garrity argues the published counts do not line up: Anthropic's disclosure ledger records 217 findings as fixed while listing 1,654 duplicates and 419 withdrawn entries.",
+        "whoIsAffected": "Open-source maintainers whose projects receive OSS Scanner reports carry the triage load, not Anthropic. curl is the worked example in the review, having received 45 reports, most of whose published entries were closed as not vulnerabilities. The per-project breakdown is in the table below.",
+        "whatToDo": "Follow curl's lead and publish low and medium severity AI-generated findings as public issues, which Garrity encourages so that the volume and accuracy of the reports stay visible. Treat a model-generated report as unreviewed until a human confirms it."
+      },
+      "quickFacts": [
+        {
+          "label": "CVEs credited",
+          "value": "442 in seven months, about 63 a month"
+        },
+        {
+          "label": "Known exploited",
+          "value": "2 (CVE-2026-61500, CVE-2026-26980)"
+        },
+        {
+          "label": "Ledger fixed",
+          "value": "217"
+        },
+        {
+          "label": "Ledger duplicates",
+          "value": "1,654"
+        },
+        {
+          "label": "Ledger withdrawn",
+          "value": "419"
+        },
+        {
+          "label": "curl reports",
+          "value": "45 received, 34 published, 19 not a vulnerability, 6 confirmed low severity, 9 awaiting"
+        },
+        {
+          "label": "Claimed true positive rate",
+          "value": "94.2%, up from 90.8% at launch"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Anthropic's Glasswing finding real vulnerabilities?",
+          "a": "Glasswing has produced 442 CVEs credited to Anthropic in seven months, so a share of its findings are real and tracked. VulnCheck notes that only two of those CVEs are known to be exploited in the wild, and that Anthropic's own disclosure ledger lists 1,654 duplicates and 419 withdrawn entries alongside just 217 fixes."
+        },
+        {
+          "q": "How accurate were the Glasswing reports curl received?",
+          "a": "curl received 45 Glasswing reports and has published 34 of them. Of those, VulnCheck counts 19 marked not a vulnerability, 6 confirmed as low severity, and 9 still awaiting assessment. Garrity derives a 55.9% false positive rate from the published set, with 17.6% confirmed as genuine findings so far."
+        },
+        {
+          "q": "What should an open-source maintainer do about AI-generated vulnerability reports?",
+          "a": "Garrity recommends that maintainers copy curl and publish low and medium severity AI-generated findings as public issues. Publishing them makes the real volume and accuracy of the reports visible to everyone, rather than leaving each project to absorb the triage privately. Anthropic sends OSS Scanner reports without human review, so the receiving project does the filtering."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Share of September ledger findings rated critical or high",
+          "unit": "%",
+          "max": 100,
+          "note": "Claude's own severity ratings against the maintainers' ratings of the same findings",
+          "results": [
+            {
+              "name": "Rated by Claude",
+              "score": 91.5
+            },
+            {
+              "name": "Rated by maintainers",
+              "score": 51.3
+            }
+          ],
+          "source": "https://www.vulncheck.com/blog/anthropic-glasswing-november-update"
+        }
+      ],
+      "image": {
+        "url": "https://www.vulncheck.com/_og/s/o_6eba28d38c5a4083.png",
+        "alt": "VulnCheck title card for the Glasswing seven-month review",
+        "credit": "VulnCheck"
+      },
+      "links": [
+        {
+          "label": "VulnCheck Review",
+          "url": "https://www.vulncheck.com/blog/anthropic-glasswing-november-update"
+        },
+        {
+          "label": "Anthropic Ledger",
+          "url": "https://red.anthropic.com/2026/cvd/ledger/"
+        },
+        {
+          "label": "OSS Scanner Post",
+          "url": "https://www.anthropic.com/research/launching-opt-in-vuln-finding-service-for-open-source"
+        },
+        {
+          "label": "Credited CVE Tracker",
+          "url": "https://github.com/patrickmgarrity/Anthropic-Credited-CVEs"
+        }
+      ],
+      "publishDate": "2026-11-10T11:54:18.965Z"
+    },
+    {
+      "id": "deepmind-agent-swarm-prompt-injection",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Agent Swarms: DeepMind automates adaptive prompt injection",
+      "org": "Google DeepMind",
+      "date": "2026-11-09",
+      "url": "https://arxiv.org/abs/2611.11861",
+      "summary": "Google DeepMind reports that an automated attacker built from swarms of LLM agents drove attack resistance to 10% or less on six of seven models tested, including models that score as robust on public benchmarks.",
+      "severity": "medium",
+      "tags": [
+        "prompt-injection",
+        "indirect-prompt-injection",
+        "red-team",
+        "evals",
+        "google-deepmind",
+        "gemini"
+      ],
+      "affected": [
+        "Gemini 4 Argon",
+        "Gemini 3.8 Flash",
+        "Gemini 3.7 Flash",
+        "Gemini 3.6 Flash",
+        "Kimi K3",
+        "GLM-5.3",
+        "DeepSeek-V4.1-Flash"
+      ],
+      "credits": [
+        {
+          "name": "Alexey Kurakin",
+          "org": "Google DeepMind"
+        },
+        {
+          "name": "Vishal Karande",
+          "org": "Google DeepMind"
+        },
+        {
+          "name": "Alex Bie",
+          "org": "Google DeepMind"
+        },
+        {
+          "name": "Chongyang Shi",
+          "org": "Google DeepMind"
+        },
+        {
+          "name": "Shuang Song",
+          "org": "Google DeepMind"
+        },
+        {
+          "name": "Google DeepMind"
+        }
+      ],
+      "explainer": {
+        "tagline": "An automated swarm of attacker agents found working prompt injections against models that public benchmarks rate as robust.",
+        "whatHappened": "Google DeepMind published Scaling Adaptive Prompt Injection Attacks with Agent Swarms on arXiv on November 9, 2026. The team, with Alexey Kurakin as corresponding author, built an attacker that runs many LLM agents in parallel to search for prompt injections, then measured how seven defender models held up. Six of the seven resisted 10% or fewer of the attack scenarios at the full query budget.",
+        "howItWorks": "The attacker treats prompt injection as a search problem, spending a query budget probing the defender and adapting each attempt from what the previous one returned. Attack goals are random non-malicious actions rather than harmful ones, which separates how well a model holds its instruction hierarchy from how well it recognizes danger. The paper measures Attack Resistance Rate, the share of scenarios where the attack failed, so a lower number means a stronger attack.",
+        "whoIsAffected": "Seven models served as defenders with thinking on and chain of thought hidden: four Gemini versions plus Kimi K3, GLM-5.3 and DeepSeek-V4.1-Flash. Gemini 4 Argon held up best and was also the strongest attacker in the study. Per-model scores are in the table below.",
+        "whatToDo": "Do not rely on model hardening alone, which the authors argue should be part of a full stack with defense in depth. The authors also say frontier defenses may need proactive, automated red-teaming to stay resilient against more capable adversaries."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "arXiv v1, November 9, 2026"
+        },
+        {
+          "label": "Attacker model",
+          "value": "Gemini 4 Argon"
+        },
+        {
+          "label": "Metric",
+          "value": "Attack Resistance Rate, lower means a stronger attack"
+        },
+        {
+          "label": "Query budget",
+          "value": "150 defender queries for ARR@150, 320 calls in total"
+        },
+        {
+          "label": "Strongest defender",
+          "value": "Gemini 4 Argon, 66% resistance at full budget"
+        },
+        {
+          "label": "Versus prior work",
+          "value": "Broke 6 of 80 AgentDojo scenarios in 25 queries, against 2 for Prompt Siren"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Attack resistance rate against the strongest attacker, full budget",
+          "unit": "%",
+          "max": 100,
+          "note": "Lower is worse for defenders. Attacker was Gemini 4 Argon, defender thinking on and chain of thought hidden.",
+          "results": [
+            {
+              "name": "Gemini 3.6 Flash",
+              "score": 1
+            },
+            {
+              "name": "Gemini 3.7 Flash",
+              "score": 6
+            },
+            {
+              "name": "Gemini 3.8 Flash",
+              "score": 10
+            },
+            {
+              "name": "Gemini 4 Argon",
+              "score": 66
+            },
+            {
+              "name": "Kimi K3",
+              "score": 1
+            },
+            {
+              "name": "GLM-5.3",
+              "score": 1
+            },
+            {
+              "name": "DeepSeek-V4.1-Flash",
+              "score": 1
+            }
+          ],
+          "source": "https://arxiv.org/html/2611.11861v1"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2611.11861"
+        },
+        {
+          "label": "Full Text",
+          "url": "https://arxiv.org/html/2611.11861v1"
+        }
+      ],
+      "publishDate": "2026-11-10T11:54:18.965Z"
+    },
+    {
+      "id": "amazon-task-tampering-prompt-injection",
+      "categories": [
+        "research",
+        "benchmark"
+      ],
+      "title": "Task tampering: injections that change a decision, not the task",
+      "org": "Amazon",
+      "date": "2026-11-05",
+      "url": "https://arxiv.org/abs/2611.07640",
+      "summary": "Amazon researchers report that injections tampering with a decision inside the agent's own task still succeed 9.5% to 12.1% of the time against a defense that cuts task-redirection attacks to 2.4%.",
+      "severity": "info",
+      "tags": [
+        "indirect-prompt-injection",
+        "evals",
+        "guardrails",
+        "amazon"
+      ],
+      "affected": [
+        "Claude Sonnet 4",
+        "Claude Sonnet 4.5",
+        "DeepSeek V3.1",
+        "Kimi K2.5",
+        "GLM-5"
+      ],
+      "credits": [
+        {
+          "name": "Rongting Zhang",
+          "org": "Amazon"
+        },
+        {
+          "name": "Martin Bertran",
+          "org": "Amazon"
+        },
+        {
+          "name": "Sandeep Avula",
+          "org": "Amazon"
+        },
+        {
+          "name": "Chia-Jung Lee",
+          "org": "Amazon"
+        },
+        {
+          "name": "Vanessa Murdock",
+          "org": "Amazon"
+        }
+      ],
+      "explainer": {
+        "tagline": "Prompt injection defenses tested only on task redirection miss attacks that quietly change a decision inside the task.",
+        "whatHappened": "Amazon researchers released a benchmark on arXiv on November 5, 2026 for indirect prompt injections that tamper with a task instead of replacing it. Rongting Zhang and four colleagues built 90 validated cases across three tool-use environments, then ran them against five models through Amazon Bedrock. The code and data are published for academic reproducibility.",
+        "howItWorks": "A task-tampering injection plants content that influences a decision its source has no authority to make, such as a false refund policy in a document the agent reads, which then inflates the refund the agent approves. The agent still carries out the task it was asked to do, so a defense watching for a switch to a new objective sees nothing unusual. The authors sort attacks by which part of the agent's decision-making they target, including its objective, its observations and its state.",
+        "whoIsAffected": "Five models were evaluated at temperature 0 through Amazon Bedrock: Claude Sonnet 4, Claude Sonnet 4.5, DeepSeek V3.1, Kimi K2.5 and GLM-5. The three environments are named Productivity, DevOps and Marketplace. Teams running injection detection or tool-policy controls on agents that read untrusted documents are the practical audience.",
+        "whatToDo": "Test injection defenses against attacks that tamper with a decision inside the intended task, not only against attacks that redirect the agent to a new one. Treat a low score on a redirection-only benchmark as incomplete evidence that an agent is protected."
+      },
+      "quickFacts": [
+        {
+          "label": "Benchmark size",
+          "value": "90 validated cases, 1,343 single-primitive attacks plus 90 compound"
+        },
+        {
+          "label": "Environments",
+          "value": "Productivity, DevOps, Marketplace"
+        },
+        {
+          "label": "Models tested",
+          "value": "Claude Sonnet 4, Claude Sonnet 4.5, DeepSeek V3.1, Kimi K2.5, GLM-5"
+        },
+        {
+          "label": "Published",
+          "value": "arXiv v1, November 5, 2026"
+        },
+        {
+          "label": "Code",
+          "value": "Released by amazon-science under CC BY-NC 4.0"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Attack success rate under the DRIFT-isolation defense, by attack target",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders. A tool-policy defense allowed 15.4% overall, against 17.0% with no defense.",
+          "results": [
+            {
+              "name": "Objective targeting",
+              "score": 2.4
+            },
+            {
+              "name": "Observation targeting",
+              "score": 9.5
+            },
+            {
+              "name": "State targeting",
+              "score": 12.1
+            }
+          ],
+          "source": "https://arxiv.org/html/2611.07640v1"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2611.07640"
+        },
+        {
+          "label": "Full Text",
+          "url": "https://arxiv.org/html/2611.07640v1"
+        },
+        {
+          "label": "Benchmark Code",
+          "url": "https://github.com/amazon-science/task-tampering-prompt-injection"
+        }
+      ],
+      "publishDate": "2026-11-10T11:54:18.965Z"
+    },
     {
       "id": "vulncheck-omniagent-find-execdir-approval-bypass",
       "categories": [
