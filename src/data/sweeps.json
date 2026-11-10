@@ -17123,6 +17123,74 @@
         "arxiv.org cs.CR"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261110t190742z",
+      "timestamp": "2026-11-10T19:07:42.677Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, VulnCheck, Wiz, AIR Security, Zenity Labs, Embrace The Red, Trail of Bits, Unit 42, Socket, Anthropic, OWASP GenAI, Hugging Face, Hacker News, arXiv via paper-scan (62 candidates), repo-scan (13 queries, 4 candidates), GitHub trending and talk-scan (59 videos). Added three items: VulnCheck's canary telemetry on the agentic secret hunter entering through Langflow, Wiz's relaunched Cyber Model Arena benchmark, and OWASP's Securing Agentic Applications V2. Several apparently new GitHub advisories (ag2 CVE-2026-113663, GPUStack CVE-2026-102894, fast-agent-mcp CVE-2026-102610) were database re-publications of September and July disclosures and fell outside the window.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "vulncheck-langflow-agentic-secret-hunter",
+          "title": "VulnCheck: the agentic secret hunter also came in through Langflow",
+          "category": "incident",
+          "severity": "high",
+          "note": "Independent canary telemetry showing the same operator IP from Microsoft's November 5 report using a different entry vector, with a stage-by-stage mechanism and behavioural detection guidance."
+        },
+        {
+          "id": "wiz-cyber-model-arena-benchmark",
+          "title": "Cyber Model Arena: Wiz scores 59 AI agents on offensive tasks",
+          "category": "benchmark",
+          "severity": "info",
+          "note": "A measured, deterministically graded benchmark of 59 agent configurations on offensive security tasks, with printed per-category and per-agent numbers."
+        },
+        {
+          "id": "owasp-securing-agentic-applications-v2",
+          "title": "OWASP: version 2 of its guide to securing agentic applications",
+          "category": "research",
+          "severity": "info",
+          "note": "A second-version guide from a standards body on the Sources list, published inside the window and downloadable in full."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "vulncheck.com/blog",
+        "wiz.io/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "blog.trailofbits.com",
+        "unit42.paloaltonetworks.com",
+        "socket.dev/blog",
+        "anthropic.com/news",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "Hacker News front page and Show HN",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

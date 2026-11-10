@@ -1,7 +1,352 @@
 {
-  "generatedAt": "2026-11-10T11:54:18.965Z",
+  "generatedAt": "2026-11-10T19:07:42.677Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "wiz-cyber-model-arena-benchmark",
+      "categories": [
+        "benchmark",
+        "research"
+      ],
+      "title": "Cyber Model Arena: Wiz scores 59 AI agents on offensive tasks",
+      "org": "Wiz",
+      "date": "2026-11-10",
+      "url": "https://www.wiz.io/blog/cyber-model-arena-ai-benchmark",
+      "summary": "Wiz relaunched Cyber Model Arena, a benchmark that runs 59 agent configurations against 327 offensive security challenges with deterministic graders, and reports that the harness around a model shifts its score by about 5 points.",
+      "severity": "info",
+      "tags": [
+        "evals",
+        "cyber-capability",
+        "red-team",
+        "coding-agents",
+        "wiz",
+        "claude-code",
+        "openai-codex",
+        "gemini"
+      ],
+      "affected": [
+        "Claude Code",
+        "OpenAI Codex",
+        "Gemini 4 Argon",
+        "Claude Opus 5",
+        "GPT-6 Sol"
+      ],
+      "credits": [
+        {
+          "name": "Jay Tenenbaum",
+          "org": "Wiz"
+        }
+      ],
+      "explainer": {
+        "tagline": "Cyber Model Arena measures whether an AI agent can produce a checkable effect on a real target inside 1,000 seconds.",
+        "whatHappened": "Wiz published the relaunched Cyber Model Arena on November 10, 2026, in a post by Jay Tenenbaum that doubles as a guide to building this kind of benchmark. Version 3.9 pairs 26 models with four general purpose harnesses to make 59 agents, then runs each of them three times against 327 challenges.",
+        "howItWorks": "Challenges are drawn from existing real-world sources rather than generated or labelled by a model, and split across code vulnerabilities, API security, web security and cloud security. Deterministic code graders inspect the environment for effects after the agent stops, which avoids using a model as a judge. Agents are isolated from the server and the internet during a run, so they cannot look up answers, and each attempt is capped at 1,000 seconds.",
+        "whoIsAffected": "Teams picking an agent for offensive security work, and defenders estimating what an attacker with an off-the-shelf harness can already do. Wiz reports scores for the ADK React, Claude Code, Antigravity and Codex harnesses paired with Gemini, Claude, GPT, DeepSeek, GLM, Kimi, Grok and MiMo models.",
+        "whatToDo": "Judge a model and its harness together rather than separately: across 22 models run on both Claude Code and ADK React, Wiz measured a mean absolute gap of 5.1 pass@1 points. Wiz also warns that a benchmark with fewer than 30 tasks carries a confidence interval of roughly 18 points at a 50% success rate."
+      },
+      "quickFacts": [
+        {
+          "label": "Benchmark",
+          "value": "Cyber Model Arena v3.9, 26 models and four harnesses"
+        },
+        {
+          "label": "Scale",
+          "value": "59 agents, 327 challenges, three attempts each"
+        },
+        {
+          "label": "Budget",
+          "value": "1,000 seconds per attempt"
+        },
+        {
+          "label": "Grading",
+          "value": "Deterministic code graders, no model used as judge"
+        },
+        {
+          "label": "Task mix",
+          "value": "221 code vulnerability, 54 API, 29 web, 23 cloud"
+        },
+        {
+          "label": "Cheapest on frontier",
+          "value": "Codex with GPT-6 Luna, 64.5% at $0.05 per solve"
+        },
+        {
+          "label": "Published by",
+          "value": "Jay Tenenbaum, Wiz"
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Average pass@1 by task category, Cyber Model Arena v3.9",
+          "unit": "%",
+          "max": 100,
+          "note": "Averaged across all 59 agents. Higher means the agent succeeded more often",
+          "results": [
+            {
+              "name": "API security",
+              "score": 78
+            },
+            {
+              "name": "Web security",
+              "score": 64.6
+            },
+            {
+              "name": "Cloud security",
+              "score": 56.5
+            },
+            {
+              "name": "Code vulnerabilities",
+              "score": 38.2
+            }
+          ],
+          "source": "https://www.wiz.io/blog/cyber-model-arena-ai-benchmark"
+        },
+        {
+          "name": "Top agents by pass@1, Cyber Model Arena v3.9",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher means the agent solved more offensive security challenges",
+          "results": [
+            {
+              "name": "ADK React, Gemini 4 Argon",
+              "score": 77.2
+            },
+            {
+              "name": "Antigravity, Gemini 4 Argon",
+              "score": 77
+            },
+            {
+              "name": "ADK React, Gemini 3.8 Flash Cyber",
+              "score": 74.9
+            },
+            {
+              "name": "Claude Code, Claude Opus 5",
+              "score": 71.2
+            },
+            {
+              "name": "Codex, GPT-6 Sol",
+              "score": 71.2
+            },
+            {
+              "name": "Claude Code, Gemini 4 Argon",
+              "score": 70.8
+            },
+            {
+              "name": "Claude Code, GPT-6.1 Sol",
+              "score": 70.7
+            },
+            {
+              "name": "Codex, GPT-6.1 Sol",
+              "score": 70.6
+            },
+            {
+              "name": "Claude Code, GPT-6 Astra",
+              "score": 70.2
+            },
+            {
+              "name": "Codex, GPT-5.6 Sol",
+              "score": 69.8
+            }
+          ],
+          "source": "https://www.wiz.io/blog/cyber-model-arena-ai-benchmark"
+        }
+      ],
+      "links": [
+        {
+          "label": "Wiz Research",
+          "url": "https://www.wiz.io/blog/cyber-model-arena-ai-benchmark"
+        },
+        {
+          "label": "Cyber Model Arena",
+          "url": "https://www.wiz.io/cyber-model-arena"
+        }
+      ],
+      "image": {
+        "url": "https://www.datocms-assets.com/75231/1793820803-benchmark-2x.png?fm=webp",
+        "alt": "Cyber Model Arena benchmark title image",
+        "credit": "Wiz"
+      },
+      "publishDate": "2026-11-10T19:07:42.677Z"
+    },
+    {
+      "id": "owasp-securing-agentic-applications-v2",
+      "categories": [
+        "research"
+      ],
+      "title": "OWASP: version 2 of its guide to securing agentic applications",
+      "org": "OWASP GenAI Security Project",
+      "date": "2026-11-10",
+      "url": "https://genai.owasp.org/resource/securing-agentic-applications-v2/",
+      "summary": "OWASP GenAI Security Project released Securing Agentic Applications V2, a 106 page builder and defender guide covering secure architectures, identity and access control, runtime protection, supply chain security and assurance testing.",
+      "severity": "info",
+      "tags": [
+        "agent-security",
+        "guardrails",
+        "evals",
+        "owasp"
+      ],
+      "affected": [
+        "AI agents"
+      ],
+      "credits": [
+        {
+          "name": "OWASP GenAI Security Project",
+          "org": "OWASP"
+        }
+      ],
+      "explainer": {
+        "tagline": "Securing Agentic Applications V2 is OWASP's builder and defender guide for single-agent and multi-agent systems.",
+        "whatHappened": "OWASP GenAI Security Project published Securing Agentic Applications V2 on November 10, 2026, as a free PDF of 106 pages. The subtitle calls it a Builder and Defender's Guide. OWASP describes the document as practical, actionable guidance for designing, developing, deploying and securing agentic AI systems.",
+        "howItWorks": "Six areas structure the guidance: secure architectures, threat mitigation, identity and access controls, runtime protection, supply chain security, and assurance testing. OWASP states that the guide addresses risks in both single-agent and multi-agent environments.",
+        "whoIsAffected": "Developers, security architects and defenders building or operating agentic AI systems are the stated audience. OWASP does not tie the guidance to a named product, model or framework.",
+        "whatToDo": "Read the guide against your own agent deployment, and re-check any controls you built on version 1. The PDF downloads from the resource page without registration."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "November 10, 2026"
+        },
+        {
+          "label": "Publisher",
+          "value": "OWASP GenAI Security Project"
+        },
+        {
+          "label": "Length",
+          "value": "106 pages"
+        },
+        {
+          "label": "Scope",
+          "value": "Single-agent and multi-agent environments"
+        },
+        {
+          "label": "Areas covered",
+          "value": "Architecture, threat mitigation, identity, runtime, supply chain, assurance"
+        },
+        {
+          "label": "Audience",
+          "value": "Developers, security architects and defenders"
+        }
+      ],
+      "links": [
+        {
+          "label": "OWASP Resource Page",
+          "url": "https://genai.owasp.org/resource/securing-agentic-applications-v2/"
+        },
+        {
+          "label": "Guide PDF",
+          "url": "https://genai.owasp.org/download/58383/?tmstv=1794198262"
+        }
+      ],
+      "image": {
+        "url": "https://genai.owasp.org/wp-content/uploads/2026/11/Securing-Agentic-Applications-v2.jpg",
+        "alt": "Cover of Securing Agentic Applications V2",
+        "credit": "OWASP GenAI Security Project"
+      },
+      "publishDate": "2026-11-10T19:07:42.677Z"
+    },
+    {
+      "id": "vulncheck-langflow-agentic-secret-hunter",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "VulnCheck: the agentic secret hunter also came in through Langflow",
+      "org": "VulnCheck",
+      "date": "2026-11-08",
+      "url": "https://www.vulncheck.com/blog/microsoft-secret-hunter",
+      "summary": "VulnCheck canaries recorded the same IP address named in Microsoft's agentic AI report exploiting Langflow through CVE-2025-3248, running 11 scripted stages that dumped environment variables and decrypted stored provider keys.",
+      "severity": "high",
+      "tags": [
+        "ai-enabled-offense",
+        "credential-theft",
+        "threat-intel",
+        "detection",
+        "langflow",
+        "vulncheck",
+        "azure"
+      ],
+      "affected": [
+        "Langflow",
+        "Microsoft Entra ID"
+      ],
+      "cve": "CVE-2025-3248",
+      "credits": [
+        {
+          "name": "Patrick Garrity",
+          "org": "VulnCheck"
+        }
+      ],
+      "explainer": {
+        "tagline": "VulnCheck's honeypots caught the agentic credential hunter from Microsoft's report entering through an unpatched Langflow server.",
+        "whatHappened": "VulnCheck published the finding on November 8, 2026, in a post by Patrick Garrity. Its Canary sensors logged 25 events and 13 distinct requests from 199.19.77.84, the address Microsoft Threat Intelligence named on November 5 as the source of service principal sign-ins that used leaked app credentials. On the canaries, that address arrived through Langflow rather than through GitHub.",
+        "howItWorks": "CVE-2025-3248 lets an unauthenticated caller post Python to Langflow's /api/v1/validate/code endpoint, where a decorator runs the code as Langflow compiles it for validation. The operator wrapped all 11 stages in one payload and returned stolen data inside an exception tagged |RAISE|, because the vulnerable endpoint copies exception text into the HTTP response. No payload contacted attacker infrastructure, downloaded a file or wrote one, so the session produced no outbound traffic to block.",
+        "whoIsAffected": "Langflow instances reachable from the internet and still unpatched against CVE-2025-3248 are exposed. VulnCheck's canaries were hit in Great Britain, Sweden and Brazil. On the cloud identity side of the same campaign, Todyl counts at least 27 affected organizations and Huntress saw Azure tokens obtained in four customer tenants.",
+        "whatToDo": "Take Langflow off the public internet, patch it, and place it behind authentication or a VPN. Treat every key inside an exposed instance as compromised: rotate provider keys first, then the Langflow secret key. Hunt for behaviour rather than addresses, such as bursts of large validate/code POSTs and request bodies containing @exec(."
+      },
+      "quickFacts": [
+        {
+          "label": "Entry point",
+          "value": "Langflow /api/v1/validate/code, CVE-2025-3248, on CISA KEV since May 2025"
+        },
+        {
+          "label": "Session",
+          "value": "11 stages in 36 minutes, 10 of them sent twice"
+        },
+        {
+          "label": "Source address",
+          "value": "199.19.77.84, the credential abuse IP in Microsoft's report"
+        },
+        {
+          "label": "Canaries hit",
+          "value": "Great Britain, Sweden and Brazil"
+        },
+        {
+          "label": "Key decryption",
+          "value": "Four approaches tried, success in about 80 seconds"
+        },
+        {
+          "label": "Exfiltration",
+          "value": "Data returned in the HTTP response, no attacker server contacted"
+        },
+        {
+          "label": "Found by",
+          "value": "Patrick Garrity, VulnCheck"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my Langflow server affected by this attack?",
+          "a": "Langflow servers exposed to the internet without the CVE-2025-3248 patch are the ones at risk. VulnCheck observed the operator reaching the flaw at /api/v1/validate/code with no authentication at all. Instances behind a VPN or an authenticating proxy were not reachable in the sessions VulnCheck recorded. Check whether that endpoint answers unauthenticated requests, then patch or remove public access."
+        },
+        {
+          "q": "How is this different from Microsoft's November 5 report on agentic AI and exposed secrets?",
+          "a": "Microsoft Threat Intelligence described the operator finding secrets through GitHub searches, then signing in to Azure as a service principal. VulnCheck's canaries recorded the same IP address taking a different route, exploiting an unpatched Langflow server to read credentials directly off the host. Same attacker address, different entry door, and no GitHub step involved in the canary sessions."
+        },
+        {
+          "q": "Which credentials should I rotate after exposing a Langflow instance?",
+          "a": "Treat every secret stored in or reachable from the Langflow host as compromised. VulnCheck advises rotating AI provider keys first, because the operator searched logs and saved flows for provider key patterns and decrypted the stored variables table. Rotate the Langflow secret key afterwards, since doing it first would leave the older provider keys exposed."
+        },
+        {
+          "q": "Can blocking the published IP addresses stop this operator?",
+          "a": "Blocking 199.19.77.84 on its own will not hold. VulnCheck saw related Langflow and Azure identity activity from a separate address, 179.43.191.82, which it does not attribute to the same operator. VulnCheck recommends hunting for behaviour instead: bursts of large POST requests to validate/code, and request bodies containing @exec(. Attacker infrastructure changes faster than attacker technique."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Research",
+          "url": "https://www.vulncheck.com/blog/microsoft-secret-hunter"
+        },
+        {
+          "label": "Microsoft Report",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/"
+        }
+      ],
+      "image": {
+        "url": "https://www.vulncheck.com/_og/s/o_19c79eaa48d18c01.png",
+        "alt": "VulnCheck: Same Attacker, Different Door",
+        "credit": "VulnCheck"
+      },
+      "publishDate": "2026-11-10T19:07:42.677Z"
+    },
     {
       "id": "vulncheck-glasswing-seven-month-review",
       "categories": [
