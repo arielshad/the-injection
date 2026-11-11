@@ -1,7 +1,197 @@
 {
-  "generatedAt": "2026-11-10T19:07:42.677Z",
+  "generatedAt": "2026-11-11T00:02:49.197Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "microsoft-lazarus-dormant-neuron-backdoor",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Lazarus: seven neurons turn an agent model into a sleeper agent",
+      "org": "Microsoft Research",
+      "date": "2026-11-10",
+      "url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/",
+      "summary": "Lazarus is a weight-editing attack from Microsoft Research that backdoors an AI agent by changing fewer than ten neurons, with no training. The edited model passes standard evaluations. Microsoft says it has seen no attacker use.",
+      "severity": "info",
+      "tags": [
+        "model-backdoor",
+        "model-supply-chain",
+        "open-weights",
+        "microsoft"
+      ],
+      "affected": [
+        "Nemotron-Terminal-8B",
+        "Qwen 3.6-27B",
+        "Gemma-4-31B-IT"
+      ],
+      "credits": [
+        {
+          "name": "Yuchen Zeng"
+        },
+        {
+          "name": "Giorgio Severi"
+        },
+        {
+          "name": "Blake Bullwinkel"
+        },
+        {
+          "name": "Eric Horvitz"
+        },
+        {
+          "name": "Dimitris Papailiopoulos",
+          "org": "Microsoft Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Lazarus backdoors an AI agent by reprogramming fewer than ten dormant neurons in a model's weights, with no training run.",
+        "whatHappened": "Microsoft Research published Lazarus on November 10, 2026, a method from Yuchen Zeng, Giorgio Severi, Blake Bullwinkel, Eric Horvitz and Dimitris Papailiopoulos that turns a capable model into a sleeper agent by editing fewer than ten neurons. Microsoft Threat Intelligence posted defender guidance the same day. The paper is a preprint the authors host themselves, with no venue listed.",
+        "howItWorks": "The edits target dormant neurons in the model's final feed-forward block so that they fire only when a trigger string appears anywhere in the agent's context. A firing neuron forces one token into the residual stream, and chained neurons write a longer payload, such as a command that downloads and runs attacker code. On Nemotron-Terminal-8B the authors report that seven neurons out of more than 12,000 fired the payload on 98.8% of held-out trigger trajectories and never on benign ones.",
+        "whoIsAffected": "Nemotron-Terminal-8B carried the demonstrated backdoor, and the authors report that Qwen 3.6-27B and Gemma-4-31B-IT are equally vulnerable. Any team that loads open-weight checkpoints from a third party is in scope, because the edits need no training run and leave standard evaluations passing. Microsoft notes that a trusted publisher could also be compromised through its training infrastructure or an insider.",
+        "whatToDo": "Diff every checkpoint against its declared base model before deployment and after each update, take checkpoints only from the original publisher, and verify published hashes. Microsoft also advises blocking agents from pulling models off public hubs at runtime, adding trigger hunting to red-team plans, and requiring human approval for high-impact tool calls."
+      },
+      "quickFacts": [
+        {
+          "label": "Technique",
+          "value": "Weight editing of dormant neurons, no model training"
+        },
+        {
+          "label": "Payload",
+          "value": "A multi-token command pushed into the residual stream"
+        },
+        {
+          "label": "Example trigger",
+          "value": "The agent's clock passing midnight into 2027"
+        },
+        {
+          "label": "Agent-built detection",
+          "value": "91.4% of held-out edited checkpoints flagged at a 9.7% false-positive rate"
+        },
+        {
+          "label": "Discovery",
+          "value": "Microsoft says Claude Code with Opus 4.5 found most of the technique autonomously"
+        },
+        {
+          "label": "Status",
+          "value": "Research with proposed defenses; Microsoft says Foundry checks provenance and plans model signing"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Has anyone found a Lazarus backdoor in a real model?",
+          "a": "Microsoft Threat Intelligence states it has not observed any threat actors weaponizing the Lazarus technique. The research shows what is possible, not an incident. Microsoft published the write-up and its defender guidance on November 10, 2026, and says model weight integrity now matters for third-party checkpoints and internally built models alike."
+        },
+        {
+          "q": "Do standard evaluations catch a model edited with Lazarus?",
+          "a": "Standard evaluations do not catch it, according to Microsoft: a model backdoored with Lazarus passes them and behaves normally until the trigger appears. Microsoft recommends diffing each checkpoint against its declared base model instead, because implanted edits change a few weight vectors by a large amount while legitimate fine-tunes change weights broadly."
+        },
+        {
+          "q": "How much compute does the Lazarus attack need?",
+          "a": "Lazarus needs only inference-level compute, Microsoft says: a machine with enough memory to run the model has enough resources to backdoor its weights, because the method edits neurons directly instead of training. The authors fitted the edits on 23 trigger and no-trigger trajectories on Nemotron-Terminal-8B."
+        }
+      ],
+      "links": [
+        {
+          "label": "Research Write-Up",
+          "url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/"
+        },
+        {
+          "label": "Lazarus Preprint",
+          "url": "https://github.com/anadim/anadim.github.io/blob/master/papers/Lazarus.pdf"
+        },
+        {
+          "label": "Microsoft Threat Intel",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/10/detecting-sleeper-agents-hiding-in-ai-model-neurons/"
+        },
+        {
+          "label": "Publication Page",
+          "url": "https://www.microsoft.com/en-us/research/publication/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/"
+        }
+      ],
+      "image": {
+        "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2026/11/MSR-BLG_LAZ_HERO.png",
+        "alt": "Lazare, veni foras: Reprogramming Dormant Neurons to Backdoor AI Agents",
+        "credit": "Microsoft Research"
+      },
+      "publishDate": "2026-11-11T00:02:49.197Z"
+    },
+    {
+      "id": "microsoft-mcp-gateway-name-collision-cve",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Microsoft MCP Gateway: a CVSS 8.8 CVE for the name collision flaw",
+      "org": "Microsoft",
+      "date": "2026-11-10",
+      "url": "https://github.com/advisories/GHSA-xgj3-w2cc-qgrq",
+      "summary": "Microsoft assigned CVE-2026-109492, which it rates CVSS 8.8, to an authorization bypass in its open-source MCP Gateway. NVD lists versions before 1.0.0 as affected, the release that fixed the gateway's name collision flaw.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "privilege-escalation",
+        "agent-security",
+        "microsoft"
+      ],
+      "affected": [
+        "Microsoft MCP Gateway"
+      ],
+      "cve": "CVE-2026-109492",
+      "cvss": 8.8,
+      "credits": [
+        {
+          "name": "Microsoft MCP Gateway maintainers",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-109492 is an authorization bypass in Microsoft MCP Gateway that lets one authenticated user reach another user's workloads.",
+        "whatHappened": "Microsoft issued CVE-2026-109492 on November 10, 2026 for MCP Gateway, its open-source reverse proxy that deploys and routes MCP servers on Kubernetes. Microsoft's own record describes an authorization bypass through a user-controlled key and says an authenticated attacker can send crafted network requests to reach another user's resources. No finder is named in the advisory.",
+        "howItWorks": "The gateway runs each adapter and tool as a Kubernetes StatefulSet and Service named after the resource, inside one shared namespace. According to the project's October advisory, creating a resource under a name another object already used still succeeded and made the caller its owner, so later operations acted on the existing object. An adapter named toolgateway could therefore replace the built-in gateway's container image while keeping its service account and secret environment variables, including the shared secret.",
+        "whoIsAffected": "Builds of microsoft/mcp-gateway from main before commit f57c4f0, and latest images published before 2026-10-14, are affected. Exploitation needs an account that is already allowed to create adapters or tools through the management API, which makes multi-tenant deployments the exposed case. Microsoft's record marks the flaw as not exploited.",
+        "whatToDo": "Update to MCP Gateway 1.0.0 or later, which reserves the toolgateway name, requires names to be unique across adapters and tools, and fails creation when the Kubernetes object already exists. Until the update lands, the project advises limiting management API access to trusted users."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-109492"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.8 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H), scored by Microsoft"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-639, authorization bypass through a user-controlled key"
+        },
+        {
+          "label": "Affected",
+          "value": "Versions before 1.0.0, per NVD"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.0.0, commit f57c4f0, 2026-10-14"
+        },
+        {
+          "label": "Impact",
+          "value": "Read another user's pod logs, delete their workloads, take over the built-in tool gateway"
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-xgj3-w2cc-qgrq"
+        },
+        {
+          "label": "Project Advisory",
+          "url": "https://github.com/microsoft/mcp-gateway/security/advisories/GHSA-frpg-5vp2-p974"
+        },
+        {
+          "label": "MCP Gateway Repo",
+          "url": "https://github.com/microsoft/mcp-gateway"
+        }
+      ],
+      "publishDate": "2026-11-11T00:02:49.197Z"
+    },
     {
       "id": "wiz-cyber-model-arena-benchmark",
       "categories": [
