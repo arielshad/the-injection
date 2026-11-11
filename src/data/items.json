@@ -1,7 +1,307 @@
 {
-  "generatedAt": "2026-11-11T11:08:45.945Z",
+  "generatedAt": "2026-11-11T18:28:51.454Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "near-ai-sglang-inference-breach",
+      "categories": [
+        "incident"
+      ],
+      "title": "NEAR AI: an SGLang flaw exposed 100 accounts and 18 agents",
+      "org": "NEAR AI",
+      "date": "2026-11-09",
+      "url": "https://near.ai/blog/security-incident-report-sglang-vulnerability",
+      "summary": "NEAR AI says an attacker exploited a remote code execution flaw in SGLang, the inference engine on its servers, and took account details for about 100 users plus the chat history, settings and logs of 18 legacy agents.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "data-exfiltration",
+        "credential-theft",
+        "sglang",
+        "near-ai"
+      ],
+      "affected": [
+        "SGLang",
+        "NEAR AI Cloud",
+        "NEAR AI Agents"
+      ],
+      "credits": [
+        {
+          "name": "NEAR AI Team",
+          "org": "NEAR AI"
+        }
+      ],
+      "explainer": {
+        "tagline": "NEAR AI reports that an attacker used a remote code execution flaw in SGLang to reach user accounts and legacy agent data.",
+        "whatHappened": "NEAR AI published a security incident report on November 9, 2026, after an attacker exploited a remote code execution vulnerability in SGLang, the open-source inference engine running on its servers. Account details for about 100 users were downloaded, along with the chat history, settings and logs of 18 agents on a legacy deployment. NEAR AI says it reported the vulnerability to the SGLang project.",
+        "howItWorks": "Remote code execution in the inference engine put the attacker inside the process that serves model requests. NEAR AI explains that confidential computing shields data from the host and the operator but not from a flaw in software running inside the enclave, which is what happened here. The 18 affected agents ran on a legacy deployment that sat outside the trusted execution environment altogether. Requests processed on the compromised server on November 8, 2026 could have been observed, including ones sent in confidential mode.",
+        "whoIsAffected": "About 100 NEAR AI user accounts had names and email addresses taken, and some also had plan and balance information downloaded. Eighteen agents on the legacy NEAR AI Agents deployment had their chat history, settings and logs retrieved. Two NEAR AI Cloud customers had API keys exposed in logs.",
+        "whatToDo": "Watch for direct contact from security@near.ai, which NEAR AI says carries the steps for each affected user and agent owner, and treat unsolicited messages that quote your account details or balance as suspect. Operators running SGLang themselves should follow the project's releases, because the report names no CVE and no version numbers."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "SGLang on NEAR AI inference servers"
+        },
+        {
+          "label": "Accounts accessed",
+          "value": "About 100: names and emails, some with plan and balance"
+        },
+        {
+          "label": "Agents accessed",
+          "value": "18, on a legacy deployment outside the TEE"
+        },
+        {
+          "label": "API keys exposed",
+          "value": "Two NEAR AI Cloud customers, since revoked"
+        },
+        {
+          "label": "Attacker activity",
+          "value": "November 8, 2026"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 9, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "SGLang fix deployed to all NEAR AI inference servers; no CVE published"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Was my NEAR AI Private Chat history stolen?",
+          "a": "NEAR AI says it found no indication that stored Private Chat conversations or uploaded files were accessed, and it took Private Chat offline as part of its response. Requests being processed on the compromised inference server on November 8, 2026, including confidential-mode requests, could have been observed, so NEAR AI does not rule out exposure of data in transit that day."
+        },
+        {
+          "q": "Is there a CVE for the SGLang vulnerability NEAR AI reported?",
+          "a": "No CVE appears in NEAR AI's incident report, and the company published no affected or fixed version numbers for SGLang. NEAR AI says it reported the vulnerability to the SGLang project and deployed a fix across all of its own inference servers. Operators running SGLang should follow the project's releases, because the report gives no version to pin to."
+        },
+        {
+          "q": "Did confidential computing fail to protect NEAR AI users?",
+          "a": "Confidential computing worked as designed, according to NEAR AI, which explains that a trusted execution environment protects data from the host and the operator but not from a vulnerability in software running inside it. The remote code execution flaw sat in SGLang, the inference engine inside that environment. The 18 agents whose data was retrieved ran on a legacy deployment that was outside the environment entirely."
+        },
+        {
+          "q": "What did NEAR AI do after the breach?",
+          "a": "NEAR AI revoked all active sessions and administrative credentials, replaced every agent token, took Private Chat offline, and deployed the SGLang fix across all inference servers. The company says it revoked the two exposed NEAR AI Cloud API keys, completed rotation of remaining credentials and a full forensic review, and notified users whose account details or agents were confirmed accessed."
+        }
+      ],
+      "links": [
+        {
+          "label": "NEAR AI Report",
+          "url": "https://near.ai/blog/security-incident-report-sglang-vulnerability"
+        },
+        {
+          "label": "NEAR AI Verification",
+          "url": "https://docs.near.ai/cloud/verification"
+        }
+      ],
+      "image": {
+        "url": "https://near.ai/assets/security-incident-report-cover.webp",
+        "alt": "NEAR AI Security Incident Report: SGLang Vulnerability",
+        "credit": "NEAR AI"
+      },
+      "publishDate": "2026-11-11T18:28:51.454Z"
+    },
+    {
+      "id": "gitguardian-beyond-artex-frameworks",
+      "categories": [
+        "research"
+      ],
+      "title": "Beyond ARTEX: GitGuardian maps 45 agentic pentest frameworks",
+      "org": "GitGuardian",
+      "date": "2026-11-09",
+      "url": "https://blog.gitguardian.com/ai-pentesting-tools-beyond-artex/",
+      "summary": "GitGuardian cataloged about 45 open-source agentic pentest frameworks, sorted 32 into five families, and found 11 of the 41 it fingerprinted serve an operator console on a network port by default.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "artex",
+        "pentagi"
+      ],
+      "affected": [
+        "ARTEX",
+        "PentAGI",
+        "Agent Zero",
+        "Pojun",
+        "Cybermes",
+        "Xalgorix",
+        "AIRecon",
+        "Strix"
+      ],
+      "credits": [
+        {
+          "name": "Cybersecurity research team",
+          "org": "GitGuardian"
+        },
+        {
+          "name": "Guillaume Valadon",
+          "org": "GitGuardian"
+        }
+      ],
+      "explainer": {
+        "tagline": "GitGuardian cataloged about 45 open-source agentic pentest frameworks and published fingerprints so defenders can find exposed consoles.",
+        "whatHappened": "GitGuardian's research team published a catalog of roughly 45 open-source agentic pentest frameworks on November 9, 2026, each one wiring a language model into a loop that runs offensive tools. The team sorted 32 of them into five families and treated the rest as forks or variants. ARTEX's author took that project down on October 8, 2026, 74 days after its first commit, and 102 ARTEX-named repositories and forks appeared in the takedown week alone.",
+        "howItWorks": "Family membership follows what the loop does: network kill chain tools such as PentAGI run recon through post-exploitation from a Kali container, web-app and API tools such as Strix test applications, C2-integrated builds run inside frameworks like Mythic, harnesses wrap a general coding agent with offensive skills, and research prototypes come out of academic work. Only four builds ship a secret scanner wired to the agent, but GitGuardian notes that the shell and web access these tools hand the model puts a scanner download or a GitHub search one improvised tool call away. A lab run published the next day backs that up: an ARTEX build with no scanner used git and grep to recover 8 of 9 planted credentials, including one deleted a commit after it was added, and started hunting 6 to 13 seconds in even under a prompt that never mentioned secrets.",
+        "whoIsAffected": "Operator consoles, not victims, are what the fingerprints find: 11 of the 41 frameworks GitGuardian assessed serve a web UI on a network port by default, 18 do so only in some setups and 12 have no listener at all. On November 7, 2026, Shodan matched 1,428 services in the ARTEX family, 419 PentAGI and 173 Agent Zero, of which 134 sat behind a login and 39 were open. Risk clusters in a few heavily forked bases rather than the most-starred projects: the most-starred tool in the catalog, Strix, ships no secret-hunting code, while Pojun, with fewer than a hundred stars, wires gitleaks into its worker prompt.",
+        "whatToDo": "Hunt for your own exposed consoles first, using the fingerprint descriptions GitGuardian published instead of a target list. Treat every credential reachable from a repository these agents could read as exposed and revoke it rather than deleting it, because the lab run recovered a key from git history one commit after deletion. Scan whole repositories and their history, not only the files at the current commit."
+      },
+      "quickFacts": [
+        {
+          "label": "Frameworks cataloged",
+          "value": "About 45; 32 sorted into five families"
+        },
+        {
+          "label": "Fingerprints written",
+          "value": "56 records across 41 frameworks"
+        },
+        {
+          "label": "Console exposed by default",
+          "value": "11 of 41; 18 in some setups; 12 have no listener"
+        },
+        {
+          "label": "Shodan matches",
+          "value": "ARTEX family 1,428; PentAGI 419; Agent Zero 173, on November 7, 2026"
+        },
+        {
+          "label": "Ship a secret scanner",
+          "value": "Four: Pojun, Cybermes, Xalgorix, AIRecon"
+        },
+        {
+          "label": "ARTEX takedown",
+          "value": "October 8, 2026, 74 days after the first commit"
+        },
+        {
+          "label": "Lab result",
+          "value": "8 of 9 planted credentials found by a build with no scanner"
+        }
+      ],
+      "links": [
+        {
+          "label": "GitGuardian Research",
+          "url": "https://blog.gitguardian.com/ai-pentesting-tools-beyond-artex/"
+        },
+        {
+          "label": "Lab Run On ARTEX",
+          "url": "https://blog.gitguardian.com/an-artex-build-ships-no-secret-scanner-in-our-lab-it-found-the-secrets-anyway/"
+        },
+        {
+          "label": "Censys Exposure Scan",
+          "url": "https://censys.com/blog/artex-agentic-asbestos/"
+        }
+      ],
+      "image": {
+        "url": "https://storage.ghost.io/c/42/5d/425d266f-cf99-406e-9436-597a19bed011/content/images/2026/11/thumbnail-beyond-artex-centered-1--1-.png",
+        "alt": "Beyond ARTEX: 45 AI pentesting tools and how to find them",
+        "credit": "GitGuardian"
+      },
+      "publishDate": "2026-11-11T18:28:51.454Z"
+    },
+    {
+      "id": "gitguardian-claude-code-settings-secrets",
+      "categories": [
+        "vulnerability",
+        "research"
+      ],
+      "title": "Claude Code: 5,343 live secrets in public approval files",
+      "org": "GitGuardian",
+      "date": "2026-11-09",
+      "url": "https://blog.gitguardian.com/claude-code-settings-local-json-secrets-docker-hub/",
+      "summary": "Claude Code approval files on public GitHub hold 31,088 distinct secrets, 5,343 of them still valid when GitGuardian detected them, because choosing Yes, and don't ask again saves the shell command as typed, keys included.",
+      "severity": "medium",
+      "tags": [
+        "credential-theft",
+        "coding-agents",
+        "claude-code",
+        "github",
+        "docker-hub"
+      ],
+      "affected": [
+        "Claude Code",
+        "OpenAI Codex",
+        "GitHub",
+        "Docker Hub"
+      ],
+      "credits": [
+        {
+          "name": "Guillaume Valadon",
+          "org": "GitGuardian"
+        }
+      ],
+      "explainer": {
+        "tagline": "Claude Code saves approved shell commands verbatim, and GitGuardian found 31,088 distinct secrets in those files on public GitHub.",
+        "whatHappened": "GitGuardian published a scan of public GitHub and Docker Hub on November 9, 2026, counting 31,088 distinct secrets in .claude/settings.local.json across 23,276 repositories and 11,336 authors, 5,343 of them still valid at detection. Apiiro reported the same exposure pattern days earlier with a smaller, conservatively filtered count and no validity check. No fix had shipped from Anthropic when GitGuardian published.",
+        "howItWorks": "Answering Yes, and don't ask again to a shell command prompt makes Claude Code save that approval as an allow rule holding the full command as typed, so an API key or a password inside the command is written to disk. Anthropic's own documentation says Claude Code adds the file to the user's global git excludes the first time it writes it, which means a repository that already tracks the file, or a file the developer created by hand, is not covered. Container images built with COPY . . ship the working tree, so git-ignored files travel into the image unless .dockerignore excludes them. GitGuardian scans every public commit as it is pushed, so its count includes versions later deleted or force-pushed away.",
+        "whoIsAffected": "Database credentials are the most valuable of what leaked: 1,955 distinct valid Postgres connection strings, plus valid SSH passwords, MongoDB URIs and Google, Telegram, Resend and DeepSeek keys. Personal email domains account for 15,993 distinct secrets and corporate or custom domains for 5,924 across 3,338 domains, with education, research and software services making up about three-quarters of matched organizations. Other agent files leak too, and their counts sit in the table below. On Docker Hub, 543 image repositories and 7,625 tags carried 613 distinct secrets, 99 of them valid.",
+        "whatToDo": "Rotate every secret an approval file has ever held, because deleting the file does not revoke the credential, then add it to .gitignore and .dockerignore and remove credential-bearing rules through /permissions. Reference secrets as variables and approve narrow command prefixes rather than broad ones such as Bash(curl:*). Treat .claude/, .cursor/, .gemini/, .codex/, .mcp.json and CLAUDE.md as secret-bearing like .env, and scan them at pre-commit, in CI, in git history and in container registries."
+      },
+      "quickFacts": [
+        {
+          "label": "Period scanned",
+          "value": "January 2025 to November 7, 2026"
+        },
+        {
+          "label": "settings.local.json",
+          "value": "31,088 distinct secrets, 23,276 repositories, 5,343 valid"
+        },
+        {
+          "label": "settings.json",
+          "value": "8,271 distinct secrets, 6,839 repositories, 1,283 valid"
+        },
+        {
+          "label": "CLAUDE.md",
+          "value": "6,155 distinct secrets, 2,537 valid"
+        },
+        {
+          "label": "Credential files",
+          "value": ".claude/.credentials.json 1,366 tokens; .codex/auth.json 1,064 tokens"
+        },
+        {
+          "label": "Docker Hub",
+          "value": "613 distinct secrets, 99 valid, across 543 image repositories"
+        },
+        {
+          "label": "Status",
+          "value": "No fix shipped when GitGuardian published"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I check whether my repository leaked a Claude Code secret?",
+          "a": "Search your repository history, not only the files at the current commit, because GitGuardian's companion lab test found just 2 of 9 planted credentials sitting at HEAD. Scan .claude/settings.local.json, .claude/settings.json, .claude/.credentials.json, CLAUDE.md and .codex/auth.json, then extend the same scanning to any container image built from the working tree."
+        },
+        {
+          "q": "Has Anthropic fixed Claude Code's secret-saving behaviour?",
+          "a": "No fix had shipped when GitGuardian published on November 9, 2026. GitGuardian reports that Claude Code lead Boris Cherny said on Hacker News that the team is investigating, that Claude Code has not historically scrubbed secrets, and that an auto mode and built-in secret scanning are being prototyped. Until then, approving a command that contains a credential writes it to disk."
+        },
+        {
+          "q": "Is it enough to delete the Claude Code file from my repository?",
+          "a": "Deleting the file revokes nothing, so rotate every credential it ever held first. GitGuardian scans each public commit as it is pushed, which means its count includes secrets that authors later deleted or force-pushed away, and anyone watching the same stream could have captured them. Add the file to .gitignore and .dockerignore afterwards so it does not return."
+        },
+        {
+          "q": "Why did GitGuardian count far more secrets than Apiiro did?",
+          "a": "The two measured differently, GitGuardian explains. GitGuardian scans every public commit as it is pushed, catching versions later removed, and ran read-only validity checks on its detections. Apiiro used a conservative filter and did not test whether the secrets still worked. GitGuardian also calls its own validity figures floors, because detectors without a checker were not counted as valid."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitGuardian Research",
+          "url": "https://blog.gitguardian.com/claude-code-settings-local-json-secrets-docker-hub/"
+        },
+        {
+          "label": "Claude Code Settings",
+          "url": "https://code.claude.com/docs/en/settings"
+        }
+      ],
+      "image": {
+        "url": "https://storage.ghost.io/c/42/5d/425d266f-cf99-406e-9436-597a19bed011/content/images/size/w1200/2026/11/Claude-Code-settings.local.json--31-088-Secrets-on-GitHub--Copies-in-Docker-Hub.png",
+        "alt": "Claude Code settings.local.json: 31,088 secrets on GitHub, copies in Docker Hub",
+        "credit": "GitGuardian"
+      },
+      "publishDate": "2026-11-11T18:28:51.454Z"
+    },
     {
       "id": "corelight-mcp-dependency-reresolution",
       "categories": [
@@ -3649,6 +3949,10 @@
         {
           "label": "Check Point Summary",
           "url": "https://blog.checkpoint.com/research/inside-artex-how-autonomous-ai-agents-are-being-used-in-real-world-cyberattacks/"
+        },
+        {
+          "label": "Censys Exposure Scan",
+          "url": "https://censys.com/blog/artex-agentic-asbestos/"
         }
       ],
       "image": {

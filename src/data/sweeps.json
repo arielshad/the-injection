@@ -17427,6 +17427,86 @@
         "og-image.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261111t182851z",
+      "timestamp": "2026-11-11T18:28:51.454Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Searched vendor and lab advisories (GitHub Security Advisories, MSRC, Anthropic news, OpenAI, Google safety blog, Hugging Face blog), research groups (Embrace The Red, Zenity Labs, AIR Security, VulnCheck, GitGuardian, Censys, Check Point), paper-scan (60 arXiv candidates in the window, 2 with two signals), repo-scan (13 queries, 4 candidates), talk-scan (no AI-security uploads in the window), github.com/trending, Hacker News front pages for November 5 to 10, OWASP GenAI, UK AISI and r/netsec. Added three items: NEAR AI's SGLang breach report, GitGuardian's catalog of 45 agentic pentest frameworks, and its measurement of live secrets in Claude Code approval files. Logged Censys's parallel ARTEX scan as a link on the existing Check Point item.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "near-ai-sglang-inference-breach",
+          "title": "NEAR AI: an SGLang flaw exposed 100 accounts and 18 agents",
+          "category": "incident",
+          "severity": "high",
+          "note": "First-party incident report, published inside the window, with confirmed data theft after exploitation of an RCE in a widely used inference engine; distinct from the two existing SGLang CVE items, which cover KV-cache poisoning and the debug dumper."
+        },
+        {
+          "id": "gitguardian-beyond-artex-frameworks",
+          "title": "Beyond ARTEX: GitGuardian maps 45 agentic pentest frameworks",
+          "category": "research",
+          "severity": "info",
+          "note": "A census of the whole class of agentic pentest frameworks with published fingerprints, which is a different question from GTIG's report on attackers using four of them and from Check Point's and Censys's ARTEX panel scans."
+        },
+        {
+          "id": "gitguardian-claude-code-settings-secrets",
+          "title": "Claude Code: 5,343 live secrets in public approval files",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Largest validity-checked measurement of credentials leaking through coding-agent approval files, with the mechanism confirmed in Anthropic's own settings documentation; the feed had no item on this exposure."
+        }
+      ],
+      "updated": [
+        {
+          "id": "checkpoint-artex-autopilot-campaigns",
+          "title": "Inside ARTEX: Check Point finds 1,608 live panels and reads 10 of them",
+          "note": "Censys published its own scan of exposed ARTEX consoles the same day, November 5, 2026. Silas Cutler counted 1,465 hosts but estimates only about 815 distinct deployments, because roughly 650 sit in two blocks of identical hosting, so raw panel counts overstate the number of operators. Censys also found 155 hosts (10.6%) running another of its threat detections such as Vshell or Cobalt Strike, and 32 open directories holding post-exploitation kits. Same story as the existing item, so this is a link rather than a new entry."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "github.com/trending",
+        "Anthropic news",
+        "Google safety and security blog",
+        "Hugging Face blog",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security/blog",
+        "vulncheck.com/blog",
+        "blog.gitguardian.com",
+        "censys.com/blog",
+        "near.ai/blog",
+        "arXiv (paper-scan)",
+        "Hugging Face Daily Papers",
+        "repo-scan.json",
+        "talk-scan",
+        "Hacker News front page and Algolia",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "r/netsec",
+        "code.claude.com docs",
+        "IBM support advisories",
+        "NeurIPS 2026 virtual programme"
+      ],
+      "windowDays": 7
     }
   ]
 }
