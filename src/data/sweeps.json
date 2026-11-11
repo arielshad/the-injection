@@ -17339,6 +17339,94 @@
         "Hacker News (front page, newest, Algolia)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261111t110845z",
+      "timestamp": "2026-11-11T11:08:45.945Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories and the November Microsoft release, MSRC, Anthropic, OpenAI, DeepMind, AIR, Zenity, Embrace The Red, Trail of Bits, Wiz, VulnCheck, Socket, JFrog, Corelight, ReversingLabs, HiddenLayer, Lakera, Koi, Check Point, OWASP GenAI, AISI, Hugging Face, Hacker News, github.com/trending, repo-scan (13 queries, 4 candidates), paper-scan (65 arXiv candidates, none with two scanned signals) and talk-scan (53 videos). Added Corelight's measurement of dependency re-resolution under pinned MCP servers, DeepMind's AlphaProof Code verification of Signal's compiled code, and two AI product CVEs from Microsoft's November release: Azure OpenAI CVE-2026-119990 and GitHub Copilot for JetBrains CVE-2026-83953. Left out: the Dagu MCP and Code Graph RAG advisories, whose original maintainer disclosures date to July and August 2026; Zenity's probe post, which distills an October arXiv paper; Adversa's TrustFall research, disclosed in May 2026; the ReversingLabs piece on the Cathedral access to Anthropic's systems, reported on 27 October; and three new repos from repo-scan (onlyread, lasik, silentguard), none of which reached two signals on the repo bar. No talk met the bar: the only AI security conference upload in the window had 5,817 views. openai.com/index returned 403 and reddit.com refused the fetch.",
+      "counts": {
+        "added": 4,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "corelight-mcp-dependency-reresolution",
+          "title": "Corelight: a pinned MCP server ran 15 different dependency sets",
+          "category": "supply-chain",
+          "severity": "info",
+          "note": "Original measurement with counts a defender can act on: pinned MCP servers still re-resolve transitive dependencies, with a tested freezing procedure."
+        },
+        {
+          "id": "deepmind-alphaproof-code-libsignal",
+          "title": "AlphaProof Code: DeepMind agents verify Signal's compiled code in Lean",
+          "category": "research",
+          "severity": "info",
+          "note": "A specific, scoped lab claim: agent-written Lean proofs about the compiled code of a widely deployed protocol, with the artifacts and the exclusions published."
+        },
+        {
+          "id": "azure-openai-missing-authentication-cve",
+          "title": "Azure OpenAI: Microsoft publishes a CVSS 9.8 missing authentication CVE",
+          "category": "vulnerability",
+          "severity": "low",
+          "note": "A CVSS 9.8 missing authentication CVE in a widely used hosted AI service, published this week; rated low because Microsoft fixed it in the service."
+        },
+        {
+          "id": "github-copilot-jetbrains-cve-2026-83953",
+          "title": "GitHub Copilot for JetBrains: a command injection leaks local data",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A patch users must install: the Copilot plugin for JetBrains IDEs is affected below 1.17.0-251."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "cveawg.mitre.org CVE records",
+        "msrc.microsoft.com update guide",
+        "microsoft.com/en-us/msrc/blog",
+        "corelight.com/blog",
+        "deepmind.google/blog",
+        "anthropic.com/news",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "blog.trailofbits.com",
+        "wiz.io/blog",
+        "vulncheck.com/blog",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "hiddenlayer.com research",
+        "lakera.ai/blog",
+        "research.checkpoint.com",
+        "simonwillison.net",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "huggingface.co/blog",
+        "Hacker News front page and Algolia API",
+        "github.com/trending (weekly)",
+        "repo-scan.json",
+        "gh-repo-meta.ts",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "og-image.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

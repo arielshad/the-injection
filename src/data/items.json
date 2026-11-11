@@ -1,7 +1,347 @@
 {
-  "generatedAt": "2026-11-11T03:27:38.979Z",
+  "generatedAt": "2026-11-11T11:08:45.945Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "corelight-mcp-dependency-reresolution",
+      "categories": [
+        "supply-chain",
+        "research"
+      ],
+      "title": "Corelight: a pinned MCP server ran 15 different dependency sets",
+      "org": "Corelight",
+      "date": "2026-11-10",
+      "url": "https://corelight.com/blog/mcp-server-supply-chain-risk",
+      "summary": "Corelight reports that MCP servers started with one-step runners such as uvx and npx resolve their dependencies again on every rebuild, so one server pinned to a single release and commit ran 15 distinct dependency sets in five weeks.",
+      "severity": "info",
+      "tags": [
+        "mcp",
+        "detection",
+        "agent-security",
+        "corelight"
+      ],
+      "affected": [
+        "MCP servers"
+      ],
+      "credits": [
+        {
+          "name": "James Lagermann",
+          "org": "Corelight"
+        }
+      ],
+      "explainer": {
+        "tagline": "Pinning an MCP server's version does not pin the packages it depends on, Corelight reports after watching one server rebuild for five weeks.",
+        "whatHappened": "Corelight published the study on 10 November 2026, written by James Lagermann, its Director of Technical Alliances. The team watched the MCP servers configured on an administrator workstation, then reviewed the recommended install for 35 servers drawn from two vendor catalogs and its own lab. Corelight also published the network and endpoint steps it used to find the pattern, and a freezing procedure it then tested.",
+        "howItWorks": "One-step package runners, uvx for Python and npx for npm, rebuild a server's environment from public registries, and each rebuild resolves the dependency versions again. A pin names the server's release or commit, not the versions of the packages underneath it, so new code arrives with no configuration change and no visible version bump. Because an MCP server loads its dependencies into its own process, a replaced package runs with the server's credentials and reach.",
+        "whoIsAffected": "Hosts that start MCP servers through uvx, npx or an @latest tag are in scope, and Corelight singles out servers, jump hosts and administrator workstations, where these servers often hold credentials for firewalls, SIEMs and sensor management. Of the 35 installs Corelight reviewed, 23 resolved dependencies fresh from a public registry. The measured counts for its own lab server are in the table below.",
+        "whatToDo": "Pin each server to a commit, install it from a hash-pinned lock file into a dedicated environment with hash checking, launch the installed server directly and turn off startup update checks. Corelight reports that five frozen servers then started 457 times over two weeks with identical package lists, so name an owner for scheduled re-locking and vulnerability review, because freezing also holds old code in place."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "MCP servers installed with one-step runners: 23 of the 35 installs reviewed resolved dependencies from a public registry"
+        },
+        {
+          "label": "Measured",
+          "value": "One server pinned to a release and commit ran 15 dependency sets across 19 builds in five weeks"
+        },
+        {
+          "label": "Changed",
+          "value": "23 of that server's 69 packages changed version, including cryptography, a JWT library and the MCP SDK"
+        },
+        {
+          "label": "Attack type",
+          "value": "Supply chain: transitive dependencies re-resolved under a pinned release"
+        },
+        {
+          "label": "Status",
+          "value": "No protocol flaw and no CVE: the exposure is the install method, and Corelight publishes a freezing procedure"
+        },
+        {
+          "label": "Found by",
+          "value": "James Lagermann, Corelight"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does pinning an MCP server version stop its dependencies from changing?",
+          "a": "Pinning an MCP server to a release tag or a commit does not hold its dependencies still, Corelight reports. One-step runners such as uvx and npx resolve the whole dependency tree again whenever they rebuild the environment, so a server pinned to one commit ran 15 distinct dependency sets in five weeks. Hash-pinned lock files and a frozen install are what stop the drift."
+        },
+        {
+          "q": "How can I tell whether my MCP servers rebuild from a public registry?",
+          "a": "Corelight starts from network evidence: find the hosts that query GitHub, PyPI and npm domains, then confirm with TLS server names and with process attribution from endpoint data. Launcher sessions appear as short bursts of roughly 24 KB within about three seconds of each start. Corelight treats registry contact as a lead only, and verifies by reading the installed package list on disk."
+        },
+        {
+          "q": "What does freezing an MCP server install cost?",
+          "a": "Freezing moves a server to a hash-pinned install, which stops silent dependency changes but also pins older code. Corelight reports that 40 packages in its community server lagged behind what the launcher would have pulled, so someone has to own scheduled re-locking and vulnerability review. Frozen servers started faster in its tests, in about two seconds rather than four to eleven."
+        }
+      ],
+      "links": [
+        {
+          "label": "Corelight Research",
+          "url": "https://corelight.com/blog/mcp-server-supply-chain-risk"
+        },
+        {
+          "label": "MCP Network Security",
+          "url": "https://corelight.com/blog/mcp-network-security"
+        },
+        {
+          "label": "JFrog mcp-remote RCE",
+          "url": "https://jfrog.com/blog/2025-6514-critical-mcp-remote-rce-vulnerability/"
+        }
+      ],
+      "publishDate": "2026-11-11T11:08:45.945Z"
+    },
+    {
+      "id": "deepmind-alphaproof-code-libsignal",
+      "categories": [
+        "research",
+        "lab-safety"
+      ],
+      "title": "AlphaProof Code: DeepMind agents verify Signal's compiled code in Lean",
+      "org": "Google DeepMind",
+      "date": "2026-11-10",
+      "url": "https://deepmind.google/blog/introducing-alphaproof-code/",
+      "summary": "Google DeepMind says agents running on Gemini Carbon wrote machine-checked Lean proofs that the compiled libsignal code behind Signal and Google Messages meets four security properties, in four weeks of work.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "gemini",
+        "formal-verification",
+        "signal"
+      ],
+      "affected": [
+        "libsignal",
+        "Signal",
+        "Google Messages"
+      ],
+      "credits": [
+        {
+          "name": "Pushmeet Kohli",
+          "org": "Google DeepMind"
+        },
+        {
+          "name": "Swarat Chaudhuri",
+          "org": "Google DeepMind"
+        }
+      ],
+      "explainer": {
+        "tagline": "AlphaProof Code is Google DeepMind's verification framework whose Gemini agents wrote Lean proofs about the compiled code of Signal's protocol.",
+        "whatHappened": "Google DeepMind introduced AlphaProof Code on 10 November 2026, in a post by Pushmeet Kohli and Swarat Chaudhuri that comes with a technical paper and open-sourced proof artifacts. The team applied it to libsignal-cli, a command-line harness wrapping unmodified libsignal v0.105.4 and SPQR v1.6.0, and reports the work took four weeks where expert teams have historically needed years. DeepMind states this is the first time the implementation of a widely deployed protocol has been formally verified by any method.",
+        "howItWorks": "Human experts choose the properties to prove, specifications are drafted with a mix of models and reviewed by people, and agents running on Gemini Carbon write the proofs in Lean, whose kernel checks each one. The proofs reason about the AArch64 executable rather than the protocol design, using modelled semantics for 467 instructions and 31 system calls. DeepMind reports over six million lines of generated Lean standing on about 26,000 lines of specification and semantics that humans have to trust, alongside cryptographic primitives the proofs assume secure.",
+        "whoIsAffected": "Coverage is narrow and stated in the paper: the init handshake, send and recv for one-to-one sessions, with ten symbolic theorems for forward secrecy, authentication, post-compromise security and handshake secrecy. Signal and Google Messages users have nothing to install. The exclusions are listed below and include key generation and group messaging.",
+        "whatToDo": "Read the published specifications before treating the result as a guarantee, because each theorem holds only for the operations and assumptions the paper lists. Teams that want to try the same approach can take the Lean development and the proofs from the project page, which DeepMind has open-sourced."
+      },
+      "quickFacts": [
+        {
+          "label": "Verified",
+          "value": "libsignal-cli wrapping libsignal v0.105.4 and SPQR v1.6.0, compiled for AArch64 Linux"
+        },
+        {
+          "label": "Properties",
+          "value": "Forward secrecy, authentication, post-compromise security and handshake secrecy, as ten symbolic theorems"
+        },
+        {
+          "label": "Scale",
+          "value": "Over six million lines of agent-written Lean on about 26,000 lines of human-reviewed specification and semantics"
+        },
+        {
+          "label": "Time",
+          "value": "Four weeks, per DeepMind"
+        },
+        {
+          "label": "Validation",
+          "value": "Two previously fixed libsignal bugs were reintroduced, and the system proved the resulting binaries insecure"
+        },
+        {
+          "label": "Not covered",
+          "value": "Key generation, group messaging, multi-device state, more than two parties, quantum attackers in the computational proof"
+        },
+        {
+          "label": "Published by",
+          "value": "Pushmeet Kohli and Swarat Chaudhuri, Google DeepMind"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does AlphaProof Code prove that Signal is secure?",
+          "a": "AlphaProof Code proves named properties of named operations, not blanket security. The Lean theorems cover the handshake, send and recv in one-to-one sessions of libsignal-cli, and they assume Lean's kernel, the modelled AArch64 semantics and idealized cryptographic primitives are sound. Group messaging, multi-device state, key generation and quantum attackers in the computational proof sit outside what DeepMind proved."
+        },
+        {
+          "q": "Which Signal code did Google DeepMind actually verify?",
+          "a": "The target is libsignal-cli, a command-line harness that wraps unmodified libsignal v0.105.4 and SPQR v1.6.0 and is compiled with stock rustc into an AArch64 Linux executable. DeepMind says the proofs therefore reach the compiled code that runs on devices, which is where implementation flaws usually appear, rather than covering the protocol design alone."
+        },
+        {
+          "q": "How did DeepMind test that the proofs catch real bugs?",
+          "a": "DeepMind reintroduced two previously fixed libsignal bugs into an isolated copy of the code, and in both cases the system produced a machine-checked proof that the buggy build violated the symbolic security theorems. Signal's CTO, Ehren Kret, calls the translation of live code into valid Lean theorems a major breakthrough, which is Signal's own assessment rather than an independent review."
+        }
+      ],
+      "links": [
+        {
+          "label": "DeepMind Announcement",
+          "url": "https://deepmind.google/blog/introducing-alphaproof-code/"
+        },
+        {
+          "label": "Technical Paper",
+          "url": "https://deepmind.google/documents/36/Formal_Verification_of_Signal_4.pdf"
+        },
+        {
+          "label": "Proof Artifacts",
+          "url": "https://google-deepmind.github.io/code-verification"
+        }
+      ],
+      "image": {
+        "url": "https://lh3.googleusercontent.com/hn6AiI6lYFo6chi1mL6uJ9nOW9UXfsAKnSyOApiie2urHNU2tmSPUmGn0hNfWyYLRcsWCGjCIrBZSCt1ihZmvW-LDJPfyolsr5w-yvzlknZVzmaH=w1200-h630-n-nu-rw",
+        "alt": "Formal Verification of Signal's Protocol with Gemini",
+        "credit": "Google DeepMind"
+      },
+      "publishDate": "2026-11-11T11:08:45.945Z"
+    },
+    {
+      "id": "azure-openai-missing-authentication-cve",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Azure OpenAI: Microsoft publishes a CVSS 9.8 missing authentication CVE",
+      "org": "Microsoft",
+      "date": "2026-11-10",
+      "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119990",
+      "summary": "Microsoft published CVE-2026-119990 on 10 November 2026, a missing authentication flaw in Azure OpenAI that it scores 9.8 and describes as letting an unauthorized attacker elevate privileges over a network.",
+      "severity": "low",
+      "cve": "CVE-2026-119990",
+      "cvss": 9.8,
+      "tags": [
+        "privilege-escalation",
+        "microsoft",
+        "azure-openai"
+      ],
+      "affected": [
+        "Azure OpenAI"
+      ],
+      "credits": [
+        {
+          "name": "Microsoft Security Response Center",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-119990 is a missing authentication flaw in Azure OpenAI that Microsoft scores 9.8 and records as fixed in a September service build.",
+        "whatHappened": "Microsoft disclosed CVE-2026-119990 on 10 November 2026, naming Azure OpenAI, its hosted service for OpenAI models. Microsoft is the assigning authority, publishes no technical write-up beyond the record, and credits no outside researcher. CISA's enrichment of the record lists exploitation as none, automatable as yes, and the technical impact as total.",
+        "howItWorks": "The weakness is classed as CWE-306, missing authentication for a critical function, and the stated effect is that an unauthorized attacker can elevate privileges over a network. The published vector, AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H, describes a remote caller who needs no privileges and no user interaction, with high impact on confidentiality, integrity and availability. Which function lacked the check is not described anywhere in the record.",
+        "whoIsAffected": "Azure OpenAI is the only product named. The record lists the affected range as service builds from 1.0.0 up to, but not including, hyena-infra-build-official/20260923.14, and tags the product as an exclusively hosted service, so no customer-installable patch exists.",
+        "whatToDo": "No patching work follows for customers, because the fix sits in a Microsoft-operated service build and the record's remediation level reads official fix. Teams that keep a register of AI service CVEs should file this one as an inventory note, and ask Microsoft through support if they need the exposure window for an audit."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Azure OpenAI, the hosted service: builds from 1.0.0 up to hyena-infra-build-official/20260923.14"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-119990, published 10 November 2026, Microsoft as the assigning authority"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.8 base (v3.1), with exploit maturity unproven and remediation level official fix"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authentication for a critical function, CWE-306, leading to elevation of privilege"
+        },
+        {
+          "label": "Status",
+          "value": "Hosted service with no customer action listed; CISA enrichment lists exploitation as none"
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Advisory",
+          "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119990"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-298x-8vc9-pjwx"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-119990"
+        }
+      ],
+      "publishDate": "2026-11-11T11:08:45.945Z"
+    },
+    {
+      "id": "github-copilot-jetbrains-cve-2026-83953",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "GitHub Copilot for JetBrains: a command injection leaks local data",
+      "org": "Microsoft",
+      "date": "2026-11-10",
+      "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83953",
+      "summary": "Microsoft published CVE-2026-83953 on 10 November 2026, a command injection flaw in the GitHub Copilot plugin for JetBrains IDEs that lets a local attacker with low privileges read information. Plugin version 1.17.0-251 fixes it.",
+      "severity": "medium",
+      "cve": "CVE-2026-83953",
+      "cvss": 5.5,
+      "tags": [
+        "coding-agents",
+        "github-copilot",
+        "microsoft",
+        "jetbrains"
+      ],
+      "affected": [
+        "GitHub Copilot for JetBrains"
+      ],
+      "credits": [
+        {
+          "name": "Microsoft Security Response Center",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-83953 is a command injection flaw in the GitHub Copilot plugin for JetBrains IDEs, fixed in plugin version 1.17.0-251.",
+        "whatHappened": "Microsoft published CVE-2026-83953 on 10 November 2026 as part of its November release, naming the GitHub Copilot plugin for JetBrains IDEs. Microsoft is the assigning authority and credits no outside researcher. GitHub's advisory database mirrored the record the same day, where it carries a moderate label and the same score.",
+        "howItWorks": "The weakness is classed as CWE-77, improper neutralization of special elements used in a command, and the stated effect is that an authorized attacker can disclose information locally. The published vector, AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N, means a caller who already has a low-privileged local account, needs no user interaction, and gains high impact on confidentiality only. Which command path accepts the unescaped input is not described.",
+        "whoIsAffected": "Plugin versions from 1.0.0 up to, but not including, 1.17.0-251 are listed as affected, across the JetBrains IDEs the plugin supports. Developer workstations carry the exposure, because the attack is local and the impact is reading data the plugin can reach.",
+        "whatToDo": "Update the GitHub Copilot plugin in every JetBrains IDE to 1.17.0-251 or later, the first version Microsoft lists as unaffected. Shared and multi-user developer hosts deserve the update first, since a low-privileged local account is all the flaw needs."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "GitHub Copilot plugin for JetBrains IDEs, 1.0.0 up to 1.17.0-251"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.17.0-251"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-83953, published 10 November 2026, Microsoft as the assigning authority"
+        },
+        {
+          "label": "CVSS",
+          "value": "5.5 base (v3.1), AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+        },
+        {
+          "label": "Attack type",
+          "value": "Command injection, CWE-77, leading to local information disclosure"
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Advisory",
+          "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83953"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-5pr7-c8pm-c229"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-83953"
+        }
+      ],
+      "publishDate": "2026-11-11T11:08:45.945Z"
+    },
     {
       "id": "reversinglabs-ai-attack-surge-signals",
       "categories": [
