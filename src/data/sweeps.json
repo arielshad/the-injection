@@ -17266,6 +17266,79 @@
         "forcepoint.com X-Labs"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261111t032738z",
+      "timestamp": "2026-11-11T03:27:38.979Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, Anthropic, MSRC, AIR, Zenity, Trail of Bits, Wiz, VulnCheck, Unit 42, Check Point, Socket, JFrog, HiddenLayer, ReversingLabs, Lakera, NCC Group, OWASP GenAI, AISI, CAISI, Hugging Face, Hacker News, GitHub trending, repo-scan (4 candidates), paper-scan (67 papers, 2 with two scanned signals) and talk-scan: added ReversingLabs' AI attack telemetry and the newly published AG2 sandbox CVE. Left out: Notion's disclosure that Fireworks AI exposed Notion AI chat transcripts, because its notice carries no publication date and Fireworks' bulletin has no November update; the Zenity probe post, whose results come from an October arXiv paper; and the DEF CON 34 AI talks, which are below the view bar or already in the feed. openai.com, r/netsec, the Google security blog and web.archive.org did not load in this run.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "reversinglabs-ai-attack-surge-signals",
+          "title": "ReversingLabs: malware calling LLM APIs is rising but still rare",
+          "category": "research",
+          "severity": "info",
+          "note": "First measured telemetry on how often malware references LLM APIs, published inside the window with its own counts and a stated margin, and it corrects the direction of the AI-attack narrative rather than amplifying it."
+        },
+        {
+          "id": "ag2-sandboxshelltool-newline-bypass",
+          "title": "AG2: a newline runs commands past the SandboxShellTool allowlist",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "The CVE and the CVSS 8.8 score were published inside the window for a widely used agent framework, and the advisory shows the autogen package still has no fixed version."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "paper-scan (arXiv + Hugging Face Daily Papers)",
+        "talk-scan (DEF CON, Black Hat, media.ccc.de, SANS, security channels)",
+        "anthropic.com/news",
+        "msrc.microsoft.com/blog",
+        "air.security/blog",
+        "embracethered.com",
+        "labs.zenity.io",
+        "blog.trailofbits.com",
+        "wiz.io/blog",
+        "vulncheck.com/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "hiddenlayer.com research",
+        "reversinglabs.com/blog",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "nccgroup.com research",
+        "simonwillison.net",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, by created)",
+        "Hacker News (front page, newest, Algolia)"
+      ],
+      "windowDays": 7
     }
   ]
 }

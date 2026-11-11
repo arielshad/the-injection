@@ -1,7 +1,173 @@
 {
-  "generatedAt": "2026-11-11T00:02:49.197Z",
+  "generatedAt": "2026-11-11T03:27:38.979Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "reversinglabs-ai-attack-surge-signals",
+      "categories": [
+        "research"
+      ],
+      "title": "ReversingLabs: malware calling LLM APIs is rising but still rare",
+      "org": "ReversingLabs",
+      "date": "2026-11-10",
+      "url": "https://www.reversinglabs.com/blog/the-ai-cyberattack-surge-hasnt-arrived-but-the-warning-signs-are-growing",
+      "summary": "ReversingLabs counted 1,680 high-confidence malicious files that reference LLM APIs between January 1 and October 24, 2026, up from 620 in all of 2025, and calls the counts early signals rather than proof of AI-run intrusions.",
+      "severity": "info",
+      "tags": [
+        "threat-intel",
+        "ai-enabled-offense",
+        "detection"
+      ],
+      "affected": [
+        "LLM APIs"
+      ],
+      "credits": [
+        {
+          "name": "Igor Lasic",
+          "org": "ReversingLabs",
+          "url": "https://www.reversinglabs.com/blog/author/igor-lasic"
+        }
+      ],
+      "explainer": {
+        "tagline": "ReversingLabs file telemetry shows malware referencing LLM APIs growing every year while confirmed AI-run intrusions stay rare.",
+        "whatHappened": "Igor Lasic, SVP of Engineering at ReversingLabs, published the measurement on November 10, 2026, drawing on the company's own file analysis corpus. The post asks whether the predicted wave of AI-run attacks has arrived and answers that it has not, even as the underlying counts climb each year, listed below. Lasic writes that the counts are early signals, not a count of AI-orchestrated intrusions.",
+        "howItWorks": "The measurement is a signature search across files ReversingLabs had already judged malicious, matched on references to LLM API endpoints. A looser second query widened the net, and the files it matched this year averaged about 1.8 endpoint references each. ReversingLabs states that an API reference does not prove model execution, attacker intent or successful exploitation, which is why the narrower high-confidence figure carries a sampling margin.",
+        "whoIsAffected": "Malware triage and detection teams are the audience for these numbers, not users of one named product. The families ReversingLabs names in its data call hosted models at runtime and remain small in volume, in the single or double digits of samples each.",
+        "whatToDo": "Treat an LLM API reference inside a sample as one weak indicator and not as evidence of an AI-run attack. ReversingLabs argues for detection based on behavior instead: in its PHP2Shell work it identified 10 exploit files on or within three days of disclosure, which only 5% to 12% of antivirus engines detected."
+      },
+      "quickFacts": [
+        {
+          "label": "High-confidence files",
+          "value": "Roughly 150 in 2024, 620 in 2025, 1,680 through October 24, 2026"
+        },
+        {
+          "label": "Broader query",
+          "value": "596 in 2024, 3,044 in 2025, 10,821 through October 24, 2026"
+        },
+        {
+          "label": "Endpoint references",
+          "value": "19,601 across the 10,821 files, about 1.8 per file"
+        },
+        {
+          "label": "Named families",
+          "value": "PromptFlux (11 samples), LameHug and LameHubloader (23), PromptSpy (3)"
+        },
+        {
+          "label": "Exploitation rate",
+          "value": "VulnCheck confirmed 14 of 1,061 AI-attributed vulnerabilities exploited in 1H 2026, about 1.3%"
+        },
+        {
+          "label": "Method",
+          "value": "Pooled sample of 160 named detections, 66% qualifying share, about plus or minus 7 points"
+        },
+        {
+          "label": "Author",
+          "value": "Igor Lasic, SVP of Engineering, ReversingLabs"
+        }
+      ],
+      "links": [
+        {
+          "label": "RL Research",
+          "url": "https://www.reversinglabs.com/blog/the-ai-cyberattack-surge-hasnt-arrived-but-the-warning-signs-are-growing"
+        },
+        {
+          "label": "VulnCheck Data",
+          "url": "https://www.vulncheck.com/blog/state-of-exploitation-1h-2026"
+        },
+        {
+          "label": "PHP2Shell Analysis",
+          "url": "https://www.reversinglabs.com/blog/the-sky-is-falling-again-what-php2shell-says-about-ai-the-disclosure-process-and-security"
+        }
+      ],
+      "image": {
+        "url": "https://www.reversinglabs.com/api/media/file/ReversingLabs_Agentic_Threat_Research_Blog-1400x732.webp",
+        "alt": "ReversingLabs cover image for its agentic threat research post",
+        "credit": "ReversingLabs"
+      },
+      "publishDate": "2026-11-11T03:27:38.979Z"
+    },
+    {
+      "id": "ag2-sandboxshelltool-newline-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AG2: a newline runs commands past the SandboxShellTool allowlist",
+      "org": "AG2",
+      "date": "2026-11-10",
+      "url": "https://github.com/advisories/GHSA-2h4w-29cv-2cmv",
+      "summary": "CVE-2026-113663 carries a CVSS 8.8 score for a newline that defeats the command allowlist in AG2's SandboxShellTool. AG2 1.1.1 fixes it, and the advisory lists no fixed version for the autogen package.",
+      "severity": "medium",
+      "cve": "CVE-2026-113663",
+      "cvss": 8.8,
+      "tags": [
+        "sandbox-escape",
+        "rce",
+        "indirect-prompt-injection",
+        "ag2",
+        "autogen"
+      ],
+      "affected": [
+        "AG2",
+        "AutoGen"
+      ],
+      "credits": [
+        {
+          "name": "elstati0n"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-113663 is a CVSS 8.8 flaw that lets a newline carry a second command past AG2's SandboxShellTool allowlist.",
+        "whatHappened": "The GitHub Advisory Database published and reviewed CVE-2026-113663 for AG2 on November 10, 2026, after the National Vulnerability Database published the record on November 5. The AG2 maintainers had disclosed the flaw in the project's own advisory on September 29, 2026, crediting the reporter elstati0n, and shipped the fix in AG2 1.1.1 the same day.",
+        "howItWorks": "SandboxShellTool enforced both of its restricted modes, an explicit allowlist and readonly mode, through a single filter that looked for shell operators. That list left out the newline and carriage return characters, and the command then ran through sh -c, which treats a newline as a statement separator in the same way as a semicolon. A command that opens with an allowed program and continues on a second line therefore passed the check, and both statements ran. The default LocalEnvironment backend provides no isolation, so the second command ran on the host.",
+        "whoIsAffected": "Deployments that hand an agent SandboxShellTool in allowlist or readonly mode are the exposed ones, because those are the modes the filter was meant to enforce. Both the ag2 and the autogen packages are in scope, in the version ranges listed below, and the advisory records no fixed version for autogen.",
+        "whatToDo": "Update ag2 to 1.1.1, whose release notes say restricted mode now splits the command into an argument list and runs it without a shell, and which also drops find, file, sort, uniq and git from the built-in readonly set. Because the advisory lists no fixed autogen version, treat that package's allowlist and readonly modes as unenforced rather than as a security boundary."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-113663"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.8 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)"
+        },
+        {
+          "label": "Affected",
+          "value": "ag2 from 0.13.2 up to 1.1.1; autogen from 0.13.2 through 0.14.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "ag2 1.1.1; no fixed version listed for autogen"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-78 OS command injection, CWE-184 incomplete list of disallowed inputs"
+        },
+        {
+          "label": "Disclosed",
+          "value": "September 29, 2026 in ag2ai/ag2; NVD record November 5, 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "elstati0n"
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-2h4w-29cv-2cmv"
+        },
+        {
+          "label": "Project Advisory",
+          "url": "https://github.com/ag2ai/ag2/security/advisories/GHSA-2h4w-29cv-2cmv"
+        },
+        {
+          "label": "AG2 1.1.1 Release",
+          "url": "https://github.com/ag2ai/ag2/releases/tag/v1.1.1"
+        }
+      ],
+      "publishDate": "2026-11-11T03:27:38.979Z"
+    },
     {
       "id": "microsoft-lazarus-dormant-neuron-backdoor",
       "categories": [
