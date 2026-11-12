@@ -1,7 +1,338 @@
 {
-  "generatedAt": "2026-11-12T00:16:15.195Z",
+  "generatedAt": "2026-11-12T08:03:48.567Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "aws-mcp-gateway-registry-ssrf-admin-escalation",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "MCP Gateway Registry: an SSRF and a path to registry admin",
+      "org": "AWS",
+      "date": "2026-11-11",
+      "url": "https://aws.amazon.com/security/security-bulletins/2026-180-aws/",
+      "summary": "AWS disclosed two MCP Gateway & Registry flaws on November 11: a user who can register servers could make the gateway call internal addresses, and a low-privileged user could map themselves to the registry administrator scope.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "privilege-escalation",
+        "agent-security",
+        "aws"
+      ],
+      "affected": [
+        "MCP Gateway & Registry",
+        "mcp-gateway-registry"
+      ],
+      "cve": "CVE-2026-125926",
+      "credits": [
+        {
+          "name": "novice-22"
+        }
+      ],
+      "explainer": {
+        "tagline": "AWS published two MCP Gateway & Registry flaws on one day: a registration SSRF fixed in 1.35.0 and an admin escalation fixed in 1.25.0.",
+        "whatHappened": "AWS published bulletins 2026-180 and 2026-179 on November 11, 2026, covering two flaws in the MCP Gateway & Registry, the open-source gateway that brokers agent and assistant access to MCP servers. AWS credits the external researcher novice-22 for both, through coordinated disclosure. One fix shipped in version 1.25.0 and the other in 1.35.0, whose release page is dated October 29, 2026.",
+        "howItWorks": "The registry did not validate the upstream address of a registered server, so a user with permission to register or modify servers could point it at internal services and, in some cases, read the responses. The second flaw sat in the external management API, where the /api/servers/* endpoints checked that a caller was authenticated but never that the caller was authorized. A POST to /api/servers/groups/import therefore let a low-privileged user map their own identity-provider group to the registry administrator scope, and AWS says the new mapping took effect on that user's next request with no re-authentication.",
+        "whoIsAffected": "The request forgery covers the version range listed below, which reaches up to 1.34.0, and the authorization bypass covers an earlier range ending at 1.24.7. AWS notes that a deployment already running 1.25.0 or later, which closed the authorization bypass, stays exposed to the request forgery until it reaches 1.35.0.",
+        "whatToDo": "Upgrade to 1.35.0 or later, then review the upstream addresses of registered servers and check the mcp_scopes collection for group mappings nobody created on purpose. AWS says upgrading does not remove privileged mappings added while an affected version ran, and advises auditing HTTP logs for the exposure period and rotating registry-managed and attached cloud role credentials where unexpected access cannot be ruled out."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "1.0.3 to 1.34.0 (SSRF); 1.0.9 to 1.24.7 (authorization bypass)"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.35.0 (SSRF); 1.25.0 (authorization bypass)"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-125926, CVE-2026-100307"
+        },
+        {
+          "label": "Found by",
+          "value": "novice-22, coordinated disclosure"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 11, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Server-side request forgery; authorization bypass"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which MCP Gateway & Registry version fixes CVE-2026-125926?",
+          "a": "Version 1.35.0 fixes CVE-2026-125926. AWS says the release validates upstream addresses when a server is registered or modified, and that every version from 1.0.3 through 1.34.0 is affected. Running 1.25.0 or later is not enough on its own, because that earlier release closed a separate authorization flaw and left the request forgery in place."
+        },
+        {
+          "q": "Does upgrading undo the privilege escalation in CVE-2026-100307?",
+          "a": "Upgrading does not undo it. AWS states that moving to 1.25.0 or later stops new abuse but leaves behind any privileged group mappings created while an affected version was running, and does not invalidate credentials read beforehand. AWS advises reviewing the mcp_scopes collection, auditing HTTP logs for the exposure period, and rotating registry-managed credentials where unintended access cannot be ruled out."
+        },
+        {
+          "q": "Who can exploit the MCP Gateway & Registry request forgery?",
+          "a": "An authenticated user who already holds permission to register or modify servers can exploit it. AWS describes the result as the gateway sending requests to internal network services, with responses reaching the caller in some cases. As interim controls, AWS suggests limiting registration rights to trusted accounts, restricting outbound network access from the registry and auth server, and requiring IMDSv2 on EC2."
+        }
+      ],
+      "links": [
+        {
+          "label": "AWS Bulletin 2026-180",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-180-aws/"
+        },
+        {
+          "label": "AWS Bulletin 2026-179",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-179-aws/"
+        },
+        {
+          "label": "Release 1.35.0",
+          "url": "https://github.com/agentic-community/mcp-gateway-registry/releases/tag/1.35.0"
+        }
+      ],
+      "publishDate": "2026-11-12T08:03:48.567Z"
+    },
+    {
+      "id": "microsoft-mdash-linux-kernel-reports",
+      "categories": [
+        "research"
+      ],
+      "title": "MDASH: Microsoft's AI scanner behind 33 Linux kernel CVEs",
+      "org": "Microsoft",
+      "date": "2026-11-11",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/11/lessons-from-59-linux-kernel-bug-reports/",
+      "summary": "Microsoft's FORGE Lab reports that an AI scanning system it codenames MDASH drove 59 upstream Linux kernel bug reports and 33 assigned CVEs in three months, with working root privilege-escalation exploits confirmed for eight.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "microsoft",
+        "linux-kernel"
+      ],
+      "affected": [
+        "Linux kernel"
+      ],
+      "credits": [
+        {
+          "name": "Cen Zhang",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Microsoft FORGE Lab",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "Microsoft reports that an AI scanning run against the Linux kernel produced 33 CVEs, and that human review, not the scanner, was the bottleneck.",
+        "whatHappened": "Microsoft published a FORGE Lab write-up on November 11, 2026, bylined to Cen Zhang and the FORGE Lab team, on a three-month effort to find Linux kernel bugs with AI. The post says the team used a system codenamed MDASH to scan kernel subsystems including networking, filesystems and security modules. A companion FORGE Lab post describes MDASH as an AI-powered vulnerability-scanning system whose findings also feed a Microsoft Defender capability.",
+        "howItWorks": "MDASH scanned subsystems and emitted confidence-rated findings, which were screened and then passed to a proof-of-concept step that had to actually run a candidate bug before it counted as evidence. Four frontier models, named below, did the scanning and proof-of-concept work. The funnel narrowed sharply at every stage, and Microsoft says human validation and patching, not scanning, was the limiting step.",
+        "whoIsAffected": "Linux kernel users are affected through the CVEs counted below, and Microsoft confirms working root privilege-escalation exploits for eight of them. One example is CVE-2026-64563, a use-after-free in the rhashtable library: Microsoft traces it to a 2018 change that left a stale iterator pointer, and says an unprivileged user can reach it through Netlink socket diagnostics and turn it into a constrained kernel write.",
+        "whatToDo": "Apply kernel fixes as your distribution ships them, and take the High-rated CVEs from this batch first. Microsoft reports that most of the 59 upstream reports already have fixes merged into mainline, which leaves the remainder still moving through maintainers."
+      },
+      "quickFacts": [
+        {
+          "label": "Raw findings",
+          "value": "26,502 in about two weeks"
+        },
+        {
+          "label": "Screened candidates",
+          "value": "11,769"
+        },
+        {
+          "label": "With PoC evidence",
+          "value": "621"
+        },
+        {
+          "label": "CVEs",
+          "value": "33 assigned, 24 rated High or above"
+        },
+        {
+          "label": "Fixes merged",
+          "value": "38 of 59 reports"
+        },
+        {
+          "label": "Average bug age",
+          "value": "8.1 years; oldest at least 21"
+        },
+        {
+          "label": "Models used",
+          "value": "Sonnet 4.6, GPT-5.4, GPT-5.5, Opus 4.6"
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Write-Up",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/11/lessons-from-59-linux-kernel-bug-reports/"
+        },
+        {
+          "label": "FORGE Lab on Rust",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/09/forge-lab-uses-agentic-tools-to-identify-memory-safety-issues-in-rust/"
+        }
+      ],
+      "publishDate": "2026-11-12T08:03:48.567Z"
+    },
+    {
+      "id": "aws-api-mcp-server-operation-name-policy-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AWS API MCP Server: consecutive capitals void a deny rule",
+      "org": "AWS",
+      "date": "2026-11-10",
+      "url": "https://aws.amazon.com/security/security-bulletins/2026-176-aws/",
+      "summary": "The AWS API MCP Server normalized operation names incorrectly before checking them against the operator's policy, so AWS says operations with consecutive capital letters never matched a correctly written denyList or elicitList entry.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "approval-bypass",
+        "agent-security",
+        "aws"
+      ],
+      "affected": [
+        "AWS API MCP Server",
+        "awslabs.aws-api-mcp-server (PyPI)"
+      ],
+      "cve": "CVE-2026-125271",
+      "credits": [
+        {
+          "name": "Syed Anas Mohiuddin"
+        }
+      ],
+      "explainer": {
+        "tagline": "A naming quirk silently voided deny and elicit rules in the AWS API MCP Server, so an agent could run AWS operations an operator had blocked.",
+        "whatHappened": "AWS published bulletin 2026-176 on November 10, 2026 for CVE-2026-125271 in the AWS API MCP Server, the server that lets an AI assistant run AWS CLI commands. Syed Anas Mohiuddin reported it through coordinated disclosure. PyPI dates the fixed release, 1.5.1, to August 10, 2026, three months before the bulletin appeared.",
+        "howItWorks": "Operation names were normalized the wrong way before the policy check ran, so a name holding consecutive capital letters never matched the operator's entry for it. AWS states that a correctly written denyList or elicitList entry for such an operation therefore had no effect at all. The call went through instead of being denied or held for elicitation, and nothing in the exchange marked the rule as skipped.",
+        "whoIsAffected": "Operators running the version range listed below, which ends just short of 1.5.1, are affected. PyPI also marks the package as superseded by the official AWS MCP server and points to a migration guide, so some of the exposed installs are running past their replacement.",
+        "whatToDo": "Upgrade awslabs.aws-api-mcp-server to 1.5.1 or later; AWS says there is no workaround, and that forked or derivative code has to be patched separately. Then re-test any denyList or elicitList entry whose operation name contains consecutive capital letters, to confirm the rule now matches."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "awslabs.aws-api-mcp-server 0.2.13 up to 1.5.1"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.5.1"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-125271"
+        },
+        {
+          "label": "Found by",
+          "value": "Syed Anas Mohiuddin"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 10, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Security policy bypass"
+        }
+      ],
+      "links": [
+        {
+          "label": "AWS Bulletin 2026-176",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-176-aws/"
+        },
+        {
+          "label": "PyPI Package",
+          "url": "https://pypi.org/project/awslabs.aws-api-mcp-server/"
+        }
+      ],
+      "publishDate": "2026-11-12T08:03:48.567Z"
+    },
+    {
+      "id": "aws-kiro-cli-transcript-file-permissions",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Kiro CLI: other local users could read agent transcripts",
+      "org": "AWS",
+      "date": "2026-11-10",
+      "url": "https://aws.amazon.com/security/security-bulletins/2026-178-aws/",
+      "summary": "Kiro CLI wrote session transcripts and prompt history with permissions that let any other local user on the same macOS or Linux host read them, including any credentials or source code a session touched.",
+      "severity": "medium",
+      "tags": [
+        "coding-agents",
+        "credential-theft",
+        "agent-security",
+        "aws"
+      ],
+      "affected": [
+        "Kiro CLI",
+        "Amazon Q Developer CLI"
+      ],
+      "cve": "CVE-2026-124848",
+      "credits": [
+        {
+          "name": "AWS Security",
+          "org": "Amazon Web Services"
+        }
+      ],
+      "explainer": {
+        "tagline": "Kiro CLI left its session transcripts and prompt history readable by every other user account on the same Linux or macOS machine.",
+        "whatHappened": "AWS published bulletin 2026-178 on November 10, 2026 for CVE-2026-124848 in Kiro CLI, its coding agent, formerly Amazon Q Developer CLI. AWS states that the files recording a session could be read by other local users on the same macOS or Linux host. The Kiro CLI 2.27.0 changelog, dated October 1, 2026, describes the change only as tightening access to local Kiro state, and names no CVE.",
+        "howItWorks": "Kiro CLI created its session transcript and prompt history files with permissions open to other accounts on the host, instead of restricting them to the owner. AWS says the contents can include prompts, model responses and tool output, so any credential or snippet of source that passed through a session sat in a world-readable file. Nothing had to be misconfigured for the files to be written that way.",
+        "whoIsAffected": "The affected Kiro CLI range on macOS and Linux is listed below, along with a separate older file left by Amazon Q Developer CLI. A host where the agent's user is the only account has no second local reader, so the practical exposure is shared build machines, jump hosts and multi-user developer servers.",
+        "whatToDo": "Upgrade to Kiro CLI 2.27.0 or later and launch it once, which AWS says restricts session files written earlier to their owner. Delete or owner-restrict the old Amazon Q history file, and rotate any credential that appeared in a session on a shared host. Without an upgrade, AWS suggests running chmod -R go-rwx on ~/.kiro and setting umask 077 before launch."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Kiro CLI 1.16.0 up to 2.27.0, macOS and Linux"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Kiro CLI 2.27.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-124848"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 10, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed; one relaunch repairs existing session files"
+        },
+        {
+          "label": "Attack type",
+          "value": "Incorrect default file permissions"
+        },
+        {
+          "label": "Also check",
+          "value": "~/.aws/amazonq/.cli_bash_history from Amazon Q Developer CLI 1.16.0 to 1.19.x"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Kiro CLI patched against CVE-2026-124848?",
+          "a": "Kiro CLI 2.27.0 fixes CVE-2026-124848, and AWS says launching the agent once after upgrading restricts session files written earlier to their owner. Versions from 1.16.0 up to 2.27.0 are affected on macOS and Linux. AWS adds that forked or derivative code has to be patched separately, so an internal build of the agent does not inherit the fix."
+        },
+        {
+          "q": "What was readable in the Kiro CLI session files?",
+          "a": "Session transcripts and prompt history were readable, which AWS says can hold prompts, model responses, tool output, and any credentials or source code that appeared in them. The exposure is local: another user account on the same macOS or Linux host could open the files. A machine with a single user account has no second local reader."
+        },
+        {
+          "q": "How do I restrict Kiro CLI files without upgrading?",
+          "a": "AWS gives two workarounds. Run chmod -R go-rwx on ~/.kiro to restrict the existing directory, and set umask 077 before launching Kiro CLI so new files are created owner-only. Anyone who used Amazon Q Developer CLI 1.16.0 through 1.19.x should also run chmod go-rwx on the old bash history file, or delete it."
+        }
+      ],
+      "links": [
+        {
+          "label": "AWS Bulletin 2026-178",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-178-aws/"
+        },
+        {
+          "label": "Kiro CLI 2.27 Changelog",
+          "url": "https://kiro.dev/changelog/cli/2-27"
+        }
+      ],
+      "publishDate": "2026-11-12T08:03:48.567Z"
+    },
     {
       "id": "microsoft-vscode-1-145-3-mcp-agent-cves",
       "categories": [

@@ -17574,6 +17574,93 @@
         "NVD"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261112t080348z",
+      "timestamp": "2026-11-12T08:03:48.567Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, AWS security bulletins, MSRC and the Microsoft Security blog, Anthropic, OpenAI, DeepMind and the Google Cloud security blog, AIR, Zenity Labs, Embrace The Red, Wiz, VulnCheck, Trail of Bits, Check Point, HiddenLayer, Socket, JFrog, ReversingLabs, Elastic, Lakera, OWASP GenAI, UK AISI, Hugging Face, Hacker News, github.com/trending, repo-scan (13 queries, 4 candidates), paper-scan (56 arXiv candidates, 2 with two scanned signals) and talk-scan (53 videos, 21 channels read). Added three newly disclosed AWS flaws in AI tooling (two MCP Gateway & Registry CVEs, the AWS API MCP Server policy bypass and the Kiro CLI transcript permissions CVE) plus Microsoft FORGE Lab's Linux kernel scanning report. Left out: the IBM ContextForge MCP Gateway slug-collision CVE, an authenticated availability-only issue; the Dagu MCP, Code Graph RAG and fast-agent advisories, whose original disclosures predate the window; the two papers with two signals (GuardrailAgent is already in the feed, SkillCODER is a copyright-attribution study); Google's Mantis harness, announced in September; and three repo-scan candidates plus the trending cloudflare/security-audit-skill and herdr repos, all created before the window or failing the repo bar. The DEF CON 34 AI talks uploaded on November 7 stay out: the two strongest are already in the feed as their own items, and the rest sit below the view bar. openai.com/index returned 403 and both nvd.nist.gov and cve.org render through JavaScript, so CVE detail came from the AWS bulletins and GitHub Security Advisories instead.",
+      "counts": {
+        "added": 4,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "aws-mcp-gateway-registry-ssrf-admin-escalation",
+          "title": "MCP Gateway Registry: an SSRF and a path to registry admin",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Two CVEs disclosed on November 11 in the gateway that brokers agent access to MCP servers, one still needing an upgrade to 1.35.0 and one leaving privileged group mappings behind after the fix."
+        },
+        {
+          "id": "aws-api-mcp-server-operation-name-policy-bypass",
+          "title": "AWS API MCP Server: consecutive capitals void a deny rule",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A deny rule that silently never matched is worth knowing for anyone who wrote one: operators believed they had blocked AWS operations they had not."
+        },
+        {
+          "id": "aws-kiro-cli-transcript-file-permissions",
+          "title": "Kiro CLI: other local users could read agent transcripts",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A named CVE in a mainstream coding agent where the leaked material is the session itself, with concrete defender steps and an older Amazon Q history file to clean up."
+        },
+        {
+          "id": "microsoft-mdash-linux-kernel-reports",
+          "title": "MDASH: Microsoft's AI scanner behind 33 Linux kernel CVEs",
+          "category": "research",
+          "severity": "info",
+          "note": "Measured output of an AI vulnerability scanner at kernel scale, including the maintainer-review bottleneck, and distinct from the FORGE Lab Rust post already in the feed."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "AWS security bulletins",
+        "Microsoft Security blog",
+        "MSRC blog",
+        "anthropic.com/news",
+        "Google Cloud security blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "wiz.io/blog",
+        "vulncheck.com/blog",
+        "blog.trailofbits.com",
+        "research.checkpoint.com",
+        "hiddenlayer.com/innovation-hub",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "elastic.co/security-labs",
+        "lakera.ai/blog",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "huggingface.co/blog",
+        "Hacker News (front page and Algolia API)",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts",
+        "pypi.org",
+        "kiro.dev/changelog"
+      ],
+      "windowDays": 7
     }
   ]
 }
