@@ -17661,6 +17661,83 @@
         "kiro.dev/changelog"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261112t163426z",
+      "timestamp": "2026-11-12T16:34:26.225Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Searched vendor and lab advisories (GitHub Security Advisories, AWS security bulletins, Opera, MSRC, Anthropic news, OpenAI, Google security blog, Hugging Face blog), research groups (Unit 42, Check Point Research, Wiz, VulnCheck, JFrog, ReversingLabs, Zenity Labs, AIR Security, Trail of Bits, HiddenLayer, Socket, Simon Willison), paper-scan (52 arXiv candidates in the window, none with two scanned signals), repo-scan (13 queries, 4 candidates), talk-scan, github.com/trending, Hacker News front page and newest, and OWASP GenAI. Added three items: Unit 42's CL-STA-1238 report on a forked Cairn framework, the LLM 0.37.2 OpenAI key disclosure reported by Daniel de Araujo, and Opera's CVE-2026-123139 for Neon's MCP Hub.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "unit42-cairn-cl-sta-1238",
+          "title": "CL-STA-1238: a forked Cairn framework breached 10 of 19 targets",
+          "category": "incident",
+          "severity": "info",
+          "note": "First write-up of a distinct China-nexus campaign using Cairn, published today; the existing Cairn items cover exposed panels and a separate e-commerce campaign, not CL-STA-1238."
+        },
+        {
+          "id": "llm-cli-openai-key-custom-endpoint-leak",
+          "title": "LLM 0.37.2: the CLI could send your OpenAI key to another provider",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Two GitHub advisories and a fixed release inside the window for a widely used LLM CLI, with the reporter named on the maintainer's own announcement."
+        },
+        {
+          "id": "opera-neon-mcp-hub-browser-operator",
+          "title": "Opera Neon: an installed extension can drive the browser agent",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Vendor advisory published today for an AI browser agent: MCP Hub does not check which extension sent a command, so an installed extension can drive Browser Operator."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "AWS security bulletins",
+        "security.opera.com advisories",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "Hugging Face blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "wiz.io/blog",
+        "vulncheck.com/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "labs.zenity.io",
+        "air.security/blog",
+        "blog.trailofbits.com",
+        "hiddenlayer.com",
+        "socket.dev/blog",
+        "simonwillison.net",
+        "embracethered.com",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan",
+        "Hacker News front page and newest",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute"
+      ],
+      "windowDays": 7
     }
   ]
 }
