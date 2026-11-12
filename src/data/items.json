@@ -1,7 +1,201 @@
 {
-  "generatedAt": "2026-11-12T16:34:26.225Z",
+  "generatedAt": "2026-11-12T22:43:40.798Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "arctic-wolf-antifox-aws-secrets",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "AntiFox: an agentic pentest platform reached a live AWS secret",
+      "org": "Arctic Wolf",
+      "date": "2026-11-10",
+      "url": "https://github.com/rtkwlf/wolf-tools/tree/main/pack_alerts/202611-antifox-alibaba-hosted-platforms-facilitate-web-cloud-intrusions",
+      "summary": "Arctic Wolf Labs ties self-hosted AntiFox consoles on Alibaba Cloud to real intrusions: a web shell on an IIS server, then valid AWS keys sweeping services until one GetSecretValue call on a production secret succeeded.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "antifox",
+        "aws",
+        "alibaba-cloud"
+      ],
+      "affected": [
+        "Amazon Web Services",
+        "AWS Secrets Manager",
+        "Amazon S3",
+        "Microsoft IIS",
+        "AntiFox"
+      ],
+      "credits": [
+        {
+          "name": "Arctic Wolf Labs",
+          "org": "Arctic Wolf",
+          "url": "https://arcticwolf.com/labs/"
+        }
+      ],
+      "explainer": {
+        "tagline": "AntiFox, an open-source agentic pentesting platform, was used in intrusions that read a production AWS secret, Arctic Wolf Labs reports.",
+        "whatHappened": "Arctic Wolf Labs published an alert on November 10, 2026 about intrusions it links to AntiFox, an open-source, Chinese-language agentic penetration testing platform. The team found Alibaba Cloud systems running AntiFox web consoles connected to attacks on internet-facing web services and on the AWS accounts behind them. Arctic Wolf names no victims.",
+        "howItWorks": "Two entry paths appear in the alert. In one, a compromised IIS application let the w3wp.exe worker process write an ASPX web shell, which then read web.config files and connection strings and copied configuration and log files into a web-accessible upload directory. In the other, the operator already held a valid AWS credential and used it for List, Get and Describe calls across unrelated services. Arctic Wolf describes one source rotating through several AWS identities and making hundreds of cross-service requests in about 30 minutes.",
+        "whoIsAffected": "Exposure here sits with organizations running internet-facing IIS applications and AWS accounts that issue long-lived credentials, not with users of any AI product. Arctic Wolf did not identify the vulnerability behind the web compromise, and says the AWS credential in the second path was obtained by unknown means.",
+        "whatToDo": "Alert on a successful GetSecretValue that follows a burst of denied calls, and on AWS API activity from hosting-provider networks never before tied to that identity. Arctic Wolf also advises watching for w3wp.exe spawning cmd.exe or powershell.exe, rotating credentials found in configuration files, deployment artifacts and debug logs, and enforcing IMDSv2 with least-privilege policies."
+      },
+      "quickFacts": [
+        {
+          "label": "Reported by",
+          "value": "Arctic Wolf Labs, November 10, 2026"
+        },
+        {
+          "label": "Framework",
+          "value": "AntiFox, an open-source agentic pentesting platform"
+        },
+        {
+          "label": "Hosting",
+          "value": "Alibaba Cloud systems running the AntiFox console"
+        },
+        {
+          "label": "Entry points",
+          "value": "A compromised IIS application, or a valid AWS credential of unknown origin"
+        },
+        {
+          "label": "What succeeded",
+          "value": "GetSecretValue on a production secret; S3 GetObject, CopyObject and DeleteObject"
+        },
+        {
+          "label": "Pace",
+          "value": "Hundreds of cross-service AWS calls in about 30 minutes"
+        },
+        {
+          "label": "Indicators",
+          "value": "Console on TCP/8787, Boto3/1.43.125 and Botocore/1.43.125 user agents"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does the AntiFox activity mean AWS itself was breached?",
+          "a": "No. Arctic Wolf Labs describes intrusions into customer environments, reached either through a compromised IIS application or through a valid AWS credential obtained by unknown means. The successful GetSecretValue call used a customer identity rather than a flaw in an AWS service. Arctic Wolf does not identify the vulnerability behind the web compromise, and does not name the organizations involved."
+        },
+        {
+          "q": "How can defenders spot AntiFox-style AWS enumeration?",
+          "a": "Arctic Wolf advises alerting when one source address uses several access keys, IAM users or assumed roles in a short window, and on fast List, Get and Describe sequences across unrelated services from Boto3 or Botocore. The alert stresses not dismissing such a burst because most calls were denied, because successful calls sit between the denials."
+        },
+        {
+          "q": "Which indicators did Arctic Wolf publish for AntiFox?",
+          "a": "Arctic Wolf lists two source addresses, a web console on TCP/8787, a banner hash, and the Boto3/1.43.125 and Botocore/1.43.125 user agents. On Windows hosts the alert names w3wp.exe spawning cmd.exe, powershell.exe or where.exe, along with new .aspx files and copied configuration and log text files in web-accessible upload directories."
+        }
+      ],
+      "links": [
+        {
+          "label": "Arctic Wolf Alert",
+          "url": "https://github.com/rtkwlf/wolf-tools/tree/main/pack_alerts/202611-antifox-alibaba-hosted-platforms-facilitate-web-cloud-intrusions"
+        },
+        {
+          "label": "CSA Research Note",
+          "url": "https://labs.cloudsecurityalliance.org/research/csa-research-note-antifox-agentic-cloud-intrusions-20261112/"
+        }
+      ],
+      "publishDate": "2026-11-12T22:43:40.798Z"
+    },
+    {
+      "id": "microsoft-aspire-cli-agent-init-temp-log",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Aspire CLI: agent setup wrote config to a shared temp log",
+      "org": "Microsoft",
+      "date": "2026-11-10",
+      "url": "https://github.com/advisories/GHSA-q6jf-24jf-m3cg",
+      "summary": "Aspire CLI's agent and MCP setup command wrote configuration paths, configuration content and scan diagnostics to a log file at a fixed path in the shared temporary directory, where any other local user on Linux or macOS could read it.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "agent-security",
+        "aspire",
+        "microsoft",
+        "dotnet"
+      ],
+      "affected": [
+        "Aspire CLI",
+        "@microsoft/aspire-cli (npm)",
+        "Aspire.Cli (NuGet)"
+      ],
+      "cve": "CVE-2026-120792",
+      "cvss": 7.3,
+      "credits": [
+        {
+          "name": "l8BL",
+          "org": "ENKI WhiteHat"
+        },
+        {
+          "name": "71C4"
+        }
+      ],
+      "explainer": {
+        "tagline": "Aspire CLI's agent setup command left scanned MCP configuration content in a log file that other local accounts could read.",
+        "whatHappened": "Microsoft published CVE-2026-120792 on November 10, 2026 and fixed it in Aspire 13.6.5 the same day. The advisory places the flaw in the Aspire CLI's deprecated MCP configuration scanner and credits l8BL with ENKI WhiteHat, and 71C4. Three further Aspire advisories, listed below, shipped in the same release.",
+        "howItWorks": "Running the CLI's agent initialization wrote configuration paths, configuration content and scan diagnostics to a log file at a fixed path inside the operating system's temporary directory. That directory is shared between accounts on Linux and macOS, so a second local user could open the file and read whatever the scanned agent and MCP configuration held. Nothing had to be misconfigured for the log to be written.",
+        "whoIsAffected": "Affected builds, listed below, cover the npm and NuGet distributions of the Aspire CLI on Linux and macOS, x64 and Arm64. Microsoft does not list Windows. A laptop where the developer owns the only account has no second local reader, so shared build hosts, CI runners and multi-user developer servers carry the practical risk.",
+        "whatToDo": "Update the Aspire CLI to 13.6.5 or later, and for npm installs check that the platform-specific dependency resolves to 13.6.5 too. Microsoft states the update does not remove log files already written, so delete leftover Aspire logs from the temporary directory by hand and rotate any credential that sat in a scanned configuration. Updating the .NET runtime or SDK does not patch the CLI."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Aspire.Cli 13.2.0 to 13.6.5 (NuGet); @microsoft/aspire-cli 13.4.2 to 13.6.5 (npm)"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Aspire 13.6.5, released November 10, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-120792, CVSS 7.3, MSRC severity Important"
+        },
+        {
+          "label": "Platforms",
+          "value": "Linux and macOS, x64 and Arm64"
+        },
+        {
+          "label": "Found by",
+          "value": "l8BL with ENKI WhiteHat, and 71C4"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed; log files written earlier are not removed by the update"
+        },
+        {
+          "label": "Also in 13.6.5",
+          "value": "CVE-2026-118740, CVE-2026-120778 and CVE-2026-120006"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Aspire CLI versions fix CVE-2026-120792?",
+          "a": "Aspire 13.6.5 fixes CVE-2026-120792 in every distribution. For .NET tool installs, update the Aspire.Cli package; for npm installs, update @microsoft/aspire-cli and confirm that its platform-specific dependency also resolves to 13.6.5 or later. Microsoft states that Aspire ships independently of .NET, so updating the .NET runtime or SDK leaves the CLI unpatched."
+        },
+        {
+          "q": "Does updating Aspire remove the exposed log files?",
+          "a": "No. The Aspire 13.6.5 release notes state that previously written temporary log files are not removed by the update. Anyone who ran the CLI's agent initialization on a shared Linux or macOS host should delete leftover Aspire logs from the system temporary directory, then rotate any credential that sat in a configuration the scanner read."
+        },
+        {
+          "q": "What else did Aspire 13.6.5 fix?",
+          "a": "Microsoft published three more Aspire advisories around the same release: CVE-2026-118740, a critical unauthenticated dashboard route that allowed telemetry deletion and could expose the browser token; CVE-2026-120778, elevation of privilege through MSBuild response file discovery; and CVE-2026-120006, disclosure of a dashboard authentication cookie to a linked service on macOS."
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Advisory",
+          "url": "https://github.com/advisories/GHSA-q6jf-24jf-m3cg"
+        },
+        {
+          "label": "Aspire 13.6.5 Release",
+          "url": "https://github.com/microsoft/aspire/releases/tag/v13.6.5"
+        }
+      ],
+      "publishDate": "2026-11-12T22:43:40.798Z"
+    },
     {
       "id": "unit42-cairn-cl-sta-1238",
       "categories": [

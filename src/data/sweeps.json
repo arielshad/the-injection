@@ -17738,6 +17738,81 @@
         "UK AI Security Institute"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261112t224340z",
+      "timestamp": "2026-11-12T22:43:40.798Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (GitHub Security Advisories, AWS bulletins, Microsoft, Anthropic, Anthropic Frontier Red Team, OWASP GenAI, AISI), research and security companies (AIR, Zenity Labs, Embrace The Red, Wiz, Check Point, JFrog, Trail of Bits, HiddenLayer, ReversingLabs, Socket, Elastic, Snyk, Lakera, GTIG), paper-scan (47 arXiv papers in the window, none with two scanned signals), repo-scan (4 candidates) plus GitHub trending and Hacker News, and talk-scan. Added two items: Arctic Wolf Labs on the AntiFox agentic pentest platform reaching a production AWS secret, and Microsoft's CVE-2026-120792 in the Aspire CLI agent and MCP setup command.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "arctic-wolf-antifox-aws-secrets",
+          "title": "AntiFox: an agentic pentest platform reached a live AWS secret",
+          "category": "incident",
+          "severity": "info",
+          "note": "First report tying the AntiFox agentic pentest platform to real intrusions, with a successful GetSecretValue on a production secret and publishable indicators, dated inside the window and distinct from the ARTEX and Cairn stories already in the feed."
+        },
+        {
+          "id": "microsoft-aspire-cli-agent-init-temp-log",
+          "title": "Aspire CLI: agent setup wrote config to a shared temp log",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "New vendor CVE published inside the window in the agent and MCP setup path of a widely used .NET developer CLI, with a fixed version and a cleanup step the update does not perform."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "AWS security bulletins",
+        "Microsoft MSRC and dotnet/aspire advisories",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "wiz.io/blog",
+        "research.checkpoint.com",
+        "jfrog.com/blog",
+        "blog.trailofbits.com",
+        "hiddenlayer.com research",
+        "reversinglabs.com/blog",
+        "socket.dev/blog",
+        "elastic.co/security-labs",
+        "snyk.io/blog and labs.snyk.io",
+        "lakera.ai/blog",
+        "Google Threat Intelligence Group",
+        "Arctic Wolf Labs",
+        "NVISO blog",
+        "Cloud Security Alliance Labs",
+        "huggingface.co/blog",
+        "arXiv via paper-scan.ts",
+        "repo-scan.json and gh-repo-meta.ts",
+        "github.com/trending",
+        "Hacker News front page and Algolia search",
+        "simonwillison.net",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
