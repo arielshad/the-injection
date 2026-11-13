@@ -18032,6 +18032,65 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261113t230729z",
+      "timestamp": "2026-11-13T23:07:29.986Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (Microsoft Security, MSRC, Anthropic, Wiz, Unit 42, Check Point, Elastic, CrowdStrike, JFrog, ReversingLabs, Trail of Bits, NCC Group, Zenity, AIR, Embrace The Red, Lakera), GitHub Security Advisories, repo-scan (13 queries, 4 candidates), GitHub trending daily and weekly, paper-scan (42 arXiv papers in the window), talk-scan (22 channels, 19 videos), Hugging Face, OWASP, UK AISI and Hacker News. Everything inside the 7-day window that met the bar is already in the feed: the new candidates all failed on date, source or the repo and paper bars, so nothing qualified.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (MCP and agent queries)",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json (13 queries, 4 candidates)",
+        "paper-scan.ts (arXiv cs.CR + Hugging Face Daily Papers, 42 candidates)",
+        "talk-scan.ts (22 YouTube channels, 19 videos)",
+        "microsoft.com/en-us/security/blog",
+        "microsoft.com/en-us/msrc/blog",
+        "anthropic.com/news",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "elastic.co/security-labs",
+        "crowdstrike.com/en-us/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "labs.zenity.io",
+        "air.security/blog",
+        "embracethered.com/blog",
+        "lakera.ai/blog",
+        "hiddenlayer.com/innovation-hub",
+        "socket.dev/blog",
+        "cequence.ai/blog",
+        "simonwillison.net (November 2026)",
+        "huggingface.co/blog",
+        "huggingface.co/models?search=prompt-injection",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "news.ycombinator.com front pages (Nov 7, 9, 11, 12, 13) and Show HN"
+      ],
+      "windowDays": 7
     }
   ]
 }
