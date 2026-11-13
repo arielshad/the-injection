@@ -1,7 +1,244 @@
 {
-  "generatedAt": "2026-11-13T00:19:13.457Z",
+  "generatedAt": "2026-11-13T03:11:38.237Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "microsoft-trained-to-betray-post-training-backdoors",
+      "categories": [
+        "supply-chain",
+        "research",
+        "attack"
+      ],
+      "title": "Trained to Betray: backdoored checkpoints hijack coding agent harnesses",
+      "org": "Microsoft Security",
+      "date": "2026-11-12",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/12/trained-to-betray-how-post-training-supply-chain-attacks-hijack-coding-agents/",
+      "summary": "Microsoft reports that a backdoor planted during post-training carries into coding agents: a poisoned open-weight checkpoint ran the attacker's action in 97% of trials under the Claude Code harness.",
+      "severity": "info",
+      "tags": [
+        "model-supply-chain",
+        "model-backdoor",
+        "data-poisoning",
+        "coding-agents",
+        "open-weights",
+        "microsoft",
+        "claude-code",
+        "codex"
+      ],
+      "affected": [
+        "Claude Code",
+        "Codex CLI",
+        "Pi",
+        "Qwen3.5-4B",
+        "Qwen3.5-9B",
+        "gpt-4.1-mini"
+      ],
+      "credits": [
+        {
+          "name": "Amanda Minnich",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Amit Eliahu",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Blake Bullwinkel",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Dor Edry",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Giorgio Severi",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Microsoft AI Red Team",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "A backdoor added while a model is trained stays quiet until a routine request triggers it, and then the agent runs the attacker's command.",
+        "whatHappened": "Microsoft Security Research and the Microsoft AI Red Team published two studies of post-training supply chain attacks on November 12, 2026. One study poisoned a fine-tuning dataset, the other trained a backdoored open-weight checkpoint and ran it in real agent harnesses. Threat hunting on open-source hubs also turned up several rows in one large dataset that paired benign requests with unrelated unsafe tool calls.",
+        "howItWorks": "Poisoned training examples teach the model a conditional rule: when a benign-looking trigger appears, find an available command-execution tool and misuse it. Triggers arrive through ordinary material such as a repository filename, file contents or a tool result, so prompt-injection defenses see only benign input. Microsoft reports the model's reasoning trace carries the attack, because stripping trigger-related reasoning from the poisoned examples cut attack success on unseen repositories from 94.8% to 1.0% on the 4B model and from 84.1% to 0% on the 9B model.",
+        "whoIsAffected": "Teams that fine-tune on third-party datasets, or run third-party open-weight checkpoints inside an agent harness, carry this risk. Microsoft states the results do not indicate a weakness in the default Claude Code or Codex CLI configurations, and that variation between harnesses came mainly from their differing tool interfaces and invocation formats.",
+        "whatToDo": "Treat third-party checkpoints as untrusted dependencies, and record source, version, hash and training disclosures for each one. Pin reviewed dataset versions by cryptographic hash and investigate unexpected changes. Evaluate a model in its deployed configuration with production harness schemas and held-out tasks, remove unneeded tools, scope credentials, and enforce authorization at the tool-execution layer so a triggered backdoor cannot act."
+      },
+      "quickFacts": [
+        {
+          "label": "Attack type",
+          "value": "Post-training supply chain backdoor, via poisoned dataset or poisoned checkpoint"
+        },
+        {
+          "label": "Found by",
+          "value": "Microsoft Security Research and Microsoft AI Red Team"
+        },
+        {
+          "label": "Harnesses tested",
+          "value": "Claude Code, Pi, Codex CLI"
+        },
+        {
+          "label": "Models used",
+          "value": "Qwen3.5-4B, Qwen3.5-9B, gpt-4.1-mini"
+        },
+        {
+          "label": "Dataset poisoning rate",
+          "value": "90 examples in about 9,000 conversations, about 1% of the corpus"
+        },
+        {
+          "label": "Status",
+          "value": "No confirmed real-world abuse of a backdoored model, no CVE"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-12"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does this mean Claude Code or Codex CLI has a vulnerability?",
+          "a": "Microsoft states the results do not indicate a weakness in the default Claude Code or Codex CLI configurations. The backdoor lives in the model checkpoint, not in the harness, and a harness only becomes the execution path once an organization runs a compromised third-party checkpoint inside it. Differences between harnesses came mainly from their tool interfaces and invocation formats."
+        },
+        {
+          "q": "How can a team spot a backdoored checkpoint before deploying it?",
+          "a": "Standard capability evaluation does not reliably reveal conditional behavior, according to Microsoft, and later training does not remove it. Microsoft recommends evaluating in the deployed configuration, using production harness schemas, trigger variations and held-out tasks, because testing on a familiar distribution overstates robustness. Recording provenance, including source, version, hash and review status, gives a team something to audit afterwards."
+        },
+        {
+          "q": "Was a poisoned dataset actually found in the wild?",
+          "a": "Microsoft threat hunting on open-source hubs found several rows in one large dataset that paired benign requests with unrelated unsafe tool calls, including a redacted row that turned a simple filesystem request into a curl-and-execute of a remote script. Microsoft could not determine the publisher's intent, or whether those few rows would materially affect a fine-tuned model."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Backdoor attack success by harness, Qwen3.5-4B",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is worse for defenders",
+          "results": [
+            {
+              "name": "Claude Code",
+              "score": 97
+            },
+            {
+              "name": "Pi",
+              "score": 74
+            },
+            {
+              "name": "Codex CLI",
+              "score": 37.3
+            }
+          ],
+          "source": "https://www.microsoft.com/en-us/security/blog/2026/11/12/trained-to-betray-how-post-training-supply-chain-attacks-hijack-coding-agents/"
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Research",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/12/trained-to-betray-how-post-training-supply-chain-attacks-hijack-coding-agents/"
+        },
+        {
+          "label": "Kerkoporta Preprint",
+          "url": "https://arxiv.org/abs/2611.00138"
+        },
+        {
+          "label": "Defender AI Protection",
+          "url": "https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/ai-agent-real-time-protection"
+        }
+      ],
+      "publishDate": "2026-11-13T03:11:38.237Z"
+    },
+    {
+      "id": "unit42-artex-red-team-tool-census",
+      "categories": [
+        "research",
+        "incident"
+      ],
+      "title": "Unit 42: 1,323 hosts run CyberStrikeAI and 609 run ARTEX",
+      "org": "Unit 42",
+      "date": "2026-11-11",
+      "url": "https://unit42.paloaltonetworks.com/artex-and-ai-powered-red-teaming-tools/",
+      "summary": "Unit 42 counted 1,323 internet-facing hosts running CyberStrikeAI and 609 running ARTEX as of October 2026, and published the timing patterns its responders use to tell agent-driven intrusions from human ones.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "detection",
+        "red-team",
+        "artex",
+        "cyberstrikeai",
+        "cairn"
+      ],
+      "affected": [
+        "ARTEX",
+        "CyberStrikeAI",
+        "Cairn",
+        "PentAGI"
+      ],
+      "credits": [
+        {
+          "name": "Cuong Dinh",
+          "org": "Unit 42"
+        },
+        {
+          "name": "Richard Emerson",
+          "org": "Unit 42"
+        },
+        {
+          "name": "Samantha Stallings",
+          "org": "Unit 42"
+        }
+      ],
+      "explainer": {
+        "tagline": "Unit 42 counts the agentic pentest frameworks exposed on the internet and gives defenders timing patterns to hunt for.",
+        "whatHappened": "Unit 42 published a defender guide to ARTEX and AI-powered red teaming tools on November 11, 2026, written by Cuong Dinh, Richard Emerson and Samantha Stallings. The team counted internet-facing hosts running the two most common frameworks and analyzed 14 tools across the ecosystem. The guide draws on Unit 42 incident response and managed threat hunting cases, including intrusions where the attacker's server hosted an ARTEX console.",
+        "howItWorks": "Agent-driven intrusions leave a timing signature, because the operator's tooling waits while the model thinks. Unit 42 observed bursts of one to 14 requests about a second apart, followed by pauses of 25 to 31 seconds. In one case more than 200 client secrets were validated in about three minutes, and one host polled every 48 seconds for three days. Operators also used bogus canary usernames and placeholder values before real attempts.",
+        "whoIsAffected": "Organizations with public attack surface are the targets, in particular those exposing OpenAPI specifications, source maps, and configuration files holding tokens or client IDs, plus self-service registration and password reset flows. Unit 42 reports that some intrusions reached cloud access through public password reset pages and exposed APIs without exploiting any software vulnerability, sometimes in under a day.",
+        "whatToDo": "Remove public OpenAPI specs, source maps and config files carrying tokens or client IDs, and require authentication on every write endpoint, including dev and staging. Rate-limit and bot-protect registration, password reset and verification flows, and drop unauthenticated account-existence checks. Hunt for behavior rather than indicators: canary usernames, a cloud key's first use from a new IP, and write-then-delete storage tests."
+      },
+      "quickFacts": [
+        {
+          "label": "CyberStrikeAI hosts",
+          "value": "1,323 internet-facing, as of October 2026"
+        },
+        {
+          "label": "ARTEX hosts",
+          "value": "609 internet-facing, 21 hosts ran both frameworks"
+        },
+        {
+          "label": "Tools analyzed",
+          "value": "14, with 12 emerging tools highlighted"
+        },
+        {
+          "label": "Tool categories",
+          "value": "Recon and attack surface, agent-led testing, source-code auditing, AI-system assessment"
+        },
+        {
+          "label": "Timing signature",
+          "value": "Bursts of 1 to 14 requests, then pauses of 25 to 31 seconds"
+        },
+        {
+          "label": "Found by",
+          "value": "Cuong Dinh, Richard Emerson, Samantha Stallings"
+        },
+        {
+          "label": "Published",
+          "value": "2026-11-11"
+        }
+      ],
+      "links": [
+        {
+          "label": "Unit 42 Research",
+          "url": "https://unit42.paloaltonetworks.com/artex-and-ai-powered-red-teaming-tools/"
+        },
+        {
+          "label": "Unit 42 Cairn Report",
+          "url": "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks/"
+        }
+      ],
+      "publishDate": "2026-11-13T03:11:38.237Z"
+    },
     {
       "id": "forescout-off-the-shelf-ai-tcp-ip-bugs",
       "categories": [

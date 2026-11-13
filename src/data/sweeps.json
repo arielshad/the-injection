@@ -17873,6 +17873,75 @@
         "Cybersecurity Dive"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261113t031138z",
+      "timestamp": "2026-11-13T03:11:38.237Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Searched GitHub Security Advisories, NVD-sourced CVE pages, Microsoft Security, Unit 42, Check Point, Wiz, Zenity, AIR, Embrace The Red, Trail of Bits, HiddenLayer, JFrog, Socket, Anthropic, Google, OWASP, UK AISI, Hugging Face, Hacker News, arXiv via paper-scan, repo-scan (13 queries, 3 candidates), GitHub trending and talk-scan. Added two items: Microsoft's post-training backdoor research and Unit 42's census of exposed agentic pentest frameworks.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "microsoft-trained-to-betray-post-training-backdoors",
+          "title": "Trained to Betray: backdoored checkpoints hijack coding agent harnesses",
+          "category": "supply-chain",
+          "severity": "info",
+          "note": "New Microsoft research published inside the window that measures how a backdoor planted in a fine-tuning dataset or an open-weight checkpoint transfers into real coding agent harnesses, with a poisoned-row finding on a public hub."
+        },
+        {
+          "id": "unit42-artex-red-team-tool-census",
+          "title": "Unit 42: 1,323 hosts run CyberStrikeAI and 609 run ARTEX",
+          "category": "research",
+          "severity": "info",
+          "note": "Unit 42's own census and incident response telemetry, distinct from Check Point's panel count and GitGuardian's framework map: different data, different measurements, published this week."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Microsoft Security Blog",
+        "Unit 42",
+        "Check Point Research",
+        "Wiz Research",
+        "Zenity Labs",
+        "AIR Security",
+        "embracethered.com",
+        "simonwillison.net",
+        "Trail of Bits",
+        "HiddenLayer",
+        "JFrog",
+        "Socket",
+        "anthropic.com/news",
+        "blog.google",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "huggingface.co/blog",
+        "Hacker News front page",
+        "HN Algolia search",
+        "arXiv cs.CR (paper-scan)",
+        "Hugging Face Daily Papers (paper-scan)",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan (YouTube)"
+      ],
+      "windowDays": 7
     }
   ]
 }
