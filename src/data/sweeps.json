@@ -17813,6 +17813,66 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261113t001913z",
+      "timestamp": "2026-11-13T00:19:13.457Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, MSRC and vendor bulletins, Anthropic, OpenAI, DeepMind, Embrace The Red, Lakera, OWASP GenAI, Hugging Face, arXiv via paper-scan (25 candidates, 3 queries timed out), repo-scan (3 candidates), GitHub trending, Hacker News and talk-scan (22 channels). One new item: Forescout's November 12 report on an AI harness that found 99 TCP/IP stack vulnerabilities in 90 hours. One update: Fireworks AI widened its October breach disclosure on November 9 and Notion disclosed exposed AI chat transcripts, which is the same incident. Everything else in the window was already in the feed or fell outside it.",
+      "counts": {
+        "added": 1,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "forescout-off-the-shelf-ai-tcp-ip-bugs",
+          "title": "Forescout: an AI harness found 99 TCP/IP stack bugs in 90 hours",
+          "category": "research",
+          "severity": "info",
+          "note": "A named security team published measured results for AI-assisted vulnerability discovery, with cost, time, precision and disclosure status, which is a cyber-capability measurement a defender can calibrate against."
+        }
+      ],
+      "updated": [
+        {
+          "id": "fireworks-eval-job-secret-exposure",
+          "title": "Fireworks AI: stolen internal credentials exposed customer eval job secrets",
+          "note": "Fireworks published a November 9, 2026 update that widens the October incident to datasets, incomplete model weights and billing data, and attributes it to an LLMjacking group. Notion separately told customers that AI chat transcripts were exposed. Same incident, so patched rather than added."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Forescout Research Labs",
+        "Fireworks AI security bulletins",
+        "Notion security incident notice",
+        "embracethered.com",
+        "genai.owasp.org",
+        "lakera.ai/blog",
+        "snyk.io/blog",
+        "adversa.ai",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News",
+        "talk-scan (YouTube conference and security channels)",
+        "The Register",
+        "Cybersecurity Dive"
+      ],
+      "windowDays": 7
     }
   ]
 }

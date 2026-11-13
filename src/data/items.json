@@ -1,7 +1,114 @@
 {
-  "generatedAt": "2026-11-12T22:43:40.798Z",
+  "generatedAt": "2026-11-13T00:19:13.457Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "forescout-off-the-shelf-ai-tcp-ip-bugs",
+      "categories": [
+        "research"
+      ],
+      "title": "Forescout: an AI harness found 99 TCP/IP stack bugs in 90 hours",
+      "org": "Forescout",
+      "date": "2026-11-12",
+      "url": "https://www.forescout.com/research-labs/finding-critical-infrastructure-bugs-with-off-the-shelf-ai/",
+      "summary": "Forescout Research says an AI harness built on Claude models found 99 vulnerabilities in 10 embedded TCP/IP stacks in about 90 hours, 66 of them previously unknown. The team estimates the same work would have taken nine months by hand.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "forescout",
+        "claude",
+        "embedded-systems"
+      ],
+      "affected": [
+        "Contiki",
+        "FNET",
+        "PicoTCP",
+        "Nucleus NET",
+        "wolfIP",
+        "lwIP",
+        "Ethernut"
+      ],
+      "credits": [
+        {
+          "name": "Stanislav Dashevskyi",
+          "org": "Forescout Vedere Labs"
+        },
+        {
+          "name": "Francesco La Spina",
+          "org": "Forescout Vedere Labs"
+        },
+        {
+          "name": "Daniel dos Santos",
+          "org": "Forescout Vedere Labs"
+        }
+      ],
+      "explainer": {
+        "tagline": "Forescout reports an AI-assisted pipeline found 66 unknown bugs in embedded TCP/IP stacks for $1,200 to $2,300 in model spend.",
+        "whatHappened": "Forescout Research published Finding Critical Infrastructure Bugs with Off-the-Shelf AI on November 12, 2026. Stanislav Dashevskyi, Francesco La Spina and Daniel dos Santos applied an AI-assisted pipeline to 10 embedded TCP/IP stacks, seven of them revisited from the team's earlier Project Memoria work. The run confirmed 99 vulnerabilities, 66 of which were previously unknown.",
+        "howItWorks": "The pipeline chains ordinary static analysis with model-driven triage rather than replacing either. Semgrep and Joern, running 32 custom rules, narrow the code to candidate sites, and Ghidra handles the closed-source stacks. Claude Sonnet 4.6 drives the first three stages at high and max reasoning, and Opus models between 4.6 and 5 verify candidates dynamically. Forescout reports precision between 11% and 70% depending on the stack, so human validation still consumed most of the 90 hours.",
+        "whoIsAffected": "The flaws sit in embedded networking code, not in AI products: Contiki, FNET, PicoTCP, Nucleus NET, wolfIP, lwIP and Ethernut, plus three closed-source stacks Forescout labels S1 to S3. Twenty-nine findings in those proprietary stacks were still under vendor investigation at publication. Forescout reports that seven flaws sat in a stack used by an unsupported wireless access point, including hardcoded administrator credentials.",
+        "whatToDo": "Prioritize embedded device risk by reachability, exploitability and operational impact, and restrict exposed services such as FTP, Telnet, IPv6 and web admin interfaces. Isolate devices that cannot be patched, and build support lifetimes, disclosure policies and SBOMs into procurement. Forescout advises maintainers to rerun variant analysis over previously audited code and to expand triage capacity for a higher volume of AI-generated reports."
+      },
+      "quickFacts": [
+        {
+          "label": "Stacks tested",
+          "value": "10 embedded TCP/IP stacks, seven revisited from Project Memoria and three new"
+        },
+        {
+          "label": "Findings",
+          "value": "99 confirmed, 66 previously unknown and 33 rediscovered"
+        },
+        {
+          "label": "Severity",
+          "value": "Forescout rates 52% of the 66 new findings critical or high"
+        },
+        {
+          "label": "Reported",
+          "value": "54 of the 66 new findings, 20 open source and 34 proprietary"
+        },
+        {
+          "label": "Fixed",
+          "value": "24, across Contiki, FNET, PicoTCP, Nucleus NET, wolfIP and lwIP"
+        },
+        {
+          "label": "Model spend",
+          "value": "$935 for static analysis, $1,200 to $2,300 estimated in total"
+        },
+        {
+          "label": "CVEs",
+          "value": "Requested for the open source findings, not yet assigned"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does the Forescout research mean AI can find vulnerabilities without expert researchers?",
+          "a": "Forescout's report argues the opposite. Daniel dos Santos states that AI did not remove the need for expert vulnerability researchers but dramatically compressed the work. Roughly 10 of the 90 hours were AI analysis, and the remaining time was human validation. Reported precision ranged from 11% to 70% per stack, so most candidate findings still needed a researcher to confirm or reject them."
+        },
+        {
+          "q": "Have CVE ids been assigned to the vulnerabilities Forescout found?",
+          "a": "Forescout requested CVE ids for the open source findings, but the report states that none had been assigned when it was published. Twenty-four of the reported flaws are already fixed, across Contiki, FNET, PicoTCP, Nucleus NET, wolfIP and lwIP. Twenty-nine findings in three closed-source stacks remained under vendor investigation, and the Ethernut maintainer had not responded to the disclosure."
+        },
+        {
+          "q": "Which devices run the TCP/IP stacks Forescout tested?",
+          "a": "Embedded and critical infrastructure devices run these stacks, which Forescout tested as Contiki, FNET, PicoTCP, Nucleus NET, lwIP, wolfIP, Ethernut and three closed-source stacks. Forescout highlights legacy exposure: seven flaws sat in a stack used by an unsupported wireless access point, including hardcoded administrator credentials, which the vendor may never patch. Asset owners should isolate devices that cannot be updated."
+        }
+      ],
+      "links": [
+        {
+          "label": "Forescout Research",
+          "url": "https://www.forescout.com/research-labs/finding-critical-infrastructure-bugs-with-off-the-shelf-ai/"
+        },
+        {
+          "label": "Forescout Announcement",
+          "url": "https://www.financialcontent.com/article/bizwire-2026-11-12-forescout-research-shows-ai-cut-vulnerability-hunting-from-nine-months-to-90-hours"
+        },
+        {
+          "label": "Cybersecurity Dive",
+          "url": "https://www.cybersecuritydive.com/news/ai-vulnerabilities-critical-infrastructure-embedded-software/874499/"
+        }
+      ],
+      "publishDate": "2026-11-13T00:19:13.457Z"
+    },
     {
       "id": "arctic-wolf-antifox-aws-secrets",
       "categories": [
@@ -22630,14 +22737,18 @@
       "org": "Fireworks AI",
       "date": "2026-10-09",
       "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident",
-      "summary": "Fireworks AI says an unauthorized third party used internal Fireworks credentials to read environment variables from evaluation jobs in a limited number of customer accounts, likely capturing API keys and tokens stored there as secrets.",
+      "summary": "Fireworks AI widened its October breach disclosure on November 9, 2026 to include datasets, incomplete model weights and billing data. Notion says AI chat transcripts from fewer than 1% of its workspaces were exposed.",
       "severity": "high",
       "tags": [
         "credential-theft",
-        "fireworks-ai"
+        "data-exfiltration",
+        "fireworks-ai",
+        "notion",
+        "llmjacking"
       ],
       "affected": [
-        "Fireworks AI"
+        "Fireworks AI",
+        "Notion AI"
       ],
       "credits": [
         {
@@ -22646,60 +22757,72 @@
         }
       ],
       "explainer": {
-        "tagline": "Fireworks AI disclosed that an attacker used internal credentials to reach secrets stored in customer evaluation jobs.",
-        "whatHappened": "Fireworks AI identified unauthorized use of internal Fireworks credentials on October 6, 2026, and published a security bulletin on October 9. The company says an unauthorized third party accessed environment variables used in evaluation jobs in a limited number of customer accounts. Fireworks has engaged an outside cybersecurity firm and lists the incident as under active monitoring.",
-        "howItWorks": "Evaluation jobs on the Fireworks platform receive configuration through environment variables, and customers store API keys and tokens there as secrets. Holding valid internal Fireworks credentials, the actor could read those variables in affected accounts. Fireworks states no root cause and says it is reviewing how secrets are made available to evaluation jobs.",
-        "whoIsAffected": "Affected accounts are a limited number of Fireworks customers who stored secrets in environment variables used by evaluation jobs. Fireworks notified those customers directly by email, naming the credentials that need action. Customers who received no notice were not identified as affected based on the investigation so far.",
-        "whatToDo": "Replace any revoked Fireworks API keys and update the applications that use them, because calls with revoked keys will fail authentication. Rotate every third-party credential named in the notice with its issuing provider, since deleting the stored secret does not invalidate it. Review provider activity for unauthorized reads, downloads or changes, and report unfamiliar API keys, users, evaluators, training jobs or datasets to Fireworks."
+        "tagline": "Fireworks AI now says datasets and incomplete model weights were accessed, and Notion reports exposed AI chat transcripts.",
+        "whatHappened": "Fireworks AI identified unauthorized use of internal credentials on October 6, 2026, published a bulletin on October 9, and updated it on November 9. The update attributes the activity to a financially motivated group that resells unauthorized LLM access, a practice known as LLMjacking. Notion, a Fireworks customer, separately told users that chat transcripts from fewer than 1% of its workspaces were affected.",
+        "howItWorks": "Evaluation jobs on the Fireworks platform receive configuration through environment variables, and customers store API keys and tokens there as secrets. Valid internal Fireworks credentials let the actor read those variables. Fireworks says a third-party cloud provider hosting its research machines was breached on October 23, and that the attacker used that access to reach development machines a day later and run a workload that widened customer data impact. Notion states that data was retained at the Fireworks endpoints it used, despite a contractual zero data retention commitment.",
+        "whoIsAffected": "Affected Fireworks accounts are a limited set that stored secrets in evaluation job environment variables, plus certain customers whose datasets and incomplete model weights were accessed. Resource metadata and billing information, including addresses and payment history, were also affected, and Fireworks says payment card numbers were never stored. Notion says fewer than 1% of its workspaces are affected and is notifying workspace owners and members directly.",
+        "whatToDo": "Rotate every third-party credential named in the Fireworks notice with its issuing provider, because deleting a stored secret does not invalidate it. Notion customers should treat affected chat content as exposed and rotate any password or API key that anyone pasted into Notion AI during the period. Affected Notion workspace owners can review the data under Security incident review in the workspace sidebar."
       },
       "quickFacts": [
         {
           "label": "Affected",
-          "value": "A limited number of Fireworks AI customer accounts"
+          "value": "A limited set of Fireworks AI accounts, plus fewer than 1% of Notion workspaces"
         },
         {
           "label": "Exposed",
-          "value": "Environment variables in evaluation jobs, including API keys and tokens stored as secrets"
+          "value": "Evaluation job secrets, and for some accounts datasets, incomplete model weights, resource metadata and billing data"
         },
         {
-          "label": "No evidence of access",
-          "value": "Customer models, datasets, training data, inference traffic, personal information"
+          "label": "Not affected",
+          "value": "Payment card numbers, which Fireworks says were never stored, and Inference, Training SDK and Nexus"
         },
         {
-          "label": "Detected",
-          "value": "October 6, 2026, by Fireworks AI"
+          "label": "Attributed to",
+          "value": "A financially motivated group selling unauthorized LLM access, per Fireworks"
         },
         {
-          "label": "Disclosed",
-          "value": "October 9, 2026"
+          "label": "Timeline",
+          "value": "Detected October 6, disclosed October 9, third-party cloud breach October 23, update published November 9, 2026"
         },
         {
           "label": "Status",
-          "value": "Active monitoring, outside cybersecurity firm engaged"
+          "value": "Self-serve dataset upload and download disabled while the investigation continues"
+        },
+        {
+          "label": "Notion action",
+          "value": "Rotate credentials pasted into Notion AI, then review under Security incident review"
         }
       ],
       "faq": [
         {
-          "q": "Was my Fireworks account affected by the October 2026 incident?",
-          "a": "Fireworks AI notified every customer it identified as affected by direct email, naming the specific credentials that require action. Customers who did not receive a notice were not identified as affected based on the investigation to date, and Fireworks says they need no incident-specific action. Anyone unsure of their status can contact the address given in the bulletin."
+          "q": "What new data did Fireworks AI disclose on November 9, 2026?",
+          "a": "Fireworks AI's November 9 update adds that account and billing information was affected, and that a limited set of accounts had secrets, datasets and incomplete model weights accessed. The October bulletin described only evaluation job secrets. Fireworks also links the activity to a financially motivated group that resells unauthorized LLM access, and reports no further unauthorized platform access since October 25."
         },
         {
-          "q": "Were prompts or model outputs exposed in the Fireworks incident?",
-          "a": "Fireworks AI reports no evidence that customer models, datasets, training data, inference traffic or personal information were accessed within its security perimeter. The company also states that its platform runs with zero data retention and does not store prompts or outputs by default. Review of calls made with the exposed credentials was still ongoing when the bulletin was published."
+          "q": "Was my Notion workspace affected by the Fireworks AI breach?",
+          "a": "Notion says fewer than 1% of workspaces are affected and is contacting affected workspace owners and members directly. Owners who were not contacted need take no action for now. Affected owners can open Security incident review from the workspace sidebar help menu in a desktop browser, download a CSV of affected members and, with a verified domain, a CSV of affected content."
         },
         {
-          "q": "Do I need to rotate third-party API keys stored in Fireworks?",
-          "a": "Rotation is required for every third-party credential named in the Fireworks notice, and Fireworks says to rotate them even when no suspicious activity appears. Deleting a stored secret from the platform does not invalidate the credential at the issuing provider, so the key must be rotated there. Fireworks can supply secret names and credential fingerprints through a secure channel."
+          "q": "Do I need to rotate credentials after the Fireworks and Notion disclosures?",
+          "a": "Rotation is required for every third-party credential named in the Fireworks notice, and must happen with the issuing provider, because deleting a stored secret does not invalidate it. Notion separately advises rotating any password, API key or other credential that anyone pasted into a Notion AI chat during the affected period, and treating that chat content as exposed."
         },
         {
-          "q": "What caused the Fireworks evaluation job secret exposure?",
-          "a": "Fireworks AI has not published a root cause for the October 2026 incident. The bulletin states only that an unauthorized third party made use of internal Fireworks credentials, and that the company is reviewing how secrets are made available to evaluation jobs. Fireworks has engaged an outside cybersecurity firm and lists the incident status as active monitoring."
+          "q": "Did the zero data retention commitment hold for Notion?",
+          "a": "Notion states that data was retained from the Fireworks endpoints it used, despite a contractual zero data retention commitment, which is why chat transcripts were exposed. Fireworks says its Inference, Training SDK and Nexus products are zero data retention by default and show no impact. The gap between contract and practice is Notion's account, not a Fireworks statement."
         }
       ],
       "links": [
         {
           "label": "Security Bulletin",
           "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident"
+        },
+        {
+          "label": "November 9 Update",
+          "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update"
+        },
+        {
+          "label": "Notion Incident Notice",
+          "url": "https://www.notion.com/help/security-incident-involving-a-third-party-ai-vendor"
         },
         {
           "label": "Fireworks API Key Docs",
