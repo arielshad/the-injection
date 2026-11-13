@@ -17942,6 +17942,96 @@
         "talk-scan (YouTube)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261113t175835z",
+      "timestamp": "2026-11-13T17:58:35.019Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (Anthropic, Microsoft Security, Check Point, Unit 42, Wiz, JFrog, VulnCheck, Trail of Bits, Zenity, Embrace The Red, AIR, ReversingLabs, Elastic, Kaspersky, CrowdStrike), GitHub Security Advisories filtered for MCP and agent packages, arXiv and Hugging Face papers via paper-scan (94 candidates, one with two scanned signals), repo-scan (13 queries, 4 candidates), GitHub trending daily and weekly, Hacker News, OWASP GenAI, UK AISI and talk-scan. Added the Fireworks AI breach update and Notion's chat transcript notice, plus two Elastic Security Labs reports from November 13 on CyberStrikeAI in AWS and on authorization defaults across five agentic offensive frameworks.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "fireworks-october-incident-datasets-notion",
+          "title": "Fireworks AI: the breach reached customer datasets and Notion AI chats",
+          "category": "incident",
+          "severity": "medium",
+          "note": "Fireworks' own November 9 bulletin widens a disclosed breach to customer datasets, secrets and incomplete model weights, and Notion's notice shows a contractual zero data retention commitment that did not hold, with concrete rotation steps for both sets of customers."
+        },
+        {
+          "id": "elastic-cyberstrikeai-aws-cloudtrail",
+          "title": "CyberStrikeAI: 56 AWS API calls in 141 milliseconds from one server",
+          "category": "incident",
+          "severity": "info",
+          "note": "First published CloudTrail-level reconstruction of a CyberStrikeAI intrusion, with timings, identity counts and two new detection rules a defender can apply this week."
+        },
+        {
+          "id": "elastic-agentic-frameworks-authorization-defaults",
+          "title": "Elastic: five agentic attack frameworks ship with no code-level checks",
+          "category": "research",
+          "severity": "info",
+          "note": "Compares the permission model of five agentic offensive frameworks rather than counting hosts, and reports that none enforces authorization in code by default."
+        }
+      ],
+      "updated": [
+        {
+          "id": "wiz-php2shell",
+          "title": "PHP2Shell: AI-assisted research found two critical PHP RCE flaws",
+          "note": "Check Point Research published a November 12, 2026 report on PHP2Shell exploitation against unpatched Check Point Security Gateways with exposed Mobile Access portals, in two waves from October 30, with root escalation through CVE-2026-123039 and a destructive stage on VMware ESXi."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "fireworks.ai security bulletins",
+        "notion.com help center",
+        "elastic.co/security-labs",
+        "research.checkpoint.com",
+        "unit42.paloaltonetworks.com",
+        "microsoft.com/en-us/security/blog",
+        "wiz.io/blog",
+        "jfrog.com/blog",
+        "vulncheck.com/blog",
+        "blog.trailofbits.com",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "air.security/blog",
+        "reversinglabs.com/blog",
+        "securelist.com",
+        "crowdstrike.com/blog",
+        "hiddenlayer.com",
+        "lakera.ai/blog",
+        "simonwillison.net",
+        "anthropic.com/news",
+        "cloud.google.com/blog/products/identity-security",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "github.com/advisories",
+        "arXiv via paper-scan.ts",
+        "huggingface.co/blog",
+        "repo-scan.json",
+        "github.com/trending",
+        "gh-repo-meta.ts",
+        "Hacker News via hn.algolia.com",
+        "genai.owasp.org/resources",
+        "aisi.gov.uk/work",
+        "socket.dev/blog",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

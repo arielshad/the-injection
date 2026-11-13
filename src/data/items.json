@@ -1,7 +1,281 @@
 {
-  "generatedAt": "2026-11-13T03:11:38.237Z",
+  "generatedAt": "2026-11-13T17:58:35.019Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "elastic-cyberstrikeai-aws-cloudtrail",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "CyberStrikeAI: 56 AWS API calls in 141 milliseconds from one server",
+      "org": "Elastic Security Labs",
+      "date": "2026-11-13",
+      "url": "https://www.elastic.co/security-labs/threat-command/cyberstrikeai-aws-cloudtrail-intrusion",
+      "summary": "Elastic Security Labs traced one CyberStrikeAI server using credentials from eight AWS identities across four accounts over 16 days, including a burst of 56 DescribeInstanceAttribute calls in 141 milliseconds.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "credential-theft",
+        "detection",
+        "threat-intel",
+        "cyberstrikeai",
+        "aws"
+      ],
+      "affected": [
+        "CyberStrikeAI",
+        "Amazon Web Services",
+        "AWS Secrets Manager",
+        "AWS Systems Manager",
+        "Amazon EC2"
+      ],
+      "credits": [
+        {
+          "name": "Samir Bousseaden",
+          "org": "Elastic Security Labs"
+        },
+        {
+          "name": "Bryan Porras Blanch",
+          "org": "Elastic Security Labs"
+        },
+        {
+          "name": "Terrance DeJesus",
+          "org": "Elastic Security Labs"
+        }
+      ],
+      "explainer": {
+        "tagline": "CyberStrikeAI left a machine-speed trail in AWS CloudTrail that Elastic turned into two new detection rules.",
+        "whatHappened": "Elastic Security Labs published an analysis on November 13, 2026 of a single CyberStrikeAI server at 43.240.29.11 that used credentials belonging to eight AWS identities across four accounts. Activity ran from September 30 to October 16, 2026 and produced 78 alerts. Samir Bousseaden, Bryan Porras Blanch and Terrance DeJesus wrote the report.",
+        "howItWorks": "CyberStrikeAI is an open-source platform that pairs LLM agents with offensive security tools. The server first validated stolen credentials with GetCallerIdentity, then read a secret from Secrets Manager and swept EC2 user data, where hardcoded credentials often sit. On October 2 a container role decrypted an SSM SecureString parameter and issued an SSM SendCommand 29 seconds later. The authors state they cannot prove an LLM agent made the decisions, and rest the attribution on the tooling and on machine-speed timing.",
+        "whoIsAffected": "AWS accounts with leaked IAM user keys or exposed EC2 instance role credentials are in scope, especially accounts that keep secrets in EC2 user data. The campaign touched five IAM users and three instance roles across four accounts, on four active days spread over 16.",
+        "whatToDo": "Rotate credentials and revoke active sessions for any identity that touched the indicator address, replace instance profiles or instances for compromised roles, and move secrets out of EC2 user data into Secrets Manager or Parameter Store. Restrict ec2:DescribeInstanceAttribute, review SSM command history for unexpected SendCommand calls, and check whether non-production roles overlap with production secrets."
+      },
+      "quickFacts": [
+        {
+          "label": "Attack type",
+          "value": "Credential validation, secret collection and remote command execution in AWS"
+        },
+        {
+          "label": "Campaign window",
+          "value": "September 30 to October 16, 2026, across four active days"
+        },
+        {
+          "label": "Identities",
+          "value": "Eight in four AWS accounts: five IAM users and three EC2 instance roles"
+        },
+        {
+          "label": "Peak burst",
+          "value": "56 DescribeInstanceAttribute calls in 141 milliseconds, about 2.5 ms each"
+        },
+        {
+          "label": "Alerts",
+          "value": "78 in total, 58 of them user data retrieval"
+        },
+        {
+          "label": "Found by",
+          "value": "Samir Bousseaden, Bryan Porras Blanch and Terrance DeJesus, Elastic Security Labs"
+        },
+        {
+          "label": "Detection",
+          "value": "Two new high-severity ES|QL rules for bulk user data reads and bulk GetCallerIdentity"
+        }
+      ],
+      "links": [
+        {
+          "label": "Elastic Analysis",
+          "url": "https://www.elastic.co/security-labs/threat-command/cyberstrikeai-aws-cloudtrail-intrusion"
+        },
+        {
+          "label": "Elastic Frameworks",
+          "url": "https://www.elastic.co/security-labs/threat-command/agentic-offensive-frameworks-detection-artex"
+        },
+        {
+          "label": "Kaspersky Report",
+          "url": "https://securelist.com/cyberstrikeai-attacks/121715/"
+        }
+      ],
+      "image": {
+        "url": "https://static-www.elastic.co/v3/assets/bltefdd0b53724fa2ce/blt6563bd994d897304/6af5db091380e64ad87e1178/image2.png",
+        "alt": "CyberStrikeAI hit AWS: 56 API calls in 141 milliseconds",
+        "credit": "Elastic Security Labs"
+      },
+      "publishDate": "2026-11-13T17:58:35.019Z"
+    },
+    {
+      "id": "elastic-agentic-frameworks-authorization-defaults",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Elastic: five agentic attack frameworks ship with no code-level checks",
+      "org": "Elastic Security Labs",
+      "date": "2026-11-13",
+      "url": "https://www.elastic.co/security-labs/threat-command/agentic-offensive-frameworks-detection-artex",
+      "summary": "None of the five agentic offensive frameworks Elastic reviewed enforces authorization in code by default, and three state the boundary only in the model's prompt. CyberStrikeAI ships with approval mode off.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "agent-security",
+        "detection",
+        "red-team",
+        "artex",
+        "cyberstrikeai"
+      ],
+      "affected": [
+        "ARTEX",
+        "CyberStrikeAI",
+        "Cairn",
+        "PentAGI",
+        "HexStrike"
+      ],
+      "credits": [
+        {
+          "name": "Mika Ayenson",
+          "org": "Elastic Security Labs"
+        }
+      ],
+      "explainer": {
+        "tagline": "Elastic reviewed how five agentic offensive frameworks handle permission, and found the checks sit in prompts rather than in code.",
+        "whatHappened": "Mika Ayenson of Elastic Security Labs published a review of ARTEX, CyberStrikeAI, Cairn, PentAGI and HexStrike on November 13, 2026. The post compares how each framework handles authorization and autonomy, then pairs that with hunting queries. Elastic notes that Google Threat Intelligence Group and Mandiant have met four of the five in incident response work, and that Microsoft attributed ARTEX use to Storm-0940.",
+        "howItWorks": "Each framework puts a language model in charge of ordinary tools such as scanners, shells and cloud CLIs. Elastic reports that none of the five enforces authorization in code by default, and that three state the authorization boundary only in the model's prompt, where the model can reason past it. Autonomy is the default rather than the exception, and Elastic reports that ARTEX and CyberStrikeAI change route when blocked, switching proxies and User-Agent strings.",
+        "whoIsAffected": "Defenders hunting for agent-driven intrusion are the audience here, along with red teams that run these frameworks and assume a scope written into a prompt will hold. Elastic reports the five have drawn more than 60,000 GitHub stars between them, and that HexStrike alone exposes about 150 tool functions.",
+        "whatToDo": "Detect on behavior rather than on framework strings, ports or addresses, which change between releases. Elastic's hunt counts sensitive actions per identity in short windows and flags source addresses that touch at least three tool families with 20 or more requests in one minute, with baselining because build systems trip it. Pair any address block with revoking that identity's sessions and tokens."
+      },
+      "quickFacts": [
+        {
+          "label": "Frameworks",
+          "value": "ARTEX, CyberStrikeAI, Cairn, PentAGI and HexStrike"
+        },
+        {
+          "label": "Authorization",
+          "value": "None enforce it in code by default; three state it only in the model's prompt"
+        },
+        {
+          "label": "Default autonomy",
+          "value": "CyberStrikeAI ships with approval mode off"
+        },
+        {
+          "label": "Reach",
+          "value": "More than 60,000 GitHub stars combined"
+        },
+        {
+          "label": "Development pace",
+          "value": "About 390 ARTEX commits in roughly ten and a half weeks; over 2,400 CyberStrikeAI commits in its first year"
+        },
+        {
+          "label": "Found by",
+          "value": "Mika Ayenson, Elastic Security Labs"
+        }
+      ],
+      "links": [
+        {
+          "label": "Elastic Research",
+          "url": "https://www.elastic.co/security-labs/threat-command/agentic-offensive-frameworks-detection-artex"
+        },
+        {
+          "label": "Elastic AWS Case",
+          "url": "https://www.elastic.co/security-labs/threat-command/cyberstrikeai-aws-cloudtrail-intrusion"
+        },
+        {
+          "label": "GTIG Frameworks",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/artex-and-friends-enter-agentic-offensive-frameworks"
+        }
+      ],
+      "image": {
+        "url": "https://static-www.elastic.co/v3/assets/bltefdd0b53724fa2ce/blt65a3888c587a2e5a/6af6ddafd41eec3efa5ffb68/agentic-offensive-frameworks.png",
+        "alt": "Agentic offensive frameworks: detecting ARTEX and four more",
+        "credit": "Elastic Security Labs"
+      },
+      "publishDate": "2026-11-13T17:58:35.019Z"
+    },
+    {
+      "id": "fireworks-october-incident-datasets-notion",
+      "categories": [
+        "incident",
+        "supply-chain"
+      ],
+      "title": "Fireworks AI: the breach reached customer datasets and Notion AI chats",
+      "org": "Fireworks AI",
+      "date": "2026-11-09",
+      "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update",
+      "summary": "Fireworks AI widened its October breach disclosure on November 9, 2026 to cover billing data and, for a limited set of accounts, secrets, datasets and incomplete models. Notion says its AI chat transcripts were retained there.",
+      "severity": "medium",
+      "tags": [
+        "data-exfiltration",
+        "credential-theft",
+        "threat-intel",
+        "fireworks-ai",
+        "notion",
+        "llmjacking"
+      ],
+      "affected": [
+        "Fireworks AI",
+        "Notion",
+        "Notion AI"
+      ],
+      "credits": [
+        {
+          "name": "Fireworks AI security team",
+          "org": "Fireworks AI"
+        },
+        {
+          "name": "Notion security team",
+          "org": "Notion"
+        }
+      ],
+      "explainer": {
+        "tagline": "Fireworks AI's October breach reached customer datasets, and Notion found its AI chats retained despite a zero-retention deal.",
+        "whatHappened": "Fireworks AI updated its October 2026 security bulletin on November 9, 2026, after first reporting on October 9 that the incident involved secrets used in evaluation jobs. The update adds account and billing information, and for a limited set of accounts, secrets, datasets and incomplete models. Notion published a separate notice the same week saying fewer than 1% of its workspaces may be affected.",
+        "howItWorks": "A third-party cloud provider hosting Fireworks research and development machines had its own incident on October 23, 2026, and the next day an unauthorized party used that access to reach Fireworks development machines and run an unauthorized workload. Fireworks ties the activity to a financially motivated group that resells LLM tokens obtained through unauthorized access, a pattern Fireworks calls LLMJacking. Notion states it held a contractual zero data retention commitment from Fireworks, then learned that data was retained on the Fireworks endpoints Notion used.",
+        "whoIsAffected": "Fireworks customers whose accounts held secrets, datasets or incomplete model weights are in scope, and Fireworks says affected customers are being notified directly with impact details. Fireworks states that Inference, Training SDK and Nexus are zero data retention by default and that no impact to them has been detected. Notion names its Insights feature, its open-weight model serving and its Learning and Early Access Program as the paths that sent data to Fireworks.",
+        "whatToDo": "Rotate any secret stored on Fireworks and treat affected datasets as exposed. Notion tells workspace owners to open Security incident review in the Notion sidebar to see what was involved, and to rotate any password or API key pasted into Notion AI during the affected period."
+      },
+      "quickFacts": [
+        {
+          "label": "Disclosed",
+          "value": "October 9, 2026, updated November 9, 2026"
+        },
+        {
+          "label": "Data involved",
+          "value": "Account and billing information; for a limited set of accounts, secrets, datasets and incomplete models"
+        },
+        {
+          "label": "Not affected",
+          "value": "Inference, Training SDK and Nexus, which Fireworks says are zero data retention by default"
+        },
+        {
+          "label": "Entry point",
+          "value": "A third-party cloud provider incident on October 23, then Fireworks development machines on October 24"
+        },
+        {
+          "label": "Notion scope",
+          "value": "Fewer than 1% of Notion workspaces, per Notion"
+        },
+        {
+          "label": "Notion cut-off",
+          "value": "Notion disconnected its systems from Fireworks as of November 3"
+        },
+        {
+          "label": "Status",
+          "value": "Investigation ongoing with Unit 42; self-serve dataset uploads and downloads disabled"
+        }
+      ],
+      "links": [
+        {
+          "label": "Fireworks Bulletin",
+          "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update"
+        },
+        {
+          "label": "Notion Notice",
+          "url": "https://www.notion.com/help/security-incident-involving-a-third-party-ai-vendor"
+        },
+        {
+          "label": "Wiz Black October",
+          "url": "https://www.wiz.io/blog/black-october-for-ai-developer-platforms"
+        }
+      ],
+      "publishDate": "2026-11-13T17:58:35.019Z"
+    },
     {
       "id": "microsoft-trained-to-betray-post-training-backdoors",
       "categories": [
@@ -20070,6 +20344,10 @@
         {
           "label": "CISA KEV Catalog",
           "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+        },
+        {
+          "label": "Check Point Campaign",
+          "url": "https://research.checkpoint.com/2026/php2shell-exploitation-on-check-point-gateway/"
         }
       ],
       "image": {
