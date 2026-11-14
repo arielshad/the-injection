@@ -18187,6 +18187,76 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261114t094844z",
+      "timestamp": "2026-11-14T09:48:44.641Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP, agent, LLM, prompt-injection and coding-agent queries), Anthropic news and Frontier Red Team, OpenAI alignment, Microsoft Security, Elastic Security Labs, AIR Security, Zenity Labs, Embrace The Red, Simon Willison, Unit 42, Check Point Research, Wiz, HiddenLayer, Trail of Bits, NCC Group, Socket, JFrog, ReversingLabs, Snyk, Lakera, VulnCheck, OWASP GenAI, UK AISI, Hugging Face blog and guard models, paper-scan (39 arXiv candidates, 1 with two scanned signals), repo-scan (4 candidates), GitHub trending daily and weekly, Hacker News front page and Show HN, and talk-scan (22 channels). One item met the bar: OpenAI's November 12 fuzzy robustness post. Everything else failed on date, dedup or credits. Bot-walled this run and left out: security.googleblog.com, openai.com/news/security, nvd.nist.gov, cve.org and r/netsec.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "openai-fuzzy-robustness-red-teaming",
+          "title": "Fuzzy robustness: OpenAI trains GPT-6 on its own automated jailbreaks",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A frontier lab publishing measured jailbreak-robustness numbers for named models, with its own statement that the figures exclude production safeguards, which is the caveat defenders need when they read them."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "github.com/advisories",
+        "alignment.openai.com",
+        "anthropic.com/news",
+        "anthropic.com/research/team/frontier-red-team",
+        "microsoft.com/en-us/security/blog",
+        "elastic.co/security-labs",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "wiz.io/blog",
+        "hiddenlayer.com/innovation-hub",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "snyk.io/blog",
+        "lakera.ai/blog",
+        "vulncheck.com/blog",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection, created)",
+        "huggingface.co/papers (week 2026-W46)",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending (daily and weekly)",
+        "news.ycombinator.com/front",
+        "news.ycombinator.com/show",
+        "talk-scan.ts (22 YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }

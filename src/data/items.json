@@ -1,7 +1,146 @@
 {
-  "generatedAt": "2026-11-14T03:07:08.018Z",
+  "generatedAt": "2026-11-14T09:48:44.641Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "openai-fuzzy-robustness-red-teaming",
+      "categories": [
+        "lab-safety",
+        "research"
+      ],
+      "title": "Fuzzy robustness: OpenAI trains GPT-6 on its own automated jailbreaks",
+      "org": "OpenAI",
+      "date": "2026-11-12",
+      "url": "https://alignment.openai.com/fuzzy-robustness/",
+      "summary": "OpenAI reports that an automated red teaming loop produced adversarial training data that raised jailbreak robustness in GPT-6 Astra and Sol across cyber, biology and violence, without making them refuse more benign requests.",
+      "severity": "info",
+      "tags": [
+        "jailbreak",
+        "red-team",
+        "evals",
+        "openai",
+        "gpt-6"
+      ],
+      "affected": [
+        "GPT-6 Astra",
+        "GPT-6 Sol",
+        "GPT-5.6 Sol",
+        "GPT-5.5",
+        "GPT-5.4"
+      ],
+      "credits": [
+        {
+          "name": "Kaiwen Wang",
+          "org": "OpenAI"
+        },
+        {
+          "name": "Oliver Cheng",
+          "org": "OpenAI"
+        },
+        {
+          "name": "Zheng Wen",
+          "org": "OpenAI"
+        },
+        {
+          "name": "Mehmet Yatbaz",
+          "org": "OpenAI"
+        },
+        {
+          "name": "Saachi Jain",
+          "org": "OpenAI"
+        },
+        {
+          "name": "Chuan Guo",
+          "org": "OpenAI"
+        },
+        {
+          "name": "Alec Helyar",
+          "org": "OpenAI"
+        }
+      ],
+      "explainer": {
+        "tagline": "Fuzzy robustness is OpenAI's name for how reliably a model keeps refusing disallowed help when an attacker keeps rewriting the request.",
+        "whatHappened": "OpenAI's alignment research blog published Improving Fuzzy Robustness in LLM Safety with Automated Red Teaming on November 12, 2026, written by Kaiwen Wang, Oliver Cheng, Zheng Wen, Mehmet Yatbaz, Saachi Jain, Chuan Guo and Alec Helyar. The post describes a red teaming harness that generates adversarial training data, and reports what happened when OpenAI trained on it. A full paper is linked from the post.",
+        "howItWorks": "An attacker model receives a seed prompt and refines it across attempts until the defender model gives unsafe help, a design the authors compare to PAIR. A worst@n criterion keeps only the attacks that succeed on repeated tries, so the surviving prompts are reliable training examples rather than single lucky hits. OpenAI then uses that robustified prompt set for reinforcement learning. The attacker was a helpful-only reasoning model from the GPT-5.6 Sol family.",
+        "whoIsAffected": "GPT-6 Astra and Sol are the frontier models OpenAI says the approach was applied to, while the controlled study used GPT-5.4 and GPT-5.5 as defenders. Seed prompts cover biology, cyber and violent activity, domains the authors call dual-use because the same information can help or harm. OpenAI states that the published figures measure model robustness without production safeguards.",
+        "whatToDo": "Read these numbers as model-layer measurements rather than deployment measurements when you compare models, because OpenAI says they exclude production safeguards. OpenAI frames model safety training as one layer of a broader safeguards system, so keep controls outside the model in place for cyber and biology work."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "November 12, 2026, OpenAI alignment research blog"
+        },
+        {
+          "label": "Method",
+          "value": "An attacker model rewrites a seed prompt until the defender answers unsafely, filtered by a worst@n criterion"
+        },
+        {
+          "label": "Domains",
+          "value": "Biology, cyber and violent activity"
+        },
+        {
+          "label": "Models trained",
+          "value": "GPT-6 Astra and GPT-6 Sol"
+        },
+        {
+          "label": "Attacker model",
+          "value": "A helpful-only reasoning model from the GPT-5.6 Sol family"
+        },
+        {
+          "label": "Caveat",
+          "value": "OpenAI says the figures measure robustness without production safeguards"
+        },
+        {
+          "label": "Code or data",
+          "value": "The post links the full paper and announces no code or data release"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do OpenAI's fuzzy robustness numbers include production safeguards?",
+          "a": "OpenAI states that the figures in its fuzzy robustness post measure model robustness without production safeguards. The percentages therefore describe how the model itself behaves under adversarial pressure, not how a deployed OpenAI product behaves. The post frames model safety training as one layer inside a broader safeguards system, so deployed behaviour sits behind further filters and controls."
+        },
+        {
+          "q": "Which models did OpenAI test for fuzzy robustness?",
+          "a": "OpenAI applied the approach to its frontier models GPT-6 Astra and GPT-6 Sol, and used GPT-5.4 and GPT-5.5 as defender models in a controlled study. The attacker that generated the jailbreaks was a helpful-only reasoning model from the GPT-5.6 Sol family. The post compares GPT-6 Astra against GPT-5.6 Sol on fixed jailbreaks and on adaptive multi-turn attacks."
+        },
+        {
+          "q": "Did training for fuzzy robustness make GPT-6 refuse more benign requests?",
+          "a": "OpenAI reports that robustness training did not make GPT-6 Astra more likely to refuse benign tasks. On its challenging-prompt evaluation the authors describe a Pareto improvement, meaning safer handling of harmful requests alongside fewer refusals of legitimate ones. OpenAI publishes these as its own measurements, and the supporting values appear only in the post's figures rather than in a table."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Safe responses to fixed cyber jailbreaks",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher is better: the share of jailbreak attempts answered safely, without production safeguards",
+          "results": [
+            {
+              "name": "GPT-6 Astra",
+              "score": 91.5,
+              "highlight": true
+            },
+            {
+              "name": "GPT-5.6 Sol",
+              "score": 59
+            }
+          ],
+          "source": "https://alignment.openai.com/fuzzy-robustness/"
+        }
+      ],
+      "links": [
+        {
+          "label": "OpenAI Research Post",
+          "url": "https://alignment.openai.com/fuzzy-robustness/"
+        },
+        {
+          "label": "Full Paper (PDF)",
+          "url": "https://cdn.openai.com/pdf/OAI_Improving_Fuzzy_Robustness_in_LLM_Safety_with_Automated_Red_Teaming.pdf"
+        }
+      ],
+      "publishDate": "2026-11-14T09:48:44.641Z"
+    },
     {
       "id": "llama-cpp-v1-0-0-server-hardening",
       "categories": [
