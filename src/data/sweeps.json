@@ -18091,6 +18091,102 @@
         "news.ycombinator.com front pages (Nov 7, 9, 11, 12, 13) and Show HN"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261114t030708z",
+      "timestamp": "2026-11-14T03:07:08.018Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, IBM, Kong, Docker and llama.cpp release channels, Anthropic, OpenAI, Microsoft MSRC and Security blog, Google GTIG, AIR, Wiz, Unit 42, Check Point, CrowdStrike, Talos, Elastic, VulnCheck, GitGuardian, Socket, JFrog, Trail of Bits, HiddenLayer, Zenity, Snyk, NCC, Straiker, Lakera, UK AISI, OWASP GenAI, Hugging Face, Hacker News, GitHub trending, repo-scan (4 candidates), paper-scan (40 candidates) and talk-scan (47 videos). Four gateway and sandbox disclosures met the bar; no repo, paper or talk did.",
+      "counts": {
+        "added": 4,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "ibm-contextforge-november-cves",
+          "title": "IBM ContextForge: one header overrides the MCP gateway's credentials",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Eight CVEs against a widely deployed open-source MCP gateway, two rated High by IBM, with a named reporter and a shipped fix."
+        },
+        {
+          "id": "kong-ai-gateway-llm-counter-sqli",
+          "title": "Kong AI Gateway: a model name in a request runs SQL on the database",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "CVSS 8.7 SQL injection reachable by any client that can proxy an LLM request through Kong AI Gateway."
+        },
+        {
+          "id": "llama-cpp-v1-0-0-server-hardening",
+          "title": "llama.cpp v1.0.0: tools need an API key off loopback",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A new major release that changes llama-server defaults: tools and MCP now need an API key off loopback, and the CORS proxy no longer reaches private addresses."
+        },
+        {
+          "id": "docker-sandboxes-state-ownership-root",
+          "title": "Docker Sandboxes: running sbx as root can hand over the host",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A local root escalation in the sandbox Docker ships for running AI coding agents, fixed in 0.53.0."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "ibm.com security bulletins",
+        "developer.konghq.com changelogs",
+        "github.com/ggml-org/llama.cpp releases",
+        "github.com/docker/sbx-releases",
+        "docs.docker.com",
+        "anthropic.com/news",
+        "microsoft.com/en-us/security/blog",
+        "microsoft.com/en-us/msrc/blog",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "air.security/blog",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "crowdstrike.com/blog",
+        "blog.talosintelligence.com",
+        "elastic.co/security-labs",
+        "vulncheck.com/blog",
+        "blog.gitguardian.com",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "blog.trailofbits.com",
+        "hiddenlayer.com",
+        "zenity.io/blog",
+        "snyk.io/blog",
+        "nccgroup.com/research-blog",
+        "straiker.ai/blog",
+        "lakera.ai/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "aisi.gov.uk/blog",
+        "genai.owasp.org/resources",
+        "huggingface.co/blog",
+        "Hacker News front page and newest",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

@@ -1,7 +1,364 @@
 {
-  "generatedAt": "2026-11-13T23:07:29.986Z",
+  "generatedAt": "2026-11-14T03:07:08.018Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "llama-cpp-v1-0-0-server-hardening",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "llama.cpp v1.0.0: tools need an API key off loopback",
+      "org": "llama.cpp",
+      "date": "2026-11-13",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/v1.0.0",
+      "summary": "llama.cpp v1.0.0 refuses to start llama-server with tools or MCP on a non-loopback address unless an API key is set, and stops the CORS proxy and media URLs reaching private addresses. Maintainer Xuan-Son Nguyen wrote both changes.",
+      "severity": "medium",
+      "tags": [
+        "open-weights",
+        "mcp",
+        "llama-cpp",
+        "llama-server"
+      ],
+      "affected": [
+        "llama.cpp",
+        "llama-server"
+      ],
+      "credits": [
+        {
+          "name": "Xuan-Son Nguyen",
+          "org": "llama.cpp",
+          "url": "https://github.com/ngxson"
+        }
+      ],
+      "explainer": {
+        "tagline": "llama-server now refuses an unauthenticated tools setup on a LAN address, and keeps its CORS proxy away from localhost.",
+        "whatHappened": "The llama.cpp project released v1.0.0 on November 13, 2026 with a group of server security changes. Maintainer Xuan-Son Nguyen wrote and merged the two main pull requests, 32113 and 32115, on November 12. Neither change carries a CVE.",
+        "howItWorks": "The CORS proxy and the media URLs accepted in chat completion input could previously resolve to any address, including loopback and LAN hosts, which is server-side request forgery. Version 1.0.0 refuses private targets unless the operator passes --media-allow-private-urls, and a reviewer reported that both a redirect to 127.0.0.1 and a DNS rebinding host were blocked. Separately, starting the server with tools or MCP enabled on a non-loopback address and no API key is now refused, and CORS origin matching checks the port as well as the host.",
+        "whoIsAffected": "Builds before v1.0.0 are exposed on any machine that also browses the web, because a visited page can drive the CORS proxy at internal addresses. Nguyen writes that the original design assumed operators would sandbox llama-server, while many now run it on personal computers. Anyone who bound the server to 0.0.0.0 with tools enabled and no key was serving those tools to the network.",
+        "whatToDo": "Update to llama.cpp v1.0.0. If start-up now fails because tools or MCP are enabled on a non-loopback address, set an API key rather than passing --allow-unauthenticated-tools. Anything that relied on the CORS proxy to reach a localhost or LAN MCP server needs CORS enabled on that server instead."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "llama.cpp builds before v1.0.0, in llama-server"
+        },
+        {
+          "label": "Fixed in",
+          "value": "v1.0.0, released November 13, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        },
+        {
+          "label": "Found by",
+          "value": "Xuan-Son Nguyen, llama.cpp maintainer"
+        },
+        {
+          "label": "New flags",
+          "value": "--allow-unauthenticated-tools and --media-allow-private-urls, both opt-in"
+        },
+        {
+          "label": "Attack type",
+          "value": "Server-side request forgery through the CORS proxy and media URLs"
+        }
+      ],
+      "links": [
+        {
+          "label": "Release v1.0.0",
+          "url": "https://github.com/ggml-org/llama.cpp/releases/tag/v1.0.0"
+        },
+        {
+          "label": "PR 32115: SSRF Fix",
+          "url": "https://github.com/ggml-org/llama.cpp/pull/32115"
+        },
+        {
+          "label": "PR 32113: Tools Opt-In",
+          "url": "https://github.com/ggml-org/llama.cpp/pull/32113"
+        }
+      ],
+      "publishDate": "2026-11-14T03:07:08.018Z"
+    },
+    {
+      "id": "ibm-contextforge-november-cves",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "IBM ContextForge: one header overrides the MCP gateway's credentials",
+      "org": "IBM",
+      "date": "2026-11-12",
+      "url": "https://www.ibm.com/support/pages/node/7296490",
+      "summary": "IBM ContextForge MCP Gateway lets an authenticated user override the gateway's stored upstream credential with the X-Upstream-Authorization header. IBM scores it CVSS 8.1 and fixed it in v1.1.1, one of eight CVEs published this week.",
+      "severity": "high",
+      "tags": [
+        "mcp",
+        "privilege-escalation",
+        "agent-security",
+        "ibm",
+        "contextforge"
+      ],
+      "affected": [
+        "IBM ContextForge MCP Gateway",
+        "mcp-contextforge-gateway (PyPI)"
+      ],
+      "cve": "CVE-2026-110279",
+      "cvss": 8.1,
+      "credits": [
+        {
+          "name": "Wolfgang Kriesel"
+        }
+      ],
+      "explainer": {
+        "tagline": "An authenticated ContextForge user can swap the MCP gateway's stored upstream credential for one of their own.",
+        "whatHappened": "IBM published security bulletins for IBM ContextForge MCP Gateway on November 12 and 13, 2026, and GitHub listed eight of the resulting CVEs on November 14. Wolfgang Kriesel reported the two flaws IBM rates High, CVE-2026-110279 and CVE-2026-110278. IBM shipped the fixes in v1.1.1, released on November 10.",
+        "howItWorks": "The gateway always renames an incoming X-Upstream-Authorization request header to Authorization before it calls an upstream MCP server, so a caller's header replaces the credential the gateway holds. IBM says OAuth authorization_code and client_credentials gateways are affected, along with bearer and basic ones. The second High flaw, CVE-2026-110278, ignores the per-server identity propagation setting during tool calls and resource reads, so a server configured not to receive user identity still gets the caller's user ID, email, groups and teams.",
+        "whoIsAffected": "Both High flaws reach v1.0.0 through v1.1.0, so the current 1.1.0 release is exposed as well as the whole 1.0 line. The other CVEs, listed below, stop at v1.0.11, apart from the jq filter denial of service. Gateways fronting several tenants or several upstream MCP servers lose the most to a credential swap, because per-user permission checks and audit attribution both rest on which credential is used.",
+        "whatToDo": "Upgrade to IBM ContextForge MCP Gateway v1.1.1. Until then, IBM suggests stripping the X-Upstream-Authorization header at the reverse proxy in front of the MCP endpoints and setting IDENTITY_PROPAGATION_ENABLED=false to stop identity forwarding to upstream servers."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "IBM ContextForge MCP Gateway v1.0.0 through v1.1.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "v1.1.1, released November 10, 2026"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-110279, CVE-2026-110278, CVE-2026-110189, CVE-2026-110178, CVE-2026-110194, CVE-2026-110195, CVE-2026-110199 and CVE-2026-94407"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.1 for CVE-2026-110279 and 7.4 for CVE-2026-110278, both scored by IBM"
+        },
+        {
+          "label": "Found by",
+          "value": "Wolfgang Kriesel, for CVE-2026-110279 and CVE-2026-110278"
+        },
+        {
+          "label": "Disclosed",
+          "value": "IBM security bulletins, November 12 and 13, 2026"
+        },
+        {
+          "label": "Workaround",
+          "value": "Strip X-Upstream-Authorization at a proxy and set IDENTITY_PROPAGATION_ENABLED=false"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which IBM ContextForge versions does CVE-2026-110279 affect?",
+          "a": "CVE-2026-110279 affects IBM ContextForge MCP Gateway v1.0.0 through v1.1.0, so the newest 1.1.0 release is vulnerable along with the entire 1.0 line. IBM fixed the flaw in v1.1.1 through pull request 7341 in the mcp-context-forge repository. Most of the other CVEs published alongside it stop at v1.0.11."
+        },
+        {
+          "q": "Can an unauthenticated attacker use the ContextForge credential override?",
+          "a": "No. IBM scores CVE-2026-110279 with privileges required set to low, so the caller needs an authenticated session on the gateway. The value of the flaw is lateral rather than external: a user who should only reach their own upstream servers can present a different credential, which bypasses per-user permission checks and makes audit records name the wrong identity."
+        },
+        {
+          "q": "How do I stop ContextForge leaking user identity without upgrading?",
+          "a": "Set IDENTITY_PROPAGATION_ENABLED=false on the gateway. IBM gives that as the workaround for CVE-2026-110278, and it halts identity forwarding to every upstream MCP server instead of relying on the per-server switch the flaw ignores. IBM also advises restricting gateway access to trusted users, and says upgrading to v1.1.1 is the better answer."
+        },
+        {
+          "q": "Are all eight ContextForge CVEs fixed in the same release?",
+          "a": "Not quite. IBM points the two High flaws and the jq filter denial of service, which all reach v1.1.0, at v1.1.1. The bulletins for the CVEs that stop at v1.0.11, including the server-side request forgery and the bulk import access control flaw, tell operators to install v1.1.0. Upgrading straight to v1.1.1 covers every case."
+        }
+      ],
+      "links": [
+        {
+          "label": "IBM: CVE-2026-110279",
+          "url": "https://www.ibm.com/support/pages/node/7296490"
+        },
+        {
+          "label": "IBM: CVE-2026-110278",
+          "url": "https://www.ibm.com/support/pages/node/7296489"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-fp2v-98c9-h9m3"
+        },
+        {
+          "label": "Release v1.1.1",
+          "url": "https://github.com/IBM/mcp-context-forge/releases/tag/v1.1.1"
+        }
+      ],
+      "publishDate": "2026-11-14T03:07:08.018Z"
+    },
+    {
+      "id": "docker-sandboxes-state-ownership-root",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Docker Sandboxes: running sbx as root can hand over the host",
+      "org": "Docker",
+      "date": "2026-11-12",
+      "url": "https://github.com/advisories/GHSA-w92q-8xxw-h4r9",
+      "summary": "Docker Sandboxes reuses state and configuration directories without checking who owns them, so running sbx or sandboxd as root with an attacker-controlled HOME can reach command execution as root. The advisory gives 0.53.0 as the fix.",
+      "severity": "medium",
+      "tags": [
+        "privilege-escalation",
+        "coding-agents",
+        "agent-security",
+        "docker"
+      ],
+      "affected": [
+        "Docker Sandboxes",
+        "sbx",
+        "sandboxd"
+      ],
+      "cve": "CVE-2026-126329",
+      "cvss": 7.3,
+      "credits": [
+        {
+          "name": "Docker"
+        }
+      ],
+      "explainer": {
+        "tagline": "Docker Sandboxes trusts whatever state directory HOME points at, which matters when the agent sandbox runs as root.",
+        "whatHappened": "CVE-2026-126329 was published against Docker Sandboxes on November 12, 2026 with a CVSS v4.0 score of 7.3. A second, much lower-rated flaw, CVE-2026-126330, appeared the same day. Docker had released Sandboxes 0.53.0 on November 11 and names only CVE-2026-126330 in those release notes.",
+        "howItWorks": "Docker Sandboxes reuses existing state and configuration directories without checking their ownership. When sbx or sandboxd runs as root and HOME, or XDG_STATE_HOME on Linux, points somewhere a local unprivileged user controls, that user can replace the control-plane sockets and configuration the root process trusts, and reach command execution as root. The advisory records the weakness as improper ownership management and lists Linux and macOS as affected.",
+        "whoIsAffected": "Workstations and build hosts that run the sbx CLI or the sandboxd daemon with elevated privileges, on Linux or macOS. The advisory names a local unprivileged user as the attacker and says exploitation needs a privileged invocation whose environment that user can influence, which points at shared and multi-user machines. Docker Sandboxes is the product Docker ships for running AI coding agents in isolated local or cloud environments.",
+        "whatToDo": "Upgrade Docker Sandboxes to 0.53.0 or later, which the advisory gives as the fixed version. Avoid running sbx or sandboxd as root at all, and never let an unprivileged user set HOME or XDG_STATE_HOME for a privileged invocation."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Docker Sandboxes on Linux and macOS, through the sbx CLI and the sandboxd daemon"
+        },
+        {
+          "label": "Fixed in",
+          "value": "0.53.0, released November 11, 2026"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-126329 and CVE-2026-126330"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.3 CVSS v4.0 for CVE-2026-126329, and 2.4 for CVE-2026-126330"
+        },
+        {
+          "label": "Weakness",
+          "value": "CWE-282, improper ownership management"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 12, 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-w92q-8xxw-h4r9"
+        },
+        {
+          "label": "Port Republish Flaw",
+          "url": "https://github.com/advisories/GHSA-42wc-3p53-v4wg"
+        },
+        {
+          "label": "Release 0.53.0",
+          "url": "https://github.com/docker/sbx-releases/releases/tag/v0.53.0"
+        },
+        {
+          "label": "Docker Sandboxes Docs",
+          "url": "https://docs.docker.com/ai/sandboxes/"
+        }
+      ],
+      "publishDate": "2026-11-14T03:07:08.018Z"
+    },
+    {
+      "id": "kong-ai-gateway-llm-counter-sqli",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Kong AI Gateway: a model name in a request runs SQL on the database",
+      "org": "Kong",
+      "date": "2026-11-10",
+      "url": "https://github.com/advisories/GHSA-jvch-w6fx-vccj",
+      "summary": "Kong AI Gateway wrote a client-supplied model name into its LLM usage counters without escaping, so a crafted name runs arbitrary SQL against the Kong database. The advisory scores it CVSS 8.7, and Kong shipped fixes on November 10, 2026.",
+      "severity": "high",
+      "tags": [
+        "data-exfiltration",
+        "kong",
+        "kong-ai-gateway"
+      ],
+      "affected": [
+        "Kong AI Gateway",
+        "Kong Gateway Enterprise"
+      ],
+      "cve": "CVE-2026-92544",
+      "cvss": 8.7,
+      "credits": [
+        {
+          "name": "Kong"
+        }
+      ],
+      "explainer": {
+        "tagline": "Kong AI Gateway built its usage-counter SQL by pasting in the model name a client sent with the request.",
+        "whatHappened": "CVE-2026-92544 was published on November 10, 2026, and Kong released the fixes the same day. The flaw sits in the LLM usage counters shared by Kong AI Gateway and Kong Gateway Enterprise. Kong's changelog describes it as SQL injection reachable through a client-supplied model name.",
+        "howItWorks": "Each proxied request writes a row to the license_llm_data table, and the model name taken from the client went into that statement without escaping. A caller who puts SQL syntax in the model field therefore runs statements of their choosing against the Kong database. Kong's fix escapes every value before the statement is run.",
+        "whoIsAffected": "Operators who route LLM traffic through Kong AI Gateway or Kong Gateway Enterprise are exposed. The CVSS v4.0 vector sets attack vector to network, privileges required to low and user interaction to none, so any client allowed to proxy a request can reach the counter. Fixed releases are listed below.",
+        "whatToDo": "Upgrade Kong AI Gateway to 2.2.1 or later, and Kong Gateway Enterprise to 3.16.0.2 or 3.15.0.7. Review the Kong database for rows or schema changes you cannot account for if untrusted clients could reach the gateway before the upgrade."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Kong AI Gateway and Kong Gateway Enterprise, in the LLM usage counters"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Kong AI Gateway 2.2.1, Kong Gateway Enterprise 3.16.0.2 and 3.15.0.7, all released November 10, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-92544"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.7 CVSS v4.0, published with the advisory"
+        },
+        {
+          "label": "Attack type",
+          "value": "SQL injection through a client-supplied model name"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 10, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Kong releases fix CVE-2026-92544?",
+          "a": "Kong fixed CVE-2026-92544 in Kong AI Gateway 2.2.1 and in Kong Gateway Enterprise 3.16.0.2 and 3.15.0.7, all released on November 10, 2026. Kong AI Gateway 2.3.0, released on November 4, carries the same SQL injection fix in the LLM usage counters, although its changelog entry does not print the CVE id."
+        },
+        {
+          "q": "Do I need an admin account to exploit the Kong model name flaw?",
+          "a": "No. The CVSS v4.0 vector for CVE-2026-92544 sets privileges required to low, so an attacker needs whatever credential the gateway asks of a normal API client rather than administrator access. Attack vector is network and user interaction is none, which means any client permitted to proxy an LLM request can place SQL in the model field."
+        },
+        {
+          "q": "What does the SQL injection in Kong's LLM usage counters reach?",
+          "a": "The injected statement runs against the Kong database, which holds gateway configuration as well as the license_llm_data table that records model usage. The published score marks confidentiality, integrity and availability impact as high on the gateway itself, and adds a further high confidentiality impact on systems beyond it."
+        },
+        {
+          "q": "How can I tell whether my Kong gateway was attacked through the model name?",
+          "a": "Kong's changelog entry for CVE-2026-92544 gives no indicators of compromise and reports no exploitation. Operators can still check their own proxy logs for requests whose model field carries SQL syntax such as quotes or semicolons, and compare the Kong database against a known-good backup taken before November 10, 2026."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-jvch-w6fx-vccj"
+        },
+        {
+          "label": "AI Gateway Changelog",
+          "url": "https://developer.konghq.com/ai-gateway/changelog/"
+        },
+        {
+          "label": "Gateway Changelog",
+          "url": "https://developer.konghq.com/gateway/changelog/"
+        }
+      ],
+      "publishDate": "2026-11-14T03:07:08.018Z"
+    },
     {
       "id": "elastic-cyberstrikeai-aws-cloudtrail",
       "categories": [
