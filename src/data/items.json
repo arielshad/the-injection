@@ -1,7 +1,132 @@
 {
-  "generatedAt": "2026-11-14T09:48:44.641Z",
+  "generatedAt": "2026-11-14T16:16:16.500Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "gpustack-loopback-auth-bypass-kev",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "GPUStack: an auth bypass exploited in the wild lands on CISA's KEV list",
+      "org": "GPUStack",
+      "date": "2026-11-09",
+      "url": "https://github.com/advisories/GHSA-gj9m-f8ph-pmhr",
+      "summary": "CVE-2026-102895 lets anyone who can reach a GPUStack server act as its administrator without logging in. CISA added the flaw to its Known Exploited Vulnerabilities catalog on November 9, after the maintainers confirmed abuse in the wild.",
+      "severity": "critical",
+      "tags": [
+        "rce",
+        "credential-theft",
+        "privilege-escalation",
+        "gpustack"
+      ],
+      "affected": [
+        "GPUStack",
+        "gpustack (PyPI)"
+      ],
+      "cve": "CVE-2026-102895",
+      "cvss": 9.8,
+      "credits": [
+        {
+          "name": "Nikko Enggaliano"
+        },
+        {
+          "name": "Wei Yunzhou"
+        },
+        {
+          "name": "Rui Yang",
+          "org": "Johns Hopkins University"
+        },
+        {
+          "name": "Haoyu Wang",
+          "org": "Johns Hopkins University"
+        },
+        {
+          "name": "Javier Sixto",
+          "org": "ulex.fr"
+        },
+        {
+          "name": "Shadowoyz"
+        }
+      ],
+      "explainer": {
+        "tagline": "GPUStack treats any request that looks like it came from localhost as its built-in administrator, and attackers are using that.",
+        "whatHappened": "GitHub published the GPUStack maintainers' advisory for CVE-2026-102895 to its advisory database on November 9, 2026, and CISA added the same flaw to its Known Exploited Vulnerabilities catalog that day, citing evidence of active exploitation. The advisory states the bug was observed exploited in the wild against a version 2.1.1 deployment, where attackers created custom inference backends that opened reverse shells on worker hosts. Several researchers reported the flaw independently, and Javier Sixto of ulex.fr reported the exploitation.",
+        "howItWorks": "Authentication in GPUStack is decided by where a request appears to come from rather than by a credential. In releases before 2.2.0, the get_current_user check in gpustack/api/auth.py promotes any caller it considers loopback to the first administrator account whenever force_auth_localhost is false, which is the default. A reverse proxy on the same host makes every remote request look local, and Ostorlab reports that in embedded gateway mode a forged X-GPUStack-Real-IP header reaches the same code path. Ostorlab adds that the resulting admin session can mint API keys with the wildcard scope and run code on worker hosts through the inference-backend endpoint.",
+        "whoIsAffected": "GPUStack releases before 2.2.0 carry CVE-2026-102895, and the default configuration is the exposed one, so no unusual setup is needed. Two further authentication and authorization flaws published a day later, listed below, reach into 2.2.1, which leaves 2.2.0 and 2.2.1 deployments short of clean.",
+        "whatToDo": "Upgrade GPUStack to 2.2.2 or later, which closes all three flaws, and recreate the container instead of only pulling the image, because Ostorlab notes the old process keeps running otherwise. Before upgrading, set force_auth_localhost to true, strip any client-supplied X-GPUStack-Real-IP header at the proxy, and keep the API off untrusted networks. Ostorlab also advises rotating worker and cloud provider credentials, since an upgrade does not revoke keys an attacker already created."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "GPUStack before 2.2.0, default configuration"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.2.0 for this flaw, 2.2.2 for all three"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-102895, CVSS 9.8 (CWE-287, CWE-290, CWE-346)"
+        },
+        {
+          "label": "Also patched",
+          "value": "CVE-2026-102894 (CVSS 9.1), CVE-2026-103002 (CVSS 8.8)"
+        },
+        {
+          "label": "Status",
+          "value": "Exploited in the wild, added to CISA KEV on 2026-11-09"
+        },
+        {
+          "label": "Found by",
+          "value": "Nikko Enggaliano, Wei Yunzhou, Rui Yang, Haoyu Wang, Javier Sixto, Shadowoyz"
+        },
+        {
+          "label": "Attack type",
+          "value": "Authentication bypass by spoofing a loopback source"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if my GPUStack sits behind a reverse proxy?",
+          "a": "GPUStack deployments behind a same-host reverse proxy are the main exposure for CVE-2026-102895, because the proxy makes every remote request look as though it came from localhost. Ostorlab reports that embedded gateway mode is reachable too, through a forged X-GPUStack-Real-IP header. Any release before 2.2.0 running the default force_auth_localhost value of false is affected, proxy or no proxy."
+        },
+        {
+          "q": "Which GPUStack version closes all three November advisories?",
+          "a": "GPUStack 2.2.2 closes all three. Version 2.2.0 fixes only CVE-2026-102895, the loopback bypass, while CVE-2026-102894 reaches version 2.2.1 and CVE-2026-103002 affects 2.2.0 and 2.2.1. Ostorlab recommends 2.2.2 or later as the safe floor, and notes that pulling the image is not enough, because the old process keeps running until the container is recreated."
+        },
+        {
+          "q": "How do I tell whether my GPUStack was already compromised?",
+          "a": "Ostorlab advises GPUStack operators to review administrator users and API keys and revoke any they did not create, inspect the inference backends for entries they did not add, check worker hosts for unexpected outbound connections or shells, and search logs for successful API requests that carried no credentials. The maintainers report attackers used custom backends to open reverse shells."
+        },
+        {
+          "q": "Does upgrading GPUStack revoke access an attacker already has?",
+          "a": "Upgrading GPUStack does not revoke credentials an attacker created before the patch. Ostorlab states that keys minted during an intrusion survive the upgrade, so operators should rotate worker and cloud provider credentials and review their cloud accounts for unfamiliar resources. CISA added CVE-2026-102895 to its Known Exploited Vulnerabilities catalog on November 9, 2026, which makes that cleanup urgent for exposed deployments."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-gj9m-f8ph-pmhr"
+        },
+        {
+          "label": "CISA KEV Alert",
+          "url": "https://www.cisa.gov/news-events/alerts/2026/11/09/cisa-adds-four-known-exploited-vulnerabilities-catalog"
+        },
+        {
+          "label": "SAML Bypass Advisory",
+          "url": "https://github.com/advisories/GHSA-62m9-f875-rqw6"
+        },
+        {
+          "label": "Cluster Takeover GHSA",
+          "url": "https://github.com/advisories/GHSA-3hch-x692-6qj3"
+        },
+        {
+          "label": "Ostorlab Analysis",
+          "url": "https://blog.ostorlab.co/gpustack-auth-bypass-rce-cve-2026-102895.html"
+        }
+      ],
+      "publishDate": "2026-11-14T16:16:16.500Z"
+    },
     {
       "id": "openai-fuzzy-robustness-red-teaming",
       "categories": [

@@ -18257,6 +18257,67 @@
         "talk-scan.ts (22 YouTube channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261114t161616z",
+      "timestamp": "2026-11-14T16:16:16.500Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research group blogs, GitHub Security Advisories, CISA KEV, arXiv and Hugging Face papers, repo-scan (13 queries, 6 candidates), GitHub Trending, talk-scan (22 channels) and Hacker News for the 7-day window. One item qualified: GPUStack's loopback authentication bypass (CVE-2026-102895), confirmed exploited in the wild and added to CISA's KEV catalog on November 9, which no earlier sweep had picked up.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "gpustack-loopback-auth-bypass-kev",
+          "title": "GPUStack: an auth bypass exploited in the wild lands on CISA's KEV list",
+          "category": "vulnerability",
+          "severity": "critical",
+          "note": "A CVSS 9.8 authentication bypass in a widely deployed LLM serving manager, confirmed exploited in the wild by the maintainers and added to CISA's KEV catalog inside the window, with a fix and concrete cleanup steps defenders can act on."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "CISA Known Exploited Vulnerabilities alerts",
+        "Anthropic news",
+        "OpenAI alignment blog",
+        "Microsoft MSRC blog",
+        "AIR Security",
+        "Zenity Labs",
+        "Check Point Research",
+        "Unit 42",
+        "Wiz Research",
+        "Trail of Bits",
+        "HiddenLayer",
+        "Embrace The Red",
+        "simonwillison.net",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "Hugging Face blog",
+        "Socket",
+        "Ostorlab blog",
+        "Hacker News front page",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "paper-scan (arXiv and Hugging Face Daily Papers)",
+        "talk-scan (22 YouTube channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
