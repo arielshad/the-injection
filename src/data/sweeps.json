@@ -18318,6 +18318,88 @@
         "talk-scan (22 YouTube channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261114t210036z",
+      "timestamp": "2026-11-14T21:00:36.064Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (GitHub Security Advisories, MSRC, Anthropic, OpenAI alignment, DeepMind, OWASP, UK AISI), research groups (AIR, Zenity, Embrace The Red, Unit 42, Check Point, Trail of Bits, Wiz, Socket, Snyk, JFrog, ReversingLabs, NCC Group, HiddenLayer, Darktrace), paper-scan (37 arXiv papers in the window, one with two signals), repo-scan (13 queries, 6 candidates), talk-scan, GitHub trending, Hacker News front page and Show HN, and Hugging Face blog and papers. Added three items: Darktrace's Claude memory store C2 demonstration, Manifold's Agent Incident Ledger analysis, and OpenAI's chain-of-thought monitorability study.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "darktrace-claude-memory-c2",
+          "title": "Living off the AI: Claude memory stores carry an attacker's orders",
+          "category": "attack",
+          "severity": "medium",
+          "note": "Original Darktrace Signal Labs research inside the window: a working, documented technique against a named product with concrete detection advice, and no overlap with the existing NIK C2 or memory injection items."
+        },
+        {
+          "id": "manifold-agent-incident-ledger-66",
+          "title": "Agent Incident Ledger: 57 of 66 agent incidents had no attacker",
+          "category": "research",
+          "severity": "info",
+          "note": "First-party analysis of Manifold's own Agent Incident Ledger, published inside the window, with a stated methodology, printed numbers and specific defender actions."
+        },
+        {
+          "id": "openai-cot-monitorability-lifecycle",
+          "title": "OpenAI: what training choices do to chain-of-thought monitoring",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "Lab research inside the window that measures whether chain-of-thought monitoring, a control some teams now rely on, survives normal training choices."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Microsoft MSRC blog",
+        "anthropic.com/news",
+        "Anthropic Frontier Red Team",
+        "alignment.openai.com",
+        "deepmind.google blog",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "AIR Security blog",
+        "Zenity Labs",
+        "embracethered.com",
+        "simonwillison.net",
+        "Unit 42",
+        "Check Point Research",
+        "Trail of Bits blog",
+        "Wiz blog",
+        "Socket blog",
+        "Snyk security research",
+        "JFrog blog",
+        "ReversingLabs blog",
+        "NCC Group research blog",
+        "HiddenLayer Innovation Hub",
+        "Lakera blog",
+        "Darktrace blog",
+        "arXiv cs.CR via paper-scan.ts",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan.ts",
+        "Hacker News front page and Show HN",
+        "huggingface.co/blog",
+        "huggingface.co/papers"
+      ],
+      "windowDays": 7
     }
   ]
 }
