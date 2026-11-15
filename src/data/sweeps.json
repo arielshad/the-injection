@@ -18400,6 +18400,75 @@
         "huggingface.co/papers"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261115t003956z",
+      "timestamp": "2026-11-15T00:39:56.242Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories (GitHub Security Advisories with MCP, agent, LLM and package queries, CVE Services records, IBM, Anthropic news, OpenAI alignment, MSRC, Google GTIG, UK AISI, OWASP GenAI), research groups (AIR, Zenity, Embrace The Red, Simon Willison, Unit 42, Check Point, Wiz, Elastic Security Labs, Darktrace, Trail of Bits, NCC Group, HiddenLayer, Lakera, Snyk, Socket, JFrog, ReversingLabs), paper-scan (37 arXiv papers in the window, one with two scanned signals), repo-scan (13 queries, 4 candidates), talk-scan (15 videos), GitHub trending daily and weekly, Hacker News front page and Show HN, and Hugging Face blog, papers and guard models. One item met the bar: Callstack's November 13 advisory for a local file disclosure in agent-device, the device layer its MCP server exposes to coding agents. Left out: the Crissy Field study of data exposure in Lovable apps, which reached the Hacker News front page on November 14 but was first published with Handelsblatt on November 2, outside the window; the Black Hat ChatMate talk on M365 Copilot, uploaded November 14 but below the view bar, with its Rubrik Zero Labs write-up returning 403; the SkillCODER paper, which clears the two-signal bar but is copyright auditing rather than a defender exposure; the LASIK repo (130 stars, one signal only); and pgEdge's RAG server credential-leak advisories, whose original disclosure dates to September 3.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "callstack-agent-device-file-disclosure",
+          "title": "agent-device: a file:// URL lets a remote caller read host files",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A credited CVE published inside the window against the device layer that Callstack's MCP server exposes to Claude Code, Codex, Cursor and other coding agents, with a named finder, a shipped fix and a clearly stated configuration precondition."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "CVE Services record for CVE-2026-129130",
+        "github.com/callstack/agent-device",
+        "air.security/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "alignment.openai.com",
+        "anthropic.com/news",
+        "microsoft.com/msrc/blog",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "aisi.gov.uk/blog",
+        "genai.owasp.org/resources",
+        "unit42.paloaltonetworks.com",
+        "wiz.io/blog",
+        "research.checkpoint.com",
+        "elastic.co/security-labs",
+        "darktrace.com/blog",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "hiddenlayer.com/innovation-hub",
+        "lakera.ai/blog",
+        "snyk.io/blog/category/security-research",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "arXiv cs.CR via paper-scan",
+        "huggingface.co/blog",
+        "huggingface.co/models prompt-injection search",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and Show HN",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }

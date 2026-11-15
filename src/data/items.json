@@ -1,7 +1,107 @@
 {
-  "generatedAt": "2026-11-14T21:00:36.064Z",
+  "generatedAt": "2026-11-15T00:39:56.242Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "callstack-agent-device-file-disclosure",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "agent-device: a file:// URL lets a remote caller read host files",
+      "org": "Callstack",
+      "date": "2026-11-13",
+      "url": "https://github.com/callstack/agent-device/security/advisories/GHSA-g87j-p64h-w8wc",
+      "summary": "agent-device, Callstack's device layer for AI coding agents, let an authenticated remote caller open a local file:// URL and read the file back through a snapshot. Callstack rates it High and fixed it in 0.21.37. Found by naroSEC.",
+      "severity": "medium",
+      "tags": [
+        "agent-security",
+        "coding-agents",
+        "mcp",
+        "agent-device",
+        "callstack"
+      ],
+      "affected": [
+        "agent-device",
+        "agent-device (npm)"
+      ],
+      "cve": "CVE-2026-129130",
+      "cvss": 6.5,
+      "credits": [
+        {
+          "name": "naroSEC"
+        }
+      ],
+      "explainer": {
+        "tagline": "agent-device 0.21.36 let a remote caller with a valid token read plaintext files from the machine running the agent's device daemon.",
+        "whatHappened": "Callstack published an advisory on November 13, 2026 for agent-device, its open-source device layer for AI coding agents. The researcher naroSEC reported that a caller holding a valid bearer token for the daemon's /rpc endpoint could read files on the host. VulnCheck assigned CVE-2026-129130 the same day.",
+        "howItWorks": "The daemon's web commands accept a file:// target. An open command points the managed browser backend at a local path, and a following snapshot command returns the page text, which for a plaintext file is the file's contents. GitHub classifies the flaw as CWE-73, external control of file name or path. The caller needs no direct filesystem access of its own.",
+        "whoIsAffected": "Version 0.21.36 is affected and 0.21.37 carries the fix. Reaching the flaw needs the daemon exposed through an authorized remote configuration, the managed web backend installed with agent-device web setup, and a caller holding a valid bearer token for /rpc. Any plaintext file the daemon's account can read is in scope.",
+        "whatToDo": "Upgrade agent-device to 0.21.37, which Callstack gives as the only remedy; the advisory lists no workaround. On hosts that ran 0.21.36 with remote access enabled, review which plaintext files the daemon's account could read."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "agent-device 0.21.36 (npm)"
+        },
+        {
+          "label": "Fixed in",
+          "value": "agent-device 0.21.37"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-129130"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.5 CVSS 3.1 from VulnCheck as CNA, 7.7 CVSS 3.1 in Callstack's own advisory"
+        },
+        {
+          "label": "Found by",
+          "value": "naroSEC"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 13, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Local file disclosure, CWE-73"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if I only run agent-device locally?",
+          "a": "Exposure requires more than installing agent-device. Callstack's advisory says the vulnerable path needs the daemon published through an authorized remote configuration, the managed web backend installed with agent-device web setup, and a caller holding a valid bearer token for the /rpc endpoint. Operators who never enabled remote access have no remote caller able to send the open and snapshot pair."
+        },
+        {
+          "q": "Which agent-device version fixes CVE-2026-129130?",
+          "a": "Version 0.21.37 fixes CVE-2026-129130, and Callstack's advisory lists no workaround, so upgrading is the only remedy the vendor gives. The release also bundles broader hardening that Callstack describes as coming from its November audit, covering the daemon, the remote transport, replay, capture and providers. Version 0.21.36 is the affected release."
+        },
+        {
+          "q": "Why do the published CVSS scores for CVE-2026-129130 differ?",
+          "a": "Two official sources scored CVE-2026-129130 separately. VulnCheck, the CNA that assigned the identifier, published 7.1 under CVSS 4.0 and 6.5 under CVSS 3.1. Callstack's own GitHub advisory published 7.7 under CVSS 3.1 and rates the flaw High, using a changed scope. Defenders comparing the numbers should note the different versions and scope choices behind them."
+        }
+      ],
+      "links": [
+        {
+          "label": "Callstack Advisory",
+          "url": "https://github.com/callstack/agent-device/security/advisories/GHSA-g87j-p64h-w8wc"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-8x88-xrjf-5gm7"
+        },
+        {
+          "label": "Release v0.21.37",
+          "url": "https://github.com/callstack/agent-device/releases/tag/v0.21.37"
+        },
+        {
+          "label": "agent-device Repo",
+          "url": "https://github.com/callstack/agent-device"
+        }
+      ],
+      "publishDate": "2026-11-15T00:39:56.242Z"
+    },
     {
       "id": "darktrace-claude-memory-c2",
       "categories": [
