@@ -18469,6 +18469,101 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261115t150057z",
+      "timestamp": "2026-11-15T15:00:57.094Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, AWS and IBM bulletins, MSRC, VulnCheck, Anthropic, OpenAI alignment, DeepMind, Microsoft Security and Research, Elastic, Unit 42, Check Point, Wiz, JFrog, ReversingLabs, Trail of Bits, NCC, Snyk, Lakera, HiddenLayer, Darktrace, AIR, Socket, OWASP, AISI, Hugging Face models and blog, arXiv via paper-scan (31 papers), repo-scan (5 candidates), GitHub trending, Hacker News and IC3. Added the FBI's ARTEX FLASH, Amazon's MadPot telemetry on ARTEX key theft, and a Pulse assistant approval authorization flaw; left out the Lovable data exposure (first published 2 November), the Cursor Claude Code extension backdoor (29 October), the Cathedral breach of Anthropic (26 October), fast-agent CVE-2026-102610 (advisory 22 July) and the Cloudflare Workers AI KV cache leak, all outside the 7-day window.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "fbi-flash-artex-threat-overview",
+          "title": "FBI FLASH: ARTEX intrusions reach privileged access in under 3 hours",
+          "category": "incident",
+          "severity": "info",
+          "note": "First FBI FLASH on ARTEX, with IOCs, ATT&CK mapping and mitigations a defender can act on; distinct from the vendor reports already in the feed."
+        },
+        {
+          "id": "amazon-artex-ai-gateway-key-theft",
+          "title": "Amazon: ARTEX agents drain API keys from exposed AI gateways",
+          "category": "incident",
+          "severity": "medium",
+          "note": "Amazon's own honeypot telemetry on a month of ARTEX activity against named self-hosted AI gateways, with the entry points and credential grading spelled out."
+        },
+        {
+          "id": "pulse-assistant-approval-authorization",
+          "title": "Pulse: read-only viewers could decide the assistant's approvals",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "An AI assistant approval gate that checked identity but not permission, fixed the same day it was disclosed."
+        }
+      ],
+      "updated": [
+        {
+          "id": "microsoft-lazarus-dormant-neuron-backdoor",
+          "title": "Lazarus: seven neurons turn an agent model into a sleeper agent",
+          "note": "The Lazarus paper reached arXiv as 2611.15118 with a v1 date of 11 November 2026, so the canonical paper page now sits alongside the preprint PDF."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "incident",
+        "research",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "IC3 FBI FLASH reports",
+        "AWS Security Blog",
+        "AWS security bulletins",
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "MSRC Security Update Guide",
+        "anthropic.com/news",
+        "alignment.anthropic.com",
+        "alignment.openai.com",
+        "deepmind.google/discover/blog",
+        "Microsoft Security Blog",
+        "Microsoft Research Blog",
+        "Elastic Security Labs",
+        "Unit 42",
+        "Check Point Research",
+        "Wiz Research",
+        "JFrog",
+        "ReversingLabs",
+        "Trail of Bits",
+        "NCC Group Research",
+        "Snyk",
+        "Lakera",
+        "HiddenLayer",
+        "Darktrace",
+        "air.security/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "socket.dev/blog",
+        "koi.ai",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page and newest",
+        "talk-scan (YouTube conference and security channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
