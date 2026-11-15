@@ -1,7 +1,205 @@
 {
-  "generatedAt": "2026-11-15T15:00:57.094Z",
+  "generatedAt": "2026-11-15T20:16:57.683Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "cursor-agent-trace-credential-exposure",
+      "categories": [
+        "incident",
+        "supply-chain"
+      ],
+      "title": "Cursor: agent traces held the credentials that reached its marketplace",
+      "org": "Cursor",
+      "date": "2026-11-13",
+      "url": "https://cursor.com/blog/security-incident-update",
+      "summary": "Cursor says an access key it issued to Fireworks AI let an attacker read stored coding agent traces that still contained unredacted credentials, and that those credentials opened the SaaS tools used to tamper with its marketplace.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "coding-agents",
+        "plugins",
+        "cursor",
+        "claude-code",
+        "fireworks-ai"
+      ],
+      "affected": [
+        "Cursor",
+        "Claude Code",
+        "Fireworks AI"
+      ],
+      "credits": [
+        {
+          "name": "Cursor Team",
+          "org": "Cursor"
+        }
+      ],
+      "explainer": {
+        "tagline": "Cursor traces its October marketplace compromise to a shared data bucket where stored coding agent traces still held live credentials.",
+        "whatHappened": "Cursor published the root cause of its October 2026 marketplace incident on November 13, 2026, after about two weeks of investigation. The Cursor Team says an attacker obtained an access key that Cursor had issued to Fireworks AI, and that Fireworks exposed that key. Cursor says the last attacker activity it saw was on November 1 and was blocked.",
+        "howItWorks": "The key gave read access to a storage bucket Cursor used to share data with Fireworks. That bucket held coding agent traces from sessions outside Privacy Mode, mostly from 2025, and some of those traces still carried unredacted credentials. The attacker used the credentials to reach SaaS tools that Cursor uses, then used a stolen credential to place tampered Claude Code extension builds in the cache serving Cursor's marketplace.",
+        "whoIsAffected": "Cursor puts API credential exposure at under 0.01% of customers, and trace exposure at under 0.05% of users who were not in Privacy Mode. Archived non-production source repositories, limited support records and email, product usage metrics, contact details, conversation summaries and credentials users had sent to support were also reachable. Cursor states that Privacy Mode prompts and code, production systems, customer code repositories and its signed app updates were not affected.",
+        "whatToDo": "Rotate every credential named in Cursor's notification, which Cursor says it sent to affected admins as lists of specific keys, and rotate anything ever sent to Cursor support. Machines that installed Anthropic.claude-code 2.1.312 or 2.1.313 from the Cursor marketplace still need the steps in the October 29 notice, which Cursor warns uninstalling alone may not replace."
+      },
+      "quickFacts": [
+        {
+          "label": "Root cause",
+          "value": "An access key Cursor issued to Fireworks AI, exposed by Fireworks, per Cursor"
+        },
+        {
+          "label": "Exposed",
+          "value": "Coding agent traces from sessions outside Privacy Mode, mostly from 2025"
+        },
+        {
+          "label": "Credentials",
+          "value": "API credentials exposed for under 0.01% of customers, per Cursor"
+        },
+        {
+          "label": "Traces",
+          "value": "Under 0.05% of users not in Privacy Mode, per Cursor"
+        },
+        {
+          "label": "Tampered builds",
+          "value": "Anthropic.claude-code 2.1.312 and 2.1.313, available about 11 hours on October 29"
+        },
+        {
+          "label": "Reach",
+          "value": "At most 5,000 users requested the cached builds, per Cursor"
+        },
+        {
+          "label": "Status",
+          "value": "Fireworks key deactivated, inference moved off Fireworks, credentials rotated, marketplace rebuilt"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Was my Cursor data in the exposed coding agent traces?",
+          "a": "Cursor says it contacted affected customers directly, and that anyone who received no notification was not in the exposed traces. Exposure was limited to sessions outside Privacy Mode, which Cursor puts at under 0.05% of those users, with API credentials exposed for under 0.01% of customers. Cursor directs questions to security@cursor.com."
+        },
+        {
+          "q": "Which credentials should I rotate after the Cursor incident?",
+          "a": "Rotate the specific keys listed in the notification Cursor sent to affected admins, and rotate any credential ever sent to Cursor support, because support records and email were reachable. Credentials that appeared inside coding agent sessions outside Privacy Mode also count, since Cursor says some stored traces kept them unredacted."
+        },
+        {
+          "q": "Did the Cursor incident come from a flaw in Anthropic's Claude Code?",
+          "a": "No. Cursor states the incident was not a vulnerability in Anthropic's product, and that the attacker published the tampered builds using a stolen Cursor credential. Cursor adds that Open VSX never contained the malware, and that its own app and official updates were not signed with exposed keys. The affected builds were Anthropic.claude-code 2.1.312 and 2.1.313."
+        },
+        {
+          "q": "What does Cursor's November 13 update add to its October 29 notice?",
+          "a": "Cursor's October 29 notice covered the tampered Claude Code builds, indicators and remediation. The November 13 update names the entry point, a shared Fireworks bucket of stored agent traces rather than Cursor's production systems, and widens the known data exposure to archived non-production repositories, support records, usage metrics and conversation summaries."
+        }
+      ],
+      "links": [
+        {
+          "label": "Cursor Incident Update",
+          "url": "https://cursor.com/blog/security-incident-update"
+        },
+        {
+          "label": "Cursor Security Notice",
+          "url": "https://cursor.com/blog/claude-code-extension-security-notice"
+        },
+        {
+          "label": "Fireworks Bulletin",
+          "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update"
+        }
+      ],
+      "publishDate": "2026-11-15T20:16:57.683Z"
+    },
+    {
+      "id": "atlasmcp-read-only-connection-writes",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AtlasMCP: a read-only connection could still change a WordPress site",
+      "org": "Patchstack",
+      "date": "2026-11-13",
+      "url": "https://patchstack.com/database/wordpress/plugin/ai-workflow-automation-ai-agent-hub/vulnerability/wordpress-mcp-server-for-wordpress-plugin-2-0-3-privilege-escalation-vulnerability",
+      "summary": "AtlasMCP, the WordPress plugin that connects Claude, ChatGPT and Gemini over MCP, let a connection set to Read only change the site through prompts in versions up to 2.0.3. Patchstack scores it 7.2 and the fix is 2.0.4.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "privilege-escalation",
+        "agent-security",
+        "wordpress",
+        "atlasmcp"
+      ],
+      "affected": [
+        "AtlasMCP",
+        "WordPress"
+      ],
+      "cve": "CVE-2026-125771",
+      "cvss": 7.2,
+      "credits": [
+        {
+          "name": "iml1s"
+        }
+      ],
+      "explainer": {
+        "tagline": "A second escalation flaw in AtlasMCP let a WordPress connection marked Read only write to the site through prompts.",
+        "whatHappened": "Patchstack published CVE-2026-125771 for the AtlasMCP WordPress plugin on November 13, 2026, ten days after a different escalation flaw in the same plugin was fixed. Patchstack credits iml1s, who reported the issue on November 10, 2026. AtlasAiDev shipped the fix in version 2.0.4 on November 11.",
+        "howItWorks": "AtlasMCP exposes a WordPress site to Claude, ChatGPT and Gemini as an MCP server, and its read-only setting covered the tools a connection could call but not its prompts. A connection marked Read only could therefore still change the site through the prompt surface. Version 2.0.4 makes prompts read-only, offers only prompts that match the tools a connection is given, and makes pausing AI access pause prompts and resources rather than tools alone.",
+        "whoIsAffected": "AtlasMCP 2.0.3 and earlier are affected, on a plugin that wordpress.org lists at 300 or more active installations. Sites that handed an AI app a connection labelled Read only are the ones that lost a guarantee they thought they had. The GitHub Advisory Database record scores the flaw with high privileges required, so the caller needs an existing connection to the site.",
+        "whatToDo": "Update AtlasMCP to 2.0.4 or later. Patchstack says it has issued a mitigation rule that blocks attacks on sites that cannot update yet. Sites that keep AI access paused should note that pausing only covers prompts and resources from 2.0.4 onward."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-125771"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.2, from Patchstack and the GitHub Advisory Database"
+        },
+        {
+          "label": "Affected",
+          "value": "AtlasMCP 2.0.3 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.0.4, released November 11, 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "iml1s, reported through Patchstack on November 10, 2026"
+        },
+        {
+          "label": "Earlier flaw",
+          "value": "CVE-2026-121576, a subscriber role change, fixed in 2.0.2 on November 3, 2026"
+        },
+        {
+          "label": "Active installs",
+          "value": "300-plus, per wordpress.org"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which AtlasMCP version fixes CVE-2026-125771?",
+          "a": "AtlasMCP 2.0.4, released November 11, 2026, fixes CVE-2026-125771. Versions 2.0.3 and earlier are affected, and that includes 2.0.2, the release that closed the separate subscriber escalation flaw on November 3. Patchstack lists a mitigation rule for sites that cannot update immediately, and the vendor is AtlasAiDev."
+        },
+        {
+          "q": "Is CVE-2026-125771 the same flaw as the AtlasMCP subscriber escalation?",
+          "a": "No. CVE-2026-121576 let a signed-in subscriber change their own role through an AI app, and version 2.0.2 fixed that. CVE-2026-125771 is a different gap: the Read only setting on a connection governed tools but not prompts, so a read-only connection could still change the site. Different researchers reported the two issues through Patchstack."
+        },
+        {
+          "q": "Does pausing AI access protect an unpatched AtlasMCP site?",
+          "a": "Pausing is only a full stop from 2.0.4. The AtlasMCP changelog says that version made pausing AI access also pause prompts and resources, where earlier releases paused tools alone and left the prompt surface this flaw used. Patchstack's mitigation rule is the stopgap it names for sites that cannot update yet."
+        }
+      ],
+      "links": [
+        {
+          "label": "Patchstack Advisory",
+          "url": "https://patchstack.com/database/wordpress/plugin/ai-workflow-automation-ai-agent-hub/vulnerability/wordpress-mcp-server-for-wordpress-plugin-2-0-3-privilege-escalation-vulnerability"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-w68m-3rvm-5xxq"
+        },
+        {
+          "label": "Plugin Page",
+          "url": "https://wordpress.org/plugins/ai-workflow-automation-ai-agent-hub/"
+        }
+      ],
+      "publishDate": "2026-11-15T20:16:57.683Z"
+    },
     {
       "id": "fbi-flash-artex-threat-overview",
       "categories": [
@@ -1588,6 +1786,10 @@
         {
           "label": "Fireworks Bulletin",
           "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update"
+        },
+        {
+          "label": "Cursor Root Cause",
+          "url": "https://cursor.com/blog/security-incident-update"
         },
         {
           "label": "Notion Notice",
@@ -13638,6 +13840,10 @@
         {
           "label": "Cursor Security Notice",
           "url": "https://cursor.com/blog/claude-code-extension-security-notice"
+        },
+        {
+          "label": "Cursor Root Cause",
+          "url": "https://cursor.com/blog/security-incident-update"
         },
         {
           "label": "Socket Analysis",

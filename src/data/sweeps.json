@@ -18564,6 +18564,91 @@
         "talk-scan (YouTube conference and security channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261115t201657z",
+      "timestamp": "2026-11-15T20:16:57.683Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories and Patchstack, Anthropic, MSRC, Embrace The Red, Simon Willison, AIR, Zenity, HiddenLayer, Trail of Bits, Lakera, Invariant, Unit 42, Check Point, Wiz, Socket, JFrog, Hugging Face blog and guard models, OWASP, UK AISI, CAISI, Hacker News and Show HN, GitHub trending, repo-scan (5 candidates), paper-scan (27 arXiv candidates) and talk-scan. Added Cursor's November 13 root-cause disclosure and a second AtlasMCP escalation CVE; openai.com returned 403, ReversingLabs 504, the Google security blog rate-limited this run and r/netsec was unreachable.",
+      "counts": {
+        "added": 2,
+        "updated": 2,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "cursor-agent-trace-credential-exposure",
+          "title": "Cursor: agent traces held the credentials that reached its marketplace",
+          "category": "incident",
+          "severity": "high",
+          "note": "Cursor's own November 13 root-cause post is a new event inside the window and a new lesson: stored coding agent traces kept for training held unredacted credentials that led to internal SaaS access."
+        },
+        {
+          "id": "atlasmcp-read-only-connection-writes",
+          "title": "AtlasMCP: a read-only connection could still change a WordPress site",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A distinct CVE with its own finder, version range and fix: the read-only scope on an MCP connection covered tools but not prompts, so the label did not hold."
+        }
+      ],
+      "updated": [
+        {
+          "id": "cursor-claude-code-extension-backdoor",
+          "title": "Cursor: a backdoored Claude Code extension opened SSH tunnels",
+          "note": "Cursor published the root cause on November 13, 2026: a key it issued to Fireworks AI gave read access to stored coding agent traces that held unredacted credentials."
+        },
+        {
+          "id": "fireworks-october-incident-datasets-notion",
+          "title": "Fireworks AI: the breach reached customer datasets and Notion AI chats",
+          "note": "Cursor's November 13 update says an access key it had issued to Fireworks was exposed in this breach and became the entry point for the Cursor marketplace compromise."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Patchstack",
+        "cursor.com/blog",
+        "fireworks.ai security bulletins",
+        "anthropic.com/news",
+        "Microsoft MSRC blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "labs.zenity.io",
+        "HiddenLayer research",
+        "Trail of Bits blog",
+        "Lakera blog",
+        "Invariant Labs blog",
+        "Unit 42",
+        "Check Point Research",
+        "Wiz blog",
+        "socket.dev/blog",
+        "JFrog security research",
+        "huggingface.co/blog",
+        "huggingface.co/models (prompt-injection guards)",
+        "OWASP GenAI Security Project",
+        "UK AISI",
+        "NIST CAISI",
+        "Hacker News front page and Show HN",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts (YouTube conference and security channels)",
+        "wordpress.org plugin directory"
+      ],
+      "windowDays": 7
     }
   ]
 }
