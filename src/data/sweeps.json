@@ -18710,6 +18710,93 @@
         "Hacker News Show HN"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261116t063610z",
+      "timestamp": "2026-11-16T06:36:10.927Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (mcp, agent, llm, skill and prompt injection queries), CISA CSAF, AWS security bulletins, Patchstack, Anthropic news, OpenAI alignment, DeepMind, Microsoft MSRC and Security blogs, Embrace The Red, Simon Willison, AIR Security, Zenity Labs, Check Point, Unit 42, Wiz, JFrog, HiddenLayer, Trail of Bits, NCC Group, Elastic Security Labs, Darktrace, GitGuardian, Lakera, Snyk, OWASP GenAI, UK AISI, US CAISI, Hugging Face blog, paper-scan (33 arXiv candidates, none with two scanned signals), repo-scan (13 queries, 5 candidates), talk-scan (21 channels, 11 videos), GitHub trending and Hacker News. Added GitGuardian's wfx-loot campaign, the CISA advisory for a Jet Admin prompt injection, and SiYuan's agent chat panel HTML render flaw. Left out: the Nov 14 and 15 GitHub advisory batches for AtlasMCP (CVE-2026-125771) and IBM ContextForge (CVE-2026-110278), which are database mirrors of CVEs already in the feed; SiYuan's MCP skill-install SSRF (CVE-2026-126393), because no primary source naming its finder loaded; Darktrace's MCP connector launch (product announcement); Claude-BugHunter, which trended today but was created in May with releases in May and June; and the other four repo-scan candidates (a fake Microsoft Project bundle, the LASIK de-hardening CLI, a resume screener and a DeepSeek guardrail-removal port). HiddenLayer's Hugging Face dead-drop and System One posts date to July 31 and October 14. Not reached: openai.com/index (403), security.googleblog.com (no readable content), r/netsec (blocked), the YouTube watch page for the highest-reach video (captcha), and vulncheck.com's SiYuan skill-install advisory (404).",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "gitguardian-wfx-loot-ci-secret-stealer",
+          "title": "wfx-loot: an npm hook runs the CI secret stealer GitHub's holds missed",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "An active, measured credential-theft campaign whose npm lifecycle hook bypasses the hold GitHub applied to the workflow version, and which specifically harvests AI provider keys and coding agent credential files."
+        },
+        {
+          "id": "jetadmin-prompt-injection-env-exposure",
+          "title": "Jet Admin: a prompt injection reads the platform's .env credentials",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A prompt injection with an official CISA advisory, a named finder and total technical impact: a free account could read the platform's .env credentials."
+        },
+        {
+          "id": "siyuan-agent-chat-panel-html-rce",
+          "title": "SiYuan: the agent chat panel renders the last reply as raw HTML",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A precise AI-feature flaw with a named reporter: the streaming preview sanitizes HTML and the final render does not, and the desktop host has Node.js integration on with no CSP."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "CISA CSAF advisories",
+        "AWS security bulletins",
+        "Patchstack",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "deepmind.google/discover/blog",
+        "Microsoft MSRC blog",
+        "Microsoft Security Blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "labs.zenity.io",
+        "Check Point Research",
+        "Unit 42",
+        "Wiz blog",
+        "research.jfrog.com",
+        "HiddenLayer research",
+        "Trail of Bits blog",
+        "NCC Group research",
+        "Elastic Security Labs",
+        "Darktrace blog",
+        "blog.gitguardian.com",
+        "Lakera blog",
+        "Snyk blog",
+        "ReversingLabs blog",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "US CAISI",
+        "huggingface.co/blog",
+        "siyuan-note/siyuan security advisories",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "talk-scan",
+        "github.com/trending",
+        "Hacker News front page and Show HN"
+      ],
+      "windowDays": 7
     }
   ]
 }

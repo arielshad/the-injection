@@ -1,7 +1,294 @@
 {
-  "generatedAt": "2026-11-16T00:08:10.026Z",
+  "generatedAt": "2026-11-16T06:36:10.927Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "gitguardian-wfx-loot-ci-secret-stealer",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "wfx-loot: an npm hook runs the CI secret stealer GitHub's holds missed",
+      "org": "GitGuardian",
+      "date": "2026-11-13",
+      "url": "https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/",
+      "summary": "wfx-loot is a credential-theft campaign that pushes a CI secret stealer into public repositories with stolen GitHub credentials. GitGuardian counted 28,500 payload patches from 2,367 accounts across 17,715 repositories.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "malicious-package",
+        "coding-agents",
+        "threat-intel",
+        "github-actions",
+        "npm"
+      ],
+      "affected": [
+        "GitHub Actions",
+        "npm",
+        "Claude Code",
+        "OpenAI Codex",
+        "Gemini CLI",
+        "Cursor",
+        "GitHub Copilot",
+        "Aider",
+        "Ollama"
+      ],
+      "credits": [
+        {
+          "name": "Gaetan Ferry",
+          "org": "GitGuardian"
+        }
+      ],
+      "explainer": {
+        "tagline": "wfx-loot pushes a secret stealer into public repositories, and its npm hook version runs even where GitHub held the workflow version.",
+        "whatHappened": "GitGuardian published research on November 13, 2026 into wfx-loot, a campaign that commits a CI secret stealer to public GitHub repositories using stolen credentials. Security researcher Gaetan Ferry traced a small precursor between October 24 and 29, then a mass wave that began on November 10 and was still running on November 12. The dataset holds 28,500 payload patches from 2,367 accounts across 17,715 repositories.",
+        "howItWorks": "The payload ships in four wrappers: a throwaway workflow on a side branch, a step added to an existing workflow, a hidden root script called by an npm lifecycle script such as postinstall, and code appended to a shell script a workflow already calls. GitHub placed the workflow-file versions in action_required, so those runs were held. The npm hook changes no workflow file, so a repository's existing workflows execute the script during dependency installation. Once running, it collects repository and organization secrets, environment variables, credential files, runner memory and cloud credentials, and can use OIDC tokens to mint new cloud access.",
+        "whoIsAffected": "Organizations whose GitHub credentials were stolen, and whose workflows install dependencies without the ignore-scripts flag, are exposed. GitGuardian reports the payload matches about 90 AI provider environment-variable prefixes, among them OpenAI, Anthropic, Gemini, Bedrock, Hugging Face, Mistral, OpenRouter and Cursor, and that it reads credential files for the seven AI coding tools listed below.",
+        "whatToDo": "Check whether the payload ran: look for npm, pnpm or yarn installs on the hook commit that ran without the ignore-scripts flag, and search job logs for the script name. Rotate every repository and organization secret and variable reachable from an affected job, not only the ones the workflow used. Revoke the compromised account's personal access tokens, OAuth and GitHub App grants, and SSH keys."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Public GitHub repositories reached with stolen credentials"
+        },
+        {
+          "label": "Scale",
+          "value": "28,500 payload patches, 2,367 accounts, 17,715 repositories"
+        },
+        {
+          "label": "Delivery",
+          "value": "Throwaway workflow, workflow injection, npm lifecycle hook, shell script injection"
+        },
+        {
+          "label": "AI credentials targeted",
+          "value": "Credential files for Claude Code, Codex, Gemini CLI, Cursor, GitHub Copilot, Aider and Ollama"
+        },
+        {
+          "label": "Confirmed exfiltration",
+          "value": "18 of 19 sampled public job logs reported success"
+        },
+        {
+          "label": "Found by",
+          "value": "Gaetan Ferry, GitGuardian"
+        },
+        {
+          "label": "Status",
+          "value": "Mass wave began November 10 and was still running November 12, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did GitHub's hold on wfx-loot workflows stop the attack?",
+          "a": "GitHub placed the workflow-file versions of wfx-loot in action_required, so those runs were held and did not execute. GitGuardian reports the npm lifecycle hook version changed no workflow file, so a repository's existing workflows ran the hidden script during dependency installation. Hook commits on default branches rose to 838 on November 11 and 1,210 on November 12, after the holds."
+        },
+        {
+          "q": "Which AI credentials does wfx-loot steal?",
+          "a": "wfx-loot matches about 90 AI provider environment-variable prefixes, including OpenAI, Anthropic, Gemini, Bedrock, Hugging Face, Mistral, OpenRouter and Cursor. GitGuardian reports the payload also reads credential files for seven AI coding tools: Claude Code, Codex, Gemini CLI, Cursor, GitHub Copilot, Aider and Ollama. Repository and organization secrets, runner memory and cloud credentials are collected alongside them."
+        },
+        {
+          "q": "How do I tell whether wfx-loot ran in my repository?",
+          "a": "GitGuardian advises checking for npm, pnpm or yarn installs on the hook commit that ran without the ignore-scripts flag, and searching job logs for the script name. Reviewing the organization audit log for approved and executed workflow runs is the second check. Developer machines that installed dependencies during the affected window should be examined too."
+        },
+        {
+          "q": "Is wfx-loot the same campaign as GhostAction?",
+          "a": "GitGuardian found that 431 accounts, about 20% of those used in the wfx campaign, had already been compromised in the earlier GhostAction wave, and notes the overlap does not prove a single actor. GhostAction, which GitGuardian disclosed in September 2025, stole 3,325 secrets from 327 accounts across 817 repositories through malicious GitHub workflows."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitGuardian Research",
+          "url": "https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/"
+        },
+        {
+          "label": "GhostAction Campaign",
+          "url": "https://blog.gitguardian.com/ghostaction-campaign-3-325-secrets-stolen/"
+        }
+      ],
+      "image": {
+        "url": "https://storage.ghost.io/c/42/5d/425d266f-cf99-406e-9436-597a19bed011/content/images/size/w1200/2026/11/wfx-loot-blog-header.png",
+        "alt": "wfx-loot: GitHub Actions secret stealer and the npm bypass",
+        "credit": "GitGuardian"
+      },
+      "publishDate": "2026-11-16T06:36:10.927Z"
+    },
+    {
+      "id": "jetadmin-prompt-injection-env-exposure",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Jet Admin: a prompt injection reads the platform's .env credentials",
+      "org": "CISA",
+      "date": "2026-11-13",
+      "url": "https://github.com/advisories/GHSA-65p4-8rwx-hgv4",
+      "summary": "CVE-2026-123965 is a prompt injection flaw in Jet Admin Cloud Platform that let a remote attacker with a free account expose .env files and take credentials. CISA scores it 9.9 and reports a sandbox mitigation around October 29.",
+      "severity": "medium",
+      "cve": "CVE-2026-123965",
+      "cvss": 9.9,
+      "tags": [
+        "prompt-injection",
+        "credential-theft",
+        "jet-admin"
+      ],
+      "affected": [
+        "Jet Admin Cloud Platform"
+      ],
+      "credits": [
+        {
+          "name": "Mahmoud Elkhaligy"
+        }
+      ],
+      "explainer": {
+        "tagline": "Jet Admin Cloud Platform exposed .env configuration files to a prompt injection that any free account could send.",
+        "whatHappened": "CISA published advisory VA-26-317-01 on November 13, 2026 for CVE-2026-123965, a prompt injection flaw in Jet Admin Cloud Platform. Mahmoud Elkhaligy is credited with the finding. CISA records the issue as affecting all versions of the platform.",
+        "howItWorks": "Prompt injection is the mechanism: attacker-supplied text reaches the platform's AI features as instructions rather than as data. CISA states the flaw let a remote attacker expose sensitive .env configuration files and exfiltrate critical credentials, and classifies it as CWE-200, exposure of sensitive information to an unauthorized actor. A free account is enough to send the request, with no privileges and no user interaction in CISA's scoring.",
+        "whoIsAffected": "Jet Admin Cloud Platform tenants are affected in all versions, according to CISA. Because the product is a hosted platform, customers cannot install a version update themselves, so any credential that sat in a platform .env file is the exposure to assess.",
+        "whatToDo": "Rotate credentials that were stored in Jet Admin .env configuration, since CISA says those files could be exposed and their contents taken. CISA's advisory gives no customer-side steps beyond recording the vendor's sandbox mitigation."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Jet Admin Cloud Platform, all versions"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-123965"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.9 (CVSS 3.1) from CISA; the GitHub Advisory Database lists 9.3 (CVSS 4.0)"
+        },
+        {
+          "label": "Found by",
+          "value": "Mahmoud Elkhaligy"
+        },
+        {
+          "label": "Disclosed",
+          "value": "CISA advisory VA-26-317-01, November 13, 2026"
+        },
+        {
+          "label": "Fix status",
+          "value": "CISA notes a sandbox mitigation around October 29, 2026, while its remediation field reads No fix available"
+        },
+        {
+          "label": "Exploitation",
+          "value": "None observed, per CISA's SSVC entry"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Jet Admin patched against CVE-2026-123965?",
+          "a": "CISA's advisory for CVE-2026-123965 states the issue was mitigated via a sandbox component around October 29, 2026, but its remediation entry reads No fix available, and the advisory does not explain the discrepancy. Jet Admin Cloud Platform is a hosted service, so any mitigation is applied by the vendor rather than installed by customers. CISA lists all versions as affected."
+        },
+        {
+          "q": "What could an attacker reach through the Jet Admin flaw?",
+          "a": "CISA reports a remote attacker with a free Jet Admin account could expose sensitive .env configuration files and exfiltrate critical credentials. CISA classifies the weakness as CWE-200 and rates technical impact as total in its SSVC entry, while recording no observed exploitation. Credentials held in those files are the concrete loss for a defender to assume."
+        },
+        {
+          "q": "Why does the CVSS score for CVE-2026-123965 differ between sources?",
+          "a": "CISA scored CVE-2026-123965 at 9.9 using CVSS version 3.1, with a vector that marks scope as changed. The GitHub Advisory Database records 9.3 for the same flaw using CVSS version 4.0. Both are official records, and the gap comes from the two scoring systems rather than from a disagreement about how serious the flaw is."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-65p4-8rwx-hgv4"
+        },
+        {
+          "label": "CISA Advisory CSAF",
+          "url": "https://raw.githubusercontent.com/cisagov/CSAF/develop/csaf_files/IT/white/2026/va-26-317-01.json"
+        }
+      ],
+      "publishDate": "2026-11-16T06:36:10.927Z"
+    },
+    {
+      "id": "siyuan-agent-chat-panel-html-rce",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "SiYuan: the agent chat panel renders the last reply as raw HTML",
+      "org": "SiYuan",
+      "date": "2026-11-11",
+      "url": "https://github.com/siyuan-note/siyuan/security/advisories/GHSA-3rvg-qxwg-f3c6",
+      "summary": "SiYuan's AI agent chat panel renders the final assistant message as unsanitized HTML, so an injected event handler can run operating-system commands in the desktop app's local-kernel mode. The maintainer scores it 7.5.",
+      "severity": "medium",
+      "cvss": 7.5,
+      "tags": [
+        "indirect-prompt-injection",
+        "rce",
+        "agent-security",
+        "siyuan"
+      ],
+      "affected": [
+        "SiYuan"
+      ],
+      "credits": [
+        {
+          "name": "president-xd"
+        }
+      ],
+      "explainer": {
+        "tagline": "SiYuan sanitizes the streaming preview of an agent reply but not the final render, turning a model's answer into code execution.",
+        "whatHappened": "SiYuan published advisory GHSA-3rvg-qxwg-f3c6 on November 11, 2026 for a DOM cross-site scripting flaw in its AI agent chat panel. The reporter is credited as president-xd. Versions 3.7.0 through 3.8.10 of the siyuan npm package are affected, and the advisory names v3.8.11 as the patched version.",
+        "howItWorks": "The chat panel builds its Markdown engine without HTML sanitization enabled, then assigns the rendered assistant output to innerHTML. A second engine instance sanitizes the streaming preview, so a user sees clean text while the reply streams and the unsanitized body replaces it when the stream ends, stops or errors. Block-level raw HTML in a reply keeps its inline event-handler attributes, and attributes supplied through kramdown attribute-list syntax survive even where sanitization is on. In desktop local-kernel mode the window runs with Node.js integration enabled and no active Content-Security-Policy, so a handler can call Node APIs.",
+        "whoIsAffected": "SiYuan desktop users in local-kernel mode carry the code-execution risk, per the advisory, while remote-kernel mode applies a Content-Security-Policy without unsafe-inline. Two routes reach the sink: a model reproducing attacker-influenced markup it read, which the advisory calls probabilistic, or a configured model endpoint returning the markup directly. Saved sessions re-render through the same path, so a payload fires again whenever the session is reopened.",
+        "whatToDo": "Treat SiYuan's agent panel as untrusted until a stable release carries the fix, because only v3.8.11 alpha builds are published and v3.8.10 remains the latest stable release. Delete saved agent sessions that could hold a payload, since reopening one runs it again, and point the panel only at model endpoints you control."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "siyuan (npm) 3.7.0 through 3.8.10"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Advisory names v3.8.11; only v3.8.11 alpha pre-releases are published, with v3.8.10 the latest stable release"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.5, scored by the maintainer in the advisory"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        },
+        {
+          "label": "Found by",
+          "value": "president-xd"
+        },
+        {
+          "label": "Attack type",
+          "value": "DOM cross-site scripting reached through the model's reply"
+        },
+        {
+          "label": "Exposed configuration",
+          "value": "Desktop local-kernel mode, where Node.js integration is on and no Content-Security-Policy applies"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a stable SiYuan release that fixes the agent chat panel flaw?",
+          "a": "SiYuan's advisory names v3.8.11 as the patched version, but the project's releases page shows only v3.8.11 alpha pre-releases, the most recent published on November 16, 2026. Version 3.8.10, released November 10, is still marked as the latest stable release and sits inside the affected range. Anyone waiting for a stable fix has nothing to install yet."
+        },
+        {
+          "q": "Which SiYuan configuration is exposed to code execution?",
+          "a": "Desktop local-kernel mode is the exposed configuration, according to the advisory, because that window runs with Node.js integration enabled, context isolation disabled, web security disabled and no active Content-Security-Policy. An injected event handler can therefore call Node APIs and run operating-system commands with the user's privileges. Remote-kernel mode applies a policy without unsafe-inline."
+        },
+        {
+          "q": "How would an attacker get markup into a SiYuan assistant reply?",
+          "a": "The advisory describes two routes into the agent's reply. Indirect prompt injection is the first: the agent reads attacker-influenced material and the model reproduces the malicious markup, a route the advisory calls probabilistic. A model endpoint the user configured, returning the markup directly, is the second and deterministic route. Saved sessions then re-execute the payload whenever they are reopened."
+        }
+      ],
+      "links": [
+        {
+          "label": "SiYuan Advisory",
+          "url": "https://github.com/siyuan-note/siyuan/security/advisories/GHSA-3rvg-qxwg-f3c6"
+        },
+        {
+          "label": "SiYuan Releases",
+          "url": "https://github.com/siyuan-note/siyuan/releases"
+        }
+      ],
+      "publishDate": "2026-11-16T06:36:10.927Z"
+    },
     {
       "id": "cursor-agent-trace-credential-exposure",
       "categories": [
