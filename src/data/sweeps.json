@@ -18649,6 +18649,67 @@
         "wordpress.org plugin directory"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261116t000810z",
+      "timestamp": "2026-11-16T00:08:10.026Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (mcp, agent and llm queries), NVD and CVE records, Anthropic news, OpenAI alignment, DeepMind, Microsoft MSRC, AIR Security, Zenity Labs, Embrace The Red, Simon Willison, Check Point Research, Wiz, HiddenLayer, Trail of Bits, NCC Group, Elastic Security Labs, Darktrace, Socket, JFrog, ReversingLabs, Lakera, OWASP GenAI, UK AISI, US CAISI, Hugging Face blog and prompt-injection models, paper-scan (27 arXiv papers in the window, none with two scanned signals), repo-scan (13 queries, 5 candidates), talk-scan (20 videos), GitHub trending daily and weekly, and the Hacker News front page and Show HN. No item met the bar, so this sweep adds nothing. This week's GitHub Advisory Database batch is an NVD backfill of older maintainer advisories: fast-agent CVE-2026-102610 (July 22), Code Graph RAG CVE-2026-77604 (July 14), Dagu CVE-2026-102943 (July 26) and the pgEdge RAG Server credential-fragment CVEs (September 3) were all re-reviewed inside the window but first disclosed well outside it. Also left out: Zenity Labs' November 9 probe-generalization post, which distills arXiv 2610.02413 whose v1 is October 1; Socket's malicious strutil-core Ruby gem research (published November 6); Socket's Japan intrusion summary (November 12, but built on JPCERT/CC's October 21 investigation and crediting others' work); Check Point's ChatGPT Lockdown Mode bypass (November 5, fixed September 18); HiddenLayer's Man-in-the-Model (October 22); Elastic's agent session monitoring study (November 4); NCC Group's agent sandbox breakout write-up (October 6); Apiiro's Claude Code approval-file secrets research (November 5, and overlapping the GitGuardian item already in the feed); and the AG2 SandboxShellTool, Aspire CLI and Wiz Cyber Model Arena stories, which are already in the feed. Repo candidates all failed the bar: a fake Microsoft Project bundle, the LASIK de-hardening CLI (one signal), a resume screener, a crypto wallet skill fork and a DeepSeek guardrail-removal port; NVIDIA/SkillEvaluator shipped v0.9.0 inside the window but was created in June with its first release in August. Talk-scan returned no qualifying talk: the Black Hat ChatMate upload is well under the view bar and the YouTube watch page for the highest-reach video returned no readable description. Not reached this run: security.googleblog.com (captcha), the Unit 42 AI security category page (404) and r/netsec (blocked).",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "deepmind.google",
+        "Microsoft MSRC blog",
+        "air.security/blog",
+        "Zenity Labs",
+        "embracethered.com",
+        "simonwillison.net",
+        "Check Point Research",
+        "Wiz blog",
+        "HiddenLayer",
+        "Trail of Bits",
+        "NCC Group",
+        "Elastic Security Labs",
+        "Darktrace blog",
+        "Socket",
+        "JFrog",
+        "ReversingLabs",
+        "Lakera",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "US CAISI",
+        "huggingface.co/blog",
+        "huggingface.co/models",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan",
+        "talk-scan",
+        "github.com/trending",
+        "Hacker News front page",
+        "Hacker News Show HN"
+      ],
+      "windowDays": 7
     }
   ]
 }
