@@ -18797,6 +18797,80 @@
         "Hacker News front page and Show HN"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261116t163656z",
+      "timestamp": "2026-11-16T16:36:56.879Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, VulnCheck, Anthropic, OpenAI alignment, Embrace The Red, Zenity Labs, AIR Security, Unit 42, Check Point, Wiz, ReversingLabs, Trail of Bits, HiddenLayer, Lakera, Socket, JFrog, MSRC, Hugging Face, OWASP GenAI, UK AISI, CAISI, Simon Willison, arXiv and HF Daily Papers via paper-scan (29 candidates, none with two signals), repo-scan (5 candidates), GitHub trending daily and weekly, talk-scan (22 channels) and the Hacker News front page. Added two disclosures in AI security tooling itself: RedAmon's six advisories, now fixed in 7.8.0, and DeepAudit's four unpatched CVEs; r/netsec could not be fetched from this runner, so it is not listed as checked.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "redamon-7-8-0-agent-container-flaws",
+          "title": "RedAmon: six flaws reach root in the AI pentest framework's containers",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Six maintainer advisories inside the window against an AI pentest framework, with named reporters, a fixed release and two VulnCheck CVEs; distinct from the October VulnCheck source-review item, which covered a different RedAmon SSRF."
+        },
+        {
+          "id": "deepaudit-config-endpoint-secret-exposure",
+          "title": "DeepAudit: an open endpoint hands over the audit platform's LLM and Git keys",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Four CVEs published inside the window by VulnCheck as CNA for an AI audit platform that stores LLM and Git credentials, with a named finder and no fixed release, so defenders running it need to act now."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "github.com/samugit83/redamon security advisories",
+        "vul.yulun.ac.cn",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "embracethered.com",
+        "labs.zenity.io",
+        "air.security/blog",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "wiz.io/blog",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "hiddenlayer.com research",
+        "lakera.ai/blog",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "microsoft.com/msrc/blog",
+        "huggingface.co/blog",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan (22 YouTube channels)",
+        "Hacker News front page",
+        "simonwillison.net"
+      ],
+      "windowDays": 7
     }
   ]
 }

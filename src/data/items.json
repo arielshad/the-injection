@@ -1,7 +1,246 @@
 {
-  "generatedAt": "2026-11-16T06:36:10.927Z",
+  "generatedAt": "2026-11-16T16:36:56.879Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "deepaudit-config-endpoint-secret-exposure",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "DeepAudit: an open endpoint hands over the audit platform's LLM and Git keys",
+      "org": "VulnCheck",
+      "date": "2026-11-16",
+      "url": "https://www.vulncheck.com/advisories/deepaudit-2.0.0-beta.1-through-3.8.0-information-disclosure-via-api-v1-config-defaults",
+      "summary": "DeepAudit, an open-source AI code auditing platform, answers an unauthenticated GET on /api/v1/config/defaults with the operator's LLM API keys and GitHub or GitLab tokens. VulnCheck published four CVEs on November 16 and lists no fix.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "agent-security",
+        "deepaudit"
+      ],
+      "affected": [
+        "DeepAudit"
+      ],
+      "cve": "CVE-2026-129877",
+      "cvss": 8.7,
+      "credits": [
+        {
+          "name": "Wu Yulun",
+          "url": "https://vul.yulun.ac.cn/20261106/deepaudit/"
+        }
+      ],
+      "explainer": {
+        "tagline": "DeepAudit's unauthenticated config endpoint returns the LLM and source-control credentials its audit agents run on.",
+        "whatHappened": "VulnCheck published four high-severity CVEs for DeepAudit on November 16, 2026, crediting Wu Yulun. DeepAudit is an open-source platform whose README describes a team of LLM agents that scan a project, write proof-of-concept scripts and verify them in a Docker sandbox, so it holds the operator's model and repository credentials. No fixed version is listed.",
+        "howItWorks": "A plain GET to /api/v1/config/defaults in DeepAudit's backend requires no authentication and returns the stored LLM provider API keys and GitHub or GitLab tokens. Wu Yulun's report describes three further issues in the same codebase, each with its own CVE below. One of them leaks the global GitLab or Gitea token, because the server accepts an arbitrary repository host and sends the token there when it fetches branches.",
+        "whoIsAffected": "Versions 2.0.0-beta.1 through 3.8.0 are affected, per VulnCheck's advisory. Exposure depends on who can reach the backend API, which the project's quick start brings up with Docker Compose alongside the web interface on port 3000. VulnCheck scores the confidentiality impact high and the integrity and availability impact none.",
+        "whatToDo": "Keep DeepAudit's backend off untrusted networks and put authentication in front of it, since no patched release exists. Rotate the LLM provider API keys and the GitHub, GitLab or Gitea tokens stored in the platform, then review what those repository tokens could reach."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "DeepAudit 2.0.0-beta.1 through 3.8.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed version listed"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-129877, 129878, 129879, 129880"
+        },
+        {
+          "label": "Exposed",
+          "value": "LLM provider API keys, GitHub and GitLab tokens"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authentication, CWE-306"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.7, CVSS 4.0, assigned by VulnCheck"
+        },
+        {
+          "label": "Found by",
+          "value": "Wu Yulun"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patched version of DeepAudit?",
+          "a": "No fixed DeepAudit release is listed. VulnCheck's advisory for CVE-2026-129877 gives no patched version, and the project's releases page shows v3.0.4 as its latest tagged release. Until a fix ships, treat every credential stored in a reachable DeepAudit install as exposed, and keep the backend API off networks you do not control."
+        },
+        {
+          "q": "What data does the DeepAudit config endpoint expose?",
+          "a": "An unauthenticated GET to /api/v1/config/defaults returns the operator's LLM provider API keys and GitHub or GitLab tokens, according to VulnCheck. Attackers can then spend against those model accounts and reach whatever repositories the tokens unlock. VulnCheck classes the flaw as CWE-306, missing authentication for a critical function, and scores it 8.7 under CVSS 4.0."
+        },
+        {
+          "q": "How many DeepAudit flaws were published on November 16, 2026?",
+          "a": "Four DeepAudit CVEs appeared on November 16, 2026: CVE-2026-129877 for the unauthenticated config endpoint, CVE-2026-129878 for HTML injection in ReportGenerator, CVE-2026-129879 for path traversal and CVE-2026-129880 for server-side request forgery. GitHub's advisory database rates all four high and currently lists them as unreviewed."
+        },
+        {
+          "q": "Which DeepAudit version am I running?",
+          "a": "VulnCheck lists DeepAudit 2.0.0-beta.1 through 3.8.0 as affected by CVE-2026-129877, while Wu Yulun's report describes the same four issues against versions up to 3.0.4, matching the newest release tag on the project's releases page. Check the running container image rather than the README, because the documented quick start pulls a published Docker Compose file."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/deepaudit-2.0.0-beta.1-through-3.8.0-information-disclosure-via-api-v1-config-defaults"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-cjv8-6488-8485"
+        },
+        {
+          "label": "Researcher's Report",
+          "url": "https://vul.yulun.ac.cn/20261106/deepaudit/"
+        },
+        {
+          "label": "Path Traversal CVE",
+          "url": "https://github.com/advisories/GHSA-9pq5-g2hg-465c"
+        },
+        {
+          "label": "DeepAudit Repository",
+          "url": "https://github.com/lintsinghua/DeepAudit"
+        }
+      ],
+      "image": {
+        "url": "https://www.vulncheck.com/_og/d/c_Advisory,icon_i-mdi-comment-alert,title_~RGVlcEF1ZGl0IDIuMC4wLWJldGEuMSB0aHJvdWdoIDMuOC4wIEluZm9ybWF0aW9uIERpc2Nsb3N1cmUgdmlhIC9hcGkvdjEvY29uZmlnL2RlZmF1bHRz,date_2026-11-16,headline_Advisories,cves_CVE-2026-129877,props_eyJhZmZlY3RpbmciOlsiRGVlcEF1ZGl0ID49IDIuMC4wLWJldGEuMSwgPD0gMy44LjAiXX0,severity_HIGH,cvss_8.7,p_Ii9hZHZpc29yaWVzL2RlZXBhdWRpdC0yLjAuMC1iZXRhLjEtdGhyb3VnaC0zLjguMC1pbmZvcm1hdGlvbi1kaXNjbG9zdXJlLXZpYS1hcGktdjEtY29uZmlnLWRlZmF1bHRzIg,s_o4PI6-dcUTgMqh7e.png",
+        "alt": "VulnCheck advisory card naming CVE-2026-129877 in DeepAudit, rated high at CVSS 8.7",
+        "credit": "VulnCheck"
+      },
+      "publishDate": "2026-11-16T16:36:56.879Z"
+    },
+    {
+      "id": "redamon-7-8-0-agent-container-flaws",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "RedAmon: six flaws reach root in the AI pentest framework's containers",
+      "org": "RedAmon",
+      "date": "2026-11-14",
+      "url": "https://github.com/samugit83/redamon/releases/tag/v7.8.0",
+      "summary": "RedAmon, an open-source AI penetration testing framework, disclosed six flaws on November 14, 2026. The worst let any signed-in user run commands in the shared agent container and read its platform secrets. Version 7.8.0 fixes all six.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "approval-bypass",
+        "mcp",
+        "red-team",
+        "redamon"
+      ],
+      "affected": [
+        "RedAmon"
+      ],
+      "cve": "CVE-2026-129855",
+      "cvss": 8.7,
+      "credits": [
+        {
+          "name": "Dilanka Kaushal Hewage",
+          "url": "https://github.com/r3vpwnx"
+        },
+        {
+          "name": "mappygrid",
+          "url": "https://github.com/mappygrid"
+        },
+        {
+          "name": "recuon",
+          "url": "https://github.com/recuon"
+        }
+      ],
+      "explainer": {
+        "tagline": "RedAmon 7.8.0 closes six flaws that let low-privilege users reach root in the framework's agent and Kali containers.",
+        "whatHappened": "RedAmon's maintainer published six security advisories on November 14, 2026, crediting Dilanka Kaushal Hewage, mappygrid and recuon. All six are fixed in version 7.8.0, released the same day. VulnCheck assigned CVE-2026-129855 and CVE-2026-129854 to two of them on November 16.",
+        "howItWorks": "The most severe flaw is missing authorization on the /mcp/test endpoint, which accepted a caller-supplied stdio MCP server definition and spawned the command with the agent service's own environment. A separate terminal server on port 8016 opened an interactive root bash session to any client that connected, with no token, ticket or origin check. Four agent session routes also proxied requests without checking who owned the session, so one tenant could run commands in another tenant's live Metasploit session.",
+        "whoIsAffected": "Multi-user RedAmon deployments from 4.0.0 through 7.7.2 are exposed, and the stdio MCP advisory states that single-user installs are not. The port 8016 terminal is published on loopback only, but the advisory notes it is reachable as kali-sandbox:8016 from the agent container and any other container on the internal Docker bridge.",
+        "whatToDo": "Run ./redamon.sh update to move to 7.8.0, and set the RBAC_ variables in .env first if you need any of the new switches off. Rotate the secrets the agent container held, listed below, along with any CypherFix GitHub token, and delete stdio entries from members' MCP Tool Plugins on installs you cannot patch yet."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "RedAmon 4.0.0 through 7.7.2"
+        },
+        {
+          "label": "Fixed in",
+          "value": "7.8.0, released November 14, 2026"
+        },
+        {
+          "label": "Advisories",
+          "value": "Six, published by the maintainer"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-129855, CVE-2026-129854"
+        },
+        {
+          "label": "Highest rating",
+          "value": "CVSS 9.9, GHSA-j3r5-x2gg-2hgv"
+        },
+        {
+          "label": "Secrets at risk",
+          "value": "INTERNAL_API_KEY, DATABASE_URL, NEO4J_PASSWORD, project GitHub PAT"
+        },
+        {
+          "label": "Found by",
+          "value": "Dilanka Kaushal Hewage, mappygrid, recuon"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I upgrade RedAmon from 7.7.2 to 7.8.0?",
+          "a": "RedAmon 7.8.0 is the fixed release, and the maintainer's documented path is ./redamon.sh update, which rebuilds the webapp, agent, Kali sandbox and recon images. Scans running during the restart may fail and need restarting. The release turns RBAC switches on by default, so set RBAC_IDENTITY_ENABLED or its siblings to false in .env beforehand if you need them off."
+        },
+        {
+          "q": "Am I affected by the RedAmon stdio MCP flaw if I am the only user?",
+          "a": "Single-user RedAmon installs are not exposed to GHSA-j3r5-x2gg-2hgv, according to the advisory, because the flaw needs a second signed-in account holding the standard role. Multi-user deployments with MCP Tool Plugins enabled are exposed. The separate port 8016 terminal flaw does not depend on how many accounts exist, so a single-user install still needs 7.8.0."
+        },
+        {
+          "q": "Which of the six RedAmon flaws have CVE numbers?",
+          "a": "VulnCheck published CVE-2026-129855 for the unauthenticated terminal PTY WebSocket on port 8016 and CVE-2026-129854 for the missing authorization on agent session routes, both on November 16, 2026. The other four advisories, including the critical stdio MCP command execution rated CVSS 9.9, carry GHSA identifiers only and are recorded as having no known CVE."
+        },
+        {
+          "q": "What should I rotate after patching RedAmon?",
+          "a": "Rotate every secret the RedAmon agent container could read. The critical advisory names INTERNAL_API_KEY, DATABASE_URL and NEO4J_PASSWORD, and a related report says the scanner key could also read a project's stored GitHub personal access token in full. LLM provider keys added at /settings belong on the same list, since a shell in the agent process reads its environment."
+        },
+        {
+          "q": "How does this compare to the earlier RedAmon terminal CVE?",
+          "a": "CVE-2026-103015 was an earlier fix that added bearer-token middleware to RedAmon's SSE MCP tool servers. GHSA-3cjg-8cp8-j269 explains that the fix was incomplete, because the port 8016 listener is a separate websockets.serve instance that never used that middleware. A root bash session therefore stayed open to any client that could reach the port."
+        }
+      ],
+      "links": [
+        {
+          "label": "RedAmon 7.8.0 Release",
+          "url": "https://github.com/samugit83/redamon/releases/tag/v7.8.0"
+        },
+        {
+          "label": "Stdio MCP Advisory",
+          "url": "https://github.com/samugit83/redamon/security/advisories/GHSA-j3r5-x2gg-2hgv"
+        },
+        {
+          "label": "Root Shell Advisory",
+          "url": "https://github.com/samugit83/redamon/security/advisories/GHSA-3cjg-8cp8-j269"
+        },
+        {
+          "label": "Session Hijack Advisory",
+          "url": "https://github.com/samugit83/redamon/security/advisories/GHSA-w454-6hwp-fm58"
+        },
+        {
+          "label": "Root Command Advisory",
+          "url": "https://github.com/samugit83/redamon/security/advisories/GHSA-8whg-rvcr-r88r"
+        },
+        {
+          "label": "Approval Bypass Advisory",
+          "url": "https://github.com/samugit83/redamon/security/advisories/GHSA-vhjw-gfmx-j3fx"
+        },
+        {
+          "label": "VulnCheck CVE Advisory",
+          "url": "https://www.vulncheck.com/advisories/redamon-before-7.8.0-unauthenticated-root-shell-via-terminal-pty-websocket"
+        }
+      ],
+      "publishDate": "2026-11-16T16:36:56.879Z"
+    },
     {
       "id": "gitguardian-wfx-loot-ci-secret-stealer",
       "categories": [
