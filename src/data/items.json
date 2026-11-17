@@ -1,7 +1,306 @@
 {
-  "generatedAt": "2026-11-17T00:37:02.161Z",
+  "generatedAt": "2026-11-17T08:43:45.464Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "gitlab-mcp-token-merge-request-approval",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "GitLab: an MCP-scoped token could approve and merge merge requests",
+      "org": "GitLab",
+      "date": "2026-11-16",
+      "url": "https://docs.gitlab.com/releases/patches/patch-release-gitlab-19-5-6-released/",
+      "summary": "CVE-2026-123142 let an authenticated user with an MCP-scoped OAuth token change the state of GitLab issues and merge requests, including approving and merging them. GitLab fixed it in 19.5.6, 19.4.8 and 19.3.9.",
+      "severity": "medium",
+      "cve": "CVE-2026-123142",
+      "cvss": 4.3,
+      "tags": [
+        "approval-bypass",
+        "mcp",
+        "agent-security",
+        "gitlab",
+        "gitlab-duo"
+      ],
+      "affected": [
+        "GitLab Community Edition",
+        "GitLab Enterprise Edition",
+        "GitLab Duo Agent Platform"
+      ],
+      "credits": [
+        {
+          "name": "Chris Bonk",
+          "org": "GitLab"
+        },
+        {
+          "name": "Rahul Barnwal",
+          "org": "GitLab"
+        },
+        {
+          "name": "Meir Benayoun",
+          "org": "GitLab"
+        },
+        {
+          "name": "RJ Coleman",
+          "org": "GitLab"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-123142 let a GitLab MCP token approve and merge merge requests, past the checks a user's role should apply.",
+        "whatHappened": "GitLab published CVE-2026-123142 in its patch release for 19.5.6, 19.4.8 and 19.3.9 on November 16, 2026. GitLab team member Chris Bonk found that incorrect authorization checks in the GitLab MCP server let an authenticated user holding an MCP-scoped OAuth token change issue and merge request state beyond what the token allowed. The same release fixes 37 security issues, including three more authorization flaws in the Duo Agent Platform.",
+        "howItWorks": "Incorrect authorization is the mechanism: GitLab states the MCP server made state changes to issues and merge requests without confirming the caller was allowed to make them. The mcp scope is what an OAuth client receives through GitLab's dynamic client registration flow, and GitLab's documentation lists merge_requests and work_items among the toolsets enabled by default. Approving and merging are the review gate on a merge request, so a missing check there reaches past code review.",
+        "whoIsAffected": "Self-managed GitLab installations from 18.4 before 19.3.9, from 19.4 before 19.4.8, and from 19.5 before 19.5.6 carry the flaw. An attacker needs an authenticated account and a token carrying the mcp scope, which GitLab's documentation says only OAuth tokens and fine-grained personal access tokens can hold. GitLab states that GitLab.com is already patched and that GitLab Dedicated customers need no action.",
+        "whatToDo": "Upgrade self-managed GitLab to 19.5.6, 19.4.8 or 19.3.9, which GitLab recommends doing as soon as possible. Review which OAuth applications and fine-grained tokens hold the mcp scope, and revoke any you do not recognize. Compare merge and approval history on protected branches against the reviewers you expect."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "GitLab CE and EE 18.4 before 19.3.9, 19.4 before 19.4.8, 19.5 before 19.5.6"
+        },
+        {
+          "label": "Fixed in",
+          "value": "19.5.6, 19.4.8 and 19.3.9, released November 16, 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-123142, CVSS 4.3, rated medium by GitLab"
+        },
+        {
+          "label": "Found by",
+          "value": "Chris Bonk, internal GitLab team member"
+        },
+        {
+          "label": "Attack type",
+          "value": "Incorrect authorization in the GitLab MCP server"
+        },
+        {
+          "label": "Other AI fixes",
+          "value": "Duo Agent Platform: CVE-2026-129253, CVE-2026-128849 and CVE-2026-115736, each CVSS 4.3"
+        },
+        {
+          "label": "Status",
+          "value": "GitLab.com patched, GitLab Dedicated needs no action, self-managed must upgrade"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my GitLab instance affected by CVE-2026-123142 if I never turned on the MCP server?",
+          "a": "GitLab instances that never issued a token carrying the mcp scope are not exposed, because the flaw needs a caller holding that scope. GitLab lists versions from 18.4 before 19.3.9, 19.4 before 19.4.8 and 19.5 before 19.5.6 as affected, so upgrading remains the safe course even where the MCP server is unused."
+        },
+        {
+          "q": "Does GitLab.com need any action for CVE-2026-123142?",
+          "a": "GitLab.com already runs the patched version, GitLab states, and GitLab Dedicated customers need no action. Only self-managed installations have to upgrade, to 19.5.6, 19.4.8 or 19.3.9. GitLab published the fix on November 16, 2026 and recommends that self-managed administrators upgrade as soon as possible rather than waiting for the next scheduled release."
+        },
+        {
+          "q": "Which AI features did GitLab patch in the same release?",
+          "a": "GitLab's November 16 patch release fixes 37 security issues, several on its AI surface. Besides the MCP server flaw, three Duo Agent Platform authorization bugs are fixed: a developer bypassing admin-configured AI tool governance, a Duo Workflow session starting with more privileges than its flow declares, and unredacted secrets showing in secret detection findings. Each is rated CVSS 4.3."
+        },
+        {
+          "q": "How do I check whether an MCP token was used to merge code in GitLab?",
+          "a": "GitLab's advisory describes no detection method, so administrators should start from the approval and merge history on protected branches and compare it against the OAuth applications holding the mcp scope. GitLab's documentation notes that only OAuth tokens and fine-grained personal access tokens can carry that scope, which narrows the set of credentials worth reviewing."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitLab Patch Release",
+          "url": "https://docs.gitlab.com/releases/patches/patch-release-gitlab-19-5-6-released/"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-w8q8-78gq-rcrx"
+        },
+        {
+          "label": "GitLab MCP Server Docs",
+          "url": "https://docs.gitlab.com/user/model_context_protocol/mcp_server/"
+        }
+      ],
+      "publishDate": "2026-11-17T08:43:45.464Z"
+    },
+    {
+      "id": "rebuild-mcp-queryrecords-admin-hash",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "REBUILD: an MCP tool hands an ordinary account the admin password hash",
+      "org": "VulnCheck",
+      "date": "2026-11-16",
+      "url": "https://www.vulncheck.com/advisories/rebuild-4.5.0-through-4.5.4-password-hash-disclosure-via-mcp-queryrecords",
+      "summary": "CVE-2026-129875 lets a low-privileged REBUILD user read the administrator's SHA-256 password hash through the platform's MCP QueryRecords tool, then sign in as admin. VulnCheck published it with three more REBUILD flaws.",
+      "severity": "medium",
+      "cve": "CVE-2026-129875",
+      "cvss": 8.7,
+      "tags": [
+        "mcp",
+        "privilege-escalation",
+        "credential-theft",
+        "rebuild"
+      ],
+      "affected": [
+        "REBUILD"
+      ],
+      "credits": [
+        {
+          "name": "Wu Yulun"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-129875 turns REBUILD's MCP QueryRecords tool into an oracle that leaks the administrator's password hash character by character.",
+        "whatHappened": "VulnCheck published CVE-2026-129875 against REBUILD on November 16, 2026, crediting Wu Yulun. REBUILD is an open-source business platform whose 4.5.0 release added MCP support, so external AI clients can call its tools. Three more REBUILD flaws received CVEs the same day, and the project shipped 4.5.5 on November 16.",
+        "howItWorks": "A blind prefix-match oracle is the mechanism. REBUILD's MCP QueryRecords tool accepts a filter on the User.password field and returns a total row count. The reported technique sends LK2 prefix-match filters to the /gw/mcp/sse gateway and reads the returned count to confirm the stored SHA-256 hash one character at a time. REBUILD accepts that hash as a login credential, so recovering it is enough to sign in as administrator.",
+        "whoIsAffected": "REBUILD 4.5.0 through 4.5.4 carry the MCP flaw, since MCP support arrived in 4.5.0. The other three CVEs reach further back, as far as 2.7.0, and are listed below. An ordinary authenticated account on the instance is enough, so deployments that give accounts to untrusted users are the ones at risk.",
+        "whatToDo": "Upgrade to REBUILD 4.5.5, which sits outside the version range VulnCheck lists as affected. Rotate administrator passwords afterwards, because the flaw exposes the stored hash and REBUILD accepts a hash as a credential. Restrict who can reach the /gw/mcp/sse gateway and review which users hold the personal keys REBUILD issues for external MCP clients."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "REBUILD 4.5.0 through 4.5.4 for the MCP flaw"
+        },
+        {
+          "label": "Fixed in",
+          "value": "4.5.5, released November 16, 2026; its notes name no security fix"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-129875, CVSS 4.0 base score 8.7, rated high by VulnCheck"
+        },
+        {
+          "label": "Other CVEs",
+          "value": "CVE-2026-129874 role self-escalation (3.5.0 to 4.5.4), CVE-2026-129873 SYSTEM_USER token (4.3.0 to 4.5.4), CVE-2026-129872 SQL injection (2.7.0 to 4.5.4)"
+        },
+        {
+          "label": "Found by",
+          "value": "Wu Yulun"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Write-up dated November 6, 2026; CVEs published November 16, 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Blind prefix-match oracle through an MCP tool filter"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which REBUILD version fixes CVE-2026-129875?",
+          "a": "VulnCheck lists REBUILD 4.5.0 through 4.5.4 as affected by CVE-2026-129875, which places 4.5.5 outside the affected range. REBUILD released 4.5.5 on November 16, 2026, the same day the CVEs appeared, and its release note says only that it fixes several known issues. Neither that note nor the V4.5 changelog names the four flaws."
+        },
+        {
+          "q": "Do I need to rotate REBUILD administrator passwords after upgrading?",
+          "a": "Rotating REBUILD administrator passwords is the prudent step, because CVE-2026-129875 exposes the stored SHA-256 hash and REBUILD accepts that hash as a login credential. An attacker who extracted a hash before the upgrade keeps a working admin credential until the password changes. VulnCheck's advisory states no rotation requirement, so treat this as a consequence of the flaw."
+        },
+        {
+          "q": "Does the REBUILD MCP flaw need administrator access to exploit?",
+          "a": "An ordinary authenticated REBUILD account is enough for CVE-2026-129875, and administrator rights are not needed. VulnCheck's CVSS 4.0 vector records low privileges required and a network attack vector, with no user interaction. The write-up names an ordinary account as the starting point for three of the four flaws, which puts any REBUILD deployment with untrusted users in scope."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/rebuild-4.5.0-through-4.5.4-password-hash-disclosure-via-mcp-queryrecords"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-r24j-jphp-67xq"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://vul.yulun.ac.cn/20261106/rebuild"
+        },
+        {
+          "label": "REBUILD 4.5.5 Release",
+          "url": "https://github.com/getrebuild/rebuild/releases/tag/4.5.5"
+        }
+      ],
+      "image": {
+        "url": "https://www.vulncheck.com/_og/d/c_Advisory,icon_i-mdi-comment-alert,title_REBUILD+4.5.0+through+4.5.4+Password+Hash+Disclosure+via+MCP+QueryRecords,date_2026-11-16,headline_Advisories,cves_CVE-2026-129875,props_eyJhZmZlY3RpbmciOlsicmVidWlsZCA-PSA0LjUuMCwgPD0gNC41LjQiXX0,severity_HIGH,cvss_8.7,p_Ii9hZHZpc29yaWVzL3JlYnVpbGQtNC41LjAtdGhyb3VnaC00LjUuNC1wYXNzd29yZC1oYXNoLWRpc2Nsb3N1cmUtdmlhLW1jcC1xdWVyeXJlY29yZHMi,s_f2v5La8a4I1z8H6a.png",
+        "alt": "VulnCheck advisory card naming CVE-2026-129875 in REBUILD 4.5.0 through 4.5.4, rated high at CVSS 8.7",
+        "credit": "VulnCheck"
+      },
+      "publishDate": "2026-11-17T08:43:45.464Z"
+    },
+    {
+      "id": "antoniomika-lend-credential-broker",
+      "categories": [
+        "tool"
+      ],
+      "title": "lend: a broker that keeps agent credentials on the laptop",
+      "org": "Antonio Mika",
+      "date": "2026-11-13",
+      "url": "https://blog.antonio.cx/running-agents-with-lend",
+      "summary": "lend is an open-source Go tool that lets a coding agent on a remote host ask the user's laptop to run allowlisted commands and sign with named SSH keys, each request approved locally instead of copied onto the host.",
+      "severity": "info",
+      "tags": [
+        "agent-security",
+        "coding-agents",
+        "credential-theft",
+        "lend",
+        "ssh"
+      ],
+      "affected": [
+        "AI coding agents",
+        "SSH agent forwarding",
+        "GitHub CLI"
+      ],
+      "credits": [
+        {
+          "name": "Antonio Mika",
+          "url": "https://github.com/antoniomika"
+        }
+      ],
+      "explainer": {
+        "tagline": "lend lets a remote coding agent borrow the laptop's commands and SSH keys one approved request at a time, rather than holding copies.",
+        "whatHappened": "Antonio Mika released lend on November 13, 2026, alongside a write-up on why coding agents running on remote VMs should not hold the user's credentials. The post sets out the two usual options and their costs: copying credentials onto the VM, where any process can read them, or forwarding the SSH agent, which lets the VM use every key with no approval and no record. lend reached the Hacker News front page on November 17.",
+        "howItWorks": "A policy-checked proxy over the forwarded SSH agent socket is the mechanism. The laptop runs lend agent with a JSON policy, the remote host reaches it through ssh -A, and the agent on the host calls lend exec or an MCP tool. The policy denies unlisted commands, SSH keys and agent management operations by default, and each admitted request still needs local approval, which can be device authentication, a prompt or a terminal confirmation. Only keys named by exact fingerprint are visible or signable.",
+        "whoIsAffected": "Developers who run coding agents on remote VMs or shared hosts are the audience, on macOS and Linux. The README describes lend as an initial implementation and is explicit about its limits: approval is not an execution sandbox, so an approved program can still read local files, credentials and environment variables. Caller details that a remote process reports are informational, because the README says a remote process can spoof them.",
+        "whatToDo": "Install lend through Homebrew or its checksum-verified script, then write a policy listing only the commands and key fingerprints an agent needs. Avoid the none approval mode, which the README warns lets anyone with socket access act without a prompt. Treat approving a shell or interpreter as authorizing arbitrary execution, because the approval prompt does not review stdin."
+      },
+      "quickFacts": [
+        {
+          "label": "What it is",
+          "value": "A credential broker and SSH agent proxy for agents on remote hosts"
+        },
+        {
+          "label": "Built by",
+          "value": "Antonio Mika"
+        },
+        {
+          "label": "Language",
+          "value": "Go, MIT licensed"
+        },
+        {
+          "label": "Platforms",
+          "value": "macOS and Linux"
+        },
+        {
+          "label": "Install",
+          "value": "brew install antoniomika/tap/lend, an installer script, or Go 1.24+ from source"
+        },
+        {
+          "label": "Default policy",
+          "value": "Deny unlisted commands, SSH keys and agent management operations"
+        },
+        {
+          "label": "Not a sandbox",
+          "value": "Approved programs can still read local files, credentials and environment variables"
+        }
+      ],
+      "links": [
+        {
+          "label": "Launch Post",
+          "url": "https://blog.antonio.cx/running-agents-with-lend"
+        },
+        {
+          "label": "lend Repository",
+          "url": "https://github.com/antoniomika/lend"
+        },
+        {
+          "label": "lend Documentation",
+          "url": "https://lend.antonio.cx"
+        }
+      ],
+      "publishDate": "2026-11-17T08:43:45.464Z"
+    },
     {
       "id": "gtig-exploit-agent-autonomous-exploitation",
       "categories": [

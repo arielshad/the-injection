@@ -18933,6 +18933,85 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261117t084345z",
+      "timestamp": "2026-11-17T08:43:45.464Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP and prompt-injection queries), VulnCheck, NVD, GitLab patch releases, Anthropic, OpenAI (403 to fetchers), Google, MSRC, Embrace The Red, Simon Willison, AIR, Zenity, Unit 42, Check Point, Socket, JFrog, ReversingLabs, Wiz, Lakera, Trail of Bits, HiddenLayer, OWASP GenAI, UK AISI, Hugging Face, Hacker News and Show HN, GitHub trending, repo-scan (4 candidates, all off-beat or name-filter noise), paper-scan (43 papers, 1 with two scanned signals) and talk-scan. Added three: a GitLab MCP authorization flaw patched on November 16, four REBUILD CVEs published the same day, and lend, a new credential broker for agents on remote hosts. Left out: Kubeshark's two MCP CVEs and a code-review-mcp-server command injection, which the GitHub Advisory Database only imported on November 16 but whose own advisories and fixes are from August and July; a Black Hat talk on the ChatMate Copilot sandbox escape, uploaded November 13 but at 3,561 views and from a team not on the source list; an n8n MCP OAuth open redirect and a SiYuan MCP skill-install SSRF, both without a named finder. HN item pages return 419 to the verifier, so lend's thread is not cited as a link.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "gitlab-mcp-token-merge-request-approval",
+          "title": "GitLab: an MCP-scoped token could approve and merge merge requests",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A widely used dev platform shipped a fix for an MCP-scoped token that could approve and merge merge requests, with three Duo Agent Platform authorization fixes in the same release."
+        },
+        {
+          "id": "rebuild-mcp-queryrecords-admin-hash",
+          "title": "REBUILD: an MCP tool hands an ordinary account the admin password hash",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Four CVEs and a release landed inside the window for flaws whose write-up predates it, and the MCP tool skipping a field-level check is a concrete instance of a pattern the feed already tracks."
+        },
+        {
+          "id": "antoniomika-lend-credential-broker",
+          "title": "lend: a broker that keeps agent credentials on the laptop",
+          "category": "tool",
+          "severity": "info",
+          "note": "A new MIT-licensed tool for a real defender problem, with a design write-up and the Hacker News front page as its two signals."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "github.com/advisories",
+        "vulncheck.com/advisories",
+        "docs.gitlab.com patch releases",
+        "anthropic.com/news",
+        "security.googleblog.com",
+        "microsoft.com/msrc/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "labs.zenity.io",
+        "unit42.paloaltonetworks.com",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "reversinglabs.com/blog",
+        "wiz.io/blog",
+        "lakera.ai/blog",
+        "blog.trailofbits.com",
+        "hiddenlayer.com",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "huggingface.co/blog",
+        "huggingface.co/papers",
+        "news.ycombinator.com",
+        "github.com/trending",
+        "repo-scan.json",
+        "arXiv cs.CR (paper-scan)",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }
