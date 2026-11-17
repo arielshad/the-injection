@@ -1,7 +1,222 @@
 {
-  "generatedAt": "2026-11-16T16:36:56.879Z",
+  "generatedAt": "2026-11-17T00:37:02.161Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "gtig-exploit-agent-autonomous-exploitation",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "exploit_agent: patch to exploit with no human in the loop",
+      "org": "Google Threat Intelligence Group",
+      "date": "2026-11-16",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/agentic-threat-activity-crosses-a-significant-threshold",
+      "summary": "exploit_agent is a multi-agent framework that compares software before and after a patch, works out the flaw, writes an exploit and runs it without a person. Google Threat Intelligence Group found it on an exposed staging server.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "rogue-agents",
+        "coding-agents",
+        "exploit-agent",
+        "wordpress",
+        "claude-code"
+      ],
+      "affected": [
+        "Spectra (Ultimate Addons for Gutenberg)",
+        "WordPress",
+        "Claude Code"
+      ],
+      "credits": [
+        {
+          "name": "Aurora Blum",
+          "org": "Google Threat Intelligence Group"
+        },
+        {
+          "name": "Kelli Vanderlee",
+          "org": "Google Threat Intelligence Group"
+        },
+        {
+          "name": "Jess Xia",
+          "org": "Google Threat Intelligence Group"
+        },
+        {
+          "name": "David Mainor",
+          "org": "Google Threat Intelligence Group"
+        }
+      ],
+      "explainer": {
+        "tagline": "Patch to exploit now runs end to end without a person, according to Google Threat Intelligence Group's November AI Threat Tracker.",
+        "whatHappened": "Google Threat Intelligence Group published its AI Threat Tracker on 16 November 2026 and described exploit_agent, a framework it found on an exposed staging server. GTIG says this is the first time it has seen threat actors fully automate vulnerability discovery and exploitation without a human in the loop. The server also held exfiltrated victim data and scripts for internal reconnaissance, brute-forcing and installing webshells.",
+        "howItWorks": "exploit_agent runs continuously against popular web application software and connects to several frontier and local models. The framework performs differential analysis, comparing code before and after a patch announcement to work out which flaw the patch closed, then drafts an exploit and executes it. GTIG's Figure 4 shows the framework reading an access control check in the Spectra plugin for WordPress, version 2.19.25, that guards the /wp/v2/spectra-popup REST route.",
+        "whoIsAffected": "Internet-facing web applications carrying recently patched n-day flaws are the exposure here, because the gap between a vendor patch and a working exploit keeps narrowing. Victim telemetry on the server pointed at French websites in the media, entertainment and education sectors. GTIG separately reports that a suspected MIDNIGHT NEPTUNE cluster edited .claude/settings.json files so that starting Claude Code downloaded the SOMBERMEME backdoor.",
+        "whatToDo": "Shorten patch windows, which is GTIG's main recommendation, because n-day exploitation is accelerating. Review .claude/settings.json and other agent configuration files in your repositories for commands nobody on the team added."
+      },
+      "quickFacts": [
+        {
+          "label": "Framework",
+          "value": "exploit_agent"
+        },
+        {
+          "label": "Found by",
+          "value": "Google Threat Intelligence Group"
+        },
+        {
+          "label": "Where",
+          "value": "Exposed staging server"
+        },
+        {
+          "label": "Method",
+          "value": "Differential analysis of pre- and post-patch code"
+        },
+        {
+          "label": "Example target",
+          "value": "Spectra for WordPress 2.19.25"
+        },
+        {
+          "label": "Targeting",
+          "value": "French media, entertainment and education sites"
+        },
+        {
+          "label": "Published",
+          "value": "2026-11-16"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does exploit_agent target a specific vulnerability I should patch?",
+          "a": "Google Threat Intelligence Group names no CVE for exploit_agent. The report shows the framework reading an access control check in the Spectra plugin for WordPress version 2.19.25, as an example of the code it analyzes. GTIG's guidance is general rather than product specific: shorten patch windows, because the gap between a vendor patch and a working n-day exploit keeps narrowing."
+        },
+        {
+          "q": "How did GTIG find exploit_agent?",
+          "a": "GTIG found exploit_agent on a staging server the operator left exposed. Alongside the framework, the server held exfiltrated victim data and scripts for internal reconnaissance, brute-forcing, installing webshells and removing other attackers' webshells. A configuration file holding several LLM API keys carried Russian-language comments that called the setup an exploit_agent pilot. GTIG did not name the operator."
+        },
+        {
+          "q": "Is Claude Code involved in the activity GTIG describes?",
+          "a": "Claude Code appears in a separate part of the GTIG report, not in exploit_agent. GTIG says a suspected MIDNIGHT NEPTUNE cluster modified .claude/settings.json configuration files so that starting Claude Code automatically downloaded the SOMBERMEME backdoor. The same actor generated GitHub personal access tokens named after Microsoft Copilot, which made its lateral movement look like routine tooling."
+        }
+      ],
+      "links": [
+        {
+          "label": "GTIG AI Threat Tracker",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/agentic-threat-activity-crosses-a-significant-threshold"
+        },
+        {
+          "label": "Mandiant Hardening Guide",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/artex-and-friends-enter-agentic-offensive-frameworks"
+        },
+        {
+          "label": "GTIG LLMjacking Report",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models"
+        }
+      ],
+      "publishDate": "2026-11-17T00:37:02.161Z"
+    },
+    {
+      "id": "depi-codex-issue-labeler-pipeline-chain",
+      "categories": [
+        "vulnerability",
+        "supply-chain"
+      ],
+      "title": "Codex: a GitHub issue reached the tokens that publish its npm package",
+      "org": "Depi",
+      "date": "2026-11-11",
+      "url": "https://depi.security/blog/20261111-backdooring-codex/",
+      "summary": "Two Depi researchers chained a prompt injection in the openai/codex issue triage workflow to a sandbox escape and cache poisoning, reaching tokens that could publish a backdoored @openai/codex npm release. OpenAI has fixed the workflow.",
+      "severity": "medium",
+      "tags": [
+        "prompt-injection",
+        "indirect-prompt-injection",
+        "sandbox-escape",
+        "credential-theft",
+        "coding-agents",
+        "openai-codex",
+        "github-actions",
+        "npm"
+      ],
+      "affected": [
+        "OpenAI Codex",
+        "GitHub Actions"
+      ],
+      "credits": [
+        {
+          "name": "Pierre Martin",
+          "org": "Depi"
+        },
+        {
+          "name": "Garance de la Brosse",
+          "org": "Depi"
+        }
+      ],
+      "explainer": {
+        "tagline": "A GitHub issue opened by anyone could make Codex leak the tokens behind its own release pipeline, Depi reports.",
+        "whatHappened": "Depi published the chain on 11 November 2026, after reporting it to OpenAI through Bugcrowd. Pierre Martin and Garance de la Brosse found that the issue-labeler workflow in the openai/codex repository fed the title and body of any new issue straight into the Codex prompt, with allow-users set to the wildcard. OpenAI deployed a fix and paid an initial bounty of $1,000, with the report still under review.",
+        "howItWorks": "Injected issue text made the model treat attacker content as workflow instructions, which gave command execution inside the Codex sandbox. The sandbox blocked network sockets and ptrace, but the GitHub runner's .NET processes left CoreCLR debug pipes in /tmp, and a pipe opens like a regular file, so the sandbox permitted it. That debug protocol was unauthenticated and offered a memory-read primitive, which recovered runner and GitHub tokens from process memory. The authors then poisoned a GitHub Actions cache restored by a workflow that holds write permissions.",
+        "whoIsAffected": "The flaw sat in OpenAI's own repository workflow, so people running the Codex CLI were never served a malicious release. Any project that passes untrusted issue or pull request text to an agent action, or sets allow-users to the wildcard, starts from the same condition. The CoreCLR debug pipe escape applies to agent sandboxes running on GitHub-hosted .NET runners.",
+        "whatToDo": "Check agent workflows for a wildcard allow-users value and for untrusted issue or pull request text reaching the prompt. Depi also suggests waiting a short while before auto-updating agent tooling, so that a bad release has time to be noticed."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "openai/codex issue-labeler workflow"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed by OpenAI"
+        },
+        {
+          "label": "Entry point",
+          "value": "Any newly opened GitHub issue"
+        },
+        {
+          "label": "Escape",
+          "value": "CoreCLR debug pipes on the runner"
+        },
+        {
+          "label": "Reported via",
+          "value": "Bugcrowd"
+        },
+        {
+          "label": "Bounty",
+          "value": "$1,000 initial, report under review"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-11"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do I need to update the Codex CLI because of the Depi finding?",
+          "a": "No update to the Codex CLI is needed. Depi reports that the flaw sat in the issue-labeler workflow inside OpenAI's own codex repository, and that OpenAI deployed a fix after the Bugcrowd report. No malicious @openai/codex release was published. Depi does suggest a short cooldown before auto-updating agent tooling in general, so a bad release can be spotted first."
+        },
+        {
+          "q": "How did the attack escape the Codex sandbox?",
+          "a": "The Codex sandbox ran in workspace-write mode, which blocked network sockets and ptrace. Depi found that the GitHub runner's Runner.Listener and Runner.Worker .NET processes exposed CoreCLR debug pipes in /tmp. Because a pipe opens like a regular file, the sandbox permitted access, and the unauthenticated debug protocol gave a memory-read primitive that recovered runner and GitHub tokens from process memory."
+        },
+        {
+          "q": "Was a backdoored @openai/codex package actually published?",
+          "a": "No backdoored package reached npm. Depi describes the final step, a fake release whose deletion triggers a workflow that requests an OIDC token exchangeable for npm publishing rights, as a potential path, and credits the technique to Adnan Khan. The authors demonstrated the token theft and the cache poisoning, then reported the chain instead of completing it."
+        }
+      ],
+      "links": [
+        {
+          "label": "Depi Write-Up",
+          "url": "https://depi.security/blog/20261111-backdooring-codex/"
+        },
+        {
+          "label": "Codex Action Repo",
+          "url": "https://github.com/openai/codex-action"
+        }
+      ],
+      "image": {
+        "url": "https://depi.security/_astro/codex-thumbnail.BtyWjjx0_FVxVB.jpg",
+        "alt": "Title card for Depi's write-up on backdooring the next release of Codex",
+        "credit": "Depi"
+      },
+      "publishDate": "2026-11-17T00:37:02.161Z"
+    },
     {
       "id": "deepaudit-config-endpoint-secret-exposure",
       "categories": [
