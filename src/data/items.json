@@ -1,7 +1,107 @@
 {
-  "generatedAt": "2026-11-18T16:56:49.713Z",
+  "generatedAt": "2026-11-18T23:22:51.166Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "nvidia-skillevaluator-1-0",
+      "categories": [
+        "tool"
+      ],
+      "title": "SkillEvaluator 1.0: NVIDIA's scanner for agent skills and plugins",
+      "org": "NVIDIA",
+      "date": "2026-11-18",
+      "url": "https://github.com/NVIDIA/SkillEvaluator/releases/tag/v1.0.1",
+      "summary": "SkillEvaluator 1.0 is NVIDIA's open-source checker for AI agent skills and plugins. The first full 1.0 release adds HarnessCheck, a static test for six coding agents, and runs its security tier without a model key.",
+      "severity": "info",
+      "tags": [
+        "skills",
+        "plugins",
+        "detection",
+        "coding-agents",
+        "nvidia"
+      ],
+      "affected": [
+        "Claude Code",
+        "OpenAI Codex",
+        "GitHub Copilot CLI",
+        "OpenClaw",
+        "OpenCode",
+        "Hermes"
+      ],
+      "credits": [
+        {
+          "name": "NVIDIA Corporation",
+          "org": "NVIDIA",
+          "url": "https://github.com/NVIDIA"
+        }
+      ],
+      "explainer": {
+        "tagline": "SkillEvaluator 1.0 adds static harness checks to NVIDIA's open-source scanner for AI agent skills and plugins.",
+        "whatHappened": "NVIDIA published SkillEvaluator v1.0.1 on 18 November 2026, which the release notes call the first complete release in the 1.0 series. The project is an Apache-2.0 command-line tool, and also an installable agent skill, that checks AI agent skills and plugins before a team ships them. An earlier v1.0.0 tag from 17 November was superseded because its package and CI bundle were not published.",
+        "howItWorks": "Three tiers do the work. Tier 1 is static and, NVIDIA says, needs no model key: it runs SkillSpector for skill-specific security scanning, Bandit for code risk, Gitleaks for secrets, optional Semgrep scanning and opt-in pip-audit dependency checks, next to schema, license, PII and Unicode checks. Tier 2 uses embeddings to find guidance that repeats or overlaps across skills, and Tier 3 runs an agent with and without the skill in a Docker sandbox to measure the difference. HarnessCheck, new in this release, is a static advisory test of whether a harness will load a skill at all.",
+        "whoIsAffected": "Six agent harnesses have HarnessCheck profiles, listed below. The tool runs on Python 3.12 to 3.14, and NVIDIA lists its support level as experimental and community-supported, with no SLA.",
+        "whatToDo": "Teams that install third-party agent skills can run skillevaluator quality-check or skillevaluator validate --tiers 1 against a skill before it ships, and skillevaluator ci init to add the checks to a GitHub or GitLab pipeline. Upgrading from v0.9.0 needs a review of the author policy, security override and hook gate changes, and NVIDIA says CI workflow files and image pins must be updated separately from the Python package."
+      },
+      "quickFacts": [
+        {
+          "label": "Release",
+          "value": "v1.0.1, published 2026-11-18"
+        },
+        {
+          "label": "License",
+          "value": "Apache-2.0"
+        },
+        {
+          "label": "Install",
+          "value": "pip install skillevaluator, Python 3.12 to 3.14"
+        },
+        {
+          "label": "Security scanners",
+          "value": "SkillSpector 2.13.4, Bandit, Gitleaks, optional Semgrep, opt-in pip-audit"
+        },
+        {
+          "label": "Harnesses checked",
+          "value": "Claude Code, Codex, Copilot CLI, Hermes, OpenClaw, OpenCode"
+        },
+        {
+          "label": "Static rules",
+          "value": "More than 500, by NVIDIA's count"
+        },
+        {
+          "label": "Support level",
+          "value": "Experimental, community-supported, no SLA"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does SkillEvaluator 1.0 need an NVIDIA API key?",
+          "a": "SkillEvaluator's Tier 1 checks, including the security scanners and the new HarnessCheck, run without a model key, according to NVIDIA's documentation. A full three-tier run is different: Tier 3 live agent evaluation needs an NVIDIA Build API key, Docker, scanner setup and a reviewed dataset. Teams that want only static security and quality scoring can therefore start with no credentials at all."
+        },
+        {
+          "q": "Which coding agents does HarnessCheck support?",
+          "a": "HarnessCheck ships profiles for six agent harnesses: Claude Code, Codex, Copilot CLI, Hermes, OpenClaw and OpenCode. NVIDIA describes the check as static and advisory, so it flags cases where a harness would miss, reject or truncate a skill rather than reporting a security flaw. Running it takes one command, skillevaluator harness-check, against a skill directory."
+        },
+        {
+          "q": "What changes when upgrading SkillEvaluator from v0.9.0?",
+          "a": "Upgrading from v0.9.0 requires reviewing changes to the author policy, security overrides and hook gates, which NVIDIA lists in the v1.0.1 changelog. NVIDIA also states that CI workflow files and image pins must be updated separately from the Python package, so a pip upgrade on its own leaves older pipeline configuration in place. The release pins SkillSpector at 2.13.4."
+        }
+      ],
+      "links": [
+        {
+          "label": "Release Notes v1.0.1",
+          "url": "https://github.com/NVIDIA/SkillEvaluator/releases/tag/v1.0.1"
+        },
+        {
+          "label": "GitHub Repository",
+          "url": "https://github.com/NVIDIA/SkillEvaluator"
+        },
+        {
+          "label": "SkillEvaluator Docs",
+          "url": "https://docs.nvidia.com/skills/skillevaluator/"
+        }
+      ],
+      "publishDate": "2026-11-18T23:22:51.166Z"
+    },
     {
       "id": "openai-gpt-6-2-critical-cyber",
       "categories": [
