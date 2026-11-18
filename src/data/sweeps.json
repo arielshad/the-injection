@@ -19233,6 +19233,95 @@
         "Wordfence Threat Intelligence"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261118t165649z",
+      "timestamp": "2026-11-18T16:56:49.713Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab advisories, research blogs, GitHub advisories, arXiv, repo-scan, talk-scan and Hacker News for the 7 days to November 18, 2026, and added three items: CloudSEK's exposed Silent Lynx server, OpenAI's GPT-6.2 system card and Microsoft's MAI Cyber 2 Flash. Two GitHub advisories for MCP servers (Kubeshark, code-review-mcp-server) entered the advisory database this week but were first published in August and July, so they stay out.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "cloudsek-silent-lynx-hermes-agent",
+          "title": "Silent Lynx: an exposed server shows an AI agent running the intrusion",
+          "category": "incident",
+          "severity": "info",
+          "note": "First public analysis of an operator's own agent records: Hermes run with confirmations and loop limits disabled, against named government targets, inside the window."
+        },
+        {
+          "id": "openai-gpt-6-2-critical-cyber",
+          "title": "GPT-6.2: OpenAI rates both new models Critical in cybersecurity",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A frontier lab publishes a Critical cyber rating for two newly released models and prints the exploit-development numbers behind it."
+        },
+        {
+          "id": "microsoft-mai-cyber-2-flash",
+          "title": "MAI Cyber 2 Flash: Microsoft claims a cheaper vulnerability finder",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A specialist security model with published cyber benchmark scores and a dated automatic rollout that changes what Microsoft security customers run."
+        }
+      ],
+      "updated": [
+        {
+          "id": "portswigger-http-terminator-defcon",
+          "title": "HTTP Terminator: an AI system proposed a new desync attack class",
+          "note": "Black Hat published its recording of the same talk, Can AI Do Novel Security Research? Meet the HTTP Terminator, on November 18, 2026. Added as a link, not a new item."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Microsoft Security Blog",
+        "anthropic.com/news",
+        "OpenAI Deployment Safety Hub",
+        "microsoft.ai news",
+        "Google Cloud Threat Intelligence",
+        "Unit 42",
+        "Check Point Research",
+        "Wiz blog",
+        "Trail of Bits",
+        "Socket",
+        "JFrog",
+        "ReversingLabs",
+        "Snyk",
+        "Lakera",
+        "HiddenLayer",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "Zenity Labs",
+        "CloudSEK",
+        "Forcepoint X-Labs",
+        "VulnCheck advisories",
+        "Patchstack",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "huggingface.co/blog",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan (6 candidates)",
+        "github.com/trending",
+        "talk-scan (38 videos)",
+        "Hacker News front page"
+      ],
+      "windowDays": 7
     }
   ]
 }

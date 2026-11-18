@@ -1,7 +1,402 @@
 {
-  "generatedAt": "2026-11-18T07:40:08.764Z",
+  "generatedAt": "2026-11-18T16:56:49.713Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "openai-gpt-6-2-critical-cyber",
+      "categories": [
+        "lab-safety",
+        "benchmark"
+      ],
+      "title": "GPT-6.2: OpenAI rates both new models Critical in cybersecurity",
+      "org": "OpenAI",
+      "date": "2026-11-17",
+      "url": "https://deploymentsafety.openai.com/gpt-6-2-astra-sol/cybersecurity-capabilities",
+      "summary": "GPT-6.2 Astra and GPT-6.2 Sol both meet the Critical threshold for cybersecurity under OpenAI's Preparedness Framework, and OpenAI reports mean arbitrary code execution on its internal ExploitBench port rising from 31.5% to 53.5%.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "evals",
+        "red-team",
+        "openai",
+        "gpt-6-2"
+      ],
+      "affected": [
+        "GPT-6.2 Astra",
+        "GPT-6.2 Sol"
+      ],
+      "credits": [
+        {
+          "name": "OpenAI Deployment Safety",
+          "org": "OpenAI",
+          "url": "https://deploymentsafety.openai.com/"
+        }
+      ],
+      "explainer": {
+        "tagline": "GPT-6.2 Astra is the first OpenAI model deployed externally that meets the High threshold for AI self-improvement.",
+        "whatHappened": "OpenAI published the GPT-6.2 system card on November 17, 2026, covering GPT-6.2 Astra and GPT-6.2 Sol. The card puts both models at the Critical threshold for cybersecurity under the Preparedness Framework, and at High but below Critical for biological and chemical capability. Astra also meets the High threshold for AI self-improvement, which OpenAI says makes it the first externally deployed model to do so; Sol does not reach it.",
+        "howItWorks": "Three cyber suites carry the capability argument, and the card prints them side by side. The sharpest movement is on OpenAI's internal ExploitBench port, which scores mean arbitrary code execution rather than partial credit, and where Astra reaches 53.5% against 31.5% for GPT-6 Astra. On Sandbox Bench, OpenAI reports Astra solving 36.4% of targets against 18.2% for GPT-6 Astra, while the UK AI Security Institute measured 88.6% on vulnerability discovery against 81.7%, with overlapping confidence intervals.",
+        "whoIsAffected": "Everyone calling these two models is covered by the extra watching the Critical rating triggers, because OpenAI says a version of its monitoring system now also monitors external use. Security teams feel it first: the card describes tighter default restrictions on higher-risk cybersecurity assistance, with additional vetting needed for more permissive access.",
+        "whatToDo": "Apply through Trusted Access for Cyber if your security work needs the assistance those tighter defaults restrict. Expect the external monitoring OpenAI describes to cover your traffic, and note that OpenAI says it adjusted refusal boundaries for high-risk requests after jailbreak-resistance regressions showed up in early testing."
+      },
+      "quickFacts": [
+        {
+          "label": "Models",
+          "value": "GPT-6.2 Astra and GPT-6.2 Sol"
+        },
+        {
+          "label": "Cybersecurity",
+          "value": "Critical threshold under the Preparedness Framework, both models"
+        },
+        {
+          "label": "AI self-improvement",
+          "value": "High for Astra, below the threshold for Sol"
+        },
+        {
+          "label": "Biological and chemical",
+          "value": "High, below Critical, both models"
+        },
+        {
+          "label": "External evaluators",
+          "value": "UK AI Security Institute, Irregular, SecureBio, Sequitur Research"
+        },
+        {
+          "label": "Distillation defense",
+          "value": "Attempts to extract private reasoning succeeded under 1% of the time"
+        },
+        {
+          "label": "Published",
+          "value": "November 17, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does the Critical cyber rating change how OpenAI monitors GPT-6.2?",
+          "a": "OpenAI says that because both GPT-6.2 models meet the Critical cybersecurity threshold, a version of its monitoring system also monitors external use, not just internal traffic. Internally the card describes monitoring of all Codex traffic, every reinforcement learning run and evaluation, and any tool-use harness, plus a central Control Room that can stop model workloads quickly."
+        },
+        {
+          "q": "Is GPT-6.2 better at finding and exploiting vulnerabilities than GPT-6?",
+          "a": "On OpenAI's own numbers, yes, and by a wide margin on one suite. GPT-6.2 Astra reaches 53.5% mean arbitrary code execution on the internal ExploitBench port against 31.5% for GPT-6 Astra, and solves 36.4% of Sandbox Bench targets against 18.2%. SEC-Bench Pro moves far less, from 85.4% to 86.75%, so the gain is uneven across benchmarks."
+        },
+        {
+          "q": "Who checked OpenAI's GPT-6.2 cyber numbers independently?",
+          "a": "The card names the UK AI Security Institute for cyber vulnerability discovery and for alignment and monitorability work, and Irregular for cybersecurity evaluations using CyScenarioBench and FrontierCyber. SecureBio, Sequitur Research, Dyno Therapeutics and Velocity Bio covered biological evaluations. OpenAI wrote and published the card, so the internal ExploitBench and Sandbox Bench figures remain OpenAI's own measurements."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Mean arbitrary code execution, ExploitBench Internal Port",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher means the model produced working code execution more often",
+          "results": [
+            {
+              "name": "GPT-6 Astra",
+              "score": 31.5
+            },
+            {
+              "name": "GPT-6.1 Terra",
+              "score": 24.5
+            },
+            {
+              "name": "GPT-6.1 Sol",
+              "score": 21.5
+            },
+            {
+              "name": "GPT-6.2 Sol",
+              "score": 50.5
+            },
+            {
+              "name": "GPT-6.2 Astra",
+              "score": 53.5,
+              "highlight": true
+            }
+          ],
+          "source": "https://deploymentsafety.openai.com/gpt-6-2-astra-sol/cybersecurity-capabilities"
+        },
+        {
+          "name": "Vulnerability reproduction, SEC-Bench Pro",
+          "unit": "%",
+          "max": 100,
+          "note": "Higher means the model reproduced more vulnerabilities",
+          "results": [
+            {
+              "name": "GPT-6 Astra",
+              "score": 85.4
+            },
+            {
+              "name": "GPT-6.1 Terra",
+              "score": 83.3
+            },
+            {
+              "name": "GPT-6.1 Sol",
+              "score": 78.8
+            },
+            {
+              "name": "GPT-6.2 Sol",
+              "score": 88.34
+            },
+            {
+              "name": "GPT-6.2 Astra",
+              "score": 86.75,
+              "highlight": true
+            }
+          ],
+          "source": "https://deploymentsafety.openai.com/gpt-6-2-astra-sol/cybersecurity-capabilities"
+        }
+      ],
+      "links": [
+        {
+          "label": "Cyber Capabilities",
+          "url": "https://deploymentsafety.openai.com/gpt-6-2-astra-sol/cybersecurity-capabilities"
+        },
+        {
+          "label": "GPT-6.2 System Card",
+          "url": "https://deploymentsafety.openai.com/gpt-6-2-astra-sol"
+        },
+        {
+          "label": "GPT-6 Cyber Card",
+          "url": "https://deploymentsafety.openai.com/gpt-6-cyber"
+        }
+      ],
+      "publishDate": "2026-11-18T16:56:49.713Z"
+    },
+    {
+      "id": "microsoft-mai-cyber-2-flash",
+      "categories": [
+        "lab-safety",
+        "benchmark"
+      ],
+      "title": "MAI Cyber 2 Flash: Microsoft claims a cheaper vulnerability finder",
+      "org": "Microsoft AI",
+      "date": "2026-11-17",
+      "url": "https://microsoft.ai/news/introducing-mai-cyber-2-flash/",
+      "summary": "MAI Cyber 2 Flash is Microsoft's new specialist security model, which Microsoft says scores 92.3% against GPT-6 Astra's 91.5% on CyberGym-E2E vulnerability discovery, at under 2% of the cost for each task.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "evals",
+        "microsoft",
+        "mdash"
+      ],
+      "affected": [
+        "MAI Cyber 2 Flash",
+        "MAI Cyber 1.1 Flash"
+      ],
+      "credits": [
+        {
+          "name": "Microsoft AI",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "MAI Cyber 2 Flash is Microsoft's latest specialist security model, available only inside Microsoft security products.",
+        "whatHappened": "Microsoft announced MAI Cyber 2 Flash on November 17, 2026 at Ignite, describing it as its latest specialist security model, built on Microsoft's own security data and carrying a one-million-token context window, four times that of MAI Cyber 1.1 Flash. The announcement sets it against two OpenAI models on two cyber benchmarks, listed below. Every figure is Microsoft's own measurement.",
+        "howItWorks": "CyberGym-E2E scores end-to-end discovery of real-world vulnerabilities, and Microsoft says MAI Cyber 2 Flash beat GPT-6 Astra there while using half the reasoning budget. Microsoft also reports a contamination check on that benchmark: 92 of its 905 tasks drew on the same open-source projects and vulnerability reports as some of Microsoft's training data, so Microsoft excluded them for every model and scored the remaining 813. On WebExploitBench, Microsoft reports 40.4% against 38.4% for GPT-5.6 Cyber at the same reasoning budget.",
+        "whoIsAffected": "Customers of Microsoft security products are the only users, because Microsoft says the model ships exclusively inside them, including the product it calls Codename MDASH. Microsoft states that from mid-December the model automatically replaces the existing model in the MAI profile for eligible customers.",
+        "whatToDo": "Plan for the mid-December swap if your detections or investigations depend on the current MAI profile, and retest them once it lands. Read the scores as vendor measurements: Microsoft has published no independent run, and it says comparative agentic results against GPT-6 Cyber need safeguards that are still being put in place."
+      },
+      "quickFacts": [
+        {
+          "label": "Model",
+          "value": "MAI Cyber 2 Flash, a specialist security model"
+        },
+        {
+          "label": "Context window",
+          "value": "1 million tokens, four times MAI Cyber 1.1 Flash"
+        },
+        {
+          "label": "CyberGym-E2E",
+          "value": "92.3%, against 91.5% for GPT-6 Astra"
+        },
+        {
+          "label": "WebExploitBench",
+          "value": "40.4%, against 38.4% for GPT-5.6 Cyber"
+        },
+        {
+          "label": "Contamination check",
+          "value": "92 of 905 CyberGym-E2E tasks excluded for every model"
+        },
+        {
+          "label": "Availability",
+          "value": "Microsoft security products only, including Codename MDASH"
+        },
+        {
+          "label": "Automatic rollout",
+          "value": "Mid-December, replacing the model in the MAI profile"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can I call MAI Cyber 2 Flash through an API?",
+          "a": "Microsoft says MAI Cyber 2 Flash is available exclusively within Microsoft security products, including the one it calls Codename MDASH, so there is no separate endpoint to call. Eligible customers get it automatically from mid-December, when Microsoft says it replaces the existing model in the MAI profile. The announcement lists API-style pricing only to compare offline evaluation cost."
+        },
+        {
+          "q": "Are the MAI Cyber 2 Flash benchmark scores independently verified?",
+          "a": "No independent run is published. Microsoft ran the CyberGym-E2E and WebExploitBench comparisons itself and reports its own numbers, and it says comparative results against GPT-6 Cyber on agentic, tool-using benchmarks need additional safeguards that are still being put in place. Microsoft does describe one methodological control: it excluded 92 contaminated CyberGym-E2E tasks for every model tested."
+        },
+        {
+          "q": "How does MAI Cyber 2 Flash compare with MAI Cyber 1.1 Flash?",
+          "a": "The clearest stated difference is context length: Microsoft says MAI Cyber 2 Flash carries a one-million-token context window, four times that of MAI Cyber 1.1 Flash. The announcement does not publish a head-to-head benchmark against the earlier model, comparing instead against GPT-6 Astra on CyberGym-E2E and GPT-5.6 Cyber on WebExploitBench."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "Vulnerability discovery, CyberGym-E2E",
+          "unit": "%",
+          "max": 100,
+          "note": "Microsoft's own measurement, on 813 tasks after excluding 92 for contamination",
+          "results": [
+            {
+              "name": "MAI Cyber 2 Flash",
+              "score": 92.3,
+              "highlight": true
+            },
+            {
+              "name": "GPT-6 Astra",
+              "score": 91.5
+            }
+          ],
+          "source": "https://microsoft.ai/news/introducing-mai-cyber-2-flash/"
+        },
+        {
+          "name": "Web exploitation, WebExploitBench",
+          "unit": "%",
+          "max": 100,
+          "note": "Microsoft's own measurement, at the same reasoning budget for both models",
+          "results": [
+            {
+              "name": "MAI Cyber 2 Flash",
+              "score": 40.4,
+              "highlight": true
+            },
+            {
+              "name": "GPT-5.6 Cyber",
+              "score": 38.4
+            }
+          ],
+          "source": "https://microsoft.ai/news/introducing-mai-cyber-2-flash/"
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Announcement",
+          "url": "https://microsoft.ai/news/introducing-mai-cyber-2-flash/"
+        },
+        {
+          "label": "MAI Cyber 2 Flash",
+          "url": "https://microsoft.ai/models/mai-cyber-2-flash/"
+        },
+        {
+          "label": "MAI Cyber 1.1 Flash",
+          "url": "https://microsoft.ai/news/mai-cyber-1-1-flash/"
+        }
+      ],
+      "image": {
+        "url": "https://microsoft.ai/wp-content/uploads/2026/11/MAI-Cyber-2-Ignite-WithHeader-16x9-1.jpg",
+        "alt": "MAI Cyber 2 Flash announcement header image",
+        "credit": "Microsoft AI"
+      },
+      "publishDate": "2026-11-18T16:56:49.713Z"
+    },
+    {
+      "id": "cloudsek-silent-lynx-hermes-agent",
+      "categories": [
+        "incident",
+        "attack"
+      ],
+      "title": "Silent Lynx: an exposed server shows an AI agent running the intrusion",
+      "org": "CloudSEK",
+      "date": "2026-11-11",
+      "url": "https://www.cloudsek.com/blog/off-the-rails-inside-an-exposed-silent-lynx-server",
+      "summary": "Silent Lynx ran an espionage campaign against Tajik government networks using Hermes, an open-source agent framework, after CloudSEK found the operator's unauthenticated server holding more than a dozen gigabytes of tooling and victim data.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "hermes",
+        "deepseek"
+      ],
+      "affected": [
+        "Hermes",
+        "DeepSeek V4.1 Flash",
+        "Gemini 2.5 Flash"
+      ],
+      "credits": [
+        {
+          "name": "CloudSEK TRIAD",
+          "org": "CloudSEK"
+        }
+      ],
+      "explainer": {
+        "tagline": "Silent Lynx used Hermes, an open-source agent framework, to run reconnaissance, collection and cleanup in Central Asian networks.",
+        "whatHappened": "CloudSEK published this analysis on November 11, 2026, after finding an open directory on a Debian VPS that needed no authentication. The directory held more than a dozen gigabytes of tooling, victim data, operator workspaces and AI agent records covering April to October 2026. CloudSEK attributes the server to a Silent Lynx operator with high confidence, and places a Kazakhstan nexus at medium confidence.",
+        "howItWorks": "Hermes is an open-source autonomous agent framework, which the operator installed and customized under the name Strix. DeepSeek V4.1 Flash, reached through OpenRouter, handled most of the logged work, and Gemini 2.5 Flash ran delegated sub-agent tasks. The operator removed the brakes: destructive commands such as heredoc shell execution and SQL DROP were pre-approved without confirmation, the tool-loop hard stop was switched off, and the agent's memory told it to use secrets inside a single shell command so that output redaction would not apply. CloudSEK says the agent also ran its own cleanup in early October, shredding shell histories and zeroing login records, but missed the directory that exposed it.",
+        "whoIsAffected": "Tajikistan's national railway and the government electronic document platform carry the confirmed losses, reached through government SSO with one railway employee's standard-user account. CloudSEK also records command execution on an Uzbek Smart Forestry GeoServer, and lures compiled in October 2026 that reference Turkmenistan.",
+        "whatToDo": "Check per-document authorization on document platforms, because CloudSEK says the operator collected at scale through weak per-document checks and an unauthenticated file service. Block the indicators CloudSEK publishes, including the operator server 89.125.213.123 and the domain foreverpeace.ru, and hunt for PDF-themed LNK shortcuts that launch hidden PowerShell and pull a script over HTTP."
+      },
+      "quickFacts": [
+        {
+          "label": "Tracked as",
+          "value": "Silent Lynx, a Central Asia-focused espionage cluster"
+        },
+        {
+          "label": "Agent framework",
+          "value": "Hermes, customized under the name Strix"
+        },
+        {
+          "label": "Models",
+          "value": "DeepSeek V4.1 Flash as primary, Gemini 2.5 Flash for sub-agents, both via OpenRouter"
+        },
+        {
+          "label": "Documents taken",
+          "value": "More than 2,000 unique documents from the Tajik EDO platform"
+        },
+        {
+          "label": "Entry point",
+          "value": "Government SSO with one railway employee's standard-user account"
+        },
+        {
+          "label": "Exposure",
+          "value": "Open directory on port 8088, no authentication, more than a dozen gigabytes"
+        },
+        {
+          "label": "Found by",
+          "value": "CloudSEK TRIAD"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How much of the Silent Lynx intrusion did Hermes run on its own?",
+          "a": "CloudSEK's records show Hermes handling reconnaissance, data collection and evidence cleanup, with the operator steering through a Telegram session rather than typing each command. The persona told the agent to drop safety disclaimers and prefer low-noise techniques. Because the tool-loop hard stop was disabled, the agent kept working through repeated failures instead of handing control back."
+        },
+        {
+          "q": "Is the Hermes agent framework itself compromised or malicious?",
+          "a": "Hermes is an ordinary open-source agent framework published by Nous Research under the MIT license, and CloudSEK does not report any backdoor in it. The operator installed a normal copy and turned off its confirmation prompts and loop limits. The lesson in CloudSEK's write-up is about the safeguards an operator can disable, not about a flaw in the project."
+        },
+        {
+          "q": "What did Silent Lynx take from the Tajik government?",
+          "a": "CloudSEK counts more than two thousand unique documents from the electronic document platform, mostly tied to the Ministry of Defence, covering flight clearances, conscript transfers, defence procurement and scans of identity documents. Smaller sets are tagged to the National Guard and the State Committee for National Security, alongside hundreds of State Investment Committee letters and several NTDS credential dumps from the railway network."
+        }
+      ],
+      "links": [
+        {
+          "label": "CloudSEK Analysis",
+          "url": "https://www.cloudsek.com/blog/off-the-rails-inside-an-exposed-silent-lynx-server"
+        },
+        {
+          "label": "Hermes Agent",
+          "url": "https://github.com/NousResearch/hermes-agent"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/635e632477408d12d1811a64/6af2e221184296168d5ef73d_Silent%20Lynx%20Off%20the%20Rail%20.jpg",
+        "alt": "Off the Rails: Inside an Exposed Silent Lynx Server",
+        "credit": "CloudSEK"
+      },
+      "publishDate": "2026-11-18T16:56:49.713Z"
+    },
     {
       "id": "microsoft-device-code-copilot-cli",
       "categories": [
@@ -8044,6 +8439,10 @@
         {
           "label": "Executive Summary",
           "url": "https://portswigger.net/kb/papers/gkaicuremal/http-terminator-executive-summary.pdf"
+        },
+        {
+          "label": "Black Hat Talk",
+          "url": "https://www.youtube.com/watch?v=bERmUEJhWFM"
         }
       ],
       "image": {
