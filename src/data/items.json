@@ -1,7 +1,225 @@
 {
-  "generatedAt": "2026-11-17T18:00:38.790Z",
+  "generatedAt": "2026-11-18T00:15:51.092Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "wiz-agent-framework-pypi-credential-stealer",
+      "categories": [
+        "supply-chain"
+      ],
+      "title": "agent-framework: two PyPI releases shipped an Azure credential stealer",
+      "org": "Wiz",
+      "date": "2026-11-17",
+      "url": "https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi",
+      "summary": "Versions 1.26.1 and 1.26.2 of the agent-framework PyPI package, the Python build of Microsoft Agent Framework, carried a credential stealer that collected Azure and CI tokens. PyPI quarantined both about an hour after release.",
+      "severity": "high",
+      "tags": [
+        "malicious-package",
+        "credential-theft",
+        "microsoft",
+        "pypi",
+        "azure"
+      ],
+      "affected": [
+        "Microsoft Agent Framework",
+        "agent-framework (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "Rami McCarthy",
+          "org": "Wiz"
+        },
+        {
+          "name": "Scott Piper",
+          "org": "Wiz"
+        },
+        {
+          "name": "Benjamin Read",
+          "org": "Wiz"
+        },
+        {
+          "name": "Socket Research Team",
+          "org": "Socket"
+        }
+      ],
+      "explainer": {
+        "tagline": "Two malicious agent-framework releases on PyPI collected Azure and CI credentials during a short window on 17 November 2026.",
+        "whatHappened": "Wiz and Socket both reported on 17 November 2026 that two new releases of the agent-framework PyPI package carried an added credential stealer. Wiz puts the first malicious release, 1.26.1, at 20:35 UTC and says both versions were off PyPI by about 21:30 UTC. Wiz also notes that 1.26.1 has no matching release tag in the microsoft/agent-framework repository and that the main branch does not contain the malicious code, so the root cause is unconfirmed.",
+        "howItWorks": "The stealer runs from a Python .pth startup hook, so the collector executes whenever Python starts in that environment, not only when the package is imported. Socket names the hook chain agent_framework_meta.pth in 1.26.1 and af_runtime_diag.pth in 1.26.2. The collector reads environment variables whose names match secret-like terms, scrapes other processes through /proc, reads credential files for Azure CLI, npm, pip, git, Docker and Hugging Face, and requests fresh Azure managed-identity tokens. Wiz reports the results are zlib-compressed, base64-encoded and sent in a single HTTPS POST to a hardcoded webhook.site address, with no fallback channel.",
+        "whoIsAffected": "Only agent-framework 1.26.1 and 1.26.2 on PyPI are malicious, and Wiz names 1.26.0, published on 12 November 2026, as the most recent safe release. CI runners and developer machines that installed during the window hold the real exposure. Wiz says 1.26.2 also requested GitHub Actions OIDC tokens, which brings in workflows that grant id-token write permission.",
+        "whatToDo": "Search lockfiles, CI logs, virtualenvs and container images for 1.26.1 or 1.26.2, and pin to 1.26.0. Rotate the secrets listed below on any affected host or runner, and review sign-in and activity logs for managed identities reachable from those systems, because Wiz says stolen tokens may stay valid for up to 24 hours."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "agent-framework 1.26.1 and 1.26.2 (PyPI)"
+        },
+        {
+          "label": "Safe version",
+          "value": "1.26.0, published 12 November 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Both versions quarantined on PyPI"
+        },
+        {
+          "label": "Exposure window",
+          "value": "20:35 to about 21:30 UTC, 17 November 2026"
+        },
+        {
+          "label": "Attack type",
+          "value": "Malicious package with a .pth startup hook"
+        },
+        {
+          "label": "Rotate",
+          "value": "Azure CLI sessions, Azure DevOps tokens, registry and git tokens"
+        },
+        {
+          "label": "Found by",
+          "value": "Wiz and Socket"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if I installed agent-framework on 17 November 2026?",
+          "a": "Only agent-framework 1.26.1 and 1.26.2 contain the stealer, and both were on PyPI for roughly an hour that evening. Check lockfiles, CI logs and container images for those two versions. Wiz lists the file markers to look for in site-packages: agent_framework_meta.pth for 1.26.1 and af_runtime_diag.pth for 1.26.2."
+        },
+        {
+          "q": "Which version of agent-framework is safe to use?",
+          "a": "Wiz names 1.26.0, published on 12 November 2026, as the most recent safe release of agent-framework, and recommends pinning to it. Both malicious versions were quarantined by PyPI, so a fresh install no longer pulls them. Teams with cached wheels or prebuilt images should still confirm which version those artifacts contain before trusting them."
+        },
+        {
+          "q": "Which credentials should be rotated after an agent-framework compromise?",
+          "a": "Wiz advises rotating every secret present in the environment on affected hosts and runners: Azure CLI sessions, Azure DevOps personal access tokens and service connections, package registry tokens and git tokens. Managed-identity and OIDC tokens cannot be rotated directly, so Wiz suggests reviewing sign-in and activity logs for the identities reachable from those systems, because stolen tokens may remain valid for up to 24 hours."
+        },
+        {
+          "q": "How did the malicious agent-framework releases reach PyPI?",
+          "a": "Neither Wiz nor Socket states how the release process was compromised. Wiz points out that version 1.26.1 has no matching release tag in the microsoft/agent-framework repository and that the malicious code is absent from the main branch, which means the packages were built or uploaded outside the normal repository flow. The root cause remains unconfirmed."
+        }
+      ],
+      "links": [
+        {
+          "label": "Wiz Threat Update",
+          "url": "https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi"
+        },
+        {
+          "label": "Socket Analysis",
+          "url": "https://socket.dev/blog/agent-framework-pypi-package-compromised-with-credential-stealer"
+        },
+        {
+          "label": "PyPI Release History",
+          "url": "https://pypi.org/project/agent-framework/#history"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.sanity.io/images/cgdhsj6q/production/b3d51ac973b4096a30d7b59bd0d2584ee04810b6-2736x1378.png?w=1000&q=95&fit=max&auto=format",
+        "alt": "Microsoft agent-framework PyPI package compromised with a credential stealer",
+        "credit": "Socket"
+      },
+      "publishDate": "2026-11-18T00:15:51.092Z"
+    },
+    {
+      "id": "vulncheck-flowise-mcp-token-public-chatflow",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Flowise: a public chatflow hands out the MCP server's bearer token",
+      "org": "VulnCheck",
+      "date": "2026-11-17",
+      "url": "https://www.vulncheck.com/advisories/flowise-3.1.3-through-3.1.4-mcp-server-token-disclosure-via-public-chatflow-endpoint",
+      "summary": "Flowise 3.1.3 and 3.1.4 return the MCP server's bearer token to anyone who reads a public chatflow, and that token is the only credential guarding the endpoint that runs the flow. The project was archived in August, so no fix is coming.",
+      "severity": "high",
+      "tags": [
+        "mcp",
+        "credential-theft",
+        "flowise"
+      ],
+      "affected": [
+        "Flowise"
+      ],
+      "cve": "CVE-2026-130796",
+      "cvss": 8.8,
+      "credits": [
+        {
+          "name": "George Chen",
+          "url": "https://github.com/geo-chen"
+        }
+      ],
+      "explainer": {
+        "tagline": "An unauthenticated request for a public Flowise chatflow returns the MCP bearer token that protects the flow's execution endpoint.",
+        "whatHappened": "VulnCheck published CVE-2026-130796 on 17 November 2026 and credits George Chen, who posted his own write-up the same day. Chen's timeline says he reported the flaw privately to Flowise on 9 June 2026 and that the maintainer confirmed it as valid. VulnCheck rates the flaw 8.8 and lists no fixed version.",
+        "howItWorks": "The GET /api/v1/public-chatflows/:id handler returns the whole chatflow database row and sanitizes only the flowData field. The mcpServerConfig field passes through untouched, and it holds the chatflow's MCP bearer token in plain text. That token is the only credential protecting POST /api/v1/mcp/:chatflowId, which is also reachable without authentication, so whoever reads the public endpoint can call the flow as an MCP tool with their own input. Chen notes that Flowise's separate chatbot-config endpoint returns a whitelisted projection that leaves the field out.",
+        "whoIsAffected": "VulnCheck lists Flowise 3.1.3 through 3.1.4 as affected. Two settings must both be on: the chatflow marked public, and its MCP server enabled, which Chen says are common and set independently. Flowise's sunset notice moved the repository to public archive on 10 August 2026 and ended core team support on 31 August 2026, so internet-exposed self-hosted instances stay exposed.",
+        "whatToDo": "Turn off the public flag on any chatflow whose MCP server is enabled, or disable the MCP server, then rotate the bearer tokens that were reachable. Teams staying on Flowise have to patch a fork: Chen suggests returning a whitelisted projection from the public chatflow endpoint, or marking mcpServerConfig as not selectable."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Flowise 3.1.3 through 3.1.4"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed version listed; project archived"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-130796"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.8 high, CVSS v4.0, from VulnCheck"
+        },
+        {
+          "label": "Preconditions",
+          "value": "Chatflow marked public and MCP server enabled"
+        },
+        {
+          "label": "Found by",
+          "value": "George Chen"
+        },
+        {
+          "label": "Disclosed",
+          "value": "Reported 9 June 2026, published 17 November 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patch for CVE-2026-130796 in Flowise?",
+          "a": "No patch exists. VulnCheck lists no fixed version for CVE-2026-130796, and the Flowise team moved the repository to public archive on 10 August 2026 and ended support on 31 August 2026 under its sunset plan. Operators who need to keep running Flowise have to apply a fix in a fork, because the core team no longer reviews pull requests."
+        },
+        {
+          "q": "How do I check whether my Flowise instance is exposed?",
+          "a": "Exposure needs two settings at once: a chatflow marked public, and an MCP server enabled on that same chatflow. Request the public chatflow endpoint with a chatflow id and no credentials, then look for an mcpServerConfig field in the response. A bearer token in that field means an anonymous caller can reach the flow's MCP execution endpoint."
+        },
+        {
+          "q": "What can an attacker do with a leaked Flowise MCP token?",
+          "a": "Chen's write-up says the token lets an anonymous caller invoke the chatflow as an MCP tool with arbitrary input through the MCP execution route. Calls consume the owner's model credits and reach whatever tools and data the flow connects to. VulnCheck adds that the leak bypasses the API key protection meant to gate that endpoint."
+        },
+        {
+          "q": "Why is a flaw reported in June 2026 only public now?",
+          "a": "George Chen reported the flaw to Flowise on 9 June 2026 through a private GitHub security advisory, and his timeline shows the maintainer confirmed it, then archived the report on 13 August 2026, with a follow-up on 4 September 2026. Flowise reached end of life on 31 August 2026. VulnCheck published the CVE on 17 November 2026."
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/flowise-3.1.3-through-3.1.4-mcp-server-token-disclosure-via-public-chatflow-endpoint"
+        },
+        {
+          "label": "Researcher Write-Up",
+          "url": "https://github.com/geo-chen/oss/blob/main/Flowise.md"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-g34g-582q-rw8g"
+        },
+        {
+          "label": "Flowise Sunset Notice",
+          "url": "https://flowiseai.com/sunset"
+        }
+      ],
+      "publishDate": "2026-11-18T00:15:51.092Z"
+    },
     {
       "id": "gitlab-mcp-token-merge-request-approval",
       "categories": [
