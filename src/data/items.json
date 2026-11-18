@@ -1,7 +1,285 @@
 {
-  "generatedAt": "2026-11-18T00:15:51.092Z",
+  "generatedAt": "2026-11-18T07:40:08.764Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "microsoft-device-code-copilot-cli",
+      "categories": [
+        "attack",
+        "research"
+      ],
+      "title": "Device code phishing: an approved code reaches a Copilot CLI session",
+      "org": "Microsoft",
+      "date": "2026-11-17",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/17/the-risks-of-device-code-authentication-for-ai-coding-agents/",
+      "summary": "Microsoft Security Research shows that device code phishing aimed at GitHub Copilot CLI, rather than at a mailbox, can let an attacker steer a running agent session, poison its memory, read synced sessions and reach private repositories.",
+      "severity": "medium",
+      "tags": [
+        "credential-theft",
+        "agent-memory",
+        "coding-agents",
+        "github-copilot",
+        "microsoft"
+      ],
+      "affected": [
+        "GitHub Copilot CLI",
+        "GitHub Enterprise Cloud"
+      ],
+      "credits": [
+        {
+          "name": "Uri Oren",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Dor Edry",
+          "org": "Microsoft"
+        },
+        {
+          "name": "Microsoft Security Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Device code phishing against GitHub Copilot CLI turns one approved code into access to an AI coding agent, not just to email.",
+        "whatHappened": "Microsoft Security Research published the study on 17 November 2026, written by Uri Oren and Dor Edry. The team asked what changes when a device code lure targets an AI coding agent instead of a mailbox, and ran the case against GitHub Copilot CLI in a lab. Microsoft states it has not observed these outcomes in real campaigns.",
+        "howItWorks": "The OAuth device flow is the mechanism. An attacker starts a sign-in on their own client, sends the victim the code together with the real GitHub verification link under a pretext such as an IT or license check, and the user approves it. GitHub's page does not show who began the request, and an application name alone does not separate an attacker's client from an expected one. The attacker's client then completes sign-in and holds a token carrying the scopes it asked for.",
+        "whoIsAffected": "Any public client that supports the device flow can be abused this way, so the exposure is not limited to GitHub or to Copilot CLI. Each lab outcome depended on a setting: steering a session needed remote control enabled and allowed by policy, memory poisoning needed Copilot Memory on, and reading earlier sessions needed cloud session storage. The requested scopes, listed below, covered private repositories.",
+        "whatToDo": "Tell users to enter a device code only for a sign-in they started themselves, and configure Safe Links for email and Teams. Review the Copilot CLI setting that stores local sessions in the cloud and pick the least permissive option that still supports the work. During response, revoke unexpected OAuth authorizations and remove suspicious Copilot Memory entries, because Microsoft notes that turning memory off does not delete what is already stored."
+      },
+      "quickFacts": [
+        {
+          "label": "Attack type",
+          "value": "Device code phishing aimed at an AI coding agent"
+        },
+        {
+          "label": "Example target",
+          "value": "GitHub Copilot CLI"
+        },
+        {
+          "label": "Scopes requested",
+          "value": "repo, read:user, read:org, gist, codespace"
+        },
+        {
+          "label": "Lab outcomes",
+          "value": "Session steering, memory poisoning, synced session access, repository access"
+        },
+        {
+          "label": "Status",
+          "value": "Lab simulation; Microsoft reports no observed campaigns"
+        },
+        {
+          "label": "Found by",
+          "value": "Uri Oren and Dor Edry, Microsoft Security Research"
+        },
+        {
+          "label": "Detections",
+          "value": "Two Defender XDR detections, plus a GitHub EMU identity suspension action"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is GitHub Copilot CLI patched against device code phishing?",
+          "a": "GitHub Copilot CLI signs users in through the OAuth device flow, and Microsoft's researchers abused that flow rather than a software flaw, so no patch applies. Approval by the user is still required. Microsoft reports that each lab outcome depended on account settings such as remote control, Copilot Memory and cloud session storage, and that it has not seen the technique in real campaigns."
+        },
+        {
+          "q": "How do I check whether someone approved an attacker's Copilot CLI sign-in?",
+          "a": "Review the authorized OAuth apps on the GitHub account and revoke anything unexpected, then check the account's Copilot CLI sessions, repository access and stored Copilot Memory entries for content nobody on the team added. Microsoft lists these steps for response, and says two Microsoft Defender XDR detections correlate suspicious messages and clicks with GitHub token creation and regeneration events."
+        },
+        {
+          "q": "How is this different from the EvilTokens device code campaigns?",
+          "a": "EvilTokens, which Microsoft analyzed in September 2026, phished device codes to reach mailboxes and cloud accounts. The November 2026 research keeps the same phishing step but points it at an AI coding agent, so what an attacker gains becomes a running agent session, its memory and the repositories the account can read. Microsoft presents the agent outcomes as lab results only."
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Research",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/17/the-risks-of-device-code-authentication-for-ai-coding-agents/"
+        },
+        {
+          "label": "EvilTokens Analysis",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/"
+        },
+        {
+          "label": "Remote Control Docs",
+          "url": "https://docs.github.com/en/copilot/concepts/agent-capabilities/agent-powered-workflows-and-operations/about-remote-control"
+        },
+        {
+          "label": "Copilot Memory Docs",
+          "url": "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/copilot-memory/manage-as-administrator"
+        }
+      ],
+      "publishDate": "2026-11-18T07:40:08.764Z"
+    },
+    {
+      "id": "adminneo-ai-sql-plugins-login-page",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AdminNeo: the login page relays prompts with the operator's AI key",
+      "org": "AdminNeo",
+      "date": "2026-11-16",
+      "url": "https://github.com/adminneo-org/adminneo/security/advisories/GHSA-cjvx-f3xp-vg55",
+      "summary": "AdminNeo before 5.9.1 runs its Claude, Gemini and OpenWebUI SQL helper handlers on the login page, so an unauthenticated visitor can send prompts through the operator's AI credential, and reach an internal Open WebUI endpoint.",
+      "severity": "medium",
+      "cve": "CVE-2026-130358",
+      "cvss": 6.9,
+      "tags": [
+        "credential-theft",
+        "adminneo",
+        "open-webui"
+      ],
+      "affected": [
+        "AdminNeo",
+        "Open WebUI"
+      ],
+      "credits": [
+        {
+          "name": "Alpet Gexha",
+          "url": "https://github.com/AlpetGexha"
+        }
+      ],
+      "explainer": {
+        "tagline": "AdminNeo's AI SQL helper plugins answer unauthenticated requests on the login page and spend the operator's AI credit.",
+        "whatHappened": "The AdminNeo project published GHSA-cjvx-f3xp-vg55 on 16 November 2026, credited Alpet Gexha as the reporter, and shipped the fix in version 5.9.1 the same day. VulnCheck assigned CVE-2026-130358 and scores it 6.9; the maintainer's own advisory scores the same flaw 6.5.",
+        "howItWorks": "Each of the three SQL helper plugins reads its own POST field, claude, gemini or openwebui, inside sendHeaders(). That function runs on every rendered page, the login page included, so the handler is reachable before authentication. The plugin forwards the submitted text to the configured AI endpoint using the operator's credential and returns the reply, with no session check and no CSRF token check.",
+        "whoIsAffected": "Operators running AdminNeo below 5.9.1 who turned on the Claude, Gemini or OpenWebUI SQL plugin are exposed, and the advisory notes each plugin is only active once an operator enables it. Anyone who can reach the AdminNeo URL can submit prompts, so an instance published to the internet is open to strangers. For the OpenWebUI plugin the configured endpoint is often internal, which puts an internal service within reach of the operator's bearer token.",
+        "whatToDo": "Upgrade to AdminNeo 5.9.1, which also carries fixes for SQL injection, cross-site scripting and login bypasses elsewhere in the tool. Operators who cannot upgrade should disable the three AI SQL plugins or take the instance off the public internet. Check the AI provider's usage records for requests nobody on the team sent, since the advisory says the cost lands on the operator's account."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "AdminNeo before 5.9.1 with a Claude, Gemini or OpenWebUI SQL plugin enabled"
+        },
+        {
+          "label": "Fixed in",
+          "value": "AdminNeo 5.9.1, released 16 November 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-130358"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.9 medium from VulnCheck; 6.5 in the maintainer's advisory"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authentication on a handler that runs before login"
+        },
+        {
+          "label": "Found by",
+          "value": "Alpet Gexha"
+        }
+      ],
+      "links": [
+        {
+          "label": "Project Advisory",
+          "url": "https://github.com/adminneo-org/adminneo/security/advisories/GHSA-cjvx-f3xp-vg55"
+        },
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/adminneo-before-5.9.1-missing-authentication-in-ai-sql-plugins-via-login-page"
+        },
+        {
+          "label": "AdminNeo 5.9.1",
+          "url": "https://github.com/adminneo-org/adminneo/releases/tag/v5.9.1"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-g35j-5g93-mgff"
+        }
+      ],
+      "publishDate": "2026-11-18T07:40:08.764Z"
+    },
+    {
+      "id": "prime-radiant-external-sandbox",
+      "categories": [
+        "tool"
+      ],
+      "title": "External Sandbox: the coding agent stays outside the sandbox",
+      "org": "Prime Radiant",
+      "date": "2026-11-16",
+      "url": "https://blog.primeradiant.com/external-sandboxes-for-coding-agents/",
+      "summary": "External Sandbox is a set of three Apache-licensed sandbox servers from Prime Radiant that run a coding agent's commands inside a Linux guest while the agent itself stays outside, behind a deny-by-default network proxy.",
+      "severity": "info",
+      "tags": [
+        "agent-security",
+        "coding-agents",
+        "prompt-injection",
+        "claude-code",
+        "codex"
+      ],
+      "affected": [
+        "Claude Code",
+        "OpenAI Codex",
+        "Pi"
+      ],
+      "credits": [
+        {
+          "name": "Simon Willison",
+          "url": "https://simonwillison.net/"
+        },
+        {
+          "name": "Prime Radiant",
+          "url": "https://github.com/prime-radiant-inc"
+        }
+      ],
+      "explainer": {
+        "tagline": "External Sandbox gives Claude Code, Codex and Pi one localhost API for running their commands in a throwaway Linux guest.",
+        "whatHappened": "Prime Radiant published External Sandbox on 16 November 2026 in a post credited to Simon Willison and written with the lab's team. The release covers three sandbox servers, a shared protocol with a conformance test runner, and agent integrations, all under Apache-2.0. Willison linked the post from his own blog the next day.",
+        "howItWorks": "The pattern keeps the agent on the host and sends only the commands it wants to run into a Linux guest, over one localhost HTTP and WebSocket API that all three servers implement. Each server mounts chosen directories read-write or read-only and starts with no network device at all. An allow-list proxy is the only way out: rules name an origin and the permitted HTTP methods, and the guest trusts the proxy's CA certificate so HTTPS can be filtered rather than tunnelled. A credential rule swaps a placeholder in the guest's request header for the real secret, which never enters the guest.",
+        "whoIsAffected": "Developers running Claude Code, Codex or Pi on macOS or Linux are the audience, with limits that differ per agent. Claude Code routes only its Bash tool through the sandbox, so its Read and Edit tools still act on the host and ignore the mount rules. Codex connects through its experimental exec-server protocol, tested against Codex CLI 0.164.0, and Pi needs version 1.5 or later plus the external-sandbox-pi extension. The v86 server runs anywhere with Node.js 22.19 or later, while the Apple Containers and Quicksand servers need an Apple silicon Mac.",
+        "whatToDo": "Mount a project read-only where the task does not need writes, and grant network access only through a proxy allow list naming the origins and methods a task really needs. Point credential rules at trusted services only, because the write-up warns that an allowed host could echo a substituted secret back in its response. Treat the servers as the author does, as experimental prototypes that have not been audited, and keep the work under version control."
+      },
+      "quickFacts": [
+        {
+          "label": "What it is",
+          "value": "Three sandbox servers behind one localhost API for coding agents"
+        },
+        {
+          "label": "Built by",
+          "value": "Simon Willison with Prime Radiant"
+        },
+        {
+          "label": "License",
+          "value": "Apache-2.0"
+        },
+        {
+          "label": "Backends",
+          "value": "v86 WebAssembly x86 emulator, Apple Containers, QEMU through Microsoft Quicksand"
+        },
+        {
+          "label": "Network default",
+          "value": "No network device until a proxy allow list is supplied"
+        },
+        {
+          "label": "Agents covered",
+          "value": "Claude Code (Bash tool only), Codex, Pi 1.5 or later"
+        },
+        {
+          "label": "Status",
+          "value": "Experimental prototypes, not audited for sensitive workloads"
+        }
+      ],
+      "links": [
+        {
+          "label": "Launch Post",
+          "url": "https://blog.primeradiant.com/external-sandboxes-for-coding-agents/"
+        },
+        {
+          "label": "Protocol And Tests",
+          "url": "https://github.com/prime-radiant-inc/external-sandbox"
+        },
+        {
+          "label": "v86 Sandbox Server",
+          "url": "https://github.com/prime-radiant-inc/external-sandbox-v86"
+        },
+        {
+          "label": "Willison's Note",
+          "url": "https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents/"
+        }
+      ],
+      "publishDate": "2026-11-18T07:40:08.764Z"
+    },
     {
       "id": "wiz-agent-framework-pypi-credential-stealer",
       "categories": [

@@ -19146,6 +19146,93 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261118t074008z",
+      "timestamp": "2026-11-18T07:40:08.764Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (mcp, agent, llm, prompt injection, skill and copilot queries), VulnCheck, CISA alerts and KEV additions, Microsoft Security and MSRC, Anthropic, OpenAI alignment, Unit 42, Check Point, Wiz, Socket, ReversingLabs, JFrog, GitGuardian, Elastic Security Labs, Darktrace, Embrace The Red, Simon Willison, AIR Security, Zenity, Lakera, Trail of Bits, HiddenLayer, Snyk and Invariant Labs, OWASP GenAI, UK AISI, NIST CAISI, Hugging Face blog and model search, Hacker News front page and newest, GitHub trending, repo-scan (13 queries, 6 candidates), paper-scan (9 queries, 48 arXiv candidates, 1 with two scanned signals) and talk-scan (37 videos). Added three: Microsoft's device code phishing research against GitHub Copilot CLI, the AdminNeo AI SQL plugin authentication flaw fixed in 5.9.1, and Prime Radiant's External Sandbox servers for coding agents. Left out: Arize Phoenix CVE-2026-53998 (CVSS 10.0), whose advisory was published 9 November and only mirrored into the GitHub database on 17 November; the Flowise DNS-rebinding SSRF (CVE-2026-130615), a second flaw in the archived product whose unauthenticated MCP token leak is already in the feed and carries the same defender action; the SQLBot PostgreSQL denylist bypass (reported 3 November, fixed 5 November) and the 53AIHub file preview IDOR (reported 22 October), both only CVE-published inside the window; the AI Puffer WordPress plugin stored XSS through AI comment replies, because the Wordfence entry that would name its finder returns no content to fetchers; OpsTree REMS system prompt disclosure, with no named finder; and the Model Immunization paper (NeurIPS, code released), which is harmful fine-tuning theory rather than something a defender acts on. The in-window AI videos talk-scan found were retellings of stories already in the feed, and the one new AI-security conference talk, Black Hat's PHANTOM-B threat modelling session, sat at 1,351 views with no second signal. openai.com/index and security.googleblog.com returned 403 or a challenge to fetchers, r/netsec could not be fetched from this runner, and Show HN returned 429.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "microsoft-device-code-copilot-cli",
+          "title": "Device code phishing: an approved code reaches a Copilot CLI session",
+          "category": "attack",
+          "severity": "medium",
+          "note": "Primary vendor research inside the window that moves a known phishing technique onto a coding agent, with named researchers, concrete settings to check and defender actions."
+        },
+        {
+          "id": "adminneo-ai-sql-plugins-login-page",
+          "title": "AdminNeo: the login page relays prompts with the operator's AI key",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A maintainer advisory and a CVE published inside the window for an AI feature that answers unauthenticated requests with the operator's credential, with a named reporter and a shipped fix."
+        },
+        {
+          "id": "prime-radiant-external-sandbox",
+          "title": "External Sandbox: the coding agent stays outside the sandbox",
+          "category": "tool",
+          "severity": "info",
+          "note": "A new Apache-licensed sandbox stack for coding agents from a Sources-listed researcher, with a write-up that explains the protocol, the egress allow list and the credential swap."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "CISA cybersecurity advisories and KEV",
+        "Microsoft Security Blog",
+        "MSRC blog",
+        "anthropic.com/news",
+        "alignment.openai.com",
+        "Unit 42",
+        "Check Point Research",
+        "Wiz blog",
+        "Socket blog",
+        "ReversingLabs blog",
+        "JFrog blog",
+        "GitGuardian blog",
+        "Elastic Security Labs",
+        "Darktrace blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "Zenity blog",
+        "Lakera blog",
+        "Trail of Bits blog",
+        "HiddenLayer Innovation Hub",
+        "Invariant Labs blog",
+        "OWASP GenAI Security Project",
+        "UK AI Security Institute",
+        "NIST CAISI",
+        "huggingface.co/blog",
+        "Hugging Face model search",
+        "Hacker News",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan",
+        "talk-scan",
+        "arXiv cs.CR",
+        "Wordfence Threat Intelligence"
+      ],
+      "windowDays": 7
     }
   ]
 }
