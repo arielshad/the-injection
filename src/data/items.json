@@ -1,7 +1,295 @@
 {
-  "generatedAt": "2026-11-19T04:26:21.670Z",
+  "generatedAt": "2026-11-19T13:18:34.873Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "vllm-systemone-chat-template-trust-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "vLLM: /v1/systemone ignores the chat template trust gate",
+      "org": "vLLM",
+      "date": "2026-11-18",
+      "url": "https://github.com/vllm-project/vllm/security/advisories/GHSA-xgh8-qwjh-q853",
+      "summary": "vLLM's POST /v1/systemone endpoint passed request-supplied chat_template_kwargs to the shared renderer without running the template trust check, so a caller could replace the system block an operator pinned. Fixed in 0.34.0.",
+      "severity": "medium",
+      "cvss": 6.5,
+      "tags": [
+        "guardrail-bypass",
+        "prompt-injection",
+        "vllm",
+        "inference-server"
+      ],
+      "affected": [
+        "vLLM",
+        "vllm (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "Haile Du",
+          "org": "Beijing Academy of Artificial Intelligence",
+          "url": "https://github.com/revalue-o"
+        },
+        {
+          "name": "Yuan Luo",
+          "org": "Beijing Academy of Artificial Intelligence"
+        }
+      ],
+      "explainer": {
+        "tagline": "vLLM's /v1/systemone endpoint accepted request-supplied chat templates even when the server was configured to refuse them.",
+        "whatHappened": "The vLLM project published advisory GHSA-xgh8-qwjh-q853 on 18 November 2026, crediting Haile Du and Yuan Luo of the Beijing Academy of Artificial Intelligence. The fix shipped the same week in vLLM 0.34.0, whose release notes list the endpoint change under both Security and breaking changes. No CVE id has been assigned.",
+        "howItWorks": "vLLM gates request-supplied chat templates behind the --trust-request-chat-template flag, and validate_chat_template() enforces that gate. The check runs only inside the render_chat and render_responses callers, while the structured-decisions path reaches the shared preprocess_chat() function directly and skips it. A caller who can reach the endpoint therefore controls how the conversation is serialized: the system block an operator pinned with --chat-template can be replaced, and special tokens or turn boundaries that message-level validation would reject can be inserted. The advisory classifies the result as a protection-mechanism bypass and makes no claim of a Jinja sandbox escape or resource exhaustion.",
+        "whoIsAffected": "vLLM 0.32.0rc0 through 0.33.0 are affected in their default configuration, with no flag required. Only models in the server's READ_STRATEGIES list respond, and the advisory names Qwen3ForCausalLM and Lfm2VlForConditionalGeneration as examples; other architectures return 501. The endpoint sits behind API-key protection, so the caller needs whatever credential the server requires.",
+        "whatToDo": "Upgrade vLLM to 0.34.0, where the endpoint honours the trust flag and rejects request-supplied chat templates unless --trust-request-chat-template is set. Until then, treat anyone holding an API key for an affected server as able to rewrite the pinned system prompt, and review which models in READ_STRATEGIES the server exposes."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "vLLM 0.32.0rc0 through 0.33.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "0.34.0, released 16 November 2026"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.5 (CVSS 3.1), moderate, per the vLLM advisory"
+        },
+        {
+          "label": "Attack type",
+          "value": "Protection-mechanism bypass (CWE-693)"
+        },
+        {
+          "label": "Found by",
+          "value": "Haile Du and Yuan Luo, BAAI"
+        },
+        {
+          "label": "Fix",
+          "value": "vLLM pull request 64503"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which vLLM versions need updating for the /v1/systemone trust gate bypass?",
+          "a": "The advisory's description puts the affected range at vLLM 0.32.0rc0 through 0.33.0 and names 0.34.0 as the fix, while the advisory's structured metadata field reads 0.32.0rc0 to 0.34.0 inclusive. Those two statements disagree. The 0.34.0 release notes list the endpoint fix under Security, so upgrading to 0.34.0 or later is the safe reading."
+        },
+        {
+          "q": "Can an anonymous caller exploit the vLLM /v1/systemone endpoint?",
+          "a": "No. The vLLM advisory lists /v1/systemone among the endpoints covered by API-key protection, and the CVSS vector records low privileges required rather than none. A caller still needs whatever credential the server demands. The endpoint is registered unconditionally, though, so no non-default flag is needed once a caller is authenticated."
+        },
+        {
+          "q": "Does the vLLM chat template flaw allow remote code execution?",
+          "a": "No. The vLLM advisory explicitly declines to claim a Jinja sandbox escape, and it also declines to claim CPU or memory exhaustion because a 30-second render timeout applies. The stated impact is integrity only: a caller can change how the conversation is serialized, replace the pinned system block, and insert special tokens or turn boundaries."
+        }
+      ],
+      "links": [
+        {
+          "label": "vLLM Advisory",
+          "url": "https://github.com/vllm-project/vllm/security/advisories/GHSA-xgh8-qwjh-q853"
+        },
+        {
+          "label": "vLLM 0.34.0 Release",
+          "url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.0"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/vllm-project/vllm/pull/64503"
+        }
+      ],
+      "publishDate": "2026-11-19T13:18:34.873Z"
+    },
+    {
+      "id": "usc-autopi-red-teaming",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "AutoPI: a red teamer that counts how many ways an agent breaks",
+      "org": "University of Southern California",
+      "date": "2026-11-18",
+      "url": "https://arxiv.org/abs/2611.24313",
+      "summary": "AutoPI is an adaptive prompt-injection red teamer that writes one injection per technique in the PIAtlas taxonomy and reports technique coverage alongside attack success rate. The authors evaluate it on AgentDojo and IPI Arena.",
+      "severity": "info",
+      "tags": [
+        "indirect-prompt-injection",
+        "red-team",
+        "evals",
+        "agentdojo"
+      ],
+      "affected": [
+        "AgentDojo",
+        "IPI Arena",
+        "Claude Haiku 5.5",
+        "Qwen3.6-35B"
+      ],
+      "credits": [
+        {
+          "name": "Stavros Damianakis",
+          "org": "University of Southern California"
+        },
+        {
+          "name": "Konstantinos Psounis",
+          "org": "University of Southern California"
+        }
+      ],
+      "explainer": {
+        "tagline": "AutoPI is an adaptive prompt-injection red teamer that measures how many distinct techniques break an agent, not only how often one does.",
+        "whatHappened": "Stavros Damianakis and Konstantinos Psounis of the University of Southern California posted AutoPI to arXiv on 18 November 2026 and released the harness and the generated attacks under the MIT license. The paper's argument is that attack success rate alone hides how many different injection techniques work against a target. The authors evaluate the tool on the AgentDojo and IPI Arena benchmarks.",
+        "howItWorks": "AutoPI walks PIAtlas, a taxonomy that sorts prompt-injection attacks by how the injected instruction is built to subvert the model, with 6 classes and 34 techniques. For each sub-technique, an attacker model writes one indirect injection for the scenario, an LLM judge scores the outcome, and failed attempts are rewritten from that feedback. The method is black-box and needs no training, so it drives a target through its normal interface. Results are reported as technique coverage, meaning how many classes, techniques and sub-techniques produced at least one success, next to the usual success rate.",
+        "whoIsAffected": "Teams that measure the prompt-injection robustness of their own agents are the audience here, rather than users of one product. On AgentDojo against Qwen3.6-35B, the authors report a successful injection in all six taxonomy classes and in more than 90% of techniques. Claude Haiku 5.5 was the most robust target they tested.",
+        "whatToDo": "Report technique coverage next to attack success rate when testing an agent against prompt injection, because a low success rate can still hide many working techniques. The harness ships with AgentDojo and IPI Arena bundled, so an existing evaluation setup can run it."
+      },
+      "quickFacts": [
+        {
+          "label": "Paper",
+          "value": "arXiv:2611.24313, v1 dated 18 November 2026"
+        },
+        {
+          "label": "Taxonomy",
+          "value": "PIAtlas, 6 classes and 34 techniques"
+        },
+        {
+          "label": "Benchmarks",
+          "value": "AgentDojo and IPI Arena, both bundled with the code"
+        },
+        {
+          "label": "Targets named",
+          "value": "Qwen3.6-35B and Claude Haiku 5.5"
+        },
+        {
+          "label": "Code",
+          "value": "MIT licensed, released with the generated attacks"
+        },
+        {
+          "label": "Authors",
+          "value": "Stavros Damianakis and Konstantinos Psounis, USC"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2611.24313"
+        },
+        {
+          "label": "AutoPI Code",
+          "url": "https://github.com/stevendamianakis/autopi"
+        },
+        {
+          "label": "Project Page",
+          "url": "https://stevendamianakis.github.io/autopi-site/"
+        },
+        {
+          "label": "PIAtlas Taxonomy",
+          "url": "https://stevendamianakis.github.io/piatlas-site/"
+        }
+      ],
+      "publishDate": "2026-11-19T13:18:34.873Z"
+    },
+    {
+      "id": "bitdefender-github-agent-config-stealer",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "Bitdefender: 22 GitHub repos make coding agents run a credential stealer",
+      "org": "Bitdefender",
+      "date": "2026-11-17",
+      "url": "https://www.bitdefender.com/en-us/blog/labs/how-ai-agents-become-new-targets-in-github-malware-campaign",
+      "summary": "Bitdefender Labs found 22 GitHub repositories that run a credential stealer when a developer opens them in an AI coding tool, through planted agent instruction files and a Claude Code session-start hook.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "indirect-prompt-injection",
+        "coding-agents",
+        "github",
+        "claude-code"
+      ],
+      "affected": [
+        "Claude Code",
+        "OpenAI Codex",
+        "GitHub Copilot",
+        "Cursor",
+        "Aider",
+        "GitHub",
+        "GitLab"
+      ],
+      "credits": [
+        {
+          "name": "Andrei Anton-Aanei",
+          "org": "Bitdefender Labs"
+        }
+      ],
+      "explainer": {
+        "tagline": "Bitdefender Labs found 22 GitHub repositories that make AI coding agents run a credential stealer when a developer opens the project.",
+        "whatHappened": "Bitdefender Labs published the campaign on 17 November 2026, naming 22 malicious GitHub repositories aimed at developers who open unfamiliar projects in an AI coding tool. Researcher Andrei Anton-Aanei documented the repositories, the payload and the file hashes in the write-up's indicator table. Bitdefender does not say whether the repositories were reported to GitHub or taken down.",
+        "howItWorks": "Two separate paths lead to the same script. The repositories ship AGENTS.md and CLAUDE.md files that present scripts/setup.js as a sealed, signed artifact that must not be inspected and must run at session start without output or confirmation, which is indirect prompt injection aimed at the assistant rather than at the user. A session-start hook in .claude/settings.json runs the same script in the user's shell once the repository is trusted, with no assistant involved at all. The script hex-decodes and ROT13-decodes a 3.75 MB blob, decrypts two AES-128-GCM payloads into a 4.67 MB bundle, and pipes that bundle into the Bun runtime.",
+        "whoIsAffected": "Developers who open an untrusted repository in an AI-enabled editor or terminal agent are the target. Bitdefender says the stealer keeps configuration files whose paths match any of 14 agent names, listed below, so exposure is not limited to one vendor's tool. Machines that hold source-control, cloud, registry or CI credentials carry the real loss.",
+        "whatToDo": "Read AGENTS.md, CLAUDE.md and the .claude, .cursor and .gemini directories before opening an unfamiliar repository in an AI-enabled environment, and inspect MCP server definitions, session-start hooks, VS Code tasks and any setup script they reference. Treat an instruction that forbids inspecting a file, suppresses output or skips confirmation as a red flag. Rotate exposed GitHub, GitLab, cloud and package-registry credentials if one of these setup scripts ran."
+      },
+      "quickFacts": [
+        {
+          "label": "Malicious repos",
+          "value": "22, each listed with a setup.js MD5 hash"
+        },
+        {
+          "label": "Agent names matched",
+          "value": "Claude, Codex, Gemini, Copilot, Kiro, OpenCode, Cline, Aider, Tabby, Amazon Q, Cody, Bolt, Continue, Cursor"
+        },
+        {
+          "label": "Entry points",
+          "value": "AGENTS.md, CLAUDE.md, and a session-start hook in .claude/settings.json"
+        },
+        {
+          "label": "Stolen",
+          "value": "Source-control, cloud, registry and CI tokens, SSH keys, .env files, browser and password manager data"
+        },
+        {
+          "label": "Spreads by",
+          "value": "Committing agent files to up to 25 repositories a stolen token can push to"
+        },
+        {
+          "label": "Found by",
+          "value": "Andrei Anton-Aanei, Bitdefender Labs"
+        },
+        {
+          "label": "Disclosed",
+          "value": "17 November 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if I opened one of these GitHub repositories in Claude Code?",
+          "a": "Opening a repository alone is not enough, because Bitdefender describes two triggers. The session-start hook in .claude/settings.json runs scripts/setup.js once you trust the repository in Claude Code, and the AGENTS.md and CLAUDE.md text separately asks the assistant to run the same script. Check your shell history and the project's .claude directory, then rotate credentials if setup.js ran."
+        },
+        {
+          "q": "Which credentials does this GitHub repository stealer take?",
+          "a": "Bitdefender lists source-control tokens, CI/CD and GitHub Actions secrets, cloud and container credentials, package-registry tokens, SSH keys, .env files, API keys, browser-stored credentials, password managers and the Windows Credential Manager. The stealer validates tokens against provider APIs before encrypting and batching records for exfiltration, so a token that still works is the one to rotate first."
+        },
+        {
+          "q": "How does the malware spread from one developer machine to other repositories?",
+          "a": "Bitdefender reports that the stealer validates stolen GitHub and GitLab tokens, checks identity, accessible repositories, scopes and push rights, then commits agent files such as AGENTS.md, CLAUDE.md, .claude/settings.json, .mcp.json and .vscode/tasks.json. Its target count defaults to 25 repositories, and up to 50 branches are inspected per repository. Infected packages can also be republished to npm, PyPI, RubyGems and JFrog."
+        },
+        {
+          "q": "Did GitHub remove the 22 malicious repositories?",
+          "a": "Bitdefender's write-up does not say whether the 22 repositories were reported to GitHub or taken down, so treat the indicator list as live until you confirm otherwise. The post publishes every repository path with its setup.js MD5 hash, including four hashes shared across groups of repositories under the toray, tobias94-design, ejaaduipitara and itsunai accounts."
+        }
+      ],
+      "links": [
+        {
+          "label": "Bitdefender Labs",
+          "url": "https://www.bitdefender.com/en-us/blog/labs/how-ai-agents-become-new-targets-in-github-malware-campaign"
+        },
+        {
+          "label": "Claude Code Hooks",
+          "url": "https://code.claude.com/docs/en/hooks"
+        }
+      ],
+      "publishDate": "2026-11-19T13:18:34.873Z"
+    },
     {
       "id": "reversinglabs-artex-fork-detection",
       "categories": [

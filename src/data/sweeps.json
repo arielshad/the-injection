@@ -19455,6 +19455,86 @@
         "Hacker News"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261119t131834z",
+      "timestamp": "2026-11-19T13:18:34.873Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories and the vLLM advisory feed, Bitdefender, Wiz, Socket, ReversingLabs, JFrog, Elastic, Check Point, HiddenLayer, Zenity, AIR, Trail of Bits, Embrace The Red, Lakera, Snyk, Anthropic, OWASP, AISI, Google Cloud security, Hugging Face, Hacker News, github.com/trending, repo-scan (13 queries, 6 candidates, none clearing the repo bar) and paper-scan (51 papers in the window, 1 with two scanned signals); added a Bitdefender campaign report, a vLLM trust-gate bypass and the AutoPI paper. Left out: HiddenLayer's ChatGPT Sites certificate-transparency exposure of 17 November (no topic tag in the fixed vocabulary honestly covers a passive identifier leak), Obot's MCP token-theft and SSRF CVEs plus two npm MCP advisories (first disclosed 31 October and in July, outside the window), Claude-BugHunter (trending but created in May 2026) and OWASP's GenAI Data Security Best Practices v2 Part 2.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "bitdefender-github-agent-config-stealer",
+          "title": "Bitdefender: 22 GitHub repos make coding agents run a credential stealer",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "A live campaign with 22 named repositories, two independent execution paths into the same stealer, and a self-propagation step through agent config files, distinct from the JFrog testmetest repository set of 26 October."
+        },
+        {
+          "id": "vllm-systemone-chat-template-trust-bypass",
+          "title": "vLLM: /v1/systemone ignores the chat template trust gate",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A vendor advisory with named finders and a shipped fix for a default-configuration bypass of a trust gate in a widely deployed inference server."
+        },
+        {
+          "id": "usc-autopi-red-teaming",
+          "title": "AutoPI: a red teamer that counts how many ways an agent breaks",
+          "category": "research",
+          "severity": "info",
+          "note": "Clears the paper bar on two signals checked in this run: MIT-licensed code that loads, and demonstrated results against a named production model, Claude Haiku 5.5."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "vLLM security advisories",
+        "github.com/trending (daily and weekly)",
+        "repo-scan.json",
+        "paper-scan (arXiv and Hugging Face Daily Papers)",
+        "talk-scan (22 channels)",
+        "arxiv.org",
+        "Bitdefender Labs",
+        "anthropic.com/news",
+        "embracethered.com",
+        "air.security/blog",
+        "labs.zenity.io",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "jfrog.com/blog",
+        "blog.trailofbits.com",
+        "research.checkpoint.com",
+        "elastic.co/security-labs",
+        "hiddenlayer.com research",
+        "lakera.ai/blog",
+        "snyk.io/blog",
+        "huggingface.co/blog",
+        "simonwillison.net",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "cloud.google.com security blog",
+        "msrc.microsoft.com/blog",
+        "Hacker News (front page and Show HN)"
+      ],
+      "windowDays": 7
     }
   ]
 }
