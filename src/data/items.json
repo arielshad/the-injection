@@ -1,7 +1,276 @@
 {
-  "generatedAt": "2026-11-19T13:18:34.873Z",
+  "generatedAt": "2026-11-19T21:43:58.915Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "jetbrains-junie-cli-file-tools-path-escape",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Junie CLI: agent file tools could write outside the project",
+      "org": "JetBrains",
+      "date": "2026-11-19",
+      "url": "https://github.com/advisories/GHSA-pxpx-89f3-x3j4",
+      "summary": "CVE-2026-133195 let the agent file tools in JetBrains Junie CLI modify files outside the project directory. JetBrains published the flaw on November 19, 2026, scored it 7.5 on CVSS 3.1 and fixed it in Junie CLI 26.6.29.",
+      "severity": "high",
+      "tags": [
+        "sandbox-escape",
+        "coding-agents",
+        "jetbrains",
+        "junie"
+      ],
+      "affected": [
+        "JetBrains Junie CLI"
+      ],
+      "cve": "CVE-2026-133195",
+      "cvss": 7.5,
+      "credits": [
+        {
+          "name": "JetBrains security team",
+          "org": "JetBrains"
+        }
+      ],
+      "explainer": {
+        "tagline": "JetBrains fixed a path confinement flaw that let Junie CLI's agent file tools change files outside the project directory.",
+        "whatHappened": "JetBrains published CVE-2026-133195 on November 19, 2026, acting as the CVE Numbering Authority for its own products. The record states that in Junie CLI before 26.6.29, files outside the project directory could be modified by agent file tools. JetBrains scored the flaw 7.5 on CVSS 3.1 and shipped the fix in Junie CLI 26.6.29.",
+        "howItWorks": "File tools are what a coding agent uses to read and write source files, and Junie CLI did not hold their targets inside the project it was working on. JetBrains classifies the flaw as CWE-73, external control of file name or path, which is the pattern where something outside the program decides which path it touches. The record publishes no proof of concept, so the vector JetBrains assigned is the only description of the path.",
+        "whoIsAffected": "Every Junie CLI release below 26.6.29 is listed as affected, and 26.6.29 and later carry a default status of unaffected. JetBrains names no other product in the record. The published vector needs one user action and no privileges, which fits a developer running the agent on content that came from somewhere else.",
+        "whatToDo": "Update Junie CLI to 26.6.29 or later, which is the only remedy the record gives. Until that update lands, run Junie CLI only on projects and inputs you control, and do not rely on the project directory to bound what the agent writes."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-133195"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "7.5 (JetBrains)"
+        },
+        {
+          "label": "Affected",
+          "value": "JetBrains Junie CLI before 26.6.29"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Junie CLI 26.6.29"
+        },
+        {
+          "label": "Attack type",
+          "value": "File modification outside the project directory through agent file tools (CWE-73)"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 19, 2026, by JetBrains"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Junie CLI version fixes CVE-2026-133195?",
+          "a": "JetBrains Junie CLI 26.6.29 fixes CVE-2026-133195. The CVE record JetBrains published on November 19, 2026 marks every version below 26.6.29 as affected and sets a default status of unaffected for the rest. No workaround appears in the record, so installing the updated CLI is the only remedy JetBrains names for this flaw."
+        },
+        {
+          "q": "What can an attacker do with CVE-2026-133195?",
+          "a": "CVE-2026-133195 lets the agent file tools in Junie CLI modify files outside the project directory, according to the description JetBrains filed. JetBrains rates the confidentiality, integrity and availability impact all high, giving a CVSS 3.1 base score of 7.5. The record stops there and includes no proof of concept, so the concrete attack path is not public."
+        },
+        {
+          "q": "Does exploiting CVE-2026-133195 need the developer to do something?",
+          "a": "Exploitation of CVE-2026-133195 requires one user action, per the vector JetBrains published: AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H. The path is reachable over the network and needs no privileges, but attack complexity is rated high and user interaction is required. That combination fits a developer pointing the Junie CLI agent at content supplied from outside."
+        },
+        {
+          "q": "Is CVE-2026-133195 being exploited?",
+          "a": "No exploitation of CVE-2026-133195 has been recorded. The CISA Vulnrichment data attached to the CVE record on November 19, 2026 sets exploitation to none and automatable to no, while rating the technical impact total. Those values describe the state when the record was enriched and can change later, so defenders should update Junie CLI rather than wait."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-pxpx-89f3-x3j4"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://cveawg.mitre.org/api/cve/CVE-2026-133195"
+        },
+        {
+          "label": "JetBrains Fixed Issues",
+          "url": "https://www.jetbrains.com/privacy-security/issues-fixed/"
+        }
+      ],
+      "publishDate": "2026-11-19T21:43:58.915Z"
+    },
+    {
+      "id": "pydantic-ai-harness-strip-ansi-redos",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Pydantic AI Harness: stripping ANSI codes can stall every agent run",
+      "org": "Pydantic",
+      "date": "2026-11-18",
+      "url": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-m4cr-m4qc-9hh3",
+      "summary": "CVE-2026-133161 lets attacker-influenced tool output block the event loop in Pydantic AI Harness for tens of seconds to minutes. The flaw needs the non-default strip_ansi setting and is fixed in pydantic-ai-harness 0.70.0.",
+      "severity": "medium",
+      "tags": [
+        "agent-security",
+        "mcp",
+        "pydantic-ai"
+      ],
+      "affected": [
+        "Pydantic AI",
+        "Pydantic AI Harness",
+        "pydantic-ai-harness (PyPI)"
+      ],
+      "cve": "CVE-2026-133161",
+      "cvss": 7.5,
+      "credits": [
+        {
+          "name": "Daniel Coles",
+          "url": "https://github.com/manus-pi"
+        },
+        {
+          "name": "Jace",
+          "url": "https://github.com/manus-use"
+        }
+      ],
+      "explainer": {
+        "tagline": "A regular expression in Pydantic AI Harness runs in quadratic time on long lines, so one large tool result can freeze the whole process.",
+        "whatHappened": "Pydantic published advisory GHSA-m4cr-m4qc-9hh3 on November 18, 2026, after Daniel Coles and Jace reported a denial of service in its agent harness package. The advisory carries CVE-2026-133161, a CVSS 3.1 score of 7.5 and the weakness class CWE-1333. The fix ships in pydantic-ai-harness 0.70.0.",
+        "howItWorks": "The ToolOutputLimits capability strips ANSI escape sequences when strip_ansi is set to True, using a pattern whose runtime grows with the square of the line length. A few hundred kilobytes of tool output carrying many unterminated escape sequences keeps that pattern busy for tens of seconds to minutes. Stripping happens on the event loop before the capability applies its size limits, so those limits never bound the cost.",
+        "whoIsAffected": "Applications on pydantic-ai-harness 0.4.0 through 0.69.0 that set strip_ansi to True are exposed, and the same capability was named OverflowingToolOutput before version 0.13.0. An attacker needs only to place text in something a tool returns: a shell command's output, a file read, a fetched page or an MCP server's reply. Every other request and agent run in that process waits.",
+        "whatToDo": "Upgrade pydantic-ai-harness to 0.70.0 or later. Until then, leave strip_ansi at its default of False, which is the workaround Pydantic gives. Applications pinned to Pydantic AI v1 cannot move the harness past 0.4.0, so they must either move to Pydantic AI v2 with harness 0.70.0 or keep strip_ansi off."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-133161"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "7.5 (Pydantic)"
+        },
+        {
+          "label": "Affected",
+          "value": "pydantic-ai-harness 0.4.0 through 0.69.0, with strip_ansi set to True"
+        },
+        {
+          "label": "Fixed in",
+          "value": "pydantic-ai-harness 0.70.0"
+        },
+        {
+          "label": "Attack type",
+          "value": "Quadratic regular expression on attacker-influenced tool output (CWE-1333)"
+        },
+        {
+          "label": "Found by",
+          "value": "Daniel Coles and Jace"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 18, 2026, by Pydantic"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected by CVE-2026-133161 if I never set strip_ansi?",
+          "a": "Applications that never set strip_ansi are not exposed to CVE-2026-133161. The advisory states that the setting defaults to False and that only applications turning it on are affected. Pydantic still lists upgrading pydantic-ai-harness to 0.70.0 as the mitigation, and names leaving the setting at its default as the interim workaround for anyone who cannot upgrade."
+        },
+        {
+          "q": "What does CVE-2026-133161 actually break?",
+          "a": "CVE-2026-133161 blocks the event loop in whichever process runs Pydantic AI Harness, which delays every other request and agent run sharing it. Pydantic puts the stall at tens of seconds to minutes for a tool result of a few hundred kilobytes. Confidentiality and integrity impact are both rated none in the CVSS vector, so the damage is availability only."
+        },
+        {
+          "q": "How do I fix CVE-2026-133161 on Pydantic AI v1?",
+          "a": "Pydantic AI v1 cannot take pydantic-ai-harness past 0.4.0, a version the advisory lists as affected. Pydantic gives two options: move the application to Pydantic AI v2 together with pydantic-ai-harness 0.70.0, or stay on v1 and keep strip_ansi at its default of False. Leaving the setting off removes the exposure without any upgrade."
+        }
+      ],
+      "links": [
+        {
+          "label": "Pydantic Advisory",
+          "url": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-m4cr-m4qc-9hh3"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-wvp9-4g4g-qwgm"
+        }
+      ],
+      "publishDate": "2026-11-19T21:43:58.915Z"
+    },
+    {
+      "id": "talos-artex-c2-infrastructure-census",
+      "categories": [
+        "research",
+        "incident"
+      ],
+      "title": "Talos: 2,500 ARTEX C2 addresses and 700 exposed PentAGI hosts",
+      "org": "Cisco Talos",
+      "date": "2026-11-13",
+      "url": "https://blog.talosintelligence.com/artex-and-beyond/",
+      "summary": "Cisco Talos identified more than 2,500 command and control IP addresses tied to ARTEX and more than 700 reachable PentAGI instances, and published Snort and ClamAV coverage plus indicators that defenders can deploy today.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "detection",
+        "red-team",
+        "artex",
+        "pentagi"
+      ],
+      "affected": [
+        "ARTEX",
+        "PentAGI",
+        "AdaptixC2",
+        "VShell",
+        "FScan"
+      ],
+      "credits": [
+        {
+          "name": "Cisco Talos",
+          "org": "Cisco"
+        }
+      ],
+      "explainer": {
+        "tagline": "Cisco Talos maps the internet-facing footprint of ARTEX and PentAGI and ships detection content for the tools seen running beside them.",
+        "whatHappened": "Cisco Talos published its survey of AI-enabled penetration testing platforms on November 13, 2026. Talos identified more than 2,500 command and control IP addresses associated with ARTEX, and found more than 700 reachable PentAGI instances through Censys. The post also lists 16 tools that appeared alongside ARTEX infrastructure during overlapping periods.",
+        "howItWorks": "ARTEX was published on GitHub in July 2026 under the pseudonym Autumn-27. An operator gives it a target and an objective, a planner agent splits that into tasks, and worker agents run security tools to carry them out, writing their results into a shared graph. Talos cautions that a tool appearing alongside ARTEX infrastructure does not confirm with certainty that ARTEX invoked it.",
+        "whoIsAffected": "Organizations with public-facing systems are the targets. Talos says ARTEX has demonstrated EDR bypass capabilities, so endpoint tooling alone is not a guarantee. Talos also notes that ARTEX was designed for authorized security testing, but that public reporting documented criminal and targeted intrusion use within weeks of its release.",
+        "whatToDo": "Deploy the Snort and ClamAV coverage listed below and pull the indicators Talos published to its IOC repository. Harden endpoint tooling with tamper protection and health monitoring, keep telemetry that does not depend on that tooling, and scan public repositories for exposed secrets and rotate what you find. Talos advises treating tool signatures as leads, not the sole detection method."
+      },
+      "quickFacts": [
+        {
+          "label": "ARTEX C2 addresses",
+          "value": "More than 2,500, identified by Cisco Talos"
+        },
+        {
+          "label": "Exposed PentAGI hosts",
+          "value": "More than 700 reachable instances, found through Censys"
+        },
+        {
+          "label": "Co-occurring tools",
+          "value": "16, ranked by how often they appeared with ARTEX infrastructure"
+        },
+        {
+          "label": "ARTEX Snort rules",
+          "value": "7:76 to 7:78 (Snort 3) and 1:67494 to 1:67496 (Snort 2)"
+        },
+        {
+          "label": "Disabled by default",
+          "value": "7:78 and 1:67496, POLICY rules that detect the norma agentic harness"
+        },
+        {
+          "label": "Published",
+          "value": "November 13, 2026, by Cisco Talos"
+        }
+      ],
+      "links": [
+        {
+          "label": "Talos Analysis",
+          "url": "https://blog.talosintelligence.com/artex-and-beyond/"
+        },
+        {
+          "label": "Talos IOCs",
+          "url": "https://github.com/Cisco-Talos/IOCs/tree/main/2026/11"
+        }
+      ],
+      "publishDate": "2026-11-19T21:43:58.915Z"
+    },
     {
       "id": "vllm-systemone-chat-template-trust-bypass",
       "categories": [
