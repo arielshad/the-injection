@@ -19375,6 +19375,86 @@
         "talk-scan (YouTube conference and security channels)"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261119t042621z",
+      "timestamp": "2026-11-19T04:26:21.670Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Searched vendor and lab advisories, GitHub Security Advisories, NVD, OSV, the research blogs, arXiv and Hugging Face papers, GitHub repo and trending scans, Hacker News and talk-scan for the 7 days to 19 November 2026, and added three items: two Supergateway MCP gateway CVEs, a malicious mcp-aevo-server PyPI package, and ReversingLabs' ARTEX fork detection research. Several in-window CVE listings were dropped because their original disclosure predates the window: Kubeshark's MCP argument injection (advisory August 13), mssql-mcp-core SQL injection (July 8) and Obot's OAuth token theft (October 31); the Claude Code VS Code symlink prompt finding from Ultrastrike is dated 11 November, one day outside. The Black Hat ChatMate talk was left out because both primary sources, Rubrik Zero Labs and blackhat.com, return 403 to fetches. openai.com, the Unit 42 and JFrog research indexes and r/netsec did not load; Koi Security's blog now redirects to Palo Alto Networks. Microsoft Perception and the Wiz AI Security Agent are product announcements with no measured results. Of 55 arXiv candidates only one showed two scanned signals, a model immunization theory paper that a defender does not need this week; all six repo-scan candidates failed the repo bar.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "supergateway-mcp-gateway-cswsh-dos",
+          "title": "Supergateway: a web page can drive the MCP gateway's tools",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Two CVEs published inside the window against a widely used MCP stdio bridge, with no fixed release and a workaround a defender can apply today."
+        },
+        {
+          "id": "mcp-aevo-server-pypi-dependency-confusion",
+          "title": "mcp-aevo-server: a fake MCP package takes trading keys and wallets",
+          "category": "supply-chain",
+          "severity": "medium",
+          "note": "A live dependency-confusion package on PyPI that steals wallet keys from agent skill users, with named finder and reporter."
+        },
+        {
+          "id": "reversinglabs-artex-fork-detection",
+          "title": "ARTEX forks: ReversingLabs publishes detection for 11 families",
+          "category": "research",
+          "severity": "info",
+          "note": "First detection-focused ARTEX research in the feed: behavioral signatures and triaged indicators rather than another host count."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "sweep-context.ts",
+        "repo-scan.json",
+        "paper-scan.ts",
+        "talk-scan.ts",
+        "GitHub Security Advisories",
+        "NVD",
+        "OSV",
+        "ossf/malicious-packages",
+        "bad-packages.kam193.eu",
+        "anthropic.com/news",
+        "Microsoft Security Blog",
+        "ReversingLabs blog",
+        "Wiz blog",
+        "Socket blog",
+        "Check Point Research",
+        "Trail of Bits blog",
+        "embracethered.com",
+        "Zenity Labs",
+        "air.security/blog",
+        "simonwillison.net",
+        "Forcepoint X-Labs",
+        "ultrastrike.io",
+        "Obot security advisories",
+        "supercorp-ai/supergateway",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "huggingface.co/blog",
+        "github.com/trending",
+        "Hacker News"
+      ],
+      "windowDays": 7
     }
   ]
 }

@@ -1,7 +1,255 @@
 {
-  "generatedAt": "2026-11-18T23:22:51.166Z",
+  "generatedAt": "2026-11-19T04:26:21.670Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "reversinglabs-artex-fork-detection",
+      "categories": [
+        "research",
+        "incident"
+      ],
+      "title": "ARTEX forks: ReversingLabs publishes detection for 11 families",
+      "org": "ReversingLabs",
+      "date": "2026-11-18",
+      "url": "https://www.reversinglabs.com/blog/threat-researchers-notebook-detection-strategies-for-artex-and-related-forks",
+      "summary": "ReversingLabs traced 11 ARTEX fork families to one shared engine and published behavior-based detection guidance, with 3,096 actionable host indicators and 184 operator binaries across Linux, Windows and macOS.",
+      "severity": "info",
+      "tags": [
+        "threat-intel",
+        "detection",
+        "ai-enabled-offense",
+        "red-team",
+        "artex"
+      ],
+      "affected": [
+        "ARTEX",
+        "ScopeWeaver",
+        "LiteLLM",
+        "One API"
+      ],
+      "credits": [
+        {
+          "name": "Robert Simmons",
+          "org": "ReversingLabs"
+        }
+      ],
+      "explainer": {
+        "tagline": "ReversingLabs maps 11 ARTEX fork families to a single engine and gives defenders behavior-based detection instead of file hashes.",
+        "whatHappened": "Robert Simmons of ReversingLabs published a threat research notebook on 18 November 2026 covering ARTEX, the agentic pentest framework, and its rebranded forks. The team counted 11 fork families sharing one engine, 184 operator binaries and 969 confirmed live consoles, and kept 3,096 of 3,147 host indicators as actionable after triage.",
+        "howItWorks": "Detection rests on behavior rather than file hashes, because many forks are rebrands with no code changes. Simmons describes an LLM-driven cadence of process and network bursts separated by short processing pauses, and ties the randomized scanning to the projectdiscovery/blackrock Go module, which appears as high-entropy, non-sequential connection attempts with many unanswered SYNs. The report also names DNS query bursts from dnsx and cdncheck, unusual SSH client identification strings, and brute-force and enumeration patterns against LLM gateway admin APIs.",
+        "whoIsAffected": "Organizations that expose internal LLM gateway and management panels are the described targets, with Sub2API, One API, New API and LiteLLM named. Hosting for actionable indicators concentrates at PEG Tech, UFO/B2-Net, Yancy, Tencent and Alibaba.",
+        "whatToDo": "Remove LLM gateway admin panels from the internet, enforce SSRF allowlists, and keep agent credential directories such as ~/.claude and ~/.codex out of web-accessible paths, container images and build artifacts, rotating any key that was exposed. Hunt the published indicators retroactively across July to November 2026, weighting alerts by hosting netblock."
+      },
+      "quickFacts": [
+        {
+          "label": "Fork families",
+          "value": "11, sharing one engine"
+        },
+        {
+          "label": "Host indicators",
+          "value": "3,096 actionable of 3,147"
+        },
+        {
+          "label": "Operator binaries",
+          "value": "184, across Linux, Windows and macOS"
+        },
+        {
+          "label": "Live consoles",
+          "value": "969 confirmed"
+        },
+        {
+          "label": "Found by",
+          "value": "Robert Simmons, ReversingLabs"
+        },
+        {
+          "label": "Published",
+          "value": "18 November 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "RL Research",
+          "url": "https://www.reversinglabs.com/blog/threat-researchers-notebook-detection-strategies-for-artex-and-related-forks"
+        },
+        {
+          "label": "Unit 42 Census",
+          "url": "https://unit42.paloaltonetworks.com/artex-and-ai-powered-red-teaming-tools"
+        },
+        {
+          "label": "FBI FLASH",
+          "url": "https://www.ic3.gov/csa/2026/261113.pdf"
+        }
+      ],
+      "image": {
+        "url": "https://www.reversinglabs.com/api/media/file/ARTEX-Blog-Cover-1400x732.webp",
+        "alt": "ARTEX forks: ReversingLabs publishes detection for 11 families",
+        "credit": "ReversingLabs"
+      },
+      "publishDate": "2026-11-19T04:26:21.670Z"
+    },
+    {
+      "id": "supergateway-mcp-gateway-cswsh-dos",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Supergateway: a web page can drive the MCP gateway's tools",
+      "org": "Teycir",
+      "date": "2026-11-17",
+      "url": "https://github.com/Teycir/supergateway-security-research",
+      "summary": "Supergateway, the MCP stdio bridge, accepts WebSocket connections from any origin, so a web page a developer visits can invoke the wrapped server's tools. A second flaw ends every session from one unauthenticated request.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "agent-security",
+        "supergateway"
+      ],
+      "affected": [
+        "Supergateway",
+        "supergateway (npm)"
+      ],
+      "cve": "CVE-2026-132121",
+      "cvss": 8.6,
+      "credits": [
+        {
+          "name": "Teycir",
+          "url": "https://github.com/Teycir"
+        }
+      ],
+      "explainer": {
+        "tagline": "Supergateway's WebSocket mode accepts connections from any web page, handing a visited site the tools of the MCP server behind it.",
+        "whatHappened": "Teycir published research on 17 November 2026 on two high-severity flaws in Supergateway, the bridge that exposes a stdio MCP server over SSE or WebSocket. VulnCheck assigned CVE-2026-132121 for the WebSocket flaw and CVE-2026-131857 for the denial of service. Both advisories reached NVD and the GitHub Advisory Database on 18 November.",
+        "howItWorks": "The WebSocket upgrade handler never checks the Origin header, so any page a victim visits can open the /message socket, even on a gateway bound to localhost. The attacker's script then initializes an MCP session and calls the wrapped server's tools with the victim's privileges. The separate denial of service sends a POST to /message with sessionId set to toString or constructor, which reaches an unhandled TypeError and terminates every attached session.",
+        "whoIsAffected": "Versions 2.4.0 through 4.2.2 carry the WebSocket hijacking, in stdio-to-WebSocket mode, and 4.2.0 through 4.2.2 carry the denial of service, in stdio-to-SSE mode. Developers who run the gateway on a workstation while browsing are the exposed group.",
+        "whatToDo": "Set an API key so the gateway refuses unauthenticated upgrades, and prefer the SSE bridge over the WebSocket transport where it will do. Both advisories list no fixed version, and the latest release, 4.2.2, predates the report."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Supergateway 2.4.0 to 4.2.2"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-132121 and CVE-2026-131857"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.6 and 8.7, CVSS v4, per NVD"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No fixed release listed"
+        },
+        {
+          "label": "Found by",
+          "value": "Teycir"
+        },
+        {
+          "label": "Disclosed",
+          "value": "17 November 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "Research Write-Up",
+          "url": "https://github.com/Teycir/supergateway-security-research"
+        },
+        {
+          "label": "WebSocket Advisory",
+          "url": "https://github.com/advisories/GHSA-cp8r-6jmm-c5qw"
+        },
+        {
+          "label": "Denial Of Service",
+          "url": "https://github.com/advisories/GHSA-vpvw-x889-f934"
+        },
+        {
+          "label": "Upstream Issue",
+          "url": "https://github.com/supercorp-ai/supergateway/issues/378"
+        }
+      ],
+      "publishDate": "2026-11-19T04:26:21.670Z"
+    },
+    {
+      "id": "mcp-aevo-server-pypi-dependency-confusion",
+      "categories": [
+        "supply-chain"
+      ],
+      "title": "mcp-aevo-server: a fake MCP package takes trading keys and wallets",
+      "org": "OSV",
+      "date": "2026-11-17",
+      "url": "https://osv.dev/vulnerability/MAL-2026-20068",
+      "summary": "A malicious PyPI package named mcp-aevo-server collects Aevo trading credentials and wallet private keys from environment variables, then listens for remote commands. Six releases used a name the real project never claimed.",
+      "severity": "medium",
+      "tags": [
+        "malicious-package",
+        "credential-theft",
+        "mcp",
+        "pypi"
+      ],
+      "affected": [
+        "mcp-aevo-server (PyPI)",
+        "aevo-trading-skills",
+        "Aevo"
+      ],
+      "credits": [
+        {
+          "name": "Amazon Inspector",
+          "org": "Amazon Web Services"
+        },
+        {
+          "name": "Kamil Mańkowski",
+          "org": "bad-packages",
+          "url": "https://github.com/kam193"
+        }
+      ],
+      "explainer": {
+        "tagline": "mcp-aevo-server is a malicious PyPI package that collects Aevo trading keys and wallet secrets while presenting itself as telemetry.",
+        "whatHappened": "OSV published advisory MAL-2026-20068 on 17 November 2026 for mcp-aevo-server, a malicious package on PyPI. Amazon Inspector is credited as the finder and Kamil Mańkowski as the reporter. Six releases in the 0.2.0 series carried the code.",
+        "howItWorks": "The package claims a PyPI name that the ribbon-finance/aevo-trading-skills project left unregistered, which is dependency confusion: an install for the real project pulls the attacker's code instead. On server start, main() calls a module named _telemetry that reads Aevo API credentials and wallet private keys from environment variables and sends them in cleartext to a hardcoded Telegram bot and a configurable URL. A separate thread listens for remote commands and runs them, and the payload is written to disk so it retries after a restart.",
+        "whoIsAffected": "Anyone who installed or ran versions 0.2.0 through 0.2.0.post6 is exposed, in particular people following the ribbon-finance/aevo-trading-skills project. Amazon Inspector reports the collection is opt-out, and that full secret values are sent by default.",
+        "whatToDo": "Treat the Aevo API key, API secret, signing key and any linked wallet private key as compromised: revoke them and move funds to a new wallet. Remove the package and delete any spooled telemetry files it left on disk."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "mcp-aevo-server 0.2.0 to 0.2.0.post6"
+        },
+        {
+          "label": "Advisory",
+          "value": "MAL-2026-20068"
+        },
+        {
+          "label": "Attack type",
+          "value": "Dependency confusion"
+        },
+        {
+          "label": "Found by",
+          "value": "Amazon Inspector"
+        },
+        {
+          "label": "Reported by",
+          "value": "Kamil Mańkowski"
+        },
+        {
+          "label": "Disclosed",
+          "value": "17 November 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "OSV Advisory",
+          "url": "https://osv.dev/vulnerability/MAL-2026-20068"
+        },
+        {
+          "label": "Package Analysis",
+          "url": "https://bad-packages.kam193.eu/pypi/package/mcp-aevo-server"
+        },
+        {
+          "label": "Advisory Record",
+          "url": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/pypi/mcp-aevo-server/MAL-2026-20068.json"
+        }
+      ],
+      "publishDate": "2026-11-19T04:26:21.670Z"
+    },
     {
       "id": "nvidia-skillevaluator-1-0",
       "categories": [
