@@ -19745,6 +19745,92 @@
         "BleepingComputer"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261120t190150z",
+      "timestamp": "2026-11-20T19:01:50.159Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (MCP, agent, LLM and prompt-injection queries), NVD, Anthropic, OpenAI, MSRC, Google Cloud security, AISI, Tracebit, Elastic Security Labs, Wiz, Socket, Unit 42, Check Point, ReversingLabs, Trail of Bits, Snyk, Lakera, HiddenLayer, AIR Security, Zenity Labs, JFrog, OWASP GenAI, Hugging Face blog, Simon Willison, Hacker News, repo-scan (6 candidates), GitHub trending, paper-scan (50 candidates) and talk-scan. Added Tracebit's ARTEX canary measurements, ServiceNow's two AI CVEs and a stored XSS in the AI Puffer WordPress plugin, plus Elastic's IOCs on the agent-framework compromise.",
+      "counts": {
+        "added": 3,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "tracebit-artex-canary-evasion",
+          "title": "Tracebit: ARTEX hit a canary in all 59 runs, and a fork now avoids them",
+          "category": "research",
+          "severity": "info",
+          "note": "First measured numbers on how quickly autonomous offensive frameworks trip decoys, plus the first ARTEX fork documented as deliberately avoiding honeypots."
+        },
+        {
+          "id": "servicenow-now-assist-email-agent-prompt-injection",
+          "title": "ServiceNow: an email can steer the Now Assist CSM reply agent",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "An official CVE for indirect prompt injection in a widely deployed enterprise AI agent, with the fix shipped centrally."
+        },
+        {
+          "id": "ai-puffer-comment-reply-stored-xss",
+          "title": "AI Puffer: the plugin's own comment reply becomes stored XSS",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A clear case of a model's own output becoming an unfiltered injection sink, with an unauthenticated entry point and a named fix version."
+        }
+      ],
+      "updated": [
+        {
+          "id": "wiz-agent-framework-pypi-credential-stealer",
+          "title": "agent-framework: two PyPI releases shipped an Azure credential stealer",
+          "note": "Elastic Security Labs published a detection timeline and IOCs on 18 November 2026: it flagged 1.26.1 about six minutes after publication, and lists the wheel hashes, user agents and .pth filenames for both versions."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "Patchstack",
+        "anthropic.com/news",
+        "MSRC blog",
+        "Google Cloud security blog",
+        "aisi.gov.uk",
+        "tracebit.com/blog",
+        "Elastic Security Labs",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "Unit 42",
+        "Check Point Research",
+        "ReversingLabs blog",
+        "Trail of Bits blog",
+        "Snyk blog",
+        "Lakera blog",
+        "HiddenLayer research",
+        "air.security/blog",
+        "labs.zenity.io",
+        "jfrog.com/blog",
+        "OWASP GenAI Security Project",
+        "huggingface.co/blog",
+        "simonwillison.net",
+        "Hacker News front page and newest",
+        "repo-scan.json",
+        "github.com/trending",
+        "paper-scan (arXiv + HF Daily Papers)",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }

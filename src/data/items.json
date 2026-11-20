@@ -1,7 +1,283 @@
 {
-  "generatedAt": "2026-11-20T10:39:36.334Z",
+  "generatedAt": "2026-11-20T19:01:50.159Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "servicenow-now-assist-email-agent-prompt-injection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "ServiceNow: an email can steer the Now Assist CSM reply agent",
+      "org": "ServiceNow",
+      "date": "2026-11-19",
+      "url": "https://github.com/advisories/GHSA-f7fm-26fm-r3gq",
+      "summary": "ServiceNow published CVE-2026-18883 on 19 November 2026, an indirect prompt injection in the Email Response AI Agent in Now Assist for CSM. The fix went out centrally, so customers do not need to upgrade.",
+      "severity": "medium",
+      "cve": "CVE-2026-18883",
+      "cvss": 7.1,
+      "tags": [
+        "indirect-prompt-injection",
+        "agent-security",
+        "servicenow"
+      ],
+      "affected": [
+        "ServiceNow Now Assist for CSM",
+        "ServiceNow AI Platform"
+      ],
+      "credits": [
+        {
+          "name": "ServiceNow",
+          "org": "ServiceNow"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-18883 is an indirect prompt injection in ServiceNow's Email Response AI Agent, fixed centrally by ServiceNow in November 2026.",
+        "whatHappened": "ServiceNow published CVE-2026-18883 on 19 November 2026 for an indirect prompt injection in the Email Response AI Agent in Now Assist for CSM. The company scores it 7.1 on CVSS v4 and says it is not currently aware of malicious exploitation. A second AI flaw, CVE-2026-125288, was published the same day.",
+        "howItWorks": "Indirect prompt injection places attacker instructions in content an agent reads instead of in a prompt a user types. The CVSS v4 vector ServiceNow assigned to CVE-2026-18883 needs no privileges and only passive user interaction, and rates integrity impact high with confidentiality low, which matches instructions arriving inside a message the agent processes on its own. ServiceNow publishes no payload and no indicators.",
+        "whoIsAffected": "Customers running the Email Response AI Agent in Now Assist for CSM are in scope for the prompt injection. The second flaw, CVE-2026-125288, is a code injection in the ServiceNow AI Platform that an authenticated user with template editing privileges could use to run code in another user's session. Affected version ranges are not published for either.",
+        "whatToDo": "Nothing to install for CVE-2026-18883: ServiceNow states the fix was deployed centrally to the agent, with no platform upgrade, hotfix or version backport required. For CVE-2026-125288, ServiceNow deployed the fix to hosted instances and supplied it to partners and self-hosted customers, and recommends applying the update or upgrading to a patched release promptly."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-18883 prompt injection, CVE-2026-125288 code injection"
+        },
+        {
+          "label": "Affected",
+          "value": "Email Response AI Agent in Now Assist for CSM; ServiceNow AI Platform"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.1 and 8.4, CVSS v4, scored by ServiceNow"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed; CVE-2026-18883 deployed centrally to the agent"
+        },
+        {
+          "label": "Exploitation",
+          "value": "ServiceNow says it is not aware of malicious exploitation"
+        },
+        {
+          "label": "Disclosed",
+          "value": "19 November 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do I need to upgrade ServiceNow to fix CVE-2026-18883?",
+          "a": "No upgrade is required for CVE-2026-18883. ServiceNow states that the fix was deployed centrally to the Email Response AI Agent, with no platform upgrade or hotfix needed and no version-specific backports. CVE-2026-125288, the code injection published the same day, is different: ServiceNow deployed it to hosted instances and supplied the fix to partners and self-hosted customers to apply."
+        },
+        {
+          "q": "Which ServiceNow versions are affected by CVE-2026-18883?",
+          "a": "ServiceNow publishes no affected version range for CVE-2026-18883. The advisory names the Email Response AI Agent in Now Assist for CSM as the affected component and lists both affected and patched versions as unknown. Because the remediation was delivered to the agent rather than to the platform, there is no release number for a customer to check."
+        },
+        {
+          "q": "Has CVE-2026-18883 been exploited in the wild?",
+          "a": "ServiceNow says it is not currently aware of malicious exploitation of CVE-2026-18883. The company scores the flaw 7.1 on CVSS v4, with a network attack vector, no privileges required and passive user interaction, and rates the integrity impact high and confidentiality low. No payload details or indicators of compromise are published with the advisory."
+        }
+      ],
+      "links": [
+        {
+          "label": "ServiceNow Advisory",
+          "url": "https://github.com/advisories/GHSA-f7fm-26fm-r3gq"
+        },
+        {
+          "label": "Code Injection CVE",
+          "url": "https://github.com/advisories/GHSA-jq2f-6vj2-4r5g"
+        }
+      ],
+      "publishDate": "2026-11-20T19:01:50.159Z"
+    },
+    {
+      "id": "tracebit-artex-canary-evasion",
+      "categories": [
+        "research",
+        "benchmark"
+      ],
+      "title": "Tracebit: ARTEX hit a canary in all 59 runs, and a fork now avoids them",
+      "org": "Tracebit",
+      "date": "2026-11-18",
+      "url": "https://tracebit.com/blog/artex-still-hits-canaries",
+      "summary": "ARTEX agents touched a decoy credential in all 59 runs of Tracebit's AWS replica, and for five of six models the median first touch came under five minutes. Tracebit also reports a fork that retreats at the first sign of a honeypot.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "detection",
+        "threat-intel",
+        "artex"
+      ],
+      "affected": [
+        "ARTEX",
+        "GPT-5.6 Cyber",
+        "GPT-6 Astra",
+        "GLM-5.3",
+        "Kimi K3",
+        "Qwen 3.8 Max",
+        "DeepSeek V4 Pro"
+      ],
+      "credits": [
+        {
+          "name": "Alessandro Brucato",
+          "org": "Tracebit"
+        }
+      ],
+      "explainer": {
+        "tagline": "Tracebit measured how fast ARTEX agents trip decoy credentials, and found an ARTEX fork that backs off when it suspects a honeypot.",
+        "whatHappened": "Tracebit published results on 18 November 2026 from running ARTEX inside what it calls the Deception Factory, its replica of an AWS environment. Alessandro Brucato reports that ARTEX touched a canary in all 59 runs, and that for five of the six models tested the median first touch came in under five minutes.",
+        "howItWorks": "Canaries are decoy credentials and files that no legitimate user should ever touch, so any access is a signal rather than an alert to triage. Autonomous offensive frameworks enumerate broadly and early, which is what puts them on a decoy within minutes. Tracebit also placed nine Context Bombs, misleading content left in the environment for an agent to read, and recorded a confirmed objective in 11 of 59 runs against 58 of 60 in a baseline with no canaries and no Context Bombs.",
+        "whoIsAffected": "Defenders of cloud environments facing autonomous offensive frameworks are the audience for these numbers. Six models ran inside ARTEX in the tests: GPT-5.6 Cyber, GPT-6 Astra, GLM-5.3, Kimi K3, Qwen 3.8 Max and DeepSeek V4 Pro. The results describe Tracebit's own lab, not production intrusions.",
+        "whatToDo": "Place decoys where an enumerating agent reaches them early, and do not rely on a single one: Huntback reported an ARTEX fork, ARTEX-ymh, that tells its agents to switch to read-only checks at the first sign of a honeypot and to leave the target on a second, independent sign. Tracebit has since published TuringPot, an MIT-licensed proof-of-concept agent honeypot, on GitHub."
+      },
+      "quickFacts": [
+        {
+          "label": "Canary touches",
+          "value": "59 of 59 runs"
+        },
+        {
+          "label": "Median first touch",
+          "value": "Under five minutes for five of six models"
+        },
+        {
+          "label": "Fastest and slowest",
+          "value": "GPT-5.6 Cyber 1m 31s, GPT-6 Astra 12m 36s"
+        },
+        {
+          "label": "Objectives reached",
+          "value": "58 of 60 baseline, 11 of 59 with nine Context Bombs"
+        },
+        {
+          "label": "Evasive fork",
+          "value": "ARTEX-ymh, reported by Huntback"
+        },
+        {
+          "label": "Found by",
+          "value": "Alessandro Brucato, Tracebit"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How fast did ARTEX reach Tracebit's decoy credentials?",
+          "a": "ARTEX touched a canary in all 59 runs of Tracebit's AWS replica, and for five of the six models tested the median first touch came in under five minutes. Tracebit's table puts GPT-5.6 Cyber fastest, at a median of 1 minute 31 seconds, and GPT-6 Astra slowest, at 12 minutes 36 seconds."
+        },
+        {
+          "q": "Does ARTEX avoid honeypots now?",
+          "a": "ARTEX-ymh, a fork reported by Huntback, tells its agents to switch to read-only checks at the first sign of a honeypot and to leave the target when a second independent sign appears. Tracebit says the original ARTEX's last public release made no mention of avoiding canaries, so this is fork behaviour rather than a feature of the main project."
+        },
+        {
+          "q": "Do Context Bombs stop an ARTEX agent?",
+          "a": "Context Bombs did not stop ARTEX in these tests, but they cut how often it finished. Tracebit recorded a confirmed objective in 58 of 60 baseline runs with no canaries and no Context Bombs, and in 11 of 59 runs with all nine deployed. The figures come from Tracebit's own environment and measure disruption, not prevention."
+        }
+      ],
+      "links": [
+        {
+          "label": "Tracebit Research",
+          "url": "https://tracebit.com/blog/artex-still-hits-canaries"
+        },
+        {
+          "label": "TuringPot Repo",
+          "url": "https://github.com/tracebit-com/turingpot"
+        }
+      ],
+      "image": {
+        "url": "https://tracebit.com/assets/social/81a8c1e90ed5-artex-context-bombs-hero-81a8c1e90ed5.jpg",
+        "alt": "Tracebit research header for ARTEX and Context Bombs",
+        "credit": "Tracebit"
+      },
+      "publishDate": "2026-11-20T19:01:50.159Z"
+    },
+    {
+      "id": "ai-puffer-comment-reply-stored-xss",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AI Puffer: the plugin's own comment reply becomes stored XSS",
+      "org": "Patchstack",
+      "date": "2026-11-17",
+      "url": "https://patchstack.com/database/wordpress/plugin/gpt3-ai-content-generator/vulnerability/wordpress-ai-puffer-mcp-server-for-claude-chatgpt-with-ai-chatbot-plugin-2-5-28-unauthenticated-stored-cross-site-scripting-vulnerability",
+      "summary": "CVE-2026-130121 lets an unauthenticated visitor post a WordPress comment that makes the AI Puffer plugin's auto-reply store HTML unfiltered, where it runs for every reader. Version 2.5.29 fixes it.",
+      "severity": "medium",
+      "cve": "CVE-2026-130121",
+      "cvss": 7.2,
+      "tags": [
+        "indirect-prompt-injection",
+        "plugins",
+        "wordpress",
+        "xss"
+      ],
+      "affected": [
+        "AI Puffer",
+        "GPT3 AI Content Writer",
+        "WordPress"
+      ],
+      "credits": [
+        {
+          "name": "crow"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-130121 turns the AI Puffer WordPress plugin's automatic comment reply into a stored cross-site scripting sink.",
+        "whatHappened": "Patchstack published CVE-2026-130121 on 17 November 2026, a stored cross-site scripting flaw in the WordPress plugin AI Puffer, which is also listed as GPT3 AI Content Writer and uses the slug gpt3-ai-content-generator. Patchstack credits the researcher crow. Every version up to and including 2.5.28 is affected, and 2.5.29 carries the fix.",
+        "howItWorks": "The plugin's insert_comment_reply_logic() function saves the model's generated reply through wp_insert_comment(), which skips the kses filtering WordPress normally applies to comment content. An attacker leaves a comment written so the model repeats an HTML payload in its reply, and that reply is stored unfiltered and executes when any reader loads the page. No account is needed to leave the comment.",
+        "whoIsAffected": "WordPress sites on AI Puffer 2.5.28 or earlier with a Comment Auto-Reply task configured and its Action on reply set to Approve are exposed. The default setting, Hold for moderation, keeps the generated reply unpublished until a human approves it. The attacker's own comment must be approved as well.",
+        "whatToDo": "Update AI Puffer to 2.5.29. Until the update lands, set the Comment Auto-Reply task's Action on reply back to Hold for moderation, and check replies the plugin has already published on pages that accept comments."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-130121"
+        },
+        {
+          "label": "Affected",
+          "value": "AI Puffer 2.5.28 and earlier (slug gpt3-ai-content-generator)"
+        },
+        {
+          "label": "Fixed in",
+          "value": "2.5.29"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.2, GitHub Advisory Database"
+        },
+        {
+          "label": "Precondition",
+          "value": "Comment Auto-Reply set to Approve, not the default Hold for moderation"
+        },
+        {
+          "label": "Attack type",
+          "value": "Stored XSS through an AI-generated comment reply"
+        },
+        {
+          "label": "Found by",
+          "value": "crow, via Patchstack"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which AI Puffer versions are vulnerable to CVE-2026-130121?",
+          "a": "Every AI Puffer release up to and including 2.5.28 is vulnerable to CVE-2026-130121, and version 2.5.29 contains the fix. The plugin ships under the WordPress slug gpt3-ai-content-generator and is also listed as GPT3 AI Content Writer, so a site may show either name in its plugin list when you go looking for it."
+        },
+        {
+          "q": "Is my WordPress site exposed if comment auto-reply is off?",
+          "a": "Sites with no Comment Auto-Reply task are not exposed to CVE-2026-130121, because the flaw needs the plugin to publish a model-generated reply. Exposure also requires that task's Action on reply to be set to Approve. The default, Hold for moderation, keeps the reply unpublished until a human approves it, which blocks the automatic path."
+        },
+        {
+          "q": "How does an attacker trigger the AI Puffer XSS?",
+          "a": "An attacker posts a comment crafted so the model repeats an HTML payload in its automatic reply. The plugin stores that reply through wp_insert_comment(), which bypasses the kses filtering WordPress applies to ordinary comment content, so the markup survives and runs for every visitor who loads the page. The attacker's comment must be approved first."
+        }
+      ],
+      "links": [
+        {
+          "label": "Patchstack Advisory",
+          "url": "https://patchstack.com/database/wordpress/plugin/gpt3-ai-content-generator/vulnerability/wordpress-ai-puffer-mcp-server-for-claude-chatgpt-with-ai-chatbot-plugin-2-5-28-unauthenticated-stored-cross-site-scripting-vulnerability"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-x362-9jrm-3rmc"
+        }
+      ],
+      "publishDate": "2026-11-20T19:01:50.159Z"
+    },
     {
       "id": "dragos-ai-inference-canary-tokens",
       "categories": [
@@ -2052,6 +2328,10 @@
         {
           "label": "Socket Analysis",
           "url": "https://socket.dev/blog/agent-framework-pypi-package-compromised-with-credential-stealer"
+        },
+        {
+          "label": "Elastic IOCs",
+          "url": "https://www.elastic.co/security-labs/threat-command/we-caught-the-agent-framework-pypi-compromise-six-minutes-after-it-published"
         },
         {
           "label": "PyPI Release History",
