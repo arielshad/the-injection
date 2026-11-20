@@ -1,7 +1,187 @@
 {
-  "generatedAt": "2026-11-19T21:43:58.915Z",
+  "generatedAt": "2026-11-20T02:46:17.199Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "checkpoint-puzzlemask-gatekeeper-asymmetry",
+      "categories": [
+        "attack",
+        "research"
+      ],
+      "title": "PuzzleMask: a weak LLM guard misses what the strong model runs",
+      "org": "Check Point Research",
+      "date": "2026-11-19",
+      "url": "https://research.checkpoint.com/2026/30-years-of-gatekeeper-asymmetry-doom-the-paradox-that-makes-powerful-llms-more-vulnerable/",
+      "summary": "PuzzleMask hides a policy-violating payload in a wrapper that a lightweight LLM screen cannot read, while the stronger model behind it still acts on the payload. Check Point Research reports the technique worked on GPT-5.2-thinking-high.",
+      "severity": "medium",
+      "tags": [
+        "guardrail-bypass",
+        "guardrails",
+        "openai",
+        "gpt-5-2"
+      ],
+      "affected": [
+        "GPT-5.2",
+        "LLM guardrails"
+      ],
+      "credits": [
+        {
+          "name": "Check Point Research",
+          "org": "Check Point Software Technologies"
+        }
+      ],
+      "explainer": {
+        "tagline": "PuzzleMask is a prompt-crafting technique that slips a hidden payload past a lightweight LLM guard and into the more capable model behind it.",
+        "whatHappened": "Check Point Research published PuzzleMask on November 19, 2026 inside a longer argument it calls gatekeeper asymmetry doom. The post adapts Moxie Marlinspike's Cryptographic Doom Principle to AI: when the system vetting adversarial input is strictly less powerful than the system processing it, and no hard problem is in play, the gatekeeper will eventually be bypassed.",
+        "howItWorks": "PuzzleMask wraps a policy-violating payload in an obfuscated form that a quick, lightweight LLM sanity check cannot resolve. The target model behind that screen runs with high reasoning effort and code-interpreter access, so it unpicks the wrapper, notices the hidden payload and acts on it. Check Point stresses that PuzzleMask is not itself a jailbreak and can be combined with one, and that the hidden payload can be arbitrary text.",
+        "whoIsAffected": "Deployments that put a small, fast LLM screen in front of a much more capable model are exposed, which is the common pattern for guardrails and content filters. Check Point reports the attack landed on GPT-5.2-thinking-high. Claude Opus 4.5 blocked it, which Check Point attributes to an enhanced guardrail Anthropic added to Opus models in late 2025.",
+        "whatToDo": "Check the power gap in each of your filtering layers: where the gatekeeper model is strictly weaker than the model it protects, Check Point advises raising the gatekeeper's capability or using the one you have more fully. The post also recommends pairing LLM screens with deterministic tools where the model is weak, and planning defense in depth for when a screen is bypassed."
+      },
+      "quickFacts": [
+        {
+          "label": "Technique",
+          "value": "PuzzleMask, a prompt-crafting wrapper, not a jailbreak"
+        },
+        {
+          "label": "Bypasses",
+          "value": "A lightweight LLM sanity check in front of a stronger model"
+        },
+        {
+          "label": "Worked on",
+          "value": "GPT-5.2-thinking-high, per Check Point"
+        },
+        {
+          "label": "Blocked by",
+          "value": "Claude Opus 4.5, per Check Point"
+        },
+        {
+          "label": "Published",
+          "value": "Check Point Research, November 19, 2026"
+        },
+        {
+          "label": "Published metrics",
+          "value": "None: the post gives no detection rates or benchmark tables"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is PuzzleMask a jailbreak?",
+          "a": "No. Check Point Research states that PuzzleMask is not itself a jailbreak, and describes it instead as a prompt-crafting technique for bypassing quick LLM-based sanity checks. PuzzleMask hides what a payload is from the screening model, rather than persuading the target model to abandon its own policy. Check Point notes that the two can be combined."
+        },
+        {
+          "q": "Which models did Check Point test PuzzleMask against?",
+          "a": "Check Point Research names two models in the post. The attack landed on GPT-5.2-thinking-high, a configuration with high reasoning effort and code-interpreter access. Claude Opus 4.5 blocked it, which Check Point attributes to an enhanced guardrail that Anthropic introduced in Opus models in late 2025. The post publishes no detection rates or benchmark tables for the technique."
+        },
+        {
+          "q": "How can defenders tell whether their own guardrail is exposed?",
+          "a": "Check Point Research advises asking one question of each filtering layer: is the gatekeeper strictly less capable than the system it protects? Where the answer is yes, the post argues that a bypass will eventually exist. Check Point recommends raising the gatekeeper's capability, adding deterministic checks where the model is weak, and assuming the screen will be breached."
+        }
+      ],
+      "links": [
+        {
+          "label": "Check Point Research",
+          "url": "https://research.checkpoint.com/2026/30-years-of-gatekeeper-asymmetry-doom-the-paradox-that-makes-powerful-llms-more-vulnerable/"
+        },
+        {
+          "label": "Doom Principle",
+          "url": "https://moxie.org/2011/12/13/the-cryptographic-doom-principle.html"
+        }
+      ],
+      "publishDate": "2026-11-20T02:46:17.199Z"
+    },
+    {
+      "id": "anthropic-cvd-30-day-timelines",
+      "categories": [
+        "lab-safety"
+      ],
+      "title": "Anthropic: disclosure deadlines drop from 90 days to 30",
+      "org": "Anthropic",
+      "date": "2026-11-16",
+      "url": "https://www.anthropic.com/research/coordinated-vulnerability-disclosure-timelines",
+      "summary": "Anthropic is cutting its coordinated disclosure deadline for high and critical vulnerabilities from 90 days to 30, and to 45 days for other severities. The new windows apply to reports Anthropic sends on or after January 1, 2027.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "anthropic",
+        "oss-scanner"
+      ],
+      "affected": [
+        "Open source projects",
+        "Anthropic OSS Scanner"
+      ],
+      "credits": [
+        {
+          "name": "Frontier Red Team",
+          "org": "Anthropic"
+        }
+      ],
+      "explainer": {
+        "tagline": "Anthropic is shortening its disclosure deadlines because models now rediscover the same bugs faster than maintainers can patch them.",
+        "whatHappened": "Anthropic's Frontier Red Team announced on November 16, 2026 that the company is shortening every deadline in its coordinated vulnerability disclosure policy. The new windows, listed below, apply to vulnerabilities Anthropic reports to vendors and maintainers on or after January 1, 2027. Reports already in progress on that date keep their existing deadlines.",
+        "howItWorks": "The policy covers flaws that Anthropic's own models find in open source software, and in closed source software where Anthropic has authorization to test. Anthropic says it shortened the windows because frontier models have become much better at discovering vulnerabilities, so a bug one model finds is increasingly likely to be found by another. The company argues the 90-day norm assumed that fixes move at human speed and that independent rediscovery was unlikely, and that neither assumption still holds.",
+        "whoIsAffected": "Maintainers and vendors who receive vulnerability reports from Anthropic are affected, chiefly open source projects. Findings that have not had human review, such as raw OSS Scanner output, stay outside the policy. Software that cannot realistically ship a fix inside the window, such as hard-to-deploy critical infrastructure or anything needing a specification or RFC change, gets a remediation timeline agreed with the vendor instead.",
+        "whatToDo": "Open source maintainers who accept Anthropic reports should plan for a 30-day turnaround on high and critical findings from January 2027. Anthropic says it will agree a sustainable pace with a project before sending a large volume of findings, and that each report will include actionable guidance and, where possible, a patch or mitigation."
+      },
+      "quickFacts": [
+        {
+          "label": "High and critical",
+          "value": "30 days, down from 90"
+        },
+        {
+          "label": "All other severities",
+          "value": "45 days, down from 90"
+        },
+        {
+          "label": "Takes effect",
+          "value": "Reports sent on or after January 1, 2027"
+        },
+        {
+          "label": "Non-response escalation",
+          "value": "15 days, down from 30"
+        },
+        {
+          "label": "Full details after patch",
+          "value": "30 days, down from 45"
+        },
+        {
+          "label": "Actively exploited",
+          "value": "7 days, unchanged"
+        },
+        {
+          "label": "Published by",
+          "value": "Anthropic Frontier Red Team, November 16, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "When do Anthropic's new disclosure deadlines start applying?",
+          "a": "Anthropic's shortened deadlines apply to vulnerabilities it reports to vendors and maintainers on or after January 1, 2027. Reports already in progress on that date keep the deadlines they were given. High and critical reports from the existing backlog that are past the old 90-day deadline and still private get an extra 30 days before Anthropic publishes them on its disclosure dashboard."
+        },
+        {
+          "q": "Does the change affect vulnerabilities researchers report to Anthropic?",
+          "a": "No. Anthropic's coordinated vulnerability disclosure policy covers flaws that Anthropic's own models find in other people's software. Reports that outside researchers send to Anthropic about Anthropic products fall under a separate Responsible Disclosure Policy, which this announcement does not change. The updated timelines also exclude AI-discovered findings that have had no human review, such as raw OSS Scanner output."
+        },
+        {
+          "q": "What happens if a maintainer does not respond to an Anthropic report?",
+          "a": "Anthropic says it will aim to bring in an external vulnerability coordinator after 15 days of maintainer silence, down from 30 days under the current policy. The disclosure deadline itself continues to run in parallel. Anthropic also says it will agree a sustainable reporting pace with a project before sending it a large batch of findings."
+        }
+      ],
+      "links": [
+        {
+          "label": "Anthropic Announcement",
+          "url": "https://www.anthropic.com/research/coordinated-vulnerability-disclosure-timelines"
+        },
+        {
+          "label": "CVD Policy",
+          "url": "https://www.anthropic.com/coordinated-vulnerability-disclosure"
+        },
+        {
+          "label": "Disclosure Dashboard",
+          "url": "https://red.anthropic.com/2026/cvd/"
+        }
+      ],
+      "publishDate": "2026-11-20T02:46:17.199Z"
+    },
     {
       "id": "jetbrains-junie-cli-file-tools-path-escape",
       "categories": [

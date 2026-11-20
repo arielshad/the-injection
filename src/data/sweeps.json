@@ -19616,6 +19616,73 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261120t024617z",
+      "timestamp": "2026-11-20T02:46:17.199Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, NVD-sourced GHSA imports, Anthropic, OpenAI-adjacent lab posts, Check Point, Embrace The Red, AIR Security, Zenity, Trail of Bits, HiddenLayer, Socket, Wiz, Tracebit, UK AISI, OWASP GenAI, MSRC, Google Cloud security, Hugging Face, Hacker News, paper-scan (47 arXiv papers), repo-scan (5 candidates), github.com/trending and talk-scan (22 channels). Added Anthropic's shortened coordinated disclosure timelines and Check Point's PuzzleMask guardrail bypass; the large batch of MCP advisories that reached the GitHub Advisory Database on November 18 to 20 are NVD re-publications of July and August disclosures and fall outside the window.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "anthropic-cvd-30-day-timelines",
+          "title": "Anthropic: disclosure deadlines drop from 90 days to 30",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A lab changing the clock on every vulnerability it reports is a planning change for any open source maintainer who receives one, and the 90 to 30 day cut is stated on Anthropic's own page."
+        },
+        {
+          "id": "checkpoint-puzzlemask-gatekeeper-asymmetry",
+          "title": "PuzzleMask: a weak LLM guard misses what the strong model runs",
+          "category": "attack",
+          "severity": "medium",
+          "note": "A named, demonstrated bypass of the small-guard-in-front-of-big-model pattern that most guardrail deployments use, published by a security research team on the Sources list."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "anthropic.com/news",
+        "anthropic.com/research",
+        "red.anthropic.com CVD dashboard",
+        "Check Point Research",
+        "embracethered.com",
+        "AIR Security blog",
+        "Zenity Labs",
+        "Trail of Bits blog",
+        "HiddenLayer Innovation Hub",
+        "Socket blog",
+        "Wiz blog",
+        "Tracebit blog",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "Microsoft MSRC blog",
+        "Google Cloud security blog",
+        "Hugging Face blog",
+        "Hacker News front page",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }
