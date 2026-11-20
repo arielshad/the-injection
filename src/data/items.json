@@ -1,7 +1,196 @@
 {
-  "generatedAt": "2026-11-20T02:46:17.199Z",
+  "generatedAt": "2026-11-20T10:39:36.334Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "dragos-ai-inference-canary-tokens",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "Dragos: canaries catch data theft at three AI inference providers",
+      "org": "Dragos",
+      "date": "2026-11-19",
+      "url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens",
+      "summary": "Dragos planted canary credentials in about two million AI prompts over five months and found attackers stealing data at three AI hosting providers, none of which knew about the theft until Dragos told them.",
+      "severity": "critical",
+      "tags": [
+        "credential-theft",
+        "threat-intel",
+        "detection",
+        "aws",
+        "artex"
+      ],
+      "affected": [
+        "AI inference providers",
+        "LLM model routers",
+        "Amazon Web Services",
+        "AWS Secrets Manager"
+      ],
+      "credits": [
+        {
+          "name": "HD Moore",
+          "org": "Dragos"
+        }
+      ],
+      "explainer": {
+        "tagline": "Dragos seeded two million AI prompts with canary credentials and found three AI hosting providers leaking them to attackers.",
+        "whatHappened": "HD Moore and the Dragos research team sent roughly two million prompts carrying unique canary URLs and credentials to AI services between July and November 2026. Three hosting providers turned out to be leaking that data to attackers, with the earliest incident dating to mid-July. Dragos says none of the three knew about the breach until it notified them.",
+        "howItWorks": "Each prompt carried a hostname, URL or credential that no legitimate system would ever use, so any contact with a Dragos listener proved the prompt had left its intended path. Dragos ran DNS, web, git, SSH, database and mail listeners, plus real AWS keys tied to empty, fully logged accounts. A second technique, which Dragos describes as a traceroute for AI inference, used an image URL and malformed requests whose nested error responses expose each hop, tracing about 2,000 routes.",
+        "whoIsAffected": "Customers of AI model routers, reseller marketplaces and smaller hosting providers are the exposed group, and Dragos names none of the providers. Prompts sent to United States providers that resell a Chinese lab's models still reached that lab, including requests marked zero data retention.",
+        "whatToDo": "Go directly to a first-tier provider or self-host where the budget allows, and verify that a router's privacy settings actually change where traffic goes. Seed your own canary credentials in agent and pipeline context and treat any use of them as an incident. Enable secret filtering where a provider offers it."
+      },
+      "quickFacts": [
+        {
+          "label": "Study window",
+          "value": "July to November 2026"
+        },
+        {
+          "label": "Prompts sent",
+          "value": "About 2 million"
+        },
+        {
+          "label": "Providers breached",
+          "value": "3 AI hosting providers"
+        },
+        {
+          "label": "Largest theft",
+          "value": "A couple hundred AWS keys, late October"
+        },
+        {
+          "label": "Attacker tooling",
+          "value": "ARTEX, user agents artex-agent and artex-judge-r121"
+        },
+        {
+          "label": "Found by",
+          "value": "HD Moore, Dragos"
+        },
+        {
+          "label": "Published",
+          "value": "2026-11-19"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which AI providers did Dragos find breached?",
+          "a": "Dragos does not name the three breached hosting providers in its write-up. The report says the earliest incident dates to mid-July 2026, that none of the three knew about the breach until Dragos notified them, and that one published a preliminary security notice after the late-October thefts. Customers of model routers and reseller marketplaces are the exposed group."
+        },
+        {
+          "q": "What did attackers do with the stolen AWS keys?",
+          "a": "Attackers tested the Dragos bait keys within hours of taking them, then listed S3 buckets and searched Secrets Manager and Parameter Store. Dragos also saw attempts to enable Bedrock models, create Bedrock API keys and add IAM users. Across the study the bait keys were used for tens of thousands of AWS API calls, and some remained in use months later."
+        },
+        {
+          "q": "Does a zero data retention setting stop prompts from being stored?",
+          "a": "Zero data retention did not reliably limit where prompts travelled in the Dragos study. A Chinese AI lab's systems fetched the secret URLs from more than half the prompts sent to its models between July and October 2026, including about two-thirds of requests marked zero data retention. The scraper typically appeared two to three days after the prompt."
+        },
+        {
+          "q": "How can defenders tell whether their own prompts are leaking?",
+          "a": "Seeding canary credentials is the method Dragos recommends: place unique URLs and fake secrets in agent and pipeline context, then treat any contact with them as an incident. Dragos started with Thinkst Canarytokens before building its own service. HD Moore also advises turning on secret filtering where a provider offers it, while noting that filtering does not catch everything."
+        }
+      ],
+      "links": [
+        {
+          "label": "Dragos Research",
+          "url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens"
+        },
+        {
+          "label": "Related Canary Study",
+          "url": "https://dispatch.thorcollective.com/p/i-leaked-credentials-on-purpose-for"
+        }
+      ],
+      "publishDate": "2026-11-20T10:39:36.334Z"
+    },
+    {
+      "id": "aisi-gpt-6-2-astra-jailbreak-regression",
+      "categories": [
+        "lab-safety",
+        "research"
+      ],
+      "title": "UK AISI: GPT-6.2 Astra's cyber safeguards regressed before launch",
+      "org": "OpenAI",
+      "date": "2026-11-17",
+      "url": "https://deploymentsafety.openai.com/gpt-6-2-astra-sol/external-evaluations-of-cyber-safeguards-uk-aisi",
+      "summary": "The UK AI Security Institute found a substantial regression in jailbreak robustness across two pre-release GPT-6.2 Astra checkpoints, building a universal cyber jailbreak with about half the model queries it needed for GPT-6 Astra.",
+      "severity": "info",
+      "tags": [
+        "jailbreak",
+        "guardrail-bypass",
+        "cyber-capability",
+        "evals",
+        "openai"
+      ],
+      "affected": [
+        "GPT-6.2 Astra"
+      ],
+      "credits": [
+        {
+          "name": "UK AI Security Institute",
+          "url": "https://www.aisi.gov.uk/"
+        }
+      ],
+      "explainer": {
+        "tagline": "UK AISI built a universal cyber jailbreak for pre-release GPT-6.2 Astra at about half the query cost it needed for GPT-6 Astra.",
+        "whatHappened": "OpenAI's GPT-6.2 system card, published on 2026-11-17, reports that the UK AI Security Institute tested two versions of a pre-release checkpoint together with its system-level safeguards and identified a substantial regression in robustness relative to GPT-6 Astra. OpenAI presented its own findings to UK AISI on 2026-11-06 and offered three further business days for a retest.",
+        "howItWorks": "Automated red teaming searches for a universal jailbreak: one attack that succeeds across many prohibited requests rather than a prompt crafted per question. Reaching that point for single-turn cyber questions took a UK AISI expert about half the model queries it had taken against GPT-6 Astra, on both checkpoint versions. The same expert then extended the jailbreak to agentic cyber tasks at roughly half the earlier cost, which UK AISI says elicited substantial agentic cyber capabilities.",
+        "whoIsAffected": "Organizations weighing GPT-6.2 Astra for work where its cyber safeguards matter are the audience for this result. The checkpoints UK AISI tested were pre-release, and OpenAI states that the regression is mitigated in what shipped.",
+        "whatToDo": "Treat the mitigation as a vendor claim rather than a verified result. OpenAI says internal testing shows the specific jailbreak and related gaps closed, and the system card records that UK AISI has not independently tested the updated safeguards."
+      },
+      "quickFacts": [
+        {
+          "label": "Model tested",
+          "value": "Pre-release GPT-6.2 Astra, two checkpoint versions"
+        },
+        {
+          "label": "Tested by",
+          "value": "UK AI Security Institute"
+        },
+        {
+          "label": "Finding",
+          "value": "Substantial regression in robustness vs GPT-6 Astra"
+        },
+        {
+          "label": "Jailbreak cost",
+          "value": "About half the model queries needed for GPT-6 Astra"
+        },
+        {
+          "label": "Vendor status",
+          "value": "OpenAI says mitigated, UK AISI has not retested"
+        },
+        {
+          "label": "Published",
+          "value": "2026-11-17"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the GPT-6.2 Astra cyber jailbreak fixed?",
+          "a": "OpenAI states that the regression is mitigated, after changing GPT-6.2 Astra's safety instructions and how its safeguards assess conversations and tool use. Internal testing, OpenAI says, showed the specific jailbreak and related gaps closed, with broader single-turn and multi-turn robustness improved. The system card also records that UK AISI has not independently validated the updated safeguards."
+        },
+        {
+          "q": "Did UK AISI test the version of GPT-6.2 Astra that shipped?",
+          "a": "UK AISI tested two versions of a pre-release GPT-6.2 Astra checkpoint, not the released model. OpenAI presented its findings on 2026-11-06 and offered UK AISI three additional business days to repeat the evaluation against the updated safeguards. As of the system card's publication on 2026-11-17, that retest had not taken place."
+        },
+        {
+          "q": "How does the UK AISI result compare with OpenAI's own red teaming?",
+          "a": "OpenAI's automated red teaming rated two jailbreaks high severity in this round, and the system card describes an adaptive cybersecurity campaign run from 2026-10-29 to 2026-11-03. After two days of retesting the updated safeguards, OpenAI reports that no new attack met its success criteria on ExploitBench or its internal ExploitBench port."
+        }
+      ],
+      "links": [
+        {
+          "label": "UK AISI Evaluation",
+          "url": "https://deploymentsafety.openai.com/gpt-6-2-astra-sol/external-evaluations-of-cyber-safeguards-uk-aisi"
+        },
+        {
+          "label": "GPT-6.2 System Card",
+          "url": "https://deploymentsafety.openai.com/gpt-6-2-astra-sol"
+        },
+        {
+          "label": "Cyber Capabilities",
+          "url": "https://deploymentsafety.openai.com/gpt-6-2-astra-sol/cybersecurity-capabilities"
+        }
+      ],
+      "publishDate": "2026-11-20T10:39:36.334Z"
+    },
     {
       "id": "checkpoint-puzzlemask-gatekeeper-asymmetry",
       "categories": [

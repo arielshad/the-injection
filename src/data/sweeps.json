@@ -19683,6 +19683,68 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261120t103936z",
+      "timestamp": "2026-11-20T10:39:36.334Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories and NVD, vendor and lab posts (OpenAI Deployment Safety Hub, Tracebit, Dragos, Check Point, Embrace The Red, Simon Willison), OWASP GenAI, UK AISI, Hacker News, github.com/trending, repo-scan (5 candidates), paper-scan (51 arXiv papers, 1 with two scanned signals) and talk-scan (42 videos); added the Dragos canary-token study of AI inference providers and the UK AISI cyber safeguards regression in OpenAI's GPT-6.2 system card. Most GHSA entries dated this week were NVD backfills of July to October disclosures and fell outside the window; the Kokoro Hugging Face account takeover was dropped because the researcher's own write-up returns 403 and only news coverage loads, and Tracebit's TuringPot honeypot was dropped because it shows only one signal from the repo bar.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "dragos-ai-inference-canary-tokens",
+          "title": "Dragos: canaries catch data theft at three AI inference providers",
+          "category": "incident",
+          "severity": "critical",
+          "note": "Original five-month measurement study from a named security researcher that found live credential theft at three unnamed AI hosting providers, with concrete detection advice a defender can act on this week."
+        },
+        {
+          "id": "aisi-gpt-6-2-astra-jailbreak-regression",
+          "title": "UK AISI: GPT-6.2 Astra's cyber safeguards regressed before launch",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A third-party government red team result published in OpenAI's own system card, distinct from the existing GPT-6.2 capability item because it covers safeguard robustness and an unvalidated vendor fix rather than OpenAI's Preparedness rating."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "OpenAI Deployment Safety Hub",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "Check Point Research",
+        "Dragos",
+        "Tracebit",
+        "embracethered.com",
+        "simonwillison.net",
+        "Hacker News front page",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan (arXiv)",
+        "talk-scan (YouTube)",
+        "Hugging Face model hub",
+        "PyPI",
+        "BleepingComputer"
+      ],
+      "windowDays": 7
     }
   ]
 }
