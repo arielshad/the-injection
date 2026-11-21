@@ -20041,6 +20041,82 @@
         "postgresql.org release announcement"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261121t213036z",
+      "timestamp": "2026-11-21T21:30:36.754Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, research blogs, GitHub Security Advisories, arXiv, GitHub repo and trending scans, Hacker News and conference uploads for the 7 days to 2026-11-21, and added two items: RunPod's hosted MCP server instructing agents to rate it and conceal the request, and HiddenLayer's ChatGPT Sites exposure in Certificate Transparency logs. Most in-window GitHub advisories for MCP servers (Jupyter, Todoist, Kubeshark, Gortex, DOMShell, CodeWhale, the MCP Python SDK OAuth flaw) were NVD or advisory-database republications of disclosures first published in July to November 12, so they fall outside the window under Hard Rule 3. Check Point's gatekeeper asymmetry post, Google's GTIG tracker, Prime Radiant's external sandboxes and the Black Hat HTTP Terminator upload are already in the feed. repo-scan returned 5 candidates: only Tracebit's turingpot honeypot was credible, and with 44 stars and no launch write-up it showed one repo-bar signal, so it was left out; the ViKernel scanner showed one signal with 4 stars. paper-scan found 42 papers in the window and one with two signals (model immunization, NeurIPS 2026), a theoretical fine-tuning defense that does not meet the defender bar. AIR, Zenity, Embrace The Red, Trail of Bits, NCC, Invariant, MSRC, Anthropic, OpenAI security, AISI and Hugging Face had nothing new in the window. Could not load: security.googleblog.com (captcha), reddit.com/r/netsec and npmjs.com (403).",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "runpod-mcp-hidden-nps-instruction",
+          "title": "RunPod MCP: the server tells agents to rate it and hide that",
+          "category": "supply-chain",
+          "severity": "medium",
+          "note": "A vendor's own hosted MCP server appends an instruction telling the agent to take an action and hide it from its operator, confirmed in RunPod's own documentation and changelog, with a concrete opt-out header for defenders."
+        },
+        {
+          "id": "hiddenlayer-chatgpt-sites-ct-logs",
+          "title": "ChatGPT Sites: email-derived names reached public certificate logs",
+          "category": "vulnerability",
+          "severity": "low",
+          "note": "A named researcher's disclosure of an OpenAI product leak that users can still check for themselves, because the certificates predating the fix stay in public logs."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "github.com/trending",
+        "repo-scan.json",
+        "gh-repo-meta.ts",
+        "paper-scan.ts (arXiv cs.CR)",
+        "talk-scan.ts (YouTube channels)",
+        "Hugging Face Daily Papers",
+        "huggingface.co/blog",
+        "anthropic.com/news",
+        "openai.com/news/security",
+        "Microsoft MSRC blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com",
+        "simonwillison.net",
+        "hiddenlayer.com/research",
+        "reversinglabs.com/blog",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "jfrog.com/blog",
+        "research.checkpoint.com",
+        "blog.trailofbits.com",
+        "nccgroup.com/research-blog",
+        "invariantlabs.ai/blog",
+        "tracebit.com/blog",
+        "genai.owasp.org",
+        "aisi.gov.uk",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "PyPI release history",
+        "github.com/runpod/runpod-mcp",
+        "help.openai.com"
+      ],
+      "windowDays": 7
     }
   ]
 }

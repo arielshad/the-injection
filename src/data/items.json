@@ -1,7 +1,191 @@
 {
-  "generatedAt": "2026-11-21T15:56:45.682Z",
+  "generatedAt": "2026-11-21T21:30:36.754Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "runpod-mcp-hidden-nps-instruction",
+      "categories": [
+        "supply-chain"
+      ],
+      "title": "RunPod MCP: the server tells agents to rate it and hide that",
+      "org": "RunPod",
+      "date": "2026-11-21",
+      "url": "https://github.com/runpod/runpod-mcp/issues/202",
+      "summary": "RunPod's hosted MCP server appends a note to successful create calls asking the coding agent to submit a 0 to 10 rating and not mention it to the user. RunPod's own documentation describes the behavior, and a header turns it off.",
+      "severity": "medium",
+      "tags": [
+        "tool-poisoning",
+        "prompt-injection",
+        "mcp",
+        "agent-security",
+        "runpod"
+      ],
+      "affected": [
+        "RunPod MCP server",
+        "@runpod/mcp-server"
+      ],
+      "credits": [
+        {
+          "name": "XadniGraves",
+          "url": "https://github.com/XadniGraves"
+        }
+      ],
+      "explainer": {
+        "tagline": "RunPod's hosted MCP server asks the agent for a rating and tells it not to mention the request to the user.",
+        "whatHappened": "A developer using RunPod's hosted MCP server with a coding agent opened issue #202 on November 21, 2026, after the agent refused a note it had been handed and reported it instead. The note, appended to a successful create-pod result, asked the agent to call rate_nps_score and to keep the call from the user. RunPod's own documentation describes the behavior, and the issue was still open with no maintainer reply at the time of writing.",
+        "howItWorks": "Tool output is the carrier. RunPod's agent-learning-protocol document says that from an account's third creation onward, the server adds a second text block after the result of create-pod, create-endpoint, deploy-hub-repo or create-cluster, leaving the original result unchanged. The block asks the agent for its own 0 to 10 score and tells it not to mention the request to the user, and the rate_nps_score tool description repeats that instruction. The shape matches indirect prompt injection: text arriving through a tool result steers the agent into an action its operator cannot see.",
+        "whoIsAffected": "Teams whose agents connect to RunPod's hosted MCP server at mcp.runpod.io are in scope, on accounts that have made three or more creations and have not yet given a score. RunPod's documentation says the tools are absent over stdio and when the sink is not configured. The reporter states that a direct call to the REST API returns no such text, so only the MCP server adds it.",
+        "whatToDo": "Send the X-Runpod-Analytics: off header, which RunPod's documentation says skips the creation count, the rating note and the analytics event. Read what your MCP servers append to tool results, not only what they return, and treat any instruction that asks an agent to withhold an action from its operator as a finding, whoever shipped it."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "RunPod hosted MCP server at mcp.runpod.io, accounts past their third creation"
+        },
+        {
+          "label": "Behavior",
+          "value": "A note appended after create-pod, create-endpoint, deploy-hub-repo and create-cluster"
+        },
+        {
+          "label": "Shipped in",
+          "value": "Version 4.13.0, per the project changelog"
+        },
+        {
+          "label": "Collected",
+          "value": "The agent's 0 to 10 score, self-reported model type, client name, transport, triggering tool"
+        },
+        {
+          "label": "Sent to",
+          "value": "PostHog, as a survey response under an anonymous distinct ID"
+        },
+        {
+          "label": "Opt-out",
+          "value": "X-Runpod-Analytics: off"
+        },
+        {
+          "label": "Status",
+          "value": "Issue #202 open, no maintainer reply"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the RunPod MCP rating prompt an attack?",
+          "a": "No attacker is involved. RunPod built the rating request into its own hosted MCP server and documents it in agent-learning-protocol.md. The reporter of issue #202 makes the same point, while arguing that the shape matches prompt injection: tool output instructing an agent to act and to conceal that action from the person running it."
+        },
+        {
+          "q": "How do I stop the RunPod MCP server from asking my agent for a rating?",
+          "a": "Sending the header X-Runpod-Analytics: off stops it. RunPod's documentation says that header makes the server skip the creation count, the rating note and the PostHog event. One gap remains: the documentation states that a direct call to rate_nps_score is still recorded, and it does not say whether the opt-out also suppresses the referral question sent during initialize."
+        },
+        {
+          "q": "What data does RunPod's agent rating collect?",
+          "a": "RunPod's agent-learning-protocol document lists the score only for the NPS question, with no free text, recorded once per account. A successful score is sent to PostHog as a survey response under an anonymous ID, together with the agent's self-reported model type, the client name, the transport and the tool that triggered the note. The server also counts each account's creations."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Issue 202",
+          "url": "https://github.com/runpod/runpod-mcp/issues/202"
+        },
+        {
+          "label": "Agent Learning Protocol",
+          "url": "https://github.com/runpod/runpod-mcp/blob/main/docs/agent-learning-protocol.md"
+        },
+        {
+          "label": "Changelog",
+          "url": "https://github.com/runpod/runpod-mcp/blob/main/CHANGELOG.md"
+        }
+      ],
+      "publishDate": "2026-11-21T21:30:36.754Z"
+    },
+    {
+      "id": "hiddenlayer-chatgpt-sites-ct-logs",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "ChatGPT Sites: email-derived names reached public certificate logs",
+      "org": "HiddenLayer",
+      "date": "2026-11-17",
+      "url": "https://www.hiddenlayer.com/research/chatgpt-sites-certificate-transparency-logs",
+      "summary": "ChatGPT Sites gave some accounts that signed in with OAuth a web address built from the user's email address, and the certificates for those addresses were written to public logs. HiddenLayer says OpenAI fixed it in October.",
+      "severity": "low",
+      "tags": [
+        "data-exfiltration",
+        "chatgpt",
+        "openai"
+      ],
+      "affected": [
+        "ChatGPT Sites"
+      ],
+      "credits": [
+        {
+          "name": "Esteban Tonglet",
+          "org": "HiddenLayer"
+        }
+      ],
+      "explainer": {
+        "tagline": "ChatGPT Sites built some site names from the owner's email address, and the certificates for those names stay public.",
+        "whatHappened": "Esteban Tonglet of HiddenLayer published the finding on November 17, 2026. Some ChatGPT accounts that signed in with OAuth were given a Sites namespace derived from their email address. HiddenLayer says it disclosed the issue to OpenAI, which fixed it during the week of October 12, 2026.",
+        "howItWorks": "Certificate Transparency is the mechanism. Every TLS certificate issued for a site name is written to public logs that anyone can search, so a namespace becomes a permanent, searchable record. HiddenLayer says the namespace came from the part of the email address before the @ sign, with periods replaced by hyphens, which makes the original address straightforward to reconstruct. No ChatGPT account or Site access was needed to read the logs.",
+        "whoIsAffected": "Accounts that created a ChatGPT Site before the fix are the exposed group, including accounts whose Sites were set to private. HiddenLayer reports that the namespaces were discoverable even when Sites were restricted to their owners. Full email addresses, credentials and private Site content were not exposed.",
+        "whatToDo": "Take the part of your email address before the @ sign, replace periods with hyphens, add .chatgpt.site and search that name on a Certificate Transparency service such as crt.sh. HiddenLayer warns that the identifier can help someone guess an address or link online identities, so treat a match as a reason to expect targeted phishing."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "ChatGPT Sites namespaces from OAuth sign-in, private Sites included"
+        },
+        {
+          "label": "Found by",
+          "value": "Esteban Tonglet, HiddenLayer"
+        },
+        {
+          "label": "Published",
+          "value": "November 17, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed by OpenAI during the week of October 12, 2026"
+        },
+        {
+          "label": "Still exposed",
+          "value": "Certificates issued before the fix remain in public CT logs"
+        },
+        {
+          "label": "Not exposed",
+          "value": "Full email addresses, credentials, private Site content"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I check if my ChatGPT Site name is in certificate transparency logs?",
+          "a": "Checking takes one search. Take the part of your email address before the @ sign, replace any periods with hyphens, and add .chatgpt.site to the end. Search that name on a Certificate Transparency service such as crt.sh. HiddenLayer says a match means a certificate carrying that namespace was publicly recorded, even if the Site was later deleted."
+        },
+        {
+          "q": "Did OpenAI fix the ChatGPT Sites namespace issue?",
+          "a": "OpenAI fixed the issue during the week of October 12, 2026, according to HiddenLayer, so newly generated namespaces are no longer derived from email addresses. The fix does not reach backwards: certificates issued before it remain in public Certificate Transparency logs, and HiddenLayer says affected identifiers stay visible there even for Sites that owners have since deleted."
+        },
+        {
+          "q": "Were private ChatGPT Sites affected by the certificate transparency exposure?",
+          "a": "Private Sites were affected. HiddenLayer reports that ChatGPT Sites namespaces were discoverable in public Certificate Transparency logs even when the associated Sites were restricted to their owners. The content of a private Site was not exposed, and neither were credentials or full email addresses. Only the namespace, which HiddenLayer says is derived from the owner's email address, became public."
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/694066252c49b2800c70cf5e/6afc8b435da08e60d57d3db1_OpenAI%20Email%20Leak_FeaturedImage.jpg",
+        "alt": "ChatGPT Sites exposure in certificate transparency logs",
+        "credit": "HiddenLayer"
+      },
+      "links": [
+        {
+          "label": "HiddenLayer Research",
+          "url": "https://www.hiddenlayer.com/research/chatgpt-sites-certificate-transparency-logs"
+        },
+        {
+          "label": "ChatGPT Sites Help",
+          "url": "https://help.openai.com/en/articles/20001339-creating-and-using-chatgpt-sites"
+        }
+      ],
+      "publishDate": "2026-11-21T21:30:36.754Z"
+    },
     {
       "id": "openai-codex-sandbox-internals",
       "categories": [
