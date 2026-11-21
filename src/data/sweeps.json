@@ -19831,6 +19831,66 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261121t003419z",
+      "timestamp": "2026-11-21T00:34:19.421Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, obot-platform, Anthropic, an OpenAI post, Google, Wiz, Zenity, Check Point, Unit 42, Socket, ReversingLabs, Tracebit, AIR, Embrace The Red, Simon Willison, Hacker News, Hugging Face, arXiv via paper-scan (50 papers), repo-scan (5 candidates), GitHub trending and talk-scan (22 channels); added one item, the five Obot advisories of November 20. Left out as outside the 7-day window: the MCP Python SDK OAuth flaw (repo advisory September 28), jupyter-mcp-server DNS rebinding (July 12), flyto-core arbitrary file write (July 11), CodeWhale auto_approve (November 12) and the trojanized Cursor Claude Code extension (October 29), all of which only reached the GitHub Advisory Database or wider coverage this week; reddit.com/r/netsec would not load.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "obot-mcp-anonymous-authorization-bypass",
+          "title": "Obot: renaming to anonymous reaches MCP servers a user was not granted",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "A 1,200-star open-source MCP governance platform disclosed five flaws in one day, including a CVSS 9.6 authorization bypass that let any signed-in user call tools on MCP servers they were never granted; defenders running Obot must upgrade to 0.28.2."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "obot-platform/obot security advisories",
+        "Anthropic news",
+        "OpenAI a-thousand-fewer-paths-to-root",
+        "Google security blog",
+        "Wiz blog",
+        "Zenity Labs",
+        "Check Point Research",
+        "Unit 42",
+        "Socket blog",
+        "ReversingLabs blog",
+        "Tracebit blog",
+        "AIR Security blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "Hacker News front page",
+        "huggingface.co/blog",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers via paper-scan",
+        "repo-scan.json",
+        "github.com/trending",
+        "gh-repo-meta.ts",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

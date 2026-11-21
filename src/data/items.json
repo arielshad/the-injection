@@ -1,7 +1,136 @@
 {
-  "generatedAt": "2026-11-20T19:01:50.159Z",
+  "generatedAt": "2026-11-21T00:34:19.421Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "obot-mcp-anonymous-authorization-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Obot: renaming to anonymous reaches MCP servers a user was not granted",
+      "org": "Obot AI",
+      "date": "2026-11-20",
+      "url": "https://github.com/obot-platform/obot/security/advisories/GHSA-cp2w-pc8v-r54p",
+      "summary": "Obot's AI governance platform let any signed-in user rename themselves to anonymous and call tools on MCP servers they were never granted. Obot fixed it in 0.28.2, one of five advisories published on November 20.",
+      "severity": "high",
+      "cvss": 9.6,
+      "tags": [
+        "mcp",
+        "privilege-escalation",
+        "credential-theft",
+        "agent-security",
+        "obot"
+      ],
+      "affected": [
+        "Obot",
+        "MCP servers"
+      ],
+      "credits": [
+        {
+          "name": "jakub2929",
+          "url": "https://github.com/jakub2929"
+        },
+        {
+          "name": "ivyjeong13",
+          "url": "https://github.com/ivyjeong13"
+        },
+        {
+          "name": "amanverma-wsu"
+        },
+        {
+          "name": "gaopeng32"
+        },
+        {
+          "name": "basavesh"
+        }
+      ],
+      "explainer": {
+        "tagline": "Obot 0.28.2 fixes five flaws, including a critical one that let any signed-in user reach MCP servers they were never granted.",
+        "whatHappened": "Obot AI published five security advisories for its open-source AI governance platform on November 20, 2026, all fixed in version 0.28.2. Three came from the reporter jakub2929, including the critical authorization bypass, while ivyjeong13 reported a cross-site request forgery flaw and three further researchers reported an open redirect. Obot's release notes say all installations should upgrade.",
+        "howItWorks": "Obot let users change their own usernames, and a connection pass-through meant for unauthenticated callers identified those callers by the username anonymous rather than by authentication state. A signed-in user who renamed themselves to anonymous therefore skipped the whole per-server access check: ownership, access control rules, virtual MCP server profiles and API key scopes. The OAuth flaw works differently: Obot saved the upstream MCP token for whoever started a sign-in without checking that the same user finished it, so an attacker could send the provider's authorization link to a victim and bind the victim's upstream account to the attacker's Obot account.",
+        "whoIsAffected": "Releases 0.21.1 through 0.28.1 carry the authorization bypass, and the four other flaws reach further back, as listed below. Exploiting the bypass needs authentication enabled, a regular account not provisioned through SCIM, and the target server's ID. Obot says MCP servers that require per-user OAuth were not exposed by the bypass, and that the REST API was unaffected.",
+        "whatToDo": "Upgrade Obot to 0.28.2 or later, which stops users changing their own usernames and ties OAuth callbacks to the user who started the sign-in. Admins should also remove admin-set static headers from catalog entries whose templates let users choose the entire host, because Obot says those templates still accept any host after the fix."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Obot 0.21.1 to 0.28.1 for the bypass; 0.8.0 onward for the OAuth capture, 0.12.0 onward for the header leak, 0.15.0 onward for the open redirect"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Obot 0.28.2, released November 19, 2026"
+        },
+        {
+          "label": "The five flaws",
+          "value": "Critical 9.6 anonymous rename bypass; High 8.7 MCP OAuth sign-in capture; High 7.1 same-site CSRF; Moderate 6.3 URL template header leak; Moderate 4.7 open redirect"
+        },
+        {
+          "label": "CVE",
+          "value": "None known for any of the five advisories"
+        },
+        {
+          "label": "Found by",
+          "value": "jakub2929 (three advisories), ivyjeong13, and amanverma-wsu, gaopeng32 and basavesh"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 20, 2026, as five GitHub repository advisories"
+        },
+        {
+          "label": "Attack type",
+          "value": "Authorization bypass, OAuth callback binding, cross-site request forgery"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Obot versions are affected by the anonymous rename bypass?",
+          "a": "Obot releases 0.21.1 through 0.28.1 carry the authorization bypass, and version 0.28.2 fixes it. The other four advisories published the same day reach further back: the MCP OAuth sign-in capture affects 0.8.0 onward, the URL template header leak 0.12.0 onward, and the open redirect 0.15.0 onward. All five are fixed in 0.28.2."
+        },
+        {
+          "q": "Did Obot assign CVE identifiers to these flaws?",
+          "a": "No CVE identifier is recorded on any of the five Obot advisories published on November 20, 2026. Obot scored them itself using CVSS 3.1: 9.6 for the anonymous rename bypass, 8.7 for the MCP OAuth sign-in capture, 7.1 for the cross-site request forgery, 6.3 for the URL template header leak and 4.7 for the open redirect."
+        },
+        {
+          "q": "Who could exploit the Obot authorization bypass?",
+          "a": "Any authenticated Obot user with a regular account could exploit the bypass, provided authentication was enabled and the account was not provisioned through SCIM, because SCIM users cannot change their usernames. An attacker also needed the target MCP server's ID. Obot says random IDs of unrelated servers are not exposed to users, but component server IDs of a shared virtual MCP server can be learned from the API."
+        },
+        {
+          "q": "Is upgrading Obot to 0.28.2 enough, or should admins change configuration too?",
+          "a": "Upgrading to Obot 0.28.2 fixes all five flaws, but one configuration check remains. Obot warns that catalog entry templates letting users choose the entire host still accept any host, so admins should not attach static headers such as shared API keys or bearer tokens to those entries. Obot says a user with access to an affected entry could obtain those header values."
+        },
+        {
+          "q": "How does the Obot OAuth sign-in capture compare to the token flaw fixed in 0.27.0?",
+          "a": "Both Obot flaws end in a stolen upstream token, but the mechanisms differ. CVE-2026-130766, fixed in Obot 0.27.0, let a malicious remote MCP server name a different service in its protected resource metadata, so Obot obtained the victim's token for that service and forwarded it. The November 20 flaw instead abuses the OAuth callback, binding a victim's completed sign-in to the attacker's own Obot account."
+        }
+      ],
+      "links": [
+        {
+          "label": "Critical Advisory",
+          "url": "https://github.com/obot-platform/obot/security/advisories/GHSA-cp2w-pc8v-r54p"
+        },
+        {
+          "label": "MCP OAuth Advisory",
+          "url": "https://github.com/obot-platform/obot/security/advisories/GHSA-gjv5-3gxw-g748"
+        },
+        {
+          "label": "CSRF Advisory",
+          "url": "https://github.com/obot-platform/obot/security/advisories/GHSA-jwgp-hqmv-m4p6"
+        },
+        {
+          "label": "URL Template Advisory",
+          "url": "https://github.com/obot-platform/obot/security/advisories/GHSA-89qx-gch8-6rcw"
+        },
+        {
+          "label": "Open Redirect Advisory",
+          "url": "https://github.com/obot-platform/obot/security/advisories/GHSA-4h4x-wccp-crrx"
+        },
+        {
+          "label": "Obot 0.28.2 Release",
+          "url": "https://github.com/obot-platform/obot/releases/tag/v0.28.2"
+        }
+      ],
+      "publishDate": "2026-11-21T00:34:19.421Z"
+    },
     {
       "id": "servicenow-now-assist-email-agent-prompt-injection",
       "categories": [
