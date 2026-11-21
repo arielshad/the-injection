@@ -19954,6 +19954,93 @@
         "signal.org/blog"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261121t155645z",
+      "timestamp": "2026-11-21T15:56:45.682Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP, newest first), NVD, Anthropic, OpenAI, Embrace The Red, Simon Willison, Wiz, Unit 42, AIR, Socket, ReversingLabs, Trail of Bits, CrowdStrike, Check Point, HiddenLayer, Lakera, Snyk, Invariant, Elastic, GitGuardian, Tracebit, JFrog, OWASP GenAI, UK AISI, CAISI, Hugging Face, Hacker News, GitHub trending, repo-scan (13 queries, 5 candidates), paper-scan (43 papers) and talk-scan (45 videos); added the Codex sandbox post, CrowdStrike's backdoored-LoRA scan and Reuters on Meta Muse. Left out as old news: the MCP Python SDK OAuth CVE (CVE-2026-115563, repo advisory published September 28) and the critical Jupyter MCP Server DNS rebinding flaw (CVE-2026-77359, published July 12), both only syndicated into the GitHub advisory database this week, plus DuneSlide (July) and Check Point's ChatGPT Lockdown Mode bypass (November 5). All 43 arXiv papers and 45 scanned videos missed the two-signal bars; the Black Hat HTTP Terminator talk is already linked from the existing DEF CON item, and TuringPot is already covered inside the Tracebit canary item. Note: koi.security now redirects to paloaltonetworks.com and is a dead source.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "openai-codex-sandbox-internals",
+          "title": "Codex: OpenAI documents what its sandbox does not cover",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "OpenAI documents, in its own words, that a stdio MCP server's startup command runs unsandboxed with the user's permissions, which is a configuration fact defenders running Codex need."
+        },
+        {
+          "id": "crowdstrike-backdoored-lora-detection",
+          "title": "Hidden in the Weights: CrowdStrike scans LoRA merges for backdoors",
+          "category": "research",
+          "severity": "info",
+          "note": "A named vendor security team publishes a pre-deployment detection method for backdoored LoRA merges, with its own results and stated limits, on a supply chain path a model card cannot show."
+        },
+        {
+          "id": "reuters-meta-muse-cross-account-data",
+          "title": "Muse: employees report Meta's agent surfacing other people's data",
+          "category": "incident",
+          "severity": "medium",
+          "note": "Reuters reproduced, with Signal and the AI Now Institute, an agent with 10 million downloads reading another app's messages through setup permissions rather than its own connector model, and Apple shipped a macOS fix. Cited through CP24's full syndication because reuters.com is not fetchable from this environment."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (MCP, sort:published-desc)",
+        "modelcontextprotocol/python-sdk security advisories",
+        "datalayer/jupyter-mcp-server security advisories",
+        "anthropic.com/news",
+        "openai.com/index",
+        "embracethered.com",
+        "simonwillison.net",
+        "Hacker News front page, newest and Show HN",
+        "zenity.io/blog",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "air.security/blog",
+        "socket.dev/blog",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "crowdstrike.com/blog",
+        "research.checkpoint.com",
+        "hiddenlayer.com/research",
+        "lakera.ai/blog",
+        "snyk.io/blog",
+        "invariantlabs.ai/blog",
+        "elastic.co/security-labs",
+        "blog.gitguardian.com",
+        "tracebit.com/blog",
+        "jfrog.com/blog",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "huggingface.co/blog",
+        "github.com/trending?since=weekly",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv plus Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "arxiv.org/abs/2611.21956 and arxiv.org/abs/2611.21577",
+        "projectdiscovery.io/research",
+        "postgresql.org release announcement"
+      ],
+      "windowDays": 7
     }
   ]
 }
