@@ -19891,6 +19891,69 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261121t075215z",
+      "timestamp": "2026-11-21T07:52:15.189Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories (mcp and agent queries), the MONAI Label and NVD-sourced advisories, AWS Security Blog, Anthropic alignment blog, Microsoft MSRC, Hugging Face blog, Embrace The Red, AIR Security, Zenity, Tracebit, Simon Willison, Hacker News front page, github.com/trending, repo-scan (13 queries, 5 candidates), paper-scan (47 arXiv candidates, 1 with two scanned signals) and talk-scan (22 channels, 43 videos). Added Amazon's report on Cairn agents finding and exploiting a MONAI Label zero-day, and Signal's new blocking of operating system AI agents.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "amazon-cairn-monai-label-zero-day",
+          "title": "Cairn: AI agents found and exploited a MONAI Label zero-day on their own",
+          "category": "incident",
+          "severity": "critical",
+          "note": "Exploited in the wild in September 2026, confirmed by Amazon Threat Intelligence, with a CVSS 9.8 CVE and still no patched MONAI Label release."
+        },
+        {
+          "id": "signal-os-ai-agent-screen-capture",
+          "title": "Signal: the app now blocks OS AI agents from reading chats",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A named vendor shipping a concrete control against operating system AI agents reading app content, with the gaps and the macOS limitation stated in the post."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "AWS Security Blog",
+        "GitHub Security Advisories",
+        "Project-MONAI/MONAILabel security advisories",
+        "alignment.anthropic.com",
+        "Microsoft MSRC blog",
+        "huggingface.co/blog",
+        "embracethered.com",
+        "air.security/blog",
+        "zenity.io/blog",
+        "tracebit.com/blog",
+        "simonwillison.net",
+        "Hacker News front page",
+        "github.com/trending",
+        "repo-scan.json",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers",
+        "talk-scan (YouTube conference and security channels)",
+        "OWASP GenAI Security Project",
+        "signal.org/blog"
+      ],
+      "windowDays": 7
     }
   ]
 }

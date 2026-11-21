@@ -1,7 +1,192 @@
 {
-  "generatedAt": "2026-11-21T00:34:19.421Z",
+  "generatedAt": "2026-11-21T07:52:15.189Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "amazon-cairn-monai-label-zero-day",
+      "categories": [
+        "incident",
+        "vulnerability"
+      ],
+      "title": "Cairn: AI agents found and exploited a MONAI Label zero-day on their own",
+      "org": "Amazon Threat Intelligence",
+      "date": "2026-11-20",
+      "url": "https://aws.amazon.com/blogs/security/chinese-nexus-actors-cairn-ai-agents-found-a-zero-day-on-their-own/",
+      "summary": "Amazon Threat Intelligence says Cairn AI agents found a path traversal zero-day in MONAI Label and opened a root shell, after the operator asked only for shell access. The flaw is CVE-2026-133968 and has no fixed release.",
+      "severity": "critical",
+      "cve": "CVE-2026-133968",
+      "cvss": 9.8,
+      "tags": [
+        "rce",
+        "ai-enabled-offense",
+        "threat-intel",
+        "cairn",
+        "monai-label",
+        "amazon-web-services"
+      ],
+      "affected": [
+        "MONAI Label",
+        "monailabel (PyPI)",
+        "Cairn"
+      ],
+      "credits": [
+        {
+          "name": "Amazon Threat Intelligence",
+          "org": "Amazon Web Services"
+        },
+        {
+          "name": "CJ Moses",
+          "org": "Amazon Web Services"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-133968 is a path traversal flaw in MONAI Label that attacker-run AI agents found and exploited before any fix existed.",
+        "whatHappened": "Amazon Threat Intelligence published a report on November 20, 2026 about a suspected Chinese-nexus operator who pointed the open-source Cairn framework at universities in East Asia. Amazon found the activity on September 10, 2026 because the operator left the Cairn instance reachable with no authentication. The agents then found a previously unknown flaw in MONAI Label, an open-source medical imaging application.",
+        "howItWorks": "The PUT /datastore/image endpoint in MONAI Label takes the caller's image query parameter as the image ID and never validates it, so traversal sequences steer the upload outside the datastore directory. The maintainers say PUT /datastore/label has the same flaw. Amazon reports the agents wrote a Python reverse shell into sitecustomize.py, a file that loads on every Python start, then triggered an API endpoint so the new process ran it as root.",
+        "whoIsAffected": "MONAI Label 0.8.5 and earlier are affected, through the monailabel package on PyPI. Research groups and hospitals running the annotation server on a reachable network are exposed, and the default configuration has no authentication at all. Where authentication is enabled, an account with the ANNOTATOR role is still enough.",
+        "whatToDo": "Keep MONAI Label off untrusted networks until a fixed release ships, because the correction in pull request 1915 is merged but not yet released. The maintainers also suggest setting MONAI_LABEL_AUTH_ENABLE to True, withholding the ANNOTATOR role from untrusted users, and running the server as an unprivileged user whose write access stops at the datastore directory."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "MONAI Label 0.8.5 and earlier (monailabel on PyPI)"
+        },
+        {
+          "label": "Fixed in",
+          "value": "No release yet; the fix is merged in pull request 1915"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-133968, CVSS 9.8 base score"
+        },
+        {
+          "label": "Attack type",
+          "value": "Path traversal in PUT /datastore/image, leading to arbitrary file write and root code execution"
+        },
+        {
+          "label": "Exploited",
+          "value": "September 8 to 10, 2026, against universities in East Asia outside mainland China"
+        },
+        {
+          "label": "Found by",
+          "value": "The operator's Cairn agents; reported to the maintainers by Amazon"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 18, 2026 project advisory, November 20, 2026 Amazon report"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patched release of MONAI Label for CVE-2026-133968?",
+          "a": "No patched MONAI Label release exists yet. The project advisory published on November 18, 2026 lists no fixed version and says the correction lives in pull request 1915, which is slated for the next release. Until that release ships, the maintainers point to workarounds: enable authentication, keep the ANNOTATOR role away from untrusted users, and restrict where the server process can write."
+        },
+        {
+          "q": "Am I exposed if my MONAI Label server has authentication turned on?",
+          "a": "Authentication reduces the exposure but does not remove it. MONAI Label ships with authentication disabled, so a default install lets any client that reaches the port write files. With MONAI_LABEL_AUTH_ENABLE set to True, the advisory says an account holding the ANNOTATOR role can still reach the vulnerable upload endpoints, so the role assignment matters as much as the login."
+        },
+        {
+          "q": "How did the Cairn agents find the MONAI Label zero-day without a human?",
+          "a": "Amazon Threat Intelligence reports the operator gave the agents one instruction, to obtain shell access, and the agents planned the rest. About 11 minutes passed between the agents mapping the application's API and writing files anywhere on the server. Amazon assesses with high confidence that the flaw was unknown at the time, because no fix, issue or advisory existed."
+        },
+        {
+          "q": "How does this compare with earlier reports of AI agents running intrusions?",
+          "a": "Amazon's November 20 report differs in one way: the Cairn agents located a flaw that no vulnerability database listed, rather than chaining known exploits. Amazon also records what failed, including about 16 hours and 148 actions against a Redis instance, and more than 30,000 credential combinations tried against a university GPU server over six hours."
+        }
+      ],
+      "links": [
+        {
+          "label": "Amazon Report",
+          "url": "https://aws.amazon.com/blogs/security/chinese-nexus-actors-cairn-ai-agents-found-a-zero-day-on-their-own/"
+        },
+        {
+          "label": "MONAI Label Advisory",
+          "url": "https://github.com/Project-MONAI/MONAILabel/security/advisories/GHSA-qc22-rmgc-vg94"
+        },
+        {
+          "label": "CVE-2026-133968",
+          "url": "https://github.com/advisories/GHSA-2f43-rwqm-6h67"
+        }
+      ],
+      "publishDate": "2026-11-21T07:52:15.189Z"
+    },
+    {
+      "id": "signal-os-ai-agent-screen-capture",
+      "categories": [
+        "lab-safety"
+      ],
+      "title": "Signal: the app now blocks OS AI agents from reading chats",
+      "org": "Signal",
+      "date": "2026-11-20",
+      "url": "https://signal.org/blog/protecting-your-privacy/",
+      "summary": "Signal says it now switches screenshot blocking on when it detects an operating system AI agent reading the screen, covering iOS 27, Android and Windows 11. Signal states macOS 27 cannot be blocked and asks platform vendors for an opt-out.",
+      "severity": "info",
+      "tags": [
+        "data-exfiltration",
+        "agent-security",
+        "signal",
+        "ios",
+        "android",
+        "microsoft-recall"
+      ],
+      "affected": [
+        "Signal",
+        "Microsoft Recall",
+        "Apple Siri",
+        "Meta Muse"
+      ],
+      "credits": [
+        {
+          "name": "Meredith Whittaker",
+          "org": "Signal"
+        }
+      ],
+      "explainer": {
+        "tagline": "Signal now blocks operating system AI assistants from capturing chat content on iOS 27, Android and Windows 11, but not on macOS 27.",
+        "whatHappened": "Signal president Meredith Whittaker published a post on November 20, 2026 setting out how the app keeps operating system AI agents away from message content. Signal already blocked Microsoft Recall on Windows 11 by default, and the post extends the same approach to iOS 27 and Android. Whittaker also asks Apple, Google and Microsoft to give developers a documented way to opt an app out of AI data access.",
+        "howItWorks": "Screenshot blocking is the mechanism. On Android, Signal detects when an AI assistant tries to read the screen and switches its Screen security setting on automatically. On iOS 27, a new Block Siri AI setting stops screenshots inside the app. Signal says it cannot block screenshots reliably on macOS 27 because the documented APIs are missing, and points macOS users to the Excluded Apps list under System Settings and Siri.",
+        "whoIsAffected": "Signal users on iOS 27, Android and Windows 11 get the protection, and can turn it off in Signal's settings. Signal users on macOS 27 do not get it. Whittaker calls the control partial: screenshot blocking does not stop an agent that reads files already on the device, or a third-party agent such as Meta's Muse working through accessibility permissions.",
+        "whatToDo": "Leave Signal's Screen security and Block Siri AI settings on, because Signal warns that turning them off can expose both your messages and your contacts' messages to an on-device agent. On macOS 27, add Signal to the Excluded Apps list under System Settings and Siri, which Signal describes as the control that is available there."
+      },
+      "quickFacts": [
+        {
+          "label": "Protected",
+          "value": "iOS 27, Android, Windows 11"
+        },
+        {
+          "label": "Not protected",
+          "value": "macOS 27, where Signal says documented APIs are missing"
+        },
+        {
+          "label": "Mechanism",
+          "value": "Screenshot blocking, switched on when AI screen access is detected"
+        },
+        {
+          "label": "Asked of vendors",
+          "value": "A documented app-level opt-out from AI data access and processing"
+        },
+        {
+          "label": "Published",
+          "value": "November 20, 2026, by Signal president Meredith Whittaker"
+        }
+      ],
+      "image": {
+        "url": "https://signal.org/blog/images/protecting-your-privacy-opengraph.png",
+        "alt": "Signal is Serious About Protecting Your Privacy",
+        "credit": "Signal"
+      },
+      "links": [
+        {
+          "label": "Signal Blog Post",
+          "url": "https://signal.org/blog/protecting-your-privacy/"
+        },
+        {
+          "label": "Signal On Recall",
+          "url": "https://signal.org/blog/signal-doesnt-recall/"
+        }
+      ],
+      "publishDate": "2026-11-21T07:52:15.189Z"
+    },
     {
       "id": "obot-mcp-anonymous-authorization-bypass",
       "categories": [
