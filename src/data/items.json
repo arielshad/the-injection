@@ -1,7 +1,109 @@
 {
-  "generatedAt": "2026-11-21T21:30:36.754Z",
+  "generatedAt": "2026-11-22T01:33:59.954Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "european-commission-ai-cyber-campaign",
+      "categories": [
+        "incident"
+      ],
+      "title": "European Commission: an AI generated campaign took staff systems offline",
+      "org": "European Commission",
+      "date": "2026-11-19",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-298222",
+      "summary": "The European Commission confirmed on 19 November 2026 that an AI generated cyber campaign hit its internal systems. The Commission detected it on 22 October, took several applications offline, and has not named the AI tool involved.",
+      "severity": "medium",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "artex",
+        "european-commission"
+      ],
+      "affected": [
+        "European Commission",
+        "Sysper",
+        "MyPMO",
+        "ARTEX"
+      ],
+      "credits": [
+        {
+          "name": "CERT-EU"
+        },
+        {
+          "name": "European Commission"
+        }
+      ],
+      "explainer": {
+        "tagline": "The European Commission confirmed that an AI generated cyber campaign disrupted its internal staff systems for more than ten days.",
+        "whatHappened": "Commission spokesperson Thomas Regnier confirmed at the midday press briefing in Brussels on 19 November 2026 that the Commission had been hit by what he called an AI generated cyber campaign. The Commission says it detected the first signs on 22 October 2026 and confirmed the incident on 26 October. Politico reported the attack before the Commission spoke about it publicly.",
+        "howItWorks": "Misuse of a publicly available AI tool is how the Commission describes the campaign, and it has not named the tool. The Record reports that CERT-EU identified the attackers' use of ARTEX, an open-source framework that drives commercial language models through reconnaissance, exploitation and lateral movement. CERT-EU wrote on 5 November 2026 that it had observed AI driven activity against the EU institutions it protects, and that this highly likely involved ARTEX.",
+        "whoIsAffected": "Commission staff lost access to internal applications, most of which have since been restored. The Register names the HR platform Sysper and the medical reimbursement system MyPMO, along with translation services. The Commission says it has found no evidence of a data breach affecting Commission staff as a whole, and that the investigation is still open.",
+        "whatToDo": "CERT-EU's ARTEX guidance tells organizations to cut the internet exposure of IT assets, isolate management panels, patch exposed assets first and watch privileged account activity closely. It also advises enforcing multi-factor authentication on critical systems and hunting for ARTEX style scanning patterns."
+      },
+      "quickFacts": [
+        {
+          "label": "Detected",
+          "value": "22 October 2026"
+        },
+        {
+          "label": "Confirmed",
+          "value": "26 October 2026, after initial investigation"
+        },
+        {
+          "label": "Disclosed",
+          "value": "19 November 2026, at the Commission midday briefing"
+        },
+        {
+          "label": "Attack type",
+          "value": "AI generated cyber campaign; tool not named by the Commission"
+        },
+        {
+          "label": "Attribution",
+          "value": "None given; spokesperson not aware of any ransom request"
+        },
+        {
+          "label": "Status",
+          "value": "Investigation open; CERT-EU and the European Data Protection Supervisor involved"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did the European Commission say which AI tool the attackers used?",
+          "a": "No. Commission spokesperson Thomas Regnier called the incident an AI generated cyber campaign and a misuse of a publicly available AI tool, but declined to name it, attribute the attack or describe what the attackers wanted. The Record reports that CERT-EU identified the attackers' use of ARTEX, an open-source agentic penetration testing framework, though the Commission itself has not confirmed that link."
+        },
+        {
+          "q": "Was European Commission staff data stolen in the October 2026 campaign?",
+          "a": "Regnier said the investigation has found no evidence of a data breach affecting Commission staff as a whole, and that checks on other systems continue. The Commission informed affected services and the European Data Protection Supervisor. The Register reports that whether attackers reached payslip data is still unestablished, so the Commission's position is an interim finding rather than a closed conclusion."
+        },
+        {
+          "q": "Why did the European Commission wait until 19 November to confirm the attack?",
+          "a": "Regnier told reporters that containment measures are kept out of public view so they stay effective, and that the Commission followed its standard procedures, informing affected services and the European Data Protection Supervisor. He said there was no hiding whatsoever. Politico reported the incident before the Commission addressed it publicly, four weeks after detection on 22 October 2026."
+        }
+      ],
+      "links": [
+        {
+          "label": "EC Press Briefing",
+          "url": "https://audiovisual.ec.europa.eu/en/media/video/I-298222"
+        },
+        {
+          "label": "CERT-EU On ARTEX",
+          "url": "https://www.cert.europa.eu/blog/from-penetration-testing-to-cyber-threat-beware-of-artex"
+        },
+        {
+          "label": "The Record Report",
+          "url": "https://therecord.media/european-commission-confirms-cyberattack-using-ai"
+        },
+        {
+          "label": "Help Net Security",
+          "url": "https://www.helpnetsecurity.com/2026/11/20/european-commission-ai-generated-cyberattack-publicly-available-tool/"
+        },
+        {
+          "label": "The Register",
+          "url": "https://www.theregister.com/cyber-crime/2026/11/19/european-commission-scrambles-to-contain-ai-assisted-cyberattack/5311103"
+        }
+      ],
+      "publishDate": "2026-11-22T01:33:59.954Z"
+    },
     {
       "id": "runpod-mcp-hidden-nps-instruction",
       "categories": [
