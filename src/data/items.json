@@ -1,7 +1,222 @@
 {
-  "generatedAt": "2026-11-22T16:58:21.836Z",
+  "generatedAt": "2026-11-22T22:27:01.571Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "minimax-api-reseller-prompt-access",
+      "categories": [
+        "incident"
+      ],
+      "title": "MiniMax API: Atlas Cloud and Novita warn of upstream prompt access",
+      "org": "Atlas Cloud",
+      "date": "2026-11-22",
+      "url": "https://www.atlascloud.ai/blog/ai-updates/security-and-privacy-commitment",
+      "summary": "Atlas Cloud and Novita say customer prompts sent to MiniMax models reached MiniMax's official API, where a third party opened private links planted in test prompts. HD Moore at Dragos found the access.",
+      "severity": "high",
+      "tags": [
+        "data-exfiltration",
+        "credential-theft",
+        "minimax",
+        "openrouter"
+      ],
+      "affected": [
+        "MiniMax M3",
+        "MiniMax M2.7",
+        "MiniMax M3.1 Flash",
+        "Atlas Cloud",
+        "Novita",
+        "OpenRouter"
+      ],
+      "credits": [
+        {
+          "name": "HD Moore",
+          "org": "Dragos"
+        }
+      ],
+      "explainer": {
+        "tagline": "Prompts sent to MiniMax models through Atlas Cloud and Novita reached MiniMax's official API, where a third party opened planted links.",
+        "whatHappened": "Atlas Cloud and Novita published notices on 22 November 2026 about customer prompts sent to MiniMax models. HD Moore, chief research officer at Dragos, found that a third party opened private links placed in test prompts. Atlas Cloud says the access appears to have happened after requests reached MiniMax's official API, not on its own infrastructure.",
+        "howItWorks": "Both providers passed customer requests upstream to MiniMax's official API instead of serving them on hardware they run. Novita describes a routing configuration issue, where a forwarding path meant for specific customers was applied more broadly than intended. Detection came from the planted links and hostnames inside the test prompts being opened later. Novita says the access pattern suggests automated content review may have been involved, and that it is verifying this with MiniMax.",
+        "whoIsAffected": "Customers of Atlas Cloud who used MiniMax M3 or M2.7 in the third quarter and early fourth quarter of 2026 are affected, and Atlas Cloud extends its advice to users of M3.1 Flash. Novita's notice covers MiniMax requests made directly through Novita and requests routed to Novita through OpenRouter, over the window listed below. Neither provider has published a count of affected accounts.",
+        "whatToDo": "Treat any secret, credential or private link sent to MiniMax models through these providers in those windows as exposed, and revoke or rotate it. Atlas Cloud has stopped sending requests to MiniMax's official API and removed its models from OpenRouter until each passes testing, and Novita has suspended the affected models."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected models",
+          "value": "MiniMax M3, M2.7 and M3.1 Flash"
+        },
+        {
+          "label": "Atlas Cloud window",
+          "value": "Third quarter and early fourth quarter of 2026"
+        },
+        {
+          "label": "Novita window",
+          "value": "28 May 2026 to 11 November 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "HD Moore, Dragos"
+        },
+        {
+          "label": "Cause",
+          "value": "Requests forwarded upstream to MiniMax's official API"
+        },
+        {
+          "label": "Status",
+          "value": "Atlas Cloud stopped forwarding; Novita suspended the affected models"
+        },
+        {
+          "label": "Router action",
+          "value": "OpenRouter off-boarded three providers and cut 125 endpoints from zero data retention"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Were my prompts to MiniMax models on Atlas Cloud or Novita exposed?",
+          "a": "Atlas Cloud tells customers who used MiniMax M3, M2.7 or M3.1 Flash to treat secrets in those prompts as exposed, covering the third quarter and early fourth quarter of 2026. Novita's window runs from 28 May to 11 November 2026 and includes requests routed through OpenRouter. Neither provider has published the number of affected accounts."
+        },
+        {
+          "q": "What should I rotate after the MiniMax prompt access disclosures?",
+          "a": "Revoke any live credential, API key, token or private link that appeared in a prompt sent to MiniMax models through Atlas Cloud or Novita during the stated windows. Novita asks customers to rotate such secrets as a precaution, and Atlas Cloud advises checking prompts and outputs and revoking anything exposed. Novita directs account questions to privacy@novita.ai."
+        },
+        {
+          "q": "Did Atlas Cloud or Novita have their own systems breached?",
+          "a": "Neither provider reports a breach of its own infrastructure. Atlas Cloud says the access appears to have happened after requests reached MiniMax's official API, and that it did not store those prompts or outputs. Novita states that it does not retain customer prompts or generated outputs and does not use them for training, noting that this covers Novita and not MiniMax."
+        },
+        {
+          "q": "How does this relate to the Dragos canary token research?",
+          "a": "HD Moore's Dragos research, published 19 November 2026, seeded about two million prompts with unique links and canary credentials to track where they travelled. The two provider notices are MiniMax-specific results of that work. OpenRouter separately says it off-boarded three providers and removed 125 endpoints from zero data retention eligibility after the researchers reported their findings."
+        }
+      ],
+      "links": [
+        {
+          "label": "Atlas Cloud Notice",
+          "url": "https://www.atlascloud.ai/blog/ai-updates/security-and-privacy-commitment"
+        },
+        {
+          "label": "Novita Privacy Notice",
+          "url": "https://novita.ai/blog/minimax-requests-privacy-notice/"
+        },
+        {
+          "label": "OpenRouter Statement",
+          "url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/"
+        },
+        {
+          "label": "Dragos Research",
+          "url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens"
+        }
+      ],
+      "publishDate": "2026-11-22T22:27:01.571Z"
+    },
+    {
+      "id": "together-ai-coding-agent-prompt-leak",
+      "categories": [
+        "incident"
+      ],
+      "title": "Together AI: a coding agent committed the key to stored prompt samples",
+      "org": "Together AI",
+      "date": "2026-11-21",
+      "url": "https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026",
+      "summary": "Together AI says an unauthorized party downloaded stored prompt samples after an AI coding agent committed a credential to a public repository. Requests to three models in June and July 2026 are affected.",
+      "severity": "high",
+      "tags": [
+        "credential-theft",
+        "coding-agents",
+        "data-exfiltration",
+        "together-ai"
+      ],
+      "affected": [
+        "Together AI",
+        "MiniMax M3",
+        "GLM-5.2",
+        "Kimi K2.6"
+      ],
+      "credits": [
+        {
+          "name": "Vipul Ved Prakash",
+          "org": "Together AI"
+        },
+        {
+          "name": "HD Moore",
+          "org": "Dragos"
+        }
+      ],
+      "explainer": {
+        "tagline": "Together AI reports that stolen prompt samples came from a private repository whose credential an AI coding agent committed in public.",
+        "whatHappened": "Together AI published a security notice on 21 November 2026, signed by chief executive and co-founder Vipul Ved Prakash. An unauthorized party downloaded prompt samples that the company had stored for software testing, taken from requests to the MiniMax M3, GLM-5.2 and Kimi K2.6 models in June and July 2026. Together AI says it worked with an external forensic firm and law enforcement.",
+        "howItWorks": "An AI coding agent working on xorl, Together AI's public GitHub repository, committed a credential for the private Hugging Face repository that held the prompt samples. Automated scanning detected the exposed credential and the commit was reverted, but the unauthorized party had already used it to download the samples. The party then searched the prompts for credentials to other services and tested whether those credentials were valid.",
+        "whoIsAffected": "Customers who sent requests to MiniMax M3, GLM-5.2 or Kimi K2.6 on Together AI's serverless inference service in June and July 2026 are affected, with the sampled requests falling mainly on four days listed below. Together AI says it has found no evidence of prompt leakage beyond this incident, and that review of the affected prompt contents is still running.",
+        "whatToDo": "Rotate any credential, API key or secret that appeared in a prompt sent to those three models in June or July 2026, because the party that took the samples tested the credentials it found. Together AI advises customers handling sensitive prompt data to turn on zero data retention in account settings, and directs questions to security@together.ai."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Serverless requests to MiniMax M3, GLM-5.2 and Kimi K2.6"
+        },
+        {
+          "label": "Period",
+          "value": "June and July 2026, mainly 24 June, 4 July, 8 July and 14 July"
+        },
+        {
+          "label": "Root cause",
+          "value": "AI coding agent committed a credential to the public xorl repository"
+        },
+        {
+          "label": "Data taken",
+          "value": "Prompt samples stored in a private Hugging Face repository"
+        },
+        {
+          "label": "Found by",
+          "value": "Together AI automated scanning; five tested credentials were Dragos canaries"
+        },
+        {
+          "label": "Status",
+          "value": "Credential exposure reverted, forensic review and content review ongoing"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-21"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which Together AI models had prompts exposed in the June and July 2026 incident?",
+          "a": "Together AI names three models: MiniMax M3, GLM-5.2 and Kimi K2.6. The company stored prompt samples from serverless requests to these models for software testing, and says the sampled requests fell mainly on 24 June, 4 July, 8 July and 14 July 2026. Requests to other Together AI models are not named in the notice."
+        },
+        {
+          "q": "Should I rotate secrets that I sent in prompts to Together AI?",
+          "a": "Rotation is the prudent step for any credential that appeared in a prompt to MiniMax M3, GLM-5.2 or Kimi K2.6 in June or July 2026. Together AI reports that the unauthorized party searched the downloaded samples for credentials to other services and tested whether those credentials were valid, so secrets inside those prompts should be treated as seen."
+        },
+        {
+          "q": "How did an AI coding agent cause the Together AI prompt leak?",
+          "a": "Together AI says an AI coding agent committed a credential while developing xorl, the company's public GitHub repository. That credential opened the private Hugging Face repository holding the prompt samples. Automated scanning detected the exposure and the commit was reverted, but an unauthorized party had already downloaded the data. Together AI has since updated the processes governing its use of coding agents."
+        },
+        {
+          "q": "What has Together AI changed since the prompt leakage incident?",
+          "a": "Together AI lists four changes: scoped or short-lived credentials with keyless access where supported, credential checks on all pull requests, zero data retention as the default for new accounts, and updated development processes for AI coding agents. The company also says it engaged an external forensic firm and law enforcement, and that review of the affected prompt contents continues."
+        }
+      ],
+      "links": [
+        {
+          "label": "Together AI Notice",
+          "url": "https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026"
+        },
+        {
+          "label": "Dragos Research",
+          "url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens"
+        },
+        {
+          "label": "OpenRouter Statement",
+          "url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6b022ac06b3b148585570c47_OG-image_20261121-security-event-prompt-leakage2.png",
+        "alt": "Together AI security event notice title card",
+        "credit": "Together AI"
+      },
+      "publishDate": "2026-11-22T22:27:01.571Z"
+    },
     {
       "id": "threatdefence-agentic-attack-detections",
       "categories": [
@@ -1332,6 +1547,10 @@
         {
           "label": "Related Canary Study",
           "url": "https://dispatch.thorcollective.com/p/i-leaked-credentials-on-purpose-for"
+        },
+        {
+          "label": "OpenRouter Statement",
+          "url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/"
         }
       ],
       "publishDate": "2026-11-20T10:39:36.334Z"
