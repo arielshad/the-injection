@@ -20244,6 +20244,61 @@
         "simonwillison.net"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261122t165821z",
+      "timestamp": "2026-11-22T16:58:21.836Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, NVD, Anthropic, OpenAI, UK AISI, OWASP GenAI, AIR Security, Embrace The Red, Zenity, Tracebit, CrowdStrike, Simon Willison, Hacker News, Hugging Face, paper-scan (39 arXiv papers in the window), repo-scan (13 queries, 3 candidates), GitHub trending and talk-scan (45 videos); nothing met the bar. This week's wave of AI and MCP advisories reaching the global advisory database is a backlog: CodeWhale, Kubeshark, the MCP Python SDK, SurrealDB, ArcadeDB and three local MCP servers all had their maintainer advisories published between July and November 12, before the window, and only the CVE ids are new.",
+      "counts": {
+        "added": 0,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (github.com/advisories)",
+        "GitHub Advisory API (api.github.com/advisories)",
+        "NVD",
+        "codewhale-hq/Codewhale security advisories",
+        "kubeshark/kubeshark security advisories",
+        "modelcontextprotocol/python-sdk security advisories",
+        "surrealdb/surrealdb security advisories",
+        "ArcadeData/arcadedb security advisories",
+        "anthropic.com/news",
+        "openai.com/news/security",
+        "aisi.gov.uk/work",
+        "genai.owasp.org/resources",
+        "air.security/blog",
+        "embracethered.com/blog",
+        "zenity.io/blog",
+        "tracebit.com/blog",
+        "crowdstrike.com blog",
+        "simonwillison.net (November 2026)",
+        "Hacker News front page",
+        "huggingface.co/blog",
+        "arXiv cs.CR via paper-scan.ts",
+        "Hugging Face Daily Papers via paper-scan.ts",
+        "repo-scan.json (GitHub repo search)",
+        "gh-repo-meta.ts (tracebit-com/turingpot, codewhale-hq/Codewhale, elementalsouls/Claude-BugHunter)",
+        "github.com/trending (daily and weekly)",
+        "talk-scan.ts (YouTube conference and security channels)"
+      ],
+      "windowDays": 7
     }
   ]
 }
