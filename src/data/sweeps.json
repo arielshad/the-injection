@@ -20446,6 +20446,67 @@
         "gao.gov"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261123t113727z",
+      "timestamp": "2026-11-23T11:37:27.383Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, CISA KEV, Anthropic, OpenAI, Google GTIG, Wiz, Socket, AIR Security, Zenity Labs, Embrace The Red, Simon Willison, OWASP GenAI, UK AISI, Hugging Face, Hacker News, github.com/trending, repo-scan (3 candidates), paper-scan (49 papers, none with two scanned signals) and talk-scan (31 videos). One item qualified: CISA added LiteLLM CVE-2026-40217 to its exploited-vulnerabilities catalog on November 18. The large batch of MCP advisories that landed in NVD on November 18 to 20 are July to September disclosures backfilled into the databases, so they fall outside the window.",
+      "counts": {
+        "added": 1,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "cisa-kev-litellm-guardrail-sandbox-escape",
+          "title": "LiteLLM: CISA adds the guardrail sandbox escape to its exploited list",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "New event inside the window under Hard Rule 3: the CVE dates to April 2026, but CISA's confirmation of in-the-wild exploitation and the December 2 federal deadline both landed on November 18."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "CISA Known Exploited Vulnerabilities catalog",
+        "CISA alerts",
+        "GitHub Security Advisories",
+        "x41-dsec.de advisories",
+        "anthropic.com/news",
+        "openai.com/news and openai.com/index",
+        "cloud.google.com/blog/topics/threat-intelligence",
+        "wiz.io/blog",
+        "socket.dev/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "embracethered.com/blog",
+        "simonwillison.net",
+        "genai.owasp.org/news",
+        "aisi.gov.uk/work",
+        "huggingface.co/blog",
+        "tracebit.com/blog",
+        "pluto.security/blog",
+        "openrouter.ai/blog",
+        "news.ycombinator.com/front",
+        "github.com/trending",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv + Hugging Face Daily Papers)",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }

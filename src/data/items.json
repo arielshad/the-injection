@@ -1,7 +1,117 @@
 {
-  "generatedAt": "2026-11-23T02:57:58.264Z",
+  "generatedAt": "2026-11-23T11:37:27.383Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "cisa-kev-litellm-guardrail-sandbox-escape",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "LiteLLM: CISA adds the guardrail sandbox escape to its exploited list",
+      "org": "CISA",
+      "date": "2026-11-18",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/11/18/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+      "summary": "CISA added CVE-2026-40217, a sandbox escape in LiteLLM's custom-code guardrail endpoint, to its Known Exploited Vulnerabilities catalog on November 18, 2026. Federal civilian agencies have until December 2 to act.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "sandbox-escape",
+        "guardrails",
+        "litellm",
+        "cisa-kev"
+      ],
+      "affected": [
+        "LiteLLM",
+        "litellm (PyPI)"
+      ],
+      "cve": "CVE-2026-40217",
+      "cvss": 7.5,
+      "credits": [
+        {
+          "name": "Markus Vervier",
+          "org": "X41 D-Sec",
+          "url": "https://www.x41-dsec.de/lab/advisories/x41-2026-001-litellm"
+        }
+      ],
+      "explainer": {
+        "tagline": "CVE-2026-40217 lets a LiteLLM proxy admin break out of the guardrail test sandbox and run code on the gateway.",
+        "whatHappened": "CISA listed CVE-2026-40217 in its Known Exploited Vulnerabilities catalog on November 18, 2026, in an alert covering four flaws, and says catalog additions are based on evidence of active exploitation. Markus Vervier of X41 D-Sec published the flaw on April 8, 2026 after an embargo expired, and BerriAI shipped its own advisory in May. The KEV entry sets a federal remediation deadline of December 2, 2026.",
+        "howItWorks": "The LiteLLM proxy exposes POST /guardrails/test_custom_code, which runs Python that a caller supplies inside a sandbox the project built by hand. Vervier's advisory describes bypassing its regex source filter by assembling blocked names at runtime and rewriting CPython bytecode to reach the unrestricted builtins. The result is arbitrary code execution in the proxy process, which runs as root in the default Docker image. BerriAI's fix replaces the hand-written sandbox with RestrictedPython.",
+        "whoIsAffected": "LiteLLM deployments on pip litellm from version 1.81.8 up to but not including 1.83.10 sit inside the GitHub advisory's affected range. Reaching the endpoint needs a proxy-admin credential in a default configuration, so the exposed operators are those whose master key is widely shared or whose management interface is reachable from an untrusted network.",
+        "whatToDo": "Upgrade litellm to 1.83.11 or later, the release the advisory's Patches section names. Until that lands, block POST /guardrails/test_custom_code at your reverse proxy or API gateway. X41 also advises keeping the management interface off untrusted networks, limiting who holds the master key, and running the container as a non-root user."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "litellm (PyPI) 1.81.8 up to but not including 1.83.10"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.83.11 or later per the advisory's Patches section; its patched-version field says 1.83.10"
+        },
+        {
+          "label": "Added to KEV",
+          "value": "2026-11-18, alongside Synology DSM, Apache Axis and REDCap flaws"
+        },
+        {
+          "label": "Deadline",
+          "value": "2026-12-02 for Federal Civilian Executive Branch agencies, under BOD 26-04"
+        },
+        {
+          "label": "Attack type",
+          "value": "Sandbox escape through CPython bytecode rewriting at /guardrails/test_custom_code"
+        },
+        {
+          "label": "Prerequisite",
+          "value": "A proxy-admin credential in default configurations"
+        },
+        {
+          "label": "Found by",
+          "value": "Markus Vervier, X41 D-Sec, advisory X41-2026-001 published 2026-04-08"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my LiteLLM deployment affected by CVE-2026-40217?",
+          "a": "LiteLLM installations running pip litellm from version 1.81.8 up to but not including 1.83.10 fall inside the GitHub advisory's affected range. Deployments already on 1.83.11 or later sit outside it. Reaching the vulnerable endpoint requires a proxy-admin credential in a default configuration, so operators who share that key widely or expose the management interface carry the most risk."
+        },
+        {
+          "q": "Which LiteLLM version fixes the guardrail sandbox escape?",
+          "a": "BerriAI's advisory lists 1.83.10 in its patched-version field, while the same advisory's Patches section tells operators to upgrade to 1.83.11 or later, which makes 1.83.11 the safer target. The fix swaps the hand-written sandbox for RestrictedPython. Operators who cannot upgrade at once can block POST /guardrails/test_custom_code at a reverse proxy or API gateway."
+        },
+        {
+          "q": "Is CVE-2026-40217 actually being used in attacks?",
+          "a": "CISA states that additions to the Known Exploited Vulnerabilities catalog rest on evidence of active exploitation, and added CVE-2026-40217 on November 18, 2026. Google Threat Intelligence Group's November 16 report names the same CVE in LLMjacking intrusions, describing a sandbox escape used to turn a LiteLLM Virtual Key into an admin credential. CISA records ransomware use as unknown."
+        },
+        {
+          "q": "What does the KEV listing require federal agencies to do?",
+          "a": "CISA set a remediation deadline of December 2, 2026 for CVE-2026-40217 under Binding Operational Directive 26-04. Agencies must apply the vendor's mitigations, or discontinue use of LiteLLM if no mitigation is available. CISA notes that BOD 26-04 binds only Federal Civilian Executive Branch agencies, and the catalog entry marks forensic triage as not required."
+        },
+        {
+          "q": "How does this differ from the October LiteLLM package compromise?",
+          "a": "Two separate LiteLLM problems reached defenders this autumn. CVE-2026-40217 is a flaw in LiteLLM's own guardrail test endpoint, reported by X41 D-Sec in April 2026 and now listed as exploited. The October 2026 event was a supply chain compromise in which malicious 1.107.0 wheels and container images carried a credential stealer. Patching one does not address the other."
+        }
+      ],
+      "links": [
+        {
+          "label": "CISA KEV Alert",
+          "url": "https://www.cisa.gov/news-events/alerts/2026/11/18/cisa-adds-four-known-exploited-vulnerabilities-catalog"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-wxxx-gvqv-xp7p"
+        },
+        {
+          "label": "X41 Advisory",
+          "url": "https://www.x41-dsec.de/lab/advisories/x41-2026-001-litellm"
+        },
+        {
+          "label": "KEV Catalog",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+        }
+      ],
+      "publishDate": "2026-11-23T11:37:27.383Z"
+    },
     {
       "id": "mcp-server-kubernetes-argument-injection",
       "categories": [
