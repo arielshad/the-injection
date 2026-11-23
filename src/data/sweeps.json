@@ -20507,6 +20507,90 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261123t230910z",
+      "timestamp": "2026-11-23T23:09:10.554Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab posts (OpenAI, Anthropic, Google GTIG, Wiz, AIR Security, Zenity Labs, Check Point, Tracebit, Socket, Embrace The Red, Simon Willison), UK AISI, CISA KEV, GitHub Security Advisories, repo-scan (13 queries, 3 candidates), paper-scan (42 arXiv candidates, none with two scanned signals), talk-scan (39 videos), github.com/trending and Hacker News. Four items qualified: AIR Security's WebSec benchmark of agent search APIs, Wiz Research's agentic attacks field report, the OpenAI and Cisco Shirudo release, and AISI's finding that monitor miss rates swing by two orders of magnitude with the attack policy. The MCP advisories that reached the advisory database on November 16 to 20 are July to October repo disclosures backfilled from NVD, so they stay outside the window.",
+      "counts": {
+        "added": 4,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "air-websec-search-benchmark",
+          "title": "WebSec: AIR scores eight search APIs that feed AI agents",
+          "category": "benchmark",
+          "severity": "info",
+          "note": "First published benchmark of the search APIs agents call, with scores AIR prints and a concrete exposure rate range."
+        },
+        {
+          "id": "wiz-agentic-attacks-in-the-wild",
+          "title": "Wiz: an operator's open directory shows four days of agent intrusion",
+          "category": "incident",
+          "severity": "info",
+          "note": "New Wiz telemetry and a case built from an operator's own exposed directory, not a retelling of the earlier Black October or STORM-0940 posts already in the feed."
+        },
+        {
+          "id": "openai-cisco-shirudo",
+          "title": "Shirudo: OpenAI and Cisco open source agent-built kernel shields",
+          "category": "tool",
+          "severity": "info",
+          "note": "New open-source defensive tool from a lab and a vendor on the Sources list, 185 stars, real code and a BSD license, announced today with a second write-up from the Cisco side."
+        },
+        {
+          "id": "aisi-attack-policy-monitor-evaluations",
+          "title": "AISI: how you generate attacks decides if a monitor looks safe",
+          "category": "research",
+          "severity": "info",
+          "note": "Changes how a defender should read any monitor miss rate, with the swing measured on a named agent and monitor."
+        }
+      ],
+      "updated": [
+        {
+          "id": "amazon-cairn-monai-label-zero-day",
+          "title": "Cairn: AI agents found and exploited a MONAI Label zero-day on their own",
+          "note": "CISA added CVE-2026-133968 to its Known Exploited Vulnerabilities catalog on 23 November 2026, with a 26 November action due date and forensic triage required under BOD 26-04. Federal agencies must apply the vendor's mitigations or stop using MONAI Label."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "OpenAI news (security)",
+        "Anthropic news",
+        "Google Cloud threat intelligence (GTIG)",
+        "Wiz Research blog",
+        "AIR Security blog",
+        "Zenity Labs",
+        "Check Point Research",
+        "Tracebit blog",
+        "Socket blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "UK AI Security Institute",
+        "CISA cybersecurity advisories and KEV catalog",
+        "GitHub Security Advisories",
+        "Hugging Face blog",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "github.com/trending",
+        "Hacker News front page"
+      ],
+      "windowDays": 7
     }
   ]
 }

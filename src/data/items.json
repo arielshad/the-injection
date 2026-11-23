@@ -1,7 +1,398 @@
 {
-  "generatedAt": "2026-11-23T11:37:27.383Z",
+  "generatedAt": "2026-11-23T23:09:10.554Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "air-websec-search-benchmark",
+      "categories": [
+        "benchmark",
+        "research"
+      ],
+      "title": "WebSec: AIR scores eight search APIs that feed AI agents",
+      "org": "AIR Security",
+      "date": "2026-11-23",
+      "url": "https://www.air.security/blog-posts/websec",
+      "summary": "AIR Security tested eight web search APIs built for AI agents and reports that every one returned malicious or risky content to ordinary coding queries, 1,026 times across more than 282,000 results.",
+      "severity": "info",
+      "tags": [
+        "indirect-prompt-injection",
+        "evals",
+        "coding-agents",
+        "firecrawl",
+        "tavily",
+        "brave"
+      ],
+      "affected": [
+        "Firecrawl",
+        "Tavily",
+        "Perplexity",
+        "Brave",
+        "You.com"
+      ],
+      "credits": [
+        {
+          "name": "Shahar Levy",
+          "org": "AIR Security"
+        },
+        {
+          "name": "Shay Lempert",
+          "org": "AIR Security"
+        },
+        {
+          "name": "Niv Hoffman",
+          "org": "AIR Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "WebSec is AIR Security's benchmark for how much malicious or risky content web search APIs serve to AI agents.",
+        "whatHappened": "AIR Security published WebSec on 23 November 2026, a benchmark by Shahar Levy, Shay Lempert and Niv Hoffman that AIR says is the first to measure how safe agent search APIs are. The team sent 4,719 real coding-agent queries to eight search APIs and scanned more than 282,000 results. Agents were served malicious or risky content 1,026 times.",
+        "howItWorks": "Each result page is fetched twice, once as an AI agent and once as a browser, so content shown only to agents is caught, and the pages then pass through risk detectors. Two scores come out of that: a Risk Index, the average severity served per query, and a WebSec Index, where a higher number is safer. AIR points to two attack patterns from its earlier work: Web Hole, where an abandoned domain that still ranks in search is re-registered and filled with instructions, and SolanaCry, a fake Solana starter kit that ranked first in search and installed a remote access trojan.",
+        "whoIsAffected": "Any agent that reads search results from one of these APIs is in scope. AIR reports that no query in the set mentioned anything malicious, and that no API returned clean results. Scores and the ranking gap are listed below, and AIR notes that Brave powers Claude's web search.",
+        "whatToDo": "Treat search results reaching an agent as untrusted input, and check which search API your agent stack uses against the rankings on AIR's benchmark site. AIR reports that 534 searches surfaced known-malicious content, at exposure rates from 0.8% to 2.2%, so changing provider alone does not remove the need to check what an agent reads before it acts."
+      },
+      "quickFacts": [
+        {
+          "label": "Tested",
+          "value": "Eight web search APIs built for AI agents"
+        },
+        {
+          "label": "Scale",
+          "value": "4,719 real coding-agent queries, more than 282,000 results scanned"
+        },
+        {
+          "label": "Findings",
+          "value": "1,026 instances of malicious or risky content served to agents"
+        },
+        {
+          "label": "Highest score",
+          "value": "Firecrawl, WebSec Index 21.59, then Tavily at 18.59"
+        },
+        {
+          "label": "Lowest score",
+          "value": "You.com, WebSec Index 5.02, a gap AIR calls more than fourfold"
+        },
+        {
+          "label": "Found by",
+          "value": "Shahar Levy, Shay Lempert and Niv Hoffman, AIR Security"
+        },
+        {
+          "label": "Published",
+          "value": "November 23, 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which search API scored best on the WebSec benchmark?",
+          "a": "Firecrawl scored highest on AIR Security's WebSec Index at 21.59, followed by Tavily at 18.59, with Perplexity also named among the top performers. You.com ranked last at 5.02. AIR describes the distance between the safest and riskiest provider as more than fourfold. A higher WebSec Index means safer, because it is derived from the average severity served per query."
+        },
+        {
+          "q": "Does a good WebSec score mean an agent search API is safe?",
+          "a": "No. AIR Security reports that none of the eight search APIs returned clean results, even though no benchmark query mentioned anything malicious. Malicious documentation, hijackable domains and dangerous commands appeared across all of them. The WebSec Index ranks relative exposure, so a top score means less risky content than rivals, not an absence of risky content."
+        },
+        {
+          "q": "How did AIR Security test the search providers?",
+          "a": "AIR Security generated 4,719 queries from 850 real coding-agent sessions, filtered them with two judge models, and sent them to eight search APIs. Each returned page was fetched twice, once as an AI agent and once as a browser, to catch content shown only to agents. Results then passed through risk detectors, covering more than 282,000 results in total."
+        }
+      ],
+      "links": [
+        {
+          "label": "AIR Research",
+          "url": "https://www.air.security/blog-posts/websec"
+        },
+        {
+          "label": "WebSec Benchmark",
+          "url": "https://websec.air.security/"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a282d66e4248a84e0259ed9/6b04a2e3e4052d4b67539d63_2026-11-23_1354_ready-pack-go-your-packs_B-v3%20(1).png",
+        "alt": "WebSec benchmark announcement header image",
+        "credit": "AIR Security"
+      },
+      "publishDate": "2026-11-23T23:09:10.554Z"
+    },
+    {
+      "id": "wiz-agentic-attacks-in-the-wild",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "Wiz: an operator's open directory shows four days of agent intrusion",
+      "org": "Wiz",
+      "date": "2026-11-23",
+      "url": "https://www.wiz.io/blog/agentic-attacks-artex-offensive-ai-frameworks",
+      "summary": "Wiz Research says disclosed agentic attack incidents have more than tripled since late October and that an exposed operator directory records four days of agent-driven intrusion across two AWS accounts and seven EKS clusters.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "credential-theft",
+        "artex",
+        "cairn",
+        "aws"
+      ],
+      "affected": [
+        "ARTEX",
+        "Cairn",
+        "CyberStrikeAI",
+        "HexStrike",
+        "Amazon Web Services",
+        "Amazon EKS"
+      ],
+      "credits": [
+        {
+          "name": "Rami McCarthy",
+          "org": "Wiz"
+        },
+        {
+          "name": "Hila Ramati",
+          "org": "Wiz"
+        }
+      ],
+      "explainer": {
+        "tagline": "Wiz Research reports that agentic intrusions have moved from rare to routine, with one operator leaving its own run logs exposed.",
+        "whatHappened": "Wiz Research published Agentic Attacks: In The Wild on 23 November 2026, written by Rami McCarthy and Hila Ramati. Wiz says twenty related incidents have been disclosed by vendors since its Black October post, that disclosed incidents have more than tripled, and that requests to its incident response team rose threefold. Wiz draws on its own sensor and detection telemetry, its incident response engagements, and files left in attackers' exposed directories.",
+        "howItWorks": "Operators run open-source offensive frameworks that chain an LLM to security tools and loop without a human deciding each step. Wiz names a cluster it calls ARTEX-Harvester, active from late October to mid-November 2026, tied at varying confidence to more than a dozen organizations and using more than 220 IP addresses against a single target. Wiz cautions that ARTEX activity comes from multiple unrelated operators and should not be read as one campaign or attributed to a single actor.",
+        "whoIsAffected": "Cloud estates reachable through stolen credentials and CI trust relationships are the exposed group, and the open-directory case listed below is an AWS environment. Wiz says ARTEX alone has hundreds of forks, and cites a Censys count of more than 1,400 exposed ARTEX consoles in early November.",
+        "whatToDo": "Hunt on behavior rather than indicators: Wiz says IP blocking and indicator sharing do little against rotating residential proxies, and that rules naming a specific framework go stale quickly. Look for speed, breadth and repetitive structure, such as mass secret retrieval in a short window, and treat agent-driven credential harvesting as the entry point its cases describe."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "November 23, 2026, by Wiz Research"
+        },
+        {
+          "label": "Incident growth",
+          "value": "Twenty vendor-disclosed incidents since Wiz's Black October post, more than triple the earlier count"
+        },
+        {
+          "label": "Response demand",
+          "value": "Wiz CIRT engagement requests up threefold"
+        },
+        {
+          "label": "ARTEX-Harvester",
+          "value": "Late October to mid-November 2026, more than a dozen organizations, more than 220 IPs against one target"
+        },
+        {
+          "label": "Open directory case",
+          "value": "Four days in October, 2 AWS accounts, 7 EKS clusters, over 3,000 exposed files"
+        },
+        {
+          "label": "Credential impact",
+          "value": "3,392 users exposed through forged admin tokens, 50 SSH private keys decrypted, Anthropic API keys harvested from 50 hosts"
+        },
+        {
+          "label": "Exposed consoles",
+          "value": "More than 1,400 ARTEX consoles in early November, counted by Censys"
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is new in Wiz's November 2026 agentic attacks report?",
+          "a": "Wiz Research adds three things to its earlier Black October work: an updated count of twenty vendor-disclosed agentic incidents, a newly named activity cluster called ARTEX-Harvester, and a case reconstructed from an operator's own exposed directory listings. Wiz also publishes detection rule names and an indicator table, and reports a threefold rise in incident response engagement requests."
+        },
+        {
+          "q": "Does the report attribute ARTEX activity to one threat actor?",
+          "a": "No. Wiz states explicitly that ARTEX activity comes from multiple unrelated operators and should not be read as a single campaign or attributed to one threat actor. The framework is open source with hundreds of forks, so separate groups run their own copies. Wiz tracks ARTEX-Harvester as one cluster within that broader activity, at varying levels of confidence."
+        },
+        {
+          "q": "Why does Wiz say indicator blocking does not work against agentic attacks?",
+          "a": "Wiz reports that operators rotate through residential proxies, which makes IP blocking and indicator sharing do very little, and that rules written against a named framework are perishable as forks change. Wiz recommends behavioral detection instead, pointing to patterns such as unusual mass secret retrieval and API calls matching known offensive tooling across a short window."
+        }
+      ],
+      "links": [
+        {
+          "label": "Wiz Research",
+          "url": "https://www.wiz.io/blog/agentic-attacks-artex-offensive-ai-frameworks"
+        },
+        {
+          "label": "Black October",
+          "url": "https://www.wiz.io/blog/black-october-for-ai-developer-platforms"
+        },
+        {
+          "label": "GTIG Threat Tracker",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/agentic-threat-activity-crosses-a-significant-threshold"
+        }
+      ],
+      "image": {
+        "url": "https://www.datocms-assets.com/75231/1795090007-agentic-attack-cover.png?fm=webp",
+        "alt": "Agentic Attacks in the Wild cover image",
+        "credit": "Wiz"
+      },
+      "publishDate": "2026-11-23T23:09:10.554Z"
+    },
+    {
+      "id": "openai-cisco-shirudo",
+      "categories": [
+        "tool"
+      ],
+      "title": "Shirudo: OpenAI and Cisco open source agent-built kernel shields",
+      "org": "OpenAI",
+      "date": "2026-11-23",
+      "url": "https://openai.com/index/introducing-shirudo/",
+      "summary": "OpenAI and Cisco released Shirudo, an open-source eBPF platform that loads signed, temporary mitigations into a running Linux system while a patch is prepared, with AI agents writing and testing the mitigations.",
+      "severity": "info",
+      "tags": [
+        "cyber-capability",
+        "openai",
+        "cisco",
+        "linux",
+        "ebpf"
+      ],
+      "affected": [
+        "Linux",
+        "Kubernetes",
+        "Java applications"
+      ],
+      "credits": [
+        {
+          "name": "Thomas Graf",
+          "org": "Isovalent"
+        },
+        {
+          "name": "Liz Rice",
+          "org": "Isovalent"
+        },
+        {
+          "name": "OpenAI"
+        }
+      ],
+      "explainer": {
+        "tagline": "Shirudo is an open-source eBPF platform from OpenAI and Cisco that blocks the code path a flaw needs while the real patch is still rolling out.",
+        "whatHappened": "OpenAI and Cisco released Shirudo on 23 November 2026 under a BSD 2-Clause license. Thomas Graf and Liz Rice describe it on Isovalent's blog as a rewrite of Tetragon, the eBPF security project Isovalent open sourced in 2022. OpenAI says the two teams built it because critical fixes take weeks or months to reach most systems while attackers, increasingly helped by AI, move faster than that.",
+        "howItWorks": "An operator builds a shield, a small eBPF or application bytecode program that blocks the behavior a flaw needs while legitimate requests still pass. Shields ship as signed packages through an OCI registry, and each target verifies the signature before loading. The kernel checks BPF loads against a sealed keyring, boot-time enforcement from the initrd is meant to stop root changing Shirudo's state without the operator's signing key, and a TPM records the loaded set so an attestation can be verified offline. OpenAI says agents investigate a flaw, build a shield and validate it, while security teams decide what is deployed.",
+        "whoIsAffected": "Linux operators are the intended users, and the README lists containers, Kubernetes, LLM agents and edge devices as targets. Production use needs a kernel with the signed-loader ABI plus Shirudo's kernel patches, and a TPM 2.0, with the requirements and project status listed below.",
+        "whatToDo": "Read the security and threat model pages in Shirudo's docs before trusting a shield in production, and keep the approval step that OpenAI describes, where a human signs off before a shield is deployed. Treat a shield as cover until the vendor patch lands, not as a replacement for it."
+      },
+      "quickFacts": [
+        {
+          "label": "What it is",
+          "value": "Open-source eBPF platform for signed, temporary mitigations on running Linux systems"
+        },
+        {
+          "label": "Built by",
+          "value": "OpenAI and Cisco, as a rewrite of Isovalent's Tetragon"
+        },
+        {
+          "label": "License",
+          "value": "BSD 2-Clause, with BPF programs dual-licensed BSD and GPL"
+        },
+        {
+          "label": "Requirements",
+          "value": "Linux kernel with the signed-loader ABI and Shirudo's patches, plus a TPM 2.0"
+        },
+        {
+          "label": "Status",
+          "value": "Pre-release, per the project README"
+        },
+        {
+          "label": "Demonstrated on",
+          "value": "A Codex-generated shield blocking a Java4Shell exploit against Elasticsearch 9.5.5"
+        },
+        {
+          "label": "Released",
+          "value": "November 23, 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "OpenAI Announcement",
+          "url": "https://openai.com/index/introducing-shirudo/"
+        },
+        {
+          "label": "Isovalent Write-Up",
+          "url": "https://isovalent.com/blog/post/cisco-openai-shirudo/"
+        },
+        {
+          "label": "Shirudo Repo",
+          "url": "https://github.com/shirudo-dev/shirudo"
+        },
+        {
+          "label": "Shirudo Docs",
+          "url": "https://docs.shirudo.dev/index.html"
+        }
+      ],
+      "publishDate": "2026-11-23T23:09:10.554Z"
+    },
+    {
+      "id": "aisi-attack-policy-monitor-evaluations",
+      "categories": [
+        "research",
+        "lab-safety"
+      ],
+      "title": "AISI: how you generate attacks decides if a monitor looks safe",
+      "org": "AI Security Institute",
+      "date": "2026-11-23",
+      "url": "https://www.aisi.gov.uk/blog/attack-policy-selection-can-make-monitor-evaluations-misleading",
+      "summary": "The UK AI Security Institute's Red Team reports that one LLM monitor missed 0.2% of successful attacks when they came from basic prompting and 23% when they came from edited transcripts, a swing of two orders of magnitude.",
+      "severity": "info",
+      "tags": [
+        "evals",
+        "detection",
+        "red-team",
+        "uk-aisi",
+        "openai"
+      ],
+      "affected": [
+        "AI agent monitors",
+        "Qwen 3.8 27B",
+        "GPT-5.4"
+      ],
+      "credits": [
+        {
+          "name": "AISI Red Team",
+          "org": "AI Security Institute"
+        }
+      ],
+      "explainer": {
+        "tagline": "AISI's Red Team shows that a monitor's measured miss rate depends on how the test attacks were generated, not only on the monitor.",
+        "whatHappened": "The UK AI Security Institute published the study on 23 November 2026, with a full paper alongside it. AISI's Red Team paired Qwen 3.8 27B as the monitored agent with a retired OpenAI monitor that runs GPT-5.4 and reads the whole transcript, including reasoning. The team then generated harmful attack transcripts four different ways and compared how often the monitor missed them.",
+        "howItWorks": "An attack policy is an attack generation method plus how hard it was optimized. AISI used basic prompting, optimised prompting refined over rounds of feedback, reinforcement learning, and transcript editing, where a separate model rewrites a finished transcript. Main tasks came from two software engineering settings, control-arena IaC and LinuxArena, and side tasks included removing an organisation's multi-factor authentication requirement and deleting every copy of a model's weights. Attacks were tuned against a different monitor than the one under test, which AISI calls a conservative choice.",
+        "whoIsAffected": "Teams that rely on an LLM monitor to flag harmful agent actions are affected, because any published miss rate carries its attack policy's assumptions with it. Optimization level matters inside a single method too: one reinforcement learning run moved the miss rate from 0.5% to 20.8%, and transcript editing moved it from 0.3% to 18.7% after 50 rewrites per transcript. AISI cautions that this is one monitor, one agent and one test.",
+        "whatToDo": "Ask which attack policies produced any monitor miss rate you are shown, and require several generation methods at several optimization levels before reading a low number as assurance. AISI says monitor evaluations on synthetic transcripts cannot provide that assurance on their own, and that it layers other safeguards: limiting the capability or scale of a deployment, keeping humans in the loop, and sandboxing."
+      },
+      "quickFacts": [
+        {
+          "label": "Monitored agent",
+          "value": "Qwen 3.8 27B"
+        },
+        {
+          "label": "Monitor under test",
+          "value": "A retired OpenAI monitor running GPT-5.4 over full transcripts, including reasoning"
+        },
+        {
+          "label": "Attack methods",
+          "value": "Basic prompting, optimised prompting, reinforcement learning, transcript editing"
+        },
+        {
+          "label": "Miss rate range",
+          "value": "0.2% with basic prompting to 23% with transcript editing, at the highest optimization level"
+        },
+        {
+          "label": "Task settings",
+          "value": "control-arena IaC and LinuxArena"
+        },
+        {
+          "label": "Found by",
+          "value": "AISI Red Team"
+        },
+        {
+          "label": "Published",
+          "value": "November 23, 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "AISI Blog Post",
+          "url": "https://www.aisi.gov.uk/blog/attack-policy-selection-can-make-monitor-evaluations-misleading"
+        },
+        {
+          "label": "Full Paper",
+          "url": "https://cdn.prod.website-files.com/663bd486c5e4c81588db7a1d/6b0467dd6cee6fe4658fd661_attack_policy_selection_paper.pdf"
+        }
+      ],
+      "publishDate": "2026-11-23T23:09:10.554Z"
+    },
     {
       "id": "cisa-kev-litellm-guardrail-sandbox-escape",
       "categories": [
@@ -1297,6 +1688,10 @@
           "value": "CVE-2026-133968, CVSS 9.8 base score"
         },
         {
+          "label": "Status",
+          "value": "Added to CISA's Known Exploited Vulnerabilities catalog on November 23, 2026, with a November 26 action due date"
+        },
+        {
           "label": "Attack type",
           "value": "Path traversal in PUT /datastore/image, leading to arbitrary file write and root code execution"
         },
@@ -1343,6 +1738,10 @@
         {
           "label": "CVE-2026-133968",
           "url": "https://github.com/advisories/GHSA-2f43-rwqm-6h67"
+        },
+        {
+          "label": "CISA KEV Alert",
+          "url": "https://www.cisa.gov/news-events/alerts/2026/11/23/cisa-adds-two-known-exploited-vulnerabilities-catalog"
         }
       ],
       "publishDate": "2026-11-21T07:52:15.189Z"
