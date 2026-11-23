@@ -1,7 +1,273 @@
 {
-  "generatedAt": "2026-11-22T22:27:01.571Z",
+  "generatedAt": "2026-11-23T02:57:58.264Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "mcp-server-kubernetes-argument-injection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "mcp-server-kubernetes: a dash in a tool argument becomes a kubectl flag",
+      "org": "VulnCheck",
+      "date": "2026-11-22",
+      "url": "https://www.vulncheck.com/advisories/mcp-server-kubernetes-before-4.2.0-argument-injection-via-flag-shaped-positional-operands",
+      "summary": "CVE-2026-134817 lets a remote MCP client send dash-prefixed values as positional operands to mcp-server-kubernetes, so kubectl reads them as flags. VulnCheck says --filename then reads files on the server's host. Fixed in 4.2.0.",
+      "severity": "medium",
+      "cve": "CVE-2026-134817",
+      "cvss": 7.1,
+      "tags": [
+        "mcp",
+        "agent-security",
+        "kubernetes"
+      ],
+      "affected": [
+        "mcp-server-kubernetes",
+        "mcp-server-kubernetes (npm)"
+      ],
+      "credits": [
+        {
+          "name": "Zachariah Mithani",
+          "org": "AploSec"
+        }
+      ],
+      "explainer": {
+        "tagline": "A flag-shaped argument slips through mcp-server-kubernetes into kubectl and reads files the tool should not expose.",
+        "whatHappened": "VulnCheck published the advisory for CVE-2026-134817 on 22 November 2026 and credits Zachariah Mithani of AploSec. The flaw sits in mcp-server-kubernetes, a community MCP server that hands coding agents kubectl and Helm operations against a cluster. The fix shipped in release 4.2.0, under the heading Hardening of kubectl argument handling.",
+        "howItWorks": "The server passes tool arguments to kubectl as positional operands without checking whether a value begins with a dash, and kubectl then reads such a value as a flag. VulnCheck names exec_in_pod, kubectl_patch and kubectl_logs as examples. A client that passes --filename makes kubectl read a file from the host running the server, which gets past the server's own file-read restrictions.",
+        "whoIsAffected": "Every version of mcp-server-kubernetes before 4.2.0 is affected. VulnCheck describes the path for clients connected over SSE or Streamable HTTP. The project gates its Streamable HTTP transport behind the environment variable ENABLE_UNSAFE_STREAMABLE_HTTP_TRANSPORT, and its documented setups for Claude Code, Claude Desktop, VS Code and Cursor use stdio instead.",
+        "whatToDo": "Update mcp-server-kubernetes to 4.2.0 or later. Update first if you enabled the Streamable HTTP transport, since that is the configuration VulnCheck describes as reachable by a remote client."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "mcp-server-kubernetes before 4.2.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "4.2.0"
+        },
+        {
+          "label": "Found by",
+          "value": "Zachariah Mithani, AploSec"
+        },
+        {
+          "label": "Attack type",
+          "value": "Argument injection into kubectl"
+        },
+        {
+          "label": "Exposed transports",
+          "value": "SSE and Streamable HTTP, per VulnCheck"
+        },
+        {
+          "label": "Disclosed",
+          "value": "22 November 2026"
+        }
+      ],
+      "links": [
+        {
+          "label": "VulnCheck Advisory",
+          "url": "https://www.vulncheck.com/advisories/mcp-server-kubernetes-before-4.2.0-argument-injection-via-flag-shaped-positional-operands"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-8v48-c263-r637"
+        },
+        {
+          "label": "Release 4.2.0",
+          "url": "https://github.com/Flux159/mcp-server-kubernetes/releases/tag/v4.2.0"
+        }
+      ],
+      "publishDate": "2026-11-23T02:57:58.264Z"
+    },
+    {
+      "id": "nebusec-meta-muse-sandbox-chain",
+      "categories": [
+        "vulnerability",
+        "attack"
+      ],
+      "title": "Meta Muse: a web page chained to VM root and the agent's memories",
+      "org": "NebuSec",
+      "date": "2026-11-20",
+      "url": "https://nebusec.ai/research/inside-meta-muse/",
+      "summary": "NebuSec reports a chain in Meta Muse that starts in the bundled Chromium, carries conversation history and stored memories past the Sentinel egress gate, then reaches root in the user's virtual machine. NebuSec says Meta patched it.",
+      "severity": "medium",
+      "tags": [
+        "sandbox-escape",
+        "data-exfiltration",
+        "browser-agents",
+        "agent-memory",
+        "meta-muse",
+        "chromium"
+      ],
+      "affected": [
+        "Meta Muse",
+        "Chromium"
+      ],
+      "credits": [
+        {
+          "name": "NebuSec",
+          "url": "https://nebusec.ai/research/"
+        }
+      ],
+      "explainer": {
+        "tagline": "NebuSec describes a browser bug in Meta Muse that ends in root on the user's own virtual machine.",
+        "whatHappened": "NebuSec published its Meta Muse analysis on 20 November 2026, as part of a series on the assistant. The research team reported the findings to Meta, and the post says the Muse team was aware of every finding described and had patched all the exploits before publication. NebuSec names no individual researchers, crediting its research team.",
+        "howItWorks": "The chain begins in Muse's bundled Chromium, where the PDF export process ran with its IPC sandbox disabled. A request to save an attacker-controlled page could then run shell commands inside the runtime container. Sentinel, the egress guard, counts only body-less GET, HEAD and OPTIONS requests as reads, and reads can leave silently under the default setting, so the researchers moved conversation history and stored memories out without an approval prompt. Kernel memory corruption then gave them root in the virtual machine, which sits outside the cgroup hook that forces container traffic through Sentinel.",
+        "whoIsAffected": "Muse runs a per-user Cloud Hypervisor virtual machine with a systemd-nspawn runtime container, and NebuSec tested bundled Chromium builds 152.0.7977.82 and 155.0.8059.80 against a custom Linux 7.0 kernel. VM-level access reached persistent storage, Secure Credential Storage and Sentinel itself. Muse is a hosted product, so Meta applies fixes centrally rather than through a user update.",
+        "whatToDo": "Meta Muse users need take no action: NebuSec says every exploit described was patched before publication. Teams building their own agent sandboxes can take the structural lesson, that an egress gate bound to the container does not cover processes that reach the host, and that a request class treated as a silent read is an exfiltration path."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Meta Muse"
+        },
+        {
+          "label": "Attack type",
+          "value": "Browser RCE, egress bypass, kernel escape"
+        },
+        {
+          "label": "Found by",
+          "value": "NebuSec research team"
+        },
+        {
+          "label": "Disclosed",
+          "value": "20 November 2026"
+        },
+        {
+          "label": "Status",
+          "value": "NebuSec says Meta patched all exploits described"
+        },
+        {
+          "label": "Sentinel threshold",
+          "value": "Over 2 MiB per originator to one domain in 60 minutes"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do Meta Muse users need to do anything about the NebuSec findings?",
+          "a": "No action is required of Meta Muse users. NebuSec states that it reported each finding to the Muse team and that the team had patched all the exploits described before the post went out. Muse runs as a hosted service in a per-user virtual machine, so Meta ships fixes centrally. NebuSec publishes no patch versions or dates."
+        },
+        {
+          "q": "What data did the researchers reach inside Meta Muse?",
+          "a": "NebuSec reports reaching conversation history and stored memories and sending them out without triggering an approval prompt, and says it could also inject history entries and alter memories. After escaping to root in the virtual machine, the researchers describe reaching persistent storage, Secure Credential Storage and the Sentinel egress service itself, all of which are meant to stay isolated from the agent."
+        },
+        {
+          "q": "Why did Sentinel not block the data leaving Muse?",
+          "a": "Sentinel classifies only body-less GET, HEAD and OPTIONS requests as reads, and under the default setting reads can leave without an approval prompt. NebuSec also found that the cgroup hook forcing container traffic through Sentinel did not cover processes running directly in the virtual machine, so VM-level root bypassed the gate entirely rather than defeating its rules."
+        }
+      ],
+      "links": [
+        {
+          "label": "NebuSec Research",
+          "url": "https://nebusec.ai/research/inside-meta-muse/"
+        },
+        {
+          "label": "Earlier Muse Post",
+          "url": "https://nebusec.ai/research/meta-muse-credential-exposure/"
+        }
+      ],
+      "image": {
+        "url": "https://nebusec.ai/_astro/social-preview.Dn8vyH0G_18C1z3.jpeg",
+        "alt": "Inside Meta Muse: Browser, Sentinel and the Shared-Kernel Boundary",
+        "credit": "NebuSec"
+      },
+      "publishDate": "2026-11-23T02:57:58.264Z"
+    },
+    {
+      "id": "google-chrome-mirror-dimension",
+      "categories": [
+        "lab-safety"
+      ],
+      "title": "Mirror Dimension: Chrome tests browsing agents on a fake web",
+      "org": "Google",
+      "date": "2026-11-19",
+      "url": "https://blog.google/security/mirror-dimension-for-agents/",
+      "summary": "Mirror Dimension is a sealed synthetic web that Chrome's AI Security team uses to test browsing agents against indirect prompt injection. Google says the pipeline writes more than 1,000 attack test candidates per engineer per day.",
+      "severity": "info",
+      "tags": [
+        "indirect-prompt-injection",
+        "browser-agents",
+        "evals",
+        "google",
+        "chrome"
+      ],
+      "affected": [
+        "Google Chrome"
+      ],
+      "credits": [
+        {
+          "name": "Aaron Selya",
+          "org": "Google"
+        },
+        {
+          "name": "Charles Qian",
+          "org": "Google"
+        }
+      ],
+      "explainer": {
+        "tagline": "Google's Chrome AI Security team evaluates browsing agents on thousands of generated sites instead of the live web.",
+        "whatHappened": "Aaron Selya and Charles Qian, software engineers on Chrome AI Security, described Mirror Dimension on Google's security blog on 19 November 2026. The post sets out how Google builds the environment and how it generates attacks for Chrome's auto browse feature. Google publishes no figures for how often the agent resists those attacks.",
+        "howItWorks": "Headless Chrome runs inside a gVisor sandbox, and a local interception proxy serves generated pages under real URLs instead of reaching external DNS. The proxy mints TLS leaf certificates that chain to a custom root CA pre-installed in that Chrome, so no certificate warning appears. A research agent writes the site specification, a builder agent writes the HTML, CSS and JavaScript, and critic agents check the result through Chrome DevTools MCP. Which injection payload a page serves is selected by an HTTP header that the server strips before responding, so the visible URL never changes.",
+        "whoIsAffected": "Mirror Dimension is internal Google testing infrastructure, not a Chrome setting a user can turn on. Its scope today is browser-use agents with bounded web primitives and tool calls. Google describes extending the design to general-purpose coding agents as a belief rather than a demonstrated result.",
+        "whatToDo": "Teams that red-team their own browsing agents can copy Google's reported fix for eval awareness: keep attack markers out of the visible URL and pass them in a header the server removes before it serves the page."
+      },
+      "quickFacts": [
+        {
+          "label": "Published by",
+          "value": "Chrome AI Security, Google"
+        },
+        {
+          "label": "Attack type",
+          "value": "Indirect prompt injection"
+        },
+        {
+          "label": "Injection surfaces",
+          "value": "Text, images, DOM and ARIA labels, WebMCP tool responses"
+        },
+        {
+          "label": "Test candidates",
+          "value": "Over 1,000 per security engineer per day, Google's figure"
+        },
+        {
+          "label": "Manual baseline",
+          "value": "A few dozen hand-crafted attacks a day"
+        },
+        {
+          "label": "Results published",
+          "value": "No agent pass rates"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can anyone outside Google use Mirror Dimension?",
+          "a": "Mirror Dimension is internal Chrome testing infrastructure, not a product or a browser mode. Google's post describes the architecture and the generation pipeline but offers no download, no public endpoint and no open-source release. Readers outside Google can reuse the design ideas, in particular the interception proxy serving real URLs and the header-selected payloads, but not the environment itself."
+        },
+        {
+          "q": "Does the post show that Chrome's agent resists prompt injection?",
+          "a": "Google reports no pass rates, no vulnerability counts and no measured reduction in attack success, so the post is about testing capacity rather than measured robustness. Google states that the environment is a critical tool for making new capabilities safe and resistant to threats, which is the company's claim about its own process, not an independent result a reader can check."
+        },
+        {
+          "q": "Why does Google serve test pages under real URLs such as youtube.com?",
+          "a": "Google found that a visible sandbox domain made the test feel artificial and induced eval awareness, where the model recognises it is being evaluated and behaves differently. Serving generated pages under real URLs keeps that signal out of the agent's view. The same reasoning led Google to move attack markers out of URL parameters and into an HTTP header the server strips."
+        }
+      ],
+      "links": [
+        {
+          "label": "Google Security Blog",
+          "url": "https://blog.google/security/mirror-dimension-for-agents/"
+        },
+        {
+          "label": "Chrome DevTools MCP",
+          "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
+        }
+      ],
+      "image": {
+        "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Mirror_Dimension_BlogHeader-02_1CJNOls.width-1300.png",
+        "alt": "Mirror Dimension for Agents blog header",
+        "credit": "Google"
+      },
+      "publishDate": "2026-11-23T02:57:58.264Z"
+    },
     {
       "id": "minimax-api-reseller-prompt-access",
       "categories": [

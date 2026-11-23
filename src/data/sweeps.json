@@ -20369,6 +20369,83 @@
         "surrealdb GitHub security advisories"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261123t025758z",
+      "timestamp": "2026-11-23T02:57:58.264Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked vendor and lab posts (Anthropic, OpenAI, Google, MSRC, Wiz, AIR, Zenity, Check Point, HiddenLayer, Tracebit, Trail of Bits, CrowdStrike), GitHub Security Advisories, NVD and VulnCheck, arXiv and Hugging Face papers, repo-scan (3 candidates), GitHub trending, Hacker News and talk-scan; three items qualified. Most GHSA entries listed this week were older repo advisories only now syndicated to the advisory database, so they fell outside the window.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "nebusec-meta-muse-sandbox-chain",
+          "title": "Meta Muse: a web page chained to VM root and the agent's memories",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A full, documented chain against a major consumer AI agent: browser RCE to silent exfiltration of chat history and memories to VM root, with the egress gate's blind spot named."
+        },
+        {
+          "id": "google-chrome-mirror-dimension",
+          "title": "Mirror Dimension: Chrome tests browsing agents on a fake web",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A browser vendor publishing how it red-teams its own browsing agent against indirect prompt injection, including a reusable technique for avoiding eval awareness."
+        },
+        {
+          "id": "mcp-server-kubernetes-argument-injection",
+          "title": "mcp-server-kubernetes: a dash in a tool argument becomes a kubectl flag",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A new CVE and first public advisory this week for a 1,600-star MCP server that gives agents cluster access, with a named finder and a shipped fix."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "VulnCheck advisories",
+        "NVD",
+        "anthropic.com/news",
+        "openai.com/news/security",
+        "blog.google/security",
+        "Microsoft MSRC blog",
+        "wiz.io/blog",
+        "air.security/blog",
+        "labs.zenity.io",
+        "research.checkpoint.com",
+        "hiddenlayer.com/research",
+        "tracebit.com/blog",
+        "crowdstrike.com/blog",
+        "nebusec.ai/research",
+        "embracethered.com",
+        "simonwillison.net",
+        "arXiv cs.CR via paper-scan.ts",
+        "huggingface.co/papers",
+        "huggingface.co/blog",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page, newest and Show HN",
+        "talk-scan.ts",
+        "genai.owasp.org",
+        "gao.gov"
+      ],
+      "windowDays": 7
     }
   ]
 }
