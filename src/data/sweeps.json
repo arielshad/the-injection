@@ -20591,6 +20591,67 @@
         "Hacker News front page"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261124t064703z",
+      "timestamp": "2026-11-24T06:47:03.661Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, NVD-sourced CVE pages, Anthropic, OpenAI, Google Cloud security, Embrace The Red, AIR Security, Zenity, Socket, Tracebit, CERT-In, arXiv via paper-scan (62 papers, 7 with one scanned signal), Hugging Face Daily Papers, repo-scan (13 queries, 3 candidates), github.com/trending, talk-scan (38 videos) and Hacker News. Added a Radware census of hidden AI-directed text on GitHub, and updated the MONAI Label zero-day item because 0.8.6 shipped on November 22. Left out: CERT-In advisory CIAD-2026-0062 of November 20 on payment-workflow abuse and agentic offensive frameworks, because cert-in.org.in and the I4C mirror both fail for scripts, so no primary source for it verifies.",
+      "counts": {
+        "added": 1,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "radware-github-hidden-ai-text",
+          "title": "Hidden AI text: Radware counts prompt injections across GitHub",
+          "category": "research",
+          "severity": "info",
+          "note": "arXiv v1 is November 21, inside the window, and the paper clears the two-signal bar: code and data released at a repo that loads, and the work is by a security company's research team (Radware). First measurement of how common hidden AI-directed text actually is on GitHub, with a usable defense."
+        }
+      ],
+      "updated": [
+        {
+          "id": "amazon-cairn-monai-label-zero-day",
+          "title": "Cairn: AI agents found and exploited a MONAI Label zero-day on their own",
+          "note": "MONAI Label 0.8.6 shipped on November 22, 2026. The item said no fixed release existed, which is now wrong and leaves defenders on a workaround. The release also fixes a second path traversal that has no CVE."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "arXiv cs.CR via paper-scan.ts",
+        "Hugging Face Daily Papers",
+        "repo-scan.json",
+        "github.com/trending",
+        "talk-scan.ts (YouTube conference and security channels)",
+        "Hacker News front page",
+        "embracethered.com",
+        "air.security/blog",
+        "zenity.io/blog",
+        "socket.dev/blog",
+        "tracebit.com/blog",
+        "anthropic.com/news",
+        "openai.com/news/security",
+        "cloud.google.com/blog/products/identity-security",
+        "cert-in.org.in advisories",
+        "Project-MONAI/MONAILabel releases and advisories",
+        "thehackernews.com (discovery only)"
+      ],
+      "windowDays": 7
     }
   ]
 }

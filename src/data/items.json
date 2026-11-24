@@ -1,7 +1,138 @@
 {
-  "generatedAt": "2026-11-23T23:09:10.554Z",
+  "generatedAt": "2026-11-24T06:47:03.661Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "radware-github-hidden-ai-text",
+      "categories": [
+        "research",
+        "attack"
+      ],
+      "title": "Hidden AI text: Radware counts prompt injections across GitHub",
+      "org": "Radware",
+      "date": "2026-11-21",
+      "url": "https://arxiv.org/abs/2611.28763",
+      "summary": "Radware scanned about 145 million GitHub issues, pull requests, comments and README files for text hidden from readers but visible to AI coding agents, and validated 2,281 cases. Only 43 attack other people's agents.",
+      "severity": "info",
+      "tags": [
+        "indirect-prompt-injection",
+        "coding-agents",
+        "detection",
+        "github",
+        "radware"
+      ],
+      "affected": [
+        "AI coding agents",
+        "GitHub"
+      ],
+      "credits": [
+        {
+          "name": "Gabi Nakibly",
+          "org": "Radware"
+        },
+        {
+          "name": "Zvika Babo",
+          "org": "Radware"
+        }
+      ],
+      "explainer": {
+        "tagline": "Hidden AI-directed text is common on GitHub, but Radware reports that attacks on other people's agents are rare: about one item in 3.3 million.",
+        "whatHappened": "Gabi Nakibly and Zvika Babo of Radware published a census of hidden AI-directed text on GitHub on November 21, 2026. The two researchers analyzed roughly 145 million issues, pull requests, comments and README files, and validated 2,281 findings, about 16 per million items. They released their detection tool and the full findings dataset alongside the paper.",
+        "howItWorks": "Indirect prompt injection on GitHub works because an AI coding agent reads the raw Markdown while a person reads GitHub's rendered page. The Radware scanner looks for that gap: HTML comments, which GitHub never renders and which carried almost all of the hidden text, plus invisible Unicode, LaTeX colored to match the background, and CSS rules such as display:none. A two-stage model classification and a template check then separate real findings from issue and pull request boilerplate.",
+        "whoIsAffected": "Any project whose triage, review or CI agent reads issues, pull requests and comments written by people outside the project is in scope. Radware also found hidden AI-directed text in the READMEs of 107 repositories. The paper counts 43 findings that try to make another party's agent act against that party, such as stealing secrets or forging a review verdict.",
+        "whatToDo": "Strip HTML comments from GitHub content before an agent reads it: Radware reports that none of the five models it tested complied with any of the 43 in-the-wild attacks once comments were removed. The authors note that stripping also disables the hidden markers projects use to steer their own agents."
+      },
+      "quickFacts": [
+        {
+          "label": "Scope",
+          "value": "About 145 million GitHub issues, pull requests, comments and README files"
+        },
+        {
+          "label": "Findings",
+          "value": "2,281 validated, about 16 per million items"
+        },
+        {
+          "label": "Attacks",
+          "value": "43 findings, about one item in 3.3 million"
+        },
+        {
+          "label": "Largest category",
+          "value": "First-party orchestration, 1,519 findings, grown fivefold over four months"
+        },
+        {
+          "label": "Data window",
+          "value": "Crawl of June 1 to September 30, 2026, plus GH Archive and a June 2026 README scan"
+        },
+        {
+          "label": "Found by",
+          "value": "Gabi Nakibly and Zvika Babo, Radware"
+        },
+        {
+          "label": "Code and data",
+          "value": "ipi-scan detector and the JSONL findings, released under the MIT license"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How many of the hidden GitHub prompt injections actually worked?",
+          "a": "Radware replayed the 43 in-the-wild attacks offline against five models and reports that only gpt-5.6-luna complied, on 8 of the 43 attacks, about 19 percent. Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5 and gpt-5.6-terra complied with none of them. Once HTML comments were stripped from the input, no model in the test complied with any attack."
+        },
+        {
+          "q": "What is most of the hidden AI text on GitHub actually for?",
+          "a": "Most hidden AI-directed text on GitHub is projects steering their own agents, not attacking anyone. Radware classes 1,519 of the 2,281 findings as first-party orchestration, where maintainers leave hidden markers so their own triage or review bots behave a certain way. The authors report that this category grew fivefold over four months, far outpacing the 43 validated attacks."
+        },
+        {
+          "q": "Can I run Radware's detector against my own repository?",
+          "a": "Yes. Radware released ipi-scan, the tool behind the study, under the MIT license, together with the JSONL findings files and a script that recomputes the published numbers. The scanner runs against a repository, search results, GH Archive data or a local file. Radware warns that the published dataset holds live attack payloads and should never be fed to an action-capable agent."
+        }
+      ],
+      "benchmarks": [
+        {
+          "name": "In-the-wild attacks complied with, of 43",
+          "unit": "attacks",
+          "max": 43,
+          "note": "Higher is worse for defenders. Measured on raw Markdown, before HTML comments are stripped.",
+          "results": [
+            {
+              "name": "claude-haiku-5-5",
+              "score": 0
+            },
+            {
+              "name": "claude-sonnet-5-5",
+              "score": 0
+            },
+            {
+              "name": "claude-opus-5-5",
+              "score": 0
+            },
+            {
+              "name": "gpt-5.6-luna",
+              "score": 8
+            },
+            {
+              "name": "gpt-5.6-terra",
+              "score": 0
+            }
+          ],
+          "source": "https://arxiv.org/html/2611.28763v1"
+        }
+      ],
+      "links": [
+        {
+          "label": "arXiv Paper",
+          "url": "https://arxiv.org/abs/2611.28763"
+        },
+        {
+          "label": "Detector And Data",
+          "url": "https://github.com/rdwr-gabin/github-ipi-in-the-wild"
+        },
+        {
+          "label": "Paper Full Text",
+          "url": "https://arxiv.org/html/2611.28763v1"
+        }
+      ],
+      "publishDate": "2026-11-24T06:47:03.661Z"
+    },
     {
       "id": "air-websec-search-benchmark",
       "categories": [
@@ -1640,7 +1771,7 @@
       "org": "Amazon Threat Intelligence",
       "date": "2026-11-20",
       "url": "https://aws.amazon.com/blogs/security/chinese-nexus-actors-cairn-ai-agents-found-a-zero-day-on-their-own/",
-      "summary": "Amazon Threat Intelligence says Cairn AI agents found a path traversal zero-day in MONAI Label and opened a root shell, after the operator asked only for shell access. The flaw is CVE-2026-133968 and has no fixed release.",
+      "summary": "Amazon Threat Intelligence says Cairn AI agents found a path traversal zero-day in MONAI Label and opened a root shell, after the operator asked only for shell access. The flaw is CVE-2026-133968, fixed in 0.8.6 on November 22, 2026.",
       "severity": "critical",
       "cve": "CVE-2026-133968",
       "cvss": 9.8,
@@ -1672,7 +1803,7 @@
         "whatHappened": "Amazon Threat Intelligence published a report on November 20, 2026 about a suspected Chinese-nexus operator who pointed the open-source Cairn framework at universities in East Asia. Amazon found the activity on September 10, 2026 because the operator left the Cairn instance reachable with no authentication. The agents then found a previously unknown flaw in MONAI Label, an open-source medical imaging application.",
         "howItWorks": "The PUT /datastore/image endpoint in MONAI Label takes the caller's image query parameter as the image ID and never validates it, so traversal sequences steer the upload outside the datastore directory. The maintainers say PUT /datastore/label has the same flaw. Amazon reports the agents wrote a Python reverse shell into sitecustomize.py, a file that loads on every Python start, then triggered an API endpoint so the new process ran it as root.",
         "whoIsAffected": "MONAI Label 0.8.5 and earlier are affected, through the monailabel package on PyPI. Research groups and hospitals running the annotation server on a reachable network are exposed, and the default configuration has no authentication at all. Where authentication is enabled, an account with the ANNOTATOR role is still enough.",
-        "whatToDo": "Keep MONAI Label off untrusted networks until a fixed release ships, because the correction in pull request 1915 is merged but not yet released. The maintainers also suggest setting MONAI_LABEL_AUTH_ENABLE to True, withholding the ANNOTATOR role from untrusted users, and running the server as an unprivileged user whose write access stops at the datastore directory."
+        "whatToDo": "Upgrade to MONAI Label 0.8.6, released November 22, 2026, with pip install -U monailabel==0.8.6 or by pulling projectmonai/monailabel:0.8.6. The maintainers still advise keeping the server off untrusted networks, setting MONAI_LABEL_AUTH_ENABLE to True, and running it as an unprivileged user whose write access stops at the datastore directory. If a 0.8.5 or older server was reachable from an untrusted network, review it for unexpected file changes before returning it to service."
       },
       "quickFacts": [
         {
@@ -1681,7 +1812,7 @@
         },
         {
           "label": "Fixed in",
-          "value": "No release yet; the fix is merged in pull request 1915"
+          "value": "0.8.6, released November 22, 2026"
         },
         {
           "label": "CVE",
@@ -1694,6 +1825,10 @@
         {
           "label": "Attack type",
           "value": "Path traversal in PUT /datastore/image, leading to arbitrary file write and root code execution"
+        },
+        {
+          "label": "Also fixed",
+          "value": "A second path traversal in PUT /session/?uncompress=true, with no CVE assigned"
         },
         {
           "label": "Exploited",
@@ -1711,7 +1846,7 @@
       "faq": [
         {
           "q": "Is there a patched release of MONAI Label for CVE-2026-133968?",
-          "a": "No patched MONAI Label release exists yet. The project advisory published on November 18, 2026 lists no fixed version and says the correction lives in pull request 1915, which is slated for the next release. Until that release ships, the maintainers point to workarounds: enable authentication, keep the ANNOTATOR role away from untrusted users, and restrict where the server process can write."
+          "a": "Yes. MONAI Label 0.8.6 shipped on November 22, 2026, and the maintainers call it a security release that all deployments should install. Alongside CVE-2026-133968 it fixes a second path traversal, in the session upload endpoint, which has no CVE. Tar archives holding links or device files are now rejected, and corrupt session archives return HTTP 400."
         },
         {
           "q": "Am I exposed if my MONAI Label server has authentication turned on?",
@@ -1738,6 +1873,10 @@
         {
           "label": "CVE-2026-133968",
           "url": "https://github.com/advisories/GHSA-2f43-rwqm-6h67"
+        },
+        {
+          "label": "0.8.6 Release Notes",
+          "url": "https://github.com/Project-MONAI/MONAILabel/releases/tag/0.8.6"
         },
         {
           "label": "CISA KEV Alert",
