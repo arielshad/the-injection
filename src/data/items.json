@@ -1,7 +1,509 @@
 {
-  "generatedAt": "2026-11-25T12:03:31.951Z",
+  "generatedAt": "2026-11-25T21:00:23.828Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "aws-kiro-web-tool-call-markup-execution",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Kiro Web: tool-call markup in a file ran with no consent prompt",
+      "org": "Amazon Web Services",
+      "date": "2026-11-25",
+      "url": "https://aws.amazon.com/security/security-bulletins/2026-202-aws/",
+      "summary": "CVE-2026-136267 let tool-call markup in content a Kiro Web agent read run as a command in the hosted development environment, with no consent prompt. AWS disclosed it on November 25, 2026 and fixed it server-side on October 30.",
+      "severity": "low",
+      "cve": "CVE-2026-136267",
+      "cvss": 7.5,
+      "tags": [
+        "indirect-prompt-injection",
+        "rce",
+        "coding-agents",
+        "kiro"
+      ],
+      "affected": [
+        "Kiro Web"
+      ],
+      "credits": [
+        {
+          "name": "Brad Rucinski"
+        }
+      ],
+      "explainer": {
+        "tagline": "Kiro Web ran tool-call markup from content its agent read as a real command, with no consent prompt, until AWS fixed it.",
+        "whatHappened": "AWS published security bulletin 2026-202 and CVE-2026-136267 on November 25, 2026, crediting Brad Rucinski through coordinated vulnerability disclosure. The bulletin says tool-call markup inside content an agent read, such as a repository file or a web page, could be repeated by certain models and then run as a command in the subscriber's hosted development environment. AWS completed a service-side fix on October 30, 2026.",
+        "howItWorks": "Kiro Web did not neutralize special elements where the agent's stream mixed data and markup, the pattern CWE-78 describes. A model that echoed attacker-written tool-call markup back into the session caused the platform to read that text as a genuine tool call. The command then ran in the hosted development environment without the consent prompt a real tool call would raise.",
+        "whoIsAffected": "Kiro Web, the cloud-hosted AI IDE, is the only product AWS names, and only on five models: DeepSeek v3.2, GLM-5, MiniMax M2.1, MiniMax M2.5 and Qwen3-coder-next. AWS gives the exposure window for agent sessions on those models as May 18, 2026 through October 30, 2026. No other Kiro surface appears in the bulletin.",
+        "whatToDo": "No customer action is required: AWS states the service-side fix completed on October 30, 2026 and that no workaround is needed. Teams that ran Kiro Web agent sessions on the five listed models inside the exposure window can use the dates AWS gives to scope a review of what those environments could reach."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-136267"
+        },
+        {
+          "label": "CVSS 4.0",
+          "value": "7.5, High (NVD)"
+        },
+        {
+          "label": "Affected",
+          "value": "Kiro Web before 2026-10-30"
+        },
+        {
+          "label": "Affected models",
+          "value": "DeepSeek v3.2, GLM-5, MiniMax M2.1, MiniMax M2.5, Qwen3-coder-next"
+        },
+        {
+          "label": "Exposure window",
+          "value": "May 18, 2026 to October 30, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Fixed service-side on October 30, 2026; no customer action required"
+        },
+        {
+          "label": "Found by",
+          "value": "Brad Rucinski"
+        }
+      ],
+      "links": [
+        {
+          "label": "AWS Bulletin",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-202-aws/"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-qmph-ph4r-7jjr"
+        }
+      ],
+      "publishDate": "2026-11-25T21:00:23.828Z"
+    },
+    {
+      "id": "wiz-agentic-harness-intent-ids",
+      "categories": [
+        "research",
+        "incident"
+      ],
+      "title": "Wiz: intent IDs from attack harnesses leak into victim logs",
+      "org": "Wiz Research",
+      "date": "2026-11-25",
+      "url": "https://www.wiz.io/blog/agentic-offensive-frameworks-intent-ids-artex-cairn",
+      "summary": "Agentic attack harnesses number their sub-goals, and Wiz reports those intent IDs surviving in AWS role session names, SSM command comments, Azure run-command names and file paths. The highest Wiz has seen is i808807.",
+      "severity": "info",
+      "tags": [
+        "threat-intel",
+        "detection",
+        "ai-enabled-offense",
+        "artex",
+        "cairn"
+      ],
+      "affected": [
+        "ARTEX",
+        "Cairn",
+        "Pojun",
+        "AntiFox",
+        "sapper-v2"
+      ],
+      "credits": [
+        {
+          "name": "Rami McCarthy",
+          "org": "Wiz Research"
+        },
+        {
+          "name": "Hila Ramati",
+          "org": "Wiz Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Wiz reports that agentic attack harnesses number their sub-goals and leave those intent IDs behind in a victim's own logs.",
+        "whatHappened": "Wiz researchers Rami McCarthy and Hila Ramati published the finding on November 25, 2026, after reviewing more than 100 open-source offensive harness repositories and 539 ARTEX worker transcripts covering about 10,900 shell commands. They describe intent IDs, short identifiers of the form iNNNN, as a new kind of harness leak. Examples from the activity Wiz calls Black October include i19ghci.yml at Barracuda and artex-i37257 at Chainstack.",
+        "howItWorks": "A harness splits an intrusion into numbered sub-goals it calls intents, then puts the intent ID into prompts and workspace paths. The model reuses the string when it names files, accounts, workflows and user-agent values, so the ID lands in the target's own logs. ARTEX draws intents from a single PostgreSQL BIGSERIAL sequence that does not reset by default, so its numbers climb across runs and targets. Cairn instead uses a zero-padded counter per object type that restarts for each project, which keeps its numbers small and gapless.",
+        "whoIsAffected": "Wiz names ARTEX, the ARTEX forks Pojun and AntiFox, Cairn, and the Cairn reimplementation sapper-v2. Defenders running cloud workloads can look for the IDs in AWS role session names, SSM command comments, bucket, role, user and policy names, tags, RDS export task IDs and KMS key aliases, and in Azure run-command names, VM computer names and app registration names. Wiz notes the names can also survive in error messages for calls that were denied.",
+        "whatToDo": "Pair an i<N> string with an anchor such as artex-, pentest-, probe or canary, or with a leaked run path like tasks/<task>/i<N>, before alerting, because Wiz says the IDs are noisy on their own. Wiz also cautions that the signals are corroborative, not standalone attribution: work against other targets advances the counter, fresh installations share number ranges, and an operator can reset or parallelize the sequence."
+      },
+      "quickFacts": [
+        {
+          "label": "Harnesses",
+          "value": "ARTEX, Pojun, AntiFox, Cairn, sapper-v2"
+        },
+        {
+          "label": "Highest ID seen",
+          "value": "i808807, ARTEX, November 2026"
+        },
+        {
+          "label": "Longest run",
+          "value": "Cairn i001 to i292; ARTEX i8920 to i8923"
+        },
+        {
+          "label": "Sample",
+          "value": "100+ offensive harness repositories; 539 ARTEX worker transcripts, about 10,900 shell commands"
+        },
+        {
+          "label": "Cross-cloud case",
+          "value": "36 IDs on the AWS side and 34 on the Azure side, from one sequence"
+        },
+        {
+          "label": "Published",
+          "value": "November 25, 2026, by Wiz Research"
+        }
+      ],
+      "links": [
+        {
+          "label": "Wiz Research",
+          "url": "https://www.wiz.io/blog/agentic-offensive-frameworks-intent-ids-artex-cairn"
+        },
+        {
+          "label": "Wiz Field Report",
+          "url": "https://www.wiz.io/blog/agentic-attacks-artex-offensive-ai-frameworks"
+        }
+      ],
+      "image": {
+        "url": "https://www.datocms-assets.com/75231/1795602437-agentic-attack_custom.jpeg?fm=webp",
+        "alt": "Wiz Research cover illustration for the agentic offensive frameworks intent IDs post",
+        "credit": "Wiz Research"
+      },
+      "publishDate": "2026-11-25T21:00:23.828Z"
+    },
+    {
+      "id": "pydantic-ai-harness-browser-egress-gaps",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Pydantic AI Harness: the browser egress policy misses four paths",
+      "org": "Pydantic",
+      "date": "2026-11-25",
+      "url": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-mj96-6529-3cpf",
+      "summary": "CVE-2026-136641 let a page an agent opens reach blocked destinations, because PlaywrightBrowser applied its egress policy to HTTP and page WebSockets but not to WebRTC, WebTransport, WebSocketStream or FedCM. Fixed in 0.74.0.",
+      "severity": "medium",
+      "cve": "CVE-2026-136641",
+      "cvss": 6.8,
+      "tags": [
+        "agent-security",
+        "browser-agents",
+        "data-exfiltration",
+        "pydantic-ai"
+      ],
+      "affected": [
+        "Pydantic AI Harness",
+        "pydantic-ai-harness (PyPI)"
+      ],
+      "credits": [
+        {
+          "name": "Pydantic AI maintainers",
+          "url": "https://github.com/pydantic/pydantic-ai"
+        }
+      ],
+      "explainer": {
+        "tagline": "Pydantic AI Harness enforced its browser egress policy on HTTP and page WebSockets only, leaving four other network paths open.",
+        "whatHappened": "Pydantic published GHSA-mj96-6529-3cpf and CVE-2026-136641 on November 25, 2026, rating the flaw moderate at CVSS 6.8. The advisory covers pydantic-ai-harness 0.24.0 through 0.73.0 and names 0.74.0 as the fix. The attacker it assumes controls script on a page the agent opens and has no other access to the application.",
+        "howItWorks": "PlaywrightBrowser's egress policy filtered HTTP requests and page WebSockets, but not WebRTC, WebTransport, WebSocketStream or the browser's own FedCM requests. A page the agent visits can therefore use a STUN probe to learn whether a blocked target responds, open a WebSocketStream that returns data from private addresses, or send a FedCM accounts request, which carries the browser profile's cookies, to a host outside the allowlist. Pydantic classifies the flaw as CWE-918, server-side request forgery.",
+        "whoIsAffected": "Releases from pydantic-ai-harness 0.24.0 up to and including 0.73.0 are affected, when PlaywrightBrowser opens untrusted URLs under an enforced egress policy. The advisory states that 0.74.0 still leaves some paths uncovered, including WebTransport from workers, WebSocketStream from workers when cdp_url is used, and certain sandboxed iframes and pre-attached documents.",
+        "whatToDo": "Upgrade to pydantic-ai-harness 0.74.0 or later, which removes the affected browser APIs from pages under the default enforced egress policy. Until that lands, Pydantic advises running the browser behind a network egress filter that also covers UDP, or not opening untrusted URLs with PlaywrightBrowser."
+      },
+      "quickFacts": [
+        {
+          "label": "CVE",
+          "value": "CVE-2026-136641"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "6.8, Moderate (Pydantic)"
+        },
+        {
+          "label": "Affected",
+          "value": "pydantic-ai-harness 0.24.0 through 0.73.0"
+        },
+        {
+          "label": "Fixed in",
+          "value": "pydantic-ai-harness 0.74.0"
+        },
+        {
+          "label": "Uncovered paths",
+          "value": "WebRTC, WebTransport, WebSocketStream, FedCM"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 25, 2026, by Pydantic"
+        }
+      ],
+      "links": [
+        {
+          "label": "Pydantic Advisory",
+          "url": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-mj96-6529-3cpf"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-fqpx-wxvv-g359"
+        }
+      ],
+      "publishDate": "2026-11-25T21:00:23.828Z"
+    },
+    {
+      "id": "ox-plug-and-pray-mcp-skills",
+      "categories": [
+        "supply-chain",
+        "research"
+      ],
+      "title": "Plug and Pray: OX finds instructions, not code, in flagged MCP servers",
+      "org": "OX Security",
+      "date": "2026-11-23",
+      "url": "https://www.ox.security/blog/plug-and-pray-your-ai-agents-are-taking-orders-from-strangers/",
+      "summary": "OX Security tracked 542,207 open-source and AI components from July to October 2026 and reports that 22% of the 834 MCP servers it flagged carried prompt injection or tool poisoning, against 16% that ran code at install or import.",
+      "severity": "info",
+      "tags": [
+        "tool-poisoning",
+        "mcp",
+        "skills",
+        "prompt-injection"
+      ],
+      "affected": [
+        "MCP servers",
+        "Agent Skills",
+        "npm",
+        "PyPI"
+      ],
+      "credits": [
+        {
+          "name": "Moshe Siman Tov Bustan",
+          "org": "OX Security"
+        },
+        {
+          "name": "OX Security research team"
+        }
+      ],
+      "explainer": {
+        "tagline": "OX Security reports that the attacks it flags on MCP servers now hide in instructions rather than in code that runs at install.",
+        "whatHappened": "OX Security published Plug and Pray on November 23, 2026, covering 542,207 open-source and AI components tracked across npm, PyPI, MCP servers and Agent Skills between July and October 2026. Of the 834 MCP servers its OX.Radar early-warning system flagged, 22% involved prompt injection or tool poisoning and 16% ran code at install or import time. Moshe Siman Tov Bustan leads the research team behind the report.",
+        "howItWorks": "Malicious instructions sit in an MCP tool description or an Agent Skill's instruction file, where they read as documentation. An agent that loads the component follows those instructions using the permissions it already holds, so nothing has to execute at install or import. OX contrasts this with npm, where it found execution techniques about six times more common than prompt injection or tool poisoning.",
+        "whoIsAffected": "Any agent that connects to MCP servers, loads Agent Skills, or installs from registries such as npm and PyPI is in scope, and OX names no individual vendor product. Of the 179 Agent Skills OX flagged, none executed code at install time, but 44% carried instructions telling agents to send data out. OX could identify a source owner for 69.8% of MCP servers, against 92.8% of npm packages.",
+        "whatToDo": "Treat tool descriptions and skill instructions as attack surface rather than documentation, and read what a component tells an agent to do before connecting it. OX advises asking three questions first: who controls the component, whether the running code can be checked against what the publisher claims, and whether you would notice if that code changed."
+      },
+      "quickFacts": [
+        {
+          "label": "Components analyzed",
+          "value": "542,207, July to October 2026"
+        },
+        {
+          "label": "Ecosystems",
+          "value": "npm, PyPI, MCP servers, Agent Skills"
+        },
+        {
+          "label": "Flagged MCP servers",
+          "value": "834; 22% prompt injection or tool poisoning, 16% install or import execution"
+        },
+        {
+          "label": "Flagged Agent Skills",
+          "value": "179; 44% instruct agents to send data out"
+        },
+        {
+          "label": "Publisher concentration",
+          "value": "Two accounts behind 44% of flagged MCP servers; one published 2,364 in 17 days"
+        },
+        {
+          "label": "Malicious from the start",
+          "value": "82% of confirmed malicious components were malicious in their first observed version"
+        },
+        {
+          "label": "Published",
+          "value": "November 23, 2026, by OX Security"
+        }
+      ],
+      "links": [
+        {
+          "label": "OX Research Post",
+          "url": "https://www.ox.security/blog/plug-and-pray-your-ai-agents-are-taking-orders-from-strangers/"
+        },
+        {
+          "label": "Full Report",
+          "url": "https://www.ox.security/reports/plug-and-pray-how-ai-is-changing-software-supply-chain-attacks/"
+        }
+      ],
+      "image": {
+        "url": "https://www.ox.security/wp-content/uploads/2026/11/Plug-and-Pray-vis-blog-1.webp",
+        "alt": "Plug and Pray report cover graphic from OX Security",
+        "credit": "OX Security"
+      },
+      "publishDate": "2026-11-25T21:00:23.828Z"
+    },
+    {
+      "id": "elastic-genai-detection-rules-9-6",
+      "categories": [
+        "tool"
+      ],
+      "title": "Elastic: 143 detection rules for AI agents and LLM platforms",
+      "org": "Elastic Security Labs",
+      "date": "2026-11-23",
+      "url": "https://www.elastic.co/security-labs/blog/ai-security-detection-rules-coding-agents-mcp",
+      "summary": "Elastic 9.6 ships 143 SIEM detection rules tagged Domain: GenAI, covering hijacked coding agents, malicious MCP servers, LLMjacking and prompt injection. The rules are published in the public elastic/detection-rules repository.",
+      "severity": "info",
+      "tags": [
+        "detection",
+        "coding-agents",
+        "mcp",
+        "elastic"
+      ],
+      "affected": [
+        "Amazon Bedrock",
+        "OpenAI ChatGPT Enterprise",
+        "Google Cloud Vertex AI",
+        "Azure OpenAI",
+        "Claude Code",
+        "Cursor",
+        "OpenAI Codex"
+      ],
+      "credits": [
+        {
+          "name": "Mika Ayenson",
+          "org": "Elastic Security Labs"
+        }
+      ],
+      "explainer": {
+        "tagline": "Elastic 9.6 ships 143 prebuilt detection rules for AI agents, coding agents and LLM platforms, published in a public repository.",
+        "whatHappened": "Elastic Security Labs announced on November 23, 2026 that Elastic 9.6 ships 143 SIEM detection rules tagged Domain: GenAI, in a post by Mika Ayenson. All 143 map to MITRE ATLAS and MITRE ATT&CK, and Elastic Defend adds on-host behavior rules alongside them. The SIEM rules live in the public elastic/detection-rules repository and the Defend rules in elastic/protections-artifacts.",
+        "howItWorks": "The rules read platform audit logs and endpoint telemetry rather than model internals, so they look for the actions that follow an attack. Covered behaviors include a coding agent launched with approval checks disabled, tampering with agent configuration, skills or hooks, LLMjacking with stolen API keys, and data exfiltration through AI connectors. A companion release adds four small classifiers that score prompts and responses at ingest, so only high-scoring events are passed to an LLM for a second check before alerting.",
+        "whoIsAffected": "Rule coverage splits across Amazon Bedrock with 38 rules, OpenAI ChatGPT Enterprise with 34, Anthropic with 29, endpoint sources with 18, Google Cloud Vertex AI with 14, and Microsoft Foundry with Azure OpenAI at 10. Elastic Defend covers coding agents including Claude Code, Cursor and Codex. The ingest classifiers need Elastic Stack 9.6 with a Platinum or trial subscription.",
+        "whatToDo": "Upgrade to Elastic 9.6, install the prebuilt rules, filter on the Domain: GenAI tag and enable the ones that match the data you already collect. Add the integrations for your AI platforms and turn on prompt logging where content-level detections are needed. Run Elastic Defend in prevent mode on developer endpoints, and tune exceptions for the agents and MCP servers you approve."
+      },
+      "quickFacts": [
+        {
+          "label": "Rules",
+          "value": "143 SIEM rules tagged Domain: GenAI, plus Elastic Defend behavior rules"
+        },
+        {
+          "label": "Coverage",
+          "value": "Bedrock 38, ChatGPT Enterprise 34, Anthropic 29, endpoint 18, Vertex AI 14, Foundry and Azure OpenAI 10"
+        },
+        {
+          "label": "Published in",
+          "value": "elastic/detection-rules and elastic/protections-artifacts on GitHub"
+        },
+        {
+          "label": "Mapped to",
+          "value": "MITRE ATLAS and MITRE ATT&CK"
+        },
+        {
+          "label": "Needs",
+          "value": "Elastic 9.6; Platinum or trial for the ingest classifiers"
+        },
+        {
+          "label": "Published",
+          "value": "November 23, 2026, by Elastic Security Labs"
+        }
+      ],
+      "links": [
+        {
+          "label": "Elastic Security Labs",
+          "url": "https://www.elastic.co/security-labs/blog/ai-security-detection-rules-coding-agents-mcp"
+        },
+        {
+          "label": "Ingest Classifiers",
+          "url": "https://www.elastic.co/security-labs/blog/prompt-injection-detection-ai-agents"
+        },
+        {
+          "label": "Detection Rules Repo",
+          "url": "https://github.com/elastic/detection-rules"
+        }
+      ],
+      "image": {
+        "url": "https://static-www.elastic.co/v3/assets/bltefdd0b53724fa2ce/blt4851e59e3ca65c79/6b02cc4de56da3d6ac09092d/image5.jpg",
+        "alt": "Header illustration for the Elastic Security Labs post on AI agent detection rules",
+        "credit": "Elastic Security Labs"
+      },
+      "publishDate": "2026-11-25T21:00:23.828Z"
+    },
+    {
+      "id": "electerm-ai-markdown-link-command-execution",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "electerm: a link in an AI answer runs commands on the machine",
+      "org": "electerm",
+      "date": "2026-11-20",
+      "url": "https://github.com/electerm/electerm/security/advisories/GHSA-g83m-h25x-x2xf",
+      "summary": "A link in an AI answer could navigate electerm's main window to an attacker's page, which then reached the preload bridge and ran shell commands. electerm published the advisory on November 20, 2026 and fixed it in 5.12.6.",
+      "severity": "high",
+      "cvss": 9.6,
+      "tags": [
+        "prompt-injection",
+        "rce",
+        "electerm"
+      ],
+      "affected": [
+        "electerm"
+      ],
+      "credits": [
+        {
+          "name": "Echore61",
+          "url": "https://github.com/Echore61"
+        }
+      ],
+      "explainer": {
+        "tagline": "electerm fixed a chain where one click on a link in an AI answer runs commands on the user's machine.",
+        "whatHappened": "electerm published GHSA-g83m-h25x-x2xf on November 20, 2026 and credits Echore61 as the reporter. The advisory rates the flaw Critical at CVSS 9.6 and marks electerm 5.11.8 and earlier as affected, on POSIX and on Windows. The two fixes, pull requests 4762 and 4763, shipped in release 5.12.6 on November 22.",
+        "howItWorks": "Links in AI-generated markdown were plain anchors, so a click could navigate electerm's main window to any page. The window kept its preload bridge across that navigation, which left window.api reachable from the new page. electerm's IPC authorization compared only the sender's webContents with the main window's, and the navigated page shared it, so exported functions such as openFileWithEditor could still be called. On POSIX that function runs a renderer-supplied editor command through the user's login shell.",
+        "whoIsAffected": "electerm 5.11.8 and earlier are affected, on both POSIX systems and Windows. Reaching the flaw needs the AI panel in use and one click on a link inside an AI answer. A user who never opens the AI panel is outside the path the advisory describes.",
+        "whatToDo": "Update electerm to 5.12.6 or later, which carries both fix pull requests. On an older release, disable the AI panel, or treat AI answers as untrusted and do not click links in them, which is the workaround the advisory gives."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "electerm 5.11.8 and earlier, POSIX and Windows"
+        },
+        {
+          "label": "Fixed in",
+          "value": "electerm 5.12.6, released November 22, 2026"
+        },
+        {
+          "label": "CVSS 3.1",
+          "value": "9.6, rated Critical by electerm"
+        },
+        {
+          "label": "CVE",
+          "value": "None assigned; tracked as GHSA-g83m-h25x-x2xf"
+        },
+        {
+          "label": "Found by",
+          "value": "Echore61, reporter"
+        },
+        {
+          "label": "Attack type",
+          "value": "Markdown link in an AI answer to Electron IPC abuse (CWE-749, CWE-862)"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 20, 2026, by electerm"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which electerm version fixes the AI link command execution flaw?",
+          "a": "electerm 5.12.6, released on November 22, 2026, carries the two fixes the advisory names: pull request 4762 keeps the main window on the app origin and extends the IPC sender check, and pull request 4763 renders AI markdown links as inert text. The advisory marks every release up to and including 5.11.8 as affected."
+        },
+        {
+          "q": "Am I affected if I never use electerm's AI panel?",
+          "a": "electerm users who keep the AI panel closed are not reachable through this path, because the chain starts with a link inside an AI answer that the user clicks. The advisory's own workaround for older releases is to disable the AI panel, or to treat AI answers as untrusted and not click links in them."
+        },
+        {
+          "q": "Does the electerm flaw need a prompt injection to work?",
+          "a": "Prompt injection is one of three routes the electerm advisory lists. An attacker needs only to influence what the AI answer contains: a malicious API endpoint, a prompt injection, or an on-path position when the AI base URL is plain HTTP. One click on the planted link then navigates the main window and the chain begins."
+        },
+        {
+          "q": "Does the electerm AI link flaw have a CVE?",
+          "a": "No CVE is assigned to GHSA-g83m-h25x-x2xf. electerm published the advisory itself on November 20, 2026 and set a CVSS 3.1 base score of 9.6 with the vector AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H. Defenders tracking the flaw by identifier should use the GHSA number, because no CVE record exists for it."
+        }
+      ],
+      "links": [
+        {
+          "label": "electerm Advisory",
+          "url": "https://github.com/electerm/electerm/security/advisories/GHSA-g83m-h25x-x2xf"
+        },
+        {
+          "label": "electerm 5.12.6",
+          "url": "https://github.com/electerm/electerm/releases/tag/v5.12.6"
+        }
+      ],
+      "publishDate": "2026-11-25T21:00:23.828Z"
+    },
     {
       "id": "zdi-pytorch-eight-model-file-rce",
       "categories": [
