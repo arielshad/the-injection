@@ -20739,6 +20739,76 @@
         "pomerium.com releases and advisories"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261125t024203z",
+      "timestamp": "2026-11-25T02:42:03.695Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub Security Advisories, the ZDI advisory feed, LiteLLM and LM Studio release notes, Unit 42, AIR Security, Embrace The Red, Zenity Labs, Anthropic, OpenAI security, arXiv via paper-scan (65 candidates, none with two signals), repo-scan (13 queries, 5 candidates), GitHub weekly trending, Hacker News and talk-scan. Added three items: the ZDI advisory wave from Pwn2Own Berlin against LiteLLM and LM Studio, and Unit 42's analysis of agent-run intrusion campaigns.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "zdi-litellm-six-cve-wave",
+          "title": "LiteLLM: six ZDI advisories, and the vendor disputes one of them",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Six LiteLLM CVEs went public inside the window, two from Pwn2Own Berlin, and one is a zero-day the vendor disputes with no patch, which changes what an operator has to do."
+        },
+        {
+          "id": "zdi-lm-studio-mcp-schema-code-injection",
+          "title": "LM Studio: an MCP tool schema ran code with no authentication",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "An unauthenticated 9.8 code injection through MCP tool schemas in a widely used local LLM app, with technical detail published this week and the fix only reachable by updating."
+        },
+        {
+          "id": "unit42-agentic-ai-attack-campaigns",
+          "title": "Unit 42: the gap between an agent's commands fell to 1.4 seconds",
+          "category": "incident",
+          "severity": "info",
+          "note": "Original Unit 42 forensics on more than 10 agent-run campaigns, with command-cadence numbers and hunting fingerprints that no existing feed item carries."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Zero Day Initiative advisories",
+        "docs.litellm.ai security blog",
+        "lmstudio.ai changelog",
+        "Unit 42",
+        "AIR Security blog",
+        "embracethered.com",
+        "Zenity Labs",
+        "anthropic.com/news",
+        "openai.com/news/security",
+        "arXiv cs.CR via paper-scan",
+        "repo-scan.json",
+        "github.com/trending weekly",
+        "Hacker News front page",
+        "Hacker News Algolia search",
+        "talk-scan",
+        "Pomerium security advisories",
+        "datalayer/jupyter-mcp-server advisories",
+        "tracebit-com/turingpot README"
+      ],
+      "windowDays": 7
     }
   ]
 }

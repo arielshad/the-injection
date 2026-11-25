@@ -1,7 +1,345 @@
 {
-  "generatedAt": "2026-11-24T18:27:20.248Z",
+  "generatedAt": "2026-11-25T02:42:03.695Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "zdi-litellm-six-cve-wave",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "LiteLLM: six ZDI advisories, and the vendor disputes one of them",
+      "org": "Zero Day Initiative",
+      "date": "2026-11-24",
+      "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1084/",
+      "summary": "The Zero Day Initiative published six LiteLLM CVEs, led by a Pwn2Own code injection that runs commands as the service account. Five are fixed. LiteLLM disputes the sixth, an MCP stdio command injection, and ships no separate patch.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "mcp",
+        "privilege-escalation",
+        "litellm"
+      ],
+      "affected": [
+        "LiteLLM",
+        "litellm (PyPI)"
+      ],
+      "cve": "CVE-2026-136539",
+      "cvss": 7.2,
+      "credits": [
+        {
+          "name": "k3vg3n"
+        },
+        {
+          "name": "Byung Young Yi",
+          "org": "Out Of Bounds"
+        },
+        {
+          "name": "Connor Kastner",
+          "org": "ret2c"
+        },
+        {
+          "name": "Javohir Abduxalilov",
+          "org": "JavaSec.uz"
+        },
+        {
+          "name": "s3zer0"
+        },
+        {
+          "name": "David Fiser",
+          "org": "TrendAI Research"
+        },
+        {
+          "name": "Alfredo Oliveira",
+          "org": "TrendAI Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Six LiteLLM CVEs became public in one week, and the vendor accepts five of them.",
+        "whatHappened": "The Zero Day Initiative published six LiteLLM advisories between November 18 and November 24, 2026. Two of them came out of Pwn2Own Berlin. The researchers had reported the flaws to LiteLLM between March and September 2026.",
+        "howItWorks": "CVE-2026-136539, the most severe, sits in LiteLLM's pass_through_endpoints handling, which imports a module without validating the code first, so an authenticated caller runs code as the service account. Three more are authorization faults: key_management_endpoints skips an authorization check, virtual key model aliases resolve to models the key should not reach, and the secret resolver reads environment variables the caller names. One is a server-side request forgery through the api_base parameter. The disputed sixth injects an OS command through an MCP stdio configuration.",
+        "whoIsAffected": "LiteLLM proxy operators are exposed, and every one of the six flaws needs a valid key or an admin session first. ZDI names no affected version ranges. Fix pointers differ per flaw and are listed below.",
+        "whatToDo": "Move to the LiteLLM v1.108.x LTS line, which the vendor's security team recommends as the supported release. Leave LITELLM_ENABLE_MCP_STDIO unset so stdio MCP servers stay disabled, and replace any default master key, which v1.104.0 and later refuses to start without."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "LiteLLM proxy, no version range given by ZDI"
+        },
+        {
+          "label": "Fixed in",
+          "value": "v1.84.0, v1.104.0, PRs #26518, #27801, #43049"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-136535 through CVE-2026-136540"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 18 and November 24, 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Five fixed, CVE-2026-136535 disputed by LiteLLM"
+        },
+        {
+          "label": "Attack type",
+          "value": "Code injection, missing authorization, SSRF"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which LiteLLM version fixes the November 2026 ZDI advisories?",
+          "a": "LiteLLM points the five accepted CVEs at release v1.84.0, release v1.104.0 and pull requests #26518, #27801 and #43049. ZDI publishes no version ranges of its own. LiteLLM's security team recommends running the v1.108.x long-term support line, which carries those fixes and refuses to start on a default master key."
+        },
+        {
+          "q": "Why does LiteLLM dispute CVE-2026-136535?",
+          "a": "LiteLLM argues that stdio MCP servers run commands chosen by administrators, and that only proxy admins can create or test them, so the behavior is by design rather than a flaw. ZDI disagreed and published ZDI-26-1031 as a zero-day advisory on November 18, 2026. LiteLLM says no separate patch is coming for it."
+        },
+        {
+          "q": "Do the LiteLLM CVEs work without a valid API key?",
+          "a": "No. Every one of the six advisories records that authentication is required. Four need only a low-privileged key, covering the authorization faults and the two information-disclosure issues. The two code-execution flaws, CVE-2026-136535 and CVE-2026-136539, need high privileges, meaning a proxy admin session. Virtual keys shared across app teams still make the privilege-escalation pair worth treating seriously."
+        },
+        {
+          "q": "Are more LiteLLM advisories expected after these six?",
+          "a": "Yes. LiteLLM's Director of Security, Oliver Jensen, wrote on November 23, 2026 that a Trail of Bits engagement under the Patch the Planet program has concluded, and that fixes will ship over three to four weeks with an advisory for each one that warrants it. Severe fixes reach the private registry first, with public releases two weeks later."
+        }
+      ],
+      "links": [
+        {
+          "label": "ZDI-26-1084 Advisory",
+          "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1084/"
+        },
+        {
+          "label": "ZDI-26-1031 Advisory",
+          "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1031/"
+        },
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-r292-cv88-8fr7"
+        },
+        {
+          "label": "LiteLLM Fix Plan",
+          "url": "https://docs.litellm.ai/blog/trail-of-bits-patch-the-planet"
+        }
+      ],
+      "publishDate": "2026-11-25T02:42:03.695Z"
+    },
+    {
+      "id": "zdi-lm-studio-mcp-schema-code-injection",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "LM Studio: an MCP tool schema ran code with no authentication",
+      "org": "Zero Day Initiative",
+      "date": "2026-11-24",
+      "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1121/",
+      "summary": "CVE-2026-133995 let a remote attacker run code in LM Studio with no login, by handing the app an MCP tool schema that it turned into code. LM Studio fixed it in 0.4.16. ZDI published it with four more Pwn2Own findings on November 24, 2026.",
+      "severity": "high",
+      "tags": [
+        "rce",
+        "mcp",
+        "plugins",
+        "lm-studio"
+      ],
+      "affected": [
+        "LM Studio"
+      ],
+      "cve": "CVE-2026-133995",
+      "cvss": 9.8,
+      "credits": [
+        {
+          "name": "Nikolaos Mourousias",
+          "org": "OtterSec"
+        },
+        {
+          "name": "Caue Obici",
+          "org": "OtterSec"
+        },
+        {
+          "name": "Bruno Halltari",
+          "org": "OtterSec"
+        },
+        {
+          "name": "Billy",
+          "org": "STARLabs SG"
+        },
+        {
+          "name": "Pan Zhenpeng",
+          "org": "STARLabs SG"
+        },
+        {
+          "name": "Weiming Shi",
+          "org": "STARLabs SG"
+        }
+      ],
+      "explainer": {
+        "tagline": "LM Studio turned an attacker's MCP tool schema into running code, with no authentication needed.",
+        "whatHappened": "ZDI published five LM Studio advisories on November 24, 2026, all reported to the vendor on June 2, 2026 and all fixed in LM Studio 0.4.16. OtterSec is credited with the most severe, CVE-2026-133995. STARLabs SG is credited with the other four. The findings came out of Pwn2Own Berlin.",
+        "howItWorks": "Code injection drives the worst of the five: LM Studio generates code from an MCP tool schema without validating the schema it was given, so the generated code runs in the service account's context. The other four are a plugin sandbox path traversal that creates arbitrary files, a weak credential in the CLI identity that bypasses authentication, a schema reference that makes the app fetch an attacker's URI, and schema validation errors that return sensitive data to the caller.",
+        "whoIsAffected": "Anyone running LM Studio older than 0.4.16 is exposed, and ZDI lists no narrower version range. The code injection and two of the information-disclosure flaws need no authentication at all. The plugin sandbox path traversal needs high privileges.",
+        "whatToDo": "Update LM Studio to 0.4.16 or later, and in practice to the current release, because a separate path traversal disclosed in October 2026 was fixed after 0.4.16. ZDI lists no workaround for installations that cannot update."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "LM Studio before 0.4.16"
+        },
+        {
+          "label": "Fixed in",
+          "value": "LM Studio 0.4.16"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-133989, 133991, 133992, 133994, 133995"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.8 for CVE-2026-133995, per ZDI"
+        },
+        {
+          "label": "Reported",
+          "value": "June 2, 2026"
+        },
+        {
+          "label": "Disclosed",
+          "value": "November 24, 2026"
+        },
+        {
+          "label": "Found by",
+          "value": "OtterSec and STARLabs SG, at Pwn2Own Berlin"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which LM Studio version fixes CVE-2026-133995?",
+          "a": "LM Studio 0.4.16 fixes CVE-2026-133995 and the four other flaws ZDI published on November 24, 2026. The vendor's changelog for 0.4.16 records the change as a single line reading Security hardening, with no detail and no CVE references. Users on any earlier build should update, because ZDI documents no workaround for installations that stay behind."
+        },
+        {
+          "q": "Does CVE-2026-133995 need a password or an API key?",
+          "a": "No. ZDI records CVE-2026-133995 as needing no privileges and no user interaction, which is why it scores 9.8. Two of the other four LM Studio flaws, the JSON schema request forgery and the validation error leak, are also unauthenticated. The plugin sandbox path traversal, CVE-2026-133994, is the one that requires high privileges."
+        },
+        {
+          "q": "How does this compare to the LM Studio model downloader path traversal?",
+          "a": "Ariel Fogel of Pillar Security found that earlier flaw, CVE-2026-119979, in LM Studio's model downloader, where a crafted model repository wrote files outside the models directory. CVE-2026-133995 sits in MCP tool schema handling instead, and turns a schema into executed code with no login. Separate components, separate CVEs, and the November batch also covers the plugin sandbox and the CLI identity."
+        },
+        {
+          "q": "Were the LM Studio flaws exploited before the advisories appeared?",
+          "a": "ZDI's five LM Studio advisories report no exploitation in the wild. Each records the same two-step timeline: reported to the vendor on June 2, 2026, then a coordinated public release on November 24, 2026. The fix was already in 0.4.16 when the technical details became public, so updating closes the exposure these advisories describe."
+        }
+      ],
+      "links": [
+        {
+          "label": "ZDI-26-1121 Advisory",
+          "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1121/"
+        },
+        {
+          "label": "ZDI-26-1120 Advisory",
+          "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1120/"
+        },
+        {
+          "label": "ZDI-26-1119 Advisory",
+          "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1119/"
+        },
+        {
+          "label": "LM Studio 0.4.16",
+          "url": "https://lmstudio.ai/changelog/lmstudio/lmstudio-v0.4.16"
+        }
+      ],
+      "publishDate": "2026-11-25T02:42:03.695Z"
+    },
+    {
+      "id": "unit42-agentic-ai-attack-campaigns",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "Unit 42: the gap between an agent's commands fell to 1.4 seconds",
+      "org": "Unit 42",
+      "date": "2026-11-24",
+      "url": "https://unit42.paloaltonetworks.com/autonomous-ai-agent-threat-campaigns/",
+      "summary": "Unit 42 analyzed more than 10 intrusion campaigns from July to September 2026 in which an AI agent took over after a human got in. Median time between commands fell from 23.9 seconds under the human to 1.4 seconds under the agent.",
+      "severity": "info",
+      "tags": [
+        "threat-intel",
+        "ai-enabled-offense",
+        "credential-theft",
+        "cyberstrikeai"
+      ],
+      "affected": [
+        "CyberStrikeAI",
+        "Amazon Web Services",
+        "GitLab",
+        "Microsoft IIS"
+      ],
+      "credits": [
+        {
+          "name": "Noa Dekel",
+          "org": "Unit 42"
+        },
+        {
+          "name": "Tom Fakterman",
+          "org": "Unit 42"
+        }
+      ],
+      "explainer": {
+        "tagline": "Unit 42 reports that AI agents compressed intrusion lifecycles from weeks into hours across more than 10 campaigns.",
+        "whatHappened": "Noa Dekel and Tom Fakterman of Unit 42 published an analysis on November 24, 2026 of more than 10 campaigns observed between July and September 2026. Targets spanned government, logistics, hospitality, manufacturing, agriculture and education. Every campaign began with a web shell on a vulnerable web application.",
+        "howItWorks": "A human operator sets the objective and supplies the initial access, then an AI agent runs reconnaissance, credential harvesting, privilege escalation and lateral movement before reporting structured findings back for the human's next decision. Unit 42 says the techniques themselves were not new and that speed and scale were what changed. The agents tried public exploits first, including Copy Fail (CVE-2026-31431), PwnKit (CVE-2021-4034) and CVE-2024-1086, and wrote custom code only after those failed.",
+        "whoIsAffected": "Organizations with internet-facing web applications were the entry point in every campaign Unit 42 describes. The report also names self-managed GitLab instances reached with credentials stolen from a compromised customer site, AWS instance metadata, and a Windows IIS server reached from a Linux web shell.",
+        "whatToDo": "Harden internet-facing web applications, since web shells were the consistent way in. Hunt for the agent fingerprints Unit 42 lists: chain-of-thought reasoning comments inside scripts, and section delimiters such as ===[Title]=== in command output. For self-managed GitLab, enforce MFA, enable sign-in rate limiting and restrict access by IP."
+      },
+      "quickFacts": [
+        {
+          "label": "Campaigns",
+          "value": "More than 10, July to September 2026"
+        },
+        {
+          "label": "Initial access",
+          "value": "Web shells on vulnerable web applications"
+        },
+        {
+          "label": "Command cadence",
+          "value": "23.9s median human, 1.4s median agent"
+        },
+        {
+          "label": "Longest case",
+          "value": "12 days, more than 8,000 unique commands"
+        },
+        {
+          "label": "Fastest case",
+          "value": "40+ ASPX web shells in 26 minutes"
+        },
+        {
+          "label": "Attribution lead",
+          "value": "C2 204.194.54[.]240 hosted CyberStrikeAI"
+        }
+      ],
+      "faq": [
+        {
+          "q": "How does Unit 42 tell an AI agent apart from a human operator?",
+          "a": "Unit 42 points to cadence and artifacts. Median time between commands fell from 23.9 seconds during human-led reconnaissance to 1.4 seconds once the agent took over. Scripts carried chain-of-thought reasoning comments, output used section delimiters such as ===[Title]===, and sessions contained 40 to 100 unique Base64-encoded payloads. Unit 42 says behavior alone identified no specific model or orchestration framework."
+        },
+        {
+          "q": "Did the agents try to avoid security tools?",
+          "a": "Yes. Unit 42 reports that agents excluded EDR directories from file searches, and that one agent checked for 16 security scanners before attacking. In one case the agent ran strace against Microsoft Defender for Endpoint's process to study how it monitors activity. Another switched from IMDSv1 to IMDSv2 after its first metadata attempt was blocked."
+        },
+        {
+          "q": "Which framework did Unit 42 link the campaigns to?",
+          "a": "Unit 42 found a hard-coded command-and-control address, 204.194.54[.]240, that hosted CyberStrikeAI, an AI-native offensive security platform, and notes ReliaQuest documented the same address independently. Further leads were a leaked local path containing exploitmasteryai and non-English code comments, including a WMI backdoor commented in Chinese. Unit 42 stresses that behavior alone linked the activity to no specific LLM."
+        }
+      ],
+      "links": [
+        {
+          "label": "Unit 42 Research",
+          "url": "https://unit42.paloaltonetworks.com/autonomous-ai-agent-threat-campaigns/"
+        },
+        {
+          "label": "Unit 42 ARTEX Guide",
+          "url": "https://unit42.paloaltonetworks.com/artex-and-ai-powered-red-teaming-tools/"
+        }
+      ],
+      "publishDate": "2026-11-25T02:42:03.695Z"
+    },
     {
       "id": "dhuri-markdown-is-not-a-firewall",
       "categories": [
