@@ -1,7 +1,413 @@
 {
-  "generatedAt": "2026-11-26T12:47:10.864Z",
+  "generatedAt": "2026-11-26T22:11:17.403Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "air-trojanpony-skills-campaign",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "TrojanPony: fake skill forks ship a Windows trojan to agent folders",
+      "org": "AIR Security",
+      "date": "2026-11-26",
+      "url": "https://www.air.security/blog-posts/trojanpony",
+      "summary": "TrojanPony is a live campaign that publishes fake improved copies of popular coding-agent skills and plugins. AIR Security counts 487 public repositories carrying the kit, which drops the MopsStealer trojan on Windows machines.",
+      "severity": "critical",
+      "tags": [
+        "malicious-package",
+        "skills",
+        "credential-theft",
+        "claude-code",
+        "github"
+      ],
+      "affected": [
+        "Claude Code",
+        "Agent Skills",
+        "GitHub",
+        "skills.sh"
+      ],
+      "credits": [
+        {
+          "name": "Tal Levy",
+          "org": "AIR Security"
+        },
+        {
+          "name": "Shahar Levy",
+          "org": "AIR Security"
+        },
+        {
+          "name": "Ariel Shadkhan",
+          "org": "AIR Security"
+        }
+      ],
+      "explainer": {
+        "tagline": "TrojanPony hides a signed updater and a credential-stealing trojan inside fake copies of popular coding-agent add-ons.",
+        "whatHappened": "AIR Security published TrojanPony on 26 November 2026 after tracking an attacker who forks popular coding-agent skills and plugins under names such as ponytail-improved and andrej-karpathy-skills. Researchers Tal Levy, Shahar Levy and Ariel Shadkhan counted 487 public repositories carrying the kit, among them 20 real developer repositories pushed with a stolen token. AIR says the attacker's original account was removed while its forks stayed online.",
+        "howItWorks": "The fake add-on behaves like the original and also ships a renamed, validly signed Notepad++ updater, GUP.exe, next to a malicious libcurl.dll. Running the add-on starts the signed updater, which side-loads the DLL from the same folder. The DLL adds Microsoft Defender exclusions, runs gpupdate /force and drops MopsStealer. The trojan persists as RuntimeBroker.exe through four scheduled tasks, bypasses UAC, patches AMSI and reaches its command-and-control servers on TCP 406 and 408, with DuckDNS fallback names.",
+        "whoIsAffected": "Windows developers who install coding-agent skills or plugins from a marketplace or a GitHub fork are exposed, with the kit landing in paths such as ~/.claude/plugins and ~/.claude/skills. AIR reports that one hijacked repository had 3,300 stars and that five of the attacker's repositories reached trending digests with 2,482 stars combined, which the researchers believe were bought. The payload runs only on Windows.",
+        "whatToDo": "Hunt for a Notepad++ updater sitting outside a Notepad++ folder, especially beside libcurl.dll in an agent skills or plugins directory, and for a hidden Add-MpPreference -ExclusionPath followed by gpupdate /force. Check for the trojan path, mutex and C2 ports listed below. AIR says a compromised machine should be reimaged rather than cleaned, with every credential rotated from a separate clean device and the GitHub security log reviewed for unknown commits or workflows."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Coding-agent skills and plugins on Windows"
+        },
+        {
+          "label": "Scale",
+          "value": "487 public repos as of 26 November 2026: 413 skill forks, 50 bot forks, 20 hijacked developer repos, 4 app and game lures"
+        },
+        {
+          "label": "Malware",
+          "value": "MopsStealer, dropped by a libcurl.dll side-loaded into a renamed Notepad++ GUP.exe"
+        },
+        {
+          "label": "Host indicators",
+          "value": "C:\\ProgramData\\Windows\\Microsoft\\RuntimeBroker.exe and the mutex Global\\RuntimeBrokerAds"
+        },
+        {
+          "label": "Network indicators",
+          "value": "Outbound TCP 406 and 408, with 64 DuckDNS fallback names"
+        },
+        {
+          "label": "Found by",
+          "value": "Tal Levy, Shahar Levy and Ariel Shadkhan, AIR Security"
+        },
+        {
+          "label": "Status",
+          "value": "Original account removed, forks still live, per AIR Security"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected by TrojanPony if I installed a coding-agent skill from GitHub?",
+          "a": "TrojanPony only runs its payload on Windows, so a Windows developer who installed a forked skill or plugin should assume exposure until the machine is checked. AIR Security says the kit lands in agent folders such as ~/.claude/plugins and ~/.claude/skills, pairing a renamed Notepad++ updater with a malicious libcurl.dll. macOS and Linux machines do not run the trojan."
+        },
+        {
+          "q": "Is the TrojanPony skill still available to install?",
+          "a": "AIR Security reports that the attacker's original account was removed but the forks remained online, and that one malicious skill was still listed on skills.sh on 26 November 2026 with three security audits all marked PASS. AIR counted 487 public repositories carrying the kit, so removing a single account does not clear the campaign."
+        },
+        {
+          "q": "How do I check a machine for MopsStealer?",
+          "a": "MopsStealer persists as RuntimeBroker.exe under C:\\ProgramData\\Windows\\Microsoft, holds the mutex Global\\RuntimeBrokerAds and runs through four scheduled tasks. AIR Security also advises watching for outbound traffic on TCP 406 and 408 with DuckDNS fallback names, and for Microsoft Defender exclusions added by a signed updater and followed by gpupdate /force."
+        },
+        {
+          "q": "What should I do if a developer machine ran a TrojanPony skill?",
+          "a": "AIR Security advises reimaging the affected machine rather than cleaning it, then rotating every credential from a separate clean device. AIR also recommends reviewing the GitHub security log for commits or workflows the developer did not create, because the attacker used a stolen token to push the kit into 20 real repositories, including one with 3,300 stars."
+        }
+      ],
+      "links": [
+        {
+          "label": "AIR Security Research",
+          "url": "https://www.air.security/blog-posts/trojanpony"
+        },
+        {
+          "label": "MalwareBazaar Samples",
+          "url": "https://bazaar.abuse.ch/browse/signature/MopsStealer/"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/6a282d66e4248a84e0259ed9/6b086a8c7bdbfe3ea2367ea6_hero_trojan_horse.webp",
+        "alt": "TrojanPony: fake skill forks ship a Windows trojan to agent folders",
+        "credit": "AIR Security"
+      },
+      "publishDate": "2026-11-26T22:11:17.403Z"
+    },
+    {
+      "id": "microsoft-artex-defender-guide",
+      "categories": [
+        "incident",
+        "research"
+      ],
+      "title": "ARTEX: Microsoft names six actors and a commercial fork",
+      "org": "Microsoft",
+      "date": "2026-11-25",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+      "summary": "Microsoft Threat Intelligence names six tracked actors that have used or integrated ARTEX, the agentic penetration-testing framework, and says ThreatBook claimed ownership of it in November 2026 and now sells a commercial ARTEX Pro.",
+      "severity": "info",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "detection",
+        "microsoft",
+        "artex"
+      ],
+      "affected": [
+        "ARTEX",
+        "Microsoft 365",
+        "Microsoft Entra ID",
+        "Microsoft Defender XDR",
+        "Microsoft Sentinel"
+      ],
+      "credits": [
+        {
+          "name": "Microsoft Threat Intelligence",
+          "org": "Microsoft"
+        }
+      ],
+      "explainer": {
+        "tagline": "Microsoft Threat Intelligence lists six tracked threat actors that have adopted ARTEX and publishes detection coverage and hunting queries for the framework.",
+        "whatHappened": "Microsoft Threat Intelligence published a defender guide to ARTEX on 25 November 2026. It names Storm-0940 and Storm-3358, which Microsoft has reported on before, and adds Onyx Sleet, Pearl Sleet, Crystal Typhoon and Salt Typhoon as actors that have integrated the framework into their tooling. Microsoft says ARTEX was released in July 2026 by a GitHub user with a Chinese-language interface, that the original source was removed in October 2026 while forks persist, and that ThreatBook claimed ownership in November 2026 and offers a commercial ARTEX Pro.",
+        "howItWorks": "A Go backend coordinates several LLM agents. A goals model splits the operator's scope into verifiable objectives, a planner agent issues intents drawn from a knowledge graph, worker agents run them in real shells with ordinary offensive tools, and a reporter agent documents confirmed findings. Microsoft says ARTEX introduces no new techniques: it drives nmap, curl, Playwright, sqlmap, hydra, nuclei and Metasploit. Operators can point it at almost any model, including abliterated ones, and a pool function switches providers when one fails.",
+        "whoIsAffected": "Internet-facing web applications and APIs are the main target, with Microsoft citing SQL injection, XXE and IDOR as the classes ARTEX agents chase alongside network reconnaissance and credential attacks. Organisations that do not collect Entra sign-in and audit logs, Graph activity logs, web server logs and WAF logs cannot run Microsoft's hunting queries, and Microsoft warns that an empty result from those queries does not prove no access occurred.",
+        "whatToDo": "Microsoft recommends putting a web application firewall in prevention mode with rate limiting and bot protection, enforcing phishing-resistant MFA for administrators, replacing embedded secrets with managed identities, and restricting app consent and role assignment. Microsoft also reports that honeypots, decoys, tarpits and honeytokens reduced attack traffic reaching real assets in its own testing, and publishes advanced hunting queries for web server shell bursts, script file writes, multi-file credential reads and service principal sign-in patterns."
+      },
+      "quickFacts": [
+        {
+          "label": "Framework",
+          "value": "ARTEX, released July 2026, original source removed October 2026, forks persist"
+        },
+        {
+          "label": "Actors named",
+          "value": "Storm-0940, Storm-3358, Onyx Sleet, Pearl Sleet, Crystal Typhoon, Salt Typhoon"
+        },
+        {
+          "label": "Commercial fork",
+          "value": "ThreatBook claimed ownership in November 2026 and sells ARTEX Pro, per Microsoft"
+        },
+        {
+          "label": "Network indicators",
+          "value": "Default user agents artex-enrich/* and norma/*, which operators can change"
+        },
+        {
+          "label": "Defender signature",
+          "value": "Behavior:Win64/ArtexAI, plus Defender XDR, Entra ID Protection and Sentinel rules"
+        },
+        {
+          "label": "Found by",
+          "value": "Microsoft Threat Intelligence"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which indicators does Microsoft list for ARTEX activity?",
+          "a": "Microsoft lists the default user agents artex-enrich/* and norma/* as network indicators, while noting that operators can change them, so behaviour is the more reliable signal. Host-side signs include web server processes spawning shells, new script files in web folders, rapid reads of credential files, and reverse shells or outbound requests to webhook services. Defender detects the tooling as Behavior:Win64/ArtexAI."
+        },
+        {
+          "q": "Is ARTEX still available now that its source was removed?",
+          "a": "Microsoft says the original ARTEX source came down in October 2026 but forks persist, and that ThreatBook claimed ownership of the project in November 2026 and began offering a commercial ARTEX Pro. Microsoft adds that operators can run almost any model with the framework, including abliterated models, and that a pool function switches providers when one fails."
+        },
+        {
+          "q": "What does Microsoft say actually works against ARTEX?",
+          "a": "Microsoft reports that honeypots, decoys, tarpits and honeytokens reduced attack traffic reaching real assets during its own testing. Alongside that, Microsoft recommends a web application firewall in prevention mode with rate limiting and bot protection, phishing-resistant MFA for administrators, managed identities in place of embedded secrets, and tighter limits on app consent and role assignment."
+        }
+      ],
+      "links": [
+        {
+          "label": "Microsoft Threat Intel",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/"
+        },
+        {
+          "label": "Financial Sector Report",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/"
+        }
+      ],
+      "image": {
+        "url": "https://www.microsoft.com/en-us/security/blog/wp-content/uploads/2026/11/ARTEX-featured.png",
+        "alt": "ARTEX: Microsoft names six actors and a commercial fork",
+        "credit": "Microsoft"
+      },
+      "publishDate": "2026-11-26T22:11:17.403Z"
+    },
+    {
+      "id": "nvidia-aistore-unauthenticated-node-control",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "AIStore: an unauthenticated caller reached storage admin functions",
+      "org": "NVIDIA",
+      "date": "2026-11-24",
+      "url": "https://github.com/NVIDIA/product-security/blob/main/2026/5928/5928.md",
+      "summary": "NVIDIA's November AIStore bulletin discloses three unauthenticated flaws in the object store it ships for AI training clusters, led by CVE-2026-65175 at CVSS 9.8. AIStore 5.1 fixes all three.",
+      "severity": "high",
+      "cve": "CVE-2026-65175",
+      "cvss": 9.8,
+      "tags": [
+        "privilege-escalation",
+        "rce",
+        "nvidia",
+        "aistore"
+      ],
+      "affected": [
+        "NVIDIA AIStore"
+      ],
+      "credits": [
+        {
+          "name": "Ali Sherif"
+        },
+        {
+          "name": "YJK",
+          "org": "ZUSO ART"
+        },
+        {
+          "name": "Habibullo Izzatilloyev",
+          "org": "TrendAI Zero Day Initiative"
+        }
+      ],
+      "explainer": {
+        "tagline": "NVIDIA AIStore 5.0 and earlier let an unauthenticated caller reach a storage target's node-control functions and write files outside the store.",
+        "whatHappened": "NVIDIA published security bulletin 5928 for the AIStore framework on 24 November 2026, listing three flaws in the object store it ships for AI training clusters. CVE-2026-65175 carries a CVSS 9.8 and is credited to Ali Sherif. CVE-2026-100986 and CVE-2026-100985 both carry 8.1 and are credited to YJK of ZUSO ART, with Habibullo Izzatilloyev on the first, working with the Zero Day Initiative.",
+        "howItWorks": "The critical flaw is missing authentication on a storage target's node-control functions, which a caller can reach through the target's public interface instead of going through a gateway. The two high-severity flaws are validation gaps. An append-operation handle was not bound to the object that created it, so data could be appended to files outside the intended storage location. An object-copy destination name was not validated, so a crafted name wrote files outside the configured storage location.",
+        "whoIsAffected": "NVIDIA lists AIStore on Linux at version 5.0 and earlier as affected. Clusters whose storage target public interfaces sit on a reachable network are the exposed case, because none of the three flaws needs credentials. NVIDIA lists code execution, privilege escalation, data tampering, denial of service and information disclosure among the impacts.",
+        "whatToDo": "Upgrade to AIStore 5.1 from the NVIDIA/aistore repository. The 5.1 notes say target node-control requests sent to public endpoints are now rejected, object names are validated before they become on-disk paths, and append handles are bound to their object. Per-node request authentication arrived in the same release but stays opt-in behind auth.intra_cluster.request_auth, so operators who want signed intra-cluster requests have to enable it."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "NVIDIA AIStore on Linux, version 5.0 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "AIStore 5.1"
+        },
+        {
+          "label": "CVEs",
+          "value": "CVE-2026-65175 (9.8), CVE-2026-100986 (8.1), CVE-2026-100985 (8.1)"
+        },
+        {
+          "label": "Found by",
+          "value": "Ali Sherif; YJK of ZUSO ART; Habibullo Izzatilloyev"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-24, in NVIDIA bulletin 5928"
+        },
+        {
+          "label": "Attack type",
+          "value": "Missing authentication and path validation bypass, no credentials needed"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which AIStore version fixes CVE-2026-65175?",
+          "a": "AIStore 5.1 fixes CVE-2026-65175, along with CVE-2026-100986 and CVE-2026-100985. NVIDIA's November 2026 bulletin lists AIStore 5.0 and earlier on Linux as affected and points operators at the 5.1 release in the NVIDIA/aistore repository. The release notes say a 5.1 node refuses pre-5.0 primaries, so an upgrade from an older cluster has to pass through 5.0 first."
+        },
+        {
+          "q": "Does exploiting the AIStore node-control flaw need credentials?",
+          "a": "No. NVIDIA describes CVE-2026-65175 as missing authentication on storage-target node-control functions, letting an unauthenticated attacker reach administrative functions through a target's public interface. NVIDIA scores the flaw CVSS 9.8 and lists data tampering, denial of service and information disclosure as impacts. AIStore 5.1 rejects node-control requests that arrive at target public endpoints."
+        },
+        {
+          "q": "Was the AIStore fix shipped before these CVEs were published?",
+          "a": "Yes. The AIStore 5.1 release notes already describe the node-control enforcement, object-name validation and append-handle binding that these three CVEs cover, and credit outside reporters for them. NVIDIA assigned the CVE IDs and published bulletin 5928 on 24 November 2026, so operators still running 5.0 or earlier only learned the size of the exposure then."
+        },
+        {
+          "q": "Is per-node request authentication on by default in AIStore 5.1?",
+          "a": "No. The AIStore 5.1 notes say each node generates an Ed25519 keypair at startup, but signing and verification of protected intra-cluster requests stay opt-in behind the auth.intra_cluster.request_auth setting. Node-join authentication is separate and applies only when auth.intra_cluster.node_join_secret_path is configured. Operators who want either control have to turn it on after upgrading."
+        }
+      ],
+      "links": [
+        {
+          "label": "NVIDIA Bulletin 5928",
+          "url": "https://github.com/NVIDIA/product-security/blob/main/2026/5928/5928.md"
+        },
+        {
+          "label": "AIStore 5.1 Release",
+          "url": "https://github.com/NVIDIA/aistore/releases/tag/v1.5.1"
+        },
+        {
+          "label": "October Bulletin 5889",
+          "url": "https://github.com/NVIDIA/product-security/blob/main/2026/5889/5889.md"
+        }
+      ],
+      "publishDate": "2026-11-26T22:11:17.403Z"
+    },
+    {
+      "id": "jfrog-hugging-face-model-self-exfil",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "Hugging Face: a fake-model campaign leaked its own operator",
+      "org": "JFrog",
+      "date": "2026-11-24",
+      "url": "https://research.jfrog.com/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/",
+      "summary": "JFrog found 13 Hugging Face repositories whose fake models stole secrets and committed them back to the Hub, needing no command-and-control server. The first loot file came from the operator's own machine and exposed an ARTEX agent's keys.",
+      "severity": "medium",
+      "tags": [
+        "model-supply-chain",
+        "data-exfiltration",
+        "credential-theft",
+        "hugging-face",
+        "artex"
+      ],
+      "affected": [
+        "Hugging Face Hub",
+        "Hugging Face transformers",
+        "PyTorch"
+      ],
+      "credits": [
+        {
+          "name": "David Cohen",
+          "org": "JFrog Security Research"
+        }
+      ],
+      "explainer": {
+        "tagline": "Fake models on Hugging Face used the Hub's own commit API to exfiltrate secrets, and committed their operator's credentials by mistake.",
+        "whatHappened": "JFrog security researcher David Cohen published the campaign on 24 November 2026, the same day the attacker created the account. Thirteen repositories across one account and a linked organisation held two fake models, nine tokenizer test repositories and two loot repositories. Hugging Face disabled all thirteen the same day for a content policy violation, confirming at 13:29 UTC after JFrog reported the campaign by email and through the repository report option.",
+        "howItWorks": "Each fake model carried three execution paths: remote Python loaded through auto_map when trust_remote_code is set, a malicious pickle inside pytorch_model.bin, and server-side template injection in the chat template. On load the payload harvested environment variables, /proc/1/environ, Kubernetes service-account tokens and system details including GPU information, then committed them as JSON to a Hugging Face repository using a hardcoded write token. Using the Hub's commit API as the exfiltration channel removed the need for any attacker infrastructure.",
+        "whoIsAffected": "Workloads that load Hub models with trust_remote_code enabled, or that run a torch older than 2.6 where pickle loading is not restricted, are the exposed case. JFrog notes that the first fake model shipped .bin files of roughly 2.5 KB where a real 1B model exceeds 2 GB, and that the second shipped no weight files at all. JFrog says both loot repositories were empty when Hugging Face disabled them.",
+        "whatToDo": "Avoid trust_remote_code on unreviewed repositories, pin revision to a commit SHA, run torch 2.6 or later with weights_only, and render chat templates only in a sandbox. Give model-loading workloads read-only Hub access rather than write access. JFrog publishes YARA rules and an indicator list, and suggests watching for writes to the Hub commit API, reads of /proc/1/environ and service-account tokens, auto_map modules in repositories with no weights, and chat templates containing __globals__, __mro__, __subclasses__ or .popen(."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Hugging Face Hub, 13 repositories disabled on 24 November 2026"
+        },
+        {
+          "label": "Fake models",
+          "value": "llama-3.2-1b-tuned and mistral-7b-utterance, plus nine tokenizer test repos"
+        },
+        {
+          "label": "Attack type",
+          "value": "auto_map remote code, pickle in pytorch_model.bin, chat template injection"
+        },
+        {
+          "label": "Exfiltration",
+          "value": "Hugging Face commit API with a hardcoded write token, no command-and-control server"
+        },
+        {
+          "label": "Operator leak",
+          "value": "Environment variables naming an ARTEX agent on gpt-5.4, with its OpenAI key and Postgres credentials"
+        },
+        {
+          "label": "Found by",
+          "value": "David Cohen, JFrog Security Research"
+        },
+        {
+          "label": "Status",
+          "value": "Repositories disabled, both loot drops empty, no victim data found, per JFrog"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did the Hugging Face fake-model campaign steal real victim data?",
+          "a": "JFrog reports that both loot repositories were empty when Hugging Face disabled them, that it found no other loot JSON files in its index of public repositories, and no payload file matching these hashes outside the attacker's account. The only data JFrog recovered came from the operator's own build machine, committed 14 seconds after the first model was uploaded."
+        },
+        {
+          "q": "How did JFrog work out that an ARTEX agent built the models?",
+          "a": "The first loot file held environment variables from the machine that built the model, naming an autonomous agent called ARTEX configured to call gpt-5.4 through a third-party API reseller, along with its OpenAI key, Postgres credentials and task data. JFrog assesses with high confidence that the models were created and tested inside an ARTEX task, and says the human operator remains unidentified."
+        },
+        {
+          "q": "Does running torch 2.6 protect against these malicious models?",
+          "a": "Running torch 2.6 or later with weights_only blocks the pickle path inside pytorch_model.bin, but JFrog describes two execution paths it does not cover: remote Python fetched through auto_map when trust_remote_code is enabled, and server-side template injection in the chat template. JFrog recommends pinning a revision SHA and rendering chat templates only inside a sandbox."
+        }
+      ],
+      "links": [
+        {
+          "label": "JFrog Research",
+          "url": "https://research.jfrog.com/post/the-agent-that-robbed-itself-an-ai-driven-hugging-face-malware-campaign-leaks-its-own-operator/"
+        },
+        {
+          "label": "Indicator List",
+          "url": "https://research.jfrog.com/hf-agent-self-exfil-iocs.csv"
+        },
+        {
+          "label": "YARA Rules",
+          "url": "https://research.jfrog.com/hf-agent-self-exfil-hf_commit_exfil.yar"
+        }
+      ],
+      "publishDate": "2026-11-26T22:11:17.403Z"
+    },
     {
       "id": "markdownify-mcp-ssrf-and-path-bypass",
       "categories": [

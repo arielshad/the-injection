@@ -21150,6 +21150,97 @@
         "ncsc.gov.uk"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261126t221117z",
+      "timestamp": "2026-11-26T22:11:17.403Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories (MCP and reviewed feeds), ZDI, NVIDIA product-security, Microsoft Security Blog and MSRC, Anthropic, OpenAI, AIR Security, Wiz, Unit 42, Socket, JFrog, ReversingLabs, Trail of Bits, Elastic Security Labs, HiddenLayer, Check Point, Tracebit, AISI, NIST CAISI, OWASP GenAI, Hugging Face blog, Hacker News front page and Show HN, GitHub trending, paper-scan (73 arXiv candidates, one with two scanned signals), repo-scan (5 candidates) and talk-scan (33 videos). Added four items: the TrojanPony malicious-skill campaign, NVIDIA's November AIStore bulletin, Microsoft's ARTEX defender guide and JFrog's Hugging Face fake-model campaign.",
+      "counts": {
+        "added": 4,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "air-trojanpony-skills-campaign",
+          "title": "TrojanPony: fake skill forks ship a Windows trojan to agent folders",
+          "category": "supply-chain",
+          "severity": "critical",
+          "note": "A live in-the-wild campaign with 487 malicious repositories still up, credential theft and a named malware family, published today by the researchers who tracked it."
+        },
+        {
+          "id": "nvidia-aistore-unauthenticated-node-control",
+          "title": "AIStore: an unauthenticated caller reached storage admin functions",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "New vendor advisory inside the window assigning three CVEs, one at CVSS 9.8, to unauthenticated flaws in AI training storage that operators on 5.0 must upgrade to escape."
+        },
+        {
+          "id": "microsoft-artex-defender-guide",
+          "title": "ARTEX: Microsoft names six actors and a commercial fork",
+          "category": "incident",
+          "severity": "info",
+          "note": "Adds four newly named actors, a commercial ARTEX fork and Microsoft's own detection coverage, none of which appear in the earlier Microsoft ARTEX items in the feed."
+        },
+        {
+          "id": "jfrog-hugging-face-model-self-exfil",
+          "title": "Hugging Face: a fake-model campaign leaked its own operator",
+          "category": "supply-chain",
+          "severity": "medium",
+          "note": "First report of the Hub commit API used as an exfiltration channel with no attacker infrastructure, with the operator's own agent credentials caught in the first loot commit."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "github.com/advisories",
+        "zerodayinitiative.com",
+        "github.com/NVIDIA/product-security",
+        "microsoft.com/security/blog",
+        "microsoft.com/msrc/blog",
+        "anthropic.com/news",
+        "anthropic.com Frontier Red Team",
+        "openai.com/index",
+        "air.security/blog",
+        "wiz.io/blog",
+        "unit42.paloaltonetworks.com",
+        "socket.dev/blog",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "blog.trailofbits.com",
+        "elastic.co/security-labs",
+        "hiddenlayer.com",
+        "research.checkpoint.com",
+        "tracebit.com/blog",
+        "labs.zenity.io",
+        "lakera.ai/blog",
+        "invariantlabs.ai/blog",
+        "embracethered.com",
+        "simonwillison.net",
+        "aisi.gov.uk",
+        "nist.gov/caisi",
+        "genai.owasp.org",
+        "huggingface.co/blog",
+        "news.ycombinator.com front page and Show HN",
+        "github.com/trending",
+        "paper-scan.ts (arXiv and Hugging Face Daily Papers)",
+        "repo-scan.json",
+        "talk-scan.ts"
+      ],
+      "windowDays": 7
     }
   ]
 }
