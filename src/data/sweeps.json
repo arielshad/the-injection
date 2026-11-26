@@ -21076,6 +21076,80 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261126t124710z",
+      "timestamp": "2026-11-26T12:47:10.864Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, ZDI, CVE records, repo-scan (13 queries, 5 candidates), paper-scan (80 papers in window), talk-scan, GitHub trending daily and weekly, Hacker News, Embrace The Red, Simon Willison, AIR, Zenity Labs, Tracebit, Wiz, OpenAI, Anthropic, Socket, Hugging Face and OWASP GenAI; added three disclosures first published inside the 7-day window. Left out on date grounds the eight-advisory NVIDIA ZDI wave (NVIDIA's own bulletins for Megatron Bridge, NeMo, AIStore and Megatron-LM were published in August, September, October and on 17 November, all before the window), ruflo CVE-2026-59726 (GitHub advisory published 1 July) and the ArcadeDB MCP advisories (published 4 November); left out Tracebit's TuringPot honeypot (new and MIT licensed, but only one repo-bar signal: 51 stars, no launch write-up, not trending) and a reported NCSC agentic-frameworks blog that no primary page on ncsc.gov.uk confirmed.",
+      "counts": {
+        "added": 3,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "markdownify-mcp-ssrf-and-path-bypass",
+          "title": "markdownify-mcp: three ways past its URL and path checks",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "Three advisories published 25 November by the maintainer of a widely deployed MCP server, with named finders, a CVE and a fix users must install."
+        },
+        {
+          "id": "pomerium-mcp-token-client-secret-bypass",
+          "title": "Pomerium: the MCP token endpoint accepted any client secret",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "VulnCheck published the CVE on 23 November for an MCP authentication bypass that Pomerium had fixed without a security advisory, so operators on 0.33.x learned of it only this week."
+        },
+        {
+          "id": "zdi-devin-desktop-electron-search-path",
+          "title": "Devin Desktop: a local escalation published with no fix",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A 0-day advisory for an AI coding agent's desktop app, published 24 November with no vendor fix and a named researcher."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "Zero Day Initiative",
+        "CVE Program records (cveawg.mitre.org)",
+        "NVIDIA product-security bulletins",
+        "repo-scan.json",
+        "paper-scan.ts (arXiv plus Hugging Face Daily Papers)",
+        "talk-scan.ts",
+        "gh-repo-meta.ts",
+        "og-image.ts",
+        "github.com/trending",
+        "Hacker News front page",
+        "embracethered.com",
+        "simonwillison.net",
+        "air.security/blog",
+        "labs.zenity.io",
+        "tracebit.com/blog",
+        "wiz.io/blog",
+        "openai.com/news/security",
+        "anthropic.com/news",
+        "socket.dev/blog",
+        "huggingface.co/blog",
+        "genai.owasp.org/news",
+        "ncsc.gov.uk"
+      ],
+      "windowDays": 7
     }
   ]
 }

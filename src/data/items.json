@@ -1,7 +1,305 @@
 {
-  "generatedAt": "2026-11-26T03:28:17.523Z",
+  "generatedAt": "2026-11-26T12:47:10.864Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "markdownify-mcp-ssrf-and-path-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "markdownify-mcp: three ways past its URL and path checks",
+      "org": "markdownify-mcp",
+      "date": "2026-11-25",
+      "url": "https://github.com/zcaceres/markdownify-mcp/security/advisories/GHSA-pxwh-pcrm-vrm3",
+      "summary": "markdownify-mcp, an MCP server that converts files and web pages to Markdown, fixed three authorization flaws in version 1.2.0: an SSRF filter bypass, a local file path allowlist bypass, and option injection through a git branch name.",
+      "severity": "high",
+      "tags": [
+        "mcp",
+        "prompt-injection",
+        "data-exfiltration",
+        "markdownify-mcp"
+      ],
+      "affected": [
+        "mcp-markdownify-server",
+        "markdownify-mcp"
+      ],
+      "cve": "CVE-2026-137308",
+      "cvss": 8.3,
+      "credits": [
+        {
+          "name": "P0LESTAR"
+        },
+        {
+          "name": "tonghuaroot"
+        },
+        {
+          "name": "GeniusKangaroo"
+        },
+        {
+          "name": "leonardosalasd"
+        }
+      ],
+      "explainer": {
+        "tagline": "markdownify-mcp closed three ways an agent's URL or file request could reach past the server's own guardrails.",
+        "whatHappened": "markdownify-mcp published three security advisories on 25 November 2026 and fixed all of them in version 1.2.0. P0LESTAR, tonghuaroot and GeniusKangaroo reported the server-side request forgery bypass, and leonardosalasd reported the path allowlist bypass and the option injection. The GitHub Advisory Database tracks the SSRF bypass as CVE-2026-137308.",
+        "howItWorks": "The SSRF check passed a parsed hostname to the private-ip package, which classifies only literal IP addresses, so DNS names such as localhost and metadata.google.internal returned nothing and passed. Bracketed IPv6 literals and hex-compressed IPv4-mapped IPv6 addresses were also treated as public. The path check compared strings with a prefix match and never resolved symlinks, so a sibling directory sharing the allowed directory's name prefix stayed readable. A caller-supplied branch value reached repomix as --remote-branch without validation, and repomix runs git fetch with no end-of-options separator, so a value starting with a dash became a git option.",
+        "whoIsAffected": "Operators running mcp-markdownify-server 1.1.0 or earlier are exposed. The path allowlist bypass matters only where MD_ALLOWED_PATHS or MD_SHARE_DIR was set to limit local file reads. The SSRF and option injection paths are reachable through the server's webpage-to-markdown and git-repo-to-markdown tools in any configuration below 1.2.0.",
+        "whatToDo": "Upgrade mcp-markdownify-server to 1.2.0. Treat any URL or branch value handled by an older server as attacker-influenced, and review whether the host running it can reach loopback services or a cloud metadata endpoint."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "mcp-markdownify-server 1.1.0 and earlier"
+        },
+        {
+          "label": "Fixed in",
+          "value": "1.2.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-137308, for the SSRF bypass"
+        },
+        {
+          "label": "CVSS",
+          "value": "8.3, CVSS 4.0"
+        },
+        {
+          "label": "Found by",
+          "value": "P0LESTAR, tonghuaroot, GeniusKangaroo, leonardosalasd"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-25"
+        },
+        {
+          "label": "Attack type",
+          "value": "SSRF, path traversal, option injection"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which version of mcp-markdownify-server fixes the SSRF bypass?",
+          "a": "Version 1.2.0 of mcp-markdownify-server fixes all three reported flaws. The release drops the private-ip dependency in favour of Node's built-in node:net BlockList, adds fail-closed asynchronous DNS resolution, and re-checks the hostname on every redirect. Every release up to and including 1.1.0 is listed as affected, so operators below 1.2.0 should upgrade."
+        },
+        {
+          "q": "Am I affected if I never set MD_ALLOWED_PATHS?",
+          "a": "Operators who never set MD_ALLOWED_PATHS or MD_SHARE_DIR escape the path allowlist bypass, which applies only where those variables limit local file reads. The server-side request forgery bypass and the git branch option injection do not depend on that configuration, so an unconfigured markdownify-mcp server below version 1.2.0 stays exposed to both of them."
+        },
+        {
+          "q": "How would an attacker reach the SSRF bypass in markdownify-mcp?",
+          "a": "The advisory record for CVE-2026-137308 states that an attacker can influence the URLs passed to the webpage-to-markdown and git-repo-to-markdown tools through prompt injection. Content the agent reads supplies a hostname that resolves to loopback, a private range or a cloud metadata endpoint, and the server fetched it because the old filter classified only literal IP addresses."
+        },
+        {
+          "q": "What did the branch parameter option injection allow?",
+          "a": "markdownify-mcp passed a caller-supplied branch value straight to repomix as --remote-branch with no validation, and repomix runs git fetch without an end-of-options separator. A branch value beginning with a dash was therefore read as a git command-line option. Version 1.2.0 adds validateBranchName(), which rejects values starting with a dash or containing .., @{, .lock or whitespace."
+        }
+      ],
+      "links": [
+        {
+          "label": "SSRF Advisory",
+          "url": "https://github.com/zcaceres/markdownify-mcp/security/advisories/GHSA-pxwh-pcrm-vrm3"
+        },
+        {
+          "label": "Path Allowlist Advisory",
+          "url": "https://github.com/zcaceres/markdownify-mcp/security/advisories/GHSA-wp59-q6fv-34rx"
+        },
+        {
+          "label": "Branch Option Advisory",
+          "url": "https://github.com/zcaceres/markdownify-mcp/security/advisories/GHSA-hv2v-j8vq-q59x"
+        },
+        {
+          "label": "CVE-2026-137308",
+          "url": "https://github.com/advisories/GHSA-mqxc-j2ww-xfvx"
+        },
+        {
+          "label": "Release 1.2.0",
+          "url": "https://github.com/zcaceres/markdownify-mcp/releases/tag/v1.2.0"
+        }
+      ],
+      "publishDate": "2026-11-26T12:47:10.864Z"
+    },
+    {
+      "id": "zdi-devin-desktop-electron-search-path",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Devin Desktop: a local escalation published with no fix",
+      "org": "Zero Day Initiative",
+      "date": "2026-11-24",
+      "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1045/",
+      "summary": "Devin Desktop loads a script file from an unsecured location, so a local attacker who can already run low-privileged code can execute code as the target user. ZDI published the advisory as a 0-day on 24 November 2026 with no vendor fix.",
+      "severity": "medium",
+      "tags": [
+        "coding-agents",
+        "privilege-escalation",
+        "devin"
+      ],
+      "affected": [
+        "Devin Desktop"
+      ],
+      "cve": "CVE-2026-136534",
+      "cvss": 7.3,
+      "credits": [
+        {
+          "name": "Xavier DANEST"
+        }
+      ],
+      "explainer": {
+        "tagline": "Devin Desktop carries an unpatched local privilege escalation, published as a 0-day after the vendor stayed silent.",
+        "whatHappened": "The Zero Day Initiative published ZDI-26-1045 for Devin Desktop on 24 November 2026 as a 0-day advisory, crediting Xavier DANEST. ZDI reported the flaw to the vendor on 2 September 2026, asked for acknowledgement on 29 October, and gave notice of its intent to publish on 4 November. The advisory lists no vendor fix.",
+        "howItWorks": "The weakness sits in how Devin Desktop configures the Electron framework: the application loads a script file from a location that is not protected against writes by other users. An attacker who can already run low-privileged code on the machine plants a file at that location. The planted script then runs with the privileges of whichever user next starts the application, which is why ZDI classes it as CWE-427, an uncontrolled search path element.",
+        "whoIsAffected": "The CVE record names Devin Desktop 3.7.16 as the affected version. Exploitation needs local access with low privileges plus an action by the target user, so shared and multi-user machines carry the real risk, and single-user laptops with no other local accounts carry much less.",
+        "whatToDo": "No vendor fix exists, and ZDI states that the only salient mitigation is to restrict interaction with the product. Limit who can log in or run code on machines where Devin Desktop is installed, and watch the vendor's releases for a patched build."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Devin Desktop 3.7.16"
+        },
+        {
+          "label": "Status",
+          "value": "0-day, no vendor fix published"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-136534"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.3, CVSS 3.0"
+        },
+        {
+          "label": "Found by",
+          "value": "Xavier DANEST"
+        },
+        {
+          "label": "Reported to vendor",
+          "value": "2026-09-02"
+        },
+        {
+          "label": "Disclosed",
+          "value": "2026-11-24"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a patch for CVE-2026-136534 in Devin Desktop?",
+          "a": "No patch is listed for CVE-2026-136534. The Zero Day Initiative published ZDI-26-1045 as a 0-day advisory on 24 November 2026 and states that the only salient mitigation is to restrict interaction with the product. ZDI's timeline shows the report reached the vendor on 2 September 2026, followed by a request for acknowledgement and a notice of intent to publish."
+        },
+        {
+          "q": "Can CVE-2026-136534 be exploited remotely against Devin Desktop?",
+          "a": "Remote exploitation is out of scope for CVE-2026-136534. The ZDI advisory classes the flaw as local privilege escalation, and the CVSS 3.0 vector AV:L/AC:L/PR:L/UI:R records a local attack vector, low privileges required and user interaction needed. An attacker must already be able to run low-privileged code on the target machine before the flaw helps them."
+        },
+        {
+          "q": "Which version of Devin Desktop does the advisory name?",
+          "a": "The CVE record for CVE-2026-136534 names Devin Desktop 3.7.16 as the affected version, while the ZDI advisory page itself lists no affected versions. Because no fixed build is published, administrators cannot resolve the issue by upgrading and should instead limit who can run code on machines where Devin Desktop is installed."
+        }
+      ],
+      "links": [
+        {
+          "label": "ZDI-26-1045",
+          "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1045/"
+        },
+        {
+          "label": "CVE Record",
+          "url": "https://www.cve.org/CVERecord?id=CVE-2026-136534"
+        }
+      ],
+      "publishDate": "2026-11-26T12:47:10.864Z"
+    },
+    {
+      "id": "pomerium-mcp-token-client-secret-bypass",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Pomerium: the MCP token endpoint accepted any client secret",
+      "org": "VulnCheck",
+      "date": "2026-11-23",
+      "url": "https://github.com/advisories/GHSA-2hj6-2qpj-pqj2",
+      "summary": "Pomerium skipped client secret verification on its MCP token endpoint, so an attacker holding an intercepted authorization code or refresh token could redeem it with any secret and receive the victim's access tokens. Fixed in 0.34.0.",
+      "severity": "medium",
+      "tags": [
+        "mcp",
+        "credential-theft",
+        "pomerium"
+      ],
+      "affected": [
+        "Pomerium"
+      ],
+      "cve": "CVE-2026-135300",
+      "cvss": 9.1,
+      "credits": [
+        {
+          "name": "Theodoros Lampropoulos"
+        }
+      ],
+      "explainer": {
+        "tagline": "Pomerium's MCP token endpoint never compared the client secret, and the CVE arrived two months after the fix shipped.",
+        "whatHappened": "VulnCheck published CVE-2026-135300 for Pomerium on 23 November 2026 and credits Theodoros Lampropoulos with the finding. Pomerium had already fixed the flaw: the pull request adding the missing check was merged on 24 September 2026 and shipped in release 0.34.0. Pomerium's 0.34.0 release notes list the change as a breaking change and do not describe it as a vulnerability.",
+        "howItWorks": "The /.pomerium/mcp/token endpoint never compared the secret a client presented when that client was registered with the client_secret_basic method. The fixing pull request states that nothing ever compared the presented secret, so any secret, or none, was accepted. An attacker who already holds an intercepted authorization code or refresh token redeems it at that endpoint with a secret of their choosing and receives the victim's access tokens.",
+        "whoIsAffected": "Versions 0.30.0 through 0.33.x are affected per the CVE record, and release 0.34.0 carries the fix. Exposure is limited to deployments that use Pomerium's MCP support with clients registered through the client_secret_basic method.",
+        "whatToDo": "Upgrade Pomerium to 0.34.0 or later. Clients registered without a token_endpoint_auth_method now receive invalid_client errors until they send their secret or re-register, so plan for that breaking change before the upgrade."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Pomerium 0.30.0 through 0.33.x"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Pomerium 0.34.0"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-135300"
+        },
+        {
+          "label": "CVSS",
+          "value": "9.1 CVSS 4.0, 7.4 CVSS 3.1"
+        },
+        {
+          "label": "Found by",
+          "value": "Theodoros Lampropoulos"
+        },
+        {
+          "label": "Fix merged",
+          "value": "2026-09-24"
+        },
+        {
+          "label": "CVE published",
+          "value": "2026-11-23"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is Pomerium patched against CVE-2026-135300?",
+          "a": "Pomerium 0.34.0 contains the fix for CVE-2026-135300. The pull request that added the missing check was merged on 24 September 2026 and introduces a constant-time secret comparison shared with the client_secret_post method. The CVE record lists versions 0.30.0 up to 0.34.0 as affected, so any deployment still on 0.33.x or earlier needs the upgrade."
+        },
+        {
+          "q": "What does an attacker need to exploit the Pomerium MCP token flaw?",
+          "a": "An attacker needs an intercepted authorization code or refresh token for the victim before this Pomerium flaw helps them. Holding one, they redeem it at /.pomerium/mcp/token using any client secret and receive the victim's access tokens. The CISA Vulnrichment data on the CVE record rates the flaw as not automatable, with no known exploitation and total technical impact."
+        },
+        {
+          "q": "Will upgrading Pomerium to 0.34.0 break my MCP clients?",
+          "a": "Pomerium 0.34.0 lists stricter MCP client authentication among its breaking changes. Clients that registered without a token_endpoint_auth_method defaulted to client_secret_basic and now receive invalid_client errors until they send their secret or re-register. The fixing pull request also requires credentials to arrive through the registered method and ignores secrets passed in the URL query."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Advisory",
+          "url": "https://github.com/advisories/GHSA-2hj6-2qpj-pqj2"
+        },
+        {
+          "label": "Pomerium 0.34.0 Notes",
+          "url": "https://github.com/pomerium/pomerium/releases/tag/v0.34.0"
+        },
+        {
+          "label": "Fix Pull Request",
+          "url": "https://github.com/pomerium/pomerium/pull/6787"
+        }
+      ],
+      "publishDate": "2026-11-26T12:47:10.864Z"
+    },
     {
       "id": "greynoise-gt13-check-point-management-servers",
       "categories": [
