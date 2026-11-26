@@ -1,7 +1,112 @@
 {
-  "generatedAt": "2026-11-25T21:00:23.828Z",
+  "generatedAt": "2026-11-26T03:28:17.523Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "greynoise-gt13-check-point-management-servers",
+      "categories": [
+        "incident"
+      ],
+      "title": "GT13: GreyNoise finds 24 breached Check Point management servers",
+      "org": "GreyNoise",
+      "date": "2026-11-23",
+      "url": "https://www.greynoise.io/blog/check-point-security-management-servers-intrusion-campaign",
+      "summary": "GT13 is an active intrusion campaign that reached 24 Check Point Security Management Servers at 22 organizations in 17 countries, GreyNoise reports. GreyNoise believes the operator used LLMs and agentic systems, but has not confirmed it.",
+      "severity": "medium",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "data-exfiltration",
+        "detection",
+        "check-point"
+      ],
+      "affected": [
+        "Check Point Security Management Server",
+        "Check Point Multi-Domain Security Management",
+        "Rejetto HFS"
+      ],
+      "credits": [
+        {
+          "name": "Steve Miller",
+          "org": "GreyNoise"
+        }
+      ],
+      "explainer": {
+        "tagline": "GT13 is an unattributed campaign that copied firewall databases and internal CA files from Check Point management servers.",
+        "whatHappened": "GreyNoise published the GT13 campaign on 23 November 2026, counting at least 22 victim organizations across 17 countries and 24 Check Point Security Management Servers. Researcher Steve Miller dates the confirmed activity to 17 October through 2 November 2026 and says the campaign may still be running. GreyNoise does not attribute GT13 to any known group and says it lacks the information to judge motivation or country of origin.",
+        "howItWorks": "The operator reached a first host through CVE-2026-61500, a session forgery flaw in Rejetto HFS, then used CVE-2026-16232 to get past the Check Point SmartConsole login and act as a management administrator. More than 30 Python scripts followed, including an exploit adapted from a Metasploit module, and the operator copied firewall databases and internal certificate authority files. GreyNoise writes that it believes the operator used LLMs and agentic systems, reading that from automation patterns and gaps in the timeline rather than from captured tooling.",
+        "whoIsAffected": "Organizations running a Check Point Security Management Server or Multi-Domain Security Management Server are exposed to CVE-2026-16232 when the management address is reachable from the internet and Trusted Clients is not restricted. GreyNoise found victims in financial services, energy, government, transportation, mining, engineering and manufacturing, and says the targeting favored no single country or sector.",
+        "whatToDo": "Install the Jumbo Hotfix Take that carries the CVE-2026-16232 fix for your version, listed in Check Point advisory sk185169, and set Trusted Clients to named addresses or subnets instead of Any. Hunt GreyNoise's published indicators, listed in its report, and on any server that was reachable review administrator, SmartConsole, API and application token activity."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Check Point Security Management Server, Multi-Domain Security Management"
+        },
+        {
+          "label": "Scale",
+          "value": "24 servers, 22 organizations, 17 countries"
+        },
+        {
+          "label": "Activity",
+          "value": "17 October to 2 November 2026, possibly ongoing"
+        },
+        {
+          "label": "Attack path",
+          "value": "CVE-2026-61500 in Rejetto HFS, then CVE-2026-16232 in SmartConsole"
+        },
+        {
+          "label": "Fixed in",
+          "value": "R82.10 Take 36, R82 Take 118, R81.20 Take 158; no fix for R81.10 and older"
+        },
+        {
+          "label": "Found by",
+          "value": "Steve Miller, GreyNoise"
+        },
+        {
+          "label": "Status",
+          "value": "No attribution; AI use is GreyNoise's assessment, not a confirmed finding"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my Check Point management server affected by the GT13 campaign?",
+          "a": "Check Point Security Management and Multi-Domain Security Management servers are exposed when the management address is reachable from the internet and Trusted Clients is left unrestricted. GreyNoise counted 24 compromised servers at 22 organizations. Check Point advisory sk185169 places the fix in R82.10 Jumbo Take 36, R82 Take 118 and R81.20 Take 158, and lists no fix for R81.10 or older releases."
+        },
+        {
+          "q": "Did AI agents actually run the GT13 campaign?",
+          "a": "GreyNoise states a belief rather than a finding. Steve Miller writes that the operator used LLMs and agentic systems, as in most modern attacks, and suspects a mature AI-enabled offensive apparatus. GreyNoise draws that from automation patterns and oddities in the timeline, captured no AI tooling, and ties one delay only tentatively to a possible problem with a multi-agent architecture."
+        },
+        {
+          "q": "Was CVE-2026-16232 already patched before GT13 used it?",
+          "a": "Check Point published advisory sk185169 and its Jumbo Hotfixes for CVE-2026-16232 on 22 July 2026, and CISA added the flaw to its Known Exploited Vulnerabilities catalog the same day. GT13's confirmed activity ran from 17 October to 2 November 2026, so the campaign found management servers that had not taken the fix about three months after it shipped."
+        },
+        {
+          "q": "What indicators did GreyNoise publish for GT13?",
+          "a": "GreyNoise lists the domains newpayapp.com, data-zt.newpayapp.com, api-zt.newpayapp.com and 2ev5.newpayapp.com, naming data-zt as the download domain for malware it calls ZULT. The report adds a HASSH value, two user-agent strings containing the word research, and roughly 70 addresses, nearly all ExpressVPN egress in AS206092. Host-side signs include unauthorized SSH keys and an unexpected /etc/ld.so.preload entry."
+        }
+      ],
+      "links": [
+        {
+          "label": "GreyNoise Report",
+          "url": "https://www.greynoise.io/blog/check-point-security-management-servers-intrusion-campaign"
+        },
+        {
+          "label": "Check Point Advisory",
+          "url": "https://support.checkpoint.com/results/sk/sk185169"
+        },
+        {
+          "label": "Rapid7 Analysis",
+          "url": "https://www.rapid7.com/blog/post/etr-cve-2026-16232-critical-check-point-smartconsole-authentication-bypass-exploited-in-the-wild/"
+        }
+      ],
+      "image": {
+        "url": "https://cdn.prod.website-files.com/667dd40ebb8095e89f27565d/6b00b96c7176ac8c286ffb00_GreyNoise-Blog-Check-Point-1600x900.png",
+        "alt": "GreyNoise title card for its report on the Check Point Security Management server campaign",
+        "credit": "GreyNoise"
+      },
+      "publishDate": "2026-11-26T03:28:17.523Z"
+    },
     {
       "id": "aws-kiro-web-tool-call-markup-execution",
       "categories": [
