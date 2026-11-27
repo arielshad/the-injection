@@ -21400,6 +21400,72 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261127t220935z",
+      "timestamp": "2026-11-27T22:09:35.139Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked Claude Code docs and changelog, Model Context Protocol docs and the ext-skills repository, Google Workspace Updates and Workspace developer guides, GitHub Security Advisories, anthropic.com/news, MSRC, Wiz, Zenity Labs, AIR Security, Embrace The Red, Hugging Face blog, Hacker News front page and Show HN, github.com/trending, repo-scan (13 queries, 5 candidates), paper-scan (56 arXiv candidates, none with two scanned signals) and talk-scan (27 videos from 22 channels). Added two vendor changes to how agents reach data that the hourly sweeps had not covered: skills served by MCP servers reaching public beta in Claude Code 2.1.332, and Google Workspace requiring AI agents to use its MCP servers or CLI from 1 February 2027. Left out on the repo bar: ARTEX-CC (200 stars, but the README says its proxy, egress governor, reporting and schema are derived from upstream ARTEX, so it is a derivative, and it clears only one signal) and NeuralTrust/TrustGate (28 stars, first release numbered v0.91.0 in a repository created on 24 November, so the project is not new). Left out on the paper bar: ParseGap (eight named coding agents, but vendors only notified, no code, no venue), When Answering Is Administering (Claude Code permission policy rewrite, one signal), Carried-Over and Agent-Native Threats in the Supply Chain of LLM Agent Skills (48,682 ClawHub skills, one signal) and Oops!... I Parsed It Again on tool-call smuggling; the Radware GitHub hidden-text paper is already the feed's existing item. Left out on date grounds: the ruflo and Jupyter MCP Server advisories added to the GitHub database inside the window but published earlier, and the Flyto2 Core advisories, published 11 July 2026. The Black Hat talk 'Trusted Enough to Run' is still at 5,273 views with no second talk-bar signal. Zenity Labs, Embrace The Red, MSRC and the Hugging Face blog had nothing new inside the window.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "anthropic-claude-code-mcp-skills",
+          "title": "Skills over MCP: a connected server can load instructions into Claude Code",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "A connected MCP server can now put instruction text into Claude Code's context, which is a new delivery channel defenders have to govern, and the approval model differs by plan and permission mode."
+        },
+        {
+          "id": "google-workspace-agent-mcp-requirement",
+          "title": "Google Workspace: AI agents must go through MCP servers from February",
+          "category": "lab-safety",
+          "severity": "info",
+          "note": "Workspace agent access moves behind MCP servers with OAuth agent identity, DLP and audit logging, and the February enforcement date is work that admins and vendors must plan for now."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "Claude Code docs (MCP, Skills)",
+        "Claude Code changelog",
+        "modelcontextprotocol.io (Skills extension, working group charter)",
+        "modelcontextprotocol/ext-skills",
+        "Google Workspace Updates blog",
+        "developers.google.com Workspace guides",
+        "GitHub Security Advisories",
+        "anthropic.com/news",
+        "MSRC blog",
+        "Wiz blog",
+        "Zenity Labs",
+        "AIR Security blog",
+        "embracethered.com",
+        "Hugging Face blog",
+        "Hacker News front page",
+        "Hacker News Show HN",
+        "github.com/trending",
+        "repo-scan.json",
+        "gh-repo-meta.ts",
+        "paper-scan (arXiv cs.CR + Hugging Face Daily Papers)",
+        "talk-scan (22 YouTube channels)",
+        "arXiv abstract pages"
+      ],
+      "windowDays": 7
     }
   ]
 }
