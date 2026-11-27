@@ -21241,6 +21241,84 @@
         "talk-scan.ts"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261127t040653z",
+      "timestamp": "2026-11-27T04:06:53.454Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, GitHub Security Advisories, research blogs, arXiv (69 in-window papers via paper-scan, 1 with two scanned signals), repo-scan (13 queries, 3 candidates), GitHub trending, Hacker News, Show HN, Hugging Face and talk-scan for the 7 days to 27 November 2026. Added two MCP authorization flaws the hourly sweeps had not picked up: CVE-2026-131688 in miniOrange's Secure MCP Server for WordPress, where an MCP bearer token escalates to Administrator, and CVE-2026-135221, a server-side request forgery in GitLab's MCP server OAuth endpoint. Dropped for lack of a fetchable primary source: SOCRadar's BabidiGhost report on a jailbroken agent run against European banks and municipalities (socradar.io returns 403 to fetchers, and the aggregator numbers disagree) and Cyberhaven Labs' claim that agents leaked confidential data in 87 of 100 runs (no report on cyberhaven.com; press coverage only). Dropped as outside the window: the ruflo MCP bridge CVE-2026-59726 (disclosed July, only added to the GitHub database on 24 November), Cathedral's agent-driven intrusion at Anthropic (26 October), the WorkOS ARTEX breach (disclosed 2 November), OpenAI's Daybreak Red Team and Defense Factory (12 November), Google's Mantis harness (2 September) and NCC Group's agent sandbox research (6 October). Dropped on the bars: shadownet-benchmark and Claude-BugHunter as repos (one signal each, and Claude-BugHunter was created in May), the Black Hat talk \"Trusted Enough to Run\" (5,187 views, speaker not on the Sources list, watch page not readable), and the C3H NeurIPS paper as outside this feed's beat. OpenRouter's 22 November off-boarding of three inference providers is already linked from the existing Dragos and MiniMax items, so no update was needed. Also looked at and left: sdcb Chats CVE-2026-135432, Sim CVE-2026-135162, Wiro-MCP CVE-2026-134553, pain001-mcp CVE-2026-136620 and the Apache IoTDB MCP Server password-logging flaw, all narrow-audience and uncredited; and the AI Engine WordPress upload flaw CVE-2026-131589, which needs Editor access and is not MCP-specific.",
+      "counts": {
+        "added": 2,
+        "updated": 0,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "miniorange-secure-mcp-server-token-escalation",
+          "title": "Secure MCP Server: an MCP token becomes full WordPress admin",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "An MCP token meant to be scope-limited is accepted as a full Administrator credential on ordinary WordPress endpoints, in a plugin with 10,000+ installs whose stated purpose is to confine what AI clients can do."
+        },
+        {
+          "id": "gitlab-mcp-oauth-token-endpoint-ssrf",
+          "title": "GitLab: the MCP server's OAuth endpoint could reach internal hosts",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "A distinct second MCP flaw in GitLab inside two weeks, with named fixed versions and a credited internal finder, affecting a widely deployed self-managed product."
+        }
+      ],
+      "updated": [],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "incident",
+        "research",
+        "benchmark",
+        "tool",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories (MCP query, 25 advisories 21-26 Nov)",
+        "cveawg.mitre.org CVE records",
+        "docs.gitlab.com patch releases",
+        "wordpress.org plugin directory",
+        "anthropic.com/news",
+        "openai.com/index",
+        "microsoft.com/en-us/security/blog",
+        "cloud.google.com/blog/products/identity-security",
+        "air.security/blog",
+        "embracethered.com/blog",
+        "labs.zenity.io",
+        "wiz.io/blog",
+        "research.jfrog.com",
+        "reversinglabs.com/blog",
+        "research.checkpoint.com",
+        "socket.dev/blog",
+        "snyk.io/blog/category/security-research",
+        "lakera.ai/blog",
+        "nccgroup.com/research-blog",
+        "developer.nvidia.com/blog/category/cybersecurity",
+        "cyberhaven.com/blog",
+        "openrouter.ai/blog/announcements",
+        "aisi.gov.uk/work",
+        "nist.gov/caisi",
+        "genai.owasp.org/news",
+        "arXiv via paper-scan.ts",
+        "repo-scan.json",
+        "gh-repo-meta.ts",
+        "github.com/trending (daily and weekly)",
+        "Hacker News front page (24-26 Nov) and Show HN",
+        "huggingface.co/blog",
+        "huggingface.co/models?search=prompt-injection",
+        "talk-scan.ts (YouTube conference and security channels)",
+        "Dated web searches per category (vulnerability, attack, supply-chain, incident, research, tool, lab-safety, talk)"
+      ],
+      "windowDays": 7
     }
   ]
 }
