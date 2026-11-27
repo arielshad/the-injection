@@ -1,7 +1,266 @@
 {
-  "generatedAt": "2026-11-27T04:06:53.454Z",
+  "generatedAt": "2026-11-27T13:34:10.557Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "ncsc-switzerland-agentic-attacks",
+      "categories": [
+        "incident"
+      ],
+      "title": "Swiss NCSC: every AI agent attack it knows of ended in a breach",
+      "org": "Swiss National Cyber Security Centre",
+      "date": "2026-11-24",
+      "url": "https://www.bacs.admin.ch/en/26-ki-agenten-1-en",
+      "summary": "Switzerland's National Cyber Security Centre confirmed its first cyberattacks carried out with AI agents on 24 November 2026, and says every attack it knows of compromised the victim's IT systems. The advisory names ARTEX and CyberStrikeAI.",
+      "severity": "medium",
+      "tags": [
+        "ai-enabled-offense",
+        "threat-intel",
+        "artex",
+        "cyberstrikeai",
+        "switzerland"
+      ],
+      "affected": [
+        "ARTEX",
+        "CyberStrikeAI"
+      ],
+      "credits": [
+        {
+          "name": "Swiss National Cyber Security Centre",
+          "org": "Federal Office for Cybersecurity (BACS)"
+        }
+      ],
+      "explainer": {
+        "tagline": "Switzerland's NCSC reports its first AI agent cyberattacks on Swiss organisations, and says all of them reached the victim's systems.",
+        "whatHappened": "The Swiss National Cyber Security Centre published an advisory on 24 November 2026, after receiving its first reports of cyberattacks carried out with the help of AI agents against organisations in Switzerland. The NCSC says that in every attack it knows of, the use of AI agents led to a successful compromise of the victim's IT systems. Various organisations and operators of critical infrastructure in at least two sectors were affected, and the advisory names no victims.",
+        "howItWorks": "Agentic Offensive Frameworks, as the NCSC calls them, are AI agents that search for weaknesses on their own, select their attack tools, judge the results and plan and execute the next step. In the Swiss cases the agents got in through weak or easily guessed passwords and known vulnerabilities in internet-connected software and systems, using only a fraction of the time a human attacker would need. When defences responded, the agents switched to other known attack methods.",
+        "whoIsAffected": "Any organisation running internet-facing systems is in scope, and the Swiss cases included operators of critical infrastructure in at least two sectors. The NCSC says the number of AI agents accessible over the internet has almost doubled since October 2026, which it links to the tools being freely available and growing in popularity.",
+        "whatToDo": "Install critical security updates for internet-facing systems as soon as possible and no later than 24 hours after release, and secure every internet-accessible resource with multi-factor authentication or passkeys, without exception. Reduce the number of exposed systems and restrict access where you can, for example through geo-blocking or IP allow lists. The advisory's remaining measures are listed below."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "24 November 2026"
+        },
+        {
+          "label": "Publisher",
+          "value": "Swiss National Cyber Security Centre"
+        },
+        {
+          "label": "Frameworks named",
+          "value": "ARTEX, CyberStrikeAI"
+        },
+        {
+          "label": "Outcome",
+          "value": "Every attack known to the NCSC compromised the victim"
+        },
+        {
+          "label": "Entry points",
+          "value": "Weak or guessed passwords, known flaws in internet-facing software"
+        },
+        {
+          "label": "Patch deadline advised",
+          "value": "Within 24 hours of a critical update's release"
+        },
+        {
+          "label": "Also advised",
+          "value": "MFA or passkeys, least privilege, behaviour monitoring, regular penetration tests"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which AI attack frameworks does the Swiss NCSC advisory name?",
+          "a": "The NCSC advisory names ARTEX and CyberStrikeAI as publicly accessible AI agents. The NCSC calls this class of tool Agentic Offensive Frameworks, and describes them as agents that look for vulnerabilities, pick their own attack tools, evaluate the results and plan the next step, rather than waiting for a human to drive each action."
+        },
+        {
+          "q": "Did the Swiss NCSC name the organisations that were breached?",
+          "a": "No. The NCSC advisory says various organisations and operators of critical infrastructure in at least two sectors were affected, but names neither the victims nor the sectors. The NCSC also says who is behind the attacks remains unclear, and warns that attacks of this kind can target organisations of every type."
+        },
+        {
+          "q": "How fast does the Swiss NCSC say companies should patch internet-facing systems?",
+          "a": "The NCSC advises installing critical security updates for internet-facing systems as soon as possible, and no later than 24 hours after release. The advisory sets that deadline because the AI agents it observed exploited known vulnerabilities in internet-connected software and needed only a fraction of the time a human attacker would."
+        },
+        {
+          "q": "Is the number of attack agents available to criminals growing?",
+          "a": "Yes, according to the NCSC. The advisory states that the number of AI agents accessible over the internet has almost doubled since October 2026, and links the growth to the tools being freely available and increasingly popular. The NCSC expects attacks to become more frequent, faster, more automated and more often successful."
+        }
+      ],
+      "links": [
+        {
+          "label": "NCSC Advisory",
+          "url": "https://www.bacs.admin.ch/en/26-ki-agenten-1-en"
+        },
+        {
+          "label": "German Version",
+          "url": "https://www.bacs.admin.ch/de/26-ki-agenten-1-de"
+        }
+      ],
+      "publishDate": "2026-11-27T13:34:10.557Z"
+    },
+    {
+      "id": "zdi-oracle-ai-database-onnx-runtime",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "Oracle Autonomous AI Database: two flaws in the ONNX inference path",
+      "org": "Trend Micro Zero Day Initiative",
+      "date": "2026-11-24",
+      "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1139/",
+      "summary": "Oracle Autonomous AI Database can be made to run code through the ONNX Runtime code it uses for model inference, according to two Pwn2Own advisories the Zero Day Initiative published on 24 November 2026. Oracle has issued an update.",
+      "severity": "medium",
+      "cve": "CVE-2026-114822",
+      "cvss": 7.2,
+      "tags": [
+        "rce",
+        "oracle",
+        "onnx-runtime",
+        "pwn2own"
+      ],
+      "affected": [
+        "Oracle Autonomous AI Database",
+        "ONNX Runtime"
+      ],
+      "credits": [
+        {
+          "name": "Ikotas Labs, Inc."
+        }
+      ],
+      "explainer": {
+        "tagline": "Pwn2Own researchers reached code execution through the ONNX Runtime inference path of Oracle Autonomous AI Database.",
+        "whatHappened": "The Zero Day Initiative published two Pwn2Own advisories for Oracle Autonomous AI Database on 24 November 2026, both credited to Ikotas Labs, Inc. and both reported to Oracle on 26 October 2026. ZDI-26-1139 is rated CVSS 7.2 for remote code execution, and ZDI-26-1137 is rated CVSS 4.9 for information disclosure. The same release carries twelve further advisories for the product, in its APEX and ORDS tiers rather than the inference path.",
+        "howItWorks": "ZDI-26-1139 is a type confusion in the GPT GreedySearch decoder of ONNX Runtime, caused by missing validation of user-supplied data, and it lets an attacker run code in the context of the Oracle service account. ZDI-26-1137 is a use-after-free in tree ensemble model initialization, where the code operates on an object without first checking that the object exists, and it discloses information. ZDI says the second flaw can enable code execution when combined with other vulnerabilities.",
+        "whoIsAffected": "Oracle Autonomous AI Database is the product named in both advisories. Exploitation requires authentication, although ZDI states that the existing authentication mechanism can be bypassed, and the same Pwn2Own release includes authentication bypasses in the product's ORDS and APEX tiers.",
+        "whatToDo": "Oracle has issued an update for both flaws, according to ZDI, and each advisory links to Oracle's security alert page. Confirm the update has reached your Autonomous AI Database instances, and treat the other advisories from the same release as part of the same patch cycle."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Oracle Autonomous AI Database"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-114822"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.2 (ZDI-26-1139), 4.9 (ZDI-26-1137)"
+        },
+        {
+          "label": "Attack type",
+          "value": "Type confusion and use-after-free in ONNX Runtime"
+        },
+        {
+          "label": "Found by",
+          "value": "Ikotas Labs, Inc. at Pwn2Own"
+        },
+        {
+          "label": "Reported",
+          "value": "26 October 2026"
+        },
+        {
+          "label": "Status",
+          "value": "Oracle has issued an update"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why do both Oracle ONNX Runtime advisories carry CVE-2026-114822?",
+          "a": "Both ZDI-26-1137 and ZDI-26-1139 list CVE-2026-114822, although they describe different bugs: a use-after-free in tree ensemble model initialization and a type confusion in the GPT GreedySearch decoder. Neither advisory says why one identifier covers both findings, and the two carry different CVSS scores, 4.9 and 7.2."
+        },
+        {
+          "q": "Does exploiting the Oracle ONNX Runtime flaw need a valid account?",
+          "a": "Yes. The Zero Day Initiative states that exploitation of both advisories requires authentication. ZDI adds that the existing authentication mechanism can be bypassed, and the same Pwn2Own release for Oracle Autonomous AI Database includes separate authentication bypasses in the product's ORDS and APEX tiers."
+        },
+        {
+          "q": "Has Oracle fixed the Autonomous AI Database ONNX Runtime flaws?",
+          "a": "Yes, according to ZDI. Both advisories state that Oracle has issued an update, and each links to Oracle's security alert page. Autonomous AI Database customers should confirm the update has reached their instances, and should review the other twelve advisories the same Pwn2Own release published for the product."
+        }
+      ],
+      "links": [
+        {
+          "label": "ZDI-26-1139 Advisory",
+          "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1139/"
+        },
+        {
+          "label": "ZDI-26-1137 Advisory",
+          "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-1137/"
+        }
+      ],
+      "publishDate": "2026-11-27T13:34:10.557Z"
+    },
+    {
+      "id": "owasp-genai-data-security-v2-part-3",
+      "categories": [
+        "research"
+      ],
+      "title": "OWASP: part 3 of its GenAI data security guide covers RAG and memory",
+      "org": "OWASP GenAI Security Project",
+      "date": "2026-11-24",
+      "url": "https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part-3/",
+      "summary": "OWASP released GenAI Data Security Best Practices v2 Part 3 on 24 November 2026, covering training and fine-tuning pipelines, retrieval-augmented generation, AI memory, vector stores and embeddings.",
+      "severity": "info",
+      "tags": [
+        "rag",
+        "agent-memory",
+        "data-poisoning",
+        "owasp"
+      ],
+      "affected": [
+        "RAG pipelines",
+        "Vector stores",
+        "AI memory"
+      ],
+      "credits": [
+        {
+          "name": "OWASP GenAI Security Project",
+          "org": "OWASP"
+        }
+      ],
+      "explainer": {
+        "tagline": "OWASP's third data security guide targets the stores that feed a model: training data, RAG indexes, AI memory and embeddings.",
+        "whatHappened": "The OWASP GenAI Security Project published GenAI Data Security Best Practices v2 Part 3 on 24 November 2026, the third part of its version 2 data security series. OWASP files the document under its AI Data Security initiative, whose stated purpose is protecting training and retrieval data from leaks and tampering. No individual authors are named on the resource page.",
+        "howItWorks": "Security architecture patterns, layered control tiers, implementation guidance and compliance mappings are the four kinds of material the guide offers, according to OWASP's own description. Coverage spans the training and fine-tuning pipeline, retrieval-augmented generation, AI memory, vector stores and embeddings. OWASP states the goals as protecting sensitive data, preventing poisoning attacks and strengthening the security of generative AI systems.",
+        "whoIsAffected": "Teams that run retrieval pipelines, vector databases, agent memory stores or their own fine-tuning jobs are the intended readers. The document is guidance rather than an advisory: no product is named as vulnerable and no version needs updating.",
+        "whatToDo": "Read the guide against your own retrieval and training stack, and use its control tiers to decide which protections your data stores already have. OWASP's AI Data Security initiative page links the project's GitHub repository and Slack channel for teams that want to contribute."
+      },
+      "quickFacts": [
+        {
+          "label": "Published",
+          "value": "24 November 2026"
+        },
+        {
+          "label": "Publisher",
+          "value": "OWASP GenAI Security Project"
+        },
+        {
+          "label": "Document",
+          "value": "GenAI Data Security Best Practices v2, Part 3"
+        },
+        {
+          "label": "Covers",
+          "value": "Training and fine-tuning pipelines, RAG, AI memory, vector stores, embeddings"
+        },
+        {
+          "label": "Contents",
+          "value": "Architecture patterns, control tiers, implementation guidance, compliance mappings"
+        },
+        {
+          "label": "Type",
+          "value": "Whitepaper and guide"
+        }
+      ],
+      "links": [
+        {
+          "label": "OWASP Resource Page",
+          "url": "https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part-3/"
+        },
+        {
+          "label": "Data Security Initiative",
+          "url": "https://genai.owasp.org/initiatives/ai-data-security-initiative/"
+        }
+      ],
+      "publishDate": "2026-11-27T13:34:10.557Z"
+    },
     {
       "id": "miniorange-secure-mcp-server-token-escalation",
       "categories": [
