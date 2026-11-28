@@ -21466,6 +21466,78 @@
         "arXiv abstract pages"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261128t040923z",
+      "timestamp": "2026-11-28T04:09:23.754Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Swept vendor and lab advisories, GitHub Security Advisories, research groups, arXiv (55 in-window papers, none with two signals), repo-scan (3 candidates), GitHub trending, Hacker News, talk-scan (28 uploads) and security press. Added one item and patched one: the Crypto APIs MCP servers that authenticated no one in HTTP mode, part of a batch of eight MCP CVEs VulnCheck published on 27 November, all credited to one researcher; and an update to the existing SiYuan agent chat panel item, which now has a stable fix (3.8.11 on 19 November, 3.8.12 current) and CVE-2026-137469. Left out on purpose: the ruflo MCP bridge RCE (GHSA-c4hm-4h84-2cf3 reached the advisory database on 24 November but was disclosed 1 July); the Convex quickstart skill issue that hit the Hacker News front page on 27 November but was opened 26 October, with no maintainer reply or fix inside the window; the malicious Cursor Claude Code extension (29 October); AISI's GPT-6 Astra supply-chain evaluation (28 September); the ARTEX-CC repo (243 stars but a derivative wrapper of upstream ARTEX by an anonymous account, one signal only); and the Black Hat talk on breaking AI agents in official workflows (5,306 views, below the conference bar). Wiz intent IDs, AIR TrojanPony and WebSec, Unit 42 agentic trends, Check Point gatekeeper asymmetry, the LiteLLM MCP CVE and the Radware GitHub prompt-injection paper all deduped against existing items.",
+      "counts": {
+        "added": 1,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "cryptoapis-mcp-unauthenticated-http",
+          "title": "Crypto APIs: 14 MCP servers answered anyone on the network",
+          "category": "vulnerability",
+          "severity": "medium",
+          "note": "Fourteen MCP server packages shipped unauthenticated on 0.0.0.0, and the CVE published on 27 November anchors a batch of eight MCP CVEs from one researcher, which is the pattern a defender running MCP servers needs this week."
+        }
+      ],
+      "updated": [
+        {
+          "id": "siyuan-agent-chat-panel-html-rce",
+          "title": "SiYuan: the agent chat panel renders the last reply as raw HTML",
+          "note": "A stable fix and a CVE both landed inside the window: v3.8.11 shipped on 19 November 2026, v3.8.12 is now the latest stable release, and VulnCheck published CVE-2026-137469 on 26 November with a CVSS 4.0 score of 7.7. The item previously told readers no stable release carried the fix."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "NVD",
+        "VulnCheck advisories",
+        "VulnCheck blog",
+        "Anthropic news",
+        "OpenAI safety and alignment",
+        "Wiz Research",
+        "Unit 42",
+        "AIR Security",
+        "Zenity Labs",
+        "Check Point Research",
+        "JFrog",
+        "ReversingLabs",
+        "HiddenLayer",
+        "Lakera",
+        "Trail of Bits",
+        "Snyk",
+        "Socket",
+        "embracethered.com",
+        "simonwillison.net",
+        "UK AI Security Institute",
+        "OWASP GenAI Security Project",
+        "Hugging Face blog",
+        "arXiv cs.CR via paper-scan",
+        "Hugging Face Daily Papers",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News",
+        "talk-scan"
+      ],
+      "windowDays": 7
     }
   ]
 }

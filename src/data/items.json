@@ -1,7 +1,111 @@
 {
-  "generatedAt": "2026-11-27T22:09:35.139Z",
+  "generatedAt": "2026-11-28T04:09:23.754Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "cryptoapis-mcp-unauthenticated-http",
+      "categories": [
+        "vulnerability",
+        "supply-chain"
+      ],
+      "title": "Crypto APIs: 14 MCP servers answered anyone on the network",
+      "org": "Crypto APIs",
+      "date": "2026-11-27",
+      "url": "https://github.com/CryptoAPIs-io/cryptoapis-mcp-hub/security/advisories/GHSA-mhj6-wq83-cqf5",
+      "summary": "Fourteen Crypto APIs MCP server packages bound to 0.0.0.0 in HTTP mode and authenticated no one, so any caller who reached the port used every tool with the operator's API key. CVE-2026-138026 was published on 27 November.",
+      "severity": "medium",
+      "cve": "CVE-2026-138026",
+      "cvss": 6.9,
+      "tags": [
+        "mcp",
+        "agent-security",
+        "data-exfiltration",
+        "vulncheck"
+      ],
+      "affected": [
+        "Crypto APIs MCP servers"
+      ],
+      "credits": [
+        {
+          "name": "Syed Anas Mohiuddin",
+          "url": "https://github.com/SyedAnas01"
+        }
+      ],
+      "explainer": {
+        "tagline": "Fourteen Crypto APIs MCP server packages exposed every tool to unauthenticated network callers, spending the operator's API key.",
+        "whatHappened": "Syed Anas Mohiuddin, an independent researcher who maintains mcp-safeguard, found that Crypto APIs' MCP server packages checked no credentials in HTTP mode. Crypto APIs published an advisory on 25 September 2026 and shipped fixes across the packages. VulnCheck published CVE-2026-138026 on 27 November 2026, one of eight MCP server CVEs it published that day, all credited to the same researcher.",
+        "howItWorks": "Started in HTTP mode with an API key, each server listened on 0.0.0.0 and ran no authentication check on the /mcp route. Any caller who reached the port could invoke every exposed tool, and each call used the operator's stored CryptoAPIs key. Crypto APIs says a caller could spend paid credits, read account data, repoint blockchain event webhooks, and delete or re-sync synced HD wallets. The key itself was never returned to callers and funds could not be moved.",
+        "whoIsAffected": "The advisory names fourteen @cryptoapis-io/mcp-* npm packages, with patched versions listed below. Only deployments running HTTP mode with a startup API key on a reachable interface are exposed. Crypto APIs states that stdio mode, and HTTP mode started without a key, were not affected.",
+        "whatToDo": "Upgrade to the patched version for each package, then bind the server to 127.0.0.1 or set MCP_AUTH_TOKEN before any non-loopback bind. Crypto APIs advises operators whose port was reachable to rotate the CryptoAPIs API key and review account usage, event subscriptions and synced wallets."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "14 @cryptoapis-io/mcp-* npm packages, HTTP mode only"
+        },
+        {
+          "label": "Fixed in",
+          "value": "0.4.0, or 0.5.0 for the four blockchain and transaction servers, or 0.2.0 for mcp-aml"
+        },
+        {
+          "label": "CVE",
+          "value": "CVE-2026-138026, published 27 November 2026"
+        },
+        {
+          "label": "CVSS",
+          "value": "6.9, CVSS 4.0, assigned by VulnCheck"
+        },
+        {
+          "label": "Found by",
+          "value": "Syed Anas Mohiuddin, maintainer of mcp-safeguard"
+        },
+        {
+          "label": "Disclosed",
+          "value": "25 September 2026, advisory GHSA-mhj6-wq83-cqf5"
+        },
+        {
+          "label": "Same batch",
+          "value": "8 MCP CVEs published 27 November 2026, covering 7 projects"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is my Crypto APIs MCP server exposed if I run it over stdio?",
+          "a": "Stdio mode is not affected, according to the Crypto APIs advisory. The missing authentication applies to HTTP mode started with an API key, where the server listened on 0.0.0.0 and accepted unauthenticated calls to /mcp. HTTP mode started without a startup key is also outside the affected set, because no operator credential was available to spend."
+        },
+        {
+          "q": "Which other MCP servers got CVEs in the same batch?",
+          "a": "VulnCheck published eight MCP server CVEs on 27 November 2026 covering seven projects: Crypto APIs, bigcommerce-api-mcp, Wazuh-MCP-Server, bagel-mcp, WhoDB, mcp-video-analyzer and SylphxAI pdf-reader-mcp. Each traces to Syed Anas Mohiuddin. The flaws split into missing authentication on network-bound HTTP transports, server-side request forgery in URL handling, and SQL gates that miss file-writing statements."
+        },
+        {
+          "q": "What should I rotate after an exposed Crypto APIs MCP server?",
+          "a": "Crypto APIs tells operators whose port was reachable to rotate the CryptoAPIs API key, then review account usage, blockchain event subscriptions and synced HD wallets. Rotating alone does not undo changes an attacker already made, because the reachable tools could repoint event webhooks and delete or re-sync wallet xPubs while the server was answering unauthenticated calls."
+        }
+      ],
+      "links": [
+        {
+          "label": "Project Advisory",
+          "url": "https://github.com/CryptoAPIs-io/cryptoapis-mcp-hub/security/advisories/GHSA-mhj6-wq83-cqf5"
+        },
+        {
+          "label": "CVE-2026-138026",
+          "url": "https://github.com/advisories/GHSA-ch93-chgh-635m"
+        },
+        {
+          "label": "BigCommerce MCP CVE",
+          "url": "https://github.com/advisories/GHSA-wg5w-425h-9fvm"
+        },
+        {
+          "label": "Wazuh MCP CVE",
+          "url": "https://github.com/advisories/GHSA-x3qr-4c9c-9j64"
+        },
+        {
+          "label": "WhoDB MCP CVE",
+          "url": "https://github.com/advisories/GHSA-rv9x-jh6w-58xh"
+        }
+      ],
+      "publishDate": "2026-11-28T04:09:23.754Z"
+    },
     {
       "id": "anthropic-claude-code-mcp-skills",
       "categories": [
@@ -8641,9 +8745,9 @@
       "org": "SiYuan",
       "date": "2026-11-11",
       "url": "https://github.com/siyuan-note/siyuan/security/advisories/GHSA-3rvg-qxwg-f3c6",
-      "summary": "SiYuan's AI agent chat panel renders the final assistant message as unsanitized HTML, so an injected event handler can run operating-system commands in the desktop app's local-kernel mode. The maintainer scores it 7.5.",
+      "summary": "SiYuan's AI agent chat panel renders the final assistant message as unsanitized HTML, so an injected event handler can run operating-system commands in the desktop app's local-kernel mode. Fixed in 3.8.11, now CVE-2026-137469.",
       "severity": "medium",
-      "cvss": 7.5,
+      "cvss": 7.7,
       "tags": [
         "indirect-prompt-injection",
         "rce",
@@ -8655,15 +8759,16 @@
       ],
       "credits": [
         {
-          "name": "president-xd"
+          "name": "Mohsin Mukhtiar Lashari",
+          "url": "https://github.com/president-xd"
         }
       ],
       "explainer": {
         "tagline": "SiYuan sanitizes the streaming preview of an agent reply but not the final render, turning a model's answer into code execution.",
-        "whatHappened": "SiYuan published advisory GHSA-3rvg-qxwg-f3c6 on November 11, 2026 for a DOM cross-site scripting flaw in its AI agent chat panel. The reporter is credited as president-xd. Versions 3.7.0 through 3.8.10 of the siyuan npm package are affected, and the advisory names v3.8.11 as the patched version.",
+        "whatHappened": "SiYuan published advisory GHSA-3rvg-qxwg-f3c6 on November 11, 2026 for a DOM cross-site scripting flaw in its AI agent chat panel, reported by Mohsin Mukhtiar Lashari. Versions 3.7.0 through 3.8.10 of the siyuan npm package are affected. The fix reached a stable build in v3.8.11 on November 19, and VulnCheck published CVE-2026-137469 for the flaw on November 26, 2026.",
         "howItWorks": "The chat panel builds its Markdown engine without HTML sanitization enabled, then assigns the rendered assistant output to innerHTML. A second engine instance sanitizes the streaming preview, so a user sees clean text while the reply streams and the unsanitized body replaces it when the stream ends, stops or errors. Block-level raw HTML in a reply keeps its inline event-handler attributes, and attributes supplied through kramdown attribute-list syntax survive even where sanitization is on. In desktop local-kernel mode the window runs with Node.js integration enabled and no active Content-Security-Policy, so a handler can call Node APIs.",
         "whoIsAffected": "SiYuan desktop users in local-kernel mode carry the code-execution risk, per the advisory, while remote-kernel mode applies a Content-Security-Policy without unsafe-inline. Two routes reach the sink: a model reproducing attacker-influenced markup it read, which the advisory calls probabilistic, or a configured model endpoint returning the markup directly. Saved sessions re-render through the same path, so a payload fires again whenever the session is reopened.",
-        "whatToDo": "Treat SiYuan's agent panel as untrusted until a stable release carries the fix, because only v3.8.11 alpha builds are published and v3.8.10 remains the latest stable release. Delete saved agent sessions that could hold a payload, since reopening one runs it again, and point the panel only at model endpoints you control."
+        "whatToDo": "Update SiYuan to 3.8.12, the current stable release, which carries the fix that shipped in 3.8.11. Delete saved agent sessions that could hold a payload, since reopening one runs it again, and point the panel only at model endpoints you control."
       },
       "quickFacts": [
         {
@@ -8672,19 +8777,19 @@
         },
         {
           "label": "Fixed in",
-          "value": "Advisory names v3.8.11; only v3.8.11 alpha pre-releases are published, with v3.8.10 the latest stable release"
-        },
-        {
-          "label": "CVSS",
-          "value": "7.5, scored by the maintainer in the advisory"
+          "value": "3.8.11, released November 19, 2026; 3.8.12 is now the latest stable release"
         },
         {
           "label": "CVE",
-          "value": "None assigned"
+          "value": "CVE-2026-137469, published November 26, 2026"
+        },
+        {
+          "label": "CVSS",
+          "value": "7.7 under CVSS 4.0 from VulnCheck; 7.5 under CVSS 3.1 from the maintainer"
         },
         {
           "label": "Found by",
-          "value": "president-xd"
+          "value": "Mohsin Mukhtiar Lashari (president-xd)"
         },
         {
           "label": "Attack type",
@@ -8698,7 +8803,11 @@
       "faq": [
         {
           "q": "Is there a stable SiYuan release that fixes the agent chat panel flaw?",
-          "a": "SiYuan's advisory names v3.8.11 as the patched version, but the project's releases page shows only v3.8.11 alpha pre-releases, the most recent published on November 16, 2026. Version 3.8.10, released November 10, is still marked as the latest stable release and sits inside the affected range. Anyone waiting for a stable fix has nothing to install yet."
+          "a": "SiYuan 3.8.11 shipped the fix as a stable build on November 19, 2026, and 3.8.12 became the latest stable release on November 24. Both sit outside the affected 3.7.0 to 3.8.10 range. Anyone who held off while only v3.8.11 alpha builds were published now has a stable version to install, and 3.8.12 is the one to take."
+        },
+        {
+          "q": "What CVE tracks the SiYuan agent chat panel flaw?",
+          "a": "CVE-2026-137469 tracks the flaw, published on November 26, 2026 with a CVSS 4.0 base score of 7.7 assigned by VulnCheck. SiYuan's maintainer had scored the same issue 7.5 under CVSS 3.1 in advisory GHSA-3rvg-qxwg-f3c6 two weeks earlier. Defenders who match exposure by CVE identifier had nothing to match against before that record existed."
         },
         {
           "q": "Which SiYuan configuration is exposed to code execution?",
@@ -8715,11 +8824,24 @@
           "url": "https://github.com/siyuan-note/siyuan/security/advisories/GHSA-3rvg-qxwg-f3c6"
         },
         {
+          "label": "GitHub Advisory DB",
+          "url": "https://github.com/advisories/GHSA-q78v-7r9v-pqm2"
+        },
+        {
+          "label": "NVD Record",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-137469"
+        },
+        {
+          "label": "SiYuan 3.8.11",
+          "url": "https://github.com/siyuan-note/siyuan/releases/tag/v3.8.11"
+        },
+        {
           "label": "SiYuan Releases",
           "url": "https://github.com/siyuan-note/siyuan/releases"
         }
       ],
-      "publishDate": "2026-11-16T06:36:10.927Z"
+      "publishDate": "2026-11-16T06:36:10.927Z",
+      "cve": "CVE-2026-137469"
     },
     {
       "id": "cursor-agent-trace-credential-exposure",
