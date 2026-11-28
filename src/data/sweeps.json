@@ -21538,6 +21538,77 @@
         "talk-scan"
       ],
       "windowDays": 7
+    },
+    {
+      "id": "sweep-20261128t124338z",
+      "timestamp": "2026-11-28T12:43:38.360Z",
+      "source": "github-actions-sweep",
+      "promptVersion": "1.3.0",
+      "summary": "Checked GitHub advisories, the MCP reference servers repo, ZDI, Anthropic, OWASP GenAI, Embrace The Red, AIR Security, Zenity, Hugging Face, VulnCheck, arXiv via paper-scan (50 papers, 1 with two scanned signals), repo-scan (5 candidates, 1 skipped), GitHub trending, Hacker News and talk-scan (28 videos). Added the Malspark GGUF malware campaign and the second MCP reference-server advisory wave, plus Microsoft's own statement on the agent-framework compromise as an update; left out three VulnCheck MCP SSRF CVEs published 27 November with no named finder in very small projects, the ARTEX-CC, gguf-radar and shadownet-benchmark repos and NeuralTrust TrustGate on one repo-bar signal each, the C3H paper, and the Black Hat talk Trusted Enough to Run at 5,337 views with no second signal.",
+      "counts": {
+        "added": 2,
+        "updated": 1,
+        "removed": 0
+      },
+      "added": [
+        {
+          "id": "malspark-gguf-chat-template-malware",
+          "title": "Mir2k: malware hides past the last tensor of GGUF models on Hugging Face",
+          "category": "supply-chain",
+          "severity": "high",
+          "note": "A live model supply chain campaign: five GGUF repositories with a Windows trojan and poisoned chat templates, 2,428 downloads, still online at disclosure, with IOCs and YARA rules a defender can run today."
+        },
+        {
+          "id": "mcp-servers-v2-6-0-advisory-wave",
+          "title": "MCP reference servers: eight more advisories nine days after the last eight",
+          "category": "vulnerability",
+          "severity": "high",
+          "note": "A second wave of eight advisories nine days after v2.5.0 shows the earlier git config hardening did not hold, and the highest-rated path runs code from a read-only git tool."
+        }
+      ],
+      "updated": [
+        {
+          "id": "wiz-agent-framework-pypi-credential-stealer",
+          "title": "agent-framework: two PyPI releases shipped an Azure credential stealer",
+          "note": "Microsoft published its own statement on 25 November 2026, by Dan Taylor: the agent-framework GitHub repository is still unavailable as a precaution with no confirmed restore timeline, and anyone who installed 1.26.1 or 1.26.2 should treat the machine, container or CI job as compromised, rotate the credentials it could reach and rebuild from a clean image rather than downgrade in place."
+        }
+      ],
+      "removed": [],
+      "coverage": [
+        "vulnerability",
+        "attack",
+        "supply-chain",
+        "research",
+        "incident",
+        "tool",
+        "benchmark",
+        "lab-safety",
+        "talk"
+      ],
+      "sourcesChecked": [
+        "GitHub Security Advisories",
+        "modelcontextprotocol/servers releases and advisories",
+        "Malspark",
+        "Hugging Face Hub",
+        "huggingface.co/blog",
+        "Zero Day Initiative advisories",
+        "VulnCheck advisories",
+        "anthropic.com/news",
+        "Microsoft Agent Framework devblog",
+        "Unit 42",
+        "AIR Security blog",
+        "Zenity blog",
+        "embracethered.com",
+        "OWASP GenAI Security Project",
+        "arXiv cs.CR (paper-scan)",
+        "Hugging Face Daily Papers (paper-scan)",
+        "repo-scan.json",
+        "github.com/trending",
+        "Hacker News front page",
+        "YouTube channels (talk-scan)",
+        "WorkOS security bulletins"
+      ],
+      "windowDays": 7
     }
   ]
 }

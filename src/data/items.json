@@ -1,7 +1,245 @@
 {
-  "generatedAt": "2026-11-28T04:09:23.754Z",
+  "generatedAt": "2026-11-28T12:43:38.360Z",
   "promptVersion": "1.3.0",
   "items": [
+    {
+      "id": "malspark-gguf-chat-template-malware",
+      "categories": [
+        "supply-chain",
+        "incident"
+      ],
+      "title": "Mir2k: malware hides past the last tensor of GGUF models on Hugging Face",
+      "org": "Malspark",
+      "date": "2026-11-27",
+      "url": "https://malspark.com/blog/malicious-gguf-models-hugging-face/",
+      "summary": "Five GGUF models on Hugging Face hid a Windows trojan and poisoned chat templates, and Malspark counted 2,428 downloads by 27 November 2026. All five were still online when the researcher published.",
+      "severity": "high",
+      "tags": [
+        "model-supply-chain",
+        "indirect-prompt-injection",
+        "credential-theft",
+        "gguf",
+        "hugging-face",
+        "llama-cpp",
+        "ollama"
+      ],
+      "affected": [
+        "Hugging Face Hub",
+        "llama.cpp",
+        "LM Studio",
+        "Ollama"
+      ],
+      "credits": [
+        {
+          "name": "Düzgün",
+          "org": "Malspark",
+          "url": "https://github.com/Root0ne"
+        }
+      ],
+      "explainer": {
+        "tagline": "Mir2k is a malware campaign that appends a Windows trojan to GGUF model files on Hugging Face, past the point where loaders stop reading.",
+        "whatHappened": "Malspark published the campaign on 27 November 2026, after scanning 3,273,389 public Hugging Face model repositories the day before. The researcher, who publishes as Düzgün, found five malicious GGUF repositories across two campaigns, Mir2k and timdedid, with 2,428 downloads in total. All five were still online at publication.",
+        "howItWorks": "Chat template poisoning is the mechanism: the Jinja2 template that formats every prompt is rewritten to add hidden instructions the chat window never shows. Mir2k also appends an 11.47 MB Windows executable after the last tensor of each GGUF file, a region llama.cpp and LM Studio never read, then switched both templates on 26 November so the model opens each reply with a PowerShell command that extracts and runs it. The timdedid templates instead fire when a user message contains the words What is, and tell an agent with shell access to fetch and run a script from a WordPress site.",
+        "whoIsAffected": "Anyone who pulled one of the five repositories listed below is exposed, and Malspark reports the Mir2k payload runs on Windows only. The write-up names llama.cpp, LM Studio and Ollama as the runtimes involved, including an Ollama mirror of one timdedid model. Download counts record pulls rather than people, so 2,428 is an upper bound on how many are affected.",
+        "whatToDo": "Treat any command a community model prints as untrusted, and do not paste it into a shell. Malspark recommends pinning a reviewed template with --chat-template-file in llama.cpp or TEMPLATE in an Ollama Modelfile, and scanning models with its open-source gguf-radar before they reach a registry or a developer machine. Rotate browser-stored and wallet credentials on any Windows machine that ran a Mir2k model."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "Mir2k/Huihui-Qwen3.5-9B-abliterated-GGUF, Mir2k/Inkling-2-Mini-Uncensored-GGUF, timdedid/qwen3.8-cyber-uncensored, timdedid/qwen3-cyber-UNCENSORED-2, timdedid/qwen3-cyber-UNCENSORED"
+        },
+        {
+          "label": "Downloads",
+          "value": "2,428 across the five repositories on 27 November 2026, up from 1,502 the day before"
+        },
+        {
+          "label": "Status",
+          "value": "All five repositories still online on 27 November 2026, per Malspark"
+        },
+        {
+          "label": "Attack type",
+          "value": "Chat template poisoning, plus a payload appended after the last tensor"
+        },
+        {
+          "label": "Payload",
+          "value": "ollie, an 11.47 MB Windows x64 remote access trojan with Tor onion command and control"
+        },
+        {
+          "label": "Found by",
+          "value": "Düzgün of Malspark"
+        },
+        {
+          "label": "Disclosed",
+          "value": "27 November 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Am I affected if I downloaded an uncensored GGUF model from Hugging Face?",
+          "a": "Only five repositories were malicious in Malspark's scan, and all five are named in the table on this page. Downloading a file is not enough on its own: the Mir2k payload runs when someone executes the PowerShell command the poisoned template makes the model print. Check your model directory against the five names and against the YARA rules Malspark publishes."
+        },
+        {
+          "q": "Does antivirus detect the Mir2k payload inside a GGUF file?",
+          "a": "Malspark reports that antivirus engines and pickle scanners did not flag the live Mir2k files in its tests. Pickle scanners look for Python deserialization tricks, which GGUF does not use, and the executable sits in trailing bytes after the last tensor that normal loaders skip. Malspark released gguf-radar, an MIT-licensed Python scanner, to check both the trailing bytes and the template."
+        },
+        {
+          "q": "How do I pin a safe chat template in llama.cpp or Ollama?",
+          "a": "Malspark recommends supplying your own reviewed template instead of the one shipped inside the model file. In llama.cpp that means passing --chat-template-file with a template you control, and in Ollama it means setting TEMPLATE in a Modelfile. Pinning a template removes the hidden-instruction path, though it does not remove an executable already appended to the GGUF file."
+        },
+        {
+          "q": "Did Hugging Face remove the malicious GGUF repositories?",
+          "a": "Malspark does not say whether Hugging Face removed the five repositories or responded to the report. The write-up states only that all five were still online on 27 November 2026, and that the download total grew by more than half in the single day before publication. Treat the repositories as live until the hub confirms otherwise."
+        },
+        {
+          "q": "What does the Mir2k trojan do once it runs on Windows?",
+          "a": "Malspark describes ollie as a remote access trojan that checks for virtual machines and analysis tools before continuing, persists through a scheduled task, watchdog processes and registry keys, and reaches its operator over a Tor onion channel. The researcher reports it steals saved browser passwords, targets the Phantom and MetaMask wallet extensions, supports keylogging and screen capture, and mines Monero while the machine is idle."
+        }
+      ],
+      "links": [
+        {
+          "label": "Malspark Write-Up",
+          "url": "https://malspark.com/blog/malicious-gguf-models-hugging-face/"
+        },
+        {
+          "label": "GGUF Radar",
+          "url": "https://github.com/Root0ne/gguf-radar"
+        },
+        {
+          "label": "GGUF Radar v0.1.0",
+          "url": "https://github.com/Root0ne/gguf-radar/releases/tag/v0.1.0"
+        }
+      ],
+      "image": {
+        "url": "https://malspark.com/blog/malicious-gguf-models-hugging-face/cover.png",
+        "alt": "Malspark cover image for its report on malicious GGUF models on Hugging Face",
+        "credit": "Malspark"
+      },
+      "publishDate": "2026-11-28T12:43:38.360Z"
+    },
+    {
+      "id": "mcp-servers-v2-6-0-advisory-wave",
+      "categories": [
+        "vulnerability"
+      ],
+      "title": "MCP reference servers: eight more advisories nine days after the last eight",
+      "org": "Model Context Protocol",
+      "date": "2026-11-27",
+      "url": "https://github.com/modelcontextprotocol/servers/releases/tag/v2.6.0",
+      "summary": "mcp-server-git before 2026.11.27 still ran programs named in a repository's config, through Git LFS keys the November 18 hardening missed. The Model Context Protocol project published eight more advisories and fixed them in v2.6.0.",
+      "severity": "high",
+      "tags": [
+        "mcp",
+        "rce",
+        "credential-theft",
+        "coding-agents",
+        "mcp-server-git"
+      ],
+      "affected": [
+        "mcp-server-git",
+        "mcp-server-git (PyPI)",
+        "@modelcontextprotocol/server-memory",
+        "mcp-server-fetch",
+        "@modelcontextprotocol/server-filesystem"
+      ],
+      "credits": [
+        {
+          "name": "sholub-dev"
+        },
+        {
+          "name": "garbleartistry"
+        },
+        {
+          "name": "3urek4"
+        },
+        {
+          "name": "lacausecrypto"
+        },
+        {
+          "name": "glyphanchor"
+        },
+        {
+          "name": "RahilSahu"
+        }
+      ],
+      "explainer": {
+        "tagline": "The highest-rated flaw in MCP servers v2.6.0 lets a repository's Git LFS config run a program when an agent calls a read-only git tool.",
+        "whatHappened": "The Model Context Protocol project published eight security advisories on 27 November 2026 and shipped the fixes the same day in release v2.6.0. Six affect mcp-server-git, one affects @modelcontextprotocol/server-memory and one affects mcp-server-fetch. Six outside reporters are credited: sholub-dev, garbleartistry, 3urek4, lacausecrypto, glyphanchor and RahilSahu.",
+        "howItWorks": "Git LFS is the path the earlier hardening missed. The v2.5.0 fix blanked a set of filter, merge and branch keys, but a repository's .git/config can also name a program under keys such as lfs.extension.<name>.clean, which the trusted global LFS driver then runs. Advisory GHSA-6663-fm5v-gqm5 adds core.sshCommand, credential.helper and core.askpass to the same list. A second advisory shows a tab character in a remote name breaking the git_remote redaction, so a credential from a global insteadOf rewrite comes back in plain text.",
+        "whoIsAffected": "mcp-server-git releases through 2026.11.18 carry the Git LFS path whenever Git LFS sits in the system or global Git config, which the project's official Docker image satisfies. server-memory 1.0.0 through 2.2.1 and mcp-server-fetch 2026.10.10 through 2026.11.18 are affected too, and the Windows gap in @modelcontextprotocol/server-filesystem is narrowed but not closed. An attacker needs to control the .git directory the server is pointed at.",
+        "whatToDo": "Upgrade mcp-server-git and mcp-server-fetch to 2026.11.27, @modelcontextprotocol/server-memory to 2.2.2 and @modelcontextprotocol/server-filesystem to 2.4.1. The release notes warn that package managers will not offer the new semantic versions as upgrades to anyone on the date-versioned npm packages, so install them explicitly. Do not point the git server at a repository that arrived as an archive or in a shared folder."
+      },
+      "quickFacts": [
+        {
+          "label": "Affected",
+          "value": "mcp-server-git and mcp-server-fetch through 2026.11.18; server-memory 1.0.0 to 2.2.1; server-filesystem through 2.4.0 on Windows"
+        },
+        {
+          "label": "Fixed in",
+          "value": "Release v2.6.0, 27 November 2026: mcp-server-git and mcp-server-fetch 2026.11.27, server-memory 2.2.2, server-filesystem 2.4.1"
+        },
+        {
+          "label": "Highest rating",
+          "value": "High, CVSS 3.1 base score 7.8 on the Git LFS advisory GHSA-6663-fm5v-gqm5"
+        },
+        {
+          "label": "CVE",
+          "value": "None known on the three advisories checked: GHSA-6663-fm5v-gqm5, GHSA-wvv2-676g-r57j, GHSA-48j5-hj63-c82c"
+        },
+        {
+          "label": "Found by",
+          "value": "sholub-dev, garbleartistry (2), 3urek4, lacausecrypto, glyphanchor (2), RahilSahu"
+        },
+        {
+          "label": "Attack type",
+          "value": "Code execution, credential disclosure and path escape through git config keys the earlier fix missed"
+        },
+        {
+          "label": "Disclosed",
+          "value": "27 November 2026"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which mcp-server-git version fixes the Git LFS command execution flaw?",
+          "a": "Version 2026.11.27 of mcp-server-git fixes it, shipped in the Model Context Protocol servers release v2.6.0. Every release through 2026.11.18 is affected, including 2026.11.18 itself, which was the fix for the previous advisory wave nine days earlier. Advisory GHSA-6663-fm5v-gqm5 rates the flaw High, with a CVSS 3.1 base score of 7.8."
+        },
+        {
+          "q": "Do I need Git LFS installed for GHSA-6663-fm5v-gqm5 to work?",
+          "a": "Git LFS must be present in the system or global Git configuration for the attack to run, and the advisory notes that the project's official Docker image meets that condition. The reporter, sholub-dev, says the --repository flag does not prevent the execution, and that a read-only call such as git_status is enough to trigger it while still reporting a clean tree."
+        },
+        {
+          "q": "Why did the November 18 fix not stop these mcp-server-git flaws?",
+          "a": "The v2.5.0 hardening blanked a specific set of filter, merge and branch configuration keys, rather than refusing repository-scope programs in general. Advisory GHSA-6663-fm5v-gqm5 lists Git LFS extension keys, core.sshCommand, credential.helper and core.askpass as further keys with the same effect. Release v2.6.0 also completes GHSA-9vjp-x34c-xg6v, which the earlier release left open."
+        },
+        {
+          "q": "Is @modelcontextprotocol/server-filesystem fully fixed on Windows?",
+          "a": "No. Release v2.6.0 narrows the Windows gap left by GHSA-rq2p-q7c4-6g27, in version 2.4.1, but the notes say a swap made and undone during a directory read is still not detected on Windows. Behaviour on macOS and Linux is unchanged. The release lists no new advisory identifier for the 2.4.1 Windows change itself."
+        },
+        {
+          "q": "Were CVEs assigned to the MCP servers v2.6.0 advisories?",
+          "a": "No CVE identifier appears on the three v2.6.0 advisories checked here: GHSA-6663-fm5v-gqm5, GHSA-wvv2-676g-r57j and GHSA-48j5-hj63-c82c. Each records the CVE as not known, matching the v2.5.0 batch nine days earlier. Teams that track exposure by CVE will not see these, so track the GHSA identifiers and the package versions instead."
+        }
+      ],
+      "links": [
+        {
+          "label": "Release v2.6.0",
+          "url": "https://github.com/modelcontextprotocol/servers/releases/tag/v2.6.0"
+        },
+        {
+          "label": "Git LFS Config",
+          "url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-6663-fm5v-gqm5"
+        },
+        {
+          "label": "git_remote Credential",
+          "url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-wvv2-676g-r57j"
+        },
+        {
+          "label": "Memory Symlink Race",
+          "url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-48j5-hj63-c82c"
+        }
+      ],
+      "publishDate": "2026-11-28T12:43:38.360Z"
+    },
     {
       "id": "cryptoapis-mcp-unauthenticated-http",
       "categories": [
@@ -7662,6 +7900,10 @@
         {
           "label": "Wiz Threat Update",
           "url": "https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi"
+        },
+        {
+          "label": "Microsoft Statement",
+          "url": "https://devblogs.microsoft.com/agent-framework/microsoft-agent-framework-repository-update/"
         },
         {
           "label": "Socket Analysis",
